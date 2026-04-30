@@ -26,6 +26,7 @@ const els = {
   cartCount: document.querySelector("#cartCount"),
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
+  cartTotalValue: document.querySelector("#cartTotalValue"),
   copyOrder: document.querySelector("#copyOrder"),
   whatsappOrder: document.querySelector("#whatsappOrder"),
   productDialog: document.querySelector("#productDialog"),
@@ -216,10 +217,17 @@ function openPriceGroup(groupId) {
         ${products
           .map(
             (product) => `
-              <button class="group-product" type="button" data-add="${product.id}">
-                <span>${escapeHtml(product.name)}</span>
-                <strong>${escapeHtml(product.sku)}</strong>
-              </button>
+              <div class="group-product">
+                <div>
+                  <span>${escapeHtml(product.name)}</span>
+                  <strong>${escapeHtml(product.sku)}</strong>
+                </div>
+                <label class="dialog-qty">
+                  <span>Qty</span>
+                  <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}">
+                </label>
+                <button class="small-add-button" type="button" data-add="${product.id}">Add</button>
+              </div>
             `,
           )
           .join("")}
@@ -228,7 +236,8 @@ function openPriceGroup(groupId) {
   `;
   els.dialogContent.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
-      addToCart(button.dataset.add);
+      const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
+      addToCart(button.dataset.add, readQuantity(qtyInput));
       els.productDialog.close();
     });
   });
@@ -252,21 +261,26 @@ function openProduct(product) {
         <span>Price source: ${product.priceSource === "excel" ? "Excel list" : "PDF extraction"}</span>
       </div>
       <div class="price">${escapeHtml(product.price)}</div>
+      <label class="dialog-qty dialog-qty-wide">
+        <span>Quantity</span>
+        <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric">
+      </label>
       <button class="primary-button" type="button" data-add="${product.id}">Add to cart</button>
     </div>
   `;
   els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
-    addToCart(product.id);
+    addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
     els.productDialog.close();
   });
   els.productDialog.showModal();
 }
 
-function addToCart(productId) {
-  state.cart.set(productId, (state.cart.get(productId) || 0) + 1);
+function addToCart(productId, quantity = 1) {
+  const qty = Math.max(1, Number.parseInt(quantity, 10) || 1);
+  state.cart.set(productId, (state.cart.get(productId) || 0) + qty);
   saveCart();
   renderCart();
-  showToast("Added to cart");
+  showToast(`${qty} added to cart`);
 }
 
 function updateQty(productId, delta) {
@@ -282,9 +296,11 @@ function renderCart() {
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => line.product);
   const total = lines.reduce((sum, line) => sum + line.qty, 0);
+  const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
 
   els.cartCount.textContent = total;
   els.cartTotalItems.textContent = total;
+  els.cartTotalValue.textContent = formatMoney(totalValue);
   els.cartItems.innerHTML =
     lines
       .map(
@@ -292,7 +308,7 @@ function renderCart() {
           <div class="cart-line">
             <div>
               <strong>${escapeHtml(product.name)}</strong>
-              <p>${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Page ${product.page}</p>
+              <p>${escapeHtml(product.sku)} · ${escapeHtml(product.price)} c/u · ${formatMoney(priceNumber(product.price) * qty)} · Page ${product.page}</p>
             </div>
             <div class="qty-controls" aria-label="Quantity controls">
               <button type="button" data-dec="${product.id}" aria-label="Decrease quantity">-</button>
@@ -317,10 +333,13 @@ function renderCart() {
 
 function buildOrderText(lines) {
   if (!lines.length) return "Order draft is empty.";
+  const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
   return [
     "Catalog order draft",
     "",
-    ...lines.map(({ product, qty }) => `${qty} x ${product.sku} - ${product.name} - ${product.price}`),
+    ...lines.map(({ product, qty }) => `${qty} x ${product.sku} - ${product.name} - ${product.price} c/u - ${formatMoney(priceNumber(product.price) * qty)}`),
+    "",
+    `Total: ${formatMoney(totalValue)}`,
   ].join("\n");
 }
 
@@ -354,6 +373,24 @@ function closeCart() {
 
 function saveCart() {
   localStorage.setItem("catalogCart", JSON.stringify([...state.cart.entries()]));
+}
+
+function readQuantity(input) {
+  return Math.max(1, Number.parseInt(input?.value || "1", 10) || 1);
+}
+
+function priceNumber(value) {
+  const digits = String(value || "").replace(/[^\d]/g, "");
+  return Number(digits || 0);
+}
+
+function formatMoney(value) {
+  return "$" + Math.round(value).toLocaleString("es-AR");
+}
+
+function cssEscape(value) {
+  if (window.CSS?.escape) return CSS.escape(value);
+  return String(value).replace(/"/g, '\\"');
 }
 
 function searchFields(product) {

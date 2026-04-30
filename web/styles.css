@@ -418,6 +418,11 @@ button {
   color: var(--muted);
 }
 
+.cart-total-value {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
 .cart-total strong {
   color: var(--ink);
   font-size: 22px;
@@ -481,10 +486,10 @@ button {
 
 .group-product {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 86px 62px;
   gap: 12px;
   align-items: center;
-  min-height: 42px;
+  min-height: 54px;
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -494,6 +499,7 @@ button {
 }
 
 .group-product span {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -502,6 +508,45 @@ button {
 .group-product strong {
   color: var(--brand-dark);
   font-size: 13px;
+}
+
+.dialog-qty {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.dialog-qty-wide {
+  grid-template-columns: auto minmax(90px, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.dialog-qty input {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.dialog-qty input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(17, 115, 122, 0.14);
+}
+
+.small-add-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 900;
 }
 
 .price {
@@ -576,5 +621,9 @@ button {
   .page-frame {
     width: min(calc(100vw - 28px), calc(760px * var(--catalog-zoom, 1)));
     min-width: min(100%, calc(430px * var(--catalog-zoom, 1)));
+  }
+
+  .group-product {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
