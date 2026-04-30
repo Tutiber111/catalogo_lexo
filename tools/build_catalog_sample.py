@@ -77,6 +77,11 @@ def find_pdf() -> Path:
     return matches[0]
 
 
+def find_priced_reference_pdf() -> Path | None:
+    matches = list(PDF_BASE.glob("Cat*logos de productos/Cat*logo Completo.pdf"))
+    return matches[0] if matches else None
+
+
 def clean_text(value: str) -> str:
     return " ".join(value.replace("\n", " ").split()).strip()
 
@@ -119,6 +124,20 @@ def normalize_size_label(value: str) -> str:
 
 def product_size_label(description: str) -> str:
     return normalize_size_label(description)
+
+
+def size_value_ml(label: str) -> float | None:
+    match = SIZE_RE.search(clean_text(label).replace(",", "."))
+    if not match:
+        return None
+    try:
+        value = float(match.group("value").replace(",", "."))
+    except ValueError:
+        return None
+    unit = match.group("unit").lower()
+    if unit in {"l", "litro", "litros"}:
+        return value * 1000
+    return value
 
 
 def load_price_list() -> dict[str, dict]:
@@ -457,9 +476,75 @@ def build_price_groups(page: fitz.Page, products: list[dict]) -> list[dict]:
                 "price": price,
                 "productIds": [item["id"] for item in items],
                 "position": position,
+                "positionSource": "auto",
             }
         )
     return price_groups
+
+
+def extract_reference_price_positions(reference_doc: fitz.Document | None, page_number: int) -> list[dict]:
+    if reference_doc is None or page_number > reference_doc.page_count:
+        return []
+    page = reference_doc[page_number - 1]
+    positions = []
+    for word in page.get_text("words"):
+        price = word_text(word)
+        if not PRICE_RE.fullmatch(price):
+            continue
+        positions.append(
+            {
+                "price": price,
+                "x": ((word[0] + word[2]) / 2) / page.rect.width,
+                "y": word[1] / page.rect.height,
+            }
+        )
+    return positions
+
+
+def position_distance(a: dict, b: dict) -> float:
+    return abs(a["x"] - b["x"]) + abs(a["y"] - b["y"])
+
+
+def sort_reference_positions(positions: list[dict]) -> list[dict]:
+    if not positions:
+        return []
+    x_range = max(pos["x"] for pos in positions) - min(pos["x"] for pos in positions)
+    y_range = max(pos["y"] for pos in positions) - min(pos["y"] for pos in positions)
+    if y_range > 0.015 and y_range >= x_range * 0.35:
+        return sorted(positions, key=lambda pos: (pos["y"], pos["x"]))
+    return sorted(positions, key=lambda pos: (pos["x"], pos["y"]))
+
+
+def sort_groups_for_reference(groups: list[dict]) -> list[dict]:
+    size_values = [size_value_ml(group["label"]) for group in groups]
+    if groups and all(value is not None for value in size_values):
+        return [group for _, group in sorted(zip(size_values, groups), key=lambda item: item[0])]
+    return sorted(groups, key=lambda group: (group["position"]["y"], group["position"]["x"]))
+
+
+def apply_reference_price_positions(price_groups: list[dict], reference_positions: list[dict]) -> None:
+    if not price_groups or not reference_positions:
+        return
+
+    unused = reference_positions[:]
+    for group in price_groups:
+        exact = [pos for pos in unused if pos["price"] == group["price"]]
+        if not exact:
+            continue
+        chosen = min(exact, key=lambda pos: position_distance(pos, group["position"]))
+        group["position"] = {"x": chosen["x"], "y": chosen["y"]}
+        group["positionSource"] = "priced-pdf"
+        unused.remove(chosen)
+
+    remaining_groups = [group for group in price_groups if group.get("positionSource") != "priced-pdf"]
+    if not remaining_groups or not unused:
+        return
+
+    sorted_groups = sort_groups_for_reference(remaining_groups)
+    sorted_refs = sort_reference_positions(unused)
+    for group, ref in zip(sorted_groups, sorted_refs):
+        group["position"] = {"x": ref["x"], "y": ref["y"]}
+        group["positionSource"] = "priced-pdf-order"
 
 
 def render_page(page: fitz.Page, destination: Path) -> dict[str, int | str]:
@@ -472,8 +557,10 @@ def render_page(page: fitz.Page, destination: Path) -> dict[str, int | str]:
 
 def main() -> None:
     pdf = find_pdf()
+    reference_pdf = find_priced_reference_pdf()
     price_list = load_price_list()
     doc = fitz.open(pdf)
+    reference_doc = fitz.open(reference_pdf) if reference_pdf else None
     PAGE_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -488,6 +575,7 @@ def main() -> None:
         image_data = render_page(page, PAGE_DIR / image_name)
         page_products = extract_products(page, page_number, price_list)
         price_groups = build_price_groups(page, page_products)
+        apply_reference_price_positions(price_groups, extract_reference_price_positions(reference_doc, page_number))
         pages.append(
             {
                 "number": page_number,
@@ -501,6 +589,7 @@ def main() -> None:
 
     payload = {
         "source": str(pdf),
+        "pricedReference": str(reference_pdf) if reference_pdf else "",
         "totalPagesInPdf": doc.page_count,
         "priceList": {
             "source": str(EXCEL_PATH) if EXCEL_PATH.exists() else "",

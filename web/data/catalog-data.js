@@ -1,5 +1,6 @@
 window.CATALOG_DATA = {
   "source": "C:\\Users\\Lenovo\\Downloads\\Copy of Catálogo Lexo.pdf",
+  "pricedReference": "C:\\Users\\Lenovo\\Dropbox\\ACCESO A CLIENTES\\Catálogos de productos\\Catálogo Completo.pdf",
   "totalPagesInPdf": 25,
   "priceList": {
     "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
@@ -52,9 +53,10 @@ window.CATALOG_DATA = {
             "p003-2"
           ],
           "position": {
-            "x": 0.4890492116574176,
-            "y": 0.23444476740478443
-          }
+            "x": 0.4999961052293241,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -95,9 +97,10 @@ window.CATALOG_DATA = {
             "p004-11"
           ],
           "position": {
-            "x": 0.89,
-            "y": 0.69
-          }
+            "x": 0.8925149118469905,
+            "y": 0.6850444627254008
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg004-2",
@@ -113,9 +116,10 @@ window.CATALOG_DATA = {
             "p004-12"
           ],
           "position": {
-            "x": 0.89,
-            "y": 0.718
-          }
+            "x": 0.8925042012276317,
+            "y": 0.7162227930673049
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -144,9 +148,10 @@ window.CATALOG_DATA = {
             "p005-3"
           ],
           "position": {
-            "x": 0.4999839340709619,
-            "y": 0.22253794796072648
-          }
+            "x": 0.4999961052293241,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -173,9 +178,10 @@ window.CATALOG_DATA = {
             "p006-2"
           ],
           "position": {
-            "x": 0.4999751067782129,
-            "y": 0.22253794796072648
-          }
+            "x": 0.49998475402268316,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -202,9 +208,10 @@ window.CATALOG_DATA = {
             "p007-2"
           ],
           "position": {
-            "x": 0.49997973181839056,
-            "y": 0.22253794796072648
-          }
+            "x": 0.4999839596944532,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -231,9 +238,10 @@ window.CATALOG_DATA = {
             "p008-2"
           ],
           "position": {
-            "x": 0.4999829091313103,
-            "y": 0.22253794796072648
-          }
+            "x": 0.49998980185046704,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -275,9 +283,10 @@ window.CATALOG_DATA = {
             "p010-4"
           ],
           "position": {
-            "x": 0.499981012992955,
-            "y": 0.2053303819057955
-          }
+            "x": 0.4999894943685716,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -310,9 +319,10 @@ window.CATALOG_DATA = {
             "p011-5"
           ],
           "position": {
-            "x": 0.4999786300082651,
-            "y": 0.2053303819057955
-          }
+            "x": 0.4999935941271778,
+            "y": 0.21963829794634906
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -355,9 +365,10 @@ window.CATALOG_DATA = {
             "p013-5"
           ],
           "position": {
-            "x": 0.88,
-            "y": 0.63
-          }
+            "x": 0.8718858233627204,
+            "y": 0.6220340066367988
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg013-2",
@@ -370,9 +381,10 @@ window.CATALOG_DATA = {
             "p013-6"
           ],
           "position": {
-            "x": 0.88,
-            "y": 0.658
-          }
+            "x": 0.8718834916250131,
+            "y": 0.6499832891575764
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -410,9 +422,10 @@ window.CATALOG_DATA = {
             "p015-1"
           ],
           "position": {
-            "x": 0.184,
-            "y": 0.76
-          }
+            "x": 0.2679294615008068,
+            "y": 0.7200465033902864
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg015-2",
@@ -423,9 +436,10 @@ window.CATALOG_DATA = {
             "p015-2"
           ],
           "position": {
-            "x": 0.438,
-            "y": 0.76
-          }
+            "x": 0.5250173676023956,
+            "y": 0.7200465033902864
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg015-3",
@@ -436,9 +450,10 @@ window.CATALOG_DATA = {
             "p015-3"
           ],
           "position": {
-            "x": 0.691,
-            "y": 0.76
-          }
+            "x": 0.7685536113133659,
+            "y": 0.7200465033902864
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -473,9 +488,10 @@ window.CATALOG_DATA = {
             "p016-7"
           ],
           "position": {
-            "x": 0.478,
-            "y": 0.565
-          }
+            "x": 0.4782107054536629,
+            "y": 0.5554384733739611
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg016-2",
@@ -489,9 +505,10 @@ window.CATALOG_DATA = {
             "p016-8"
           ],
           "position": {
-            "x": 0.478,
-            "y": 0.615
-          }
+            "x": 0.4782080406105689,
+            "y": 0.6053236714807807
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -517,9 +534,10 @@ window.CATALOG_DATA = {
             "p017-1"
           ],
           "position": {
-            "x": 0.258,
-            "y": 0.835
-          }
+            "x": 0.37447646082598657,
+            "y": 0.7921302367403161
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg017-2",
@@ -530,9 +548,10 @@ window.CATALOG_DATA = {
             "p017-2"
           ],
           "position": {
-            "x": 0.562,
-            "y": 0.835
-          }
+            "x": 0.6754209580889877,
+            "y": 0.7921302367403161
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -560,9 +579,10 @@ window.CATALOG_DATA = {
             "p018-1"
           ],
           "position": {
-            "x": 0.091,
-            "y": 0.72
-          }
+            "x": 0.21427333264867365,
+            "y": 0.6805290568649822
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg018-2",
@@ -573,9 +593,10 @@ window.CATALOG_DATA = {
             "p018-2"
           ],
           "position": {
-            "x": 0.328,
-            "y": 0.72
-          }
+            "x": 0.45177001696890084,
+            "y": 0.6805280423298827
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg018-3",
@@ -586,9 +607,10 @@ window.CATALOG_DATA = {
             "p018-3"
           ],
           "position": {
-            "x": 0.565,
-            "y": 0.72
-          }
+            "x": 0.6892374264503306,
+            "y": 0.6805156505083111
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg018-4",
@@ -599,9 +621,10 @@ window.CATALOG_DATA = {
             "p018-4"
           ],
           "position": {
-            "x": 0.81,
-            "y": 0.72
-          }
+            "x": 0.9379160230045654,
+            "y": 0.6817720797621698
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -628,9 +651,10 @@ window.CATALOG_DATA = {
             "p019-1"
           ],
           "position": {
-            "x": 0.189,
-            "y": 0.695
-          }
+            "x": 0.31402658355226043,
+            "y": 0.6524136804550683
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg019-2",
@@ -641,9 +665,10 @@ window.CATALOG_DATA = {
             "p019-2"
           ],
           "position": {
-            "x": 0.441,
-            "y": 0.695
-          }
+            "x": 0.5653859738238612,
+            "y": 0.65205844823668
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg019-3",
@@ -654,9 +679,10 @@ window.CATALOG_DATA = {
             "p019-3"
           ],
           "position": {
-            "x": 0.694,
-            "y": 0.695
-          }
+            "x": 0.817987219412521,
+            "y": 0.6517080712934105
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -692,9 +718,10 @@ window.CATALOG_DATA = {
             "p021-1"
           ],
           "position": {
-            "x": 0.4999823197910107,
-            "y": 0.6691941692638765
-          }
+            "x": 0.49998744448926846,
+            "y": 0.2193560760217238
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -720,9 +747,10 @@ window.CATALOG_DATA = {
             "p022-1"
           ],
           "position": {
-            "x": 0.24,
-            "y": 0.635
-          }
+            "x": 0.23998918381185716,
+            "y": 0.6158874457368655
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg022-2",
@@ -733,9 +761,10 @@ window.CATALOG_DATA = {
             "p022-2"
           ],
           "position": {
-            "x": 0.743,
-            "y": 0.635
-          }
+            "x": 0.7432402155161104,
+            "y": 0.6158874457368655
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -760,9 +789,10 @@ window.CATALOG_DATA = {
             "p023-1"
           ],
           "position": {
-            "x": 0.5,
-            "y": 0.695
-          }
+            "x": 0.4994407673026212,
+            "y": 0.2193560760217238
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -788,9 +818,10 @@ window.CATALOG_DATA = {
             "p024-1"
           ],
           "position": {
-            "x": 0.33,
-            "y": 0.68
-          }
+            "x": 0.33041957083316936,
+            "y": 0.6600662462433214
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg024-2",
@@ -801,9 +832,10 @@ window.CATALOG_DATA = {
             "p024-2"
           ],
           "position": {
-            "x": 0.67,
-            "y": 0.68
-          }
+            "x": 0.6698122833277577,
+            "y": 0.6600662462433214
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     },
@@ -831,9 +863,10 @@ window.CATALOG_DATA = {
             "p025-1"
           ],
           "position": {
-            "x": 0.068,
-            "y": 0.688
-          }
+            "x": 0.16432057980426112,
+            "y": 0.6430962625686405
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg025-2",
@@ -844,9 +877,10 @@ window.CATALOG_DATA = {
             "p025-2"
           ],
           "position": {
-            "x": 0.306,
-            "y": 0.688
-          }
+            "x": 0.40468358473053107,
+            "y": 0.643560629777011
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg025-3",
@@ -857,9 +891,10 @@ window.CATALOG_DATA = {
             "p025-3"
           ],
           "position": {
-            "x": 0.546,
-            "y": 0.688
-          }
+            "x": 0.6351109527920996,
+            "y": 0.643081406876113
+          },
+          "positionSource": "priced-pdf"
         },
         {
           "id": "pg025-4",
@@ -870,9 +905,10 @@ window.CATALOG_DATA = {
             "p025-4"
           ],
           "position": {
-            "x": 0.808,
-            "y": 0.688
-          }
+            "x": 0.9009272834015534,
+            "y": 0.6431424239156649
+          },
+          "positionSource": "priced-pdf"
         }
       ]
     }
