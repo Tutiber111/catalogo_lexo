@@ -1,4 +1,6 @@
-# Interactive Catalog Prototype
+# catalogo_lexo
+
+## Interactive Catalog Prototype
 
 This is a static proof of concept for a public product catalog that uses the PDF pages as the visual layer and separate product data for cart behavior.
 
