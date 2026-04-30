@@ -29,6 +29,14 @@ SELECTED_PAGES = [
     150,
     200,
 ]
+LEXO_PAGES = range(1, 26)
+MAGEFESA_PAGES = range(51, 68)
+
+SKU_ALIASES = {
+    "40004": "400004",
+    "40006": "400006",
+    "2550": "2551",
+}
 
 PRICE_RE = re.compile(r"^\$[\d.]+(?:,\d+)?$")
 SKU_RE = re.compile(r"^\d{3,6}$")
@@ -264,6 +272,7 @@ def product_hotspot(page_rect: fitz.Rect, price_word: tuple, product_count: int)
 
 def sku_from_word(word: tuple, price_list: dict[str, dict]) -> str:
     text = normalize_sku(word_text(word)).strip(".,;:()[]")
+    text = SKU_ALIASES.get(text, text)
     if text in price_list:
         return text
     return ""
@@ -566,20 +575,35 @@ def main() -> None:
 
     pages = []
     products = []
-    selected_pages = range(1, doc.page_count + 1) if doc.page_count <= 40 else SELECTED_PAGES
-    for page_number in selected_pages:
-        if page_number > doc.page_count:
+    page_entries = []
+    for page_number in LEXO_PAGES:
+        if page_number <= doc.page_count:
+            page_entries.append({"page": page_number, "doc": doc, "section": "Lexo", "showPriceOverlays": True})
+    if reference_doc:
+        for page_number in MAGEFESA_PAGES:
+            if page_number <= reference_doc.page_count:
+                page_entries.append({"page": page_number, "doc": reference_doc, "section": "Magefesa", "showPriceOverlays": False})
+
+    for entry in page_entries:
+        page_number = entry["page"]
+        page_doc = entry["doc"]
+        if page_number > page_doc.page_count:
             continue
-        page = doc[page_number - 1]
+        page = page_doc[page_number - 1]
         image_name = f"page-{page_number:03d}.jpg"
         image_data = render_page(page, PAGE_DIR / image_name)
-        page_products = extract_products(page, page_number, price_list)
-        price_groups = build_price_groups(page, page_products)
-        apply_reference_price_positions(price_groups, extract_reference_price_positions(reference_doc, page_number))
+        page_products = extract_products_from_skus(page, page_number, price_list)
+        for product in page_products:
+            product["section"] = entry["section"]
+        price_groups = build_price_groups(page, page_products) if entry["showPriceOverlays"] else []
+        if entry["showPriceOverlays"]:
+            apply_reference_price_positions(price_groups, extract_reference_price_positions(reference_doc, page_number))
         pages.append(
             {
                 "number": page_number,
                 "title": find_category(page.get_text("blocks")),
+                "section": entry["section"],
+                "showPriceOverlays": entry["showPriceOverlays"],
                 "image": image_data,
                 "products": [product["id"] for product in page_products],
                 "priceGroups": price_groups,

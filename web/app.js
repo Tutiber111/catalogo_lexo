@@ -39,7 +39,7 @@ async function init() {
   state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
 
   const priceCount = state.catalog.priceList?.productCount || 0;
-  els.catalogMeta.textContent = `${state.catalog.samplePageCount} sample pages from ${state.catalog.totalPagesInPdf} PDF pages · ${priceCount} Excel products`;
+  els.catalogMeta.textContent = `${state.catalog.samplePageCount} pages · ${state.catalog.products.length} products · ${priceCount} Excel products`;
   bindEvents();
   renderTabs();
   renderAll();
@@ -87,7 +87,7 @@ function renderLists() {
   const pages = state.catalog.pages.filter((page) => {
     if (!query) return true;
     const products = page.products.map((id) => state.productsById.get(id)).filter(Boolean);
-    return [page.title, String(page.number), ...products.flatMap(searchFields)].join(" ").toLowerCase().includes(query);
+    return [page.title, page.section, String(page.number), ...products.flatMap(searchFields)].join(" ").toLowerCase().includes(query);
   });
 
   const products = state.catalog.products.filter((product) => searchFields(product).join(" ").toLowerCase().includes(query));
@@ -99,7 +99,7 @@ function renderLists() {
       return `
         <button class="page-card${active}" type="button" data-page="${page.number}">
           <strong>Page ${page.number}</strong>
-          <p>${escapeHtml(page.title)} · ${count} product${count === 1 ? "" : "s"}</p>
+          <p>${escapeHtml(page.section || "Catalog")} · ${escapeHtml(page.title)} · ${count} product${count === 1 ? "" : "s"}</p>
         </button>
       `;
     })
@@ -111,7 +111,7 @@ function renderLists() {
         (product) => `
           <button class="product-card" type="button" data-product="${product.id}">
             <strong>${escapeHtml(product.name)}</strong>
-            <p>${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Page ${product.page}</p>
+            <p>${escapeHtml(product.section || "Catalog")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Page ${product.page}</p>
           </button>
         `,
       )
@@ -150,7 +150,7 @@ function renderPage() {
   const page = currentPage();
   const products = page.products.map((id) => state.productsById.get(id)).filter(Boolean);
 
-  els.pageTitle.textContent = `Page ${page.number} · ${page.title}`;
+  els.pageTitle.textContent = `Page ${page.number} · ${page.section || "Catalog"} · ${page.title}`;
   els.pageSubtitle.textContent = `${products.length} product${products.length === 1 ? "" : "s"} detected on this page`;
   els.pageImage.src = page.image.src;
   els.pageImage.alt = `Catalog page ${page.number}`;
@@ -394,7 +394,7 @@ function cssEscape(value) {
 }
 
 function searchFields(product) {
-  return [product.name, product.sku, product.category, product.price, String(product.page), ...(product.skus || [])];
+  return [product.name, product.sku, product.section, product.category, product.price, String(product.page), ...(product.skus || [])];
 }
 
 function showToast(message) {

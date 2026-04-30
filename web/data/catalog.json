@@ -6,11 +6,13 @@
     "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
     "productCount": 887
   },
-  "samplePageCount": 25,
+  "samplePageCount": 42,
   "pages": [
     {
       "number": 1,
       "title": "Catalog",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-001.jpg",
         "width": 1013,
@@ -22,6 +24,8 @@
     {
       "number": 2,
       "title": "BOTELLAS TÉRMICAS",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-002.jpg",
         "width": 1013,
@@ -33,6 +37,8 @@
     {
       "number": 3,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-003.jpg",
         "width": 1013,
@@ -63,6 +69,8 @@
     {
       "number": 4,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-004.jpg",
         "width": 1013,
@@ -126,6 +134,8 @@
     {
       "number": 5,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-005.jpg",
         "width": 1013,
@@ -158,6 +168,8 @@
     {
       "number": 6,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-006.jpg",
         "width": 1013,
@@ -188,6 +200,8 @@
     {
       "number": 7,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-007.jpg",
         "width": 1013,
@@ -218,6 +232,8 @@
     {
       "number": 8,
       "title": "Botellas térmicas",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-008.jpg",
         "width": 1013,
@@ -248,6 +264,8 @@
     {
       "number": 9,
       "title": "TUMBLERS",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-009.jpg",
         "width": 1013,
@@ -259,6 +277,8 @@
     {
       "number": 10,
       "title": "Tumblers",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-010.jpg",
         "width": 1013,
@@ -293,6 +313,8 @@
     {
       "number": 11,
       "title": "Tumblers",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-011.jpg",
         "width": 1013,
@@ -329,6 +351,8 @@
     {
       "number": 12,
       "title": "TERMOS",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-012.jpg",
         "width": 1013,
@@ -340,6 +364,8 @@
     {
       "number": 13,
       "title": "Termos",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-013.jpg",
         "width": 1013,
@@ -391,6 +417,8 @@
     {
       "number": 14,
       "title": "CAFETERAS",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-014.jpg",
         "width": 1013,
@@ -402,6 +430,8 @@
     {
       "number": 15,
       "title": "Cafeteras",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-015.jpg",
         "width": 1013,
@@ -460,6 +490,8 @@
     {
       "number": 16,
       "title": "Cafeteras",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-016.jpg",
         "width": 1013,
@@ -515,6 +547,8 @@
     {
       "number": 17,
       "title": "Cafeteras",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-017.jpg",
         "width": 1013,
@@ -558,6 +592,8 @@
     {
       "number": 18,
       "title": "Cafeteras",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-018.jpg",
         "width": 1013,
@@ -631,6 +667,8 @@
     {
       "number": 19,
       "title": "Cafeteras",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-019.jpg",
         "width": 1013,
@@ -689,6 +727,8 @@
     {
       "number": 20,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-020.jpg",
         "width": 1013,
@@ -700,6 +740,8 @@
     {
       "number": 21,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-021.jpg",
         "width": 1013,
@@ -728,6 +770,8 @@
     {
       "number": 22,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-022.jpg",
         "width": 1013,
@@ -771,6 +815,8 @@
     {
       "number": 23,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-023.jpg",
         "width": 1013,
@@ -799,6 +845,8 @@
     {
       "number": 24,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-024.jpg",
         "width": 1013,
@@ -842,6 +890,8 @@
     {
       "number": 25,
       "title": "Accesorios",
+      "section": "Lexo",
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-025.jpg",
         "width": 1013,
@@ -911,6 +961,299 @@
           "positionSource": "priced-pdf"
         }
       ]
+    },
+    {
+      "number": 51,
+      "title": "Catalog",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-051.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 52,
+      "title": "Cafetera Colombia",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-052.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p052-1",
+        "p052-2",
+        "p052-3",
+        "p052-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 53,
+      "title": "Cafetera Colombia Noir",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-053.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p053-1",
+        "p053-2",
+        "p053-3",
+        "p053-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 54,
+      "title": "Cafetera Kenia",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-054.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p054-1",
+        "p054-2",
+        "p054-3",
+        "p054-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 55,
+      "title": "Cafetera Kenia Noir",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-055.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p055-1",
+        "p055-2",
+        "p055-3",
+        "p055-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 56,
+      "title": "Cafetera Jamaica Inducción",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-056.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p056-1",
+        "p056-2",
+        "p056-3",
+        "p056-4",
+        "p056-5"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 57,
+      "title": "Cafetera Tradicional Inducción",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-057.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p057-1",
+        "p057-2",
+        "p057-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 58,
+      "title": "Cafetera Genova",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-058.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p058-1",
+        "p058-2",
+        "p058-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 59,
+      "title": "Repuesto filtro y junta",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-059.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p059-1",
+        "p059-2",
+        "p059-3",
+        "p059-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 60,
+      "title": "Cuchillos FILO",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-060.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p060-1",
+        "p060-2",
+        "p060-3",
+        "p060-4",
+        "p060-5",
+        "p060-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 61,
+      "title": "Cuchillos Messier",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-061.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p061-1",
+        "p061-2",
+        "p061-3",
+        "p061-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 62,
+      "title": "Cuchillos Álvaro Barrientos",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-062.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p062-1",
+        "p062-2",
+        "p062-3",
+        "p062-4",
+        "p062-5",
+        "p062-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 63,
+      "title": "Cuchillos Mestre",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-063.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p063-1",
+        "p063-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 64,
+      "title": "Especiero Acero inoxidable",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-064.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p064-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 65,
+      "title": "Set de cuchillos Blade",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-065.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p065-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 66,
+      "title": "Línea Chamber",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-066.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p066-1",
+        "p066-2",
+        "p066-3",
+        "p066-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 67,
+      "title": "Lunchera térmica Lunch Plus",
+      "section": "Magefesa",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-067.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p067-1"
+      ],
+      "priceGroups": []
     }
   ],
   "products": [
@@ -938,7 +1281,8 @@
       "pricePosition": {
         "x": 0.3713081801868506,
         "y": 0.6918535875120585
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p003-2",
@@ -964,7 +1308,8 @@
       "pricePosition": {
         "x": 0.6171164716821473,
         "y": 0.6919735200541703
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-1",
@@ -990,7 +1335,8 @@
       "pricePosition": {
         "x": 0.23832214509209698,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-2",
@@ -1016,7 +1362,8 @@
       "pricePosition": {
         "x": 0.23753280063119883,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-3",
@@ -1042,7 +1389,8 @@
       "pricePosition": {
         "x": 0.7564236042781801,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-4",
@@ -1068,7 +1416,8 @@
       "pricePosition": {
         "x": 0.7556342726290276,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-5",
@@ -1094,7 +1443,8 @@
       "pricePosition": {
         "x": 0.34082375885957833,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-6",
@@ -1120,7 +1470,8 @@
       "pricePosition": {
         "x": 0.3400344143986802,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-7",
@@ -1146,7 +1497,8 @@
       "pricePosition": {
         "x": 0.4451452298488665,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-8",
@@ -1172,7 +1524,8 @@
       "pricePosition": {
         "x": 0.444355898199714,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-9",
@@ -1198,7 +1551,8 @@
       "pricePosition": {
         "x": 0.5486771513893262,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-10",
@@ -1224,7 +1578,8 @@
       "pricePosition": {
         "x": 0.5478878197401738,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-11",
@@ -1250,7 +1605,8 @@
       "pricePosition": {
         "x": 0.652971935512437,
         "y": 0.7210193700838528
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p004-12",
@@ -1276,7 +1632,8 @@
       "pricePosition": {
         "x": 0.6521826038632845,
         "y": 0.746686528365242
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p005-1",
@@ -1302,7 +1659,8 @@
       "pricePosition": {
         "x": 0.16502133744990094,
         "y": 0.6566663941915257
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p005-2",
@@ -1328,7 +1686,8 @@
       "pricePosition": {
         "x": 0.4911443932931229,
         "y": 0.6566663941915257
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p005-3",
@@ -1354,7 +1713,8 @@
       "pricePosition": {
         "x": 0.8118275627181072,
         "y": 0.6566663941915257
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p006-1",
@@ -1380,7 +1740,8 @@
       "pricePosition": {
         "x": 0.360582263603819,
         "y": 0.7893776580819605
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p006-2",
@@ -1406,7 +1767,8 @@
       "pricePosition": {
         "x": 0.6150215206578636,
         "y": 0.7893776580819605
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p007-1",
@@ -1432,7 +1794,8 @@
       "pricePosition": {
         "x": 0.3678601807050601,
         "y": 0.701832699683697
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p007-2",
@@ -1458,7 +1821,8 @@
       "pricePosition": {
         "x": 0.6222994890060873,
         "y": 0.701832699683697
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p008-1",
@@ -1484,7 +1848,8 @@
       "pricePosition": {
         "x": 0.3469922300349955,
         "y": 0.7011582512429504
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p008-2",
@@ -1510,7 +1875,8 @@
       "pricePosition": {
         "x": 0.6422784582693771,
         "y": 0.7011582512429504
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p010-1",
@@ -1536,7 +1902,8 @@
       "pricePosition": {
         "x": 0.3933764761180862,
         "y": 0.6681227419347359
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p010-2",
@@ -1562,7 +1929,8 @@
       "pricePosition": {
         "x": 0.8158724101824885,
         "y": 0.6681227419347359
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p010-3",
@@ -1588,7 +1956,8 @@
       "pricePosition": {
         "x": 0.6046167689146463,
         "y": 0.6681227419347359
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p010-4",
@@ -1614,7 +1983,8 @@
       "pricePosition": {
         "x": 0.18212924576125958,
         "y": 0.6681227419347359
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p011-1",
@@ -1640,7 +2010,8 @@
       "pricePosition": {
         "x": 0.3158855806570109,
         "y": 0.6901711984500223
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p011-2",
@@ -1666,7 +2037,8 @@
       "pricePosition": {
         "x": 0.6894046197309902,
         "y": 0.6901711984500223
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p011-3",
@@ -1692,7 +2064,8 @@
       "pricePosition": {
         "x": 0.5026374515818509,
         "y": 0.6901711984500223
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p011-4",
@@ -1718,7 +2091,8 @@
       "pricePosition": {
         "x": 0.12912673373666758,
         "y": 0.6901711984500223
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p011-5",
@@ -1744,7 +2118,8 @@
       "pricePosition": {
         "x": 0.8761634602454608,
         "y": 0.6901711984500223
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-1",
@@ -1770,7 +2145,8 @@
       "pricePosition": {
         "x": 0.3159314723299092,
         "y": 0.6594431042918892
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-2",
@@ -1796,7 +2172,8 @@
       "pricePosition": {
         "x": 0.315922401613993,
         "y": 0.6852765738627931
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-3",
@@ -1822,7 +2199,8 @@
       "pricePosition": {
         "x": 0.6977326899992129,
         "y": 0.6598499328667632
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-4",
@@ -1848,7 +2226,8 @@
       "pricePosition": {
         "x": 0.6977432981246064,
         "y": 0.685683402437667
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-5",
@@ -1874,7 +2253,8 @@
       "pricePosition": {
         "x": 0.4995670398676926,
         "y": 0.6598499328667632
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p013-6",
@@ -1900,7 +2280,8 @@
       "pricePosition": {
         "x": 0.49955796915177636,
         "y": 0.685683402437667
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p015-1",
@@ -1926,7 +2307,8 @@
       "pricePosition": {
         "x": 0.18356747951555613,
         "y": 0.7288346962887726
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p015-2",
@@ -1952,7 +2334,8 @@
       "pricePosition": {
         "x": 0.4384665052796691,
         "y": 0.7288346962887726
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p015-3",
@@ -1978,7 +2361,8 @@
       "pricePosition": {
         "x": 0.690950613077902,
         "y": 0.7288346962887726
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-1",
@@ -2004,7 +2388,8 @@
       "pricePosition": {
         "x": 0.2226770434631809,
         "y": 0.48461754635555804
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-2",
@@ -2030,7 +2415,8 @@
       "pricePosition": {
         "x": 0.2242699277991512,
         "y": 0.511719184800757
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-3",
@@ -2056,7 +2442,8 @@
       "pricePosition": {
         "x": 0.6040841590247166,
         "y": 0.48461754635555804
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-4",
@@ -2082,7 +2469,8 @@
       "pricePosition": {
         "x": 0.6056564164501994,
         "y": 0.511719184800757
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-5",
@@ -2108,7 +2496,8 @@
       "pricePosition": {
         "x": 0.22267847837869306,
         "y": 0.8923285493655387
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-6",
@@ -2134,7 +2523,8 @@
       "pricePosition": {
         "x": 0.224271375526409,
         "y": 0.9194301878107376
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-7",
@@ -2160,7 +2550,8 @@
       "pricePosition": {
         "x": 0.5971955908736094,
         "y": 0.8923285493655387
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p016-8",
@@ -2186,7 +2577,8 @@
       "pricePosition": {
         "x": 0.5987678739225835,
         "y": 0.9194301878107376
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p017-1",
@@ -2212,7 +2604,8 @@
       "pricePosition": {
         "x": 0.25810907269404976,
         "y": 0.8010170569438261
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p017-2",
@@ -2238,7 +2631,8 @@
       "pricePosition": {
         "x": 0.5615668436942433,
         "y": 0.8010170569438261
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p018-1",
@@ -2264,7 +2658,8 @@
       "pricePosition": {
         "x": 0.0690259749302836,
         "y": 0.6892706536156872
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p018-2",
@@ -2290,7 +2685,8 @@
       "pricePosition": {
         "x": 0.3059865981965982,
         "y": 0.6892706536156872
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p018-3",
@@ -2316,7 +2712,8 @@
       "pricePosition": {
         "x": 0.5434505228832126,
         "y": 0.6892706536156872
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p018-4",
@@ -2342,7 +2739,8 @@
       "pricePosition": {
         "x": 0.7831305848961613,
         "y": 0.6892706536156872
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p019-1",
@@ -2368,7 +2766,8 @@
       "pricePosition": {
         "x": 0.16763701547002913,
         "y": 0.6611602774144776
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p019-2",
@@ -2394,7 +2793,8 @@
       "pricePosition": {
         "x": 0.419623399761722,
         "y": 0.6608109874731003
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p019-3",
@@ -2420,7 +2820,8 @@
       "pricePosition": {
         "x": 0.6722105652419186,
         "y": 0.6604616250649302
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p021-1",
@@ -2446,7 +2847,8 @@
       "pricePosition": {
         "x": 0.4999823197910107,
         "y": 0.7491941692638765
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p022-1",
@@ -2472,7 +2874,8 @@
       "pricePosition": {
         "x": 0.2399874670379408,
         "y": 0.595596055313613
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p022-2",
@@ -2498,7 +2901,8 @@
       "pricePosition": {
         "x": 0.7432363719924171,
         "y": 0.595596055313613
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p023-1",
@@ -2524,7 +2928,8 @@
       "pricePosition": {
         "x": 0.49998972497999317,
         "y": 0.6544087637281092
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p024-1",
@@ -2550,7 +2955,8 @@
       "pricePosition": {
         "x": 0.33041887899890454,
         "y": 0.6397748195866726
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p024-2",
@@ -2576,7 +2982,8 @@
       "pricePosition": {
         "x": 0.666012883286432,
         "y": 0.6397748195866726
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p025-1",
@@ -2602,7 +3009,8 @@
       "pricePosition": {
         "x": 0.07460684980493348,
         "y": 0.6519254716718611
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p025-2",
@@ -2628,7 +3036,8 @@
       "pricePosition": {
         "x": 0.31397016062444244,
         "y": 0.6521481621261873
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p025-3",
@@ -2654,7 +3063,8 @@
       "pricePosition": {
         "x": 0.5514146883281512,
         "y": 0.6519254716718611
-      }
+      },
+      "section": "Lexo"
     },
     {
       "id": "p025-4",
@@ -2680,7 +3090,1520 @@
       "pricePosition": {
         "x": 0.7903099796733968,
         "y": 0.6519254716718611
-      }
+      },
+      "section": "Lexo"
+    },
+    {
+      "id": "p052-1",
+      "page": 52,
+      "sku": "300003",
+      "skus": [
+        "300003"
+      ],
+      "name": "Cafetera Colombia 3 Tazas",
+      "category": "Cafetera Colombia",
+      "price": "$17.730",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134099",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5206305490232735,
+        "y": 0.4188981728512726,
+        "w": 0.09757476729770151,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694179326721243,
+        "y": 0.44518945138579696
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p052-2",
+      "page": 52,
+      "sku": "300006",
+      "skus": [
+        "300006"
+      ],
+      "name": "Cafetera Colombia 6 Tazas",
+      "category": "Cafetera Colombia",
+      "price": "$19.574",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134105",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5201974607735097,
+        "y": 0.4569401230080328,
+        "w": 0.0984435061463581,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694192138466887,
+        "y": 0.4832314015425571
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p052-3",
+      "page": 52,
+      "sku": "300009",
+      "skus": [
+        "300009"
+      ],
+      "name": "Cafetera Colombia 9 Tazas",
+      "category": "Cafetera Colombia",
+      "price": "$26.638",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134112",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5201974607735097,
+        "y": 0.49498203693139653,
+        "w": 0.0984435061463581,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694192138466887,
+        "y": 0.5212733154659209
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p052-4",
+      "page": 52,
+      "sku": "300012",
+      "skus": [
+        "300012"
+      ],
+      "name": "Cafetera Colombia 12 Tazas",
+      "category": "Cafetera Colombia",
+      "price": "$34.013",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134129",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5231897720862195,
+        "y": 0.5330239870881567,
+        "w": 0.09244914659424854,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694143453833438,
+        "y": 0.5593152656226811
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p053-1",
+      "page": 53,
+      "sku": "200003",
+      "skus": [
+        "200003"
+      ],
+      "name": "Cafetera Colombia Noir 3 Tazas",
+      "category": "Cafetera Colombia Noir",
+      "price": "$20.992",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134136",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5205321548167244,
+        "y": 0.4188981728512726,
+        "w": 0.09777914026422124,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.569421724948835,
+        "y": 0.44518945138579696
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p053-2",
+      "page": 53,
+      "sku": "200006",
+      "skus": [
+        "200006"
+      ],
+      "name": "Cafetera Colombia Noir 6 Tazas",
+      "category": "Cafetera Colombia Noir",
+      "price": "$23.233",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134143",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5201777819321999,
+        "y": 0.4569401230080328,
+        "w": 0.09847753414278967,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694165490035946,
+        "y": 0.4832314015425571
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p053-3",
+      "page": 53,
+      "sku": "200009",
+      "skus": [
+        "200009"
+      ],
+      "name": "Cafetera Colombia Noir 9 Tazas",
+      "category": "Cafetera Colombia Noir",
+      "price": "$30.496",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134150",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5201777819321999,
+        "y": 0.49498203693139653,
+        "w": 0.09847753414278967,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694165490035946,
+        "y": 0.5212733154659209
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p053-4",
+      "page": 53,
+      "sku": "200012",
+      "skus": [
+        "200012"
+      ],
+      "name": "Cafetera Colombia Noir 12 Tazas",
+      "category": "Cafetera Colombia Noir",
+      "price": "$39.176",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134167",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5231897720862195,
+        "y": 0.5330239870881567,
+        "w": 0.09248322583766268,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694313850050509,
+        "y": 0.5593152656226811
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p054-1",
+      "page": 54,
+      "sku": "600003",
+      "skus": [
+        "600003"
+      ],
+      "name": "Cafetera Kenia 3 Tazas",
+      "category": "Cafetera Kenia",
+      "price": "$17.730",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113133863",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5201974607735097,
+        "y": 0.4188981728512726,
+        "w": 0.0984433011584278,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694191113527236,
+        "y": 0.44518945138579696
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p054-2",
+      "page": 54,
+      "sku": "600006",
+      "skus": [
+        "600006"
+      ],
+      "name": "Cafetera Kenia 6 Tazas",
+      "category": "Cafetera Kenia",
+      "price": "$19.574",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113133870",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5198431391359677,
+        "y": 0.4569401230080328,
+        "w": 0.09914164379001364,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694139610309745,
+        "y": 0.4832314015425571
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p054-3",
+      "page": 54,
+      "sku": "600009",
+      "skus": [
+        "600009"
+      ],
+      "name": "Cafetera Kenia 9 Tazas",
+      "category": "Cafetera Kenia",
+      "price": "$26.638",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113133887",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5198431391359677,
+        "y": 0.49498203693139653,
+        "w": 0.09914164379001364,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694139610309745,
+        "y": 0.5212733154659209
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p054-4",
+      "page": 54,
+      "sku": "600012",
+      "skus": [
+        "600012"
+      ],
+      "name": "Cafetera Kenia 12 Tazas",
+      "category": "Cafetera Kenia",
+      "price": "$34.013",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113133894",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5228551292899875,
+        "y": 0.5330239870881567,
+        "w": 0.09314733548488666,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694287970324308,
+        "y": 0.5593152656226811
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p055-1",
+      "page": 55,
+      "sku": "700003",
+      "skus": [
+        "700003"
+      ],
+      "name": "Cafetera Kenia Noir 3 Tazas",
+      "category": "Cafetera Kenia Noir",
+      "price": "$20.992",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134137",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5205715124993441,
+        "y": 0.4188981728512726,
+        "w": 0.09771103302437552,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694270290115317,
+        "y": 0.44518945138579696
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p055-2",
+      "page": 55,
+      "sku": "700006",
+      "skus": [
+        "700006"
+      ],
+      "name": "Cafetera Kenia Noir 6 Tazas",
+      "category": "Cafetera Kenia Noir",
+      "price": "$23.233",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134144",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.520394351680573,
+        "y": 0.4569401230080328,
+        "w": 0.09806873696276763,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694287201619569,
+        "y": 0.4832314015425571
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p055-3",
+      "page": 55,
+      "sku": "700009",
+      "skus": [
+        "700009"
+      ],
+      "name": "Cafetera Kenia Noir 9 Tazas",
+      "category": "Cafetera Kenia Noir",
+      "price": "$30.496",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134151",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.520394351680573,
+        "y": 0.49498203693139653,
+        "w": 0.09806873696276763,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694287201619569,
+        "y": 0.5212733154659209
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p055-4",
+      "page": 55,
+      "sku": "700012",
+      "skus": [
+        "700012"
+      ],
+      "name": "Cafetera Kenia Noir 12 Tazas",
+      "category": "Cafetera Kenia Noir",
+      "price": "$39.176",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113134168",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.523386662993283,
+        "y": 0.5330239870881567,
+        "w": 0.09207437741065806,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.569423851698612,
+        "y": 0.5593152656226811
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p056-1",
+      "page": 56,
+      "sku": "5006",
+      "skus": [
+        "5006"
+      ],
+      "name": "Cafetera Jamaica Inducción 6 Tazas",
+      "category": "Cafetera Jamaica Inducción",
+      "price": "$28.140",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "813310019712",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5367762183662625,
+        "y": 0.3659831381367802,
+        "w": 0.07373477349653652,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5736436051145308,
+        "y": 0.3922744166713045
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p056-2",
+      "page": 56,
+      "sku": "5009",
+      "skus": [
+        "5009"
+      ],
+      "name": "Cafetera Jamaica Inducción 9 Tazas",
+      "category": "Cafetera Jamaica Inducción",
+      "price": "$35.910",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "813310019729",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5367762183662625,
+        "y": 0.40402505206014394,
+        "w": 0.07373477349653652,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5736436051145308,
+        "y": 0.4303163305946683
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p056-3",
+      "page": 56,
+      "sku": "50012",
+      "skus": [
+        "50012"
+      ],
+      "name": "Cafetera Jamaica Inducción 12 Tazas",
+      "category": "Cafetera Jamaica Inducción",
+      "price": "$45.330",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "813310019736",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5335673373051795,
+        "y": 0.44206700221690415,
+        "w": 0.08017144575527393,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5736530601828165,
+        "y": 0.4683582807514285
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p056-4",
+      "page": 56,
+      "sku": "6080",
+      "skus": [
+        "6080"
+      ],
+      "name": "Cafetera Jamaica Inducción 6 Tazas + 4 Cucharas",
+      "category": "Cafetera Jamaica Inducción",
+      "price": "$28.139",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113227524",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5367762183662625,
+        "y": 0.4836721445764693,
+        "w": 0.07373518347239714,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5736438101024611,
+        "y": 0.5099634231109936
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p056-5",
+      "page": 56,
+      "sku": "6081",
+      "skus": [
+        "6081"
+      ],
+      "name": "Cafetera Jamaica Inducción 9 Tazas + 4 Cucharas",
+      "category": "Cafetera Jamaica Inducción",
+      "price": "$35.910",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113227531",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5393944779531381,
+        "y": 0.5299941504804838,
+        "w": 0.06848867113704345,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5736388135216598,
+        "y": 0.5562854290150082
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p057-1",
+      "page": 57,
+      "sku": "6077",
+      "skus": [
+        "6077"
+      ],
+      "name": "Inducción \"Tradicional\" 6 Tazas",
+      "category": "Cafetera Tradicional Inducción",
+      "price": "$31.533",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160777",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5388997395833334,
+        "y": 0.42607434194354776,
+        "w": 0.07123120465666982,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5745153419116682,
+        "y": 0.4523656204780721
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p057-2",
+      "page": 57,
+      "sku": "6078",
+      "skus": [
+        "6078"
+      ],
+      "name": "Inducción \"Tradicional\" 9 Tazas",
+      "category": "Cafetera Tradicional Inducción",
+      "price": "$40.515",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160784",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5388997395833334,
+        "y": 0.46411629210030797,
+        "w": 0.07124826990186818,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5745238745342675,
+        "y": 0.4904075706348323
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p057-3",
+      "page": 57,
+      "sku": "6079",
+      "skus": [
+        "6079"
+      ],
+      "name": "Inducción \"Tradicional\" 12 Tazas",
+      "category": "Cafetera Tradicional Inducción",
+      "price": "$47.586",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160791",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5383288481974181,
+        "y": 0.5021581697902753,
+        "w": 0.0723895402038728,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5745236182993545,
+        "y": 0.5284494483247997
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p058-1",
+      "page": 58,
+      "sku": "400004",
+      "skus": [
+        "400004"
+      ],
+      "name": "Cafetera Genova Acero Inox. 4 Tazas",
+      "category": "Cafetera Genova",
+      "price": "$41.469",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113112813",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5256111920130143,
+        "y": 0.4386283079641585,
+        "w": 0.0876304440694532,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694264140477409,
+        "y": 0.46491958649868287
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p058-2",
+      "page": 58,
+      "sku": "400006",
+      "skus": [
+        "400006"
+      ],
+      "name": "Cafetera Genova Acero Inox. 6 Tazas",
+      "category": "Cafetera Genova",
+      "price": "$48.484",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113112806",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5258474406026973,
+        "y": 0.4766702218875223,
+        "w": 0.08717045115383606,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694326661796153,
+        "y": 0.5029615004220466
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p058-3",
+      "page": 58,
+      "sku": "400010",
+      "skus": [
+        "400010"
+      ],
+      "name": "Cafetera Genova Acero Inox. 10 Tazas",
+      "category": "Cafetera Genova",
+      "price": "$59.625",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113112790",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5217132952711744,
+        "y": 0.514712135810886,
+        "w": 0.09542977359493073,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5694281820686398,
+        "y": 0.5410034143454103
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p059-1",
+      "page": 59,
+      "sku": "BLI03",
+      "skus": [
+        "BLI03"
+      ],
+      "name": "Repuesto Filtro + Juntas De Silicona 3 Tazas",
+      "category": "Repuesto filtro y junta",
+      "price": "$2.954",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5431545715588266,
+        "y": 0.40198666987839493,
+        "w": 0.07843448052778652,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5823718118227199,
+        "y": 0.4282779484129193
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p059-2",
+      "page": 59,
+      "sku": "BLI06",
+      "skus": [
+        "BLI06"
+      ],
+      "name": "Repuesto Filtro + Juntas De Silicona 6 Tazas",
+      "category": "Repuesto filtro y junta",
+      "price": "$3.517",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5428198775156119,
+        "y": 0.4400285838017587,
+        "w": 0.07913292565333753,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5823863403422807,
+        "y": 0.46631986233628303
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p059-3",
+      "page": 59,
+      "sku": "BLI09",
+      "skus": [
+        "BLI09"
+      ],
+      "name": "Repuesto Filtro + Juntas De Silicona 9 Tazas",
+      "category": "Repuesto filtro y junta",
+      "price": "$4.032",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5428198775156119,
+        "y": 0.47807049772512245,
+        "w": 0.07913292565333753,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5823863403422807,
+        "y": 0.5043617762596467
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p059-4",
+      "page": 59,
+      "sku": "BLI12",
+      "skus": [
+        "BLI12"
+      ],
+      "name": "Repuesto Filtro + Juntas De Silicona 12 Tazas",
+      "category": "Repuesto filtro y junta",
+      "price": "$6.947",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5457728311457022,
+        "y": 0.516112484115279,
+        "w": 0.07322373858627204,
+        "h": 0.023916686667501484
+      },
+      "pricePosition": {
+        "x": 0.5823847004388382,
+        "y": 0.5424037626498034
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-1",
+      "page": 60,
+      "sku": "CUPE11",
+      "skus": [
+        "CUPE11"
+      ],
+      "name": "Cuchillo Pelador 11Cm",
+      "category": "Cuchillos FILO",
+      "price": "$5.996",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157807",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.48516666338685976,
+        "y": 0.11518347613639526,
+        "w": 0.13772877677962322,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.5540310517766713,
+        "y": 0.15347415044280108
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-2",
+      "page": 60,
+      "sku": "CUUN14",
+      "skus": [
+        "CUUN14"
+      ],
+      "name": "Cuchillo Universal 14Cm",
+      "category": "Cuchillos FILO",
+      "price": "$8.774",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157821",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4945386603136807,
+        "y": 0.18977386302500743,
+        "w": 0.1478358604245382,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.5684565905259499,
+        "y": 0.22806453733141324
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-3",
+      "page": 60,
+      "sku": "CUSA17",
+      "skus": [
+        "CUSA17"
+      ],
+      "name": "Cuchillo Santoku 17Cm",
+      "category": "Cuchillos FILO",
+      "price": "$13.600",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157814",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.47582131489097923,
+        "y": 0.26261170393778754,
+        "w": 0.14133297706431044,
+        "h": 0.03591343740144516
+      },
+      "pricePosition": {
+        "x": 0.5464878034231344,
+        "y": 0.30089973320625557
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-4",
+      "page": 60,
+      "sku": "CUCH20",
+      "skus": [
+        "CUCH20"
+      ],
+      "name": "Cuchillo de Chef 20Cm",
+      "category": "Cuchillos FILO",
+      "price": "$16.670",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157777",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.44898521750039355,
+        "y": 0.37081283247764546,
+        "w": 0.14873386130024663,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5233521481505169,
+        "y": 0.4091034886673531
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-5",
+      "page": 60,
+      "sku": "CUPA20",
+      "skus": [
+        "CUPA20"
+      ],
+      "name": "Cuchillo de Pan 20Cm",
+      "category": "Cuchillos FILO",
+      "price": "$10.529",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157791",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4707584717411839,
+        "y": 0.47874335189642697,
+        "w": 0.14496930920707388,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5432431263447208,
+        "y": 0.5170340080861346
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p060-6",
+      "page": 60,
+      "sku": "CUJA26",
+      "skus": [
+        "CUJA26"
+      ],
+      "name": "Cuchillo Jamonero 26Cm",
+      "category": "Cuchillos FILO",
+      "price": "$12.137",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113157784",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4834254446598184,
+        "y": 0.5731560244833408,
+        "w": 0.1413337970160317,
+        "h": 0.035913455518143365
+      },
+      "pricePosition": {
+        "x": 0.5540923431678343,
+        "y": 0.611444071868507
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p061-1",
+      "page": 61,
+      "sku": "MECH",
+      "skus": [
+        "MECH"
+      ],
+      "name": "Cuchillo de Chef 20Cm Messier",
+      "category": "Cuchillos Messier",
+      "price": "$9.472",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113228132",
+      "unitsPerCase": 10,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.562555449235149,
+        "y": 0.11518347613639526,
+        "w": 0.11296936086403232,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.6190401296671652,
+        "y": 0.15347415044280108
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p061-2",
+      "page": 61,
+      "sku": "MESA",
+      "skus": [
+        "MESA"
+      ],
+      "name": "Cuchillo Santoku 18Cm Messier",
+      "category": "Cuchillos Messier",
+      "price": "$9.472",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113228125",
+      "unitsPerCase": 10,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5701597839919186,
+        "y": 0.2578511972673642,
+        "w": 0.10894360290066121,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.6246315854422492,
+        "y": 0.29614187157377003
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p061-3",
+      "page": 61,
+      "sku": "MEPE",
+      "skus": [
+        "MEPE"
+      ],
+      "name": "Cuchillo Pelador 9Cm Messier",
+      "category": "Cuchillos Messier",
+      "price": "$6.922",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113228101",
+      "unitsPerCase": 10,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5590239684187395,
+        "y": 0.5431866576460003,
+        "w": 0.10726352182383501,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.612655729330657,
+        "y": 0.5814773138357079
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p061-4",
+      "page": 61,
+      "sku": "MEUN",
+      "skus": [
+        "MEUN"
+      ],
+      "name": "Cuchillo De Cocina Universal 12Cm Messier",
+      "category": "Cuchillos Messier",
+      "price": "$6.922",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113228118",
+      "unitsPerCase": 10,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5751644105695056,
+        "y": 0.4005188912232858,
+        "w": 0.1151992708169343,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.6327640459779729,
+        "y": 0.4388095474129935
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-1",
+      "page": 62,
+      "sku": "ABCA",
+      "skus": [
+        "ABCA"
+      ],
+      "name": "Cuchillo de Carne 11Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$6.105",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160173",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4843334386971295,
+        "y": 0.19491581677612052,
+        "w": 0.10775626156131927,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.5382115694777891,
+        "y": 0.23320649108252633
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-2",
+      "page": 62,
+      "sku": "ABCH",
+      "skus": [
+        "ABCH"
+      ],
+      "name": "Cuchillo de Chef 20 Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$12.210",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160197",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5025746484047019,
+        "y": 0.4308293954878117,
+        "w": 0.10987076330945635,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5575100300594301,
+        "y": 0.4691200516775193
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-3",
+      "page": 62,
+      "sku": "ABPE",
+      "skus": [
+        "ABPE"
+      ],
+      "name": "Cuchillo Pelador 9Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$6.105",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160166",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.49424101783886965,
+        "y": 0.10141059148555766,
+        "w": 0.1041649755162416,
+        "h": 0.035916082439382976
+      },
+      "pricePosition": {
+        "x": 0.5463235055969905,
+        "y": 0.13970126579196349
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-4",
+      "page": 62,
+      "sku": "ABSA",
+      "skus": [
+        "ABSA"
+      ],
+      "name": "Cuchillo Santoku 17Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$12.210",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160180",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5118718247369595,
+        "y": 0.32218765073092903,
+        "w": 0.1058450565930678,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5647943530334933,
+        "y": 0.3604783069206367
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-5",
+      "page": 62,
+      "sku": "ABPA",
+      "skus": [
+        "ABPA"
+      ],
+      "name": "Cuchillo de Pan 20Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$12.210",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160210",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5171236667585013,
+        "y": 0.531593492597952,
+        "w": 0.10610564749947524,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5701764905082388,
+        "y": 0.5698841487876596
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p062-6",
+      "page": 62,
+      "sku": "ABTR",
+      "skus": [
+        "ABTR"
+      ],
+      "name": "Cuchillo para Trinchar 20Cm",
+      "category": "Cuchillos Álvaro Barrientos",
+      "price": "$12.210",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160203",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4998529211600021,
+        "y": 0.6252710982719278,
+        "w": 0.10575819295759865,
+        "h": 0.03591606432268477
+      },
+      "pricePosition": {
+        "x": 0.5527320176388014,
+        "y": 0.6635617544616355
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p063-1",
+      "page": 63,
+      "sku": "1179",
+      "skus": [
+        "1179"
+      ],
+      "name": "Set De 2 Cuchillos Mestre (Chef 20Cm Y Pelador 9Cm)",
+      "category": "Cuchillos Mestre",
+      "price": "$12.338",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113226664",
+      "unitsPerCase": 3,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6218428783913204,
+        "y": 0.09455342121526232,
+        "w": 0.10594068346255772,
+        "h": 0.049686340168980964
+      },
+      "pricePosition": {
+        "x": 0.6748132201225991,
+        "y": 0.14661435325126615
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p063-2",
+      "page": 63,
+      "sku": "1180",
+      "skus": [
+        "1180"
+      ],
+      "name": "Set De 3 Cuchillos Mestre (Chef 20Cm, Universal 13Cm Y Pelador 9Cm)",
+      "category": "Cuchillos Mestre",
+      "price": "$14.136",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113226657",
+      "unitsPerCase": 3,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7013827050863245,
+        "y": 0.12751331142517253,
+        "w": 0.1059407347095403,
+        "h": 0.049686331110631865
+      },
+      "pricePosition": {
+        "x": 0.7543530724410946,
+        "y": 0.17957423440282724
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p064-1",
+      "page": 64,
+      "sku": "2551",
+      "skus": [
+        "2551"
+      ],
+      "name": "Especiero Negro 70ml",
+      "category": "Especiero Acero inoxidable",
+      "price": "$3.497",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113225508",
+      "unitsPerCase": 6,
+      "sizeLabel": "70ML",
+      "hotspot": {
+        "x": 0.38130132897774976,
+        "y": 0.09455342121526232,
+        "w": 0.10594068346255772,
+        "h": 0.049686340168980964
+      },
+      "pricePosition": {
+        "x": 0.43427167070902867,
+        "y": 0.14661435325126615
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p065-1",
+      "page": 65,
+      "sku": "1178",
+      "skus": [
+        "1178"
+      ],
+      "name": "Set 5 Cuchillos Con Taco Madera Blade",
+      "category": "Set de cuchillos Blade",
+      "price": "$41.088",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113111786",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.37141883523398145,
+        "y": 0.09451633633403829,
+        "w": 0.10603859082277235,
+        "h": 0.04974231170808289
+      },
+      "pricePosition": {
+        "x": 0.4244381306453676,
+        "y": 0.14663323990914404
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p066-1",
+      "page": 66,
+      "sku": "6000",
+      "skus": [
+        "6000"
+      ],
+      "name": "Cucharón",
+      "category": "Línea Chamber",
+      "price": "$8.745",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113161040",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.09326954672658874,
+        "y": 0.5776358491484862,
+        "w": 0.08109563383907956,
+        "h": 0.0289405557797195
+      },
+      "pricePosition": {
+        "x": 0.1338173636461285,
+        "y": 0.6089509967952286
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p066-2",
+      "page": 66,
+      "sku": "6002",
+      "skus": [
+        "6002"
+      ],
+      "name": "Cuchara",
+      "category": "Línea Chamber",
+      "price": "$8.745",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113161064",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.467226427207966,
+        "y": 0.5776358491484862,
+        "w": 0.08006751687460642,
+        "h": 0.0289405557797195
+      },
+      "pricePosition": {
+        "x": 0.5072601856452692,
+        "y": 0.6089509967952286
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p066-3",
+      "page": 66,
+      "sku": "6001",
+      "skus": [
+        "6001"
+      ],
+      "name": "Pinza de fideos",
+      "category": "Línea Chamber",
+      "price": "$8.745",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113161057",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.27187754185033586,
+        "y": 0.5776358491484862,
+        "w": 0.07862821974542139,
+        "h": 0.0289405557797195
+      },
+      "pricePosition": {
+        "x": 0.3111916517230465,
+        "y": 0.6089509967952286
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p066-4",
+      "page": 66,
+      "sku": "6003",
+      "skus": [
+        "6003"
+      ],
+      "name": "Espumadera",
+      "category": "Línea Chamber",
+      "price": "$8.745",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113161071",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6633430948585747,
+        "y": 0.5776358491484862,
+        "w": 0.07994416538754198,
+        "h": 0.0289405557797195
+      },
+      "pricePosition": {
+        "x": 0.7033151775523457,
+        "y": 0.6089509967952286
+      },
+      "section": "Magefesa"
+    },
+    {
+      "id": "p067-1",
+      "page": 67,
+      "sku": "LUNCH",
+      "skus": [
+        "LUNCH"
+      ],
+      "name": "Lunchera Térmica neoprene con dos hermeticos de 800ml",
+      "category": "Lunchera térmica Lunch Plus",
+      "price": "$30.007",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160975",
+      "unitsPerCase": 12,
+      "sizeLabel": "800ML",
+      "hotspot": {
+        "x": 0.3407620703043005,
+        "y": 0.1278497385108248,
+        "w": 0.148253241474142,
+        "h": 0.03870839101690041
+      },
+      "pricePosition": {
+        "x": 0.4148886910413715,
+        "y": 0.16893272139474808
+      },
+      "section": "Magefesa"
     }
   ]
 }
