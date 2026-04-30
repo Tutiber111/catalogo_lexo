@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive Product Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Catalog navigation">
+        <div class="brand-block">
+          <span class="eyebrow">Interactive catalog</span>
+          <h1>LEXO</h1>
+          <p id="catalogMeta">Loading catalog...</p>
+        </div>
+
+        <label class="search-wrap">
+          <span>Search products</span>
+          <input id="searchInput" type="search" placeholder="SKU, name, category">
+        </label>
+
+        <div class="tabs" role="tablist" aria-label="Catalog panels">
+          <button class="tab-button is-active" data-panel="pagesPanel" type="button">Pages</button>
+          <button class="tab-button" data-panel="productsPanel" type="button">Products</button>
+        </div>
+
+        <div id="pagesPanel" class="panel is-active"></div>
+        <div id="productsPanel" class="panel"></div>
+      </aside>
+
+      <main class="viewer" aria-label="Catalog page viewer">
+        <header class="viewer-toolbar">
+          <button id="prevPage" class="icon-button" type="button" aria-label="Previous page">‹</button>
+          <div>
+            <strong id="pageTitle">Page</strong>
+            <span id="pageSubtitle"></span>
+          </div>
+          <button id="nextPage" class="icon-button" type="button" aria-label="Next page">›</button>
+          <label class="zoom-control">
+            <span>Zoom</span>
+            <input id="zoomSlider" type="range" min="70" max="170" step="5" value="100">
+            <strong id="zoomValue">100%</strong>
+          </label>
+          <button id="openCart" class="cart-button" type="button">
+            Cart <span id="cartCount">0</span>
+          </button>
+        </header>
+
+        <section class="page-stage">
+          <div id="pageFrame" class="page-frame">
+            <img id="pageImage" alt="Catalog page">
+            <div id="hotspotLayer" class="hotspot-layer"></div>
+          </div>
+        </section>
+      </main>
+
+      <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+        <div class="cart-header">
+          <div>
+            <span class="eyebrow">Order draft</span>
+            <h2>Cart</h2>
+          </div>
+          <button id="closeCart" class="icon-button" type="button" aria-label="Close cart">×</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total items</span>
+            <strong id="cartTotalItems">0</strong>
+          </div>
+          <button id="copyOrder" class="primary-button" type="button">Copy order</button>
+          <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Send by WhatsApp</a>
+        </div>
+      </aside>
+    </div>
+
+    <dialog id="productDialog" class="product-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+      </form>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="data/catalog-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

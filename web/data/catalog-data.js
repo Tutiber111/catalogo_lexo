@@ -1,0 +1,2650 @@
+window.CATALOG_DATA = {
+  "source": "C:\\Users\\Lenovo\\Downloads\\Copy of Catálogo Lexo.pdf",
+  "totalPagesInPdf": 25,
+  "priceList": {
+    "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
+    "productCount": 887
+  },
+  "samplePageCount": 25,
+  "pages": [
+    {
+      "number": 1,
+      "title": "Catalog",
+      "image": {
+        "src": "assets/pages/page-001.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 2,
+      "title": "BOTELLAS TÉRMICAS",
+      "image": {
+        "src": "assets/pages/page-002.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 3,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-003.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p003-1",
+        "p003-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg003-1",
+          "page": 3,
+          "label": "500ML",
+          "price": "$13.057",
+          "productIds": [
+            "p003-1",
+            "p003-2"
+          ],
+          "position": {
+            "x": 0.4890492116574176,
+            "y": 0.23444476740478443
+          }
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-004.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p004-1",
+        "p004-2",
+        "p004-3",
+        "p004-4",
+        "p004-5",
+        "p004-6",
+        "p004-7",
+        "p004-8",
+        "p004-9",
+        "p004-10",
+        "p004-11",
+        "p004-12"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg004-1",
+          "page": 4,
+          "label": "500ML",
+          "price": "$13.057",
+          "productIds": [
+            "p004-1",
+            "p004-3",
+            "p004-5",
+            "p004-7",
+            "p004-9",
+            "p004-11"
+          ],
+          "position": {
+            "x": 0.89,
+            "y": 0.69
+          }
+        },
+        {
+          "id": "pg004-2",
+          "page": 4,
+          "label": "750ML",
+          "price": "$14.820",
+          "productIds": [
+            "p004-2",
+            "p004-4",
+            "p004-6",
+            "p004-8",
+            "p004-10",
+            "p004-12"
+          ],
+          "position": {
+            "x": 0.89,
+            "y": 0.718
+          }
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-005.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p005-1",
+        "p005-2",
+        "p005-3"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg005-1",
+          "page": 5,
+          "label": "500ML",
+          "price": "$13.057",
+          "productIds": [
+            "p005-1",
+            "p005-2",
+            "p005-3"
+          ],
+          "position": {
+            "x": 0.4999839340709619,
+            "y": 0.22253794796072648
+          }
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-006.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p006-1",
+        "p006-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg006-1",
+          "page": 6,
+          "label": "940ML",
+          "price": "$18.285",
+          "productIds": [
+            "p006-1",
+            "p006-2"
+          ],
+          "position": {
+            "x": 0.4999751067782129,
+            "y": 0.22253794796072648
+          }
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-007.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p007-1",
+        "p007-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg007-1",
+          "page": 7,
+          "label": "280ML",
+          "price": "$14.352",
+          "productIds": [
+            "p007-1",
+            "p007-2"
+          ],
+          "position": {
+            "x": 0.49997973181839056,
+            "y": 0.22253794796072648
+          }
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Botellas térmicas",
+      "image": {
+        "src": "assets/pages/page-008.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p008-1",
+        "p008-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg008-1",
+          "page": 8,
+          "label": "380ML",
+          "price": "$11.950",
+          "productIds": [
+            "p008-1",
+            "p008-2"
+          ],
+          "position": {
+            "x": 0.4999829091313103,
+            "y": 0.22253794796072648
+          }
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "TUMBLERS",
+      "image": {
+        "src": "assets/pages/page-009.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 10,
+      "title": "Tumblers",
+      "image": {
+        "src": "assets/pages/page-010.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p010-1",
+        "p010-2",
+        "p010-3",
+        "p010-4"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg010-1",
+          "page": 10,
+          "label": "1200ML",
+          "price": "$15.700",
+          "productIds": [
+            "p010-1",
+            "p010-2",
+            "p010-3",
+            "p010-4"
+          ],
+          "position": {
+            "x": 0.499981012992955,
+            "y": 0.2053303819057955
+          }
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Tumblers",
+      "image": {
+        "src": "assets/pages/page-011.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p011-1",
+        "p011-2",
+        "p011-3",
+        "p011-4",
+        "p011-5"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg011-1",
+          "page": 11,
+          "label": "900ML",
+          "price": "$12.390",
+          "productIds": [
+            "p011-1",
+            "p011-2",
+            "p011-3",
+            "p011-4",
+            "p011-5"
+          ],
+          "position": {
+            "x": 0.4999786300082651,
+            "y": 0.2053303819057955
+          }
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "TERMOS",
+      "image": {
+        "src": "assets/pages/page-012.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 13,
+      "title": "Termos",
+      "image": {
+        "src": "assets/pages/page-013.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p013-1",
+        "p013-2",
+        "p013-3",
+        "p013-4",
+        "p013-5",
+        "p013-6"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg013-1",
+          "page": 13,
+          "label": "500ML",
+          "price": "$11.187",
+          "productIds": [
+            "p013-1",
+            "p013-3",
+            "p013-5"
+          ],
+          "position": {
+            "x": 0.88,
+            "y": 0.63
+          }
+        },
+        {
+          "id": "pg013-2",
+          "page": 13,
+          "label": "1 Litro",
+          "price": "$15.743",
+          "productIds": [
+            "p013-2",
+            "p013-4",
+            "p013-6"
+          ],
+          "position": {
+            "x": 0.88,
+            "y": 0.658
+          }
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "CAFETERAS",
+      "image": {
+        "src": "assets/pages/page-014.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 15,
+      "title": "Cafeteras",
+      "image": {
+        "src": "assets/pages/page-015.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p015-1",
+        "p015-2",
+        "p015-3"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg015-1",
+          "page": 15,
+          "label": "Cafetera French Press 350ml",
+          "price": "$8.843",
+          "productIds": [
+            "p015-1"
+          ],
+          "position": {
+            "x": 0.184,
+            "y": 0.76
+          }
+        },
+        {
+          "id": "pg015-2",
+          "page": 15,
+          "label": "Cafetera French Press 600ml",
+          "price": "$11.990",
+          "productIds": [
+            "p015-2"
+          ],
+          "position": {
+            "x": 0.438,
+            "y": 0.76
+          }
+        },
+        {
+          "id": "pg015-3",
+          "page": 15,
+          "label": "Cafetera French Press 1000ml",
+          "price": "$14.712",
+          "productIds": [
+            "p015-3"
+          ],
+          "position": {
+            "x": 0.691,
+            "y": 0.76
+          }
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Cafeteras",
+      "image": {
+        "src": "assets/pages/page-016.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p016-1",
+        "p016-2",
+        "p016-3",
+        "p016-4",
+        "p016-5",
+        "p016-6",
+        "p016-7",
+        "p016-8"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg016-1",
+          "page": 16,
+          "label": "350ML",
+          "price": "$8.843",
+          "productIds": [
+            "p016-1",
+            "p016-3",
+            "p016-5",
+            "p016-7"
+          ],
+          "position": {
+            "x": 0.478,
+            "y": 0.565
+          }
+        },
+        {
+          "id": "pg016-2",
+          "page": 16,
+          "label": "1 Litro",
+          "price": "$14.712",
+          "productIds": [
+            "p016-2",
+            "p016-4",
+            "p016-6",
+            "p016-8"
+          ],
+          "position": {
+            "x": 0.478,
+            "y": 0.615
+          }
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Cafeteras",
+      "image": {
+        "src": "assets/pages/page-017.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p017-1",
+        "p017-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg017-1",
+          "page": 17,
+          "label": "Cafetera Acero French Press 350ml",
+          "price": "$13.739",
+          "productIds": [
+            "p017-1"
+          ],
+          "position": {
+            "x": 0.258,
+            "y": 0.835
+          }
+        },
+        {
+          "id": "pg017-2",
+          "page": 17,
+          "label": "Cafetera Acero French Press 1000ml",
+          "price": "$20.189",
+          "productIds": [
+            "p017-2"
+          ],
+          "position": {
+            "x": 0.562,
+            "y": 0.835
+          }
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Cafeteras",
+      "image": {
+        "src": "assets/pages/page-018.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p018-1",
+        "p018-2",
+        "p018-3",
+        "p018-4"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg018-1",
+          "page": 18,
+          "label": "Cafetera Aluminio 3 Tazas Marca Lexo",
+          "price": "$11.935",
+          "productIds": [
+            "p018-1"
+          ],
+          "position": {
+            "x": 0.091,
+            "y": 0.72
+          }
+        },
+        {
+          "id": "pg018-2",
+          "page": 18,
+          "label": "Cafetera Aluminio 6 Tazas Marca Lexo",
+          "price": "$15.017",
+          "productIds": [
+            "p018-2"
+          ],
+          "position": {
+            "x": 0.328,
+            "y": 0.72
+          }
+        },
+        {
+          "id": "pg018-3",
+          "page": 18,
+          "label": "Cafetera Aluminio 9 Tazas Marca Lexo",
+          "price": "$20.429",
+          "productIds": [
+            "p018-3"
+          ],
+          "position": {
+            "x": 0.565,
+            "y": 0.72
+          }
+        },
+        {
+          "id": "pg018-4",
+          "page": 18,
+          "label": "Cafetera Aluminio 12 Tazas Marca Lexo",
+          "price": "$24.079",
+          "productIds": [
+            "p018-4"
+          ],
+          "position": {
+            "x": 0.81,
+            "y": 0.72
+          }
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Cafeteras",
+      "image": {
+        "src": "assets/pages/page-019.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p019-1",
+        "p019-2",
+        "p019-3"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg019-1",
+          "page": 19,
+          "label": "Cafetera Acero 4 Tazas Marca Lexo",
+          "price": "$19.679",
+          "productIds": [
+            "p019-1"
+          ],
+          "position": {
+            "x": 0.189,
+            "y": 0.695
+          }
+        },
+        {
+          "id": "pg019-2",
+          "page": 19,
+          "label": "Cafetera Acero 6 Tazas Marca Lexo",
+          "price": "$22.825",
+          "productIds": [
+            "p019-2"
+          ],
+          "position": {
+            "x": 0.441,
+            "y": 0.695
+          }
+        },
+        {
+          "id": "pg019-3",
+          "page": 19,
+          "label": "Cafetera Acero 9 Tazas Marca Lexo",
+          "price": "$28.578",
+          "productIds": [
+            "p019-3"
+          ],
+          "position": {
+            "x": 0.694,
+            "y": 0.695
+          }
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-020.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 21,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-021.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p021-1"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg021-1",
+          "page": 21,
+          "label": "Molinillo De Café",
+          "price": "$19.722",
+          "productIds": [
+            "p021-1"
+          ],
+          "position": {
+            "x": 0.4999823197910107,
+            "y": 0.6691941692638765
+          }
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-022.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p022-1",
+        "p022-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg022-1",
+          "page": 22,
+          "label": "Tetera 800Ml",
+          "price": "$20.866",
+          "productIds": [
+            "p022-1"
+          ],
+          "position": {
+            "x": 0.24,
+            "y": 0.635
+          }
+        },
+        {
+          "id": "pg022-2",
+          "page": 22,
+          "label": "Tetera 1 Litro",
+          "price": "$18.245",
+          "productIds": [
+            "p022-2"
+          ],
+          "position": {
+            "x": 0.743,
+            "y": 0.635
+          }
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-023.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p023-1"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg023-1",
+          "page": 23,
+          "label": "Jarra Medidora 500Ml",
+          "price": "$12.094",
+          "productIds": [
+            "p023-1"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.695
+          }
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-024.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p024-1",
+        "p024-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg024-1",
+          "page": 24,
+          "label": "Pack X 2 Vasos Dobles 80Ml",
+          "price": "$12.457",
+          "productIds": [
+            "p024-1"
+          ],
+          "position": {
+            "x": 0.33,
+            "y": 0.68
+          }
+        },
+        {
+          "id": "pg024-2",
+          "page": 24,
+          "label": "Pack X 2 Vasos Dobles 250Ml",
+          "price": "$16.247",
+          "productIds": [
+            "p024-2"
+          ],
+          "position": {
+            "x": 0.67,
+            "y": 0.68
+          }
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Accesorios",
+      "image": {
+        "src": "assets/pages/page-025.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p025-1",
+        "p025-2",
+        "p025-3",
+        "p025-4"
+      ],
+      "priceGroups": [
+        {
+          "id": "pg025-1",
+          "page": 25,
+          "label": "Frasco Con Tapa De Bamboo 450Ml",
+          "price": "$7.578",
+          "productIds": [
+            "p025-1"
+          ],
+          "position": {
+            "x": 0.068,
+            "y": 0.688
+          }
+        },
+        {
+          "id": "pg025-2",
+          "page": 25,
+          "label": "Frasco Con Tapa De Bamboo 800Ml",
+          "price": "$8.279",
+          "productIds": [
+            "p025-2"
+          ],
+          "position": {
+            "x": 0.306,
+            "y": 0.688
+          }
+        },
+        {
+          "id": "pg025-3",
+          "page": 25,
+          "label": "Frasco Con Tapa De Bamboo 1 litro",
+          "price": "$10.641",
+          "productIds": [
+            "p025-3"
+          ],
+          "position": {
+            "x": 0.546,
+            "y": 0.688
+          }
+        },
+        {
+          "id": "pg025-4",
+          "page": 25,
+          "label": "Frasco Con Tapa De Bamboo 1.3 litros",
+          "price": "$11.574",
+          "productIds": [
+            "p025-4"
+          ],
+          "position": {
+            "x": 0.808,
+            "y": 0.688
+          }
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": "p003-1",
+      "page": 3,
+      "sku": "1401",
+      "skus": [
+        "1401"
+      ],
+      "name": "Electro 500ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010052",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.32904173164784056,
+        "y": 0.6545390590215939,
+        "w": 0.08453289707802004,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.3713081801868506,
+        "y": 0.6918535875120585
+      }
+    },
+    {
+      "id": "p003-2",
+      "page": 3,
+      "sku": "1402",
+      "skus": [
+        "1402"
+      ],
+      "name": "Electro 500ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010053",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.5722047435846978,
+        "y": 0.6546616003682473,
+        "w": 0.08982345619489925,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.6171164716821473,
+        "y": 0.6919735200541703
+      }
+    },
+    {
+      "id": "p004-1",
+      "page": 4,
+      "sku": "1404",
+      "skus": [
+        "1404"
+      ],
+      "name": "Botella Electro Plus 500ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116526",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.19208127525451302,
+        "y": 0.6837048415933883,
+        "w": 0.09248173967516793,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.23832214509209698,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-2",
+      "page": 4,
+      "sku": "1474",
+      "skus": [
+        "1474"
+      ],
+      "name": "Botella Electro Plus 750ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116724",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.19208127525451302,
+        "y": 0.7093719998747774,
+        "w": 0.09090305075337164,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.23753280063119883,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p004-3",
+      "page": 4,
+      "sku": "1409",
+      "skus": [
+        "1409"
+      ],
+      "name": "Botella Electro Plus 500ml Plateada",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116557",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.7108786172170183,
+        "y": 0.6837048415933883,
+        "w": 0.09108997412232368,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.7564236042781801,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-4",
+      "page": 4,
+      "sku": "1479",
+      "skus": [
+        "1479"
+      ],
+      "name": "Botella Electro Plus 750ml Plateada",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116755",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.7108786172170183,
+        "y": 0.7093719998747774,
+        "w": 0.08951131082401868,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.7556342726290276,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p004-5",
+      "page": 4,
+      "sku": "1405",
+      "skus": [
+        "1405"
+      ],
+      "name": "Botella Electro Plus 500ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116502",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.2958407846446001,
+        "y": 0.6837048415933883,
+        "w": 0.08996594842995645,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.34082375885957833,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-6",
+      "page": 4,
+      "sku": "1475",
+      "skus": [
+        "1475"
+      ],
+      "name": "Botella Electro Plus 750ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116700",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.2958407846446001,
+        "y": 0.7093719998747774,
+        "w": 0.08838725950816016,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.3400344143986802,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p004-7",
+      "page": 4,
+      "sku": "1406",
+      "skus": [
+        "1406"
+      ],
+      "name": "Botella Electro Plus 500ml Azul",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116519",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.3996002427877047,
+        "y": 0.6837048415933883,
+        "w": 0.09108997412232368,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.4451452298488665,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-8",
+      "page": 4,
+      "sku": "1476",
+      "skus": [
+        "1476"
+      ],
+      "name": "Botella Electro Plus 750ml Azul",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116717",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.3996002427877047,
+        "y": 0.7093719998747774,
+        "w": 0.08951131082401868,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.444355898199714,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p004-9",
+      "page": 4,
+      "sku": "1407",
+      "skus": [
+        "1407"
+      ],
+      "name": "Botella Electro Plus 500ml Celeste",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116540",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.5033596496838266,
+        "y": 0.6837048415933883,
+        "w": 0.09063500341099916,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.5486771513893262,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-10",
+      "page": 4,
+      "sku": "1477",
+      "skus": [
+        "1477"
+      ],
+      "name": "Botella Electro Plus 750ml Celeste",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116748",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.5033596496838266,
+        "y": 0.7093719998747774,
+        "w": 0.08905634011269417,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.5478878197401738,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p004-11",
+      "page": 4,
+      "sku": "1408",
+      "skus": [
+        "1408"
+      ],
+      "name": "Botella Electro Plus 500ml Rosa",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116533",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.6071191590739138,
+        "y": 0.6837048415933883,
+        "w": 0.0917055528770466,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.652971935512437,
+        "y": 0.7210193700838528
+      }
+    },
+    {
+      "id": "p004-12",
+      "page": 4,
+      "sku": "1478",
+      "skus": [
+        "1478"
+      ],
+      "name": "Botella Electro Plus 750ml Rosa",
+      "category": "Botellas térmicas",
+      "price": "$14.820",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210116731",
+      "unitsPerCase": 6,
+      "sizeLabel": "750ML",
+      "hotspot": {
+        "x": 0.6071191590739138,
+        "y": 0.7093719998747774,
+        "w": 0.0901268895787416,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.6521826038632845,
+        "y": 0.746686528365242
+      }
+    },
+    {
+      "id": "p005-1",
+      "page": 5,
+      "sku": "1500",
+      "skus": [
+        "1500"
+      ],
+      "name": "Oreo 500ml Azul",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010271",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.12017189365390166,
+        "y": 0.6193518657010612,
+        "w": 0.08969888759199858,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.16502133744990094,
+        "y": 0.6566663941915257
+      }
+    },
+    {
+      "id": "p005-2",
+      "page": 5,
+      "sku": "1501",
+      "skus": [
+        "1501"
+      ],
+      "name": "Oreo 500ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010272",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.45013555851831444,
+        "y": 0.6193518657010612,
+        "w": 0.08201766954961692,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.4911443932931229,
+        "y": 0.6566663941915257
+      }
+    },
+    {
+      "id": "p005-3",
+      "page": 5,
+      "sku": "1502",
+      "skus": [
+        "1502"
+      ],
+      "name": "Oreo 500ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$13.057",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010273",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.7681691052030857,
+        "y": 0.6193518657010612,
+        "w": 0.08731691503004303,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.8118275627181072,
+        "y": 0.6566663941915257
+      }
+    },
+    {
+      "id": "p006-1",
+      "page": 6,
+      "sku": "1410",
+      "skus": [
+        "1410"
+      ],
+      "name": "Altros 940ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$18.285",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210014105",
+      "unitsPerCase": 24,
+      "sizeLabel": "940ML",
+      "hotspot": {
+        "x": 0.3183148926191226,
+        "y": 0.752063129591496,
+        "w": 0.08453474196939284,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.360582263603819,
+        "y": 0.7893776580819605
+      }
+    },
+    {
+      "id": "p006-2",
+      "page": 6,
+      "sku": "1411",
+      "skus": [
+        "1411"
+      ],
+      "name": "Altros 940ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$18.285",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210014112",
+      "unitsPerCase": 24,
+      "sizeLabel": "940ML",
+      "hotspot": {
+        "x": 0.5765947651002309,
+        "y": 0.752063129591496,
+        "w": 0.07685351111526553,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.6150215206578636,
+        "y": 0.7893776580819605
+      }
+    },
+    {
+      "id": "p007-1",
+      "page": 7,
+      "sku": "1420",
+      "skus": [
+        "1420"
+      ],
+      "name": "Cocoa 280ml Negra",
+      "category": "Botellas térmicas",
+      "price": "$14.352",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210014204",
+      "unitsPerCase": 48,
+      "sizeLabel": "280ML",
+      "hotspot": {
+        "x": 0.32294382756743284,
+        "y": 0.6645181711932324,
+        "w": 0.08983270627525451,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.3678601807050601,
+        "y": 0.701832699683697
+      }
+    },
+    {
+      "id": "p007-2",
+      "page": 7,
+      "sku": "1421",
+      "skus": [
+        "1421"
+      ],
+      "name": "Cocoa 280ml Blanca",
+      "category": "Botellas térmicas",
+      "price": "$14.352",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210014211",
+      "unitsPerCase": 48,
+      "sizeLabel": "280ML",
+      "hotspot": {
+        "x": 0.5812237512955237,
+        "y": 0.6645181711932324,
+        "w": 0.0821514754211272,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.6222994890060873,
+        "y": 0.701832699683697
+      }
+    },
+    {
+      "id": "p008-1",
+      "page": 8,
+      "sku": "1498",
+      "skus": [
+        "1498"
+      ],
+      "name": "Vaso Moka 380ml Negro",
+      "category": "Botellas térmicas",
+      "price": "$11.950",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210123814",
+      "unitsPerCase": 6,
+      "sizeLabel": "380ML",
+      "hotspot": {
+        "x": 0.3017013383251994,
+        "y": 0.6638437227524859,
+        "w": 0.09058178341959225,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.3469922300349955,
+        "y": 0.7011582512429504
+      }
+    },
+    {
+      "id": "p008-2",
+      "page": 8,
+      "sku": "1499",
+      "skus": [
+        "1499"
+      ],
+      "name": "Vaso Moka 380ml Natural",
+      "category": "Botellas térmicas",
+      "price": "$11.950",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210123807",
+      "unitsPerCase": 6,
+      "sizeLabel": "380ML",
+      "hotspot": {
+        "x": 0.597295368748688,
+        "y": 0.6638437227524859,
+        "w": 0.08996617904137805,
+        "h": 0.03493993662344167
+      },
+      "pricePosition": {
+        "x": 0.6422784582693771,
+        "y": 0.7011582512429504
+      }
+    },
+    {
+      "id": "p010-1",
+      "page": 10,
+      "sku": "1491",
+      "skus": [
+        "1491"
+      ],
+      "name": "Tumbler Hydro 1200ml Negra",
+      "category": "Tumblers",
+      "price": "$15.700",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117547",
+      "unitsPerCase": 6,
+      "sizeLabel": "1200ML",
+      "hotspot": {
+        "x": 0.3516758839489531,
+        "y": 0.6308108222488127,
+        "w": 0.08340118433826617,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.3933764761180862,
+        "y": 0.6681227419347359
+      }
+    },
+    {
+      "id": "p010-2",
+      "page": 10,
+      "sku": "1493",
+      "skus": [
+        "1493"
+      ],
+      "name": "Tumbler Hydro 1200ml Natural",
+      "category": "Tumblers",
+      "price": "$15.700",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117516",
+      "unitsPerCase": 6,
+      "sizeLabel": "1200ML",
+      "hotspot": {
+        "x": 0.7714957518301322,
+        "y": 0.6308108222488127,
+        "w": 0.08875331670471243,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.8158724101824885,
+        "y": 0.6681227419347359
+      }
+    },
+    {
+      "id": "p010-3",
+      "page": 10,
+      "sku": "1492",
+      "skus": [
+        "1492"
+      ],
+      "name": "Tumbler Hydro 1200ml Blanca",
+      "category": "Tumblers",
+      "price": "$15.700",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117530",
+      "unitsPerCase": 6,
+      "sizeLabel": "1200ML",
+      "hotspot": {
+        "x": 0.5602668614871956,
+        "y": 0.6308108222488127,
+        "w": 0.08869981485490135,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.6046167689146463,
+        "y": 0.6681227419347359
+      }
+    },
+    {
+      "id": "p010-4",
+      "page": 10,
+      "sku": "1490",
+      "skus": [
+        "1490"
+      ],
+      "name": "Tumbler Hydro 1200ml Rosa",
+      "category": "Tumblers",
+      "price": "$15.700",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117523",
+      "unitsPerCase": 6,
+      "sizeLabel": "1200ML",
+      "hotspot": {
+        "x": 0.1365884929820332,
+        "y": 0.6308108222488127,
+        "w": 0.09108150555845272,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.18212924576125958,
+        "y": 0.6681227419347359
+      }
+    },
+    {
+      "id": "p011-1",
+      "page": 11,
+      "sku": "1481",
+      "skus": [
+        "1481"
+      ],
+      "name": "Tumbler Nomad 900ml Natural",
+      "category": "Tumblers",
+      "price": "$12.390",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117547",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.2738773272279728,
+        "y": 0.6528592787640991,
+        "w": 0.0840165068580762,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.3158855806570109,
+        "y": 0.6901711984500223
+      }
+    },
+    {
+      "id": "p011-2",
+      "page": 11,
+      "sku": "1483",
+      "skus": [
+        "1483"
+      ],
+      "name": "Tumbler Nomad 900ml Negra",
+      "category": "Tumblers",
+      "price": "$12.390",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117516",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.644720300118729,
+        "y": 0.6528592787640991,
+        "w": 0.08936863922452246,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.6894046197309902,
+        "y": 0.6901711984500223
+      }
+    },
+    {
+      "id": "p011-3",
+      "page": 11,
+      "sku": "1482",
+      "skus": [
+        "1482"
+      ],
+      "name": "Tumbler Nomad 900ml Azul",
+      "category": "Tumblers",
+      "price": "$12.390",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117530",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.45797988289449515,
+        "y": 0.6528592787640991,
+        "w": 0.08931513737471138,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.5026374515818509,
+        "y": 0.6901711984500223
+      }
+    },
+    {
+      "id": "p011-4",
+      "page": 11,
+      "sku": "1480",
+      "skus": [
+        "1480"
+      ],
+      "name": "Tumbler Nomad 900ml Blanca",
+      "category": "Tumblers",
+      "price": "$12.390",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117523",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.08327831969753621,
+        "y": 0.6528592787640991,
+        "w": 0.09169682807826275,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.12912673373666758,
+        "y": 0.6901711984500223
+      }
+    },
+    {
+      "id": "p011-5",
+      "page": 11,
+      "sku": "1484",
+      "skus": [
+        "1484"
+      ],
+      "name": "Tumbler Nomad 900ml Celeste",
+      "category": "Tumblers",
+      "price": "$12.390",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210117509",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.8301812339289463,
+        "y": 0.6528592787640991,
+        "w": 0.09196445263302896,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.8761634602454608,
+        "y": 0.6901711984500223
+      }
+    },
+    {
+      "id": "p013-1",
+      "page": 13,
+      "sku": "1550",
+      "skus": [
+        "1550"
+      ],
+      "name": "Termo con pico Flamingo 500ml Negro",
+      "category": "Termos",
+      "price": "$11.187",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010062",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.2722099554028259,
+        "y": 0.6221311846059662,
+        "w": 0.08744303385416667,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.3159314723299092,
+        "y": 0.6594431042918892
+      }
+    },
+    {
+      "id": "p013-2",
+      "page": 13,
+      "sku": "1560",
+      "skus": [
+        "1560"
+      ],
+      "name": "Termo con pico Flamingo 1 litro Negro",
+      "category": "Termos",
+      "price": "$15.743",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010072",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.2716390640169107,
+        "y": 0.64796465417687,
+        "w": 0.08856667519416457,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.315922401613993,
+        "y": 0.6852765738627931
+      }
+    },
+    {
+      "id": "p013-3",
+      "page": 13,
+      "sku": "1552",
+      "skus": [
+        "1552"
+      ],
+      "name": "Termo con pico Flamingo 500ml Azul",
+      "category": "Termos",
+      "price": "$11.187",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010064",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.6552019992062867,
+        "y": 0.62253801318084,
+        "w": 0.08506138158585222,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.6977326899992129,
+        "y": 0.6598499328667632
+      }
+    },
+    {
+      "id": "p013-4",
+      "page": 13,
+      "sku": "1562",
+      "skus": [
+        "1562"
+      ],
+      "name": "Termo con pico Flamingo 1 litro Azul",
+      "category": "Termos",
+      "price": "$15.743",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010074",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.6546507866616813,
+        "y": 0.6483714827517438,
+        "w": 0.08618502292585013,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.6977432981246064,
+        "y": 0.685683402437667
+      }
+    },
+    {
+      "id": "p013-5",
+      "page": 13,
+      "sku": "1551",
+      "skus": [
+        "1551"
+      ],
+      "name": "Termo con pico Flamingo 500ml Blanco",
+      "category": "Termos",
+      "price": "$11.187",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010063",
+      "unitsPerCase": 48,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.4596856899565754,
+        "y": 0.62253801318084,
+        "w": 0.07976269982223447,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.4995670398676926,
+        "y": 0.6598499328667632
+      }
+    },
+    {
+      "id": "p013-6",
+      "page": 13,
+      "sku": "1561",
+      "skus": [
+        "1561"
+      ],
+      "name": "Termo con pico Flamingo 1 litro Blanco",
+      "category": "Termos",
+      "price": "$15.743",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690121010073",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.4591147985706602,
+        "y": 0.6483714827517438,
+        "w": 0.08088634116223237,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.49955796915177636,
+        "y": 0.685683402437667
+      }
+    },
+    {
+      "id": "p015-1",
+      "page": 15,
+      "sku": "121004-1",
+      "skus": [
+        "121004-1"
+      ],
+      "name": "Cafetera French Press 350ml",
+      "category": "Cafeteras",
+      "price": "$8.843",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210041118",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.12074525770672623,
+        "y": 0.694280935204252,
+        "w": 0.12564444361765978,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.18356747951555613,
+        "y": 0.7288346962887726
+      }
+    },
+    {
+      "id": "p015-2",
+      "page": 15,
+      "sku": "121004-2",
+      "skus": [
+        "121004-2"
+      ],
+      "name": "Cafetera French Press 600ml",
+      "category": "Cafeteras",
+      "price": "$11.990",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210041125",
+      "unitsPerCase": 30,
+      "sizeLabel": "600ML",
+      "hotspot": {
+        "x": 0.3732529134934535,
+        "y": 0.694280935204252,
+        "w": 0.13042718357243124,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.4384665052796691,
+        "y": 0.7288346962887726
+      }
+    },
+    {
+      "id": "p015-3",
+      "page": 15,
+      "sku": "121004-3",
+      "skus": [
+        "121004-3"
+      ],
+      "name": "Cafetera French Press 1000ml",
+      "category": "Cafeteras",
+      "price": "$14.712",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901210043112",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.6257605564684351,
+        "y": 0.694280935204252,
+        "w": 0.13038011321893367,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.690950613077902,
+        "y": 0.7288346962887726
+      }
+    },
+    {
+      "id": "p016-1",
+      "page": 16,
+      "sku": "121004-R",
+      "skus": [
+        "121004-R"
+      ],
+      "name": "Cafetera French Press 350ml Roja",
+      "category": "Cafeteras",
+      "price": "$8.843",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121004",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.1454020131044684,
+        "y": 0.44617333303187146,
+        "w": 0.15455006071742497,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.2226770434631809,
+        "y": 0.48461754635555804
+      }
+    },
+    {
+      "id": "p016-2",
+      "page": 16,
+      "sku": "121005-R",
+      "skus": [
+        "121005-R"
+      ],
+      "name": "Cafetera French Press 1000ml Roja",
+      "category": "Cafeteras",
+      "price": "$14.712",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121011",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.1483140460189704,
+        "y": 0.47327497147707037,
+        "w": 0.15191176356036157,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.2242699277991512,
+        "y": 0.511719184800757
+      }
+    },
+    {
+      "id": "p016-3",
+      "page": 16,
+      "sku": "121004-G",
+      "skus": [
+        "121004-G"
+      ],
+      "name": "Cafetera French Press 350ml Gris",
+      "category": "Cafeteras",
+      "price": "$8.843",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121018",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.5263037949825514,
+        "y": 0.44617333303187146,
+        "w": 0.15556072808433039,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.6040841590247166,
+        "y": 0.48461754635555804
+      }
+    },
+    {
+      "id": "p016-4",
+      "page": 16,
+      "sku": "121005-G",
+      "skus": [
+        "121005-G"
+      ],
+      "name": "Cafetera French Press 1000ml Gris",
+      "category": "Cafeteras",
+      "price": "$14.712",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121025",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.5291952009865659,
+        "y": 0.47327497147707037,
+        "w": 0.152922430927267,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.6056564164501994,
+        "y": 0.511719184800757
+      }
+    },
+    {
+      "id": "p016-5",
+      "page": 16,
+      "sku": "121004-A",
+      "skus": [
+        "121004-A"
+      ],
+      "name": "Cafetera French Press 350ml Azul",
+      "category": "Cafeteras",
+      "price": "$8.843",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121032",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.1449683098909136,
+        "y": 0.8538843360418522,
+        "w": 0.15542033697555888,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.22267847837869306,
+        "y": 0.8923285493655387
+      }
+    },
+    {
+      "id": "p016-6",
+      "page": 16,
+      "sku": "121005-A",
+      "skus": [
+        "121005-A"
+      ],
+      "name": "Cafetera French Press 1000ml Azul",
+      "category": "Cafeteras",
+      "price": "$14.712",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121039",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.14788034280541562,
+        "y": 0.8809859744870511,
+        "w": 0.15278206544198678,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.224271375526409,
+        "y": 0.9194301878107376
+      }
+    },
+    {
+      "id": "p016-7",
+      "page": 16,
+      "sku": "121004-V",
+      "skus": [
+        "121004-V"
+      ],
+      "name": "Cafetera French Press 350ml Verde",
+      "category": "Cafeteras",
+      "price": "$8.843",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121046",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.519766166168136,
+        "y": 0.8538843360418522,
+        "w": 0.1548588494109467,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.5971955908736094,
+        "y": 0.8923285493655387
+      }
+    },
+    {
+      "id": "p016-8",
+      "page": 16,
+      "sku": "121005-V",
+      "skus": [
+        "121005-V"
+      ],
+      "name": "Cafetera French Press 1000ml Verde",
+      "category": "Cafeteras",
+      "price": "$14.712",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120121053",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.5226575721721505,
+        "y": 0.8809859744870511,
+        "w": 0.15222060350086586,
+        "h": 0.036069621456663696
+      },
+      "pricePosition": {
+        "x": 0.5987678739225835,
+        "y": 0.9194301878107376
+      }
+    },
+    {
+      "id": "p017-1",
+      "page": 17,
+      "sku": "112024",
+      "skus": [
+        "112024"
+      ],
+      "name": "Cafetera Acero French Press 350ml",
+      "category": "Cafeteras",
+      "price": "$13.739",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120250350",
+      "unitsPerCase": 30,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.19752740739875235,
+        "y": 0.762269932426165,
+        "w": 0.12116333059059482,
+        "h": 0.036372532650638174
+      },
+      "pricePosition": {
+        "x": 0.25810907269404976,
+        "y": 0.8010170569438261
+      }
+    },
+    {
+      "id": "p017-2",
+      "page": 17,
+      "sku": "112025",
+      "skus": [
+        "112025"
+      ],
+      "name": "Cafetera Acero French Press 1000ml",
+      "category": "Cafeteras",
+      "price": "$20.189",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901120250006",
+      "unitsPerCase": 24,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.5021790729461849,
+        "y": 0.762269932426165,
+        "w": 0.11877554149611672,
+        "h": 0.036372532650638174
+      },
+      "pricePosition": {
+        "x": 0.5615668436942433,
+        "y": 0.8010170569438261
+      }
+    },
+    {
+      "id": "p018-1",
+      "page": 18,
+      "sku": "1250",
+      "skus": [
+        "1250"
+      ],
+      "name": "Cafetera Aluminio 3 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$11.935",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290014013",
+      "unitsPerCase": 24,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.028992727361337966,
+        "y": 0.6547168925311665,
+        "w": 0.08006649513789128,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.0690259749302836,
+        "y": 0.6892706536156872
+      }
+    },
+    {
+      "id": "p018-2",
+      "page": 18,
+      "sku": "1300",
+      "skus": [
+        "1300"
+      ],
+      "name": "Cafetera Aluminio 6 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$15.017",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290014006",
+      "unitsPerCase": 24,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.26494092965306204,
+        "y": 0.6547168925311665,
+        "w": 0.08209133708707231,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.3059865981965982,
+        "y": 0.6892706536156872
+      }
+    },
+    {
+      "id": "p018-3",
+      "page": 18,
+      "sku": "1430",
+      "skus": [
+        "1430"
+      ],
+      "name": "Cafetera Aluminio 9 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$20.429",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290014009",
+      "unitsPerCase": 12,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5023696092274087,
+        "y": 0.6547168925311665,
+        "w": 0.0821618273116079,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.5434505228832126,
+        "y": 0.6892706536156872
+      }
+    },
+    {
+      "id": "p018-4",
+      "page": 18,
+      "sku": "1450",
+      "skus": [
+        "1450"
+      ],
+      "name": "Cafetera Aluminio 12 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$24.079",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290014020",
+      "unitsPerCase": 12,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7419554536628883,
+        "y": 0.6547168925311665,
+        "w": 0.08235026246654598,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.7831305848961613,
+        "y": 0.6892706536156872
+      }
+    },
+    {
+      "id": "p019-1",
+      "page": 19,
+      "sku": "1454",
+      "skus": [
+        "1454"
+      ],
+      "name": "Cafetera Acero 4 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$19.679",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290100074",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.12634406742381007,
+        "y": 0.626606516329957,
+        "w": 0.08258589609243808,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.16763701547002913,
+        "y": 0.6611602774144776
+      }
+    },
+    {
+      "id": "p019-2",
+      "page": 19,
+      "sku": "1456",
+      "skus": [
+        "1456"
+      ],
+      "name": "Cafetera Acero 6 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$22.825",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290100076",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3789430197099995,
+        "y": 0.6262572263885797,
+        "w": 0.0813607601034451,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.419623399761722,
+        "y": 0.6608109874731003
+      }
+    },
+    {
+      "id": "p019-3",
+      "page": 19,
+      "sku": "1459",
+      "skus": [
+        "1459"
+      ],
+      "name": "Cafetera Acero 9 Tazas Marca Lexo",
+      "category": "Cafeteras",
+      "price": "$28.578",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290100079",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6315301980019417,
+        "y": 0.6259078639804097,
+        "w": 0.08136073447995382,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.6722105652419186,
+        "y": 0.6604616250649302
+      }
+    },
+    {
+      "id": "p021-1",
+      "page": 21,
+      "sku": "129001",
+      "skus": [
+        "129001"
+      ],
+      "name": "Molinillo De Café",
+      "category": "Accesorios",
+      "price": "$19.722",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6901290011117",
+      "unitsPerCase": 12,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4414136295654912,
+        "y": 0.7118822495779534,
+        "w": 0.11713738045103904,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.4999823197910107,
+        "y": 0.7491941692638765
+      }
+    },
+    {
+      "id": "p022-1",
+      "page": 22,
+      "sku": "211004",
+      "skus": [
+        "211004"
+      ],
+      "name": "Tetera 800Ml",
+      "category": "Accesorios",
+      "price": "$20.866",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "690211004116",
+      "unitsPerCase": 12,
+      "sizeLabel": "800ML",
+      "hotspot": {
+        "x": 0.1807221253312605,
+        "y": 0.5582840993942936,
+        "w": 0.11853068341336062,
+        "h": 0.03493736405229667
+      },
+      "pricePosition": {
+        "x": 0.2399874670379408,
+        "y": 0.595596055313613
+      }
+    },
+    {
+      "id": "p022-2",
+      "page": 22,
+      "sku": "299002",
+      "skus": [
+        "299002"
+      ],
+      "name": "Tetera 1 Litro",
+      "category": "Accesorios",
+      "price": "$18.245",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6902990022113",
+      "unitsPerCase": 12,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.6787410707257556,
+        "y": 0.5582840993942936,
+        "w": 0.12899060253332284,
+        "h": 0.03493736405229667
+      },
+      "pricePosition": {
+        "x": 0.7432363719924171,
+        "y": 0.595596055313613
+      }
+    },
+    {
+      "id": "p023-1",
+      "page": 23,
+      "sku": "709005",
+      "skus": [
+        "709005"
+      ],
+      "name": "Jarra Medidora 500Ml",
+      "category": "Accesorios",
+      "price": "$12.094",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6907090050004",
+      "unitsPerCase": 12,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.43446438498701195,
+        "y": 0.6170968440421861,
+        "w": 0.13105067998596243,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.49998972497999317,
+        "y": 0.6544087637281092
+      }
+    },
+    {
+      "id": "p024-1",
+      "page": 24,
+      "sku": "708010-1",
+      "skus": [
+        "708010-1"
+      ],
+      "name": "Pack X 2 Vasos Dobles 80Ml",
+      "category": "Accesorios",
+      "price": "$12.457",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6907080101129",
+      "unitsPerCase": 24,
+      "sizeLabel": "80ML",
+      "hotspot": {
+        "x": 0.2568682230990239,
+        "y": 0.6024628999007495,
+        "w": 0.14710131179976124,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.33041887899890454,
+        "y": 0.6397748195866726
+      }
+    },
+    {
+      "id": "p024-2",
+      "page": 24,
+      "sku": "708010-2",
+      "skus": [
+        "708010-2"
+      ],
+      "name": "Pack X 2 Vasos Dobles 250Ml",
+      "category": "Accesorios",
+      "price": "$16.247",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6907080102126",
+      "unitsPerCase": 12,
+      "sizeLabel": "250ML",
+      "hotspot": {
+        "x": 0.5898128993164883,
+        "y": 0.6024628999007495,
+        "w": 0.1523999679398877,
+        "h": 0.034937327818900264
+      },
+      "pricePosition": {
+        "x": 0.666012883286432,
+        "y": 0.6397748195866726
+      }
+    },
+    {
+      "id": "p025-1",
+      "page": 25,
+      "sku": "83001-1",
+      "skus": [
+        "83001-1"
+      ],
+      "name": "Frasco Con Tapa De Bamboo 450Ml",
+      "category": "Accesorios",
+      "price": "$7.578",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6908300110013",
+      "unitsPerCase": 6,
+      "sizeLabel": "450ML",
+      "hotspot": {
+        "x": 0.0169175257710826,
+        "y": 0.6173717105873404,
+        "w": 0.11537864806770178,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.07460684980493348,
+        "y": 0.6519254716718611
+      }
+    },
+    {
+      "id": "p025-2",
+      "page": 25,
+      "sku": "83001-2",
+      "skus": [
+        "83001-2"
+      ],
+      "name": "Frasco Con Tapa De Bamboo 800Ml",
+      "category": "Accesorios",
+      "price": "$8.279",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6908300120012",
+      "unitsPerCase": 6,
+      "sizeLabel": "800ML",
+      "hotspot": {
+        "x": 0.2538894409897145,
+        "y": 0.6175944010416666,
+        "w": 0.12016143926945581,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.31397016062444244,
+        "y": 0.6521481621261873
+      }
+    },
+    {
+      "id": "p025-3",
+      "page": 25,
+      "sku": "83001-3",
+      "skus": [
+        "83001-3"
+      ],
+      "name": "Frasco Con Tapa De Bamboo 1 litro",
+      "category": "Accesorios",
+      "price": "$10.641",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6908300130011",
+      "unitsPerCase": 6,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.49135750387017213,
+        "y": 0.6173717105873404,
+        "w": 0.12011436891595823,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.5514146883281512,
+        "y": 0.6519254716718611
+      }
+    },
+    {
+      "id": "p025-4",
+      "page": 25,
+      "sku": "83001-4",
+      "skus": [
+        "83001-4"
+      ],
+      "name": "Frasco Con Tapa De Bamboo 1.3 litros",
+      "category": "Accesorios",
+      "price": "$11.574",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "6908300140010",
+      "unitsPerCase": 6,
+      "sizeLabel": "1.3 Litros",
+      "hotspot": {
+        "x": 0.7288274116420025,
+        "y": 0.6173717105873404,
+        "w": 0.12296513606278862,
+        "h": 0.03217916921749778
+      },
+      "pricePosition": {
+        "x": 0.7903099796733968,
+        "y": 0.6519254716718611
+      }
+    }
+  ]
+};
