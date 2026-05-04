@@ -389,8 +389,10 @@ button:disabled {
   inset: 0;
   z-index: 9;
   display: grid;
-  place-items: center;
-  padding: 18px;
+  align-items: start;
+  justify-items: center;
+  padding: clamp(16px, 4vh, 34px) 18px;
+  overflow: auto;
   background: rgba(22, 22, 26, 0.38);
   opacity: 0;
   pointer-events: none;
@@ -406,12 +408,12 @@ button:disabled {
   display: grid;
   place-items: center;
   width: min(420px, 100%);
+  min-height: calc(100vh - clamp(32px, 8vh, 68px));
 }
 
 .admin-app-panel {
-  width: min(920px, 100%);
-  max-height: min(780px, calc(100vh - 36px));
-  overflow: auto;
+  width: min(960px, 100%);
+  overflow: visible;
   padding: 22px;
   background: #eef0f3;
   border: 1px solid var(--line);
@@ -823,7 +825,7 @@ button:disabled {
 .orders-list {
   display: grid;
   gap: 12px;
-  max-height: 560px;
+  max-height: min(420px, 46vh);
   overflow: auto;
   padding-right: 4px;
 }
@@ -927,6 +929,10 @@ button:disabled {
 
   .admin-app-panel {
     padding: 14px;
+  }
+
+  .orders-list {
+    max-height: none;
   }
 
   .admin-header,

@@ -32,6 +32,8 @@ Default admin password: `lexo2026`. Change it from the admin Settings panel befo
 
 The current admin is designed for the static prototype. Orders and adjustments are stored in the browser's local storage, with import/export buttons for moving that data between devices. To see every client order from different devices, a production version needs real server-side authentication and a shared orders database.
 
+See `docs/order-database-model.md` for the proposed customer login and order database model.
+
 ## Regenerate Sample Data
 
 The sample page images and `web/data/catalog.json` are generated from the PDF:
