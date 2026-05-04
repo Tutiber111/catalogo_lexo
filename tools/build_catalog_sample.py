@@ -30,6 +30,7 @@ SELECTED_PAGES = [
     200,
 ]
 LEXO_PAGES = range(1, 26)
+ESTIA_PAGES = range(26, 51)
 MAGEFESA_PAGES = range(51, 68)
 
 SKU_ALIASES = {
@@ -580,6 +581,9 @@ def main() -> None:
         if page_number <= doc.page_count:
             page_entries.append({"page": page_number, "doc": doc, "section": "Lexo", "showPriceOverlays": True})
     if reference_doc:
+        for page_number in ESTIA_PAGES:
+            if page_number <= reference_doc.page_count:
+                page_entries.append({"page": page_number, "doc": reference_doc, "section": "Estia", "showPriceOverlays": False})
         for page_number in MAGEFESA_PAGES:
             if page_number <= reference_doc.page_count:
                 page_entries.append({"page": page_number, "doc": reference_doc, "section": "Magefesa", "showPriceOverlays": False})

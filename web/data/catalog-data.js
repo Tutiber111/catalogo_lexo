@@ -6,7 +6,7 @@ window.CATALOG_DATA = {
     "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
     "productCount": 887
   },
-  "samplePageCount": 42,
+  "samplePageCount": 67,
   "pages": [
     {
       "number": 1,
@@ -961,6 +961,425 @@ window.CATALOG_DATA = {
           "positionSource": "priced-pdf"
         }
       ]
+    },
+    {
+      "number": 26,
+      "title": "Catálogo",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-026.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 27,
+      "title": "Catalog",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-027.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 28,
+      "title": "Coladores",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-028.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p028-1",
+        "p028-2",
+        "p028-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 29,
+      "title": "Utensilios",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-029.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p029-1",
+        "p029-2",
+        "p029-3",
+        "p029-4",
+        "p029-5",
+        "p029-6",
+        "p029-7",
+        "p029-8",
+        "p029-9",
+        "p029-10"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 30,
+      "title": "Utensilios",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-030.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p030-1",
+        "p030-2",
+        "p030-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 31,
+      "title": "Organizadoras",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-031.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p031-1",
+        "p031-2",
+        "p031-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 32,
+      "title": "Escurridores - 1 nivel",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-032.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p032-1",
+        "p032-2",
+        "p032-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 33,
+      "title": "Escurridores - 2 niveles",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-033.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p033-1",
+        "p033-2",
+        "p033-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 34,
+      "title": "Lunch boxes",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-034.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p034-1",
+        "p034-2",
+        "p034-3",
+        "p034-4",
+        "p034-5"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 35,
+      "title": "Catalog",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-035.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 36,
+      "title": "Organizadores",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-036.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p036-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 37,
+      "title": "Organizadores",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-037.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p037-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 38,
+      "title": "Accesorios de cocina",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-038.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p038-1",
+        "p038-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 39,
+      "title": "Set de cuchillos de acero inoxidable con base de acacia",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-039.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p039-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 40,
+      "title": "Cubierteros 100% bambú",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-040.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p040-1",
+        "p040-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 41,
+      "title": "Accesorios de cocina",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-041.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p041-1",
+        "p041-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 42,
+      "title": "Accesorios de cocina",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-042.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p042-1",
+        "p042-2",
+        "p042-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 43,
+      "title": "Accesorios de cocina",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-043.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p043-1",
+        "p043-2",
+        "p043-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 44,
+      "title": "Organizadores de bacha",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-044.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p044-1",
+        "p044-2",
+        "p044-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 45,
+      "title": "Catalog",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-045.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 46,
+      "title": "con impresión 3D",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-046.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p046-1",
+        "p046-2",
+        "p046-3",
+        "p046-4",
+        "p046-5",
+        "p046-6",
+        "p046-7"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 47,
+      "title": "Botellas con caja tubo 500ml",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-047.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p047-1",
+        "p047-2",
+        "p047-3",
+        "p047-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 48,
+      "title": "Botellas con caja tubo 500ml",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-048.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p048-1",
+        "p048-2",
+        "p048-3",
+        "p048-4",
+        "p048-5",
+        "p048-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 49,
+      "title": "Travel mugs con caja tubo 350ml",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-049.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p049-1",
+        "p049-2",
+        "p049-3",
+        "p049-4"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 50,
+      "title": "Travel mugs con caja tubo 350ml",
+      "section": "Estia",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-050.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p050-1",
+        "p050-2",
+        "p050-3",
+        "p050-4"
+      ],
+      "priceGroups": []
     },
     {
       "number": 51,
@@ -3092,6 +3511,1977 @@ window.CATALOG_DATA = {
         "y": 0.6519254716718611
       },
       "section": "Lexo"
+    },
+    {
+      "id": "p028-1",
+      "page": 28,
+      "sku": "19235",
+      "skus": [
+        "19235"
+      ],
+      "name": "Colador de pasta de acero inoxidable 22 cm",
+      "category": "Coladores",
+      "price": "$32.148",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158019235",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.21946466479553683,
+        "y": 0.587650832382569,
+        "w": 0.11214354136328453,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.2755364354771791,
+        "y": 0.6287116766612867
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p028-2",
+      "page": 28,
+      "sku": "23850",
+      "skus": [
+        "23850"
+      ],
+      "name": "Colador de pasta acero inoxidable color Marfil 22 cm",
+      "category": "Coladores",
+      "price": "$32.148",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158023850",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.21690328935932252,
+        "y": 0.37433913908290667,
+        "w": 0.11726339678119753,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.2755349877499213,
+        "y": 0.41539998336162437
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p028-3",
+      "page": 28,
+      "sku": "19228",
+      "skus": [
+        "19228"
+      ],
+      "name": "Colador de pasta acero inoxidable color Negro 22 cm",
+      "category": "Coladores",
+      "price": "$32.148",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158019228",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.21605676607761334,
+        "y": 0.8005357325059365,
+        "w": 0.11896925509026028,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.2755413936227435,
+        "y": 0.8415965767846542
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-1",
+      "page": 29,
+      "sku": "27919",
+      "skus": [
+        "27919"
+      ],
+      "name": "Cortador de queso de acero inoxidable 24 cm",
+      "category": "Utensilios",
+      "price": "$11.287",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027919",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.17989301321188209,
+        "y": 0.5281179127476625,
+        "w": 0.09409713424823546,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.22694158033599982,
+        "y": 0.5620523001539774
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-2",
+      "page": 29,
+      "sku": "24703",
+      "skus": [
+        "24703"
+      ],
+      "name": "Rallador manual de acero inoxidable",
+      "category": "Utensilios",
+      "price": "$5.953",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024703",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.31836813823402077,
+        "y": 0.5281179127476625,
+        "w": 0.09543238719104219,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.36608433182954186,
+        "y": 0.5620523001539774
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-3",
+      "page": 29,
+      "sku": "24710",
+      "skus": [
+        "24710"
+      ],
+      "name": "Cortapizza de acero inoxidable",
+      "category": "Utensilios",
+      "price": "$6.073",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024710",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4490537859630825,
+        "y": 0.5281179127476625,
+        "w": 0.09432002018721138,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.4962137960566882,
+        "y": 0.5620523001539774
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-4",
+      "page": 29,
+      "sku": "24697",
+      "skus": [
+        "24697"
+      ],
+      "name": "Pelapapas de acero inoxidable con mango de madera",
+      "category": "Utensilios",
+      "price": "$6.044",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024697",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5834039516753253,
+        "y": 0.5281179127476625,
+        "w": 0.09760377308984047,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.6322058382202456,
+        "y": 0.5620523001539774
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-5",
+      "page": 29,
+      "sku": "27902",
+      "skus": [
+        "27902"
+      ],
+      "name": "Cucharón ranurado de acero inoxidable 41,5 cm",
+      "category": "Utensilios",
+      "price": "$17.148",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027902",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5925490269632924,
+        "y": 0.923793703273412,
+        "w": 0.0977154402648772,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.641406747095731,
+        "y": 0.94
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-6",
+      "page": 29,
+      "sku": "27865",
+      "skus": [
+        "27865"
+      ],
+      "name": "Batidor de acero inoxidable 6 hilos",
+      "category": "Utensilios",
+      "price": "$12.890",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027865",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7280651640231424,
+        "y": 0.923793703273412,
+        "w": 0.09348372067852645,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.7748070243624056,
+        "y": 0.94
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-7",
+      "page": 29,
+      "sku": "26806",
+      "skus": [
+        "26806"
+      ],
+      "name": "Sacacorchos mozo de acero inoxidable",
+      "category": "Utensilios",
+      "price": "$14.998",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158026806",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7233686343048121,
+        "y": 0.5486064853141697,
+        "w": 0.10088947337780751,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.7738133709937159,
+        "y": 0.5825408727204846
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-8",
+      "page": 29,
+      "sku": "27896",
+      "skus": [
+        "27896"
+      ],
+      "name": "Cucharón hondo de acero inoxidable 34 cm",
+      "category": "Utensilios",
+      "price": "$16.431",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027896",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1705260000541168,
+        "y": 0.9276352404274265,
+        "w": 0.09713130153396568,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.21909165082109966,
+        "y": 0.94
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-9",
+      "page": 29,
+      "sku": "27889",
+      "skus": [
+        "27889"
+      ],
+      "name": "Espátula ranurada de acero inoxidable 37 cm",
+      "category": "Utensilios",
+      "price": "$16.431",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027889",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.29873759720527654,
+        "y": 0.9276352404274265,
+        "w": 0.09587867153881979,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.34667693297468644,
+        "y": 0.94
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p029-10",
+      "page": 29,
+      "sku": "27933",
+      "skus": [
+        "27933"
+      ],
+      "name": "Prensa papas de acero inoxidable",
+      "category": "Utensilios",
+      "price": "$18.890",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027933",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.43984142338699095,
+        "y": 0.923793703273412,
+        "w": 0.09203635214958543,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.4858595994617837,
+        "y": 0.94
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p030-1",
+      "page": 30,
+      "sku": "24871",
+      "skus": [
+        "24871"
+      ],
+      "name": "Cucharón para sopa antiadherente color marfil",
+      "category": "Utensilios",
+      "price": "$8.639",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024871",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7341951230911524,
+        "y": 0.7546575857079252,
+        "w": 0.0926206189979534,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.7805054325901291,
+        "y": 0.7885919731142401
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p030-2",
+      "page": 30,
+      "sku": "24864",
+      "skus": [
+        "24864"
+      ],
+      "name": "Espumadera antiadherente color marfil",
+      "category": "Utensilios",
+      "price": "$8.639",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024864",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.17882414208451405,
+        "y": 0.754270323167112,
+        "w": 0.09665562704167979,
+        "h": 0.0308738973452805
+      },
+      "pricePosition": {
+        "x": 0.22715195560535395,
+        "y": 0.7875188123794152
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p030-3",
+      "page": 30,
+      "sku": "25106",
+      "skus": [
+        "25106"
+      ],
+      "name": "Espátula ranurada antiadherente color marfil",
+      "category": "Utensilios",
+      "price": "$8.639",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158025106",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4567196170989452,
+        "y": 0.7546575857079252,
+        "w": 0.09420871174105269,
+        "h": 0.03155979553929208
+      },
+      "pricePosition": {
+        "x": 0.5038239729694716,
+        "y": 0.7885919731142401
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p031-1",
+      "page": 31,
+      "sku": "24758",
+      "skus": [
+        "24758"
+      ],
+      "name": "Canasto organizador metálico con madera 24 x 18 x 13 cm",
+      "category": "Organizadoras",
+      "price": "$22.798",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024758",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.13245268212357655,
+        "y": 0.4591119890221505,
+        "w": 0.11805927523237432,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.19148231973976373,
+        "y": 0.5001728333008683
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p031-2",
+      "page": 31,
+      "sku": "24741",
+      "skus": [
+        "24741"
+      ],
+      "name": "Canasto organizador metálico con madera 28 x 20 x 14 cm",
+      "category": "Organizadoras",
+      "price": "$26.540",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024741",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4271293531236881,
+        "y": 0.4591119890221505,
+        "w": 0.11517615842779177,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.48471743233758396,
+        "y": 0.5001728333008683
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p031-3",
+      "page": 31,
+      "sku": "24734",
+      "skus": [
+        "24734"
+      ],
+      "name": "Canasto organizador metálico 33 x 22 x 15 cm",
+      "category": "Organizadoras",
+      "price": "$30.468",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024734",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7235822317281958,
+        "y": 0.4591119890221505,
+        "w": 0.11859012991315071,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7828772966847712,
+        "y": 0.5001728333008683
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p032-1",
+      "page": 32,
+      "sku": "24925",
+      "skus": [
+        "24925"
+      ],
+      "name": "Escurridor de platos 1 nivel metálico con madera 43 x 32 x 20 cm",
+      "category": "Escurridores - 1 nivel",
+      "price": "$51.775",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024925",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7355803802772093,
+        "y": 0.3065059454655499,
+        "w": 0.12086436850598237,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7960125645302004,
+        "y": 0.3475667897442676
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p032-2",
+      "page": 32,
+      "sku": "27582",
+      "skus": [
+        "27582"
+      ],
+      "name": "Organizador de cajón doble extensible",
+      "category": "Escurridores - 1 nivel",
+      "price": "",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": null,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7375983327101701,
+        "y": 0.8392677114638988,
+        "w": 0.11684593886111985,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.79602130214073,
+        "y": 0.8803285557426165
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p032-3",
+      "page": 32,
+      "sku": "12885",
+      "skus": [
+        "12885"
+      ],
+      "name": "Escurridor de platos 1 nivel de bambú y metal 44 x 32 x 20 cm",
+      "category": "Escurridores - 1 nivel",
+      "price": "$41.806",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158012885",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7389189162042139,
+        "y": 0.5728868103480261,
+        "w": 0.11419119142264904,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7960145119155384,
+        "y": 0.6139476546267438
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p033-1",
+      "page": 33,
+      "sku": "23546",
+      "skus": [
+        "23546"
+      ],
+      "name": "Escurridor de platos 2 niveles negro con mangos de bambú 41 x 31 x 20 cm",
+      "category": "Escurridores - 2 niveles",
+      "price": "$58.029",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158023546",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6790276950993126,
+        "y": 0.3355616872124518,
+        "w": 0.11730111456037469,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7376782523794999,
+        "y": 0.3766225314911695
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p033-2",
+      "page": 33,
+      "sku": "25922",
+      "skus": [
+        "25922"
+      ],
+      "name": "Escurridor de platos 2 niveles de aluminio 50 x 30 x 12 cm",
+      "category": "Escurridores - 2 niveles",
+      "price": "$77.571",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158025922",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6735663554129933,
+        "y": 0.5946049632216533,
+        "w": 0.11965165991026448,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7333921853681256,
+        "y": 0.635665807500371
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p033-3",
+      "page": 33,
+      "sku": "28381",
+      "skus": [
+        "28381"
+      ],
+      "name": "Escurridor de platos plegable acero inoxidable 48 x 35.4 x 27,2 cm",
+      "category": "Escurridores - 2 niveles",
+      "price": "$88.324",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158028381",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6645500125452614,
+        "y": 0.8539616581097877,
+        "w": 0.1148355709815806,
+        "h": 0.03868625241169486
+      },
+      "pricePosition": {
+        "x": 0.7219677980360516,
+        "y": 0.8950225023885054
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-1",
+      "page": 34,
+      "sku": "29814",
+      "skus": [
+        "29814"
+      ],
+      "name": "Lunch box hermético Click & Seal 160 ml",
+      "category": "Lunch boxes",
+      "price": "$10.356",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158029814",
+      "unitsPerCase": 6,
+      "sizeLabel": "160ML",
+      "hotspot": {
+        "x": 0.13649508254453976,
+        "y": 0.2995127550251373,
+        "w": 0.1053443991967753,
+        "h": 0.034607350277808695
+      },
+      "pricePosition": {
+        "x": 0.1891672821429274,
+        "y": 0.3364946971699688
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-2",
+      "page": 34,
+      "sku": "26455",
+      "skus": [
+        "26455"
+      ],
+      "name": "Lunch box hermético Click & Seal 640 ml",
+      "category": "Lunch boxes",
+      "price": "$14.486",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158026455",
+      "unitsPerCase": 6,
+      "sizeLabel": "640ML",
+      "hotspot": {
+        "x": 0.4434036011459645,
+        "y": 0.2995127550251373,
+        "w": 0.10396142250144312,
+        "h": 0.034607350277808695
+      },
+      "pricePosition": {
+        "x": 0.49538431239668607,
+        "y": 0.3364946971699688
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-3",
+      "page": 34,
+      "sku": "26448",
+      "skus": [
+        "26448"
+      ],
+      "name": "Lunch box hermético Click & Seal 370 ml",
+      "category": "Lunch boxes",
+      "price": "$11.415",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158026448",
+      "unitsPerCase": 6,
+      "sizeLabel": "370ML",
+      "hotspot": {
+        "x": 0.28710094487136595,
+        "y": 0.2995127550251373,
+        "w": 0.11035940328833438,
+        "h": 0.034607350277808695
+      },
+      "pricePosition": {
+        "x": 0.34228064651553314,
+        "y": 0.3364946971699688
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-4",
+      "page": 34,
+      "sku": "26462",
+      "skus": [
+        "26462"
+      ],
+      "name": "Lunch box hermético Click & Seal 1050 ml",
+      "category": "Lunch boxes",
+      "price": "$18.043",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158026462",
+      "unitsPerCase": 6,
+      "sizeLabel": "1050ML",
+      "hotspot": {
+        "x": 0.5947150831759026,
+        "y": 0.2995127550251373,
+        "w": 0.11077732243125525,
+        "h": 0.034607350277808695
+      },
+      "pricePosition": {
+        "x": 0.6501037443915302,
+        "y": 0.3364946971699688
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-5",
+      "page": 34,
+      "sku": "26479",
+      "skus": [
+        "26479"
+      ],
+      "name": "Lunch box hermético Click & Seal 1520 ml",
+      "category": "Lunch boxes",
+      "price": "$22.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158026479",
+      "unitsPerCase": 6,
+      "sizeLabel": "1520ML",
+      "hotspot": {
+        "x": 0.7533817883803001,
+        "y": 0.2995127550251373,
+        "w": 0.10888072285303842,
+        "h": 0.034607350277808695
+      },
+      "pricePosition": {
+        "x": 0.8078221498068193,
+        "y": 0.3364946971699688
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p036-1",
+      "page": 36,
+      "sku": "24970",
+      "skus": [
+        "24970"
+      ],
+      "name": "Carro organizador de bambú 4 niveles color marfil 40 x 30 x 88 cm",
+      "category": "Organizadores",
+      "price": "$123.478",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158013035",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.42184850531000734,
+        "y": 0.2918891397206144,
+        "w": 0.15629048511623636,
+        "h": 0.047523070528161175
+      },
+      "pricePosition": {
+        "x": 0.4999937478681255,
+        "y": 0.3417868021157985
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p037-1",
+      "page": 37,
+      "sku": "13035",
+      "skus": [
+        "13035"
+      ],
+      "name": "Carro organizador de acacia 4 niveles color negro 40 x 30 x 88 cm",
+      "category": "Organizadores",
+      "price": "$86.667",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024970",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.43005770820214106,
+        "y": 0.2918891397206144,
+        "w": 0.1398540403941016,
+        "h": 0.047523070528161175
+      },
+      "pricePosition": {
+        "x": 0.49998472839919184,
+        "y": 0.3417868021157985
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p038-1",
+      "page": 38,
+      "sku": "24789",
+      "skus": [
+        "24789"
+      ],
+      "name": "Rallador de queso Cactus",
+      "category": "Accesorios de cocina",
+      "price": "",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "",
+      "unitsPerCase": null,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4460692641917244,
+        "y": 0.23541535139437705,
+        "w": 0.10784963356357578,
+        "h": 0.03445493449581664
+      },
+      "pricePosition": {
+        "x": 0.4999940809735123,
+        "y": 0.2722448777572165
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p038-2",
+      "page": 38,
+      "sku": "24918",
+      "skus": [
+        "24918"
+      ],
+      "name": "Porta rollo de cocina metálico color marfil",
+      "category": "Accesorios de cocina",
+      "price": "$14.188",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024918",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4472722871077351,
+        "y": 0.5871108098424977,
+        "w": 0.10545445209186083,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.49999951315366553,
+        "y": 0.623940318088639
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p039-1",
+      "page": 39,
+      "sku": "24826",
+      "skus": [
+        "24826"
+      ],
+      "name": "Set de 5 cuchillos con base de acacia",
+      "category": "Set de cuchillos de acero inoxidable con base de acacia",
+      "price": "$69.998",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158024826",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.42760554008579976,
+        "y": 0.23289819922918523,
+        "w": 0.14474448869450568,
+        "h": 0.044371598408745175
+      },
+      "pricePosition": {
+        "x": 0.4999777844330526,
+        "y": 0.27964438950495324
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p040-1",
+      "page": 40,
+      "sku": "13028",
+      "skus": [
+        "13028"
+      ],
+      "name": "Organizador de cubiertos de bambú 33 x 23 x 4,5 cm",
+      "category": "Cubierteros 100% bambú",
+      "price": "$18.148",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158013028",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.20614042370185243,
+        "y": 0.22585317691521037,
+        "w": 0.10321926369975336,
+        "h": 0.03445493449581664
+      },
+      "pricePosition": {
+        "x": 0.25775005555172914,
+        "y": 0.2626827032780499
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p040-2",
+      "page": 40,
+      "sku": "17613",
+      "skus": [
+        "17613"
+      ],
+      "name": "Organizador de cubiertos de bambú extensible (25,5-37,5) x 33,5 x 5 cm",
+      "category": "Cubierteros 100% bambú",
+      "price": "$32.934",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158017613",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6930724943915302,
+        "y": 0.2278962332050961,
+        "w": 0.09606574864871956,
+        "h": 0.03445493449581664
+      },
+      "pricePosition": {
+        "x": 0.7411053687158901,
+        "y": 0.2647257595679356
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p041-1",
+      "page": 41,
+      "sku": "19730",
+      "skus": [
+        "19730"
+      ],
+      "name": "Salero y pimentero magnéticos de bambú",
+      "category": "Accesorios de cocina",
+      "price": "$12.360",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158019730",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.448769057727881,
+        "y": 0.26945081185997327,
+        "w": 0.10245317255719984,
+        "h": 0.03445493449581664
+      },
+      "pricePosition": {
+        "x": 0.4999956440064809,
+        "y": 0.30628033822281275
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p041-2",
+      "page": 41,
+      "sku": "18184",
+      "skus": [
+        "18184"
+      ],
+      "name": "Mesa plegable de bambú 50 x 30 x 21 cm",
+      "category": "Accesorios de cocina",
+      "price": "$24.890",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158018184",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.44963467051060035,
+        "y": 0.6273103862885872,
+        "w": 0.10069693846426322,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.49998313974273195,
+        "y": 0.6641398945347284
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p042-1",
+      "page": 42,
+      "sku": "21788",
+      "skus": [
+        "21788"
+      ],
+      "name": "Spray aceitero de vidrio 100 ml plateado",
+      "category": "Accesorios de cocina",
+      "price": "$7.890",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158021788",
+      "unitsPerCase": 6,
+      "sizeLabel": "100ML",
+      "hotspot": {
+        "x": 0.14874171490032667,
+        "y": 0.27219141538081587,
+        "w": 0.10015340015529886,
+        "h": 0.03445493449581664
+      },
+      "pricePosition": {
+        "x": 0.1988184149779761,
+        "y": 0.3090209417436554
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p042-2",
+      "page": 42,
+      "sku": "21849",
+      "skus": [
+        "21849"
+      ],
+      "name": "Botella de vidrio 720 ml con tapa de corcho",
+      "category": "Accesorios de cocina",
+      "price": "$6.017",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158021849",
+      "unitsPerCase": 6,
+      "sizeLabel": "720ML",
+      "hotspot": {
+        "x": 0.1461031615083504,
+        "y": 0.5447154533406612,
+        "w": 0.10545479800899323,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.198830560512847,
+        "y": 0.5815449978201989
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p042-3",
+      "page": 42,
+      "sku": "21887",
+      "skus": [
+        "21887"
+      ],
+      "name": "Botella de vidrio 1 litro con tapa de corcho",
+      "category": "Accesorios de cocina",
+      "price": "$6.874",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158021887",
+      "unitsPerCase": 6,
+      "sizeLabel": "1 Litro",
+      "hotspot": {
+        "x": 0.14811115921494541,
+        "y": 0.8174635405071979,
+        "w": 0.10143069276081024,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.19882650559535053,
+        "y": 0.8542930487533392
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p043-1",
+      "page": 43,
+      "sku": "27803",
+      "skus": [
+        "27803"
+      ],
+      "name": "Sacacorchos con cortacápsulas",
+      "category": "Accesorios de cocina",
+      "price": "$13.539",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158027803",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.146005318206864,
+        "y": 0.3033696913726254,
+        "w": 0.10561352272578191,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.19881207956975494,
+        "y": 0.3401992358521631
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p043-2",
+      "page": 43,
+      "sku": "7577",
+      "skus": [
+        "7577"
+      ],
+      "name": "Pelapapas de fundición con mango antideslizante",
+      "category": "Accesorios de cocina",
+      "price": "$8.980",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158007577",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.15641875631362825,
+        "y": 0.5758937474491689,
+        "w": 0.08479479478248321,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.19881615370486985,
+        "y": 0.6127232919287066
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p043-3",
+      "page": 43,
+      "sku": "9304",
+      "skus": [
+        "9304"
+      ],
+      "name": "Rompenueces de fundición",
+      "category": "Accesorios de cocina",
+      "price": "$15.481",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158009304",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.15224526611123138,
+        "y": 0.8486417983823092,
+        "w": 0.09316121060541956,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.19882587141394115,
+        "y": 0.8854713066284505
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p044-1",
+      "page": 44,
+      "sku": "23553",
+      "skus": [
+        "23553"
+      ],
+      "name": "Organizador de bacha con cepillo",
+      "category": "Organizadores de bacha",
+      "price": "$27.597",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158023553",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.15045441468156354,
+        "y": 0.3033696913726254,
+        "w": 0.0967367125798633,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.1988227709714952,
+        "y": 0.3401992358521631
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p044-2",
+      "page": 44,
+      "sku": "23560",
+      "skus": [
+        "23560"
+      ],
+      "name": "Organizador de bacha con dispenser",
+      "category": "Organizadores de bacha",
+      "price": "$22.846",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158023560",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.14612284034966022,
+        "y": 0.5604166159399117,
+        "w": 0.10539114925663177,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.1988184149779761,
+        "y": 0.5972461604194494
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p044-3",
+      "page": 44,
+      "sku": "18146",
+      "skus": [
+        "18146"
+      ],
+      "name": "Dispenser para detergente con porta esponja",
+      "category": "Organizadores de bacha",
+      "price": "$20.427",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158018146",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.14775679914216652,
+        "y": 0.8486417983823092,
+        "w": 0.10213399353796049,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.19882379591114674,
+        "y": 0.8854713066284505
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-1",
+      "page": 46,
+      "sku": "32043",
+      "skus": [
+        "32043"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Soft Ripple",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032043",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.11317876884659031,
+        "y": 0.8591483238720689,
+        "w": 0.10535806932937788,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.16585780351127927,
+        "y": 0.8959778321182101
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-2",
+      "page": 46,
+      "sku": "32050",
+      "skus": [
+        "32050"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Old School",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032050",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.3239600039849654,
+        "y": 0.8591483238720689,
+        "w": 0.1062213375626443,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.37707067276628753,
+        "y": 0.8959778321182101
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-3",
+      "page": 46,
+      "sku": "32036",
+      "skus": [
+        "32036"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Sky Garden",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032036",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.4359137521482735,
+        "y": 0.5293398478081404,
+        "w": 0.10593371387292716,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.48888060908473707,
+        "y": 0.566169392287678
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-4",
+      "page": 46,
+      "sku": "32074",
+      "skus": [
+        "32074"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Tender Lace",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032074",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.7299583300535264,
+        "y": 0.5246636381344613,
+        "w": 0.10647636817144207,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.7831965141392475,
+        "y": 0.5614931826139989
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-5",
+      "page": 46,
+      "sku": "32081",
+      "skus": [
+        "32081"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Cherry Rose",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032081",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.537604574592648,
+        "y": 0.8591483238720689,
+        "w": 0.10321834125406697,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.5892137452196815,
+        "y": 0.8959778321182101
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-6",
+      "page": 46,
+      "sku": "32098",
+      "skus": [
+        "32098"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Noir Echo",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032098",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.7484473701688444,
+        "y": 0.8591483238720689,
+        "w": 0.10813666791299328,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.8025157041253411,
+        "y": 0.8959778321182101
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p046-7",
+      "page": 46,
+      "sku": "32029",
+      "skus": [
+        "32029"
+      ],
+      "name": "Vaso térmico con sorbete XL 900 ml Berry Bright",
+      "category": "con impresión 3D",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158032029",
+      "unitsPerCase": 6,
+      "sizeLabel": "900ML",
+      "hotspot": {
+        "x": 0.14218112743771646,
+        "y": 0.5293397753413476,
+        "w": 0.10797730260892238,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.19616977874217767,
+        "y": 0.5661693198208853
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p047-1",
+      "page": 47,
+      "sku": "16654",
+      "skus": [
+        "16654"
+      ],
+      "name": "Botella térmica 500ml Garden Blue en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158016654",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.25895100296494544,
+        "y": 0.5080341759192267,
+        "w": 0.1043051872605741,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.31110359659523246,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p047-2",
+      "page": 47,
+      "sku": "22105",
+      "skus": [
+        "22105"
+      ],
+      "name": "Botella térmica 500ml Citrus Infusion en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158022105",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.604281306166693,
+        "y": 0.5080341759192267,
+        "w": 0.10251610385180521,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.6555393580925956,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p047-3",
+      "page": 47,
+      "sku": "16647",
+      "skus": [
+        "16647"
+      ],
+      "name": "Botella térmica Cherry Rose en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158016647",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6025686320089473,
+        "y": 0.8931871359268329,
+        "w": 0.10596507702626469,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.6555511705220797,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p047-4",
+      "page": 47,
+      "sku": "22044",
+      "skus": [
+        "22044"
+      ],
+      "name": "Botella térmica Echo Noir en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158022044",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2558602718221951,
+        "y": 0.8931871359268329,
+        "w": 0.11046779065648614,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.3110941671504382,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-1",
+      "page": 48,
+      "sku": "31558",
+      "skus": [
+        "31558"
+      ],
+      "name": "Botella térmica 500 ml Bloom Beige en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031558",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.7587885500301742,
+        "y": 0.5189864446516028,
+        "w": 0.09561969491236356,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.806598397486356,
+        "y": 0.5558159891311405
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-2",
+      "page": 48,
+      "sku": "31541",
+      "skus": [
+        "31541"
+      ],
+      "name": "Botella térmica 500 ml Sky Garden en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031541",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.15505872545474522,
+        "y": 0.8680281872634684,
+        "w": 0.09574654400598892,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.20293199745773968,
+        "y": 0.9048576955096097
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-3",
+      "page": 48,
+      "sku": "31626",
+      "skus": [
+        "31626"
+      ],
+      "name": "Botella térmica 500 ml Old School en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031626",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.45649515531525503,
+        "y": 0.8637234423697685,
+        "w": 0.10382633545536839,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.5084083230429393,
+        "y": 0.9005529506159098
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-4",
+      "page": 48,
+      "sku": "31589",
+      "skus": [
+        "31589"
+      ],
+      "name": "Botella térmica 500 ml Soft Ripple en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031589",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.7632994631776081,
+        "y": 0.860745274585374,
+        "w": 0.099803037347161,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.8132009818511886,
+        "y": 0.8975747828315153
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-5",
+      "page": 48,
+      "sku": "31664",
+      "skus": [
+        "31664"
+      ],
+      "name": "Botella térmica 500 ml Tender Lace en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031664",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.14696153565478065,
+        "y": 0.5218562745807361,
+        "w": 0.10484796967654544,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.19938552049305336,
+        "y": 0.5586858190602738
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p048-6",
+      "page": 48,
+      "sku": "31534",
+      "skus": [
+        "31534"
+      ],
+      "name": "Botella térmica 500 ml Berry Bright en caja tubo de regalo",
+      "category": "Botellas con caja tubo 500ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031534",
+      "unitsPerCase": 6,
+      "sizeLabel": "500ML",
+      "hotspot": {
+        "x": 0.45144507266412154,
+        "y": 0.520421323382773,
+        "w": 0.09702488717464315,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.49995751625144313,
+        "y": 0.5572508678623108
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p049-1",
+      "page": 49,
+      "sku": "20439",
+      "skus": [
+        "20439"
+      ],
+      "name": "Mug térmico 350ml Garden Blue en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158020439",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.18899555350430966,
+        "y": 0.5080341759192267,
+        "w": 0.10899911619453846,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.2434951116015789,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p049-2",
+      "page": 49,
+      "sku": "25588",
+      "skus": [
+        "25588"
+      ],
+      "name": "Mug térmico 350 ml Echo Noir en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158025588",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.6625876118414148,
+        "y": 0.5080341759192267,
+        "w": 0.1011437609053579,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.7131594922940937,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p049-3",
+      "page": 49,
+      "sku": "31930",
+      "skus": [
+        "31930"
+      ],
+      "name": "Mug térmico 350 ml Tender Lace en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031930",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.6618592384780384,
+        "y": 0.8931871359268329,
+        "w": 0.10261316563680731,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.713165821296442,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p049-4",
+      "page": 49,
+      "sku": "31879",
+      "skus": [
+        "31879"
+      ],
+      "name": "Mug térmico 350 ml Sky Garden en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031879",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.19277531313956234,
+        "y": 0.8931871359268329,
+        "w": 0.10146341395918608,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.24350702011915537,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p050-1",
+      "page": 50,
+      "sku": "20439",
+      "skus": [
+        "20439"
+      ],
+      "name": "Mug térmico 350ml Garden Blue en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158020439",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.18899555350430966,
+        "y": 0.5080341759192267,
+        "w": 0.10899911619453846,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.2434951116015789,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p050-2",
+      "page": 50,
+      "sku": "25588",
+      "skus": [
+        "25588"
+      ],
+      "name": "Mug térmico 350 ml Echo Noir en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158025588",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.6625876118414148,
+        "y": 0.5080341759192267,
+        "w": 0.1011437609053579,
+        "h": 0.03445495261251484
+      },
+      "pricePosition": {
+        "x": 0.7131594922940937,
+        "y": 0.5448637203987645
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p050-3",
+      "page": 50,
+      "sku": "31930",
+      "skus": [
+        "31930"
+      ],
+      "name": "Mug térmico 350 ml Tender Lace en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031930",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.6618592384780384,
+        "y": 0.8931871359268329,
+        "w": 0.10261316563680731,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.713165821296442,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p050-4",
+      "page": 50,
+      "sku": "31879",
+      "skus": [
+        "31879"
+      ],
+      "name": "Mug térmico 350 ml Sky Garden en caja tubo de regalo",
+      "category": "Travel mugs con caja tubo 350ml",
+      "price": "$36.318",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "5207158031879",
+      "unitsPerCase": 6,
+      "sizeLabel": "350ML",
+      "hotspot": {
+        "x": 0.19277531313956234,
+        "y": 0.8931871359268329,
+        "w": 0.10146341395918608,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.24350702011915537,
+        "y": 0.9300166441729741
+      },
+      "section": "Estia"
     },
     {
       "id": "p052-1",
