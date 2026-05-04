@@ -32,6 +32,7 @@ SELECTED_PAGES = [
 LEXO_PAGES = range(1, 26)
 ESTIA_PAGES = range(26, 51)
 MAGEFESA_PAGES = range(51, 68)
+DREAMFARM_PAGES = range(68, 105)
 
 SKU_ALIASES = {
     "40004": "400004",
@@ -40,7 +41,8 @@ SKU_ALIASES = {
 }
 
 PRICE_RE = re.compile(r"^\$[\d.]+(?:,\d+)?$")
-SKU_RE = re.compile(r"^\d{3,6}$")
+SKU_RE = re.compile(r"^[A-Z]*\d[A-Z0-9-]*$", re.IGNORECASE)
+SKU_CANDIDATE_RE = re.compile(r"[A-Z0-9-]+", re.IGNORECASE)
 SIZE_RE = re.compile(r"(?P<value>\d+(?:[,.]\d+)?)\s*(?P<unit>ml|l|litro|litros)\b", re.IGNORECASE)
 
 PRICE_POSITION_OVERRIDES = {
@@ -181,7 +183,22 @@ def word_text(word: tuple) -> str:
     return str(word[4]).strip()
 
 
-def find_category(blocks: list[tuple]) -> str:
+def find_category(blocks: list[tuple], words: list[tuple] | None = None) -> str:
+    if words:
+        title_words = []
+        for word in words:
+            text = word_text(word).strip()
+            if not text or word[1] > 115 or not any(ch.isalpha() for ch in text):
+                continue
+            if any(ch.isdigit() for ch in text) or text.lower() in {"catálogo", "catalogo"}:
+                continue
+            height = word[3] - word[1]
+            if height < 28:
+                continue
+            title_words.append((-height, word[1], word[0], text))
+        if title_words:
+            return sorted(title_words)[0][3]
+
     candidates = []
     for block in blocks:
         x0, y0, x1, y1, text = block[:5]
@@ -271,12 +288,36 @@ def product_hotspot(page_rect: fitz.Rect, price_word: tuple, product_count: int)
     return {"x": x, "y": y, "w": min(0.32, 0.98 - x), "h": min(0.36, 0.92 - y)}
 
 
-def sku_from_word(word: tuple, price_list: dict[str, dict]) -> str:
-    text = normalize_sku(word_text(word)).strip(".,;:()[]")
-    text = SKU_ALIASES.get(text, text)
-    if text in price_list:
-        return text
+def normalized_sku_candidate(value: str, price_list: dict[str, dict]) -> str:
+    text = normalize_sku(value).strip(".,;:()[]{}")
+    candidates = [text, text.upper(), SKU_ALIASES.get(text, text), SKU_ALIASES.get(text.upper(), text.upper())]
+    for candidate in candidates:
+        if candidate in price_list:
+            return candidate
     return ""
+
+
+def sku_word_slice(word: tuple, start: int, end: int) -> tuple:
+    text = word_text(word)
+    if not text:
+        return word
+    width = word[2] - word[0]
+    x0 = word[0] + width * (start / len(text))
+    x1 = word[0] + width * (end / len(text))
+    return (x0, word[1], x1, word[3], text[start:end])
+
+
+def skus_from_word(word: tuple, price_list: dict[str, dict]) -> list[tuple[str, tuple]]:
+    text = word_text(word)
+    matches = []
+    seen = set()
+    for match in SKU_CANDIDATE_RE.finditer(text):
+        sku = normalized_sku_candidate(match.group(0), price_list)
+        if not sku or sku in seen:
+            continue
+        seen.add(sku)
+        matches.append((sku, sku_word_slice(word, match.start(), match.end())))
+    return matches
 
 
 def sku_hotspot(page_rect: fitz.Rect, sku_word: tuple) -> dict[str, float]:
@@ -303,35 +344,35 @@ def sku_price_position(page_rect: fitz.Rect, sku_word: tuple) -> dict[str, float
 def extract_products_from_skus(page: fitz.Page, page_number: int, price_list: dict[str, dict]) -> list[dict]:
     words = page.get_text("words")
     blocks = page.get_text("blocks")
-    category = find_category(blocks)
+    category = find_category(blocks, words)
     products = []
     seen = set()
 
     for word in words:
-        sku = sku_from_word(word, price_list)
-        if not sku or sku in seen:
-            continue
-        seen.add(sku)
-        data = price_list[sku]
-        size_label = product_size_label(data["description"])
-        products.append(
-            {
-                "id": f"p{page_number:03d}-{len(products) + 1}",
-                "page": page_number,
-                "sku": sku,
-                "skus": [sku],
-                "name": data["description"],
-                "category": category,
-                "price": data["price"],
-                "pdfPrice": "",
-                "priceSource": "excel",
-                "ean": data["ean"],
-                "unitsPerCase": data["unitsPerCase"],
-                "sizeLabel": size_label,
-                "hotspot": sku_hotspot(page.rect, word),
-                "pricePosition": sku_price_position(page.rect, word),
-            }
-        )
+        for sku, sku_word in skus_from_word(word, price_list):
+            if sku in seen:
+                continue
+            seen.add(sku)
+            data = price_list[sku]
+            size_label = product_size_label(data["description"])
+            products.append(
+                {
+                    "id": f"p{page_number:03d}-{len(products) + 1}",
+                    "page": page_number,
+                    "sku": sku,
+                    "skus": [sku],
+                    "name": data["description"],
+                    "category": category,
+                    "price": data["price"],
+                    "pdfPrice": "",
+                    "priceSource": "excel",
+                    "ean": data["ean"],
+                    "unitsPerCase": data["unitsPerCase"],
+                    "sizeLabel": size_label,
+                    "hotspot": sku_hotspot(page.rect, sku_word),
+                    "pricePosition": sku_price_position(page.rect, sku_word),
+                }
+            )
 
     return products
 
@@ -339,7 +380,7 @@ def extract_products_from_skus(page: fitz.Page, page_number: int, price_list: di
 def extract_products(page: fitz.Page, page_number: int, price_list: dict[str, dict]) -> list[dict]:
     blocks = page.get_text("blocks")
     words = page.get_text("words")
-    category = find_category(blocks)
+    category = find_category(blocks, words)
     price_words = [w for w in words if PRICE_RE.fullmatch(word_text(w))]
     if not price_words:
         return extract_products_from_skus(page, page_number, price_list)
@@ -587,6 +628,9 @@ def main() -> None:
         for page_number in MAGEFESA_PAGES:
             if page_number <= reference_doc.page_count:
                 page_entries.append({"page": page_number, "doc": reference_doc, "section": "Magefesa", "showPriceOverlays": False})
+        for page_number in DREAMFARM_PAGES:
+            if page_number <= reference_doc.page_count:
+                page_entries.append({"page": page_number, "doc": reference_doc, "section": "Dreamfarm", "showPriceOverlays": False})
 
     for entry in page_entries:
         page_number = entry["page"]
@@ -605,7 +649,7 @@ def main() -> None:
         pages.append(
             {
                 "number": page_number,
-                "title": find_category(page.get_text("blocks")),
+                "title": find_category(page.get_text("blocks"), page.get_text("words")),
                 "section": entry["section"],
                 "showPriceOverlays": entry["showPriceOverlays"],
                 "image": image_data,

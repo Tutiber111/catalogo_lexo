@@ -1,12 +1,9 @@
 (function () {
   const adminState = {
-    catalog: CATALOG_STORE.applyProductOverrides(JSON.parse(JSON.stringify(window.CATALOG_DATA))),
     settings: CATALOG_STORE.loadSettings(),
-    productOverrides: CATALOG_STORE.loadProductOverrides(),
-    selectedProductId: null,
+    orders: [],
+    source: "local",
   };
-
-  adminState.productsById = new Map(adminState.catalog.products.map((product) => [product.id, product]));
 
   const adminEls = {
     openAdmin: document.querySelector("#openAdmin"),
@@ -24,20 +21,11 @@
     settingWhatsapp: document.querySelector("#settingWhatsapp"),
     settingPassword: document.querySelector("#settingPassword"),
     saveSettings: document.querySelector("#saveSettings"),
+    adminDataStatus: document.querySelector("#adminDataStatus"),
     orderSummary: document.querySelector("#orderSummary"),
     ordersList: document.querySelector("#ordersList"),
     exportOrders: document.querySelector("#exportOrders"),
     clearOrders: document.querySelector("#clearOrders"),
-    productSearch: document.querySelector("#productSearch"),
-    productSelect: document.querySelector("#productSelect"),
-    productName: document.querySelector("#productName"),
-    productCategory: document.querySelector("#productCategory"),
-    productPrice: document.querySelector("#productPrice"),
-    productHidden: document.querySelector("#productHidden"),
-    saveProduct: document.querySelector("#saveProduct"),
-    resetProduct: document.querySelector("#resetProduct"),
-    exportAdjustments: document.querySelector("#exportAdjustments"),
-    importAdjustments: document.querySelector("#importAdjustments"),
     toast: document.querySelector("#toast"),
   };
 
@@ -53,14 +41,8 @@
     adminEls.loginForm.addEventListener("submit", unlockAdmin);
     adminEls.lockAdmin.addEventListener("click", lockAdmin);
     adminEls.saveSettings.addEventListener("click", saveSettings);
-    adminEls.exportOrders.addEventListener("click", exportOrders);
-    adminEls.clearOrders.addEventListener("click", clearOrders);
-    adminEls.productSearch.addEventListener("input", renderProductOptions);
-    adminEls.productSelect.addEventListener("change", () => selectProduct(adminEls.productSelect.value));
-    adminEls.saveProduct.addEventListener("click", saveProduct);
-    adminEls.resetProduct.addEventListener("click", resetProduct);
-    adminEls.exportAdjustments.addEventListener("click", exportAdjustments);
-    adminEls.importAdjustments.addEventListener("change", importAdjustments);
+    adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
+    adminEls.clearOrders.addEventListener("click", clearLocalOrders);
     window.addEventListener("catalog:orders-changed", () => renderOrders());
   }
 
@@ -104,7 +86,6 @@
     adminEls.adminApp.hidden = false;
     fillSettings();
     renderOrders();
-    renderProductOptions();
   }
 
   function lockAdmin() {
@@ -143,49 +124,30 @@
   async function renderOrders() {
     if (adminEls.adminApp.hidden) return;
 
-    const orders = await loadAdminOrders();
-    const totalValue = orders.reduce((sum, order) => sum + Number(order.totalValue || 0), 0);
-    const totalItems = orders.reduce((sum, order) => sum + Number(order.totalItems || 0), 0);
+    const result = await loadAdminOrders();
+    adminState.orders = result.orders;
+    adminState.source = result.source;
+    adminEls.adminDataStatus.textContent = result.message;
+
+    const totalValue = adminState.orders.reduce((sum, order) => sum + Number(order.totalValue || 0), 0);
+    const totalItems = adminState.orders.reduce((sum, order) => sum + Number(order.totalItems || 0), 0);
 
     adminEls.orderSummary.innerHTML = `
-      <span><strong>${orders.length}</strong> orders</span>
+      <span><strong>${adminState.orders.length}</strong> orders</span>
       <span><strong>${totalItems}</strong> items</span>
       <span><strong>${CATALOG_STORE.formatMoney(totalValue)}</strong> total</span>
     `;
 
     adminEls.ordersList.innerHTML =
-      orders
-        .map(
-          (order) => `
-            <article class="order-card">
-              <div class="order-card-header">
-                <div>
-                <strong>${escapeHtml(order.displayId || order.id)}</strong>
-                  <p>${formatDate(order.createdAt)}${order.customer?.name ? ` - ${escapeHtml(order.customer.name)}` : ""}${order.customer?.phone ? ` - ${escapeHtml(order.customer.phone)}` : ""}</p>
-                </div>
-                <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
-                  ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${status}</option>`).join("")}
-                </select>
-              </div>
-              <div class="order-lines">
-                ${order.items.map((item) => `<span>${item.qty} x ${escapeHtml(item.sku)} - ${escapeHtml(item.name)} - ${CATALOG_STORE.formatMoney(item.lineTotal)}</span>`).join("")}
-              </div>
-              ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
-              <div class="order-card-footer">
-                <strong>${order.totalItems} items - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
-                <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Delete</button>
-              </div>
-            </article>
-          `,
-        )
-        .join("") || `<p class="empty-state">No saved orders yet.</p>`;
+      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No saved orders found for this source.</p>`;
 
     adminEls.ordersList.querySelectorAll("[data-status]").forEach((select) => {
       select.addEventListener("change", async () => {
         try {
           if (select.dataset.remote === "true") await CATALOG_SUPABASE.updateOrderStatus(select.dataset.status, select.value);
           else CATALOG_STORE.updateOrder(select.dataset.status, { status: select.value });
-          showToast("Order status updated");
+          await renderOrders();
+          showToast(select.value === "sent" ? "Order archived" : "Order status updated");
         } catch (error) {
           showToast(error.message || "Could not update order");
         }
@@ -194,7 +156,7 @@
 
     adminEls.ordersList.querySelectorAll("[data-delete-order]").forEach((button) => {
       button.addEventListener("click", async () => {
-        if (!confirm("Delete this saved order from this device?")) return;
+        if (!confirm("Delete this saved order?")) return;
         try {
           if (button.dataset.remote === "true") await CATALOG_SUPABASE.deleteOrder(button.dataset.deleteOrder);
           else CATALOG_STORE.deleteOrder(button.dataset.deleteOrder);
@@ -207,129 +169,156 @@
     });
   }
 
+  function renderOrderCard(order) {
+    return `
+      <article class="order-card">
+        <div class="order-card-header">
+          <div>
+            <strong>${escapeHtml(order.displayId || order.id)}</strong>
+            <p>${formatDate(order.createdAt)}${order.customer?.name ? ` - ${escapeHtml(order.customer.name)}` : ""}${order.customer?.phone ? ` - ${escapeHtml(order.customer.phone)}` : ""}</p>
+          </div>
+          <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
+            ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${status}</option>`).join("")}
+          </select>
+        </div>
+        <div class="order-lines">
+          ${order.items.map((item) => `<span>${item.qty} x ${escapeHtml(item.sku)} - ${escapeHtml(item.name)} - ${CATALOG_STORE.formatMoney(item.lineTotal)}</span>`).join("")}
+        </div>
+        ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
+        <div class="order-card-footer">
+          <strong>${order.totalItems} items - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
+          <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Delete</button>
+        </div>
+      </article>
+    `;
+  }
+
   async function loadAdminOrders() {
-    if (CATALOG_SUPABASE.isAvailable()) {
-      try {
-        const user = await CATALOG_SUPABASE.getUser();
-        if (user && (await CATALOG_SUPABASE.isAdmin(user.id))) return await CATALOG_SUPABASE.loadAllOrders();
-      } catch (error) {
-        showToast("Supabase admin orders unavailable");
-      }
+    return loadAdminOrderSet(false);
+  }
+
+  async function loadAdminOrderSet(includeArchived) {
+    if (!CATALOG_SUPABASE.isAvailable()) {
+      return {
+        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        source: "local",
+        message: includeArchived ? "Supabase is unavailable, exporting local browser orders only." : "Supabase is unavailable, showing local browser orders only.",
+      };
     }
-    return CATALOG_STORE.loadOrders();
+
+    const user = await CATALOG_SUPABASE.getUser();
+    if (!user) {
+      return {
+        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        source: "local",
+        message: includeArchived
+          ? "Sign in from the profile panel with your admin Supabase account to export all customer orders. Exporting local browser orders only."
+          : "Sign in from the profile panel with your admin Supabase account to see all customer orders.",
+      };
+    }
+
+    const profile = await CATALOG_SUPABASE.getProfile(user.id);
+    if (profile?.role !== "admin") {
+      return {
+        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        source: "local",
+        message: includeArchived
+          ? `Signed in as ${user.email}, but this profile is role "${profile?.role || "missing"}". Set role = 'admin' in Supabase to export all orders. Exporting local browser orders only.`
+          : `Signed in as ${user.email}, but this profile is role "${profile?.role || "missing"}". Set role = 'admin' in Supabase to see all orders.`,
+      };
+    }
+
+    try {
+      return {
+        orders: includeArchived ? await CATALOG_SUPABASE.loadAllOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
+        source: "supabase",
+        message: includeArchived ? `Exporting all Supabase orders as ${user.email}.` : `Showing active Supabase orders as ${user.email}. Sent orders are archived.`,
+      };
+    } catch (error) {
+      return {
+        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        source: "local",
+        message: includeArchived
+          ? `Could not load Supabase orders: ${error.message}. Exporting local browser orders only.`
+          : `Could not load Supabase orders: ${error.message}. Showing local browser orders only.`,
+      };
+    }
   }
 
-  async function exportOrders() {
-    downloadJson("lexo-orders.json", await loadAdminOrders());
+  async function exportOrdersCsv() {
+    try {
+      const result = await loadAdminOrderSet(false);
+      const filename = `lexo-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+      downloadCsv(filename, ordersToCsv(result.orders));
+      showToast(`Exported ${result.orders.length} orders`);
+    } catch (error) {
+      showToast(error.message || "Could not export orders");
+    }
   }
 
-  function clearOrders() {
-    if (!confirm("Clear all saved orders on this device?")) return;
-    CATALOG_STORE.saveOrders([]);
-    renderOrders();
-    showToast("Orders cleared");
-  }
-
-  function renderProductOptions() {
-    const query = adminEls.productSearch.value.trim().toLowerCase();
-    const products = adminState.catalog.products
-      .filter((product) => !query || searchFields(product).join(" ").toLowerCase().includes(query))
-      .slice(0, 250);
-
-    adminEls.productSelect.innerHTML = products
-      .map((product) => `<option value="${product.id}">${escapeHtml(product.sku)} - ${escapeHtml(product.name)} - ${escapeHtml(product.price)}</option>`)
-      .join("");
-
-    if (!products.length) {
-      clearProductForm();
+  function clearLocalOrders() {
+    if (adminState.source === "supabase") {
+      showToast("Use individual delete buttons for Supabase orders.");
       return;
     }
-
-    const selectedStillVisible = products.some((product) => product.id === adminState.selectedProductId);
-    selectProduct(selectedStillVisible ? adminState.selectedProductId : products[0].id);
+    if (!confirm("Clear all saved local orders on this device?")) return;
+    CATALOG_STORE.saveOrders([]);
+    renderOrders();
+    showToast("Local orders cleared");
   }
 
-  function selectProduct(productId) {
-    const product = adminState.productsById.get(productId);
-    if (!product) return;
-
-    adminState.selectedProductId = productId;
-    adminEls.productSelect.value = productId;
-    adminEls.productName.value = product.name;
-    adminEls.productCategory.value = product.category || "";
-    adminEls.productPrice.value = product.price || "";
-    adminEls.productHidden.checked = Boolean(product.hidden);
-  }
-
-  function clearProductForm() {
-    adminState.selectedProductId = null;
-    adminEls.productName.value = "";
-    adminEls.productCategory.value = "";
-    adminEls.productPrice.value = "";
-    adminEls.productHidden.checked = false;
-  }
-
-  function saveProduct() {
-    const product = adminState.productsById.get(adminState.selectedProductId);
-    if (!product) return;
-
-    const override = {
-      name: adminEls.productName.value.trim() || product.originalName,
-      category: adminEls.productCategory.value.trim(),
-      price: adminEls.productPrice.value.trim(),
-      hidden: adminEls.productHidden.checked,
-    };
-
-    adminState.productOverrides[product.id] = override;
-    CATALOG_STORE.saveProductOverrides(adminState.productOverrides);
-    Object.assign(product, override);
-    renderProductOptions();
-    showToast("Product saved. Reload the catalog to see this adjustment.");
-  }
-
-  function resetProduct() {
-    const product = adminState.productsById.get(adminState.selectedProductId);
-    if (!product) return;
-
-    delete adminState.productOverrides[product.id];
-    CATALOG_STORE.saveProductOverrides(adminState.productOverrides);
-    Object.assign(product, {
-      name: product.originalName,
-      category: product.originalCategory,
-      price: product.originalPrice,
-      hidden: false,
+  function ordersToCsv(orders) {
+    const headers = [
+      "order_id",
+      "order_number",
+      "status",
+      "created_at",
+      "updated_at",
+      "archived_at",
+      "customer_name",
+      "customer_phone",
+      "notes",
+      "total_items",
+      "total_value",
+      "item_sku",
+      "item_name",
+      "item_quantity",
+      "item_unit_price",
+      "item_line_total",
+      "item_page",
+    ];
+    const rows = orders.flatMap((order) => {
+      const items = order.items.length ? order.items : [{}];
+      return items.map((item) => [
+        order.id,
+        order.displayId || "",
+        order.status || "",
+        order.createdAt || "",
+        order.updatedAt || "",
+        order.archivedAt || "",
+        order.customer?.name || "",
+        order.customer?.phone || "",
+        order.customer?.notes || "",
+        order.totalItems || 0,
+        order.totalValue || 0,
+        item.sku || "",
+        item.name || "",
+        item.qty || "",
+        item.price || "",
+        item.lineTotal || "",
+        item.page || "",
+      ]);
     });
-    renderProductOptions();
-    showToast("Product reset");
+    return [headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n");
   }
 
-  function exportAdjustments() {
-    downloadJson("lexo-catalog-adjustments.json", {
-      settings: CATALOG_STORE.loadSettings(),
-      productOverrides: CATALOG_STORE.loadProductOverrides(),
-    });
+  function csvCell(value) {
+    const text = String(value ?? "");
+    return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
   }
 
-  function importAdjustments(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      try {
-        const data = JSON.parse(reader.result);
-        if (data.settings) CATALOG_STORE.saveSettings(data.settings);
-        if (data.productOverrides) CATALOG_STORE.saveProductOverrides(data.productOverrides);
-        location.reload();
-      } catch (error) {
-        showToast("Could not import that JSON file");
-      }
-    });
-    reader.readAsText(file);
-  }
-
-  function downloadJson(filename, data) {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  function downloadCsv(filename, csv) {
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -343,10 +332,6 @@
       dateStyle: "medium",
       timeStyle: "short",
     }).format(new Date(value));
-  }
-
-  function searchFields(product) {
-    return [product.name, product.sku, product.section, product.category, product.price, String(product.page), ...(product.skus || [])];
   }
 
   function showToast(message) {

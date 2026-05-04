@@ -6,7 +6,7 @@ window.CATALOG_DATA = {
     "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
     "productCount": 887
   },
-  "samplePageCount": 67,
+  "samplePageCount": 104,
   "pages": [
     {
       "number": 1,
@@ -23,7 +23,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 2,
-      "title": "BOTELLAS TÉRMICAS",
+      "title": "BOTELLAS",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -36,7 +36,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 3,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -68,7 +68,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 4,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -133,7 +133,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 5,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -167,7 +167,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 6,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -199,7 +199,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 7,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -231,7 +231,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 8,
-      "title": "Botellas térmicas",
+      "title": "Botellas",
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
@@ -1065,7 +1065,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 32,
-      "title": "Escurridores - 1 nivel",
+      "title": "Escurridores",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1082,7 +1082,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 33,
-      "title": "Escurridores - 2 niveles",
+      "title": "Escurridores",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1099,7 +1099,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 34,
-      "title": "Lunch boxes",
+      "title": "Lunch",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1112,7 +1112,8 @@ window.CATALOG_DATA = {
         "p034-2",
         "p034-3",
         "p034-4",
-        "p034-5"
+        "p034-5",
+        "p034-6"
       ],
       "priceGroups": []
     },
@@ -1161,7 +1162,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 38,
-      "title": "Accesorios de cocina",
+      "title": "Accesorios",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1177,7 +1178,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 39,
-      "title": "Set de cuchillos de acero inoxidable con base de acacia",
+      "title": "Set",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1192,7 +1193,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 40,
-      "title": "Cubierteros 100% bambú",
+      "title": "Cubierteros",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1208,7 +1209,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 41,
-      "title": "Accesorios de cocina",
+      "title": "Accesorios",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1218,13 +1219,14 @@ window.CATALOG_DATA = {
       },
       "products": [
         "p041-1",
-        "p041-2"
+        "p041-2",
+        "p041-3"
       ],
       "priceGroups": []
     },
     {
       "number": 42,
-      "title": "Accesorios de cocina",
+      "title": "Accesorios",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1241,7 +1243,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 43,
-      "title": "Accesorios de cocina",
+      "title": "Accesorios",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1258,7 +1260,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 44,
-      "title": "Organizadores de bacha",
+      "title": "Organizadores",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1288,7 +1290,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 46,
-      "title": "con impresión 3D",
+      "title": "Tumblers",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1309,7 +1311,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 47,
-      "title": "Botellas con caja tubo 500ml",
+      "title": "Botellas",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1327,7 +1329,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 48,
-      "title": "Botellas con caja tubo 500ml",
+      "title": "Botellas",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1347,7 +1349,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 49,
-      "title": "Travel mugs con caja tubo 350ml",
+      "title": "Travel",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1365,7 +1367,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 50,
-      "title": "Travel mugs con caja tubo 350ml",
+      "title": "Travel",
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
@@ -1396,7 +1398,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 52,
-      "title": "Cafetera Colombia",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1414,7 +1416,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 53,
-      "title": "Cafetera Colombia Noir",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1432,7 +1434,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 54,
-      "title": "Cafetera Kenia",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1450,7 +1452,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 55,
-      "title": "Cafetera Kenia Noir",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1468,7 +1470,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 56,
-      "title": "Cafetera Jamaica Inducción",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1487,7 +1489,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 57,
-      "title": "Cafetera Tradicional Inducción",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1504,7 +1506,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 58,
-      "title": "Cafetera Genova",
+      "title": "Cafetera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1521,7 +1523,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 59,
-      "title": "Repuesto filtro y junta",
+      "title": "Repuesto",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1539,7 +1541,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 60,
-      "title": "Cuchillos FILO",
+      "title": "Cuchillos",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1559,7 +1561,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 61,
-      "title": "Cuchillos Messier",
+      "title": "Cuchillos",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1577,7 +1579,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 62,
-      "title": "Cuchillos Álvaro Barrientos",
+      "title": "Cuchillos",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1597,7 +1599,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 63,
-      "title": "Cuchillos Mestre",
+      "title": "Cuchillos",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1613,7 +1615,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 64,
-      "title": "Especiero Acero inoxidable",
+      "title": "Especiero",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1628,7 +1630,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 65,
-      "title": "Set de cuchillos Blade",
+      "title": "Set",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1643,7 +1645,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 66,
-      "title": "Línea Chamber",
+      "title": "Línea",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1661,7 +1663,7 @@ window.CATALOG_DATA = {
     },
     {
       "number": 67,
-      "title": "Lunchera térmica Lunch Plus",
+      "title": "Lunchera",
       "section": "Magefesa",
       "showPriceOverlays": false,
       "image": {
@@ -1671,6 +1673,592 @@ window.CATALOG_DATA = {
       },
       "products": [
         "p067-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 68,
+      "title": "Catalog",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-068.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [],
+      "priceGroups": []
+    },
+    {
+      "number": 69,
+      "title": "Upcup",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-069.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p069-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 70,
+      "title": "Fladle",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-070.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p070-1",
+        "p070-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 71,
+      "title": "Brizzle",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-071.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p071-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 72,
+      "title": "Chopula",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-072.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p072-1",
+        "p072-2",
+        "p072-3",
+        "p072-4",
+        "p072-5"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 73,
+      "title": "Mini",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-073.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p073-1",
+        "p073-2",
+        "p073-3",
+        "p073-4",
+        "p073-5",
+        "p073-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 74,
+      "title": "Cleana",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-074.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p074-1",
+        "p074-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 75,
+      "title": "Clongs",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-075.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p075-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 76,
+      "title": "Clongs",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-076.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p076-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 77,
+      "title": "Dopener",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-077.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p077-1",
+        "p077-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 78,
+      "title": "Eggler",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-078.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p078-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 79,
+      "title": "Flegg",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-079.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p079-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 80,
+      "title": "Flapple",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-080.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p080-1",
+        "p080-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 81,
+      "title": "Fluicer",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-081.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p081-1",
+        "p081-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 82,
+      "title": "Kneed",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-082.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p082-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 83,
+      "title": "Knibble",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-083.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p083-1",
+        "p083-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 84,
+      "title": "Lestrain",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-084.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p084-1",
+        "p084-2",
+        "p084-3",
+        "p084-4",
+        "p084-5",
+        "p084-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 85,
+      "title": "Supoon",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-085.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p085-1",
+        "p085-2",
+        "p085-3",
+        "p085-4",
+        "p085-5",
+        "p085-6"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 86,
+      "title": "Mini",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-086.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p086-1",
+        "p086-2",
+        "p086-3",
+        "p086-4",
+        "p086-5"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 87,
+      "title": "Ozest",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-087.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p087-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 88,
+      "title": "Ograte",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-088.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p088-1",
+        "p088-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 89,
+      "title": "Scizza",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-089.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p089-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 90,
+      "title": "Sharple",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-090.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p090-1",
+        "p090-2",
+        "p090-3"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 91,
+      "title": "Spina",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-091.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p091-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 92,
+      "title": "Winopen",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-092.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p092-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 93,
+      "title": "Icepo",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-093.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p093-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 94,
+      "title": "Smood",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-094.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p094-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 95,
+      "title": "Nocutu",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-095.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p095-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 96,
+      "title": "Hullapit",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-096.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p096-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 97,
+      "title": "Garject",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-097.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p097-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 98,
+      "title": "Champop",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-098.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p098-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 99,
+      "title": "Lockorns",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-099.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p099-1",
+        "p099-2"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 100,
+      "title": "Levoons",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-100.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p100-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 101,
+      "title": "Flisk",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-101.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p101-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 102,
+      "title": "Mini",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-102.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p102-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 103,
+      "title": "Bishears",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-103.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p103-1"
+      ],
+      "priceGroups": []
+    },
+    {
+      "number": 104,
+      "title": "Ultimate",
+      "section": "Dreamfarm",
+      "showPriceOverlays": false,
+      "image": {
+        "src": "assets/pages/page-104.jpg",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "p104-1"
       ],
       "priceGroups": []
     }
@@ -1684,7 +2272,7 @@ window.CATALOG_DATA = {
         "1401"
       ],
       "name": "Electro 500ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1711,7 +2299,7 @@ window.CATALOG_DATA = {
         "1402"
       ],
       "name": "Electro 500ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1738,7 +2326,7 @@ window.CATALOG_DATA = {
         "1404"
       ],
       "name": "Botella Electro Plus 500ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1765,7 +2353,7 @@ window.CATALOG_DATA = {
         "1474"
       ],
       "name": "Botella Electro Plus 750ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1792,7 +2380,7 @@ window.CATALOG_DATA = {
         "1409"
       ],
       "name": "Botella Electro Plus 500ml Plateada",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1819,7 +2407,7 @@ window.CATALOG_DATA = {
         "1479"
       ],
       "name": "Botella Electro Plus 750ml Plateada",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1846,7 +2434,7 @@ window.CATALOG_DATA = {
         "1405"
       ],
       "name": "Botella Electro Plus 500ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1873,7 +2461,7 @@ window.CATALOG_DATA = {
         "1475"
       ],
       "name": "Botella Electro Plus 750ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1900,7 +2488,7 @@ window.CATALOG_DATA = {
         "1406"
       ],
       "name": "Botella Electro Plus 500ml Azul",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1927,7 +2515,7 @@ window.CATALOG_DATA = {
         "1476"
       ],
       "name": "Botella Electro Plus 750ml Azul",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1954,7 +2542,7 @@ window.CATALOG_DATA = {
         "1407"
       ],
       "name": "Botella Electro Plus 500ml Celeste",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -1981,7 +2569,7 @@ window.CATALOG_DATA = {
         "1477"
       ],
       "name": "Botella Electro Plus 750ml Celeste",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2008,7 +2596,7 @@ window.CATALOG_DATA = {
         "1408"
       ],
       "name": "Botella Electro Plus 500ml Rosa",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2035,7 +2623,7 @@ window.CATALOG_DATA = {
         "1478"
       ],
       "name": "Botella Electro Plus 750ml Rosa",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.820",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2062,7 +2650,7 @@ window.CATALOG_DATA = {
         "1500"
       ],
       "name": "Oreo 500ml Azul",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2089,7 +2677,7 @@ window.CATALOG_DATA = {
         "1501"
       ],
       "name": "Oreo 500ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2116,7 +2704,7 @@ window.CATALOG_DATA = {
         "1502"
       ],
       "name": "Oreo 500ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$13.057",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2143,7 +2731,7 @@ window.CATALOG_DATA = {
         "1410"
       ],
       "name": "Altros 940ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$18.285",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2170,7 +2758,7 @@ window.CATALOG_DATA = {
         "1411"
       ],
       "name": "Altros 940ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$18.285",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2197,7 +2785,7 @@ window.CATALOG_DATA = {
         "1420"
       ],
       "name": "Cocoa 280ml Negra",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.352",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2224,7 +2812,7 @@ window.CATALOG_DATA = {
         "1421"
       ],
       "name": "Cocoa 280ml Blanca",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$14.352",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2251,7 +2839,7 @@ window.CATALOG_DATA = {
         "1498"
       ],
       "name": "Vaso Moka 380ml Negro",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$11.950",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -2278,7 +2866,7 @@ window.CATALOG_DATA = {
         "1499"
       ],
       "name": "Vaso Moka 380ml Natural",
-      "category": "Botellas térmicas",
+      "category": "Botellas",
       "price": "$11.950",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4033,7 +4621,7 @@ window.CATALOG_DATA = {
         "24925"
       ],
       "name": "Escurridor de platos 1 nivel metálico con madera 43 x 32 x 20 cm",
-      "category": "Escurridores - 1 nivel",
+      "category": "Escurridores",
       "price": "$51.775",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4060,7 +4648,7 @@ window.CATALOG_DATA = {
         "27582"
       ],
       "name": "Organizador de cajón doble extensible",
-      "category": "Escurridores - 1 nivel",
+      "category": "Escurridores",
       "price": "",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4087,7 +4675,7 @@ window.CATALOG_DATA = {
         "12885"
       ],
       "name": "Escurridor de platos 1 nivel de bambú y metal 44 x 32 x 20 cm",
-      "category": "Escurridores - 1 nivel",
+      "category": "Escurridores",
       "price": "$41.806",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4114,7 +4702,7 @@ window.CATALOG_DATA = {
         "23546"
       ],
       "name": "Escurridor de platos 2 niveles negro con mangos de bambú 41 x 31 x 20 cm",
-      "category": "Escurridores - 2 niveles",
+      "category": "Escurridores",
       "price": "$58.029",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4141,7 +4729,7 @@ window.CATALOG_DATA = {
         "25922"
       ],
       "name": "Escurridor de platos 2 niveles de aluminio 50 x 30 x 12 cm",
-      "category": "Escurridores - 2 niveles",
+      "category": "Escurridores",
       "price": "$77.571",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4168,7 +4756,7 @@ window.CATALOG_DATA = {
         "28381"
       ],
       "name": "Escurridor de platos plegable acero inoxidable 48 x 35.4 x 27,2 cm",
-      "category": "Escurridores - 2 niveles",
+      "category": "Escurridores",
       "price": "$88.324",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4190,12 +4778,39 @@ window.CATALOG_DATA = {
     {
       "id": "p034-1",
       "page": 34,
+      "sku": "LUNCH",
+      "skus": [
+        "LUNCH"
+      ],
+      "name": "Lunchera Térmica neoprene con dos hermeticos de 800ml",
+      "category": "Lunch",
+      "price": "$30.007",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113160975",
+      "unitsPerCase": 12,
+      "sizeLabel": "800ML",
+      "hotspot": {
+        "x": 0.15635126403757346,
+        "y": 0.09102196946771111,
+        "w": 0.22,
+        "h": 0.06
+      },
+      "pricePosition": {
+        "x": 0.32912780095507976,
+        "y": 0.18469394084854557
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p034-2",
+      "page": 34,
       "sku": "29814",
       "skus": [
         "29814"
       ],
       "name": "Lunch box hermético Click & Seal 160 ml",
-      "category": "Lunch boxes",
+      "category": "Lunch",
       "price": "$10.356",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4215,14 +4830,14 @@ window.CATALOG_DATA = {
       "section": "Estia"
     },
     {
-      "id": "p034-2",
+      "id": "p034-3",
       "page": 34,
       "sku": "26455",
       "skus": [
         "26455"
       ],
       "name": "Lunch box hermético Click & Seal 640 ml",
-      "category": "Lunch boxes",
+      "category": "Lunch",
       "price": "$14.486",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4242,14 +4857,14 @@ window.CATALOG_DATA = {
       "section": "Estia"
     },
     {
-      "id": "p034-3",
+      "id": "p034-4",
       "page": 34,
       "sku": "26448",
       "skus": [
         "26448"
       ],
       "name": "Lunch box hermético Click & Seal 370 ml",
-      "category": "Lunch boxes",
+      "category": "Lunch",
       "price": "$11.415",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4269,14 +4884,14 @@ window.CATALOG_DATA = {
       "section": "Estia"
     },
     {
-      "id": "p034-4",
+      "id": "p034-5",
       "page": 34,
       "sku": "26462",
       "skus": [
         "26462"
       ],
       "name": "Lunch box hermético Click & Seal 1050 ml",
-      "category": "Lunch boxes",
+      "category": "Lunch",
       "price": "$18.043",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4296,14 +4911,14 @@ window.CATALOG_DATA = {
       "section": "Estia"
     },
     {
-      "id": "p034-5",
+      "id": "p034-6",
       "page": 34,
       "sku": "26479",
       "skus": [
         "26479"
       ],
       "name": "Lunch box hermético Click & Seal 1520 ml",
-      "category": "Lunch boxes",
+      "category": "Lunch",
       "price": "$22.190",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4384,7 +4999,7 @@ window.CATALOG_DATA = {
         "24789"
       ],
       "name": "Rallador de queso Cactus",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4411,7 +5026,7 @@ window.CATALOG_DATA = {
         "24918"
       ],
       "name": "Porta rollo de cocina metálico color marfil",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$14.188",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4438,7 +5053,7 @@ window.CATALOG_DATA = {
         "24826"
       ],
       "name": "Set de 5 cuchillos con base de acacia",
-      "category": "Set de cuchillos de acero inoxidable con base de acacia",
+      "category": "Set",
       "price": "$69.998",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4465,7 +5080,7 @@ window.CATALOG_DATA = {
         "13028"
       ],
       "name": "Organizador de cubiertos de bambú 33 x 23 x 4,5 cm",
-      "category": "Cubierteros 100% bambú",
+      "category": "Cubierteros",
       "price": "$18.148",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4492,7 +5107,7 @@ window.CATALOG_DATA = {
         "17613"
       ],
       "name": "Organizador de cubiertos de bambú extensible (25,5-37,5) x 33,5 x 5 cm",
-      "category": "Cubierteros 100% bambú",
+      "category": "Cubierteros",
       "price": "$32.934",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4519,7 +5134,7 @@ window.CATALOG_DATA = {
         "19730"
       ],
       "name": "Salero y pimentero magnéticos de bambú",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$12.360",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4541,12 +5156,39 @@ window.CATALOG_DATA = {
     {
       "id": "p041-2",
       "page": 41,
+      "sku": "MESA",
+      "skus": [
+        "MESA"
+      ],
+      "name": "Cuchillo Santoku 18Cm Messier",
+      "category": "Accesorios",
+      "price": "$9.472",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "8429113228125",
+      "unitsPerCase": 10,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3196069315438707,
+        "y": 0.5961321284134758,
+        "w": 0.0995469561752204,
+        "h": 0.03445491637911843
+      },
+      "pricePosition": {
+        "x": 0.3693804096314809,
+        "y": 0.6329616366596171
+      },
+      "section": "Estia"
+    },
+    {
+      "id": "p041-3",
+      "page": 41,
       "sku": "18184",
       "skus": [
         "18184"
       ],
       "name": "Mesa plegable de bambú 50 x 30 x 21 cm",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$24.890",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4573,7 +5215,7 @@ window.CATALOG_DATA = {
         "21788"
       ],
       "name": "Spray aceitero de vidrio 100 ml plateado",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$7.890",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4600,7 +5242,7 @@ window.CATALOG_DATA = {
         "21849"
       ],
       "name": "Botella de vidrio 720 ml con tapa de corcho",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$6.017",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4627,7 +5269,7 @@ window.CATALOG_DATA = {
         "21887"
       ],
       "name": "Botella de vidrio 1 litro con tapa de corcho",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$6.874",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4654,7 +5296,7 @@ window.CATALOG_DATA = {
         "27803"
       ],
       "name": "Sacacorchos con cortacápsulas",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$13.539",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4681,7 +5323,7 @@ window.CATALOG_DATA = {
         "7577"
       ],
       "name": "Pelapapas de fundición con mango antideslizante",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$8.980",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4708,7 +5350,7 @@ window.CATALOG_DATA = {
         "9304"
       ],
       "name": "Rompenueces de fundición",
-      "category": "Accesorios de cocina",
+      "category": "Accesorios",
       "price": "$15.481",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4735,7 +5377,7 @@ window.CATALOG_DATA = {
         "23553"
       ],
       "name": "Organizador de bacha con cepillo",
-      "category": "Organizadores de bacha",
+      "category": "Organizadores",
       "price": "$27.597",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4762,7 +5404,7 @@ window.CATALOG_DATA = {
         "23560"
       ],
       "name": "Organizador de bacha con dispenser",
-      "category": "Organizadores de bacha",
+      "category": "Organizadores",
       "price": "$22.846",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4789,7 +5431,7 @@ window.CATALOG_DATA = {
         "18146"
       ],
       "name": "Dispenser para detergente con porta esponja",
-      "category": "Organizadores de bacha",
+      "category": "Organizadores",
       "price": "$20.427",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4816,7 +5458,7 @@ window.CATALOG_DATA = {
         "32043"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Soft Ripple",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4843,7 +5485,7 @@ window.CATALOG_DATA = {
         "32050"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Old School",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4870,7 +5512,7 @@ window.CATALOG_DATA = {
         "32036"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Sky Garden",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4897,7 +5539,7 @@ window.CATALOG_DATA = {
         "32074"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Tender Lace",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4924,7 +5566,7 @@ window.CATALOG_DATA = {
         "32081"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Cherry Rose",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4951,7 +5593,7 @@ window.CATALOG_DATA = {
         "32098"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Noir Echo",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -4978,7 +5620,7 @@ window.CATALOG_DATA = {
         "32029"
       ],
       "name": "Vaso térmico con sorbete XL 900 ml Berry Bright",
-      "category": "con impresión 3D",
+      "category": "Tumblers",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5005,7 +5647,7 @@ window.CATALOG_DATA = {
         "16654"
       ],
       "name": "Botella térmica 500ml Garden Blue en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5032,7 +5674,7 @@ window.CATALOG_DATA = {
         "22105"
       ],
       "name": "Botella térmica 500ml Citrus Infusion en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5059,7 +5701,7 @@ window.CATALOG_DATA = {
         "16647"
       ],
       "name": "Botella térmica Cherry Rose en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5086,7 +5728,7 @@ window.CATALOG_DATA = {
         "22044"
       ],
       "name": "Botella térmica Echo Noir en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5113,7 +5755,7 @@ window.CATALOG_DATA = {
         "31558"
       ],
       "name": "Botella térmica 500 ml Bloom Beige en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5140,7 +5782,7 @@ window.CATALOG_DATA = {
         "31541"
       ],
       "name": "Botella térmica 500 ml Sky Garden en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5167,7 +5809,7 @@ window.CATALOG_DATA = {
         "31626"
       ],
       "name": "Botella térmica 500 ml Old School en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5194,7 +5836,7 @@ window.CATALOG_DATA = {
         "31589"
       ],
       "name": "Botella térmica 500 ml Soft Ripple en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5221,7 +5863,7 @@ window.CATALOG_DATA = {
         "31664"
       ],
       "name": "Botella térmica 500 ml Tender Lace en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5248,7 +5890,7 @@ window.CATALOG_DATA = {
         "31534"
       ],
       "name": "Botella térmica 500 ml Berry Bright en caja tubo de regalo",
-      "category": "Botellas con caja tubo 500ml",
+      "category": "Botellas",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5275,7 +5917,7 @@ window.CATALOG_DATA = {
         "20439"
       ],
       "name": "Mug térmico 350ml Garden Blue en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5302,7 +5944,7 @@ window.CATALOG_DATA = {
         "25588"
       ],
       "name": "Mug térmico 350 ml Echo Noir en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5329,7 +5971,7 @@ window.CATALOG_DATA = {
         "31930"
       ],
       "name": "Mug térmico 350 ml Tender Lace en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5356,7 +5998,7 @@ window.CATALOG_DATA = {
         "31879"
       ],
       "name": "Mug térmico 350 ml Sky Garden en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5383,7 +6025,7 @@ window.CATALOG_DATA = {
         "20439"
       ],
       "name": "Mug térmico 350ml Garden Blue en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5410,7 +6052,7 @@ window.CATALOG_DATA = {
         "25588"
       ],
       "name": "Mug térmico 350 ml Echo Noir en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5437,7 +6079,7 @@ window.CATALOG_DATA = {
         "31930"
       ],
       "name": "Mug térmico 350 ml Tender Lace en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5464,7 +6106,7 @@ window.CATALOG_DATA = {
         "31879"
       ],
       "name": "Mug térmico 350 ml Sky Garden en caja tubo de regalo",
-      "category": "Travel mugs con caja tubo 350ml",
+      "category": "Travel",
       "price": "$36.318",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5491,7 +6133,7 @@ window.CATALOG_DATA = {
         "300003"
       ],
       "name": "Cafetera Colombia 3 Tazas",
-      "category": "Cafetera Colombia",
+      "category": "Cafetera",
       "price": "$17.730",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5518,7 +6160,7 @@ window.CATALOG_DATA = {
         "300006"
       ],
       "name": "Cafetera Colombia 6 Tazas",
-      "category": "Cafetera Colombia",
+      "category": "Cafetera",
       "price": "$19.574",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5545,7 +6187,7 @@ window.CATALOG_DATA = {
         "300009"
       ],
       "name": "Cafetera Colombia 9 Tazas",
-      "category": "Cafetera Colombia",
+      "category": "Cafetera",
       "price": "$26.638",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5572,7 +6214,7 @@ window.CATALOG_DATA = {
         "300012"
       ],
       "name": "Cafetera Colombia 12 Tazas",
-      "category": "Cafetera Colombia",
+      "category": "Cafetera",
       "price": "$34.013",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5599,7 +6241,7 @@ window.CATALOG_DATA = {
         "200003"
       ],
       "name": "Cafetera Colombia Noir 3 Tazas",
-      "category": "Cafetera Colombia Noir",
+      "category": "Cafetera",
       "price": "$20.992",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5626,7 +6268,7 @@ window.CATALOG_DATA = {
         "200006"
       ],
       "name": "Cafetera Colombia Noir 6 Tazas",
-      "category": "Cafetera Colombia Noir",
+      "category": "Cafetera",
       "price": "$23.233",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5653,7 +6295,7 @@ window.CATALOG_DATA = {
         "200009"
       ],
       "name": "Cafetera Colombia Noir 9 Tazas",
-      "category": "Cafetera Colombia Noir",
+      "category": "Cafetera",
       "price": "$30.496",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5680,7 +6322,7 @@ window.CATALOG_DATA = {
         "200012"
       ],
       "name": "Cafetera Colombia Noir 12 Tazas",
-      "category": "Cafetera Colombia Noir",
+      "category": "Cafetera",
       "price": "$39.176",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5707,7 +6349,7 @@ window.CATALOG_DATA = {
         "600003"
       ],
       "name": "Cafetera Kenia 3 Tazas",
-      "category": "Cafetera Kenia",
+      "category": "Cafetera",
       "price": "$17.730",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5734,7 +6376,7 @@ window.CATALOG_DATA = {
         "600006"
       ],
       "name": "Cafetera Kenia 6 Tazas",
-      "category": "Cafetera Kenia",
+      "category": "Cafetera",
       "price": "$19.574",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5761,7 +6403,7 @@ window.CATALOG_DATA = {
         "600009"
       ],
       "name": "Cafetera Kenia 9 Tazas",
-      "category": "Cafetera Kenia",
+      "category": "Cafetera",
       "price": "$26.638",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5788,7 +6430,7 @@ window.CATALOG_DATA = {
         "600012"
       ],
       "name": "Cafetera Kenia 12 Tazas",
-      "category": "Cafetera Kenia",
+      "category": "Cafetera",
       "price": "$34.013",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5815,7 +6457,7 @@ window.CATALOG_DATA = {
         "700003"
       ],
       "name": "Cafetera Kenia Noir 3 Tazas",
-      "category": "Cafetera Kenia Noir",
+      "category": "Cafetera",
       "price": "$20.992",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5842,7 +6484,7 @@ window.CATALOG_DATA = {
         "700006"
       ],
       "name": "Cafetera Kenia Noir 6 Tazas",
-      "category": "Cafetera Kenia Noir",
+      "category": "Cafetera",
       "price": "$23.233",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5869,7 +6511,7 @@ window.CATALOG_DATA = {
         "700009"
       ],
       "name": "Cafetera Kenia Noir 9 Tazas",
-      "category": "Cafetera Kenia Noir",
+      "category": "Cafetera",
       "price": "$30.496",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5896,7 +6538,7 @@ window.CATALOG_DATA = {
         "700012"
       ],
       "name": "Cafetera Kenia Noir 12 Tazas",
-      "category": "Cafetera Kenia Noir",
+      "category": "Cafetera",
       "price": "$39.176",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5923,7 +6565,7 @@ window.CATALOG_DATA = {
         "5006"
       ],
       "name": "Cafetera Jamaica Inducción 6 Tazas",
-      "category": "Cafetera Jamaica Inducción",
+      "category": "Cafetera",
       "price": "$28.140",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5950,7 +6592,7 @@ window.CATALOG_DATA = {
         "5009"
       ],
       "name": "Cafetera Jamaica Inducción 9 Tazas",
-      "category": "Cafetera Jamaica Inducción",
+      "category": "Cafetera",
       "price": "$35.910",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -5977,7 +6619,7 @@ window.CATALOG_DATA = {
         "50012"
       ],
       "name": "Cafetera Jamaica Inducción 12 Tazas",
-      "category": "Cafetera Jamaica Inducción",
+      "category": "Cafetera",
       "price": "$45.330",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6004,7 +6646,7 @@ window.CATALOG_DATA = {
         "6080"
       ],
       "name": "Cafetera Jamaica Inducción 6 Tazas + 4 Cucharas",
-      "category": "Cafetera Jamaica Inducción",
+      "category": "Cafetera",
       "price": "$28.139",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6031,7 +6673,7 @@ window.CATALOG_DATA = {
         "6081"
       ],
       "name": "Cafetera Jamaica Inducción 9 Tazas + 4 Cucharas",
-      "category": "Cafetera Jamaica Inducción",
+      "category": "Cafetera",
       "price": "$35.910",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6058,7 +6700,7 @@ window.CATALOG_DATA = {
         "6077"
       ],
       "name": "Inducción \"Tradicional\" 6 Tazas",
-      "category": "Cafetera Tradicional Inducción",
+      "category": "Cafetera",
       "price": "$31.533",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6085,7 +6727,7 @@ window.CATALOG_DATA = {
         "6078"
       ],
       "name": "Inducción \"Tradicional\" 9 Tazas",
-      "category": "Cafetera Tradicional Inducción",
+      "category": "Cafetera",
       "price": "$40.515",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6112,7 +6754,7 @@ window.CATALOG_DATA = {
         "6079"
       ],
       "name": "Inducción \"Tradicional\" 12 Tazas",
-      "category": "Cafetera Tradicional Inducción",
+      "category": "Cafetera",
       "price": "$47.586",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6139,7 +6781,7 @@ window.CATALOG_DATA = {
         "400004"
       ],
       "name": "Cafetera Genova Acero Inox. 4 Tazas",
-      "category": "Cafetera Genova",
+      "category": "Cafetera",
       "price": "$41.469",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6166,7 +6808,7 @@ window.CATALOG_DATA = {
         "400006"
       ],
       "name": "Cafetera Genova Acero Inox. 6 Tazas",
-      "category": "Cafetera Genova",
+      "category": "Cafetera",
       "price": "$48.484",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6193,7 +6835,7 @@ window.CATALOG_DATA = {
         "400010"
       ],
       "name": "Cafetera Genova Acero Inox. 10 Tazas",
-      "category": "Cafetera Genova",
+      "category": "Cafetera",
       "price": "$59.625",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6220,7 +6862,7 @@ window.CATALOG_DATA = {
         "BLI03"
       ],
       "name": "Repuesto Filtro + Juntas De Silicona 3 Tazas",
-      "category": "Repuesto filtro y junta",
+      "category": "Repuesto",
       "price": "$2.954",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6247,7 +6889,7 @@ window.CATALOG_DATA = {
         "BLI06"
       ],
       "name": "Repuesto Filtro + Juntas De Silicona 6 Tazas",
-      "category": "Repuesto filtro y junta",
+      "category": "Repuesto",
       "price": "$3.517",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6274,7 +6916,7 @@ window.CATALOG_DATA = {
         "BLI09"
       ],
       "name": "Repuesto Filtro + Juntas De Silicona 9 Tazas",
-      "category": "Repuesto filtro y junta",
+      "category": "Repuesto",
       "price": "$4.032",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6301,7 +6943,7 @@ window.CATALOG_DATA = {
         "BLI12"
       ],
       "name": "Repuesto Filtro + Juntas De Silicona 12 Tazas",
-      "category": "Repuesto filtro y junta",
+      "category": "Repuesto",
       "price": "$6.947",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6328,7 +6970,7 @@ window.CATALOG_DATA = {
         "CUPE11"
       ],
       "name": "Cuchillo Pelador 11Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$5.996",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6355,7 +6997,7 @@ window.CATALOG_DATA = {
         "CUUN14"
       ],
       "name": "Cuchillo Universal 14Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$8.774",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6382,7 +7024,7 @@ window.CATALOG_DATA = {
         "CUSA17"
       ],
       "name": "Cuchillo Santoku 17Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$13.600",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6409,7 +7051,7 @@ window.CATALOG_DATA = {
         "CUCH20"
       ],
       "name": "Cuchillo de Chef 20Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$16.670",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6436,7 +7078,7 @@ window.CATALOG_DATA = {
         "CUPA20"
       ],
       "name": "Cuchillo de Pan 20Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$10.529",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6463,7 +7105,7 @@ window.CATALOG_DATA = {
         "CUJA26"
       ],
       "name": "Cuchillo Jamonero 26Cm",
-      "category": "Cuchillos FILO",
+      "category": "Cuchillos",
       "price": "$12.137",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6490,7 +7132,7 @@ window.CATALOG_DATA = {
         "MECH"
       ],
       "name": "Cuchillo de Chef 20Cm Messier",
-      "category": "Cuchillos Messier",
+      "category": "Cuchillos",
       "price": "$9.472",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6517,7 +7159,7 @@ window.CATALOG_DATA = {
         "MESA"
       ],
       "name": "Cuchillo Santoku 18Cm Messier",
-      "category": "Cuchillos Messier",
+      "category": "Cuchillos",
       "price": "$9.472",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6544,7 +7186,7 @@ window.CATALOG_DATA = {
         "MEPE"
       ],
       "name": "Cuchillo Pelador 9Cm Messier",
-      "category": "Cuchillos Messier",
+      "category": "Cuchillos",
       "price": "$6.922",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6571,7 +7213,7 @@ window.CATALOG_DATA = {
         "MEUN"
       ],
       "name": "Cuchillo De Cocina Universal 12Cm Messier",
-      "category": "Cuchillos Messier",
+      "category": "Cuchillos",
       "price": "$6.922",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6598,7 +7240,7 @@ window.CATALOG_DATA = {
         "ABCA"
       ],
       "name": "Cuchillo de Carne 11Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$6.105",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6625,7 +7267,7 @@ window.CATALOG_DATA = {
         "ABCH"
       ],
       "name": "Cuchillo de Chef 20 Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$12.210",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6652,7 +7294,7 @@ window.CATALOG_DATA = {
         "ABPE"
       ],
       "name": "Cuchillo Pelador 9Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$6.105",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6679,7 +7321,7 @@ window.CATALOG_DATA = {
         "ABSA"
       ],
       "name": "Cuchillo Santoku 17Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$12.210",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6706,7 +7348,7 @@ window.CATALOG_DATA = {
         "ABPA"
       ],
       "name": "Cuchillo de Pan 20Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$12.210",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6733,7 +7375,7 @@ window.CATALOG_DATA = {
         "ABTR"
       ],
       "name": "Cuchillo para Trinchar 20Cm",
-      "category": "Cuchillos Álvaro Barrientos",
+      "category": "Cuchillos",
       "price": "$12.210",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6760,7 +7402,7 @@ window.CATALOG_DATA = {
         "1179"
       ],
       "name": "Set De 2 Cuchillos Mestre (Chef 20Cm Y Pelador 9Cm)",
-      "category": "Cuchillos Mestre",
+      "category": "Cuchillos",
       "price": "$12.338",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6787,7 +7429,7 @@ window.CATALOG_DATA = {
         "1180"
       ],
       "name": "Set De 3 Cuchillos Mestre (Chef 20Cm, Universal 13Cm Y Pelador 9Cm)",
-      "category": "Cuchillos Mestre",
+      "category": "Cuchillos",
       "price": "$14.136",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6814,7 +7456,7 @@ window.CATALOG_DATA = {
         "2551"
       ],
       "name": "Especiero Negro 70ml",
-      "category": "Especiero Acero inoxidable",
+      "category": "Especiero",
       "price": "$3.497",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6841,7 +7483,7 @@ window.CATALOG_DATA = {
         "1178"
       ],
       "name": "Set 5 Cuchillos Con Taco Madera Blade",
-      "category": "Set de cuchillos Blade",
+      "category": "Set",
       "price": "$41.088",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6868,7 +7510,7 @@ window.CATALOG_DATA = {
         "6000"
       ],
       "name": "Cucharón",
-      "category": "Línea Chamber",
+      "category": "Línea",
       "price": "$8.745",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6895,7 +7537,7 @@ window.CATALOG_DATA = {
         "6002"
       ],
       "name": "Cuchara",
-      "category": "Línea Chamber",
+      "category": "Línea",
       "price": "$8.745",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6922,7 +7564,7 @@ window.CATALOG_DATA = {
         "6001"
       ],
       "name": "Pinza de fideos",
-      "category": "Línea Chamber",
+      "category": "Línea",
       "price": "$8.745",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6949,7 +7591,7 @@ window.CATALOG_DATA = {
         "6003"
       ],
       "name": "Espumadera",
-      "category": "Línea Chamber",
+      "category": "Línea",
       "price": "$8.745",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6976,7 +7618,7 @@ window.CATALOG_DATA = {
         "LUNCH"
       ],
       "name": "Lunchera Térmica neoprene con dos hermeticos de 800ml",
-      "category": "Lunchera térmica Lunch Plus",
+      "category": "Lunchera",
       "price": "$30.007",
       "pdfPrice": "",
       "priceSource": "excel",
@@ -6984,16 +7626,1879 @@ window.CATALOG_DATA = {
       "unitsPerCase": 12,
       "sizeLabel": "800ML",
       "hotspot": {
-        "x": 0.3407620703043005,
-        "y": 0.1278497385108248,
-        "w": 0.148253241474142,
-        "h": 0.03870839101690041
+        "x": 0.5874929484151973,
+        "y": 0.030591276853294748,
+        "w": 0.19380163645964527,
+        "h": 0.06
       },
       "pricePosition": {
-        "x": 0.4148886910413715,
-        "y": 0.16893272139474808
+        "x": 0.6843937666450199,
+        "y": 0.10878009292271909
       },
       "section": "Magefesa"
+    },
+    {
+      "id": "p069-1",
+      "page": 69,
+      "sku": "2478",
+      "skus": [
+        "2478"
+      ],
+      "name": "Jarra con base movible Upcup Nuevo!",
+      "category": "Upcup",
+      "price": "$14.490",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002478",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4628922649034425,
+        "y": 0.7300634432277753,
+        "w": 0.07796639058892213,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018754601979035,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p070-1",
+      "page": 70,
+      "sku": "8418",
+      "skus": [
+        "8418"
+      ],
+      "name": "Cuchara Fladle negra",
+      "category": "Fladle",
+      "price": "$8.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084008414",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4322869519442695,
+        "y": 0.7300634432277753,
+        "w": 0.07510438896468888,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4698391464266139,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p070-2",
+      "page": 70,
+      "sku": "8425",
+      "skus": [
+        "8425"
+      ],
+      "name": "Cuchara Fladle roja Nuevo!",
+      "category": "Fladle",
+      "price": "$8.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084008421",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4925822156480315,
+        "y": 0.7300634432277753,
+        "w": 0.07510438896468888,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.530134410130376,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p071-1",
+      "page": 71,
+      "sku": "4120",
+      "skus": [
+        "4120"
+      ],
+      "name": "Pincel Brizzle - Rojo",
+      "category": "Brizzle",
+      "price": "$14.568",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004120",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4638766169447943,
+        "y": 0.7300634432277753,
+        "w": 0.0759830298692013,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018681318793949,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p072-1",
+      "page": 72,
+      "sku": "3703",
+      "skus": [
+        "3703"
+      ],
+      "name": "Espátula Chopula - Open stock en exhibidor de 24 piezas",
+      "category": "Chopula",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003703",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.26316973144121275,
+        "y": 0.7300030783893589,
+        "w": 0.07863196077514956,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.30248571182878753,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p072-2",
+      "page": 72,
+      "sku": "3710",
+      "skus": [
+        "3710"
+      ],
+      "name": "Chopula - Negra",
+      "category": "Chopula",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003710",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4848749900714541,
+        "y": 0.7300030783893589,
+        "w": 0.0742484465123389,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.5219992133276237,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p072-3",
+      "page": 72,
+      "sku": "3727",
+      "skus": [
+        "3727"
+      ],
+      "name": "Chopula - Roja",
+      "category": "Chopula",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003727",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5441003257097787,
+        "y": 0.7300030783893589,
+        "w": 0.0742484465123389,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.5812245489659481,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p072-4",
+      "page": 72,
+      "sku": "3765",
+      "skus": [
+        "3765"
+      ],
+      "name": "Chopula - Verde",
+      "category": "Chopula",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003765",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6033256613481033,
+        "y": 0.7300030783893589,
+        "w": 0.074248446512339,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.6404498846042728,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p072-5",
+      "page": 72,
+      "sku": "3772",
+      "skus": [
+        "3772"
+      ],
+      "name": "Chopula - Azul Dreamfarm",
+      "category": "Chopula",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003772",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6625509969864279,
+        "y": 0.7300030783893589,
+        "w": 0.0742484465123389,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.6996752202425974,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-1",
+      "page": 73,
+      "sku": "3505",
+      "skus": [
+        "3505"
+      ],
+      "name": "Mini Chopula - Open Stock en caja exhibidora por 24 piezas",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003505",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.16723080626262726,
+        "y": 0.7300030783893589,
+        "w": 0.0790415394716559,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.2067515759984552,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-2",
+      "page": 73,
+      "sku": "3536",
+      "skus": [
+        "3536"
+      ],
+      "name": "Mini Chopula - Open Stock en Jarra por 24 piezas",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003536",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.38952288239268473,
+        "y": 0.7300030783893589,
+        "w": 0.07442583905659635,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.42673580192098287,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-3",
+      "page": 73,
+      "sku": "3512",
+      "skus": [
+        "3512"
+      ],
+      "name": "Mini Chopula - Negra",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003512",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5807526689785028,
+        "y": 0.7300030783893589,
+        "w": 0.07426685086347334,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.6178860944102395,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-4",
+      "page": 73,
+      "sku": "3529",
+      "skus": [
+        "3529"
+      ],
+      "name": "Mini Chopula - Roja",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003529",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6400010100557453,
+        "y": 0.7300030783893589,
+        "w": 0.07426685086347334,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.677134435487482,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-5",
+      "page": 73,
+      "sku": "3567",
+      "skus": [
+        "3567"
+      ],
+      "name": "Mini Chopula - Verde",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003567",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6992493511329879,
+        "y": 0.7300030783893589,
+        "w": 0.07426685086347334,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.7363827765647246,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p073-6",
+      "page": 73,
+      "sku": "3574",
+      "skus": [
+        "3574"
+      ],
+      "name": "Mini Chopula - Azul Dreamfarm",
+      "category": "Mini",
+      "price": "$7.946",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003574",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7584976922102304,
+        "y": 0.7300030783893589,
+        "w": 0.07426685086347334,
+        "h": 0.026357549416555357
+      },
+      "pricePosition": {
+        "x": 0.7956311176419671,
+        "y": 0.7587352196729371
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p074-1",
+      "page": 74,
+      "sku": "5653",
+      "skus": [
+        "5653"
+      ],
+      "name": "Limpiador Cleana - Open Stock en exhibidor por 24 piezas",
+      "category": "Cleana",
+      "price": "$4.541",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005653",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.33533209377131873,
+        "y": 0.7131380990974696,
+        "w": 0.07759815539561031,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.3741311714691239,
+        "y": 0.7418523410832221
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p074-2",
+      "page": 74,
+      "sku": "5660",
+      "skus": [
+        "5660"
+      ],
+      "name": "Cleana - Set de 2 - Rojo + Azul Dreamfarm",
+      "category": "Cleana",
+      "price": "$8.703",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005660",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3332650467290486,
+        "y": 0.7300634432277753,
+        "w": 0.08048292491538098,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.3735065091867391,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p075-1",
+      "page": 75,
+      "sku": "1211",
+      "skus": [
+        "1211"
+      ],
+      "name": "Pinza Clongs 12\" (30.5cm) - Negra",
+      "category": "Clongs",
+      "price": "$26.110",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001211",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4697627941166824,
+        "y": 0.7300634432277753,
+        "w": 0.06421979748832389,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018726928608443,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p076-1",
+      "page": 76,
+      "sku": "1013",
+      "skus": [
+        "1013"
+      ],
+      "name": "Pinzas Clong Lite 27cm Gris",
+      "category": "Clongs",
+      "price": "$18.300",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001013",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4666326796678212,
+        "y": 0.7300634432277753,
+        "w": 0.07048018012699413,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018727697313182,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p077-1",
+      "page": 77,
+      "sku": "D3215",
+      "skus": [
+        "D3215"
+      ],
+      "name": "Abrelatas Dopener - Gris",
+      "category": "Dopener",
+      "price": "$24.407",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003215",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.42021249663819793,
+        "y": 0.7300634432277753,
+        "w": 0.08888459749762657,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4646547953870112,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p077-2",
+      "page": 77,
+      "sku": "D3222",
+      "skus": [
+        "D3222"
+      ],
+      "name": "Abrelatas Dopener - Negro",
+      "category": "Dopener",
+      "price": "$24.407",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003222",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4946322000333348,
+        "y": 0.7300634432277753,
+        "w": 0.08888459749762657,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5390744987821481,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p078-1",
+      "page": 78,
+      "sku": "5257",
+      "skus": [
+        "5257"
+      ],
+      "name": "Pelador de huevos Eggler",
+      "category": "Eggler",
+      "price": "$12.676",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005257",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46348288637765006,
+        "y": 0.7300634432277753,
+        "w": 0.07675952414921809,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018626484522591,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p079-1",
+      "page": 79,
+      "sku": "6049",
+      "skus": [
+        "6049"
+      ],
+      "name": "Moldeador y levantador de huevos Flegg - Pack x 2 piezas",
+      "category": "Flegg",
+      "price": "$14.568",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084006049",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46102210876823574,
+        "y": 0.7300634432277753,
+        "w": 0.08168922763827666,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018667225873741,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p080-1",
+      "page": 80,
+      "sku": "3055",
+      "skus": [
+        "3055"
+      ],
+      "name": "Cortamanzanas Flapple - Rojo en exhibidor x 12",
+      "category": "Flapple",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003055",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3285993933177215,
+        "y": 0.7109111220874147,
+        "w": 0.07898907537324203,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.36809393100434246,
+        "y": 0.7396253640731671
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p080-2",
+      "page": 80,
+      "sku": "D3062",
+      "skus": [
+        "D3062"
+      ],
+      "name": "Cortamanzanas Flapple - Rojo",
+      "category": "Flapple",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003062",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3286387766238324,
+        "y": 0.7278364662177204,
+        "w": 0.09506574065419028,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.37617164695092753,
+        "y": 0.7565507082034728
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p081-1",
+      "page": 81,
+      "sku": "3444",
+      "skus": [
+        "3444"
+      ],
+      "name": "Exprimidor Fluicer -Para naranjas y limones",
+      "category": "Fluicer",
+      "price": "$18.352",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003444",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46159300015415095,
+        "y": 0.7131380990974696,
+        "w": 0.08056445886466204,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018752295864819,
+        "y": 0.7418523410832221
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p081-2",
+      "page": 81,
+      "sku": "3451",
+      "skus": [
+        "3451"
+      ],
+      "name": "Exprimidor Fluicer - para limones",
+      "category": "Fluicer",
+      "price": "$15.325",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003451",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46492000551007556,
+        "y": 0.7300634432277753,
+        "w": 0.07389456158821368,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018672863041824,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p082-1",
+      "page": 82,
+      "sku": "D5110",
+      "skus": [
+        "D5110"
+      ],
+      "name": "Cuchillo Kneed - Negro",
+      "category": "Kneed",
+      "price": "$8.703",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005110",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4587581708189022,
+        "y": 0.7300634432277753,
+        "w": 0.08623037650543136,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018733590716179,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p083-1",
+      "page": 83,
+      "sku": "5219",
+      "skus": [
+        "5219"
+      ],
+      "name": "Cuchillo Knibble Lite - Negro",
+      "category": "Knibble",
+      "price": "$8.703",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005219",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4353118563378988,
+        "y": 0.7300634432277753,
+        "w": 0.07408935706310062,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4723565348694491,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p083-2",
+      "page": 83,
+      "sku": "5233",
+      "skus": [
+        "5233"
+      ],
+      "name": "Cuchillo Knibble Lite - Amarillo",
+      "category": "Knibble",
+      "price": "$8.703",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005233",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.49433833016467543,
+        "y": 0.7300634432277753,
+        "w": 0.07408935706310062,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5313830086962257,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-1",
+      "page": 84,
+      "sku": "1815",
+      "skus": [
+        "1815"
+      ],
+      "name": "Espumadera Lestrain - Negra",
+      "category": "Lestrain",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001815",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3709379079259813,
+        "y": 0.7131380990974696,
+        "w": 0.07148343498391958,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4066796254179411,
+        "y": 0.7418523410832221
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-2",
+      "page": 84,
+      "sku": "1822",
+      "skus": [
+        "1822"
+      ],
+      "name": "Espumadera Lestrain - Roja",
+      "category": "Lestrain",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001822",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4267069791537817,
+        "y": 0.7131380990974696,
+        "w": 0.07148343498391962,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4624486966457415,
+        "y": 0.7418523410832221
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-3",
+      "page": 84,
+      "sku": "1860",
+      "skus": [
+        "1860"
+      ],
+      "name": "Espumadera Lestrain - Dreamfarm blue",
+      "category": "Lestrain",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001860",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.48247605038158203,
+        "y": 0.7131380990974696,
+        "w": 0.07148343498391962,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5182177678735419,
+        "y": 0.7418523410832221
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-4",
+      "page": 84,
+      "sku": "1914",
+      "skus": [
+        "1914"
+      ],
+      "name": "Espumadera Big Lestrain - Negra",
+      "category": "Lestrain",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001914",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.38259218922189864,
+        "y": 0.7300634432277753,
+        "w": 0.07040231399746609,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.41779334622063163,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-5",
+      "page": 84,
+      "sku": "1921",
+      "skus": [
+        "1921"
+      ],
+      "name": "Espumadera Big Lestrain - Roja",
+      "category": "Lestrain",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001921",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4370098592166322,
+        "y": 0.7300634432277753,
+        "w": 0.07040231399746609,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.47221101621536526,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p084-6",
+      "page": 84,
+      "sku": "1952",
+      "skus": [
+        "1952"
+      ],
+      "name": "Espumadera Big Lestrain - Verde",
+      "category": "Lestrain",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084001952",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4914275292113658,
+        "y": 0.7300634432277753,
+        "w": 0.07040231399746609,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5266286862100988,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-1",
+      "page": 85,
+      "sku": "2607",
+      "skus": [
+        "2607"
+      ],
+      "name": "Cuchara Supoon - Open Stock caja exhibidora por 24pzs",
+      "category": "Supoon",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002607",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1659250843935309,
+        "y": 0.7300634432277753,
+        "w": 0.07945945861457678,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.20565481370081928,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-2",
+      "page": 85,
+      "sku": "2638",
+      "skus": [
+        "2638"
+      ],
+      "name": "Cuchara Supoon - Open Stock Jarra exhibidora por 24pzs",
+      "category": "Supoon",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002638",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.38881117711039176,
+        "y": 0.7300634432277753,
+        "w": 0.07469764024044265,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.42615999723061304,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-3",
+      "page": 85,
+      "sku": "2614",
+      "skus": [
+        "2614"
+      ],
+      "name": "Cuchara Supoon - Negra",
+      "category": "Supoon",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002614",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.585082790012824,
+        "y": 0.7300634432277753,
+        "w": 0.07442163680402498,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.6222936084148365,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-4",
+      "page": 85,
+      "sku": "2621",
+      "skus": [
+        "2621"
+      ],
+      "name": "Cuchara Supoon - Roja",
+      "category": "Supoon",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002621",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6445246135157562,
+        "y": 0.7300634432277753,
+        "w": 0.07442163680402498,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.6817354319177686,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-5",
+      "page": 85,
+      "sku": "2669",
+      "skus": [
+        "2669"
+      ],
+      "name": "Cuchara Supoon - Verde",
+      "category": "Supoon",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002669",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7039664370186883,
+        "y": 0.7300634432277753,
+        "w": 0.07442163680402498,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.7411772554207008,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p085-6",
+      "page": 85,
+      "sku": "2676",
+      "skus": [
+        "2676"
+      ],
+      "name": "Cuchara Supoon - Azul Dreamfarm",
+      "category": "Supoon",
+      "price": "$11.863",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002676",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7634082605216205,
+        "y": 0.7300634432277753,
+        "w": 0.07442163680402498,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.8006190789236329,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p086-1",
+      "page": 86,
+      "sku": "2744",
+      "skus": [
+        "2744"
+      ],
+      "name": "Cuchara Mini Supoon - Open Stock caja exhibidora por 24pzs",
+      "category": "Mini",
+      "price": "$7.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002744",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.26510445877446737,
+        "y": 0.7300634432277753,
+        "w": 0.07917356451052163,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.30469124102972817,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p086-2",
+      "page": 86,
+      "sku": "2713",
+      "skus": [
+        "2713"
+      ],
+      "name": "Cuchara Mini Supoon - Negra",
+      "category": "Mini",
+      "price": "$7.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002713",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4871485981035871,
+        "y": 0.7300634432277753,
+        "w": 0.074155622629983,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5242264094185786,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p086-3",
+      "page": 86,
+      "sku": "2720",
+      "skus": [
+        "2720"
+      ],
+      "name": "Cuchara Mini Supoon - Roja",
+      "category": "Mini",
+      "price": "$7.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002720",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5462579038889669,
+        "y": 0.7300634432277753,
+        "w": 0.074155622629983,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5833357152039583,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p086-4",
+      "page": 86,
+      "sku": "2768",
+      "skus": [
+        "2768"
+      ],
+      "name": "Cuchara Mini Supoon - Verde",
+      "category": "Mini",
+      "price": "$7.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002768",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6053672096743465,
+        "y": 0.7300634432277753,
+        "w": 0.074155622629983,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.6424450209893381,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p086-5",
+      "page": 86,
+      "sku": "2775",
+      "skus": [
+        "2775"
+      ],
+      "name": "Cuchara Mini Supoon - Azul Dreamfarm",
+      "category": "Mini",
+      "price": "$7.190",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002775",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6644765154597263,
+        "y": 0.7300634432277753,
+        "w": 0.074155622629983,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.7015543267747177,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p087-1",
+      "page": 87,
+      "sku": "3345",
+      "skus": [
+        "3345"
+      ],
+      "name": "Rallador Ozest - Fino",
+      "category": "Ozest",
+      "price": "$15.325",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003345",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4628922649034425,
+        "y": 0.7300634432277753,
+        "w": 0.07796639058892213,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018754601979035,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p088-1",
+      "page": 88,
+      "sku": "3369",
+      "skus": [
+        "3369"
+      ],
+      "name": "Rallador Ograte - Medium",
+      "category": "Ograte",
+      "price": "$15.325",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003369",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.42429431880050905,
+        "y": 0.7115173068093277,
+        "w": 0.07806883330709488,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.46332873545405645,
+        "y": 0.7402315487950801
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p088-2",
+      "page": 88,
+      "sku": "3352",
+      "skus": [
+        "3352"
+      ],
+      "name": "Rallador Ograte - Coarse (grueso)",
+      "category": "Ograte",
+      "price": "$15.325",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003352",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.42458960391412154,
+        "y": 0.7284426509396335,
+        "w": 0.0766163400798961,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.46289777395406956,
+        "y": 0.7571568929253859
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p089-1",
+      "page": 89,
+      "sku": "2010",
+      "skus": [
+        "2010"
+      ],
+      "name": "Tijera para pizza Scizza - Negra",
+      "category": "Scizza",
+      "price": "$29.326",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002027",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46346320753634024,
+        "y": 0.7300634432277753,
+        "w": 0.07682163549210222,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018740252823913,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p090-1",
+      "page": 90,
+      "sku": "4410",
+      "skus": [
+        "4410"
+      ],
+      "name": "Pelador autoafilador Sharple - Negro",
+      "category": "Sharple",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004410",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.40021910134931254,
+        "y": 0.7300634432277753,
+        "w": 0.07727962977539883,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.43885891623701195,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p090-2",
+      "page": 90,
+      "sku": "4427",
+      "skus": [
+        "4427"
+      ],
+      "name": "Pelador autoafilador Sharple - Rojo",
+      "category": "Sharple",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004427",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.463233416066462,
+        "y": 0.7300634432277753,
+        "w": 0.07727962977539883,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018732309541614,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p090-3",
+      "page": 90,
+      "sku": "4434",
+      "skus": [
+        "4434"
+      ],
+      "name": "Pelador autoafilador Sharple - Verde",
+      "category": "Sharple",
+      "price": "$10.784",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004434",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5262477307836114,
+        "y": 0.7300634432277753,
+        "w": 0.07727962977539883,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5648875456713108,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p091-1",
+      "page": 91,
+      "sku": "3307",
+      "skus": [
+        "3307"
+      ],
+      "name": "Colador Spina - Verde+Blanco",
+      "category": "Spina",
+      "price": "$35.759",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003307",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4625773009485202,
+        "y": 0.7300634432277753,
+        "w": 0.07857991946434194,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018672606806911,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p092-1",
+      "page": 92,
+      "sku": "4045",
+      "skus": [
+        "4045"
+      ],
+      "name": "Destapador de vinos Winopen",
+      "category": "Winopen",
+      "price": "$48.950",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004045",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46108119653914775,
+        "y": 0.7300634432277753,
+        "w": 0.08158668242613874,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018745377522171,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p093-1",
+      "page": 93,
+      "sku": "4557",
+      "skus": [
+        "4557"
+      ],
+      "name": "Porcionador de helados Icepo",
+      "category": "Icepo",
+      "price": "$23.890",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004557",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4628135495382032,
+        "y": 0.7300634432277753,
+        "w": 0.07810947216427896,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018682856203427,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p094-1",
+      "page": 94,
+      "sku": "3116",
+      "skus": [
+        "3116"
+      ],
+      "name": "Pisa papas Smood Lite negro",
+      "category": "Smood",
+      "price": "$12.060",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003116",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46732169534857787,
+        "y": 0.7300634432277753,
+        "w": 0.06908954200776658,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018664663524611,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p095-1",
+      "page": 95,
+      "sku": "3321",
+      "skus": [
+        "3321"
+      ],
+      "name": "Mandolina Nocutu",
+      "category": "Nocutu",
+      "price": "$20.590",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003321",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4656877365560716,
+        "y": 0.7300634432277753,
+        "w": 0.07236048316475126,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018679781384472,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p096-1",
+      "page": 96,
+      "sku": "2898",
+      "skus": [
+        "2898"
+      ],
+      "name": "Despellejador de frutillas Hullapit",
+      "category": "Hullapit",
+      "price": "$12.950",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002898",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4630497981278862,
+        "y": 0.7300634432277753,
+        "w": 0.07763912735818115,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018693618069768,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p097-1",
+      "page": 97,
+      "sku": "5615",
+      "skus": [
+        "5615"
+      ],
+      "name": "Prensa ajos Garject Lite",
+      "category": "Garject",
+      "price": "$24.540",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005615",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4367194572083596,
+        "y": 0.7277366794440115,
+        "w": 0.08636710345494858,
+        "h": 0.03032046844853814
+      },
+      "pricePosition": {
+        "x": 0.4799030089358339,
+        "y": 0.7604317397595726
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p098-1",
+      "page": 98,
+      "sku": "4090",
+      "skus": [
+        "4090"
+      ],
+      "name": "Destapador de Champagne CHAMPOP",
+      "category": "Champop",
+      "price": "$9.790",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084004090",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.460333093087479,
+        "y": 0.7300634432277753,
+        "w": 0.08308053196827771,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018733590716179,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p099-1",
+      "page": 99,
+      "sku": "6759",
+      "skus": [
+        "6759"
+      ],
+      "name": "Pinches para choclo Lockorns - Open Stock caja exhibidora por 24 piezas",
+      "category": "Lockorns",
+      "price": "$3.595",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084006759",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3701767877407378,
+        "y": 0.7144943151250371,
+        "w": 0.07821201737641688,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.40928279642894627,
+        "y": 0.7432085571107896
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p099-2",
+      "page": 99,
+      "sku": "6766",
+      "skus": [
+        "6766"
+      ],
+      "name": "Pinches para choclo Lockorns - Set x 4 pares",
+      "category": "Lockorns",
+      "price": "$13.622",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084006766",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4185853024473919,
+        "y": 0.7314196592553428,
+        "w": 0.07886654383789883,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.4580185743663413,
+        "y": 0.7601339012410953
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p100-1",
+      "page": 100,
+      "sku": "2225",
+      "skus": [
+        "2225"
+      ],
+      "name": "Cucharas medidoras Levoons - Rojo + transparente",
+      "category": "Levoons",
+      "price": "$14.568",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084002225",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4635222953072523,
+        "y": 0.7300634432277753,
+        "w": 0.07669818151107263,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018713860627886,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p101-1",
+      "page": 101,
+      "sku": "5714",
+      "skus": [
+        "5714"
+      ],
+      "name": "Batidor Flisk -negro",
+      "category": "Flisk",
+      "price": "$23.900",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005714",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4649396843513854,
+        "y": 0.7300634432277753,
+        "w": 0.07385551138748951,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018674400451302,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p102-1",
+      "page": 102,
+      "sku": "5813",
+      "skus": [
+        "5813"
+      ],
+      "name": "Batidor Mini Flisk - negro",
+      "category": "Mini",
+      "price": "$18.352",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005813",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4655302545786104,
+        "y": 0.7300634432277753,
+        "w": 0.07268918131100441,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018748452341126,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p103-1",
+      "page": 103,
+      "sku": "3598",
+      "skus": [
+        "3598"
+      ],
+      "name": "Tijeras Bishears negras",
+      "category": "Bishears",
+      "price": "$20.590",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084003598",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46306947696919604,
+        "y": 0.7300634432277753,
+        "w": 0.07759823226608417,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018685931022382,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
+    },
+    {
+      "id": "p104-1",
+      "page": 104,
+      "sku": "5356",
+      "skus": [
+        "5356"
+      ],
+      "name": "Set the utensilios the Best - Party Mix Colours, colores surtidos en caja de regalo",
+      "category": "Ultimate",
+      "price": "$59.598",
+      "pdfPrice": "",
+      "priceSource": "excel",
+      "ean": "9334084005356",
+      "unitsPerCase": 2,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.46306947696919604,
+        "y": 0.7300634432277753,
+        "w": 0.07759843725401448,
+        "h": 0.026339650118729595
+      },
+      "pricePosition": {
+        "x": 0.5018686955962033,
+        "y": 0.7587776852135277
+      },
+      "section": "Dreamfarm"
     }
   ]
 };

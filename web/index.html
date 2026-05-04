@@ -21,6 +21,11 @@
           <input id="searchInput" type="search" placeholder="SKU, name, category">
         </label>
 
+        <div class="brand-tabs-wrap">
+          <span>Brand</span>
+          <div id="brandTabs" class="brand-tabs" role="tablist" aria-label="Catalog brands"></div>
+        </div>
+
         <div class="tabs" role="tablist" aria-label="Catalog panels">
           <button class="tab-button is-active" data-panel="pagesPanel" type="button">Pages</button>
           <button class="tab-button" data-panel="productsPanel" type="button">Products</button>
@@ -46,6 +51,7 @@
           <button id="openCart" class="cart-button" type="button">
             Cart <span id="cartCount">0</span>
           </button>
+          <button id="openAccount" class="profile-button" type="button" aria-label="Open account"></button>
         </header>
 
         <section class="page-stage">
@@ -74,15 +80,27 @@
             <span>Total value</span>
             <strong id="cartTotalValue">$0</strong>
           </div>
-          <section class="account-panel">
-            <div class="account-header">
-              <div>
-                <span class="eyebrow">Account</span>
-                <strong id="accountStatus">Not signed in</strong>
-              </div>
-              <button id="signOut" class="secondary-button compact-button" type="button" hidden>Sign out</button>
-            </div>
-            <div id="authFields" class="auth-fields">
+          <button id="saveOrder" class="primary-button" type="button">Save order</button>
+          <button id="copyOrder" class="primary-button" type="button">Copy order</button>
+          <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Send by WhatsApp</a>
+        </div>
+      </aside>
+
+      <aside id="accountDrawer" class="account-drawer" aria-label="Account" aria-hidden="true">
+        <div class="account-drawer-header">
+          <div>
+            <span class="eyebrow">Account</span>
+            <h2>Profile</h2>
+          </div>
+          <button id="closeAccount" class="icon-button" type="button" aria-label="Close account">×</button>
+        </div>
+        <div class="account-drawer-body">
+          <div class="account-header">
+            <strong id="accountStatus">Not signed in</strong>
+            <button id="signOut" class="secondary-button compact-button is-hidden" type="button">Sign out</button>
+          </div>
+          <div id="authFields" class="auth-fields">
+            <section id="signInForm" class="auth-mode-panel">
               <label>
                 <span>Email</span>
                 <input id="authEmail" type="email" autocomplete="email">
@@ -91,34 +109,54 @@
                 <span>Password</span>
                 <input id="authPassword" type="password" autocomplete="current-password">
               </label>
+              <button id="signIn" class="primary-button" type="button">Sign in</button>
+              <button id="showForgotPassword" class="secondary-button" type="button">Forgot password?</button>
+              <button id="showCreateAccount" class="secondary-button" type="button">Create an account</button>
+            </section>
+            <section id="createAccountForm" class="auth-mode-panel">
+              <label>
+                <span>Email</span>
+                <input id="createEmail" type="email" autocomplete="email">
+              </label>
+              <label>
+                <span>Password</span>
+                <input id="createPassword" type="password" autocomplete="new-password">
+              </label>
+              <label>
+                <span>Name</span>
+                <input id="authName" type="text" autocomplete="name">
+              </label>
+              <label>
+                <span>Phone</span>
+                <input id="authPhone" type="tel" autocomplete="tel">
+              </label>
               <label>
                 <span>Company</span>
                 <input id="authCompany" type="text" autocomplete="organization">
               </label>
-              <div class="auth-actions">
-                <button id="signIn" class="secondary-button" type="button">Sign in</button>
-                <button id="createAccount" class="secondary-button" type="button">Create account</button>
-              </div>
-            </div>
-            <div id="customerOrders" class="customer-orders"></div>
-          </section>
-          <div class="customer-fields">
-            <label>
-              <span>Name</span>
-              <input id="orderCustomerName" type="text" autocomplete="name" required>
-            </label>
-            <label>
-              <span>Phone</span>
-              <input id="orderCustomerPhone" type="tel" autocomplete="tel">
-            </label>
-            <label>
-              <span>Notes</span>
-              <textarea id="orderCustomerNotes" rows="3"></textarea>
-            </label>
+              <button id="createAccount" class="primary-button" type="button">Create account</button>
+              <button id="showSignIn" class="secondary-button" type="button">Back to sign in</button>
+            </section>
+            <section id="forgotPasswordForm" class="auth-mode-panel">
+              <label>
+                <span>Email</span>
+                <input id="resetEmail" type="email" autocomplete="email">
+              </label>
+              <button id="sendPasswordReset" class="primary-button" type="button">Send reset email</button>
+              <button id="showSignInFromReset" class="secondary-button" type="button">Back to sign in</button>
+            </section>
+            <section id="newPasswordForm" class="auth-mode-panel">
+              <label>
+                <span>New password</span>
+                <input id="newPassword" type="password" autocomplete="new-password">
+              </label>
+              <button id="updatePassword" class="primary-button" type="button">Set new password</button>
+              <button id="showSignInFromNewPassword" class="secondary-button" type="button">Back to sign in</button>
+            </section>
+            <p id="authMessage" class="auth-message" role="status"></p>
           </div>
-          <button id="saveOrder" class="primary-button" type="button">Save order</button>
-          <button id="copyOrder" class="primary-button" type="button">Copy order</button>
-          <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Send by WhatsApp</a>
+          <div id="customerOrders" class="customer-orders"></div>
+          <div id="customerOrderDetail" class="customer-order-detail" hidden></div>
         </div>
       </aside>
 
@@ -132,7 +170,7 @@
               </div>
               <button id="closeAdminLogin" class="icon-button" type="button" aria-label="Close admin">×</button>
             </div>
-            <p>Enter the admin password to see orders and catalog adjustments.</p>
+            <p>Enter the admin password to see orders. To load Supabase orders, sign in with an admin account from the profile panel first.</p>
             <label>
               <span>Password</span>
               <input id="adminPassword" type="password" autocomplete="current-password" required>
@@ -166,6 +204,7 @@
                   <button id="clearOrders" class="secondary-button danger-button" type="button">Clear</button>
                 </div>
               </div>
+              <p id="adminDataStatus" class="admin-data-status"></p>
               <div id="orderSummary" class="admin-summary"></div>
               <div id="ordersList" class="orders-list"></div>
             </section>
@@ -194,50 +233,6 @@
                 <label>
                   <span>New password</span>
                   <input id="settingPassword" type="password" autocomplete="new-password" placeholder="Leave blank to keep current">
-                </label>
-              </div>
-            </section>
-
-            <section class="admin-panel product-admin-panel">
-              <div class="admin-panel-header">
-                <div>
-                  <span class="eyebrow">Products</span>
-                  <h2>Product adjustments</h2>
-                </div>
-                <button id="resetProduct" class="secondary-button danger-button" type="button">Reset product</button>
-              </div>
-              <div class="admin-form-grid">
-                <label class="wide-field">
-                  <span>Find product</span>
-                  <input id="productSearch" type="search" placeholder="SKU, name, category">
-                </label>
-                <label>
-                  <span>Product</span>
-                  <select id="productSelect"></select>
-                </label>
-                <label>
-                  <span>Name</span>
-                  <input id="productName" type="text">
-                </label>
-                <label>
-                  <span>Category</span>
-                  <input id="productCategory" type="text">
-                </label>
-                <label>
-                  <span>Price</span>
-                  <input id="productPrice" type="text">
-                </label>
-                <label class="checkbox-field">
-                  <input id="productHidden" type="checkbox">
-                  <span>Hide from public catalog</span>
-                </label>
-              </div>
-              <div class="admin-actions">
-                <button id="saveProduct" class="primary-button" type="button">Save product</button>
-                <button id="exportAdjustments" class="secondary-button" type="button">Export adjustments</button>
-                <label class="secondary-button import-button">
-                  Import adjustments
-                  <input id="importAdjustments" type="file" accept="application/json">
                 </label>
               </div>
             </section>

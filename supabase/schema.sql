@@ -19,6 +19,7 @@ create table if not exists public.orders (
   notes text not null default '',
   total_items integer not null default 0,
   total_value numeric(12, 2) not null default 0,
+  archived_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -35,6 +36,13 @@ create table if not exists public.order_items (
   page integer,
   created_at timestamptz not null default now()
 );
+
+alter table public.orders add column if not exists archived_at timestamptz;
+
+update public.orders
+set archived_at = coalesce(archived_at, updated_at, now())
+where status = 'sent'
+  and archived_at is null;
 
 alter table public.profiles enable row level security;
 alter table public.orders enable row level security;
@@ -62,11 +70,13 @@ using (id = auth.uid() or public.is_admin());
 drop policy if exists "profiles insert own" on public.profiles;
 create policy "profiles insert own"
 on public.profiles for insert
+to authenticated
 with check (id = auth.uid());
 
 drop policy if exists "profiles update own or admin" on public.profiles;
 create policy "profiles update own or admin"
 on public.profiles for update
+to authenticated
 using (id = auth.uid() or public.is_admin())
 with check (id = auth.uid() or public.is_admin());
 
@@ -78,6 +88,7 @@ using (customer_id = auth.uid() or public.is_admin());
 drop policy if exists "orders insert own" on public.orders;
 create policy "orders insert own"
 on public.orders for insert
+to authenticated
 with check (customer_id = auth.uid());
 
 drop policy if exists "orders admin update" on public.orders;

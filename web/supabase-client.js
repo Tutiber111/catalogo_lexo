@@ -4,7 +4,21 @@
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleHB2d210eGF1dnprY25jcW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODUxNjAsImV4cCI6MjA5MzQ2MTE2MH0.H29L5eOaaLjKnSv6_ro2ECRfaD5wjo5y7dBsyDBRt-E",
   };
 
-  const client = window.supabase?.createClient(config.url, config.anonKey) || null;
+  const client = window.supabase?.createClient(config.url, config.anonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: true,
+    },
+  }) || null;
+
+  if (client) {
+    client.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        window.dispatchEvent(new CustomEvent("catalog:password-recovery"));
+      }
+    });
+  }
 
   function isAvailable() {
     return Boolean(client);
@@ -32,7 +46,8 @@
       },
     });
     if (error) throw error;
-    if (data.user) await upsertProfile(data.user, { name, phone, company });
+    const user = data.session?.user || (await getUser());
+    if (user) await upsertProfile(user, { name, phone, company });
     return data.user;
   }
 
@@ -40,6 +55,48 @@
     if (!client) return;
     const { error } = await client.auth.signOut();
     if (error) throw error;
+  }
+
+  async function sendPasswordReset(email) {
+    const { error } = await client.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname,
+    });
+    if (error) throw error;
+  }
+
+  async function updatePassword(password) {
+    await ensureRecoverySession();
+    const { data, error } = await client.auth.updateUser({ password });
+    if (error) throw error;
+    return data.user;
+  }
+
+  async function ensureRecoverySession() {
+    const search = new URLSearchParams(window.location.search);
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    const code = search.get("code") || hash.get("code");
+    const accessToken = hash.get("access_token");
+    const refreshToken = hash.get("refresh_token");
+
+    if (code) {
+      const { data, error } = await client.auth.exchangeCodeForSession(code);
+      if (error) throw error;
+      return data.session;
+    }
+
+    if (accessToken && refreshToken) {
+      const { data, error } = await client.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      });
+      if (error) throw error;
+      return data.session;
+    }
+
+    const { data, error } = await client.auth.getSession();
+    if (error) throw error;
+    if (!data.session) throw new Error("Reset session missing. Request a new password reset email and open the newest link in this same browser.");
+    return data.session;
   }
 
   async function getProfile(userId) {
@@ -54,12 +111,18 @@
     const payload = {
       id: user.id,
       email: user.email,
-      name: String(profile.name || user.user_metadata?.name || user.email || "").trim(),
+      name: String(profile.name || user.user_metadata?.name || user.email || "").trim() || user.email || "",
       phone: String(profile.phone || user.user_metadata?.phone || "").trim(),
       company: String(profile.company || user.user_metadata?.company || "").trim(),
       updated_at: new Date().toISOString(),
     };
-    const { data, error } = await client.from("profiles").upsert(payload).select().single();
+    let { data, error } = await client.from("profiles").upsert(payload, { onConflict: "id" }).select().single();
+    if (error && error.message?.includes("'email' column")) {
+      const { email, ...payloadWithoutEmail } = payload;
+      const retry = await client.from("profiles").upsert(payloadWithoutEmail, { onConflict: "id" }).select().single();
+      data = retry.data;
+      error = retry.error;
+    }
     if (error) throw error;
     return data;
   }
@@ -113,8 +176,25 @@
     return data.map(normalizeOrder);
   }
 
+  async function loadActiveOrders() {
+    if (!client) return [];
+    const { data, error } = await client.from("orders").select("*, order_items(*)").neq("status", "sent").order("created_at", { ascending: false });
+    if (error) throw error;
+    return data.map(normalizeOrder);
+  }
+
   async function updateOrderStatus(orderId, status) {
-    const { error } = await client.from("orders").update({ status, updated_at: new Date().toISOString() }).eq("id", orderId);
+    const now = new Date().toISOString();
+    const payload = {
+      status,
+      updated_at: now,
+      archived_at: status === "sent" ? now : null,
+    };
+    let { error } = await client.from("orders").update(payload).eq("id", orderId);
+    if (error && error.message?.includes("archived_at")) {
+      const retry = await client.from("orders").update({ status, updated_at: now }).eq("id", orderId);
+      error = retry.error;
+    }
     if (error) throw error;
   }
 
@@ -134,6 +214,8 @@
       displayId: order.order_number ? `#${order.order_number}` : order.id,
       remote: true,
       createdAt: order.created_at,
+      updatedAt: order.updated_at,
+      archivedAt: order.archived_at,
       status: order.status,
       customer: {
         name: order.customer_name || "",
@@ -162,11 +244,15 @@
     signIn,
     signUp,
     signOut,
+    sendPasswordReset,
+    updatePassword,
+    ensureRecoverySession,
     getProfile,
     upsertProfile,
     saveOrder,
     loadMyOrders,
     loadAllOrders,
+    loadActiveOrders,
     updateOrderStatus,
     deleteOrder,
     isAdmin,
