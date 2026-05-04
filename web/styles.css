@@ -509,7 +509,59 @@ button:disabled {
   border-top: 1px solid var(--line);
 }
 
+.account-panel {
+  display: grid;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.account-header,
+.auth-actions,
+.customer-order-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.account-header strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.auth-fields {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-actions {
+  flex-wrap: wrap;
+}
+
+.compact-button {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.customer-orders {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.customer-order-line {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
 .customer-fields label,
+.auth-fields label,
 .admin-form-grid label,
 .admin-login-panel label {
   display: grid;
@@ -521,6 +573,7 @@ button:disabled {
 
 .customer-fields input,
 .customer-fields textarea,
+.auth-fields input,
 .admin-form-grid input,
 .admin-form-grid textarea,
 .admin-form-grid select,
@@ -543,6 +596,7 @@ button:disabled {
 
 .customer-fields input:focus,
 .customer-fields textarea:focus,
+.auth-fields input:focus,
 .admin-form-grid input:focus,
 .admin-form-grid textarea:focus,
 .admin-form-grid select:focus,

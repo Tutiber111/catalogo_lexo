@@ -34,6 +34,19 @@ The current admin is designed for the static prototype. Orders and adjustments a
 
 See `docs/order-database-model.md` for the proposed customer login and order database model.
 
+## Supabase Setup
+
+1. Open the Supabase SQL editor.
+2. Run `supabase/schema.sql`.
+3. Create your account from the catalog cart.
+4. In Supabase SQL editor, promote your account:
+
+```sql
+update public.profiles set role = 'admin' where email = 'your-email@example.com';
+```
+
+After that, customer orders save to Supabase and the hidden admin popup can load all remote orders.
+
 ## Regenerate Sample Data
 
 The sample page images and `web/data/catalog.json` are generated from the PDF:

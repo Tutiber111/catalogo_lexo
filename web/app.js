@@ -5,6 +5,8 @@ const state = {
   productsById: new Map(),
   cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
   settings: CATALOG_STORE.loadSettings(),
+  user: null,
+  profile: null,
 };
 
 const els = {
@@ -30,6 +32,15 @@ const els = {
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
+  accountStatus: document.querySelector("#accountStatus"),
+  authFields: document.querySelector("#authFields"),
+  authEmail: document.querySelector("#authEmail"),
+  authPassword: document.querySelector("#authPassword"),
+  authCompany: document.querySelector("#authCompany"),
+  signIn: document.querySelector("#signIn"),
+  createAccount: document.querySelector("#createAccount"),
+  signOut: document.querySelector("#signOut"),
+  customerOrders: document.querySelector("#customerOrders"),
   orderCustomerName: document.querySelector("#orderCustomerName"),
   orderCustomerPhone: document.querySelector("#orderCustomerPhone"),
   orderCustomerNotes: document.querySelector("#orderCustomerNotes"),
@@ -51,6 +62,7 @@ async function init() {
   els.catalogLabel.textContent = state.settings.catalogLabel;
   loadCustomerDraft();
   bindEvents();
+  await initAccount();
   renderTabs();
   renderAll();
 }
@@ -75,6 +87,9 @@ function bindEvents() {
   els.nextPage.addEventListener("click", () => goToPage(state.currentIndex + 1));
   els.openCart.addEventListener("click", openCart);
   els.closeCart.addEventListener("click", closeCart);
+  els.signIn.addEventListener("click", signIn);
+  els.createAccount.addEventListener("click", createAccount);
+  els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
   els.copyOrder.addEventListener("click", copyOrder);
   [els.orderCustomerName, els.orderCustomerPhone, els.orderCustomerNotes].forEach((input) => {
@@ -368,7 +383,7 @@ function buildOrderText(lines, customer = {}) {
   ].filter((line, index, items) => line || items[index - 1]).join("\n");
 }
 
-function saveOrder() {
+async function saveOrder() {
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isVisibleProduct(line.product));
@@ -381,14 +396,30 @@ function saveOrder() {
     showToast("Add the customer's name before saving");
     return;
   }
+  if (CATALOG_SUPABASE.isAvailable() && !state.user) {
+    showToast("Sign in before saving the order");
+    els.authEmail.focus();
+    return;
+  }
 
   const order = CATALOG_STORE.buildOrderFromLines(lines, readCustomerDraft());
-  CATALOG_STORE.addOrder(order);
+  try {
+    if (CATALOG_SUPABASE.isAvailable() && state.user) {
+      await saveCustomerProfile();
+      await CATALOG_SUPABASE.saveOrder(order, state.user.id);
+      await renderCustomerOrders();
+    } else {
+      CATALOG_STORE.addOrder(order);
+    }
+  } catch (error) {
+    showToast(error.message || "Could not save order");
+    return;
+  }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
   state.cart.clear();
   saveCart();
   renderCart();
-  showToast(`Order ${order.id} saved`);
+  showToast("Order saved");
 }
 
 async function copyOrder() {
@@ -440,6 +471,120 @@ function readCustomerDraft() {
 
 function saveCustomerDraft() {
   localStorage.setItem("catalogCustomerDraft", JSON.stringify(readCustomerDraft()));
+}
+
+async function initAccount() {
+  if (!CATALOG_SUPABASE.isAvailable()) {
+    els.accountStatus.textContent = "Accounts unavailable";
+    return;
+  }
+
+  try {
+    state.user = await CATALOG_SUPABASE.getUser();
+    if (state.user) {
+      state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
+      applyProfileToCustomerFields();
+    }
+    renderAccount();
+    await renderCustomerOrders();
+  } catch (error) {
+    els.accountStatus.textContent = "Account setup needed";
+  }
+}
+
+async function signIn() {
+  try {
+    state.user = await CATALOG_SUPABASE.signIn(els.authEmail.value.trim(), els.authPassword.value);
+    state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
+    if (!state.profile) state.profile = await saveCustomerProfile();
+    applyProfileToCustomerFields();
+    renderAccount();
+    await renderCustomerOrders();
+    showToast("Signed in");
+  } catch (error) {
+    showToast(error.message || "Could not sign in");
+  }
+}
+
+async function createAccount() {
+  try {
+    state.user = await CATALOG_SUPABASE.signUp({
+      email: els.authEmail.value.trim(),
+      password: els.authPassword.value,
+      name: els.orderCustomerName.value,
+      phone: els.orderCustomerPhone.value,
+      company: els.authCompany.value,
+    });
+    state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
+    renderAccount();
+    await renderCustomerOrders();
+    showToast("Account created. Check your email if confirmation is enabled.");
+  } catch (error) {
+    showToast(error.message || "Could not create account");
+  }
+}
+
+async function signOut() {
+  try {
+    await CATALOG_SUPABASE.signOut();
+    state.user = null;
+    state.profile = null;
+    renderAccount();
+    await renderCustomerOrders();
+    showToast("Signed out");
+  } catch (error) {
+    showToast(error.message || "Could not sign out");
+  }
+}
+
+async function saveCustomerProfile() {
+  if (!state.user) return null;
+  state.profile = await CATALOG_SUPABASE.upsertProfile(state.user, {
+    name: els.orderCustomerName.value,
+    phone: els.orderCustomerPhone.value,
+    company: els.authCompany.value,
+  });
+  return state.profile;
+}
+
+function applyProfileToCustomerFields() {
+  if (!state.profile) return;
+  els.orderCustomerName.value = state.profile.name || els.orderCustomerName.value;
+  els.orderCustomerPhone.value = state.profile.phone || els.orderCustomerPhone.value;
+  els.authCompany.value = state.profile.company || "";
+  saveCustomerDraft();
+}
+
+function renderAccount() {
+  const signedIn = Boolean(state.user);
+  els.accountStatus.textContent = signedIn ? `Signed in as ${state.user.email}` : "Not signed in";
+  els.authFields.hidden = signedIn;
+  els.signOut.hidden = !signedIn;
+}
+
+async function renderCustomerOrders() {
+  if (!state.user || !CATALOG_SUPABASE.isAvailable()) {
+    els.customerOrders.innerHTML = "";
+    return;
+  }
+
+  try {
+    const orders = await CATALOG_SUPABASE.loadMyOrders(state.user.id);
+    els.customerOrders.innerHTML =
+      orders
+        .slice(0, 5)
+        .map(
+          (order) => `
+            <div class="customer-order-line">
+              <strong>${escapeHtml(order.displayId || order.id)}</strong>
+              <span>${escapeHtml(order.status)} - ${formatMoney(order.totalValue)}</span>
+            </div>
+          `,
+        )
+        .join("") || `<p>No previous orders yet.</p>`;
+  } catch (error) {
+    els.customerOrders.innerHTML = `<p>Run the Supabase setup SQL to enable order history.</p>`;
+  }
 }
 
 function isVisibleProduct(product) {

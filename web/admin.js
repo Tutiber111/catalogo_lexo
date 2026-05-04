@@ -53,7 +53,7 @@
     adminEls.loginForm.addEventListener("submit", unlockAdmin);
     adminEls.lockAdmin.addEventListener("click", lockAdmin);
     adminEls.saveSettings.addEventListener("click", saveSettings);
-    adminEls.exportOrders.addEventListener("click", () => downloadJson("lexo-orders.json", CATALOG_STORE.loadOrders()));
+    adminEls.exportOrders.addEventListener("click", exportOrders);
     adminEls.clearOrders.addEventListener("click", clearOrders);
     adminEls.productSearch.addEventListener("input", renderProductOptions);
     adminEls.productSelect.addEventListener("change", () => selectProduct(adminEls.productSelect.value));
@@ -61,7 +61,7 @@
     adminEls.resetProduct.addEventListener("click", resetProduct);
     adminEls.exportAdjustments.addEventListener("click", exportAdjustments);
     adminEls.importAdjustments.addEventListener("change", importAdjustments);
-    window.addEventListener("catalog:orders-changed", renderOrders);
+    window.addEventListener("catalog:orders-changed", () => renderOrders());
   }
 
   function openAdmin() {
@@ -140,10 +140,10 @@
     showToast("Settings saved");
   }
 
-  function renderOrders() {
+  async function renderOrders() {
     if (adminEls.adminApp.hidden) return;
 
-    const orders = CATALOG_STORE.loadOrders();
+    const orders = await loadAdminOrders();
     const totalValue = orders.reduce((sum, order) => sum + Number(order.totalValue || 0), 0);
     const totalItems = orders.reduce((sum, order) => sum + Number(order.totalItems || 0), 0);
 
@@ -160,11 +160,11 @@
             <article class="order-card">
               <div class="order-card-header">
                 <div>
-                  <strong>${escapeHtml(order.id)}</strong>
+                <strong>${escapeHtml(order.displayId || order.id)}</strong>
                   <p>${formatDate(order.createdAt)}${order.customer?.name ? ` - ${escapeHtml(order.customer.name)}` : ""}${order.customer?.phone ? ` - ${escapeHtml(order.customer.phone)}` : ""}</p>
                 </div>
-                <select data-status="${escapeHtml(order.id)}">
-                  ${["new", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${status}</option>`).join("")}
+                <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
+                  ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${status}</option>`).join("")}
                 </select>
               </div>
               <div class="order-lines">
@@ -173,7 +173,7 @@
               ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
               <div class="order-card-footer">
                 <strong>${order.totalItems} items - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
-                <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}">Delete</button>
+                <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Delete</button>
               </div>
             </article>
           `,
@@ -181,20 +181,46 @@
         .join("") || `<p class="empty-state">No saved orders yet.</p>`;
 
     adminEls.ordersList.querySelectorAll("[data-status]").forEach((select) => {
-      select.addEventListener("change", () => {
-        CATALOG_STORE.updateOrder(select.dataset.status, { status: select.value });
-        showToast("Order status updated");
+      select.addEventListener("change", async () => {
+        try {
+          if (select.dataset.remote === "true") await CATALOG_SUPABASE.updateOrderStatus(select.dataset.status, select.value);
+          else CATALOG_STORE.updateOrder(select.dataset.status, { status: select.value });
+          showToast("Order status updated");
+        } catch (error) {
+          showToast(error.message || "Could not update order");
+        }
       });
     });
 
     adminEls.ordersList.querySelectorAll("[data-delete-order]").forEach((button) => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         if (!confirm("Delete this saved order from this device?")) return;
-        CATALOG_STORE.deleteOrder(button.dataset.deleteOrder);
-        renderOrders();
-        showToast("Order deleted");
+        try {
+          if (button.dataset.remote === "true") await CATALOG_SUPABASE.deleteOrder(button.dataset.deleteOrder);
+          else CATALOG_STORE.deleteOrder(button.dataset.deleteOrder);
+          await renderOrders();
+          showToast("Order deleted");
+        } catch (error) {
+          showToast(error.message || "Could not delete order");
+        }
       });
     });
+  }
+
+  async function loadAdminOrders() {
+    if (CATALOG_SUPABASE.isAvailable()) {
+      try {
+        const user = await CATALOG_SUPABASE.getUser();
+        if (user && (await CATALOG_SUPABASE.isAdmin(user.id))) return await CATALOG_SUPABASE.loadAllOrders();
+      } catch (error) {
+        showToast("Supabase admin orders unavailable");
+      }
+    }
+    return CATALOG_STORE.loadOrders();
+  }
+
+  async function exportOrders() {
+    downloadJson("lexo-orders.json", await loadAdminOrders());
   }
 
   function clearOrders() {

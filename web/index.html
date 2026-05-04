@@ -74,6 +74,34 @@
             <span>Total value</span>
             <strong id="cartTotalValue">$0</strong>
           </div>
+          <section class="account-panel">
+            <div class="account-header">
+              <div>
+                <span class="eyebrow">Account</span>
+                <strong id="accountStatus">Not signed in</strong>
+              </div>
+              <button id="signOut" class="secondary-button compact-button" type="button" hidden>Sign out</button>
+            </div>
+            <div id="authFields" class="auth-fields">
+              <label>
+                <span>Email</span>
+                <input id="authEmail" type="email" autocomplete="email">
+              </label>
+              <label>
+                <span>Password</span>
+                <input id="authPassword" type="password" autocomplete="current-password">
+              </label>
+              <label>
+                <span>Company</span>
+                <input id="authCompany" type="text" autocomplete="organization">
+              </label>
+              <div class="auth-actions">
+                <button id="signIn" class="secondary-button" type="button">Sign in</button>
+                <button id="createAccount" class="secondary-button" type="button">Create account</button>
+              </div>
+            </div>
+            <div id="customerOrders" class="customer-orders"></div>
+          </section>
           <div class="customer-fields">
             <label>
               <span>Name</span>
@@ -228,7 +256,9 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data/catalog-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js"></script>
+    <script src="supabase-client.js"></script>
     <script src="app.js"></script>
     <script src="admin.js"></script>
   </body>
