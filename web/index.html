@@ -10,9 +10,10 @@
     <div class="app-shell">
       <aside class="sidebar" aria-label="Catalog navigation">
         <div class="brand-block">
-          <span class="eyebrow">Interactive catalog</span>
-          <h1>LEXO</h1>
+          <span id="catalogLabel" class="eyebrow">Interactive catalog</span>
+          <h1 id="brandName">LEXO</h1>
           <p id="catalogMeta">Loading catalog...</p>
+          <button id="openAdmin" class="admin-entry-button" type="button" aria-label="Open admin"></button>
         </div>
 
         <label class="search-wrap">
@@ -73,9 +74,147 @@
             <span>Total value</span>
             <strong id="cartTotalValue">$0</strong>
           </div>
+          <div class="customer-fields">
+            <label>
+              <span>Name</span>
+              <input id="orderCustomerName" type="text" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Phone</span>
+              <input id="orderCustomerPhone" type="tel" autocomplete="tel">
+            </label>
+            <label>
+              <span>Notes</span>
+              <textarea id="orderCustomerNotes" rows="3"></textarea>
+            </label>
+          </div>
+          <button id="saveOrder" class="primary-button" type="button">Save order</button>
           <button id="copyOrder" class="primary-button" type="button">Copy order</button>
           <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Send by WhatsApp</a>
         </div>
+      </aside>
+
+      <aside id="adminDrawer" class="admin-drawer" aria-label="Admin" aria-hidden="true">
+        <section id="adminLogin" class="admin-login-panel">
+          <form id="loginForm" class="admin-card">
+            <div class="admin-panel-header">
+              <div>
+                <span class="eyebrow">Private admin</span>
+                <h2>Admin</h2>
+              </div>
+              <button id="closeAdminLogin" class="icon-button" type="button" aria-label="Close admin">×</button>
+            </div>
+            <p>Enter the admin password to see orders and catalog adjustments.</p>
+            <label>
+              <span>Password</span>
+              <input id="adminPassword" type="password" autocomplete="current-password" required>
+            </label>
+            <button class="primary-button" type="submit">Unlock admin</button>
+            <p id="loginMessage" class="admin-message" role="status"></p>
+          </form>
+        </section>
+
+        <section id="adminApp" class="admin-app-panel" hidden>
+          <header class="admin-drawer-header">
+            <div>
+              <span class="eyebrow">Private admin</span>
+              <h2>Admin</h2>
+            </div>
+            <div class="admin-actions">
+              <button id="lockAdmin" class="secondary-button" type="button">Lock</button>
+              <button id="closeAdmin" class="icon-button" type="button" aria-label="Close admin">×</button>
+            </div>
+          </header>
+
+          <div class="admin-grid">
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Orders</span>
+                  <h2>All orders</h2>
+                </div>
+                <div class="admin-actions">
+                  <button id="exportOrders" class="secondary-button" type="button">Export</button>
+                  <button id="clearOrders" class="secondary-button danger-button" type="button">Clear</button>
+                </div>
+              </div>
+              <div id="orderSummary" class="admin-summary"></div>
+              <div id="ordersList" class="orders-list"></div>
+            </section>
+
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Adjustments</span>
+                  <h2>Settings</h2>
+                </div>
+                <button id="saveSettings" class="primary-button" type="button">Save</button>
+              </div>
+              <div class="admin-form-grid">
+                <label>
+                  <span>Brand name</span>
+                  <input id="settingBrandName" type="text">
+                </label>
+                <label>
+                  <span>Catalog label</span>
+                  <input id="settingCatalogLabel" type="text">
+                </label>
+                <label>
+                  <span>WhatsApp number</span>
+                  <input id="settingWhatsapp" type="tel" placeholder="549...">
+                </label>
+                <label>
+                  <span>New password</span>
+                  <input id="settingPassword" type="password" autocomplete="new-password" placeholder="Leave blank to keep current">
+                </label>
+              </div>
+            </section>
+
+            <section class="admin-panel product-admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Products</span>
+                  <h2>Product adjustments</h2>
+                </div>
+                <button id="resetProduct" class="secondary-button danger-button" type="button">Reset product</button>
+              </div>
+              <div class="admin-form-grid">
+                <label class="wide-field">
+                  <span>Find product</span>
+                  <input id="productSearch" type="search" placeholder="SKU, name, category">
+                </label>
+                <label>
+                  <span>Product</span>
+                  <select id="productSelect"></select>
+                </label>
+                <label>
+                  <span>Name</span>
+                  <input id="productName" type="text">
+                </label>
+                <label>
+                  <span>Category</span>
+                  <input id="productCategory" type="text">
+                </label>
+                <label>
+                  <span>Price</span>
+                  <input id="productPrice" type="text">
+                </label>
+                <label class="checkbox-field">
+                  <input id="productHidden" type="checkbox">
+                  <span>Hide from public catalog</span>
+                </label>
+              </div>
+              <div class="admin-actions">
+                <button id="saveProduct" class="primary-button" type="button">Save product</button>
+                <button id="exportAdjustments" class="secondary-button" type="button">Export adjustments</button>
+                <label class="secondary-button import-button">
+                  Import adjustments
+                  <input id="importAdjustments" type="file" accept="application/json">
+                </label>
+              </div>
+            </section>
+          </div>
+        </section>
       </aside>
     </div>
 
@@ -89,6 +228,8 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data/catalog-data.js"></script>
+    <script src="catalog-store.js"></script>
     <script src="app.js"></script>
+    <script src="admin.js"></script>
   </body>
 </html>

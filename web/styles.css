@@ -33,6 +33,11 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
@@ -51,6 +56,30 @@ button {
   overflow: hidden;
   background: var(--panel);
   border-right: 1px solid var(--line);
+}
+
+.brand-block {
+  position: relative;
+}
+
+.admin-entry-button {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(99, 106, 115, 0.18);
+  opacity: 0.28;
+}
+
+.admin-entry-button:hover,
+.admin-entry-button:focus-visible {
+  background: var(--accent);
+  opacity: 0.9;
+  outline: none;
 }
 
 .brand-block h1,
@@ -355,6 +384,49 @@ button {
   transition: transform 180ms ease;
 }
 
+.admin-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(22, 22, 26, 0.38);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.admin-drawer.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-login-panel {
+  display: grid;
+  place-items: center;
+  width: min(420px, 100%);
+}
+
+.admin-app-panel {
+  width: min(920px, 100%);
+  max-height: min(780px, calc(100vh - 36px));
+  overflow: auto;
+  padding: 22px;
+  background: #eef0f3;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.admin-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
 .cart-drawer.is-open {
   transform: translateX(0);
 }
@@ -428,10 +500,64 @@ button {
   font-size: 22px;
 }
 
+.customer-fields {
+  display: grid;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.customer-fields label,
+.admin-form-grid label,
+.admin-login-panel label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.customer-fields input,
+.customer-fields textarea,
+.admin-form-grid input,
+.admin-form-grid textarea,
+.admin-form-grid select,
+.admin-login-panel input,
+.order-card select {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+}
+
+.customer-fields textarea,
+.admin-form-grid textarea {
+  resize: vertical;
+}
+
+.customer-fields input:focus,
+.customer-fields textarea:focus,
+.admin-form-grid input:focus,
+.admin-form-grid textarea:focus,
+.admin-form-grid select:focus,
+.admin-login-panel input:focus,
+.order-card select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(17, 115, 122, 0.14);
+}
+
 .secondary-button {
   border: 1px solid var(--line);
   color: var(--ink);
   background: var(--panel);
+}
+
+.danger-button {
+  color: var(--brand-dark);
 }
 
 .product-dialog {
@@ -576,6 +702,178 @@ button {
   opacity: 1;
 }
 
+.admin-card,
+.admin-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 34px rgba(22, 22, 26, 0.08);
+}
+
+.admin-card {
+  display: grid;
+  gap: 16px;
+  width: min(420px, 100%);
+  padding: 24px;
+}
+
+.admin-card h1,
+.admin-card h2,
+.admin-header h1,
+.admin-panel h2 {
+  margin: 2px 0 0;
+  letter-spacing: 0;
+}
+
+.admin-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.admin-message {
+  min-height: 20px;
+  color: var(--brand-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-header,
+.admin-panel-header,
+.order-card-header,
+.order-card-footer,
+.admin-actions,
+.admin-summary {
+  display: flex;
+  align-items: center;
+}
+
+.admin-header {
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1.1fr);
+  gap: 18px;
+}
+
+.admin-panel {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 18px;
+}
+
+.product-admin-panel {
+  grid-column: 1 / -1;
+}
+
+.admin-panel-header {
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.wide-field {
+  grid-column: 1 / -1;
+}
+
+.checkbox-field {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  align-self: end;
+  min-height: 38px;
+}
+
+.checkbox-field input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--brand);
+}
+
+.admin-summary {
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.admin-summary span {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.admin-summary strong {
+  color: var(--ink);
+}
+
+.orders-list {
+  display: grid;
+  gap: 12px;
+  max-height: 560px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.order-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.order-card-header,
+.order-card-footer {
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.order-card-header p,
+.order-notes,
+.empty-state {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.order-card select {
+  width: 132px;
+}
+
+.order-lines {
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.import-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.import-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
 @media (max-width: 920px) {
   body {
     overflow: auto;
@@ -625,5 +923,28 @@ button {
 
   .group-product {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-app-panel {
+    padding: 14px;
+  }
+
+  .admin-header,
+  .admin-drawer-header,
+  .admin-panel-header,
+  .order-card-header,
+  .order-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-grid,
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-admin-panel,
+  .wide-field {
+    grid-column: auto;
   }
 }

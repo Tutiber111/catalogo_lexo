@@ -4,9 +4,12 @@ const state = {
   zoom: Number(localStorage.getItem("catalogZoom") || 100),
   productsById: new Map(),
   cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
+  settings: CATALOG_STORE.loadSettings(),
 };
 
 const els = {
+  brandName: document.querySelector("#brandName"),
+  catalogLabel: document.querySelector("#catalogLabel"),
   catalogMeta: document.querySelector("#catalogMeta"),
   searchInput: document.querySelector("#searchInput"),
   pagesPanel: document.querySelector("#pagesPanel"),
@@ -27,6 +30,10 @@ const els = {
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
+  orderCustomerName: document.querySelector("#orderCustomerName"),
+  orderCustomerPhone: document.querySelector("#orderCustomerPhone"),
+  orderCustomerNotes: document.querySelector("#orderCustomerNotes"),
+  saveOrder: document.querySelector("#saveOrder"),
   copyOrder: document.querySelector("#copyOrder"),
   whatsappOrder: document.querySelector("#whatsappOrder"),
   productDialog: document.querySelector("#productDialog"),
@@ -35,11 +42,14 @@ const els = {
 };
 
 async function init() {
-  state.catalog = window.CATALOG_DATA || (await fetchCatalog());
+  state.catalog = CATALOG_STORE.applyProductOverrides(window.CATALOG_DATA || (await fetchCatalog()));
   state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
 
   const priceCount = state.catalog.priceList?.productCount || 0;
   els.catalogMeta.textContent = `${state.catalog.samplePageCount} pages · ${state.catalog.products.length} products · ${priceCount} Excel products`;
+  els.brandName.textContent = state.settings.brandName;
+  els.catalogLabel.textContent = state.settings.catalogLabel;
+  loadCustomerDraft();
   bindEvents();
   renderTabs();
   renderAll();
@@ -65,7 +75,11 @@ function bindEvents() {
   els.nextPage.addEventListener("click", () => goToPage(state.currentIndex + 1));
   els.openCart.addEventListener("click", openCart);
   els.closeCart.addEventListener("click", closeCart);
+  els.saveOrder.addEventListener("click", saveOrder);
   els.copyOrder.addEventListener("click", copyOrder);
+  [els.orderCustomerName, els.orderCustomerPhone, els.orderCustomerNotes].forEach((input) => {
+    input.addEventListener("input", saveCustomerDraft);
+  });
   els.zoomSlider.addEventListener("input", () => {
     state.zoom = Number(els.zoomSlider.value);
     localStorage.setItem("catalogZoom", String(state.zoom));
@@ -86,16 +100,16 @@ function renderLists() {
   const query = els.searchInput.value.trim().toLowerCase();
   const pages = state.catalog.pages.filter((page) => {
     if (!query) return true;
-    const products = page.products.map((id) => state.productsById.get(id)).filter(Boolean);
+    const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
     return [page.title, page.section, String(page.number), ...products.flatMap(searchFields)].join(" ").toLowerCase().includes(query);
   });
 
-  const products = state.catalog.products.filter((product) => searchFields(product).join(" ").toLowerCase().includes(query));
+  const products = state.catalog.products.filter((product) => isVisibleProduct(product) && searchFields(product).join(" ").toLowerCase().includes(query));
 
   els.pagesPanel.innerHTML = pages
     .map((page) => {
       const active = page.number === currentPage().number ? " is-active" : "";
-      const count = page.products.length;
+      const count = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct).length;
       return `
         <button class="page-card${active}" type="button" data-page="${page.number}">
           <strong>Page ${page.number}</strong>
@@ -148,7 +162,7 @@ function renderZoom() {
 
 function renderPage() {
   const page = currentPage();
-  const products = page.products.map((id) => state.productsById.get(id)).filter(Boolean);
+  const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
 
   els.pageTitle.textContent = `Page ${page.number} · ${page.section || "Catalog"} · ${page.title}`;
   els.pageSubtitle.textContent = `${products.length} product${products.length === 1 ? "" : "s"} detected on this page`;
@@ -185,15 +199,19 @@ function renderHotspot(product) {
 
 function renderPriceOverlay(group) {
   if (!group.price || !group.position) return "";
+  const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  if (!products.length) return "";
+  const prices = [...new Set(products.map((product) => product.price).filter(Boolean))];
+  const price = prices.length === 1 ? prices[0] : group.price;
   const pos = group.position;
   return `
     <button
       class="price-overlay"
       type="button"
       data-group="${group.id}"
-      aria-label="Open products priced ${escapeHtml(group.price)}"
+      aria-label="Open products priced ${escapeHtml(price)}"
       style="left:${pos.x * 100}%;top:${pos.y * 100}%"
-    >${escapeHtml(group.price)}</button>
+    >${escapeHtml(price)}</button>
   `;
 }
 
@@ -201,11 +219,11 @@ function openPriceGroup(groupId) {
   const page = currentPage();
   const group = (page.priceGroups || []).find((item) => item.id === groupId);
   if (!group) return;
-  if (group.productIds.length === 1) {
-    openProduct(state.productsById.get(group.productIds[0]));
+  const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  if (products.length === 1) {
+    openProduct(products[0]);
     return;
   }
-  const products = group.productIds.map((id) => state.productsById.get(id)).filter(Boolean);
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
@@ -294,7 +312,7 @@ function updateQty(productId, delta) {
 function renderCart() {
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
-    .filter((line) => line.product);
+    .filter((line) => isVisibleProduct(line.product));
   const total = lines.reduce((sum, line) => sum + line.qty, 0);
   const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
 
@@ -327,27 +345,57 @@ function renderCart() {
     button.addEventListener("click", () => updateQty(button.dataset.inc, 1));
   });
 
-  const orderText = buildOrderText(lines);
-  els.whatsappOrder.href = `https://wa.me/?text=${encodeURIComponent(orderText)}`;
+  const orderText = buildOrderText(lines, readCustomerDraft());
+  const whatsappNumber = CATALOG_STORE.normalizeWhatsAppNumber(CATALOG_STORE.loadSettings().whatsappNumber);
+  els.saveOrder.disabled = !lines.length;
+  els.copyOrder.disabled = !lines.length;
+  els.whatsappOrder.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
 }
 
-function buildOrderText(lines) {
+function buildOrderText(lines, customer = {}) {
   if (!lines.length) return "Order draft is empty.";
   const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
   return [
     "Catalog order draft",
     "",
+    customer.name ? `Customer: ${customer.name}` : "",
+    customer.phone ? `Phone: ${customer.phone}` : "",
+    customer.notes ? `Notes: ${customer.notes}` : "",
+    customer.name || customer.phone || customer.notes ? "" : "",
     ...lines.map(({ product, qty }) => `${qty} x ${product.sku} - ${product.name} - ${product.price} c/u - ${formatMoney(priceNumber(product.price) * qty)}`),
     "",
     `Total: ${formatMoney(totalValue)}`,
-  ].join("\n");
+  ].filter((line, index, items) => line || items[index - 1]).join("\n");
+}
+
+function saveOrder() {
+  const lines = [...state.cart.entries()]
+    .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
+    .filter((line) => isVisibleProduct(line.product));
+  if (!lines.length) {
+    showToast("Add products before saving an order");
+    return;
+  }
+  if (!readCustomerDraft().name.trim()) {
+    els.orderCustomerName.focus();
+    showToast("Add the customer's name before saving");
+    return;
+  }
+
+  const order = CATALOG_STORE.buildOrderFromLines(lines, readCustomerDraft());
+  CATALOG_STORE.addOrder(order);
+  window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
+  state.cart.clear();
+  saveCart();
+  renderCart();
+  showToast(`Order ${order.id} saved`);
 }
 
 async function copyOrder() {
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
-    .filter((line) => line.product);
-  await navigator.clipboard.writeText(buildOrderText(lines));
+    .filter((line) => isVisibleProduct(line.product));
+  await navigator.clipboard.writeText(buildOrderText(lines, readCustomerDraft()));
   showToast("Order copied");
 }
 
@@ -373,6 +421,29 @@ function closeCart() {
 
 function saveCart() {
   localStorage.setItem("catalogCart", JSON.stringify([...state.cart.entries()]));
+}
+
+function loadCustomerDraft() {
+  const draft = JSON.parse(localStorage.getItem("catalogCustomerDraft") || "{}");
+  els.orderCustomerName.value = draft.name || "";
+  els.orderCustomerPhone.value = draft.phone || "";
+  els.orderCustomerNotes.value = draft.notes || "";
+}
+
+function readCustomerDraft() {
+  return {
+    name: els.orderCustomerName.value,
+    phone: els.orderCustomerPhone.value,
+    notes: els.orderCustomerNotes.value,
+  };
+}
+
+function saveCustomerDraft() {
+  localStorage.setItem("catalogCustomerDraft", JSON.stringify(readCustomerDraft()));
+}
+
+function isVisibleProduct(product) {
+  return Boolean(product && !product.hidden);
 }
 
 function readQuantity(input) {

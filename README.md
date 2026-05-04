@@ -26,6 +26,12 @@ Then open:
 http://localhost:8080
 ```
 
+Admin section: open the catalog and use the small mark in the brand block, or go directly to `/#admin`.
+
+Default admin password: `lexo2026`. Change it from the admin Settings panel before sharing the site.
+
+The current admin is designed for the static prototype. Orders and adjustments are stored in the browser's local storage, with import/export buttons for moving that data between devices. To see every client order from different devices, a production version needs real server-side authentication and a shared orders database.
+
 ## Regenerate Sample Data
 
 The sample page images and `web/data/catalog.json` are generated from the PDF:
