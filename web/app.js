@@ -4,11 +4,14 @@ const state = {
   zoom: Number(localStorage.getItem("catalogZoom") || 100),
   brandFilter: localStorage.getItem("catalogBrandFilter") || "all",
   productsById: new Map(),
+  productOverrides: {},
   cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
   settings: CATALOG_STORE.loadSettings(),
   user: null,
   profile: null,
 };
+
+let pageScrollFrame = 0;
 
 const els = {
   brandName: document.querySelector("#brandName"),
@@ -20,9 +23,8 @@ const els = {
   productsPanel: document.querySelector("#productsPanel"),
   pageTitle: document.querySelector("#pageTitle"),
   pageSubtitle: document.querySelector("#pageSubtitle"),
-  pageFrame: document.querySelector("#pageFrame"),
-  pageImage: document.querySelector("#pageImage"),
-  hotspotLayer: document.querySelector("#hotspotLayer"),
+  pageStage: document.querySelector(".page-stage"),
+  pageStrip: document.querySelector("#pageStrip"),
   zoomSlider: document.querySelector("#zoomSlider"),
   zoomValue: document.querySelector("#zoomValue"),
   prevPage: document.querySelector("#prevPage"),
@@ -74,11 +76,8 @@ const els = {
 };
 
 async function init() {
-  state.catalog = CATALOG_STORE.applyProductOverrides(window.CATALOG_DATA || (await fetchCatalog()));
-  state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
+  await loadCatalogData();
 
-  const priceCount = state.catalog.priceList?.productCount || 0;
-  els.catalogMeta.textContent = `${state.catalog.samplePageCount} pages · ${state.catalog.products.length} products · ${priceCount} Excel products`;
   els.brandName.textContent = state.settings.brandName;
   els.catalogLabel.textContent = state.settings.catalogLabel;
   bindEvents();
@@ -90,8 +89,38 @@ async function init() {
 }
 
 async function fetchCatalog() {
-  const response = await fetch("data/catalog.json");
+  const response = await fetch("data/catalog.json", { cache: "no-store" });
   return response.json();
+}
+
+async function loadCatalogData() {
+  const rawCatalog = window.CATALOG_DATA || (await fetchCatalog());
+  const baseCatalog = cloneCatalog(rawCatalog);
+  const localOverrides = CATALOG_STORE.loadProductOverrides();
+  let remoteOverrides = {};
+
+  if (CATALOG_SUPABASE.isAvailable()) {
+    try {
+      remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
+    } catch (error) {
+      console.warn("Could not load remote product overrides", error);
+    }
+  }
+
+  state.productOverrides = CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
+  state.catalog = CATALOG_STORE.applyProductOverrides(baseCatalog, state.productOverrides);
+  state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
+  updateCatalogMeta();
+}
+
+function cloneCatalog(catalog) {
+  if (typeof structuredClone === "function") return structuredClone(catalog);
+  return JSON.parse(JSON.stringify(catalog));
+}
+
+function updateCatalogMeta() {
+  const priceCount = state.catalog.priceList?.productCount || 0;
+  els.catalogMeta.textContent = `${state.catalog.samplePageCount} pages - ${state.catalog.products.length} products - ${priceCount} Excel products`;
 }
 
 function bindEvents() {
@@ -107,6 +136,8 @@ function bindEvents() {
   els.searchInput.addEventListener("input", renderLists);
   els.prevPage.addEventListener("click", () => goToAdjacentVisiblePage(-1));
   els.nextPage.addEventListener("click", () => goToAdjacentVisiblePage(1));
+  els.pageStage.addEventListener("scroll", handlePageStageScroll, { passive: true });
+  els.pageStrip.addEventListener("click", handlePageStripClick);
   els.openCart.addEventListener("click", openCart);
   els.closeCart.addEventListener("click", closeCart);
   els.openAccount.addEventListener("click", openAccount);
@@ -127,6 +158,13 @@ function bindEvents() {
     openAccount();
     showNewPassword();
   });
+  window.addEventListener("catalog:products-updated", async () => {
+    await loadCatalogData();
+    renderBrandTabs();
+    ensureCurrentPageMatchesBrand();
+    renderAll();
+    showToast("Catalog products updated");
+  });
   els.zoomSlider.addEventListener("input", () => {
     state.zoom = Number(els.zoomSlider.value);
     localStorage.setItem("catalogZoom", String(state.zoom));
@@ -137,6 +175,27 @@ function bindEvents() {
     if (event.key === "ArrowLeft") goToAdjacentVisiblePage(-1);
     if (event.key === "ArrowRight") goToAdjacentVisiblePage(1);
   });
+}
+
+function handlePageStageScroll() {
+  if (pageScrollFrame) return;
+
+  pageScrollFrame = requestAnimationFrame(() => {
+    pageScrollFrame = 0;
+    updateCurrentPageFromScroll();
+  });
+}
+
+function handlePageStripClick(event) {
+  const button = event.target.closest(".hotspot, .price-overlay");
+  if (!button || !els.pageStrip.contains(button)) return;
+
+  const frame = button.closest("[data-page-index]");
+  const pageIndex = frame ? Number(frame.dataset.pageIndex) : state.currentIndex;
+  setCurrentPageIndex(pageIndex);
+
+  if (button.dataset.product) openProduct(state.productsById.get(button.dataset.product));
+  if (button.dataset.group) openPriceGroup(button.dataset.group, pageIndex);
 }
 
 function renderTabs() {
@@ -231,31 +290,46 @@ function renderAll() {
 function renderZoom() {
   els.zoomSlider.value = String(state.zoom);
   els.zoomValue.textContent = `${state.zoom}%`;
-  els.pageFrame.style.setProperty("--catalog-zoom", String(state.zoom / 100));
+  els.pageStage.style.setProperty("--catalog-zoom", String(state.zoom / 100));
 }
 
 function renderPage() {
+  renderViewerPages();
+  renderCurrentPageDetails();
+  renderLists();
+  scrollPageIntoView(state.currentIndex, "auto");
+}
+
+function renderViewerPages() {
+  els.pageStrip.innerHTML = visiblePageIndexes()
+    .map((index) => renderPageFrame(state.catalog.pages[index], index))
+    .join("");
+}
+
+function renderPageFrame(page, index) {
+  const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+
+  return `
+    <article class="page-frame" data-page-index="${index}" aria-label="Catalog page ${page.number}">
+      <img src="${escapeHtml(page.image.src)}" alt="Catalog page ${page.number}" loading="lazy" decoding="async">
+      <div class="hotspot-layer">
+        ${products.map(renderHotspot).join("")}
+        ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function renderCurrentPageDetails() {
   const page = currentPage();
   const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
 
-  els.pageTitle.textContent = `Page ${page.number} · ${page.section || "Catalog"} · ${page.title}`;
+  els.pageTitle.textContent = `Page ${page.number} - ${page.section || "Catalog"} - ${page.title}`;
   els.pageSubtitle.textContent = `${products.length} product${products.length === 1 ? "" : "s"} detected on this page`;
-  els.pageImage.src = page.image.src;
-  els.pageImage.alt = `Catalog page ${page.number}`;
   const visibleIndexes = visiblePageIndexes();
   const visiblePosition = visibleIndexes.indexOf(state.currentIndex);
   els.prevPage.disabled = visiblePosition <= 0;
   els.nextPage.disabled = visiblePosition < 0 || visiblePosition === visibleIndexes.length - 1;
-
-  els.hotspotLayer.innerHTML = products.map(renderHotspot).join("") + (page.priceGroups || []).map(renderPriceOverlay).join("");
-  els.hotspotLayer.querySelectorAll(".hotspot, .price-overlay").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (button.dataset.product) openProduct(state.productsById.get(button.dataset.product));
-      if (button.dataset.group) openPriceGroup(button.dataset.group);
-    });
-  });
-
-  renderLists();
 }
 
 function renderHotspot(product) {
@@ -280,19 +354,26 @@ function renderPriceOverlay(group) {
   const prices = [...new Set(products.map((product) => product.price).filter(Boolean))];
   const price = prices.length === 1 ? prices[0] : group.price;
   const pos = group.position;
+  const cover = group.cover || {};
+  const coverStyle = [
+    `left:${pos.x * 100}%`,
+    `top:${pos.y * 100}%`,
+    cover.w ? `--cover-w:${cover.w * 100}%` : "",
+    cover.h ? `--cover-h:${cover.h * 100}%` : "",
+  ].filter(Boolean).join(";");
   return `
     <button
       class="price-overlay"
       type="button"
       data-group="${group.id}"
       aria-label="Open products priced ${escapeHtml(price)}"
-      style="left:${pos.x * 100}%;top:${pos.y * 100}%"
+      style="${coverStyle}"
     >${escapeHtml(price)}</button>
   `;
 }
 
-function openPriceGroup(groupId) {
-  const page = currentPage();
+function openPriceGroup(groupId, pageIndex = state.currentIndex) {
+  const page = state.catalog.pages[pageIndex] || currentPage();
   const group = (page.priceGroups || []).find((item) => item.id === groupId);
   if (!group) return;
   const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
@@ -303,7 +384,7 @@ function openPriceGroup(groupId) {
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
-        <span class="eyebrow">${escapeHtml(currentPage().title)}</span>
+        <span class="eyebrow">${escapeHtml(page.title)}</span>
         <h2>${escapeHtml(group.label)}</h2>
       </div>
       <div class="price">${escapeHtml(group.price)}</div>
@@ -323,6 +404,7 @@ function openPriceGroup(groupId) {
                     <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}">
                     <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
                   </div>
+                  <strong class="dialog-line-total" data-total-for="${product.id}">Total ${formatMoney(priceNumber(product.price))}</strong>
                 </div>
                 <button class="small-add-button" type="button" data-add="${product.id}">Add</button>
               </div>
@@ -367,6 +449,10 @@ function openProduct(product) {
           <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Quantity">
           <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
         </div>
+      </div>
+      <div class="dialog-total" data-total-for="${product.id}">
+        <span>Total</span>
+        <strong>${formatMoney(priceNumber(product.price))}</strong>
       </div>
       <button class="primary-button" type="button" data-add="${product.id}">Add to cart</button>
     </div>
@@ -505,13 +591,19 @@ function currentPage() {
 
 function goToPage(index) {
   if (index < 0 || index >= state.catalog.pages.length) return;
-  state.currentIndex = index;
-  renderPage();
+  const needsRender = !els.pageStrip.querySelector(`[data-page-index="${index}"]`);
+  setCurrentPageIndex(index);
+
+  if (needsRender) renderPage();
+  else scrollPageIntoView(index);
 }
 
 function goToFirstVisiblePage() {
   const index = state.catalog.pages.findIndex((page) => brandMatches(page.section));
-  if (index >= 0) goToPage(index);
+  if (index >= 0) {
+    state.currentIndex = index;
+    renderPage();
+  }
   else renderLists();
 }
 
@@ -525,6 +617,29 @@ function goToAdjacentVisiblePage(delta) {
   const nextPosition = visiblePosition + delta;
   if (nextPosition < 0 || nextPosition >= visibleIndexes.length) return;
   goToPage(visibleIndexes[nextPosition]);
+}
+
+function setCurrentPageIndex(index) {
+  if (index < 0 || index >= state.catalog.pages.length || index === state.currentIndex) return;
+  state.currentIndex = index;
+  renderCurrentPageDetails();
+  renderLists();
+}
+
+function updateCurrentPageFromScroll() {
+  const frames = [...els.pageStrip.querySelectorAll("[data-page-index]")];
+  if (!frames.length) return;
+
+  const stageRect = els.pageStage.getBoundingClientRect();
+  const marker = stageRect.top + Math.min(140, stageRect.height * 0.28);
+  const frame = frames.find((item) => item.getBoundingClientRect().bottom >= marker) || frames[frames.length - 1];
+  setCurrentPageIndex(Number(frame.dataset.pageIndex));
+}
+
+function scrollPageIntoView(index, behavior = "smooth") {
+  const frame = els.pageStrip.querySelector(`[data-page-index="${index}"]`);
+  if (!frame) return;
+  frame.scrollIntoView({ behavior, block: "start", inline: "nearest" });
 }
 
 function visiblePages() {
@@ -887,7 +1002,28 @@ function bindDialogQuantitySteppers() {
       const next = (Number.isNaN(current) ? (step > 0 ? 0 : 1) : current) + step;
       input.value = String(Math.max(1, next));
       input.focus();
+      updateDialogTotals();
     });
+  });
+  els.dialogContent.querySelectorAll("input[type='number']").forEach((input) => {
+    input.addEventListener("input", updateDialogTotals);
+    input.addEventListener("change", () => {
+      input.value = String(readQuantity(input));
+      updateDialogTotals();
+    });
+  });
+  updateDialogTotals();
+}
+
+function updateDialogTotals() {
+  els.dialogContent.querySelectorAll("[data-total-for]").forEach((total) => {
+    const product = state.productsById.get(total.dataset.totalFor);
+    if (!product) return;
+    const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(product.id)}"]`) || els.dialogContent.querySelector("#productQty");
+    const value = formatMoney(priceNumber(product.price) * readQuantity(qtyInput));
+    const amount = total.querySelector("strong");
+    if (amount) amount.textContent = value;
+    else total.textContent = `Total ${value}`;
   });
 }
 

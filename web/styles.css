@@ -366,12 +366,19 @@ button:disabled {
   padding: 22px;
 }
 
+.page-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-width: max-content;
+}
+
 .page-frame {
   position: relative;
   width: min(calc(100vw - 390px), calc(760px * var(--catalog-zoom, 1)));
   min-width: min(100%, calc(520px * var(--catalog-zoom, 1)));
   max-width: none;
-  margin: 0 auto;
   background: #fff;
   box-shadow: var(--shadow);
 }
@@ -428,17 +435,20 @@ button:disabled {
 .price-overlay {
   position: absolute;
   z-index: 2;
-  min-width: 82px;
-  min-height: 30px;
-  padding: 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.94);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max(var(--cover-w, 82px), 82px);
+  min-height: max(var(--cover-h, 30px), 30px);
+  padding: 5px 9px;
+  border: 1px solid rgba(215, 25, 32, 0.16);
+  border-radius: 5px;
+  background: #fff;
   color: var(--brand-dark);
   font-size: 15px;
   font-weight: 950;
   line-height: 1;
-  box-shadow: 0 8px 22px rgba(22, 22, 26, 0.18);
+  box-shadow: 0 3px 8px rgba(22, 22, 26, 0.14);
   transform: translate(-50%, 0);
 }
 
@@ -865,7 +875,7 @@ button:disabled {
 
 .group-product {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 136px 62px;
+  grid-template-columns: minmax(0, 1fr) 62px;
   gap: 12px;
   align-items: center;
   min-height: 54px;
@@ -879,9 +889,8 @@ button:disabled {
 
 .group-product span {
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.25;
 }
 
 .group-product strong {
@@ -895,6 +904,26 @@ button:disabled {
   color: var(--muted);
   font-size: 11px;
   font-weight: 800;
+}
+
+.group-product .dialog-qty {
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(150px, 1fr);
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.group-product .dialog-qty > span {
+  grid-column: 1;
+  white-space: nowrap;
+}
+
+.group-product .quantity-stepper {
+  grid-column: 2;
+}
+
+.group-product .dialog-line-total {
+  grid-column: 2;
 }
 
 .dialog-qty-wide {
@@ -970,6 +999,38 @@ button:disabled {
   border-color: var(--accent);
   outline: none;
   box-shadow: 0 0 0 3px rgba(17, 115, 122, 0.14);
+}
+
+.dialog-line-total,
+.dialog-total {
+  color: var(--brand-dark);
+  font-weight: 950;
+}
+
+.dialog-line-total {
+  font-size: 12px;
+}
+
+.dialog-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid rgba(215, 25, 32, 0.18);
+  border-radius: 8px;
+  background: rgba(215, 25, 32, 0.06);
+}
+
+.dialog-total span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.dialog-total strong {
+  font-size: 20px;
 }
 
 .small-add-button {

@@ -992,7 +992,7 @@ window.CATALOG_DATA = {
       "number": 28,
       "title": "Coladores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-028.jpg",
         "width": 1013,
@@ -1003,13 +1003,68 @@ window.CATALOG_DATA = {
         "p028-2",
         "p028-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg028-1",
+          "page": 28,
+          "label": "Colador de pasta de acero inoxidable 22 cm",
+          "price": "$32.148",
+          "productIds": [
+            "p028-1"
+          ],
+          "position": {
+            "x": 0.275536435477,
+            "y": 0.623242184601
+          },
+          "cover": {
+            "w": 0.1233578955,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg028-2",
+          "page": 28,
+          "label": "Colador de pasta acero inoxidable color Marfil 22 cm",
+          "price": "$32.148",
+          "productIds": [
+            "p028-2"
+          ],
+          "position": {
+            "x": 0.27553498775,
+            "y": 0.409930491302
+          },
+          "cover": {
+            "w": 0.128989736459,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg028-3",
+          "page": 28,
+          "label": "Colador de pasta acero inoxidable color Negro 22 cm",
+          "price": "$32.148",
+          "productIds": [
+            "p028-3"
+          ],
+          "position": {
+            "x": 0.275541393623,
+            "y": 0.836127084725
+          },
+          "cover": {
+            "w": 0.130866180599,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 29,
       "title": "Utensilios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-029.jpg",
         "width": 1013,
@@ -1027,13 +1082,194 @@ window.CATALOG_DATA = {
         "p029-9",
         "p029-10"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg029-1",
+          "page": 29,
+          "label": "Cortador de queso de acero inoxidable 24 cm",
+          "price": "$11.287",
+          "productIds": [
+            "p029-1"
+          ],
+          "position": {
+            "x": 0.226941580336,
+            "y": 0.557152924644
+          },
+          "cover": {
+            "w": 0.103506847673,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-2",
+          "page": 29,
+          "label": "Rallador manual de acero inoxidable",
+          "price": "$5.953",
+          "productIds": [
+            "p029-2"
+          ],
+          "position": {
+            "x": 0.36608433183,
+            "y": 0.557152924644
+          },
+          "cover": {
+            "w": 0.10497562591,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-3",
+          "page": 29,
+          "label": "Cortapizza de acero inoxidable",
+          "price": "$6.073",
+          "productIds": [
+            "p029-3"
+          ],
+          "position": {
+            "x": 0.496213796057,
+            "y": 0.557152924644
+          },
+          "cover": {
+            "w": 0.103752022206,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-4",
+          "page": 29,
+          "label": "Pelapapas de acero inoxidable con mango de madera",
+          "price": "$6.044",
+          "productIds": [
+            "p029-4"
+          ],
+          "position": {
+            "x": 0.63220583822,
+            "y": 0.557152924644
+          },
+          "cover": {
+            "w": 0.107364150399,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-5",
+          "page": 29,
+          "label": "Cucharón ranurado de acero inoxidable 41,5 cm",
+          "price": "$17.148",
+          "productIds": [
+            "p029-5"
+          ],
+          "position": {
+            "x": 0.641406747096,
+            "y": 0.95282871517
+          },
+          "cover": {
+            "w": 0.107486984291,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-6",
+          "page": 29,
+          "label": "Batidor de acero inoxidable 6 hilos",
+          "price": "$12.890",
+          "productIds": [
+            "p029-6"
+          ],
+          "position": {
+            "x": 0.774807024362,
+            "y": 0.95282871517
+          },
+          "cover": {
+            "w": 0.102832092746,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-7",
+          "page": 29,
+          "label": "Sacacorchos mozo de acero inoxidable",
+          "price": "$14.998",
+          "productIds": [
+            "p029-7"
+          ],
+          "position": {
+            "x": 0.773813370994,
+            "y": 0.57764149721
+          },
+          "cover": {
+            "w": 0.110978420716,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-8",
+          "page": 29,
+          "label": "Cucharón hondo de acero inoxidable 34 cm",
+          "price": "$16.431",
+          "productIds": [
+            "p029-8"
+          ],
+          "position": {
+            "x": 0.219091650821,
+            "y": 0.956670252324
+          },
+          "cover": {
+            "w": 0.106844431687,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-9",
+          "page": 29,
+          "label": "Espátula ranurada de acero inoxidable 37 cm",
+          "price": "$16.431",
+          "productIds": [
+            "p029-9"
+          ],
+          "position": {
+            "x": 0.346676932975,
+            "y": 0.956670252324
+          },
+          "cover": {
+            "w": 0.105466538693,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg029-10",
+          "page": 29,
+          "label": "Prensa papas de acero inoxidable",
+          "price": "$18.890",
+          "productIds": [
+            "p029-10"
+          ],
+          "position": {
+            "x": 0.485859599462,
+            "y": 0.95282871517
+          },
+          "cover": {
+            "w": 0.101239987365,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 30,
       "title": "Utensilios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-030.jpg",
         "width": 1013,
@@ -1044,13 +1280,68 @@ window.CATALOG_DATA = {
         "p030-2",
         "p030-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg030-1",
+          "page": 30,
+          "label": "Cucharón para sopa antiadherente color marfil",
+          "price": "$8.639",
+          "productIds": [
+            "p030-1"
+          ],
+          "position": {
+            "x": 0.78050543259,
+            "y": 0.783692597604
+          },
+          "cover": {
+            "w": 0.101882680898,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg030-2",
+          "page": 30,
+          "label": "Espumadera antiadherente color marfil",
+          "price": "$8.639",
+          "productIds": [
+            "p030-2"
+          ],
+          "position": {
+            "x": 0.227151955605,
+            "y": 0.782674308725
+          },
+          "cover": {
+            "w": 0.106321189746,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg030-3",
+          "page": 30,
+          "label": "Espátula ranurada antiadherente color marfil",
+          "price": "$8.639",
+          "productIds": [
+            "p030-3"
+          ],
+          "position": {
+            "x": 0.503823972969,
+            "y": 0.783692597604
+          },
+          "cover": {
+            "w": 0.103629582915,
+            "h": 0.04
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 31,
       "title": "Organizadoras",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-031.jpg",
         "width": 1013,
@@ -1061,13 +1352,68 @@ window.CATALOG_DATA = {
         "p031-2",
         "p031-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg031-1",
+          "page": 31,
+          "label": "Canasto organizador metálico con madera 24 x 18 x 13 cm",
+          "price": "$22.798",
+          "productIds": [
+            "p031-1"
+          ],
+          "position": {
+            "x": 0.19148231974,
+            "y": 0.494703341241
+          },
+          "cover": {
+            "w": 0.129865202756,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg031-2",
+          "page": 31,
+          "label": "Canasto organizador metálico con madera 28 x 20 x 14 cm",
+          "price": "$26.540",
+          "productIds": [
+            "p031-2"
+          ],
+          "position": {
+            "x": 0.484717432338,
+            "y": 0.494703341241
+          },
+          "cover": {
+            "w": 0.126693774271,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg031-3",
+          "page": 31,
+          "label": "Canasto organizador metálico 33 x 22 x 15 cm",
+          "price": "$30.468",
+          "productIds": [
+            "p031-3"
+          ],
+          "position": {
+            "x": 0.782877296685,
+            "y": 0.494703341241
+          },
+          "cover": {
+            "w": 0.130449142904,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 32,
       "title": "Escurridores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-032.jpg",
         "width": 1013,
@@ -1078,13 +1424,68 @@ window.CATALOG_DATA = {
         "p032-2",
         "p032-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg032-1",
+          "page": 32,
+          "label": "Escurridor de platos 1 nivel metálico con madera 43 x 32 x 20 cm",
+          "price": "$51.775",
+          "productIds": [
+            "p032-1"
+          ],
+          "position": {
+            "x": 0.79601256453,
+            "y": 0.342097297684
+          },
+          "cover": {
+            "w": 0.132950805357,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg032-2",
+          "page": 32,
+          "label": "Escurridor de platos 1 nivel de bambú y metal 44 x 32 x 20 cm",
+          "price": "$41.806",
+          "productIds": [
+            "p032-3"
+          ],
+          "position": {
+            "x": 0.796014511916,
+            "y": 0.608478162567
+          },
+          "cover": {
+            "w": 0.125610310565,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg032-3",
+          "page": 32,
+          "label": "Escurridor de platos 1 nivel de aluminio con bandeja negra 40 x 19 x 12 cm",
+          "price": "$43.458",
+          "productIds": [
+            "p032-2"
+          ],
+          "position": {
+            "x": 0.796021302141,
+            "y": 0.874859063683
+          },
+          "cover": {
+            "w": 0.128530532747,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 33,
       "title": "Escurridores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-033.jpg",
         "width": 1013,
@@ -1095,13 +1496,68 @@ window.CATALOG_DATA = {
         "p033-2",
         "p033-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg033-1",
+          "page": 33,
+          "label": "Escurridor de platos 2 niveles negro con mangos de bambú 41 x 31 x 20 cm",
+          "price": "$58.029",
+          "productIds": [
+            "p033-1"
+          ],
+          "position": {
+            "x": 0.737678252379,
+            "y": 0.371153039431
+          },
+          "cover": {
+            "w": 0.129031226016,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg033-2",
+          "page": 33,
+          "label": "Escurridor de platos 2 niveles de aluminio 50 x 30 x 12 cm",
+          "price": "$77.571",
+          "productIds": [
+            "p033-2"
+          ],
+          "position": {
+            "x": 0.733392185368,
+            "y": 0.63019631544
+          },
+          "cover": {
+            "w": 0.131616825901,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg033-3",
+          "page": 33,
+          "label": "Escurridor de platos plegable acero inoxidable 48 x 35.4 x 27,2 cm",
+          "price": "$88.324",
+          "productIds": [
+            "p033-3"
+          ],
+          "position": {
+            "x": 0.721967798036,
+            "y": 0.889553010329
+          },
+          "cover": {
+            "w": 0.12631912808,
+            "h": 0.046423502894
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 34,
       "title": "Lunch",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-034.jpg",
         "width": 1013,
@@ -1115,7 +1571,98 @@ window.CATALOG_DATA = {
         "p034-5",
         "p034-6"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg034-1",
+          "page": 34,
+          "label": "Lunch box hermético Click & Seal 160 ml",
+          "price": "$10.356",
+          "productIds": [
+            "p034-2"
+          ],
+          "position": {
+            "x": 0.189167282143,
+            "y": 0.331351517281
+          },
+          "cover": {
+            "w": 0.115878839116,
+            "h": 0.041528820333
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg034-2",
+          "page": 34,
+          "label": "Lunch box hermético Click & Seal 640 ml",
+          "price": "$14.486",
+          "productIds": [
+            "p034-3"
+          ],
+          "position": {
+            "x": 0.495384312397,
+            "y": 0.331351517281
+          },
+          "cover": {
+            "w": 0.114357564752,
+            "h": 0.041528820333
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg034-3",
+          "page": 34,
+          "label": "Lunch box hermético Click & Seal 370 ml",
+          "price": "$11.415",
+          "productIds": [
+            "p034-4"
+          ],
+          "position": {
+            "x": 0.342280646516,
+            "y": 0.331351517281
+          },
+          "cover": {
+            "w": 0.121395343617,
+            "h": 0.041528820333
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg034-4",
+          "page": 34,
+          "label": "Lunch box hermético Click & Seal 1050 ml",
+          "price": "$18.043",
+          "productIds": [
+            "p034-5"
+          ],
+          "position": {
+            "x": 0.650103744392,
+            "y": 0.331351517281
+          },
+          "cover": {
+            "w": 0.121855054674,
+            "h": 0.041528820333
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg034-5",
+          "page": 34,
+          "label": "Lunch box hermético Click & Seal 1520 ml",
+          "price": "$22.190",
+          "productIds": [
+            "p034-6"
+          ],
+          "position": {
+            "x": 0.807822149807,
+            "y": 0.331351517281
+          },
+          "cover": {
+            "w": 0.119768795138,
+            "h": 0.041528820333
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 35,
@@ -1134,7 +1681,7 @@ window.CATALOG_DATA = {
       "number": 36,
       "title": "Organizadores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-036.jpg",
         "width": 1013,
@@ -1143,13 +1690,32 @@ window.CATALOG_DATA = {
       "products": [
         "p036-1"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg036-1",
+          "page": 36,
+          "label": "Carro organizador de bambú 4 niveles color marfil 40 x 30 x 88 cm",
+          "price": "$123.478",
+          "productIds": [
+            "p036-1"
+          ],
+          "position": {
+            "x": 0.499993747868,
+            "y": 0.335610364607
+          },
+          "cover": {
+            "w": 0.171919533628,
+            "h": 0.057027684634
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 37,
       "title": "Organizadores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-037.jpg",
         "width": 1013,
@@ -1158,13 +1724,32 @@ window.CATALOG_DATA = {
       "products": [
         "p037-1"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg037-1",
+          "page": 37,
+          "label": "Carro organizador de acacia 4 niveles color negro 40 x 30 x 88 cm",
+          "price": "$86.667",
+          "productIds": [
+            "p037-1"
+          ],
+          "position": {
+            "x": 0.499984728399,
+            "y": 0.335610364607
+          },
+          "cover": {
+            "w": 0.153839444434,
+            "h": 0.057027684634
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 38,
       "title": "Accesorios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-038.jpg",
         "width": 1013,
@@ -1174,13 +1759,32 @@ window.CATALOG_DATA = {
         "p038-1",
         "p038-2"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg038-1",
+          "page": 38,
+          "label": "Porta rollo de cocina metálico color marfil",
+          "price": "$14.188",
+          "productIds": [
+            "p038-2"
+          ],
+          "position": {
+            "x": 0.499999513154,
+            "y": 0.618809332911
+          },
+          "cover": {
+            "w": 0.115999897301,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 39,
       "title": "Set",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-039.jpg",
         "width": 1013,
@@ -1189,13 +1793,32 @@ window.CATALOG_DATA = {
       "products": [
         "p039-1"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg039-1",
+          "page": 39,
+          "label": "Set de 5 cuchillos con base de acacia",
+          "price": "$69.998",
+          "productIds": [
+            "p039-1"
+          ],
+          "position": {
+            "x": 0.499977784433,
+            "y": 0.273720069765
+          },
+          "cover": {
+            "w": 0.159218937564,
+            "h": 0.05324591809
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 40,
       "title": "Cubierteros",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-040.jpg",
         "width": 1013,
@@ -1205,13 +1828,50 @@ window.CATALOG_DATA = {
         "p040-1",
         "p040-2"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg040-1",
+          "page": 40,
+          "label": "Organizador de cubiertos de bambú 33 x 23 x 4,5 cm",
+          "price": "$18.148",
+          "productIds": [
+            "p040-1"
+          ],
+          "position": {
+            "x": 0.257750055552,
+            "y": 0.257551716651
+          },
+          "cover": {
+            "w": 0.11354119007,
+            "h": 0.041345921395
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg040-2",
+          "page": 40,
+          "label": "Organizador de cubiertos de bambú extensible (25,5-37,5) x 33,5 x 5 cm",
+          "price": "$32.934",
+          "productIds": [
+            "p040-2"
+          ],
+          "position": {
+            "x": 0.741105368716,
+            "y": 0.259594772941
+          },
+          "cover": {
+            "w": 0.105672323514,
+            "h": 0.041345921395
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 41,
       "title": "Accesorios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-041.jpg",
         "width": 1013,
@@ -1222,13 +1882,68 @@ window.CATALOG_DATA = {
         "p041-2",
         "p041-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg041-1",
+          "page": 41,
+          "label": "Salero y pimentero magnéticos de bambú",
+          "price": "$12.360",
+          "productIds": [
+            "p041-1"
+          ],
+          "position": {
+            "x": 0.499995644006,
+            "y": 0.301149351596
+          },
+          "cover": {
+            "w": 0.112698489813,
+            "h": 0.041345921395
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg041-2",
+          "page": 41,
+          "label": "Cuchillo Santoku 18Cm Messier",
+          "price": "$9.472",
+          "productIds": [
+            "p041-2"
+          ],
+          "position": {
+            "x": 0.369380409631,
+            "y": 0.627830651482
+          },
+          "cover": {
+            "w": 0.109501651793,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg041-3",
+          "page": 41,
+          "label": "Mesa plegable de bambú 50 x 30 x 21 cm",
+          "price": "$24.890",
+          "productIds": [
+            "p041-3"
+          ],
+          "position": {
+            "x": 0.499983139743,
+            "y": 0.659008909357
+          },
+          "cover": {
+            "w": 0.110766632311,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 42,
       "title": "Accesorios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-042.jpg",
         "width": 1013,
@@ -1239,13 +1954,68 @@ window.CATALOG_DATA = {
         "p042-2",
         "p042-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg042-1",
+          "page": 42,
+          "label": "Spray aceitero de vidrio 100 ml plateado",
+          "price": "$7.890",
+          "productIds": [
+            "p042-1"
+          ],
+          "position": {
+            "x": 0.198818414978,
+            "y": 0.303889955117
+          },
+          "cover": {
+            "w": 0.110168740171,
+            "h": 0.041345921395
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg042-2",
+          "page": 42,
+          "label": "Botella de vidrio 720 ml con tapa de corcho",
+          "price": "$6.017",
+          "productIds": [
+            "p042-2"
+          ],
+          "position": {
+            "x": 0.198830560513,
+            "y": 0.576414009744
+          },
+          "cover": {
+            "w": 0.11600027781,
+            "h": 0.041345943135
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg042-3",
+          "page": 42,
+          "label": "Botella de vidrio 1 litro con tapa de corcho",
+          "price": "$6.874",
+          "productIds": [
+            "p042-3"
+          ],
+          "position": {
+            "x": 0.198826505595,
+            "y": 0.849162063576
+          },
+          "cover": {
+            "w": 0.111573762037,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 43,
       "title": "Accesorios",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-043.jpg",
         "width": 1013,
@@ -1256,13 +2026,68 @@ window.CATALOG_DATA = {
         "p043-2",
         "p043-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg043-1",
+          "page": 43,
+          "label": "Sacacorchos con cortacápsulas",
+          "price": "$13.539",
+          "productIds": [
+            "p043-1"
+          ],
+          "position": {
+            "x": 0.19881207957,
+            "y": 0.335068247776
+          },
+          "cover": {
+            "w": 0.116174874998,
+            "h": 0.041345943135
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg043-2",
+          "page": 43,
+          "label": "Pelapapas de fundición con mango antideslizante",
+          "price": "$8.980",
+          "productIds": [
+            "p043-2"
+          ],
+          "position": {
+            "x": 0.198816153705,
+            "y": 0.607592303853
+          },
+          "cover": {
+            "w": 0.1,
+            "h": 0.041345943135
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg043-3",
+          "page": 43,
+          "label": "Rompenueces de fundición",
+          "price": "$15.481",
+          "productIds": [
+            "p043-3"
+          ],
+          "position": {
+            "x": 0.198825871414,
+            "y": 0.880340321451
+          },
+          "cover": {
+            "w": 0.102477331666,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 44,
       "title": "Organizadores",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-044.jpg",
         "width": 1013,
@@ -1273,7 +2098,62 @@ window.CATALOG_DATA = {
         "p044-2",
         "p044-3"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg044-1",
+          "page": 44,
+          "label": "Organizador de bacha con cepillo",
+          "price": "$27.597",
+          "productIds": [
+            "p044-1"
+          ],
+          "position": {
+            "x": 0.198822770971,
+            "y": 0.335068247776
+          },
+          "cover": {
+            "w": 0.106410383838,
+            "h": 0.041345943135
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg044-2",
+          "page": 44,
+          "label": "Organizador de bacha con dispenser",
+          "price": "$22.846",
+          "productIds": [
+            "p044-2"
+          ],
+          "position": {
+            "x": 0.198818414978,
+            "y": 0.592115172343
+          },
+          "cover": {
+            "w": 0.115930264182,
+            "h": 0.041345943135
+          },
+          "positionSource": "derived-from-price-hotspot"
+        },
+        {
+          "id": "pg044-3",
+          "page": 44,
+          "label": "Dispenser para detergente con porta esponja",
+          "price": "$20.427",
+          "productIds": [
+            "p044-3"
+          ],
+          "position": {
+            "x": 0.198823795911,
+            "y": 0.880340321451
+          },
+          "cover": {
+            "w": 0.112347392892,
+            "h": 0.041345899655
+          },
+          "positionSource": "derived-from-price-hotspot"
+        }
+      ]
     },
     {
       "number": 45,
@@ -1292,7 +2172,7 @@ window.CATALOG_DATA = {
       "number": 46,
       "title": "Tumblers",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-046.jpg",
         "width": 1013,
@@ -1307,13 +2187,38 @@ window.CATALOG_DATA = {
         "p046-6",
         "p046-7"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg046-header",
+          "page": 46,
+          "label": "Tumblers",
+          "price": "$36.318",
+          "productIds": [
+            "p046-1",
+            "p046-2",
+            "p046-3",
+            "p046-4",
+            "p046-5",
+            "p046-6",
+            "p046-7"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.158
+          },
+          "cover": {
+            "w": 0.145,
+            "h": 0.046
+          },
+          "positionSource": "derived-from-shared-header-price"
+        }
+      ]
     },
     {
       "number": 47,
       "title": "Botellas",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-047.jpg",
         "width": 1013,
@@ -1325,13 +2230,35 @@ window.CATALOG_DATA = {
         "p047-3",
         "p047-4"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg047-header",
+          "page": 47,
+          "label": "Botellas",
+          "price": "$36.318",
+          "productIds": [
+            "p047-1",
+            "p047-2",
+            "p047-3",
+            "p047-4"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.158
+          },
+          "cover": {
+            "w": 0.145,
+            "h": 0.046
+          },
+          "positionSource": "derived-from-shared-header-price"
+        }
+      ]
     },
     {
       "number": 48,
       "title": "Botellas",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-048.jpg",
         "width": 1013,
@@ -1345,13 +2272,37 @@ window.CATALOG_DATA = {
         "p048-5",
         "p048-6"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg048-header",
+          "page": 48,
+          "label": "Botellas",
+          "price": "$36.318",
+          "productIds": [
+            "p048-1",
+            "p048-2",
+            "p048-3",
+            "p048-4",
+            "p048-5",
+            "p048-6"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.158
+          },
+          "cover": {
+            "w": 0.145,
+            "h": 0.046
+          },
+          "positionSource": "derived-from-shared-header-price"
+        }
+      ]
     },
     {
       "number": 49,
       "title": "Travel",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-049.jpg",
         "width": 1013,
@@ -1363,13 +2314,35 @@ window.CATALOG_DATA = {
         "p049-3",
         "p049-4"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg049-header",
+          "page": 49,
+          "label": "Travel",
+          "price": "$36.318",
+          "productIds": [
+            "p049-1",
+            "p049-2",
+            "p049-3",
+            "p049-4"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.158
+          },
+          "cover": {
+            "w": 0.145,
+            "h": 0.046
+          },
+          "positionSource": "derived-from-shared-header-price"
+        }
+      ]
     },
     {
       "number": 50,
       "title": "Travel",
       "section": "Estia",
-      "showPriceOverlays": false,
+      "showPriceOverlays": true,
       "image": {
         "src": "assets/pages/page-050.jpg",
         "width": 1013,
@@ -1381,7 +2354,29 @@ window.CATALOG_DATA = {
         "p050-3",
         "p050-4"
       ],
-      "priceGroups": []
+      "priceGroups": [
+        {
+          "id": "pg050-header",
+          "page": 50,
+          "label": "Travel",
+          "price": "$36.318",
+          "productIds": [
+            "p050-1",
+            "p050-2",
+            "p050-3",
+            "p050-4"
+          ],
+          "position": {
+            "x": 0.5,
+            "y": 0.158
+          },
+          "cover": {
+            "w": 0.145,
+            "h": 0.046
+          },
+          "positionSource": "derived-from-shared-header-price"
+        }
+      ]
     },
     {
       "number": 51,
@@ -4647,13 +5642,13 @@ window.CATALOG_DATA = {
       "skus": [
         "27582"
       ],
-      "name": "Organizador de cajón doble extensible",
+      "name": "Escurridor de platos 1 nivel de aluminio con bandeja negra 40 x 19 x 12 cm",
       "category": "Escurridores",
-      "price": "",
+      "price": "$43.458",
       "pdfPrice": "",
       "priceSource": "excel",
-      "ean": "",
-      "unitsPerCase": null,
+      "ean": "5207158027582",
+      "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
         "x": 0.7375983327101701,

@@ -55,10 +55,7 @@
         </header>
 
         <section class="page-stage">
-          <div id="pageFrame" class="page-frame">
-            <img id="pageImage" alt="Catalog page">
-            <div id="hotspotLayer" class="hotspot-layer"></div>
-          </div>
+          <div id="pageStrip" class="page-strip"></div>
         </section>
       </main>
 
@@ -212,6 +209,27 @@
             <section class="admin-panel">
               <div class="admin-panel-header">
                 <div>
+                  <span class="eyebrow">Catalog data</span>
+                  <h2>Excel updates</h2>
+                </div>
+              </div>
+              <p class="admin-data-status">Upload the latest price list to update matching SKUs. Names and prices are read from the spreadsheet.</p>
+              <div class="admin-form-grid">
+                <label class="wide-field">
+                  <span>Excel price list</span>
+                  <input id="priceListFile" type="file" accept=".xlsx,.xls,.csv">
+                </label>
+              </div>
+              <div class="admin-actions">
+                <button id="importPriceList" class="primary-button" type="button">Update products</button>
+                <button id="clearProductOverrides" class="secondary-button danger-button" type="button">Clear local preview</button>
+              </div>
+              <p id="priceListImportStatus" class="admin-message" role="status"></p>
+            </section>
+
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <div>
                   <span class="eyebrow">Adjustments</span>
                   <h2>Settings</h2>
                 </div>
@@ -251,6 +269,7 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data/catalog-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js"></script>
     <script src="supabase-client.js"></script>

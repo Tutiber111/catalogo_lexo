@@ -183,6 +183,46 @@
     return data.map(normalizeOrder);
   }
 
+  async function loadProductOverrides() {
+    if (!client) return {};
+    const { data, error } = await client.from("product_overrides").select("*");
+    if (error) throw error;
+    return (data || []).reduce((overrides, row) => {
+      const override = {
+        sku: row.sku || "",
+        updatedAt: row.updated_at || "",
+      };
+      if (row.name) override.name = row.name;
+      if (row.category) override.category = row.category;
+      if (row.price) override.price = row.price;
+      if (row.hidden) override.hidden = true;
+      overrides[row.product_id] = override;
+      return overrides;
+    }, {});
+  }
+
+  async function upsertProductOverrides(overrides) {
+    if (!client) throw new Error("Supabase is unavailable.");
+    const user = await getUser();
+    if (!user) throw new Error("Sign in with your admin Supabase account before updating the catalog.");
+
+    const rows = Object.entries(overrides || {}).map(([productId, override]) => ({
+      product_id: productId,
+      sku: String(override.sku || "").trim(),
+      name: String(override.name || "").trim(),
+      category: String(override.category || "").trim(),
+      price: String(override.price || "").trim(),
+      hidden: Boolean(override.hidden),
+      updated_by: user.id,
+      updated_at: new Date().toISOString(),
+    }));
+
+    if (!rows.length) return [];
+    const { data, error } = await client.from("product_overrides").upsert(rows, { onConflict: "product_id" }).select();
+    if (error) throw error;
+    return data || [];
+  }
+
   async function updateOrderStatus(orderId, status) {
     const now = new Date().toISOString();
     const payload = {
@@ -253,6 +293,8 @@
     loadMyOrders,
     loadAllOrders,
     loadActiveOrders,
+    loadProductOverrides,
+    upsertProductOverrides,
     updateOrderStatus,
     deleteOrder,
     isAdmin,

@@ -26,6 +26,10 @@
     ordersList: document.querySelector("#ordersList"),
     exportOrders: document.querySelector("#exportOrders"),
     clearOrders: document.querySelector("#clearOrders"),
+    priceListFile: document.querySelector("#priceListFile"),
+    importPriceList: document.querySelector("#importPriceList"),
+    clearProductOverrides: document.querySelector("#clearProductOverrides"),
+    priceListImportStatus: document.querySelector("#priceListImportStatus"),
     toast: document.querySelector("#toast"),
   };
 
@@ -43,6 +47,8 @@
     adminEls.saveSettings.addEventListener("click", saveSettings);
     adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
     adminEls.clearOrders.addEventListener("click", clearLocalOrders);
+    adminEls.importPriceList.addEventListener("click", importPriceList);
+    adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
     window.addEventListener("catalog:orders-changed", () => renderOrders());
   }
 
@@ -119,6 +125,198 @@
     document.querySelector("#catalogLabel").textContent = adminState.settings.catalogLabel;
     adminEls.settingPassword.value = "";
     showToast("Settings saved");
+  }
+
+  async function importPriceList() {
+    const file = adminEls.priceListFile.files?.[0];
+    if (!file) {
+      setImportStatus("Choose an Excel file first.");
+      return;
+    }
+    if (!window.XLSX) {
+      setImportStatus("Excel parser is still loading. Try again in a moment.");
+      return;
+    }
+
+    try {
+      adminEls.importPriceList.disabled = true;
+      setImportStatus("Reading Excel file...");
+
+      const workbook = XLSX.read(await file.arrayBuffer(), { type: "array" });
+      const importedRows = readPriceListRows(workbook);
+      const result = buildProductOverrides(importedRows);
+      if (!result.updatedProducts) {
+        setImportStatus(`No SKUs from this Excel file matched the catalog. ${result.unmatched} rows were not found.`);
+        return;
+      }
+
+      const mergedLocal = CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), result.overrides);
+      CATALOG_STORE.saveProductOverrides(mergedLocal);
+
+      let remoteMessage = "Saved as a local preview on this browser.";
+      if (CATALOG_SUPABASE.isAvailable()) {
+        try {
+          const user = await CATALOG_SUPABASE.getUser();
+          const profile = user ? await CATALOG_SUPABASE.getProfile(user.id) : null;
+          if (profile?.role === "admin") {
+            await CATALOG_SUPABASE.upsertProductOverrides(result.overrides);
+            remoteMessage = "Saved to Supabase for everyone.";
+          } else if (user) {
+            remoteMessage = `Saved locally only. Supabase user ${user.email} is not an admin.`;
+          } else {
+            remoteMessage = "Saved locally only. Sign in from the profile panel with your admin Supabase account to update everyone.";
+          }
+        } catch (error) {
+          remoteMessage = `Saved locally only. Supabase update failed: ${error.message}`;
+        }
+      }
+
+      window.dispatchEvent(new CustomEvent("catalog:products-updated"));
+      setImportStatus(`Updated ${result.updatedProducts} catalog products from ${result.matchedRows} matching Excel rows. ${result.unmatched} Excel rows were not found in the catalog. ${remoteMessage}`);
+      showToast("Excel import complete");
+    } catch (error) {
+      setImportStatus(error.message || "Could not import Excel file.");
+    } finally {
+      adminEls.importPriceList.disabled = false;
+    }
+  }
+
+  function clearLocalProductOverrides() {
+    if (!confirm("Clear local product preview changes on this device? Supabase updates will remain online.")) return;
+    CATALOG_STORE.saveProductOverrides({});
+    window.dispatchEvent(new CustomEvent("catalog:products-updated"));
+    setImportStatus("Local product preview changes cleared.");
+    showToast("Local preview cleared");
+  }
+
+  function readPriceListRows(workbook) {
+    const rows = [];
+    workbook.SheetNames.forEach((sheetName) => {
+      const sheetRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, raw: true, defval: "" });
+      let header = null;
+
+      sheetRows.forEach((row) => {
+        const nextHeader = detectPriceListHeader(row);
+        if (nextHeader) {
+          header = nextHeader;
+          return;
+        }
+        if (!header) return;
+
+        const sku = normalizeSku(row[header.sku]);
+        const name = cleanCell(row[header.name]);
+        const price = formatImportedPrice(row[header.price]);
+        if (!sku || (!name && !price)) return;
+        rows.push({ sku, name, price });
+      });
+    });
+    return rows;
+  }
+
+  function detectPriceListHeader(row) {
+    const cells = row.map(normalizeHeaderCell);
+    const sku = cells.findIndex((cell) => ["sku", "cod", "codigo", "articulo", "item"].includes(cell) || cell.includes("codigo"));
+    const name = cells.findIndex((cell) => cell.includes("descripcion") || cell.includes("producto") || cell.includes("nombre") || cell.includes("detalle"));
+    const price = cells.findIndex((cell) => cell.includes("precio") || cell === "pvp" || cell.includes("lista"));
+    if (sku >= 0 && (name >= 0 || price >= 0)) return { sku, name, price };
+    return null;
+  }
+
+  function buildProductOverrides(importedRows) {
+    const productIndex = buildProductSkuIndex();
+    const overrides = {};
+    const updatedProductIds = new Set();
+    let matchedRows = 0;
+    let unmatched = 0;
+
+    importedRows.forEach((row) => {
+      const products = productIndex.primary.get(row.sku) || productIndex.related.get(row.sku);
+      if (!products?.length) {
+        unmatched += 1;
+        return;
+      }
+      matchedRows += 1;
+
+      products.forEach((product) => {
+        if (overrides[product.id]) return;
+        const override = {
+          sku: product.sku,
+          name: row.name || product.name,
+          price: row.price || product.price,
+        };
+        overrides[product.id] = override;
+        updatedProductIds.add(product.id);
+      });
+    });
+
+    return { overrides, updatedProducts: updatedProductIds.size, matchedRows, unmatched };
+  }
+
+  function buildProductSkuIndex() {
+    const primary = new Map();
+    const related = new Map();
+    (window.CATALOG_DATA?.products || []).forEach((product) => {
+      addSkuIndex(primary, product.sku, product);
+      (product.skus || []).forEach((sku) => addSkuIndex(related, sku, product));
+    });
+    return { primary, related };
+  }
+
+  function addSkuIndex(index, sku, product) {
+    const key = normalizeSku(sku);
+    if (!key) return;
+    if (!index.has(key)) index.set(key, []);
+    index.get(key).push(product);
+  }
+
+  function formatImportedPrice(value) {
+    const amount = parseImportedNumber(value);
+    return amount ? CATALOG_STORE.formatMoney(amount) : "";
+  }
+
+  function parseImportedNumber(value) {
+    if (typeof value === "number") return value;
+    let text = String(value || "").trim();
+    if (!text) return 0;
+    text = text.replace(/[^\d,.-]/g, "");
+    if (!text) return 0;
+
+    const lastComma = text.lastIndexOf(",");
+    const lastDot = text.lastIndexOf(".");
+    if (lastComma > lastDot) {
+      const decimals = text.length - lastComma - 1;
+      text = decimals === 3 && lastDot === -1 ? text.replace(/,/g, "") : text.replace(/\./g, "").replace(",", ".");
+    } else if (lastDot > lastComma) {
+      const decimals = text.length - lastDot - 1;
+      text = decimals === 3 ? text.replace(/\./g, "") : text.replace(/,/g, "");
+    } else {
+      text = text.replace(/[,.]/g, "");
+    }
+
+    const amount = Number(text);
+    return Number.isFinite(amount) ? Math.round(amount) : 0;
+  }
+
+  function normalizeSku(value) {
+    const text = cleanCell(value);
+    if (!text) return "";
+    return text.replace(/\.0$/, "").replace(/\s+/g, "").toUpperCase();
+  }
+
+  function normalizeHeaderCell(value) {
+    return cleanCell(value)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/gi, "")
+      .toLowerCase();
+  }
+
+  function cleanCell(value) {
+    return String(value ?? "").trim();
+  }
+
+  function setImportStatus(message) {
+    adminEls.priceListImportStatus.textContent = message;
   }
 
   async function renderOrders() {

@@ -166,7 +166,7 @@ def load_price_list() -> dict[str, dict]:
             continue
 
         price_value = row[5]
-        products[code] = {
+        product = {
             "sku": code,
             "description": description,
             "ean": normalize_sku(row[3]),
@@ -175,6 +175,10 @@ def load_price_list() -> dict[str, dict]:
             "price": format_price(price_value),
             "sourceRow": row_number,
         }
+        existing = products.get(code)
+        if existing and existing.get("priceValue") and not product.get("priceValue"):
+            continue
+        products[code] = product
 
     return products
 

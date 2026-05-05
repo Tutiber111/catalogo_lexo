@@ -50,10 +50,23 @@
       originalName: product.originalName || product.name,
       originalCategory: product.originalCategory || product.category,
       originalPrice: product.originalPrice || product.price,
+      name: product.originalName || product.name,
+      category: product.originalCategory || product.category,
+      price: product.originalPrice || product.price,
       hidden: false,
       ...(overrides[product.id] || {}),
     }));
     return catalog;
+  }
+
+  function mergeProductOverrides(...sources) {
+    return sources.reduce((merged, source) => {
+      Object.entries(source || {}).forEach(([productId, override]) => {
+        if (!override || typeof override !== "object") return;
+        merged[productId] = { ...(merged[productId] || {}), ...override };
+      });
+      return merged;
+    }, {});
   }
 
   function loadOrders() {
@@ -197,6 +210,7 @@
     loadProductOverrides,
     saveProductOverrides,
     applyProductOverrides,
+    mergeProductOverrides,
     loadOrders,
     saveOrders,
     loadArchivedOrders,

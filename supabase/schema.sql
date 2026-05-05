@@ -37,6 +37,18 @@ create table if not exists public.order_items (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.product_overrides (
+  product_id text primary key,
+  sku text not null default '',
+  name text not null default '',
+  category text not null default '',
+  price text not null default '',
+  hidden boolean not null default false,
+  updated_by uuid references auth.users(id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table public.orders add column if not exists archived_at timestamptz;
 
 update public.orders
@@ -47,6 +59,7 @@ where status = 'sent'
 alter table public.profiles enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
+alter table public.product_overrides enable row level security;
 
 create or replace function public.is_admin()
 returns boolean
@@ -130,6 +143,30 @@ with check (
 drop policy if exists "order items admin delete" on public.order_items;
 create policy "order items admin delete"
 on public.order_items for delete
+using (public.is_admin());
+
+drop policy if exists "product overrides public select" on public.product_overrides;
+create policy "product overrides public select"
+on public.product_overrides for select
+using (true);
+
+drop policy if exists "product overrides admin insert" on public.product_overrides;
+create policy "product overrides admin insert"
+on public.product_overrides for insert
+to authenticated
+with check (public.is_admin());
+
+drop policy if exists "product overrides admin update" on public.product_overrides;
+create policy "product overrides admin update"
+on public.product_overrides for update
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+drop policy if exists "product overrides admin delete" on public.product_overrides;
+create policy "product overrides admin delete"
+on public.product_overrides for delete
+to authenticated
 using (public.is_admin());
 
 -- After you create your own user account from the catalog, make yourself admin:
