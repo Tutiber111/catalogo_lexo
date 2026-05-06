@@ -396,6 +396,7 @@ button:disabled {
 
 .hotspot {
   position: absolute;
+  z-index: 3;
   border: 1px solid rgba(215, 25, 32, 0.3);
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.02);
@@ -438,18 +439,27 @@ button:disabled {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: max(var(--cover-w, 82px), 82px);
-  min-height: max(var(--cover-h, 30px), 30px);
-  padding: 5px 9px;
+  width: max(var(--cover-w, 58px), var(--price-min-width, 58px));
+  min-height: max(var(--cover-h, 21px), var(--price-min-height, 21px));
+  padding: var(--price-pad-y, 1px) var(--price-pad-x, 4px);
   border: 1px solid rgba(215, 25, 32, 0.16);
-  border-radius: 5px;
+  border-radius: var(--price-radius, 3px);
   background: #fff;
-  color: var(--brand-dark);
-  font-size: 15px;
+  color: var(--price-color, var(--brand-dark));
+  font-size: var(--price-font-size, 14px);
   font-weight: 950;
   line-height: 1;
-  box-shadow: 0 3px 8px rgba(22, 22, 26, 0.14);
+  box-shadow: var(--price-shadow, 0 3px 8px rgba(22, 22, 26, 0.14));
   transform: translate(-50%, 0);
+}
+
+.price-overlay--pdf-small,
+.price-overlay--pdf-medium,
+.price-overlay--pdf-regular,
+.price-overlay--pdf-large,
+.price-overlay--pdf-table,
+.price-overlay--pdf-inline {
+  border-color: rgba(215, 25, 32, 0.1);
 }
 
 .price-overlay:hover,
@@ -773,6 +783,7 @@ button:disabled {
   margin: 0;
 }
 
+.cart-client-field,
 .auth-fields label,
 .admin-form-grid label,
 .admin-login-panel label {
@@ -783,6 +794,7 @@ button:disabled {
   font-weight: 800;
 }
 
+.cart-client-field input,
 .auth-fields input,
 .admin-form-grid input,
 .admin-form-grid textarea,
@@ -803,6 +815,7 @@ button:disabled {
   resize: vertical;
 }
 
+.cart-client-field input:focus,
 .auth-fields input:focus,
 .admin-form-grid input:focus,
 .admin-form-grid textarea:focus,

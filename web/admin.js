@@ -27,6 +27,7 @@
     exportOrders: document.querySelector("#exportOrders"),
     clearOrders: document.querySelector("#clearOrders"),
     priceListFile: document.querySelector("#priceListFile"),
+    downloadPriceTemplate: document.querySelector("#downloadPriceTemplate"),
     importPriceList: document.querySelector("#importPriceList"),
     clearProductOverrides: document.querySelector("#clearProductOverrides"),
     priceListImportStatus: document.querySelector("#priceListImportStatus"),
@@ -47,6 +48,7 @@
     adminEls.saveSettings.addEventListener("click", saveSettings);
     adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
     adminEls.clearOrders.addEventListener("click", clearLocalOrders);
+    adminEls.downloadPriceTemplate.addEventListener("click", downloadPriceTemplate);
     adminEls.importPriceList.addEventListener("click", importPriceList);
     adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
     window.addEventListener("catalog:orders-changed", () => renderOrders());
@@ -179,6 +181,40 @@
     } finally {
       adminEls.importPriceList.disabled = false;
     }
+  }
+
+  function downloadPriceTemplate() {
+    if (!window.XLSX) {
+      setImportStatus("Excel template tool is still loading. Try again in a moment.");
+      return;
+    }
+
+    const rows = [
+      ["Codigo", "Descripcion", "Precio", "Categoria", "Pagina", "Catalog ID"],
+      ...(window.CATALOG_DATA?.products || []).map((product) => [
+        product.sku || "",
+        product.name || "",
+        product.price || "",
+        product.category || "",
+        product.page || "",
+        product.id || "",
+      ]),
+    ];
+
+    const sheet = XLSX.utils.aoa_to_sheet(rows);
+    sheet["!cols"] = [
+      { wch: 16 },
+      { wch: 52 },
+      { wch: 14 },
+      { wch: 24 },
+      { wch: 10 },
+      { wch: 16 },
+    ];
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, sheet, "Catalog update");
+    XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
+    setImportStatus("Template downloaded. Edit Codigo, Descripcion and Precio, then upload it here.");
   }
 
   function clearLocalProductOverrides() {

@@ -261,6 +261,20 @@ def parse_product_name(words: list[tuple], blocks: list[tuple], price_word: tupl
 def nearest_skus(words: list[tuple], price_word: tuple) -> list[str]:
     px = (price_word[0] + price_word[2]) / 2
     py = (price_word[1] + price_word[3]) / 2
+    line_candidates = []
+    for word in words_on_line(words, price_word, tolerance=12):
+        text = word_text(word).strip(".,;:()[]{}")
+        if not SKU_RE.fullmatch(text) or PRICE_RE.fullmatch(text):
+            continue
+        wx = (word[0] + word[2]) / 2
+        line_candidates.append((abs(px - wx), text))
+    if line_candidates:
+        deduped = []
+        for _, sku in sorted(line_candidates):
+            if sku not in deduped:
+                deduped.append(sku)
+        return deduped
+
     candidates = []
     for word in words:
         text = word_text(word)
@@ -292,8 +306,10 @@ def product_hotspot(page_rect: fitz.Rect, price_word: tuple, product_count: int)
     return {"x": x, "y": y, "w": min(0.32, 0.98 - x), "h": min(0.36, 0.92 - y)}
 
 
-def normalized_sku_candidate(value: str, price_list: dict[str, dict]) -> str:
+def normalized_sku_candidate(value: str, price_list: dict[str, dict], page_number: int | None = None) -> str:
     text = normalize_sku(value).strip(".,;:()[]{}")
+    if text.isalpha() and page_number not in DREAMFARM_PAGES:
+        return ""
     candidates = [text, text.upper(), SKU_ALIASES.get(text, text), SKU_ALIASES.get(text.upper(), text.upper())]
     for candidate in candidates:
         if candidate in price_list:
@@ -311,12 +327,12 @@ def sku_word_slice(word: tuple, start: int, end: int) -> tuple:
     return (x0, word[1], x1, word[3], text[start:end])
 
 
-def skus_from_word(word: tuple, price_list: dict[str, dict]) -> list[tuple[str, tuple]]:
+def skus_from_word(word: tuple, price_list: dict[str, dict], page_number: int | None = None) -> list[tuple[str, tuple]]:
     text = word_text(word)
     matches = []
     seen = set()
     for match in SKU_CANDIDATE_RE.finditer(text):
-        sku = normalized_sku_candidate(match.group(0), price_list)
+        sku = normalized_sku_candidate(match.group(0), price_list, page_number)
         if not sku or sku in seen:
             continue
         seen.add(sku)
@@ -353,7 +369,7 @@ def extract_products_from_skus(page: fitz.Page, page_number: int, price_list: di
     seen = set()
 
     for word in words:
-        for sku, sku_word in skus_from_word(word, price_list):
+        for sku, sku_word in skus_from_word(word, price_list, page_number):
             if sku in seen:
                 continue
             seen.add(sku)
@@ -395,13 +411,14 @@ def extract_products(page: fitz.Page, page_number: int, price_list: dict[str, di
         name = parse_product_name(words, blocks, price_word, category)
         skus = nearest_skus(words, price_word)
         sku = skus[0] if skus else f"P{page_number:03d}-{index + 1}"
-        price_match = next((price_list[item] for item in skus if item in price_list), None)
+        matched_sku = next((item for item in skus if item in price_list), "")
+        price_match = price_list.get(matched_sku) if matched_sku else None
         size_label = product_size_label(price_match["description"] if price_match else name)
         products.append(
             {
                 "id": f"p{page_number:03d}-{index + 1}",
                 "page": page_number,
-                "sku": sku,
+                "sku": matched_sku or sku,
                 "skus": skus,
                 "name": price_match["description"] if price_match else name,
                 "category": category,

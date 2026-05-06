@@ -4,6 +4,8 @@
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleHB2d210eGF1dnprY25jcW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODUxNjAsImV4cCI6MjA5MzQ2MTE2MH0.H29L5eOaaLjKnSv6_ro2ECRfaD5wjo5y7dBsyDBRt-E",
   };
 
+  let recoveryMode = hasRecoveryMarkers();
+
   const client = window.supabase?.createClient(config.url, config.anonKey, {
     auth: {
       persistSession: false,
@@ -15,9 +17,31 @@
   if (client) {
     client.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
+        recoveryMode = true;
         window.dispatchEvent(new CustomEvent("catalog:password-recovery"));
       }
     });
+  }
+
+  function hasRecoveryMarkers() {
+    const search = new URLSearchParams(window.location.search);
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+    return Boolean(
+      search.get("code") ||
+        hash.get("code") ||
+        hash.get("access_token") ||
+        hash.get("refresh_token") ||
+        hash.get("type") === "recovery" ||
+        window.location.hash === "#reset-password",
+    );
+  }
+
+  function isRecoveryMode() {
+    return recoveryMode;
+  }
+
+  function clearRecoveryMode() {
+    recoveryMode = false;
   }
 
   function isAvailable() {
@@ -280,6 +304,8 @@
     config,
     client,
     isAvailable,
+    isRecoveryMode,
+    clearRecoveryMode,
     getUser,
     signIn,
     signUp,

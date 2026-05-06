@@ -39,6 +39,7 @@ const els = {
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
+  cartClientName: document.querySelector("#cartClientName"),
   accountStatus: document.querySelector("#accountStatus"),
   authFields: document.querySelector("#authFields"),
   signInForm: document.querySelector("#signInForm"),
@@ -80,6 +81,7 @@ async function init() {
 
   els.brandName.textContent = state.settings.brandName;
   els.catalogLabel.textContent = state.settings.catalogLabel;
+  els.cartClientName.value = localStorage.getItem("catalogCartClientName") || "";
   bindEvents();
   renderBrandTabs();
   ensureCurrentPageMatchesBrand();
@@ -154,6 +156,10 @@ function bindEvents() {
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
   els.copyOrder.addEventListener("click", copyOrder);
+  els.cartClientName.addEventListener("input", () => {
+    localStorage.setItem("catalogCartClientName", els.cartClientName.value);
+    renderCart();
+  });
   window.addEventListener("catalog:password-recovery", () => {
     openAccount();
     showNewPassword();
@@ -355,15 +361,25 @@ function renderPriceOverlay(group) {
   const price = prices.length === 1 ? prices[0] : group.price;
   const pos = group.position;
   const cover = group.cover || {};
+  const overlayStyle = group.style || {};
   const coverStyle = [
     `left:${pos.x * 100}%`,
     `top:${pos.y * 100}%`,
     cover.w ? `--cover-w:${cover.w * 100}%` : "",
     cover.h ? `--cover-h:${cover.h * 100}%` : "",
+    overlayStyle.fontSize ? `--price-font-size:${overlayStyle.fontSize}px` : "",
+    overlayStyle.minWidth ? `--price-min-width:${overlayStyle.minWidth}px` : "",
+    overlayStyle.minHeight ? `--price-min-height:${overlayStyle.minHeight}px` : "",
+    overlayStyle.padX !== undefined ? `--price-pad-x:${overlayStyle.padX}px` : "",
+    overlayStyle.padY !== undefined ? `--price-pad-y:${overlayStyle.padY}px` : "",
+    overlayStyle.radius !== undefined ? `--price-radius:${overlayStyle.radius}px` : "",
+    overlayStyle.shadow ? `--price-shadow:${overlayStyle.shadow}` : "",
+    overlayStyle.color ? `--price-color:${overlayStyle.color}` : "",
   ].filter(Boolean).join(";");
+  const variantClass = group.variant ? ` price-overlay--${escapeAttribute(group.variant)}` : "";
   return `
     <button
-      class="price-overlay"
+      class="price-overlay${variantClass}"
       type="button"
       data-group="${group.id}"
       aria-label="Open products priced ${escapeHtml(price)}"
@@ -517,7 +533,7 @@ function renderCart() {
     button.addEventListener("click", () => updateQty(button.dataset.inc, 1));
   });
 
-  const orderText = buildOrderText(lines, readAccountCustomer());
+  const orderText = buildOrderText(lines, readOrderCustomer());
   const whatsappNumber = CATALOG_STORE.normalizeWhatsAppNumber(CATALOG_STORE.loadSettings().whatsappNumber);
   els.saveOrder.disabled = !lines.length;
   els.copyOrder.disabled = !lines.length;
@@ -554,11 +570,11 @@ async function saveOrder() {
     return;
   }
 
-  let customer = readAccountCustomer();
+  let customer = readOrderCustomer();
   try {
     if (CATALOG_SUPABASE.isAvailable() && state.user) {
       await saveCustomerProfile();
-      customer = readAccountCustomer();
+      customer = readOrderCustomer();
       const order = CATALOG_STORE.buildOrderFromLines(lines, customer);
       await CATALOG_SUPABASE.saveOrder(order, state.user.id);
       await renderCustomerOrders();
@@ -572,6 +588,8 @@ async function saveOrder() {
   }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
   state.cart.clear();
+  els.cartClientName.value = "";
+  localStorage.removeItem("catalogCartClientName");
   saveCart();
   renderCart();
   showToast("Order saved");
@@ -581,7 +599,7 @@ async function copyOrder() {
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isVisibleProduct(line.product));
-  await navigator.clipboard.writeText(buildOrderText(lines, readAccountCustomer()));
+  await navigator.clipboard.writeText(buildOrderText(lines, readOrderCustomer()));
   showToast("Order copied");
 }
 
@@ -691,6 +709,14 @@ function readAccountCustomer() {
   };
 }
 
+function readOrderCustomer() {
+  const accountCustomer = readAccountCustomer();
+  return {
+    ...accountCustomer,
+    name: els.cartClientName.value.trim() || accountCustomer.name,
+  };
+}
+
 async function initAccount() {
   els.authEmail.value = localStorage.getItem("catalogLastEmail") || "";
   els.createEmail.value = els.authEmail.value;
@@ -717,7 +743,13 @@ async function initAccount() {
     openAccount();
     showForgotPassword();
     els.authMessage.textContent = friendlyRecoveryError(authHash);
-  } else if (location.hash === "#reset-password" || authHash.type === "recovery" || authHash.access_token || authHash.code) {
+  } else if (
+    CATALOG_SUPABASE.isRecoveryMode() ||
+    location.hash === "#reset-password" ||
+    authHash.type === "recovery" ||
+    authHash.access_token ||
+    authHash.code
+  ) {
     openAccount();
     showNewPassword();
   }
@@ -778,6 +810,7 @@ function showSignIn() {
   els.authPassword.value = "";
   els.createPassword.value = "";
   els.newPassword.value = "";
+  CATALOG_SUPABASE.clearRecoveryMode();
   history.replaceState(null, "", location.pathname);
   setAuthMode("signin");
   els.authEmail.focus();
@@ -822,6 +855,7 @@ async function updatePassword() {
     state.user = await CATALOG_SUPABASE.updatePassword(els.newPassword.value);
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
     els.newPassword.value = "";
+    CATALOG_SUPABASE.clearRecoveryMode();
     setAuthMode("signin");
     renderAccount();
     await renderCustomerOrders();
@@ -1059,6 +1093,10 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function escapeAttribute(value) {
+  return String(value).replace(/[^a-z0-9_-]/gi, "");
 }
 
 init().catch((error) => {

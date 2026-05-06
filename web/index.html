@@ -77,6 +77,10 @@
             <span>Total value</span>
             <strong id="cartTotalValue">$0</strong>
           </div>
+          <label class="cart-client-field">
+            <span>Client</span>
+            <input id="cartClientName" type="text" autocomplete="organization" placeholder="Client name">
+          </label>
           <button id="saveOrder" class="primary-button" type="button">Save order</button>
           <button id="copyOrder" class="primary-button" type="button">Copy order</button>
           <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Send by WhatsApp</a>
@@ -221,6 +225,7 @@
                 </label>
               </div>
               <div class="admin-actions">
+                <button id="downloadPriceTemplate" class="secondary-button" type="button">Download template</button>
                 <button id="importPriceList" class="primary-button" type="button">Update products</button>
                 <button id="clearProductOverrides" class="secondary-button danger-button" type="button">Clear local preview</button>
               </div>
