@@ -122,7 +122,7 @@ function cloneCatalog(catalog) {
 
 function updateCatalogMeta() {
   const priceCount = state.catalog.priceList?.productCount || 0;
-  els.catalogMeta.textContent = `${state.catalog.samplePageCount} pages - ${state.catalog.products.length} products - ${priceCount} Excel products`;
+  els.catalogMeta.textContent = `${state.catalog.samplePageCount} páginas - ${state.catalog.products.length} productos - ${priceCount} productos en Excel`;
 }
 
 function bindEvents() {
@@ -169,7 +169,7 @@ function bindEvents() {
     renderBrandTabs();
     ensureCurrentPageMatchesBrand();
     renderAll();
-    showToast("Catalog products updated");
+    showToast("Productos del catálogo actualizados");
   });
   els.zoomSlider.addEventListener("input", () => {
     state.zoom = Number(els.zoomSlider.value);
@@ -211,7 +211,7 @@ function renderTabs() {
 function renderBrandTabs() {
   const brands = [...new Set(state.catalog.pages.map((page) => page.section).filter(Boolean))];
   els.brandTabs.innerHTML = [
-    { id: "all", label: "All" },
+    { id: "all", label: "Todas" },
     ...brands.map((brand) => ({ id: brand, label: brand })),
   ]
     .map(
@@ -251,8 +251,8 @@ function renderLists() {
       const count = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct).length;
       return `
         <button class="page-card${active}" type="button" data-page="${page.number}">
-          <strong>Page ${page.number}</strong>
-          <p>${escapeHtml(page.section || "Catalog")} · ${escapeHtml(page.title)} · ${count} product${count === 1 ? "" : "s"}</p>
+          <strong>Página ${page.number}</strong>
+          <p>${escapeHtml(page.section || "Catálogo")} · ${escapeHtml(displayCatalogLabel(page.title))} · ${count} producto${count === 1 ? "" : "s"}</p>
         </button>
       `;
     })
@@ -264,11 +264,11 @@ function renderLists() {
         (product) => `
           <button class="product-card" type="button" data-product="${product.id}">
             <strong>${escapeHtml(product.name)}</strong>
-            <p>${escapeHtml(product.section || "Catalog")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Page ${product.page}</p>
+            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Página ${product.page}</p>
           </button>
         `,
       )
-      .join("") || `<p>No matching products.</p>`;
+      .join("") || `<p>No hay productos coincidentes.</p>`;
 
   els.pagesPanel.querySelectorAll("[data-page]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -314,10 +314,12 @@ function renderViewerPages() {
 
 function renderPageFrame(page, index) {
   const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  const imageWidth = Number(page.image.width) || 1013;
+  const imageHeight = Number(page.image.height) || 1432;
 
   return `
-    <article class="page-frame" data-page-index="${index}" aria-label="Catalog page ${page.number}">
-      <img src="${escapeHtml(page.image.src)}" alt="Catalog page ${page.number}" loading="lazy" decoding="async">
+    <article class="page-frame" data-page-index="${index}" aria-label="Página ${page.number} del catálogo">
+      <img src="${escapeHtml(page.image.src)}" width="${imageWidth}" height="${imageHeight}" alt="Página ${page.number} del catálogo" loading="lazy" decoding="async">
       <div class="hotspot-layer">
         ${products.map(renderHotspot).join("")}
         ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
@@ -330,8 +332,8 @@ function renderCurrentPageDetails() {
   const page = currentPage();
   const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
 
-  els.pageTitle.textContent = `Page ${page.number} - ${page.section || "Catalog"} - ${page.title}`;
-  els.pageSubtitle.textContent = `${products.length} product${products.length === 1 ? "" : "s"} detected on this page`;
+  els.pageTitle.textContent = `Página ${page.number} - ${page.section || "Catálogo"} - ${displayCatalogLabel(page.title)}`;
+  els.pageSubtitle.textContent = `${products.length} producto${products.length === 1 ? "" : "s"} detectado${products.length === 1 ? "" : "s"} en esta página`;
   const visibleIndexes = visiblePageIndexes();
   const visiblePosition = visibleIndexes.indexOf(state.currentIndex);
   els.prevPage.disabled = visiblePosition <= 0;
@@ -345,7 +347,7 @@ function renderHotspot(product) {
       class="hotspot"
       type="button"
       data-product="${product.id}"
-      aria-label="Open ${escapeHtml(product.name)}"
+      aria-label="Abrir ${escapeHtml(product.name)}"
       style="left:${spot.x * 100}%;top:${spot.y * 100}%;width:${spot.w * 100}%;height:${spot.h * 100}%"
     >
       <span>+</span>
@@ -375,6 +377,7 @@ function renderPriceOverlay(group) {
     overlayStyle.radius !== undefined ? `--price-radius:${overlayStyle.radius}px` : "",
     overlayStyle.shadow ? `--price-shadow:${overlayStyle.shadow}` : "",
     overlayStyle.color ? `--price-color:${overlayStyle.color}` : "",
+    overlayStyle.background ? `--price-bg:${overlayStyle.background}` : "",
   ].filter(Boolean).join(";");
   const variantClass = group.variant ? ` price-overlay--${escapeAttribute(group.variant)}` : "";
   return `
@@ -382,7 +385,7 @@ function renderPriceOverlay(group) {
       class="price-overlay${variantClass}"
       type="button"
       data-group="${group.id}"
-      aria-label="Open products priced ${escapeHtml(price)}"
+      aria-label="Abrir productos con precio ${escapeHtml(price)}"
       style="${coverStyle}"
     >${escapeHtml(price)}</button>
   `;
@@ -400,7 +403,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
-        <span class="eyebrow">${escapeHtml(page.title)}</span>
+        <span class="eyebrow">${escapeHtml(displayCatalogLabel(page.title))}</span>
         <h2>${escapeHtml(group.label)}</h2>
       </div>
       <div class="price">${escapeHtml(group.price)}</div>
@@ -408,21 +411,22 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
         ${products
           .map(
             (product) => `
-              <div class="group-product">
+              <div class="group-product" data-group-product="${product.id}">
                 <div>
                   <span>${escapeHtml(product.name)}</span>
                   <strong>${escapeHtml(product.sku)}</strong>
+                  <em class="group-product-status" data-added-status="${product.id}" aria-live="polite"></em>
                 </div>
                 <div class="dialog-qty">
-                  <span>Qty</span>
+                  <span>Cant.</span>
                   <div class="quantity-stepper quantity-stepper-compact">
-                    <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Decrease quantity">-</button>
+                    <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad">-</button>
                     <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}">
-                    <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
+                    <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad">+</button>
                   </div>
                   <strong class="dialog-line-total" data-total-for="${product.id}">Total ${formatMoney(priceNumber(product.price))}</strong>
                 </div>
-                <button class="small-add-button" type="button" data-add="${product.id}">Add</button>
+                <button class="small-add-button" type="button" data-add="${product.id}">Agregar</button>
               </div>
             `,
           )
@@ -434,11 +438,34 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   els.dialogContent.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
       const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
-      addToCart(button.dataset.add, readQuantity(qtyInput));
-      els.productDialog.close();
+      const quantity = readQuantity(qtyInput);
+      addToCart(button.dataset.add, quantity);
+      markGroupProductAdded(button.dataset.add, quantity);
     });
   });
   els.productDialog.showModal();
+}
+
+function markGroupProductAdded(productId, quantity) {
+  const product = state.productsById.get(productId);
+  const row = els.dialogContent.querySelector(`[data-group-product="${cssEscape(productId)}"]`);
+  const button = els.dialogContent.querySelector(`[data-add="${cssEscape(productId)}"]`);
+  const status = els.dialogContent.querySelector(`[data-added-status="${cssEscape(productId)}"]`);
+  if (!row || !button || !product) return;
+
+  row.classList.add("is-added");
+  button.textContent = "Agregado";
+  button.classList.add("is-added");
+  const cartQuantity = state.cart.get(productId) || 0;
+  if (status) {
+    status.textContent = `${quantity} agregado${quantity === 1 ? "" : "s"} - ${cartQuantity} en carrito`;
+  }
+
+  clearTimeout(button.addedTimer);
+  button.addedTimer = setTimeout(() => {
+    button.textContent = "Agregar";
+    button.classList.remove("is-added");
+  }, 1400);
 }
 
 function openProduct(product) {
@@ -451,26 +478,26 @@ function openProduct(product) {
       </div>
       <div class="product-meta">
         <span>SKU: ${escapeHtml(product.sku)}</span>
-        <span>Page ${product.page}</span>
-        ${product.skus.length > 1 ? `<span>Related SKUs: ${product.skus.map(escapeHtml).join(", ")}</span>` : ""}
+        <span>Página ${product.page}</span>
+        ${product.skus.length > 1 ? `<span>SKU relacionados: ${product.skus.map(escapeHtml).join(", ")}</span>` : ""}
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
         ${product.unitsPerCase ? `<span>UxC: ${escapeHtml(product.unitsPerCase)}</span>` : ""}
-        <span>Price source: ${product.priceSource === "excel" ? "Excel list" : "PDF extraction"}</span>
+        <span>Origen del precio: ${product.priceSource === "excel" ? "lista Excel" : "extracción del PDF"}</span>
       </div>
       <div class="price">${escapeHtml(product.price)}</div>
       <div class="dialog-qty dialog-qty-wide">
-        <span>Quantity</span>
+        <span>Cantidad</span>
         <div class="quantity-stepper">
-          <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Decrease quantity">-</button>
-          <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Quantity">
-          <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
+          <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad">-</button>
+          <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Cantidad">
+          <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad">+</button>
         </div>
       </div>
       <div class="dialog-total" data-total-for="${product.id}">
         <span>Total</span>
         <strong>${formatMoney(priceNumber(product.price))}</strong>
       </div>
-      <button class="primary-button" type="button" data-add="${product.id}">Add to cart</button>
+      <button class="primary-button" type="button" data-add="${product.id}">Agregar al carrito</button>
     </div>
   `;
   bindDialogQuantitySteppers();
@@ -486,7 +513,7 @@ function addToCart(productId, quantity = 1) {
   state.cart.set(productId, (state.cart.get(productId) || 0) + qty);
   saveCart();
   renderCart();
-  showToast(`${qty} added to cart`);
+  showToast(`${qty} agregado${qty === 1 ? "" : "s"} al carrito`);
 }
 
 function updateQty(productId, delta) {
@@ -514,17 +541,17 @@ function renderCart() {
           <div class="cart-line">
             <div>
               <strong>${escapeHtml(product.name)}</strong>
-              <p>${escapeHtml(product.sku)} · ${escapeHtml(product.price)} c/u · ${formatMoney(priceNumber(product.price) * qty)} · Page ${product.page}</p>
+              <p>${escapeHtml(product.sku)} · ${escapeHtml(product.price)} c/u · ${formatMoney(priceNumber(product.price) * qty)} · Página ${product.page}</p>
             </div>
-            <div class="qty-controls" aria-label="Quantity controls">
-              <button type="button" data-dec="${product.id}" aria-label="Decrease quantity">-</button>
+            <div class="qty-controls" aria-label="Controles de cantidad">
+              <button type="button" data-dec="${product.id}" aria-label="Disminuir cantidad">-</button>
               <span>${qty}</span>
-              <button type="button" data-inc="${product.id}" aria-label="Increase quantity">+</button>
+              <button type="button" data-inc="${product.id}" aria-label="Aumentar cantidad">+</button>
             </div>
           </div>
         `,
       )
-      .join("") || `<p>Your cart is empty.</p>`;
+      .join("") || `<p>El carrito está vacío.</p>`;
 
   els.cartItems.querySelectorAll("[data-dec]").forEach((button) => {
     button.addEventListener("click", () => updateQty(button.dataset.dec, -1));
@@ -541,14 +568,14 @@ function renderCart() {
 }
 
 function buildOrderText(lines, customer = {}) {
-  if (!lines.length) return "Order draft is empty.";
+  if (!lines.length) return "El borrador del pedido está vacío.";
   const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
   return [
-    "Catalog order draft",
+    "Borrador de pedido del catálogo",
     "",
-    customer.name ? `Customer: ${customer.name}` : "",
-    customer.phone ? `Phone: ${customer.phone}` : "",
-    customer.notes ? `Notes: ${customer.notes}` : "",
+    customer.name ? `Cliente: ${customer.name}` : "",
+    customer.phone ? `Teléfono: ${customer.phone}` : "",
+    customer.notes ? `Notas: ${customer.notes}` : "",
     customer.name || customer.phone || customer.notes ? "" : "",
     ...lines.map(({ product, qty }) => `${qty} x ${product.sku} - ${product.name} - ${product.price} c/u - ${formatMoney(priceNumber(product.price) * qty)}`),
     "",
@@ -561,11 +588,11 @@ async function saveOrder() {
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isVisibleProduct(line.product));
   if (!lines.length) {
-    showToast("Add products before saving an order");
+    showToast("Agregá productos antes de guardar el pedido");
     return;
   }
   if (CATALOG_SUPABASE.isAvailable() && !state.user) {
-    showToast("Sign in before saving the order");
+    showToast("Iniciá sesión antes de guardar el pedido");
     openAccount();
     return;
   }
@@ -583,7 +610,7 @@ async function saveOrder() {
       CATALOG_STORE.addOrder(order);
     }
   } catch (error) {
-    showToast(error.message || "Could not save order");
+    showToast(error.message || "No se pudo guardar el pedido");
     return;
   }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
@@ -592,7 +619,7 @@ async function saveOrder() {
   localStorage.removeItem("catalogCartClientName");
   saveCart();
   renderCart();
-  showToast("Order saved");
+  showToast("Pedido guardado");
 }
 
 async function copyOrder() {
@@ -600,7 +627,7 @@ async function copyOrder() {
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isVisibleProduct(line.product));
   await navigator.clipboard.writeText(buildOrderText(lines, readOrderCustomer()));
-  showToast("Order copied");
+  showToast("Pedido copiado");
 }
 
 function currentPage() {
@@ -657,7 +684,17 @@ function updateCurrentPageFromScroll() {
 function scrollPageIntoView(index, behavior = "smooth") {
   const frame = els.pageStrip.querySelector(`[data-page-index="${index}"]`);
   if (!frame) return;
-  frame.scrollIntoView({ behavior, block: "start", inline: "nearest" });
+  const scrollToFrame = (scrollBehavior = behavior) => frame.scrollIntoView({ behavior: scrollBehavior, block: "start", inline: "nearest" });
+  scrollToFrame();
+
+  const image = frame.querySelector("img");
+  if (image && !image.complete) {
+    image.addEventListener("load", () => scrollToFrame("auto"), { once: true });
+  }
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => scrollToFrame("auto"));
+  });
 }
 
 function visiblePages() {
@@ -722,7 +759,7 @@ async function initAccount() {
   els.createEmail.value = els.authEmail.value;
   els.resetEmail.value = els.authEmail.value;
   if (!CATALOG_SUPABASE.isAvailable()) {
-    els.accountStatus.textContent = "Accounts unavailable";
+    els.accountStatus.textContent = "Cuentas no disponibles";
     return;
   }
 
@@ -735,7 +772,7 @@ async function initAccount() {
     renderAccount();
     await renderCustomerOrders();
   } catch (error) {
-    els.accountStatus.textContent = "Account setup needed";
+    els.accountStatus.textContent = "Falta configurar la cuenta";
   }
 
   const authHash = readAuthHash();
@@ -765,7 +802,7 @@ async function signIn() {
     applyProfileToAuthFields();
     renderAccount();
     await renderCustomerOrders();
-    showToast("Signed in");
+    showToast("Sesión iniciada");
   } catch (error) {
     showAuthError(error);
   }
@@ -786,7 +823,7 @@ async function createAccount() {
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
     renderAccount();
     await renderCustomerOrders();
-    showToast("Account created. Check your email if confirmation is enabled.");
+    showToast("Cuenta creada. Revisá tu email si la confirmación está activada.");
   } catch (error) {
     showAuthError(error);
   }
@@ -828,8 +865,8 @@ function showNewPassword() {
   setAuthMode("new-password");
   els.authFields.classList.remove("is-hidden");
   els.signOut.classList.add("is-hidden");
-  els.accountStatus.textContent = "Reset your password";
-  els.authMessage.textContent = "Enter a new password to finish the reset.";
+  els.accountStatus.textContent = "Restablecé tu contraseña";
+  els.authMessage.textContent = "Ingresá una nueva contraseña para terminar la recuperación.";
   els.newPassword.focus();
 }
 
@@ -841,7 +878,7 @@ async function sendPasswordReset() {
   try {
     clearAuthMessage();
     await CATALOG_SUPABASE.sendPasswordReset(els.resetEmail.value.trim());
-    els.authMessage.textContent = "Password reset email sent. Use the link in that email to set a new password.";
+    els.authMessage.textContent = "Email de recuperación enviado. Usá el enlace de ese email para guardar una nueva contraseña.";
     els.authEmail.value = els.resetEmail.value.trim();
     rememberAuthEmail();
   } catch (error) {
@@ -860,7 +897,7 @@ async function updatePassword() {
     renderAccount();
     await renderCustomerOrders();
     history.replaceState(null, "", location.pathname + location.search);
-    showToast("Password updated");
+    showToast("Contraseña actualizada");
   } catch (error) {
     showAuthError(error);
   }
@@ -873,9 +910,9 @@ async function signOut() {
     state.profile = null;
     renderAccount();
     await renderCustomerOrders();
-    showToast("Signed out");
+    showToast("Sesión cerrada");
   } catch (error) {
-    showToast(error.message || "Could not sign out");
+    showToast(error.message || "No se pudo cerrar sesión");
   }
 }
 
@@ -900,7 +937,7 @@ function applyProfileToAuthFields() {
 function renderAccount() {
   const signedIn = Boolean(state.user);
   const resettingPassword = els.authFields.dataset.mode === "new-password";
-  els.accountStatus.textContent = signedIn ? `Signed in as ${state.user.email}` : "Not signed in";
+  els.accountStatus.textContent = signedIn ? `Sesión iniciada como ${state.user.email}` : "Sesión no iniciada";
   els.authFields.classList.toggle("is-hidden", signedIn && !resettingPassword);
   els.signOut.classList.toggle("is-hidden", !signedIn || resettingPassword);
   els.openAccount.classList.toggle("is-signed-in", signedIn);
@@ -917,12 +954,12 @@ function showAuthError(error) {
 }
 
 function friendlyAuthError(error) {
-  const message = String(error?.message || "Could not complete account action");
+  const message = String(error?.message || "No se pudo completar la acción de cuenta");
   if (message.toLowerCase().includes("email") && message.toLowerCase().includes("limit")) {
-    return "Supabase email limit reached. For local testing, disable Confirm email in Supabase Auth > Providers > Email, or configure custom SMTP.";
+    return "Se alcanzó el límite de emails de Supabase. Para pruebas locales, desactivá Confirm email en Supabase Auth > Providers > Email, o configurá SMTP propio.";
   }
   if (message.toLowerCase().includes("email not confirmed")) {
-    return "Email is not confirmed yet. Disable Confirm email for local testing, or use the confirmation email.";
+    return "El email todavía no está confirmado. Desactivá Confirm email para pruebas locales, o usá el email de confirmación.";
   }
   return message;
 }
@@ -942,9 +979,9 @@ function readAuthHash() {
 
 function friendlyRecoveryError(authHash) {
   if (authHash.error_code === "otp_expired") {
-    return "That reset link is invalid or expired. Send a new reset email and use the newest link only once.";
+    return "Ese enlace de recuperación no es válido o expiró. Enviá un nuevo email de recuperación y usá solo el enlace más reciente.";
   }
-  return authHash.error_description?.replaceAll("+", " ") || "Could not use that reset link. Send a new reset email.";
+  return authHash.error_description?.replaceAll("+", " ") || "No se pudo usar ese enlace de recuperación. Enviá un nuevo email.";
 }
 
 async function renderCustomerOrders() {
@@ -966,16 +1003,16 @@ async function renderCustomerOrders() {
           (order) => `
             <button class="customer-order-line" type="button" data-order="${escapeHtml(order.id)}">
               <strong>${escapeHtml(order.displayId || order.id)}</strong>
-              <span>${escapeHtml(order.status)} - ${formatMoney(order.totalValue)}</span>
+              <span>${escapeHtml(orderStatusLabel(order.status))} - ${formatMoney(order.totalValue)}</span>
             </button>
           `,
         )
-        .join("") || `<p>No previous orders yet.</p>`;
+        .join("") || `<p>Todavía no hay pedidos anteriores.</p>`;
     els.customerOrders.querySelectorAll("[data-order]").forEach((button) => {
       button.addEventListener("click", () => showCustomerOrderDetail(button.dataset.order));
     });
   } catch (error) {
-    els.customerOrders.innerHTML = `<p>Run the Supabase setup SQL to enable order history.</p>`;
+    els.customerOrders.innerHTML = `<p>Ejecutá el SQL de configuración de Supabase para habilitar el historial de pedidos.</p>`;
   }
 }
 
@@ -986,11 +1023,11 @@ function showCustomerOrderDetail(orderId) {
   els.customerOrders.hidden = true;
   els.customerOrderDetail.hidden = false;
   els.customerOrderDetail.innerHTML = `
-    <button id="backToOrders" class="secondary-button compact-button" type="button">Back to orders</button>
+    <button id="backToOrders" class="secondary-button compact-button" type="button">Volver a pedidos</button>
     <div class="customer-order-detail-header">
-      <span class="eyebrow">Order</span>
+      <span class="eyebrow">Pedido</span>
       <h3>${escapeHtml(order.displayId || order.id)}</h3>
-      <p>${escapeHtml(order.status)} - ${new Date(order.createdAt).toLocaleString()}</p>
+      <p>${escapeHtml(orderStatusLabel(order.status))} - ${new Date(order.createdAt).toLocaleString("es-AR")}</p>
     </div>
     <div class="customer-order-items">
       ${order.items
@@ -999,7 +1036,7 @@ function showCustomerOrderDetail(orderId) {
             <div class="customer-order-item">
               <div>
                 <strong>${escapeHtml(item.name)}</strong>
-                <span>${escapeHtml(item.sku)} - Page ${escapeHtml(item.page || "")}</span>
+                <span>${escapeHtml(item.sku)} - Página ${escapeHtml(item.page || "")}</span>
               </div>
               <span>${item.qty} x ${escapeHtml(item.price)} = ${formatMoney(item.lineTotal)}</span>
             </div>
@@ -1070,6 +1107,24 @@ function formatMoney(value) {
   return "$" + Math.round(value).toLocaleString("es-AR");
 }
 
+function orderStatusLabel(status) {
+  return {
+    new: "nuevo",
+    placed: "recibido",
+    confirmed: "confirmado",
+    packed: "preparado",
+    sent: "enviado",
+    cancelled: "cancelado",
+  }[status] || status || "";
+}
+
+function displayCatalogLabel(value) {
+  return {
+    Catalog: "Catálogo",
+    catalog: "catálogo",
+  }[value] || value || "";
+}
+
 function cssEscape(value) {
   if (window.CSS?.escape) return CSS.escape(value);
   return String(value).replace(/"/g, '\\"');
@@ -1101,5 +1156,5 @@ function escapeAttribute(value) {
 
 init().catch((error) => {
   console.error(error);
-  els.catalogMeta.textContent = "Could not load catalog data.";
+  els.catalogMeta.textContent = "No se pudieron cargar los datos del catálogo.";
 });

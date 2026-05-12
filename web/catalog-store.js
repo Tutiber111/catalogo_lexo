@@ -8,7 +8,7 @@
 
   const defaultSettings = {
     brandName: "LEXO",
-    catalogLabel: "Interactive catalog",
+    catalogLabel: "Catálogo interactivo",
     whatsappNumber: "",
     adminPasswordHash: "35ae3089bd96dc75b1b486951b452ec9833f112ececfa7a40adc961e9fd756d6",
   };
@@ -26,7 +26,9 @@
   }
 
   function loadSettings() {
-    return { ...defaultSettings, ...readJson(keys.settings, {}) };
+    const settings = { ...defaultSettings, ...readJson(keys.settings, {}) };
+    if (settings.catalogLabel === "Interactive catalog") settings.catalogLabel = "Catálogo interactivo";
+    return settings;
   }
 
   function saveSettings(nextSettings) {
@@ -194,7 +196,7 @@
 
   async function hashString(value) {
     if (!window.crypto?.subtle) {
-      throw new Error("Password hashing needs a secure browser context. Use the local preview server instead of opening the file directly.");
+      throw new Error("El hash de contraseña necesita un contexto seguro del navegador. Usá el servidor de vista previa local en vez de abrir el archivo directamente.");
     }
 
     const bytes = new TextEncoder().encode(value);

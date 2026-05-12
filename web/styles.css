@@ -176,7 +176,7 @@ button:disabled {
   border: 0;
   border-radius: 6px;
   color: var(--muted);
-  background: transparent;
+  background: #fff;
   font-weight: 800;
 }
 
@@ -439,17 +439,17 @@ button:disabled {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: max(var(--cover-w, 58px), var(--price-min-width, 58px));
-  min-height: max(var(--cover-h, 21px), var(--price-min-height, 21px));
-  padding: var(--price-pad-y, 1px) var(--price-pad-x, 4px);
+  width: max(calc(var(--cover-w, 58px) + 4px), calc(var(--price-min-width, 58px) + 4px));
+  min-height: max(calc(var(--cover-h, 21px) + 3px), calc(var(--price-min-height, 21px) + 3px));
+  padding: calc(var(--price-pad-y, 1px) + 1px) calc(var(--price-pad-x, 4px) + 2px);
   border: 1px solid rgba(215, 25, 32, 0.16);
   border-radius: var(--price-radius, 3px);
-  background: #fff;
+  background: var(--price-bg, #fff);
   color: var(--price-color, var(--brand-dark));
   font-size: var(--price-font-size, 14px);
   font-weight: 950;
   line-height: 1;
-  box-shadow: var(--price-shadow, 0 3px 8px rgba(22, 22, 26, 0.14));
+  box-shadow: none;
   transform: translate(-50%, 0);
 }
 
@@ -898,6 +898,12 @@ button:disabled {
   background: var(--panel);
   color: var(--ink);
   text-align: left;
+  transition: background 160ms ease, border-color 160ms ease, opacity 160ms ease;
+}
+
+.group-product.is-added {
+  border-color: #c8d0da;
+  background: #f3f5f7;
 }
 
 .group-product span {
@@ -909,6 +915,21 @@ button:disabled {
 .group-product strong {
   color: var(--brand-dark);
   font-size: 13px;
+}
+
+.group-product-status {
+  display: block;
+  min-height: 16px;
+  margin-top: 4px;
+  color: #526071;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.group-product:not(.is-added) .group-product-status {
+  visibility: hidden;
 }
 
 .dialog-qty {
@@ -1053,6 +1074,10 @@ button:disabled {
   background: var(--brand);
   color: #fff;
   font-weight: 900;
+}
+
+.small-add-button.is-added {
+  background: #657184;
 }
 
 .price {
@@ -1291,7 +1316,7 @@ button:disabled {
   }
 
   .zoom-control {
-    grid-column: 1 / -1;
+    display: none;
   }
 
   .cart-button {

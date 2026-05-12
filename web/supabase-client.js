@@ -119,7 +119,7 @@
 
     const { data, error } = await client.auth.getSession();
     if (error) throw error;
-    if (!data.session) throw new Error("Reset session missing. Request a new password reset email and open the newest link in this same browser.");
+    if (!data.session) throw new Error("Falta la sesión de recuperación. Pedí un nuevo email de recuperación de contraseña y abrí el enlace más reciente en este mismo navegador.");
     return data.session;
   }
 
@@ -152,7 +152,7 @@
   }
 
   async function saveOrder(order, userId) {
-    if (!client || !userId) throw new Error("Sign in before saving the order.");
+    if (!client || !userId) throw new Error("Iniciá sesión antes de guardar el pedido.");
 
     const orderPayload = {
       customer_id: userId,
@@ -179,7 +179,23 @@
     const { error: itemsError } = await client.from("order_items").insert(items);
     if (itemsError) throw itemsError;
 
+    await requestOrderNotification(savedOrder.id);
+
     return normalizeOrder({ ...savedOrder, order_items: items });
+  }
+
+  async function requestOrderNotification(orderId) {
+    try {
+      const { error: queueError } = await client.from("order_notifications").insert({ order_id: orderId });
+      if (queueError && queueError.code !== "23505") throw queueError;
+
+      const { error: functionError } = await client.functions.invoke("send-order-notifications", {
+        body: { order_id: orderId },
+      });
+      if (functionError) throw functionError;
+    } catch (error) {
+      console.warn("No se pudo enviar la notificación del pedido", error);
+    }
   }
 
   async function loadMyOrders(userId) {
@@ -226,9 +242,9 @@
   }
 
   async function upsertProductOverrides(overrides) {
-    if (!client) throw new Error("Supabase is unavailable.");
+    if (!client) throw new Error("Supabase no está disponible.");
     const user = await getUser();
-    if (!user) throw new Error("Sign in with your admin Supabase account before updating the catalog.");
+    if (!user) throw new Error("Iniciá sesión con tu cuenta administradora de Supabase antes de actualizar el catálogo.");
 
     const rows = Object.entries(overrides || {}).map(([productId, override]) => ({
       product_id: productId,
@@ -316,6 +332,7 @@
     getProfile,
     upsertProfile,
     saveOrder,
+    requestOrderNotification,
     loadMyOrders,
     loadAllOrders,
     loadActiveOrders,

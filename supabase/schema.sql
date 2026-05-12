@@ -49,6 +49,17 @@ create table if not exists public.product_overrides (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.order_notifications (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null unique references public.orders(id) on delete cascade,
+  status text not null default 'pending' check (status in ('pending', 'processing', 'sent', 'failed')),
+  attempts integer not null default 0,
+  last_error text not null default '',
+  sent_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table public.orders add column if not exists archived_at timestamptz;
 
 update public.orders
@@ -60,6 +71,7 @@ alter table public.profiles enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.product_overrides enable row level security;
+alter table public.order_notifications enable row level security;
 
 create or replace function public.is_admin()
 returns boolean
@@ -166,6 +178,38 @@ with check (public.is_admin());
 drop policy if exists "product overrides admin delete" on public.product_overrides;
 create policy "product overrides admin delete"
 on public.product_overrides for delete
+to authenticated
+using (public.is_admin());
+
+drop policy if exists "order notifications admin select" on public.order_notifications;
+create policy "order notifications admin select"
+on public.order_notifications for select
+to authenticated
+using (public.is_admin());
+
+drop policy if exists "order notifications insert own" on public.order_notifications;
+create policy "order notifications insert own"
+on public.order_notifications for insert
+to authenticated
+with check (
+  exists (
+    select 1
+    from public.orders
+    where orders.id = order_notifications.order_id
+      and orders.customer_id = auth.uid()
+  )
+);
+
+drop policy if exists "order notifications admin update" on public.order_notifications;
+create policy "order notifications admin update"
+on public.order_notifications for update
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+drop policy if exists "order notifications admin delete" on public.order_notifications;
+create policy "order notifications admin delete"
+on public.order_notifications for delete
 to authenticated
 using (public.is_admin());
 

@@ -47,6 +47,41 @@ update public.profiles set role = 'admin' where email = 'your-email@example.com'
 
 After that, customer orders save to Supabase and the hidden admin popup can load all remote orders.
 
+## Supabase Order Notifications
+
+New Supabase orders can send an email notification through the `send-order-notifications` Edge Function.
+
+Setup:
+
+1. Run the latest `supabase/schema.sql` in the Supabase SQL editor. This adds the `order_notifications` queue.
+2. Create or use a Resend account, then verify the sender domain/address you want to use.
+3. Add these Supabase Edge Function secrets:
+
+```powershell
+supabase secrets set RESEND_API_KEY="re_..."
+supabase secrets set ORDER_NOTIFICATION_TO="martin@lexo.com.ar"
+supabase secrets set ORDER_NOTIFICATION_FROM="LEXO Pedidos <onboarding@resend.dev>"
+supabase secrets set ORDER_NOTIFICATION_SITE_URL="https://your-catalog-url.netlify.app"
+```
+
+4. Deploy the function:
+
+```powershell
+supabase functions deploy send-order-notifications
+```
+
+When a signed-in customer saves an order, the app inserts a pending notification row and invokes the Edge Function. If the email send fails, the row remains in `order_notifications` with `status = 'failed'` and the error in `last_error`, so it can be inspected from Supabase.
+
+The current temporary Resend setup uses `onboarding@resend.dev`, which only sends to the email address that owns the Resend account. To send from `ventas@lexo.com.ar` or notify multiple inboxes, verify `lexo.com.ar` in Resend and then update `ORDER_NOTIFICATION_FROM` / `ORDER_NOTIFICATION_TO`.
+
+To retry failed notifications after fixing secrets or email settings:
+
+```sql
+update public.order_notifications
+set status = 'pending', last_error = '', updated_at = now()
+where status = 'failed';
+```
+
 ## Regenerate Sample Data
 
 The sample page images and `web/data/catalog.json` are generated from the PDF:

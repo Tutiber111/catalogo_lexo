@@ -76,7 +76,7 @@
     try {
       const hash = await CATALOG_STORE.hashString(adminEls.adminPassword.value);
       if (hash !== adminState.settings.adminPasswordHash) {
-        adminEls.loginMessage.textContent = "Incorrect password.";
+        adminEls.loginMessage.textContent = "Contraseña incorrecta.";
         return;
       }
 
@@ -114,7 +114,7 @@
   async function saveSettings() {
     const nextSettings = {
       brandName: adminEls.settingBrandName.value.trim() || "LEXO",
-      catalogLabel: adminEls.settingCatalogLabel.value.trim() || "Interactive catalog",
+      catalogLabel: adminEls.settingCatalogLabel.value.trim() || "Catálogo interactivo",
       whatsappNumber: adminEls.settingWhatsapp.value.trim(),
     };
 
@@ -126,58 +126,58 @@
     document.querySelector("#brandName").textContent = adminState.settings.brandName;
     document.querySelector("#catalogLabel").textContent = adminState.settings.catalogLabel;
     adminEls.settingPassword.value = "";
-    showToast("Settings saved");
+    showToast("Configuración guardada");
   }
 
   async function importPriceList() {
     const file = adminEls.priceListFile.files?.[0];
     if (!file) {
-      setImportStatus("Choose an Excel file first.");
+      setImportStatus("Elegí un archivo Excel primero.");
       return;
     }
     if (!window.XLSX) {
-      setImportStatus("Excel parser is still loading. Try again in a moment.");
+      setImportStatus("El lector de Excel todavía está cargando. Probá de nuevo en un momento.");
       return;
     }
 
     try {
       adminEls.importPriceList.disabled = true;
-      setImportStatus("Reading Excel file...");
+      setImportStatus("Leyendo archivo Excel...");
 
       const workbook = XLSX.read(await file.arrayBuffer(), { type: "array" });
       const importedRows = readPriceListRows(workbook);
       const result = buildProductOverrides(importedRows);
       if (!result.updatedProducts) {
-        setImportStatus(`No SKUs from this Excel file matched the catalog. ${result.unmatched} rows were not found.`);
+        setImportStatus(`Ningún SKU de este archivo Excel coincide con el catálogo. ${result.unmatched} filas no se encontraron.`);
         return;
       }
 
       const mergedLocal = CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), result.overrides);
       CATALOG_STORE.saveProductOverrides(mergedLocal);
 
-      let remoteMessage = "Saved as a local preview on this browser.";
+      let remoteMessage = "Guardado como vista previa local en este navegador.";
       if (CATALOG_SUPABASE.isAvailable()) {
         try {
           const user = await CATALOG_SUPABASE.getUser();
           const profile = user ? await CATALOG_SUPABASE.getProfile(user.id) : null;
           if (profile?.role === "admin") {
             await CATALOG_SUPABASE.upsertProductOverrides(result.overrides);
-            remoteMessage = "Saved to Supabase for everyone.";
+            remoteMessage = "Guardado en Supabase para todos.";
           } else if (user) {
-            remoteMessage = `Saved locally only. Supabase user ${user.email} is not an admin.`;
+            remoteMessage = `Guardado solo localmente. El usuario de Supabase ${user.email} no es administrador.`;
           } else {
-            remoteMessage = "Saved locally only. Sign in from the profile panel with your admin Supabase account to update everyone.";
+            remoteMessage = "Guardado solo localmente. Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para actualizar a todos.";
           }
         } catch (error) {
-          remoteMessage = `Saved locally only. Supabase update failed: ${error.message}`;
+          remoteMessage = `Guardado solo localmente. Falló la actualización de Supabase: ${error.message}`;
         }
       }
 
       window.dispatchEvent(new CustomEvent("catalog:products-updated"));
-      setImportStatus(`Updated ${result.updatedProducts} catalog products from ${result.matchedRows} matching Excel rows. ${result.unmatched} Excel rows were not found in the catalog. ${remoteMessage}`);
-      showToast("Excel import complete");
+      setImportStatus(`Se actualizaron ${result.updatedProducts} productos del catálogo desde ${result.matchedRows} filas coincidentes del Excel. ${result.unmatched} filas del Excel no se encontraron en el catálogo. ${remoteMessage}`);
+      showToast("Importación de Excel completa");
     } catch (error) {
-      setImportStatus(error.message || "Could not import Excel file.");
+      setImportStatus(error.message || "No se pudo importar el archivo Excel.");
     } finally {
       adminEls.importPriceList.disabled = false;
     }
@@ -185,12 +185,12 @@
 
   function downloadPriceTemplate() {
     if (!window.XLSX) {
-      setImportStatus("Excel template tool is still loading. Try again in a moment.");
+      setImportStatus("La herramienta de plantilla Excel todavía está cargando. Probá de nuevo en un momento.");
       return;
     }
 
     const rows = [
-      ["Codigo", "Descripcion", "Precio", "Categoria", "Pagina", "Catalog ID"],
+      ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo"],
       ...(window.CATALOG_DATA?.products || []).map((product) => [
         product.sku || "",
         product.name || "",
@@ -212,17 +212,17 @@
     ];
 
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, sheet, "Catalog update");
+    XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
     XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
-    setImportStatus("Template downloaded. Edit Codigo, Descripcion and Precio, then upload it here.");
+    setImportStatus("Plantilla descargada. Editá Código, Descripción y Precio, y después subila acá.");
   }
 
   function clearLocalProductOverrides() {
-    if (!confirm("Clear local product preview changes on this device? Supabase updates will remain online.")) return;
+    if (!confirm("¿Borrar los cambios de vista previa local de productos en este dispositivo? Las actualizaciones de Supabase seguirán online.")) return;
     CATALOG_STORE.saveProductOverrides({});
     window.dispatchEvent(new CustomEvent("catalog:products-updated"));
-    setImportStatus("Local product preview changes cleared.");
-    showToast("Local preview cleared");
+    setImportStatus("Cambios de vista previa local borrados.");
+    showToast("Vista previa local borrada");
   }
 
   function readPriceListRows(workbook) {
@@ -367,13 +367,13 @@
     const totalItems = adminState.orders.reduce((sum, order) => sum + Number(order.totalItems || 0), 0);
 
     adminEls.orderSummary.innerHTML = `
-      <span><strong>${adminState.orders.length}</strong> orders</span>
-      <span><strong>${totalItems}</strong> items</span>
+      <span><strong>${adminState.orders.length}</strong> pedidos</span>
+      <span><strong>${totalItems}</strong> unidades</span>
       <span><strong>${CATALOG_STORE.formatMoney(totalValue)}</strong> total</span>
     `;
 
     adminEls.ordersList.innerHTML =
-      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No saved orders found for this source.</p>`;
+      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos guardados para esta fuente.</p>`;
 
     adminEls.ordersList.querySelectorAll("[data-status]").forEach((select) => {
       select.addEventListener("change", async () => {
@@ -381,23 +381,23 @@
           if (select.dataset.remote === "true") await CATALOG_SUPABASE.updateOrderStatus(select.dataset.status, select.value);
           else CATALOG_STORE.updateOrder(select.dataset.status, { status: select.value });
           await renderOrders();
-          showToast(select.value === "sent" ? "Order archived" : "Order status updated");
+          showToast(select.value === "sent" ? "Pedido archivado" : "Estado del pedido actualizado");
         } catch (error) {
-          showToast(error.message || "Could not update order");
+          showToast(error.message || "No se pudo actualizar el pedido");
         }
       });
     });
 
     adminEls.ordersList.querySelectorAll("[data-delete-order]").forEach((button) => {
       button.addEventListener("click", async () => {
-        if (!confirm("Delete this saved order?")) return;
+        if (!confirm("¿Eliminar este pedido guardado?")) return;
         try {
           if (button.dataset.remote === "true") await CATALOG_SUPABASE.deleteOrder(button.dataset.deleteOrder);
           else CATALOG_STORE.deleteOrder(button.dataset.deleteOrder);
           await renderOrders();
-          showToast("Order deleted");
+          showToast("Pedido eliminado");
         } catch (error) {
-          showToast(error.message || "Could not delete order");
+          showToast(error.message || "No se pudo eliminar el pedido");
         }
       });
     });
@@ -412,7 +412,7 @@
             <p>${formatDate(order.createdAt)}${order.customer?.name ? ` - ${escapeHtml(order.customer.name)}` : ""}${order.customer?.phone ? ` - ${escapeHtml(order.customer.phone)}` : ""}</p>
           </div>
           <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
-            ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${status}</option>`).join("")}
+            ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${orderStatusLabel(status)}</option>`).join("")}
           </select>
         </div>
         <div class="order-lines">
@@ -420,8 +420,8 @@
         </div>
         ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
         <div class="order-card-footer">
-          <strong>${order.totalItems} items - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
-          <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Delete</button>
+          <strong>${order.totalItems} unidades - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
+          <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Eliminar</button>
         </div>
       </article>
     `;
@@ -436,7 +436,7 @@
       return {
         orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: includeArchived ? "Supabase is unavailable, exporting local browser orders only." : "Supabase is unavailable, showing local browser orders only.",
+        message: includeArchived ? "Supabase no está disponible; se exportan solo los pedidos locales del navegador." : "Supabase no está disponible; se muestran solo los pedidos locales del navegador.",
       };
     }
 
@@ -446,8 +446,8 @@
         orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: includeArchived
-          ? "Sign in from the profile panel with your admin Supabase account to export all customer orders. Exporting local browser orders only."
-          : "Sign in from the profile panel with your admin Supabase account to see all customer orders.",
+          ? "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para exportar todos los pedidos. Se exportan solo los pedidos locales del navegador."
+          : "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para ver todos los pedidos.",
       };
     }
 
@@ -457,8 +457,8 @@
         orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: includeArchived
-          ? `Signed in as ${user.email}, but this profile is role "${profile?.role || "missing"}". Set role = 'admin' in Supabase to export all orders. Exporting local browser orders only.`
-          : `Signed in as ${user.email}, but this profile is role "${profile?.role || "missing"}". Set role = 'admin' in Supabase to see all orders.`,
+          ? `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para exportar todos los pedidos. Se exportan solo los pedidos locales del navegador.`
+          : `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para ver todos los pedidos.`,
       };
     }
 
@@ -466,15 +466,15 @@
       return {
         orders: includeArchived ? await CATALOG_SUPABASE.loadAllOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
         source: "supabase",
-        message: includeArchived ? `Exporting all Supabase orders as ${user.email}.` : `Showing active Supabase orders as ${user.email}. Sent orders are archived.`,
+        message: includeArchived ? `Exportando todos los pedidos de Supabase como ${user.email}.` : `Mostrando pedidos activos de Supabase como ${user.email}. Los pedidos enviados se archivan.`,
       };
     } catch (error) {
       return {
         orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: includeArchived
-          ? `Could not load Supabase orders: ${error.message}. Exporting local browser orders only.`
-          : `Could not load Supabase orders: ${error.message}. Showing local browser orders only.`,
+          ? `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se exportan solo los pedidos locales del navegador.`
+          : `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se muestran solo los pedidos locales del navegador.`,
       };
     }
   }
@@ -482,51 +482,51 @@
   async function exportOrdersCsv() {
     try {
       const result = await loadAdminOrderSet(false);
-      const filename = `lexo-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+      const filename = `lexo-pedidos-${new Date().toISOString().slice(0, 10)}.csv`;
       downloadCsv(filename, ordersToCsv(result.orders));
-      showToast(`Exported ${result.orders.length} orders`);
+      showToast(`Se exportaron ${result.orders.length} pedidos`);
     } catch (error) {
-      showToast(error.message || "Could not export orders");
+      showToast(error.message || "No se pudieron exportar los pedidos");
     }
   }
 
   function clearLocalOrders() {
     if (adminState.source === "supabase") {
-      showToast("Use individual delete buttons for Supabase orders.");
+      showToast("Usá los botones de eliminar individuales para pedidos de Supabase.");
       return;
     }
-    if (!confirm("Clear all saved local orders on this device?")) return;
+    if (!confirm("¿Borrar todos los pedidos locales guardados en este dispositivo?")) return;
     CATALOG_STORE.saveOrders([]);
     renderOrders();
-    showToast("Local orders cleared");
+    showToast("Pedidos locales borrados");
   }
 
   function ordersToCsv(orders) {
     const headers = [
-      "order_id",
-      "order_number",
-      "status",
-      "created_at",
-      "updated_at",
-      "archived_at",
-      "customer_name",
-      "customer_phone",
-      "notes",
-      "total_items",
-      "total_value",
+      "id_pedido",
+      "numero_pedido",
+      "estado",
+      "fecha_creacion",
+      "fecha_actualizacion",
+      "fecha_archivo",
+      "cliente_nombre",
+      "cliente_telefono",
+      "notas",
+      "total_unidades",
+      "valor_total",
       "item_sku",
-      "item_name",
-      "item_quantity",
-      "item_unit_price",
-      "item_line_total",
-      "item_page",
+      "item_nombre",
+      "item_cantidad",
+      "item_precio_unitario",
+      "item_total_linea",
+      "item_pagina",
     ];
     const rows = orders.flatMap((order) => {
       const items = order.items.length ? order.items : [{}];
       return items.map((item) => [
         order.id,
         order.displayId || "",
-        order.status || "",
+        orderStatusLabel(order.status || ""),
         order.createdAt || "",
         order.updatedAt || "",
         order.archivedAt || "",
@@ -562,10 +562,21 @@
   }
 
   function formatDate(value) {
-    return new Intl.DateTimeFormat("en", {
+    return new Intl.DateTimeFormat("es-AR", {
       dateStyle: "medium",
       timeStyle: "short",
     }).format(new Date(value));
+  }
+
+  function orderStatusLabel(status) {
+    return {
+      new: "nuevo",
+      placed: "recibido",
+      confirmed: "confirmado",
+      packed: "preparado",
+      sent: "enviado",
+      cancelled: "cancelado",
+    }[status] || status || "";
   }
 
   function showToast(message) {
