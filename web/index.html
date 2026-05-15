@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catálogo interactivo de productos</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260514-auth-loading">
   </head>
-  <body>
+  <body class="auth-required auth-checking">
     <div class="app-shell">
       <aside class="sidebar" aria-label="Navegación del catálogo">
         <div class="brand-block">
@@ -81,9 +81,7 @@
             <span>Cliente</span>
             <input id="cartClientName" type="text" autocomplete="organization" placeholder="Nombre del cliente">
           </label>
-          <button id="saveOrder" class="primary-button" type="button">Guardar pedido</button>
-          <button id="copyOrder" class="primary-button" type="button">Copiar pedido</button>
-          <a id="whatsappOrder" class="secondary-button" href="#" target="_blank" rel="noreferrer">Enviar por WhatsApp</a>
+          <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
         </div>
       </aside>
 
@@ -99,6 +97,10 @@
           <div class="account-header">
             <strong id="accountStatus">Sesión no iniciada</strong>
             <button id="signOut" class="secondary-button compact-button is-hidden" type="button">Cerrar sesión</button>
+          </div>
+          <div id="authLoading" class="auth-loading" role="status">
+            <span class="auth-spinner" aria-hidden="true"></span>
+            <span>Estamos iniciando sesi&oacute;n autom&aacute;ticamente...</span>
           </div>
           <div id="authFields" class="auth-fields">
             <section id="signInForm" class="auth-mode-panel">
@@ -273,12 +275,12 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="data/catalog-data.js?v=20260512-scroll-fix"></script>
+    <script src="data/catalog-data.js?v=20260512-order-submit-fix"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js"></script>
-    <script src="supabase-client.js"></script>
-    <script src="app.js?v=20260512-scroll-fix"></script>
+    <script src="supabase-client.js?v=20260513-auth-gate"></script>
+    <script src="app.js?v=20260514-auth-loading"></script>
     <script src="admin.js"></script>
   </body>
 </html>

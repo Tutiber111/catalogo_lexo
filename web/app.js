@@ -9,6 +9,8 @@ const state = {
   settings: CATALOG_STORE.loadSettings(),
   user: null,
   profile: null,
+  isCheckingAuth: true,
+  isSavingOrder: false,
 };
 
 let pageScrollFrame = 0;
@@ -41,6 +43,7 @@ const els = {
   cartTotalValue: document.querySelector("#cartTotalValue"),
   cartClientName: document.querySelector("#cartClientName"),
   accountStatus: document.querySelector("#accountStatus"),
+  authLoading: document.querySelector("#authLoading"),
   authFields: document.querySelector("#authFields"),
   signInForm: document.querySelector("#signInForm"),
   createAccountForm: document.querySelector("#createAccountForm"),
@@ -69,8 +72,6 @@ const els = {
   customerOrders: document.querySelector("#customerOrders"),
   customerOrderDetail: document.querySelector("#customerOrderDetail"),
   saveOrder: document.querySelector("#saveOrder"),
-  copyOrder: document.querySelector("#copyOrder"),
-  whatsappOrder: document.querySelector("#whatsappOrder"),
   productDialog: document.querySelector("#productDialog"),
   dialogContent: document.querySelector("#dialogContent"),
   toast: document.querySelector("#toast"),
@@ -145,6 +146,11 @@ function bindEvents() {
   els.openAccount.addEventListener("click", openAccount);
   els.closeAccount.addEventListener("click", closeAccount);
   els.signIn.addEventListener("click", signIn);
+  els.signInForm.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    signIn();
+  });
   els.showCreateAccount.addEventListener("click", showCreateAccount);
   els.showSignIn.addEventListener("click", showSignIn);
   els.showForgotPassword.addEventListener("click", showForgotPassword);
@@ -155,7 +161,6 @@ function bindEvents() {
   els.updatePassword.addEventListener("click", updatePassword);
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
-  els.copyOrder.addEventListener("click", copyOrder);
   els.cartClientName.addEventListener("input", () => {
     localStorage.setItem("catalogCartClientName", els.cartClientName.value);
     renderCart();
@@ -435,6 +440,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
     </div>
   `;
   bindDialogQuantitySteppers();
+  updateGroupCartStatuses();
   els.dialogContent.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
       const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
@@ -450,22 +456,34 @@ function markGroupProductAdded(productId, quantity) {
   const product = state.productsById.get(productId);
   const row = els.dialogContent.querySelector(`[data-group-product="${cssEscape(productId)}"]`);
   const button = els.dialogContent.querySelector(`[data-add="${cssEscape(productId)}"]`);
-  const status = els.dialogContent.querySelector(`[data-added-status="${cssEscape(productId)}"]`);
   if (!row || !button || !product) return;
 
   row.classList.add("is-added");
   button.textContent = "Agregado";
   button.classList.add("is-added");
-  const cartQuantity = state.cart.get(productId) || 0;
-  if (status) {
-    status.textContent = `${quantity} agregado${quantity === 1 ? "" : "s"} - ${cartQuantity} en carrito`;
-  }
+  updateGroupCartStatuses(productId, quantity);
 
   clearTimeout(button.addedTimer);
   button.addedTimer = setTimeout(() => {
     button.textContent = "Agregar";
     button.classList.remove("is-added");
   }, 1400);
+}
+
+function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
+  els.dialogContent.querySelectorAll("[data-added-status]").forEach((status) => {
+    const productId = status.dataset.addedStatus;
+    const cartQuantity = state.cart.get(productId) || 0;
+    if (!cartQuantity) {
+      status.textContent = "0 en carrito";
+      return;
+    }
+
+    const recentText = productId === recentProductId && recentQuantity
+      ? `${recentQuantity} agregado${recentQuantity === 1 ? "" : "s"} - `
+      : "";
+    status.textContent = `${recentText}${cartQuantity} en carrito`;
+  });
 }
 
 function openProduct(product) {
@@ -478,11 +496,8 @@ function openProduct(product) {
       </div>
       <div class="product-meta">
         <span>SKU: ${escapeHtml(product.sku)}</span>
-        <span>Página ${product.page}</span>
         ${product.skus.length > 1 ? `<span>SKU relacionados: ${product.skus.map(escapeHtml).join(", ")}</span>` : ""}
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
-        ${product.unitsPerCase ? `<span>UxC: ${escapeHtml(product.unitsPerCase)}</span>` : ""}
-        <span>Origen del precio: ${product.priceSource === "excel" ? "lista Excel" : "extracción del PDF"}</span>
       </div>
       <div class="price">${escapeHtml(product.price)}</div>
       <div class="dialog-qty dialog-qty-wide">
@@ -560,57 +575,47 @@ function renderCart() {
     button.addEventListener("click", () => updateQty(button.dataset.inc, 1));
   });
 
-  const orderText = buildOrderText(lines, readOrderCustomer());
-  const whatsappNumber = CATALOG_STORE.normalizeWhatsAppNumber(CATALOG_STORE.loadSettings().whatsappNumber);
-  els.saveOrder.disabled = !lines.length;
-  els.copyOrder.disabled = !lines.length;
-  els.whatsappOrder.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderText)}`;
-}
-
-function buildOrderText(lines, customer = {}) {
-  if (!lines.length) return "El borrador del pedido está vacío.";
-  const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
-  return [
-    "Borrador de pedido del catálogo",
-    "",
-    customer.name ? `Cliente: ${customer.name}` : "",
-    customer.phone ? `Teléfono: ${customer.phone}` : "",
-    customer.notes ? `Notas: ${customer.notes}` : "",
-    customer.name || customer.phone || customer.notes ? "" : "",
-    ...lines.map(({ product, qty }) => `${qty} x ${product.sku} - ${product.name} - ${product.price} c/u - ${formatMoney(priceNumber(product.price) * qty)}`),
-    "",
-    `Total: ${formatMoney(totalValue)}`,
-  ].filter((line, index, items) => line || items[index - 1]).join("\n");
+  els.saveOrder.disabled = state.isSavingOrder || !lines.length;
+  els.saveOrder.textContent = state.isSavingOrder ? "Enviando..." : "Enviar pedido";
 }
 
 async function saveOrder() {
+  if (state.isSavingOrder) return;
+
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isVisibleProduct(line.product));
   if (!lines.length) {
-    showToast("Agregá productos antes de guardar el pedido");
+    showToast("Agregá productos antes de enviar el pedido");
     return;
   }
   if (CATALOG_SUPABASE.isAvailable() && !state.user) {
-    showToast("Iniciá sesión antes de guardar el pedido");
+    showToast("Iniciá sesión antes de enviar el pedido");
     openAccount();
     return;
   }
 
   let customer = readOrderCustomer();
+  let notificationResult = { ok: true };
+  state.isSavingOrder = true;
+  renderCart();
+
   try {
     if (CATALOG_SUPABASE.isAvailable() && state.user) {
       await saveCustomerProfile();
       customer = readOrderCustomer();
       const order = CATALOG_STORE.buildOrderFromLines(lines, customer);
-      await CATALOG_SUPABASE.saveOrder(order, state.user.id);
+      const savedOrder = await CATALOG_SUPABASE.saveOrder(order, state.user.id);
+      notificationResult = savedOrder.notification || notificationResult;
       await renderCustomerOrders();
     } else {
       const order = CATALOG_STORE.buildOrderFromLines(lines, customer);
       CATALOG_STORE.addOrder(order);
     }
   } catch (error) {
-    showToast(error.message || "No se pudo guardar el pedido");
+    showToast(error.message || "No se pudo enviar el pedido");
+    state.isSavingOrder = false;
+    renderCart();
     return;
   }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
@@ -618,16 +623,9 @@ async function saveOrder() {
   els.cartClientName.value = "";
   localStorage.removeItem("catalogCartClientName");
   saveCart();
+  state.isSavingOrder = false;
   renderCart();
-  showToast("Pedido guardado");
-}
-
-async function copyOrder() {
-  const lines = [...state.cart.entries()]
-    .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
-    .filter((line) => isVisibleProduct(line.product));
-  await navigator.clipboard.writeText(buildOrderText(lines, readOrderCustomer()));
-  showToast("Pedido copiado");
+  showToast(notificationResult.ok ? "Pedido enviado" : "Pedido enviado, pero no se pudo enviar el email");
 }
 
 function currentPage() {
@@ -728,8 +726,23 @@ function openAccount() {
 }
 
 function closeAccount() {
+  if (!state.user) {
+    openAccount();
+    return;
+  }
+
   els.accountDrawer.classList.remove("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "true");
+}
+
+function applyAuthGate() {
+  const requiresAuth = !state.user;
+  document.body.classList.toggle("auth-required", requiresAuth);
+  document.body.classList.toggle("auth-checking", state.isCheckingAuth);
+  if (els.authLoading) {
+    els.authLoading.hidden = !state.isCheckingAuth;
+  }
+  if (requiresAuth) openAccount();
 }
 
 function saveCart() {
@@ -758,10 +771,18 @@ async function initAccount() {
   els.authEmail.value = localStorage.getItem("catalogLastEmail") || "";
   els.createEmail.value = els.authEmail.value;
   els.resetEmail.value = els.authEmail.value;
+  state.isCheckingAuth = true;
+  els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
+  applyAuthGate();
+
   if (!CATALOG_SUPABASE.isAvailable()) {
+    state.isCheckingAuth = false;
     els.accountStatus.textContent = "Cuentas no disponibles";
+    applyAuthGate();
     return;
   }
+
+  let accountError = false;
 
   try {
     state.user = await CATALOG_SUPABASE.getUser();
@@ -769,10 +790,20 @@ async function initAccount() {
       state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
       applyProfileToAuthFields();
     }
+  } catch (error) {
+    accountError = true;
+    els.accountStatus.textContent = "Falta configurar la cuenta";
+  } finally {
+    state.isCheckingAuth = false;
+  }
+
+  if (accountError) {
+    els.authFields.classList.remove("is-hidden");
+    applyAuthGate();
+  } else {
     renderAccount();
     await renderCustomerOrders();
-  } catch (error) {
-    els.accountStatus.textContent = "Falta configurar la cuenta";
+    if (state.user) closeAccount();
   }
 
   const authHash = readAuthHash();
@@ -802,6 +833,8 @@ async function signIn() {
     applyProfileToAuthFields();
     renderAccount();
     await renderCustomerOrders();
+    applyAuthGate();
+    closeAccount();
     showToast("Sesión iniciada");
   } catch (error) {
     showAuthError(error);
@@ -823,6 +856,8 @@ async function createAccount() {
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
     renderAccount();
     await renderCustomerOrders();
+    applyAuthGate();
+    if (state.user) closeAccount();
     showToast("Cuenta creada. Revisá tu email si la confirmación está activada.");
   } catch (error) {
     showAuthError(error);
@@ -910,6 +945,7 @@ async function signOut() {
     state.profile = null;
     renderAccount();
     await renderCustomerOrders();
+    applyAuthGate();
     showToast("Sesión cerrada");
   } catch (error) {
     showToast(error.message || "No se pudo cerrar sesión");
@@ -937,10 +973,19 @@ function applyProfileToAuthFields() {
 function renderAccount() {
   const signedIn = Boolean(state.user);
   const resettingPassword = els.authFields.dataset.mode === "new-password";
+  if (state.isCheckingAuth) {
+    els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
+    els.authFields.classList.add("is-hidden");
+    els.signOut.classList.add("is-hidden");
+    els.openAccount.classList.remove("is-signed-in");
+    applyAuthGate();
+    return;
+  }
   els.accountStatus.textContent = signedIn ? `Sesión iniciada como ${state.user.email}` : "Sesión no iniciada";
   els.authFields.classList.toggle("is-hidden", signedIn && !resettingPassword);
   els.signOut.classList.toggle("is-hidden", !signedIn || resettingPassword);
   els.openAccount.classList.toggle("is-signed-in", signedIn);
+  applyAuthGate();
 }
 
 function clearAuthMessage() {
@@ -955,6 +1000,9 @@ function showAuthError(error) {
 
 function friendlyAuthError(error) {
   const message = String(error?.message || "No se pudo completar la acción de cuenta");
+  if (message.toLowerCase().includes("invalid login credentials")) {
+    return "Email o contrase\u00f1a incorrectos.";
+  }
   if (message.toLowerCase().includes("email") && message.toLowerCase().includes("limit")) {
     return "Se alcanzó el límite de emails de Supabase. Para pruebas locales, desactivá Confirm email en Supabase Auth > Providers > Email, o configurá SMTP propio.";
   }
@@ -987,15 +1035,14 @@ function friendlyRecoveryError(authHash) {
 async function renderCustomerOrders() {
   if (!state.user || !CATALOG_SUPABASE.isAvailable()) {
     els.customerOrders.innerHTML = "";
-    els.customerOrderDetail.hidden = true;
+    collapseCustomerOrderDetail();
     return;
   }
 
   try {
     const orders = await CATALOG_SUPABASE.loadMyOrders(state.user.id);
     state.customerOrders = orders;
-    els.customerOrderDetail.hidden = true;
-    els.customerOrders.hidden = false;
+    collapseCustomerOrderDetail();
     els.customerOrders.innerHTML =
       orders
         .slice(0, 5)
@@ -1049,10 +1096,13 @@ function showCustomerOrderDetail(orderId) {
       <strong>${formatMoney(order.totalValue)}</strong>
     </div>
   `;
-  els.customerOrderDetail.querySelector("#backToOrders").addEventListener("click", () => {
-    els.customerOrderDetail.hidden = true;
-    els.customerOrders.hidden = false;
-  });
+  els.customerOrderDetail.querySelector("#backToOrders").addEventListener("click", collapseCustomerOrderDetail);
+}
+
+function collapseCustomerOrderDetail() {
+  els.customerOrderDetail.hidden = true;
+  els.customerOrderDetail.innerHTML = "";
+  els.customerOrders.hidden = false;
 }
 
 function isVisibleProduct(product) {

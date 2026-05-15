@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -48,6 +52,33 @@ button:disabled {
   height: 100vh;
   min-height: 0;
   overflow: hidden;
+}
+
+body.auth-required .sidebar,
+body.auth-required .viewer,
+body.auth-required .cart-drawer,
+body.auth-required .admin-drawer {
+  display: none;
+}
+
+body.auth-required .app-shell {
+  display: block;
+  background: #e9ecef;
+}
+
+body.auth-required .account-drawer,
+body.auth-required .account-drawer.is-open {
+  inset: 50% auto auto 50%;
+  width: min(420px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+
+body.auth-required #closeAccount {
+  display: none;
 }
 
 .sidebar {
@@ -661,6 +692,39 @@ button:disabled {
   overflow: hidden;
 }
 
+body.auth-checking .auth-fields {
+  display: none;
+}
+
+.auth-loading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.auth-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #dfe3e8;
+  border-top-color: var(--brand);
+  border-radius: 999px;
+  animation: auth-spin 800ms linear infinite;
+}
+
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .auth-mode-panel {
   display: grid;
   gap: 10px;
@@ -921,15 +985,11 @@ button:disabled {
   display: block;
   min-height: 16px;
   margin-top: 4px;
-  color: #526071;
+  color: var(--accent);
   font-size: 12px;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1.2;
-}
-
-.group-product:not(.is-added) .group-product-status {
-  visibility: hidden;
 }
 
 .dialog-qty {

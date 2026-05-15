@@ -8,8 +8,8 @@
 
   const client = window.supabase?.createClient(config.url, config.anonKey, {
     auth: {
-      persistSession: false,
-      autoRefreshToken: false,
+      persistSession: true,
+      autoRefreshToken: true,
       detectSessionInUrl: true,
     },
   }) || null;
@@ -152,7 +152,7 @@
   }
 
   async function saveOrder(order, userId) {
-    if (!client || !userId) throw new Error("Iniciá sesión antes de guardar el pedido.");
+    if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
     const orderPayload = {
       customer_id: userId,
@@ -179,22 +179,28 @@
     const { error: itemsError } = await client.from("order_items").insert(items);
     if (itemsError) throw itemsError;
 
-    await requestOrderNotification(savedOrder.id);
+    const notification = await requestOrderNotification(savedOrder.id);
 
-    return normalizeOrder({ ...savedOrder, order_items: items });
+    return { ...normalizeOrder({ ...savedOrder, order_items: items }), notification };
   }
 
   async function requestOrderNotification(orderId) {
     try {
       const { error: queueError } = await client.from("order_notifications").insert({ order_id: orderId });
-      if (queueError && queueError.code !== "23505") throw queueError;
+      if (queueError && queueError.code !== "23505") {
+        console.warn("No se pudo crear la cola de notificacion; la funcion intentara repararla", queueError);
+      }
 
-      const { error: functionError } = await client.functions.invoke("send-order-notifications", {
+      const { data, error: functionError } = await client.functions.invoke("send-order-notifications", {
         body: { order_id: orderId },
       });
       if (functionError) throw functionError;
+      const failed = data?.results?.find((result) => result.status === "failed");
+      if (failed) throw new Error(failed.error || "No se pudo enviar el email del pedido.");
+      return { ok: true, data };
     } catch (error) {
-      console.warn("No se pudo enviar la notificación del pedido", error);
+      console.warn("No se pudo enviar la notificacion del pedido", error);
+      return { ok: false, error: error.message || String(error) };
     }
   }
 

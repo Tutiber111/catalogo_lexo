@@ -47,6 +47,8 @@ Deno.serve(async (req) => {
 });
 
 async function sendPendingOrderNotifications(orderId?: string) {
+  if (orderId) await ensureNotification(orderId);
+
   const notifications = await loadPendingNotifications(orderId);
   const results = [];
 
@@ -74,6 +76,14 @@ async function sendPendingOrderNotifications(orderId?: string) {
   }
 
   return { processed: results.length, results };
+}
+
+async function ensureNotification(orderId: string) {
+  await supabaseFetch("/rest/v1/order_notifications?on_conflict=order_id", {
+    method: "POST",
+    headers: { Prefer: "resolution=ignore-duplicates" },
+    body: JSON.stringify({ order_id: orderId }),
+  });
 }
 
 async function loadPendingNotifications(orderId?: string): Promise<OrderNotification[]> {
