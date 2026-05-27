@@ -1,4 +1,5 @@
 import { strFromU8, strToU8, unzipSync, zipSync } from "npm:fflate@0.8.2";
+import { ORDER_TEMPLATE_BASE64 } from "./order-template-base64.ts";
 
 type OrderNotification = {
   id: string;
@@ -36,7 +37,6 @@ type EmailAttachment = {
   content_type: string;
 };
 
-const ORDER_TEMPLATE_URL = new URL("./order-template.xlsx", import.meta.url);
 const ORDER_TEMPLATE_SHEET_PATH = "xl/worksheets/sheet3.xml";
 const ORDER_TEMPLATE_LAST_INPUT_ROW = 262;
 
@@ -192,7 +192,7 @@ async function sendOrderEmail(order: Order) {
 }
 
 async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachment> {
-  const template = await Deno.readFile(ORDER_TEMPLATE_URL);
+  const template = base64ToBytes(ORDER_TEMPLATE_BASE64);
   const files = unzipSync(template);
   const sheet = files[ORDER_TEMPLATE_SHEET_PATH];
   if (!sheet) throw new Error(`Missing order template sheet ${ORDER_TEMPLATE_SHEET_PATH}`);
@@ -305,6 +305,15 @@ function bytesToBase64(bytes: Uint8Array) {
     binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
   }
   return btoa(binary);
+}
+
+function base64ToBytes(value: string) {
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes;
 }
 
 function safeFilename(value: string) {
