@@ -204,7 +204,8 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
 
   order.order_items.forEach((item, index) => {
     const row = 8 + index;
-    sheetXml = upsertCell(sheetXml, `A${row}`, item.sku, "string");
+    const skuType = numericCellValue(item.sku) === null ? "string" : "number";
+    sheetXml = upsertCell(sheetXml, `A${row}`, item.sku, skuType);
     sheetXml = upsertCell(sheetXml, `B${row}`, item.quantity, "number");
   });
 
@@ -232,29 +233,84 @@ function clearOrderInputCells(sheetXml: string, itemCount: number) {
 
 function upsertCell(sheetXml: string, ref: string, value: string | number, type: "string" | "number") {
   const rowNumber = cellRow(ref);
-  let nextXml = clearCell(sheetXml, ref);
-  const cellXml = type === "number"
-    ? `<c r="${ref}"><v>${Number(value) || 0}</v></c>`
-    : `<c r="${ref}" t="inlineStr"><is><t>${escapeXml(String(value || ""))}</t></is></c>`;
+  const existingCell = findCell(sheetXml, ref);
+  const cellXml = existingCell
+    ? writeCellValue(existingCell, ref, value, type)
+    : createCell(ref, value, type);
+
+  if (existingCell) {
+    return sheetXml.replace(existingCell, cellXml);
+  }
+
   const rowPattern = new RegExp(`(<row\\b(?=[^>]*\\br="${rowNumber}")[^>]*>)([\\s\\S]*?)(<\\/row>)`);
-  if (rowPattern.test(nextXml)) {
-    return nextXml.replace(rowPattern, (_match, open, content, close) => {
+  if (rowPattern.test(sheetXml)) {
+    return sheetXml.replace(rowPattern, (_match, open, content, close) => {
       return `${open}${insertCellInColumnOrder(content, cellXml, ref)}${close}`;
     });
   }
 
   const selfClosingRowPattern = new RegExp(`<row\\b(?=[^>]*\\br="${rowNumber}")[^>]*/>`);
-  if (selfClosingRowPattern.test(nextXml)) {
-    return nextXml.replace(selfClosingRowPattern, (row) => `${row.slice(0, -2)}>${cellXml}</row>`);
+  if (selfClosingRowPattern.test(sheetXml)) {
+    return sheetXml.replace(selfClosingRowPattern, (row) => `${row.slice(0, -2)}>${cellXml}</row>`);
   }
 
-  return nextXml.replace("</sheetData>", `<row r="${rowNumber}">${cellXml}</row></sheetData>`);
+  return sheetXml.replace("</sheetData>", `<row r="${rowNumber}">${cellXml}</row></sheetData>`);
 }
 
 function clearCell(sheetXml: string, ref: string) {
+  const existingCell = findCell(sheetXml, ref);
+  return existingCell ? sheetXml.replace(existingCell, clearCellValue(existingCell, ref)) : sheetXml;
+}
+
+function findCell(sheetXml: string, ref: string) {
   const escapedRef = escapeRegExp(ref);
-  const cellPattern = new RegExp(`<c\\b(?=[^>]*\\br="${escapedRef}")[^>]*\\/>|<c\\b(?=[^>]*\\br="${escapedRef}")[^>]*>[\\s\\S]*?<\\/c>`, "g");
-  return sheetXml.replace(cellPattern, "");
+  const cellPattern = new RegExp(`<c\\b(?=[^>]*\\br="${escapedRef}")[^>]*\\/>|<c\\b(?=[^>]*\\br="${escapedRef}")[^>]*>[\\s\\S]*?<\\/c>`);
+  return sheetXml.match(cellPattern)?.[0] || "";
+}
+
+function clearCellValue(cellXml: string, ref: string) {
+  const attributes = normalizeCellAttributes(cellXml.match(/^<c\b([^>]*)/)?.[1] || ` r="${ref}"`, ref, "");
+  return `<c${attributes}/>`;
+}
+
+function writeCellValue(cellXml: string, ref: string, value: string | number, type: "string" | "number") {
+  const rawAttributes = cellXml.match(/^<c\b([^>]*)/)?.[1] || ` r="${ref}"`;
+  const attributes = normalizeCellAttributes(rawAttributes, ref, type);
+  return `<c${attributes}>${cellPayload(value, type)}</c>`;
+}
+
+function createCell(ref: string, value: string | number, type: "string" | "number") {
+  const attributes = normalizeCellAttributes(` r="${ref}"`, ref, type);
+  return `<c${attributes}>${cellPayload(value, type)}</c>`;
+}
+
+function normalizeCellAttributes(attributes: string, ref: string, type: "" | "string" | "number") {
+  let normalized = attributes
+    .replace(/\bt="[^"]*"/g, "")
+    .replace(/\/\s*$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!/\br="/.test(normalized)) {
+    normalized = `r="${ref}" ${normalized}`.trim();
+  }
+  if (type === "string") {
+    normalized = `${normalized} t="inlineStr"`;
+  }
+  return normalized ? ` ${normalized}` : "";
+}
+
+function cellPayload(value: string | number, type: "string" | "number") {
+  if (type === "number") {
+    const numericValue = typeof value === "number" ? value : numericCellValue(value);
+    return `<v>${numericValue ?? 0}</v>`;
+  }
+  return `<is><t>${escapeXml(String(value || ""))}</t></is>`;
+}
+
+function numericCellValue(value: string | number) {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  const trimmed = String(value || "").trim();
+  return /^\d+$/.test(trimmed) ? Number(trimmed) : null;
 }
 
 function insertCellInColumnOrder(rowContent: string, cellXml: string, ref: string) {
