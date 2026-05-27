@@ -12577,7 +12577,7 @@
         {
           "id": "pg163-2",
           "page": 165,
-          "label": "Accesorios para el planchado",
+          "label": "Quitapelusas",
           "price": "$10.899",
           "productIds": [
             "p163-2"
@@ -40224,12 +40224,12 @@
     {
       "id": "p163-2",
       "page": 165,
-      "sku": "41000-",
+      "sku": "41000",
       "skus": [
-        "41000-"
+        "41000"
       ],
-      "name": "Accesorios para el planchado",
-      "category": "Accesorios",
+      "name": "Quitapelusas",
+      "category": "Quitapelusas",
       "price": "$10.899",
       "pdfPrice": "$10.899",
       "priceSource": "pdf",
@@ -40237,10 +40237,10 @@
       "unitsPerCase": null,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.3152060082577338,
-        "y": 0.36836709213370067,
-        "w": 0.09,
-        "h": 0.032
+        "x": 0.1885,
+        "y": 0.4134,
+        "w": 0.083,
+        "h": 0.026
       },
       "pricePosition": {
         "x": 0.3602060082577338,
@@ -40248,7 +40248,7 @@
       },
       "section": "Leifheit",
       "sourcePage": 59,
-      "hotspotSource": "leifheit-price-fallback"
+      "hotspotSource": "manual-sku-fix"
     },
     {
       "id": "p163-3",

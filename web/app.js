@@ -42,6 +42,7 @@ const els = {
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
   cartClientName: document.querySelector("#cartClientName"),
+  cartClientCode: document.querySelector("#cartClientCode"),
   accountStatus: document.querySelector("#accountStatus"),
   authLoading: document.querySelector("#authLoading"),
   authFields: document.querySelector("#authFields"),
@@ -83,6 +84,7 @@ async function init() {
   els.brandName.textContent = state.settings.brandName;
   els.catalogLabel.textContent = state.settings.catalogLabel;
   els.cartClientName.value = localStorage.getItem("catalogCartClientName") || "";
+  els.cartClientCode.value = localStorage.getItem("catalogCartClientCode") || "";
   bindEvents();
   renderBrandTabs();
   ensureCurrentPageMatchesBrand();
@@ -163,6 +165,10 @@ function bindEvents() {
   els.saveOrder.addEventListener("click", saveOrder);
   els.cartClientName.addEventListener("input", () => {
     localStorage.setItem("catalogCartClientName", els.cartClientName.value);
+    renderCart();
+  });
+  els.cartClientCode.addEventListener("input", () => {
+    localStorage.setItem("catalogCartClientCode", els.cartClientCode.value);
     renderCart();
   });
   window.addEventListener("catalog:password-recovery", () => {
@@ -621,7 +627,9 @@ async function saveOrder() {
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
   state.cart.clear();
   els.cartClientName.value = "";
+  els.cartClientCode.value = "";
   localStorage.removeItem("catalogCartClientName");
+  localStorage.removeItem("catalogCartClientCode");
   saveCart();
   state.isSavingOrder = false;
   renderCart();
@@ -761,9 +769,11 @@ function readAccountCustomer() {
 
 function readOrderCustomer() {
   const accountCustomer = readAccountCustomer();
+  const clientCode = els.cartClientCode.value.trim();
   return {
     ...accountCustomer,
     name: els.cartClientName.value.trim() || accountCustomer.name,
+    notes: clientCode ? `Código de cliente: ${clientCode}` : accountCustomer.notes,
   };
 }
 

@@ -858,6 +858,20 @@ body.auth-checking .auth-fields {
   font-weight: 800;
 }
 
+.cart-client-field em {
+  color: var(--accent);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.cart-client-field small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 .cart-client-field input,
 .auth-fields input,
 .admin-form-grid input,
