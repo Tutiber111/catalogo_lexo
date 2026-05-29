@@ -20,6 +20,7 @@ const els = {
   catalogLabel: document.querySelector("#catalogLabel"),
   catalogMeta: document.querySelector("#catalogMeta"),
   searchInput: document.querySelector("#searchInput"),
+  skuRecommendations: document.querySelector("#skuRecommendations"),
   brandTabs: document.querySelector("#brandTabs"),
   pagesPanel: document.querySelector("#pagesPanel"),
   productsPanel: document.querySelector("#productsPanel"),
@@ -246,6 +247,7 @@ function renderBrandTabs() {
 
 function renderLists() {
   const query = els.searchInput.value.trim().toLowerCase();
+  renderSkuRecommendations(query);
   const pages = visiblePages().filter((page) => {
     if (!query) return true;
     const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
@@ -294,6 +296,63 @@ function renderLists() {
       const index = state.catalog.pages.findIndex((page) => page.number === product.page);
       goToPage(index);
       openProduct(product);
+    });
+  });
+}
+
+function renderSkuRecommendations(query) {
+  if (!els.skuRecommendations) return;
+
+  const skuQuery = normalizeSkuQuery(query);
+  if (!skuQuery) {
+    els.skuRecommendations.hidden = true;
+    els.skuRecommendations.innerHTML = "";
+    return;
+  }
+
+  const matches = state.catalog.products
+    .filter((product) => brandMatches(product.section) && isVisibleProduct(product))
+    .map((product) => ({ product, sku: matchingSku(product, skuQuery) }))
+    .filter((match) => match.sku)
+    .sort((first, second) => {
+      const firstStarts = normalizeSkuQuery(first.sku).startsWith(skuQuery) ? 0 : 1;
+      const secondStarts = normalizeSkuQuery(second.sku).startsWith(skuQuery) ? 0 : 1;
+      if (firstStarts !== secondStarts) return firstStarts - secondStarts;
+      return Number(first.product.page) - Number(second.product.page);
+    })
+    .slice(0, 8);
+
+  if (!matches.length) {
+    els.skuRecommendations.hidden = true;
+    els.skuRecommendations.innerHTML = "";
+    return;
+  }
+
+  els.skuRecommendations.hidden = false;
+  els.skuRecommendations.innerHTML = matches
+    .map(
+      ({ product, sku }) => `
+        <button class="sku-recommendation" type="button" role="option" data-product="${escapeAttribute(product.id)}">
+          <strong>${escapeHtml(sku)}</strong>
+          <span>${escapeHtml(product.name)}</span>
+          <small>Página ${escapeHtml(product.page)}</small>
+        </button>
+      `,
+    )
+    .join("");
+
+  els.skuRecommendations.querySelectorAll("[data-product]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const product = state.productsById.get(button.dataset.product);
+      if (!product) return;
+      const index = state.catalog.pages.findIndex((page) => page.number === product.page);
+      state.brandFilter = "all";
+      localStorage.setItem("catalogBrandFilter", state.brandFilter);
+      els.searchInput.value = "";
+      renderBrandTabs();
+      renderLists();
+      goToPage(index);
+      scrollPageCardIntoView(product.page);
     });
   });
 }
@@ -700,6 +759,16 @@ function scrollPageIntoView(index, behavior = "smooth") {
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => scrollToFrame("auto"));
+  });
+}
+
+function scrollPageCardIntoView(pageNumber) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const pageCard = els.pagesPanel.querySelector(`[data-page="${pageNumber}"]`);
+      if (!pageCard) return;
+      pageCard.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    });
   });
 }
 
@@ -1192,6 +1261,19 @@ function cssEscape(value) {
 
 function searchFields(product) {
   return [product.name, product.sku, product.section, product.category, product.price, String(product.page), ...(product.skus || [])];
+}
+
+function skuFields(product) {
+  return [...new Set([product.sku, ...(product.skus || [])].filter(Boolean).map(String))];
+}
+
+function matchingSku(product, query) {
+  const skus = skuFields(product);
+  return skus.find((sku) => normalizeSkuQuery(sku).startsWith(query)) || skus.find((sku) => normalizeSkuQuery(sku).includes(query)) || "";
+}
+
+function normalizeSkuQuery(value) {
+  return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 function showToast(message) {

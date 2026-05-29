@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catálogo interactivo de productos</title>
-    <link rel="stylesheet" href="styles.css?v=20260518-client-code">
+    <link rel="stylesheet" href="styles.css?v=20260527-sku-recommendations">
   </head>
   <body class="auth-required auth-checking">
     <div class="app-shell">
@@ -16,10 +16,11 @@
           <button id="openAdmin" class="admin-entry-button" type="button" aria-label="Abrir administración"></button>
         </div>
 
-        <label class="search-wrap">
-          <span>Buscar productos</span>
+        <div class="search-wrap">
+          <label for="searchInput">Buscar productos</label>
           <input id="searchInput" type="search" placeholder="SKU, nombre, categoría">
-        </label>
+          <div id="skuRecommendations" class="sku-recommendations" role="listbox" aria-label="Sugerencias de SKU" hidden></div>
+        </div>
 
         <div class="brand-tabs-wrap">
           <span>Marca</span>
@@ -285,7 +286,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js"></script>
     <script src="supabase-client.js?v=20260513-auth-gate"></script>
-    <script src="app.js?v=20260518-client-code"></script>
+    <script src="app.js?v=20260527-sku-recommendations"></script>
     <script src="admin.js"></script>
   </body>
 </html>
