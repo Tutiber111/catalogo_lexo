@@ -6,7 +6,7 @@
     "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
     "productCount": 887
   },
-  "samplePageCount": 364,
+  "samplePageCount": 363,
   "pages": [
     {
       "number": 1,
@@ -24698,20 +24698,6 @@
         }
       ],
       "sourcePage": 79
-    },
-    {
-      "number": 303,
-      "title": "OXO",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-303.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [],
-      "priceGroups": [],
-      "sourcePage": 80
     },
     {
       "number": 304,

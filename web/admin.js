@@ -189,15 +189,20 @@
       return;
     }
 
+    const catalog = CATALOG_STORE.applyProductOverrides(
+      JSON.parse(JSON.stringify(window.CATALOG_DATA || { products: [] })),
+      CATALOG_STORE.loadProductOverrides(),
+    );
     const rows = [
-      ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo"],
-      ...(window.CATALOG_DATA?.products || []).map((product) => [
+      ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock"],
+      ...(catalog.products || []).map((product) => [
         product.sku || "",
         product.name || "",
         product.price || "",
         product.category || "",
         product.page || "",
         product.id || "",
+        product.outOfStock ? "Sí" : "No",
       ]),
     ];
 
@@ -209,12 +214,13 @@
       { wch: 24 },
       { wch: 10 },
       { wch: 16 },
+      { wch: 12 },
     ];
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
     XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
-    setImportStatus("Plantilla descargada. Editá Código, Descripción y Precio, y después subila acá.");
+    setImportStatus("Plantilla descargada. Editá Código, Descripción, Precio y Sin stock, y después subila acá.");
   }
 
   function clearLocalProductOverrides() {
@@ -242,8 +248,9 @@
         const sku = normalizeSku(row[header.sku]);
         const name = cleanCell(row[header.name]);
         const price = formatImportedPrice(row[header.price]);
-        if (!sku || (!name && !price)) return;
-        rows.push({ sku, name, price });
+        const outOfStock = header.outOfStock >= 0 ? parseStockValue(row[header.outOfStock]) : null;
+        if (!sku || (!name && !price && outOfStock === null)) return;
+        rows.push({ sku, name, price, outOfStock });
       });
     });
     return rows;
@@ -254,7 +261,8 @@
     const sku = cells.findIndex((cell) => ["sku", "cod", "codigo", "articulo", "item"].includes(cell) || cell.includes("codigo"));
     const name = cells.findIndex((cell) => cell.includes("descripcion") || cell.includes("producto") || cell.includes("nombre") || cell.includes("detalle"));
     const price = cells.findIndex((cell) => cell.includes("precio") || cell === "pvp" || cell.includes("lista"));
-    if (sku >= 0 && (name >= 0 || price >= 0)) return { sku, name, price };
+    const outOfStock = cells.findIndex((cell) => cell.includes("sinstock") || cell.includes("agotado") || cell.includes("stock"));
+    if (sku >= 0 && (name >= 0 || price >= 0 || outOfStock >= 0)) return { sku, name, price, outOfStock };
     return null;
   }
 
@@ -280,6 +288,7 @@
           name: row.name || product.name,
           price: row.price || product.price,
         };
+        if (row.outOfStock !== null) override.outOfStock = row.outOfStock;
         overrides[product.id] = override;
         updatedProductIds.add(product.id);
       });
@@ -331,6 +340,14 @@
 
     const amount = Number(text);
     return Number.isFinite(amount) ? Math.round(amount) : 0;
+  }
+
+  function parseStockValue(value) {
+    const text = normalizeHeaderCell(value);
+    if (!text) return null;
+    if (["si", "s", "yes", "y", "true", "verdadero", "1", "agotado", "sinstock"].includes(text)) return true;
+    if (["no", "n", "false", "falso", "0", "disponible", "enstock"].includes(text)) return false;
+    return null;
   }
 
   function normalizeSku(value) {

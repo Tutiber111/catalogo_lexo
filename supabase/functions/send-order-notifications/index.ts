@@ -210,6 +210,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   });
 
   files[ORDER_TEMPLATE_SHEET_PATH] = strToU8(sheetXml);
+  prepareWorkbookForRecalculation(files);
   const workbook = zipSync(files);
   const orderLabel = order.order_number ? String(order.order_number) : order.id;
 
@@ -218,6 +219,53 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
     content: bytesToBase64(workbook),
     content_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   };
+}
+
+function prepareWorkbookForRecalculation(files: Record<string, Uint8Array>) {
+  delete files["xl/calcChain.xml"];
+
+  updateXmlFile(files, "[Content_Types].xml", (xml) =>
+    xml.replace(
+      /<Override\b[^>]*PartName="\/xl\/calcChain\.xml"[^>]*\/>/g,
+      "",
+    )
+  );
+
+  updateXmlFile(files, "xl/_rels/workbook.xml.rels", (xml) =>
+    xml.replace(
+      /<Relationship\b[^>]*Type="http:\/\/schemas\.openxmlformats\.org\/officeDocument\/2006\/relationships\/calcChain"[^>]*\/>/g,
+      "",
+    )
+  );
+
+  updateXmlFile(files, "xl/workbook.xml", markWorkbookForFullCalculation);
+
+  Object.keys(files)
+    .filter((path) => /^xl\/worksheets\/sheet\d+\.xml$/.test(path))
+    .forEach((path) => updateXmlFile(files, path, clearCachedFormulaValues));
+}
+
+function updateXmlFile(files: Record<string, Uint8Array>, path: string, update: (xml: string) => string) {
+  const file = files[path];
+  if (!file) return;
+  files[path] = strToU8(update(strFromU8(file)));
+}
+
+function markWorkbookForFullCalculation(workbookXml: string) {
+  const calcPr = '<calcPr calcMode="auto" fullCalcOnLoad="1" forceFullCalc="1" calcOnSave="1"/>';
+
+  if (/<calcPr\b[^>]*\/>/.test(workbookXml)) {
+    return workbookXml.replace(/<calcPr\b[^>]*\/>/, calcPr);
+  }
+
+  return workbookXml.replace("</workbook>", `${calcPr}</workbook>`);
+}
+
+function clearCachedFormulaValues(sheetXml: string) {
+  return sheetXml.replace(/<c\b[^>]*\/>|<c\b[^>]*>[\s\S]*?<\/c>/g, (cellXml) => {
+    if (!cellXml.includes("<f")) return cellXml;
+    return cellXml.replace(/<v(?:\/>|>[\s\S]*?<\/v>)/g, "");
+  });
 }
 
 function clearOrderInputCells(sheetXml: string, itemCount: number) {

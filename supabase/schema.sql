@@ -44,6 +44,7 @@ create table if not exists public.product_overrides (
   category text not null default '',
   price text not null default '',
   hidden boolean not null default false,
+  out_of_stock boolean not null default false,
   updated_by uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -61,6 +62,7 @@ create table if not exists public.order_notifications (
 );
 
 alter table public.orders add column if not exists archived_at timestamptz;
+alter table public.product_overrides add column if not exists out_of_stock boolean not null default false;
 
 update public.orders
 set archived_at = coalesce(archived_at, updated_at, now())

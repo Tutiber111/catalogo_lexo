@@ -242,6 +242,7 @@
       if (row.category) override.category = row.category;
       if (row.price) override.price = row.price;
       if (row.hidden) override.hidden = true;
+      override.outOfStock = Boolean(row.out_of_stock);
       overrides[row.product_id] = override;
       return overrides;
     }, {});
@@ -252,19 +253,31 @@
     const user = await getUser();
     if (!user) throw new Error("Iniciá sesión con tu cuenta administradora de Supabase antes de actualizar el catálogo.");
 
-    const rows = Object.entries(overrides || {}).map(([productId, override]) => ({
-      product_id: productId,
-      sku: String(override.sku || "").trim(),
-      name: String(override.name || "").trim(),
-      category: String(override.category || "").trim(),
-      price: String(override.price || "").trim(),
-      hidden: Boolean(override.hidden),
-      updated_by: user.id,
-      updated_at: new Date().toISOString(),
-    }));
+    const rows = Object.entries(overrides || {}).map(([productId, override]) => {
+      const row = {
+        product_id: productId,
+        sku: String(override.sku || "").trim(),
+        name: String(override.name || "").trim(),
+        category: String(override.category || "").trim(),
+        price: String(override.price || "").trim(),
+        hidden: Boolean(override.hidden),
+        updated_by: user.id,
+        updated_at: new Date().toISOString(),
+      };
+      if (Object.prototype.hasOwnProperty.call(override, "outOfStock")) {
+        row.out_of_stock = Boolean(override.outOfStock);
+      }
+      return row;
+    });
 
     if (!rows.length) return [];
-    const { data, error } = await client.from("product_overrides").upsert(rows, { onConflict: "product_id" }).select();
+    let { data, error } = await client.from("product_overrides").upsert(rows, { onConflict: "product_id" }).select();
+    if (error && error.message?.includes("out_of_stock")) {
+      const rowsWithoutStock = rows.map(({ out_of_stock, ...row }) => row);
+      const retry = await client.from("product_overrides").upsert(rowsWithoutStock, { onConflict: "product_id" }).select();
+      data = retry.data;
+      error = retry.error;
+    }
     if (error) throw error;
     return data || [];
   }

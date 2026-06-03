@@ -310,6 +310,16 @@ body.auth-required #closeAccount {
   box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.1);
 }
 
+.product-card.is-out-of-stock {
+  border-color: #9aa3af;
+  background: #f3f5f7;
+}
+
+.product-card.is-out-of-stock strong,
+.product-card.is-out-of-stock p {
+  color: #657184;
+}
+
 .page-card strong,
 .product-card strong {
   display: block;
@@ -527,6 +537,26 @@ body.auth-required #closeAccount {
 .hotspot:hover span,
 .hotspot:focus-visible span {
   opacity: 1;
+}
+
+.hotspot.is-out-of-stock {
+  border-color: rgba(101, 113, 132, 0.9);
+  background: rgba(245, 246, 248, 0.18);
+}
+
+.hotspot.is-out-of-stock::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 50%;
+  height: 2px;
+  background: rgba(101, 113, 132, 0.95);
+  transform: rotate(-10deg);
+}
+
+.hotspot.is-out-of-stock span {
+  display: none;
 }
 
 .price-overlay {
@@ -1049,6 +1079,18 @@ body.auth-checking .auth-fields {
   background: #f3f5f7;
 }
 
+.group-product.is-out-of-stock {
+  border-color: #c8d0da;
+  background: #f3f5f7;
+  color: #657184;
+}
+
+.group-product.is-out-of-stock span,
+.group-product.is-out-of-stock strong,
+.group-product.is-out-of-stock .dialog-line-total {
+  color: #657184;
+}
+
 .group-product span {
   display: block;
   white-space: normal;
@@ -1223,6 +1265,25 @@ body.auth-checking .auth-fields {
   color: var(--brand-dark);
   font-size: 24px;
   font-weight: 950;
+}
+
+.price.is-out-of-stock {
+  color: #657184;
+  text-decoration: line-through;
+}
+
+.stock-badge {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  min-height: 24px;
+  margin-top: 8px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: #657184;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .toast {

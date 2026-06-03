@@ -275,9 +275,9 @@ function renderLists() {
     products
       .map(
         (product) => `
-          <button class="product-card" type="button" data-product="${product.id}">
+          <button class="product-card${product.outOfStock ? " is-out-of-stock" : ""}" type="button" data-product="${product.id}">
             <strong>${escapeHtml(product.name)}</strong>
-            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Página ${product.page}</p>
+            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Página ${product.page}${product.outOfStock ? " · Sin stock" : ""}</p>
           </button>
         `,
       )
@@ -304,7 +304,8 @@ function renderSkuRecommendations(query) {
   if (!els.skuRecommendations) return;
 
   const skuQuery = normalizeSkuQuery(query);
-  if (!skuQuery) {
+  const textQuery = normalizeProductSearch(query);
+  if (!skuQuery && !textQuery) {
     els.skuRecommendations.hidden = true;
     els.skuRecommendations.innerHTML = "";
     return;
@@ -312,12 +313,10 @@ function renderSkuRecommendations(query) {
 
   const matches = state.catalog.products
     .filter((product) => brandMatches(product.section) && isVisibleProduct(product))
-    .map((product) => ({ product, sku: matchingSku(product, skuQuery) }))
-    .filter((match) => match.sku)
+    .map((product) => matchingProductRecommendation(product, skuQuery, textQuery))
+    .filter(Boolean)
     .sort((first, second) => {
-      const firstStarts = normalizeSkuQuery(first.sku).startsWith(skuQuery) ? 0 : 1;
-      const secondStarts = normalizeSkuQuery(second.sku).startsWith(skuQuery) ? 0 : 1;
-      if (firstStarts !== secondStarts) return firstStarts - secondStarts;
+      if (first.score !== second.score) return first.score - second.score;
       return Number(first.product.page) - Number(second.product.page);
     })
     .slice(0, 8);
@@ -335,7 +334,7 @@ function renderSkuRecommendations(query) {
         <button class="sku-recommendation" type="button" role="option" data-product="${escapeAttribute(product.id)}">
           <strong>${escapeHtml(sku)}</strong>
           <span>${escapeHtml(product.name)}</span>
-          <small>Página ${escapeHtml(product.page)}</small>
+          <small>Página ${escapeHtml(product.page)}${product.outOfStock ? " · Sin stock" : ""}</small>
         </button>
       `,
     )
@@ -412,12 +411,13 @@ function renderCurrentPageDetails() {
 
 function renderHotspot(product) {
   const spot = product.hotspot;
+  const stockClass = product.outOfStock ? " is-out-of-stock" : "";
   return `
     <button
-      class="hotspot"
+      class="hotspot${stockClass}"
       type="button"
       data-product="${product.id}"
-      aria-label="Abrir ${escapeHtml(product.name)}"
+      aria-label="Abrir ${escapeHtml(product.name)}${product.outOfStock ? " - sin stock" : ""}"
       style="left:${spot.x * 100}%;top:${spot.y * 100}%;width:${spot.w * 100}%;height:${spot.h * 100}%"
     >
       <span>+</span>
@@ -481,7 +481,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
         ${products
           .map(
             (product) => `
-              <div class="group-product" data-group-product="${product.id}">
+              <div class="group-product${product.outOfStock ? " is-out-of-stock" : ""}" data-group-product="${product.id}">
                 <div>
                   <span>${escapeHtml(product.name)}</span>
                   <strong>${escapeHtml(product.sku)}</strong>
@@ -490,13 +490,13 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
                 <div class="dialog-qty">
                   <span>Cant.</span>
                   <div class="quantity-stepper quantity-stepper-compact">
-                    <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad">-</button>
-                    <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}">
-                    <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad">+</button>
+                    <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad"${product.outOfStock ? " disabled" : ""}>-</button>
+                    <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}"${product.outOfStock ? " disabled" : ""}>
+                    <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${product.outOfStock ? " disabled" : ""}>+</button>
                   </div>
                   <strong class="dialog-line-total" data-total-for="${product.id}">Total ${formatMoney(priceNumber(product.price))}</strong>
                 </div>
-                <button class="small-add-button" type="button" data-add="${product.id}">Agregar</button>
+                <button class="small-add-button" type="button" data-add="${product.id}"${product.outOfStock ? " disabled" : ""}>${product.outOfStock ? "Sin stock" : "Agregar"}</button>
               </div>
             `,
           )
@@ -508,6 +508,11 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   updateGroupCartStatuses();
   els.dialogContent.querySelectorAll("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
+      const product = state.productsById.get(button.dataset.add);
+      if (product?.outOfStock) {
+        showToast("Este producto está sin stock");
+        return;
+      }
       const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
       const quantity = readQuantity(qtyInput);
       addToCart(button.dataset.add, quantity);
@@ -538,6 +543,11 @@ function markGroupProductAdded(productId, quantity) {
 function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
   els.dialogContent.querySelectorAll("[data-added-status]").forEach((status) => {
     const productId = status.dataset.addedStatus;
+    const product = state.productsById.get(productId);
+    if (product?.outOfStock) {
+      status.textContent = "Sin stock";
+      return;
+    }
     const cartQuantity = state.cart.get(productId) || 0;
     if (!cartQuantity) {
       status.textContent = "0 en carrito";
@@ -553,42 +563,51 @@ function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
 
 function openProduct(product) {
   if (!product) return;
+  const outOfStock = Boolean(product.outOfStock);
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
         <span class="eyebrow">${escapeHtml(product.category)}</span>
         <h2>${escapeHtml(product.name)}</h2>
+        ${outOfStock ? `<span class="stock-badge">Sin stock</span>` : ""}
       </div>
       <div class="product-meta">
         <span>SKU: ${escapeHtml(product.sku)}</span>
         ${product.skus.length > 1 ? `<span>SKU relacionados: ${product.skus.map(escapeHtml).join(", ")}</span>` : ""}
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
       </div>
-      <div class="price">${escapeHtml(product.price)}</div>
+      <div class="price${outOfStock ? " is-out-of-stock" : ""}">${escapeHtml(product.price)}</div>
       <div class="dialog-qty dialog-qty-wide">
         <span>Cantidad</span>
         <div class="quantity-stepper">
-          <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad">-</button>
-          <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Cantidad">
-          <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad">+</button>
+          <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad"${outOfStock ? " disabled" : ""}>-</button>
+          <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Cantidad"${outOfStock ? " disabled" : ""}>
+          <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${outOfStock ? " disabled" : ""}>+</button>
         </div>
       </div>
       <div class="dialog-total" data-total-for="${product.id}">
         <span>Total</span>
         <strong>${formatMoney(priceNumber(product.price))}</strong>
       </div>
-      <button class="primary-button" type="button" data-add="${product.id}">Agregar al carrito</button>
+      <button class="primary-button" type="button" data-add="${product.id}"${outOfStock ? " disabled" : ""}>${outOfStock ? "Sin stock" : "Agregar al carrito"}</button>
     </div>
   `;
   bindDialogQuantitySteppers();
-  els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
-    addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
-    els.productDialog.close();
-  });
+  if (!outOfStock) {
+    els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
+      addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
+      els.productDialog.close();
+    });
+  }
   els.productDialog.showModal();
 }
 
 function addToCart(productId, quantity = 1) {
+  const product = state.productsById.get(productId);
+  if (product?.outOfStock) {
+    showToast("Este producto está sin stock");
+    return;
+  }
   const qty = Math.max(1, Number.parseInt(quantity, 10) || 1);
   state.cart.set(productId, (state.cart.get(productId) || 0) + qty);
   saveCart();
@@ -607,7 +626,7 @@ function updateQty(productId, delta) {
 function renderCart() {
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
-    .filter((line) => isVisibleProduct(line.product));
+    .filter((line) => isOrderableProduct(line.product));
   const total = lines.reduce((sum, line) => sum + line.qty, 0);
   const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
 
@@ -649,7 +668,7 @@ async function saveOrder() {
 
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
-    .filter((line) => isVisibleProduct(line.product));
+    .filter((line) => isOrderableProduct(line.product));
   if (!lines.length) {
     showToast("Agregá productos antes de enviar el pedido");
     return;
@@ -1188,6 +1207,10 @@ function isVisibleProduct(product) {
   return Boolean(product && !product.hidden);
 }
 
+function isOrderableProduct(product) {
+  return isVisibleProduct(product) && !product.outOfStock;
+}
+
 function readQuantity(input) {
   return Math.max(1, Number.parseInt(input?.value || "1", 10) || 1);
 }
@@ -1272,8 +1295,45 @@ function matchingSku(product, query) {
   return skus.find((sku) => normalizeSkuQuery(sku).startsWith(query)) || skus.find((sku) => normalizeSkuQuery(sku).includes(query)) || "";
 }
 
+function matchingProductRecommendation(product, skuQuery, textQuery) {
+  const sku = skuQuery ? matchingSku(product, skuQuery) : "";
+  if (sku) {
+    return {
+      product,
+      sku,
+      score: normalizeSkuQuery(sku).startsWith(skuQuery) ? 0 : 1,
+    };
+  }
+
+  const normalizedName = normalizeProductSearch(product.name);
+  const compactName = compactProductSearch(normalizedName);
+  const compactQuery = compactProductSearch(textQuery);
+  if (textQuery && (normalizedName.includes(textQuery) || compactName.includes(compactQuery))) {
+    return {
+      product,
+      sku: product.sku,
+      score: normalizedName.startsWith(textQuery) || compactName.startsWith(compactQuery) ? 2 : 3,
+    };
+  }
+
+  return null;
+}
+
 function normalizeSkuQuery(value) {
   return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function normalizeProductSearch(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function compactProductSearch(value) {
+  return String(value || "").replace(/\s+/g, "");
 }
 
 function showToast(message) {

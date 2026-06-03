@@ -56,6 +56,7 @@
       category: product.originalCategory || product.category,
       price: product.originalPrice || product.price,
       hidden: false,
+      outOfStock: false,
       ...(overrides[product.id] || {}),
     }));
     return catalog;
