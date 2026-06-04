@@ -176,6 +176,8 @@
         name: String(customer.name || "").trim(),
         phone: String(customer.phone || "").trim(),
         notes: String(customer.notes || "").trim(),
+        salesClient: customer.salesClient || null,
+        salesmanCode: String(customer.salesmanCode || "").trim(),
       },
       items: lines.map(({ product, qty }) => ({
         productId: product.id,

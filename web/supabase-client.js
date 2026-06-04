@@ -61,17 +61,17 @@
     return data.user;
   }
 
-  async function signUp({ email, password, name, phone, company }) {
+  async function signUp({ email, password, name, phone, company, assignedSalesmanCode }) {
     const { data, error } = await client.auth.signUp({
       email,
       password,
       options: {
-        data: { name, phone, company },
+        data: { name, phone, company, assignedSalesmanCode },
       },
     });
     if (error) throw error;
     const user = data.session?.user || (await getUser());
-    if (user) await upsertProfile(user, { name, phone, company });
+    if (user) await upsertProfile(user, { name, phone, company, assignedSalesmanCode });
     return data.user;
   }
 
@@ -140,6 +140,8 @@
       company: String(profile.company || user.user_metadata?.company || "").trim(),
       updated_at: new Date().toISOString(),
     };
+    const assignedSalesmanCode = normalizeSalesmanCode(profile.assignedSalesmanCode || user.user_metadata?.assignedSalesmanCode);
+    if (assignedSalesmanCode) payload.assigned_salesman_code = assignedSalesmanCode;
     let { data, error } = await client.from("profiles").upsert(payload, { onConflict: "id" }).select().single();
     if (error && error.message?.includes("'email' column")) {
       const { email, ...payloadWithoutEmail } = payload;
@@ -151,6 +153,36 @@
     return data;
   }
 
+  async function loadSalesClients() {
+    if (!client) return [];
+    const { data, error } = await client
+      .from("sales_clients")
+      .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
+      .order("client_code", { ascending: true });
+    if (error) throw error;
+    return (data || []).map(normalizeSalesClient);
+  }
+
+  async function createSalesClient(salesClient) {
+    if (!client) throw new Error("Supabase no está disponible.");
+    const payload = {
+      client_code: String(salesClient.clientCode || "").trim(),
+      name: String(salesClient.name || "").trim(),
+      legal_name: String(salesClient.legalName || "").trim(),
+      address: String(salesClient.address || "").trim(),
+      locality: String(salesClient.locality || "").trim(),
+      salesman_code: normalizeSalesmanCode(salesClient.salesmanCode),
+      source_salesman_label: String(salesClient.sourceSalesmanLabel || "").trim(),
+    };
+    const { data, error } = await client
+      .from("sales_clients")
+      .insert(payload)
+      .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
+      .single();
+    if (error) throw error;
+    return normalizeSalesClient(data);
+  }
+
   async function saveOrder(order, userId) {
     if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
@@ -159,6 +191,12 @@
       status: "placed",
       customer_name: order.customer.name,
       customer_phone: order.customer.phone,
+      sales_client_id: order.customer.salesClient?.id || null,
+      sales_client_code: order.customer.salesClient?.clientCode || "",
+      sales_client_name: order.customer.salesClient?.name || "",
+      sales_client_address: order.customer.salesClient?.address || "",
+      sales_client_locality: order.customer.salesClient?.locality || "",
+      salesman_code: order.customer.salesClient?.salesmanCode || order.customer.salesmanCode || "",
       notes: order.customer.notes,
       total_items: order.totalItems,
       total_value: order.totalValue,
@@ -320,6 +358,15 @@
         name: order.customer_name || "",
         phone: order.customer_phone || "",
         notes: order.notes || "",
+        salesClient: normalizeSalesClient({
+          id: order.sales_client_id,
+          client_code: order.sales_client_code,
+          name: order.sales_client_name,
+          address: order.sales_client_address,
+          locality: order.sales_client_locality,
+          salesman_code: order.salesman_code,
+        }),
+        salesmanCode: order.salesman_code || "",
       },
       items: (order.order_items || []).map((item) => ({
         productId: item.product_id,
@@ -333,6 +380,25 @@
       totalItems: order.total_items,
       totalValue: Number(order.total_value || 0),
     };
+  }
+
+  function normalizeSalesClient(row = {}) {
+    return {
+      id: row.id || "",
+      clientCode: row.client_code || "",
+      name: row.name || "",
+      legalName: row.legal_name || "",
+      address: row.address || "",
+      locality: row.locality || "",
+      salesmanCode: row.salesman_code || "",
+      sourceSalesmanLabel: row.source_salesman_label || "",
+    };
+  }
+
+  function normalizeSalesmanCode(value) {
+    const text = String(value || "").trim();
+    const match = text.match(/^([^-]+)/);
+    return (match ? match[1] : text).replace(/\s+/g, "").trim();
   }
 
   window.CATALOG_SUPABASE = {
@@ -350,6 +416,8 @@
     ensureRecoverySession,
     getProfile,
     upsertProfile,
+    loadSalesClients,
+    createSalesClient,
     saveOrder,
     requestOrderNotification,
     loadMyOrders,

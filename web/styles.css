@@ -584,8 +584,27 @@ body.auth-required #closeAccount {
 .price-overlay--pdf-regular,
 .price-overlay--pdf-large,
 .price-overlay--pdf-table,
-.price-overlay--pdf-inline {
+.price-overlay--pdf-inline,
+.price-overlay--pdf-tight-row,
+.price-overlay--pdf-no-price-row,
+.price-overlay--pdf-embedded-price-row {
   border-color: rgba(215, 25, 32, 0.1);
+}
+
+.price-overlay--pdf-tight-row {
+  border-color: rgba(215, 25, 32, 0.08);
+  line-height: 0.95;
+}
+
+.price-overlay--pdf-no-price-row {
+  border-color: transparent;
+  background: transparent;
+  line-height: 1;
+}
+
+.price-overlay--pdf-embedded-price-row {
+  border-color: rgba(215, 25, 32, 0.08);
+  line-height: 0.95;
 }
 
 .price-overlay:hover,
@@ -832,7 +851,7 @@ body.auth-checking .auth-fields {
 }
 
 #signInForm {
-  max-height: 270px;
+  max-height: 350px;
   opacity: 1;
 }
 
@@ -857,7 +876,7 @@ body.auth-checking .auth-fields {
 .auth-fields[data-mode="creating"] #createAccountForm,
 .auth-fields[data-mode="forgot"] #forgotPasswordForm,
 .auth-fields[data-mode="new-password"] #newPasswordForm {
-  max-height: 620px;
+  max-height: 720px;
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0);
@@ -953,7 +972,8 @@ body.auth-checking .auth-fields {
   font-weight: 800;
 }
 
-.cart-client-field em {
+.cart-client-field em,
+.auth-fields em {
   color: var(--accent);
   font-size: 11px;
   font-style: normal;
@@ -967,7 +987,139 @@ body.auth-checking .auth-fields {
   line-height: 1.25;
 }
 
+.cart-manual-client-fields,
+.cart-client-selector {
+  display: grid;
+  gap: 8px;
+}
+
+.cart-account-client-note {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.cart-client-results {
+  display: grid;
+  gap: 6px;
+  max-height: 190px;
+  overflow: auto;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.cart-client-result {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+}
+
+.cart-client-result:hover,
+.cart-client-result:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.cart-client-result strong {
+  flex: 0 0 auto;
+  color: var(--brand-dark);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.cart-client-result strong::after {
+  content: " -";
+  color: var(--ink);
+}
+
+.cart-client-result span {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cart-client-result small,
+.cart-selected-client span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.cart-client-result small {
+  display: none;
+}
+
+.cart-selected-client {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid rgba(17, 115, 122, 0.28);
+  border-radius: 8px;
+  background: rgba(17, 115, 122, 0.08);
+}
+
+.cart-selected-client strong {
+  color: var(--ink);
+}
+
+.cart-check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.cart-check-field input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand);
+}
+
+.other-client-form {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.other-client-message {
+  color: var(--brand-dark);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.other-client-message:empty {
+  display: none;
+}
+
 .cart-client-field input,
+.cart-client-result,
 .auth-fields input,
 .admin-form-grid input,
 .admin-form-grid textarea,

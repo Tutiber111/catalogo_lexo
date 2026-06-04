@@ -24,6 +24,12 @@ type Order = {
   status: string;
   customer_name: string;
   customer_phone: string;
+  sales_client_id: string | null;
+  sales_client_code: string;
+  sales_client_name: string;
+  sales_client_address: string;
+  sales_client_locality: string;
+  salesman_code: string;
   notes: string;
   total_items: number;
   total_value: number;
@@ -135,7 +141,7 @@ async function lockNotification(notification: OrderNotification) {
 async function loadOrder(orderId: string): Promise<Order> {
   const params = new URLSearchParams({
     id: `eq.${orderId}`,
-    select: "id,customer_id,order_number,status,customer_name,customer_phone,notes,total_items,total_value,created_at,order_items(sku,name,unit_price,quantity,line_total,page)",
+    select: "id,customer_id,order_number,status,customer_name,customer_phone,sales_client_id,sales_client_code,sales_client_name,sales_client_address,sales_client_locality,salesman_code,notes,total_items,total_value,created_at,order_items(sku,name,unit_price,quantity,line_total,page)",
   });
   const response = await supabaseFetch(`/rest/v1/orders?${params}`);
   const rows = await response.json();
@@ -199,8 +205,11 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
 
   let sheetXml = strFromU8(sheet);
   sheetXml = clearOrderInputCells(sheetXml, order.order_items.length);
-  sheetXml = upsertCell(sheetXml, "B1", order.customer_name || "", "string");
-  sheetXml = upsertCell(sheetXml, "F1", clientCodeFromNotes(order.notes), "string");
+  const clientCode = order.sales_client_code || clientCodeFromNotes(order.notes);
+  const clientCodeType = numericCellValue(clientCode) === null ? "string" : "number";
+  sheetXml = upsertCell(sheetXml, "B1", order.sales_client_name || order.customer_name || "", "string");
+  sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
+  sheetXml = upsertCell(sheetXml, "B3", orderSalesClientAddress(order), "string");
 
   order.order_items.forEach((item, index) => {
     const row = 8 + index;
@@ -270,6 +279,7 @@ function clearCachedFormulaValues(sheetXml: string) {
 
 function clearOrderInputCells(sheetXml: string, itemCount: number) {
   let nextXml = clearCell(sheetXml, "B1");
+  nextXml = clearCell(nextXml, "B3");
   nextXml = clearCell(nextXml, "F1");
   const lastRow = Math.max(ORDER_TEMPLATE_LAST_INPUT_ROW, 8 + itemCount - 1);
   for (let row = 8; row <= lastRow; row += 1) {
@@ -402,6 +412,10 @@ function clientCodeFromNotes(notes: string) {
   return match ? match[1].trim() : "";
 }
 
+function orderSalesClientAddress(order: Order) {
+  return [order.sales_client_address, order.sales_client_locality].filter(Boolean).join(" - ");
+}
+
 function bytesToBase64(bytes: Uint8Array) {
   let binary = "";
   const chunkSize = 0x8000;
@@ -443,6 +457,9 @@ function buildOrderText(order: Order, siteUrl: string) {
     `Nuevo pedido ${orderLabel}`,
     "",
     `Cliente: ${order.customer_name || "-"}`,
+    order.sales_client_code ? `Código de cliente: ${order.sales_client_code}` : "",
+    orderSalesClientAddress(order) ? `Dirección: ${orderSalesClientAddress(order)}` : "",
+    order.salesman_code ? `Código de vendedor: ${order.salesman_code}` : "",
     `Email de cuenta: ${order.customer_email || "-"}`,
     `Teléfono: ${order.customer_phone || "-"}`,
     `Fecha: ${new Date(order.created_at).toLocaleString("es-AR")}`,
@@ -475,6 +492,9 @@ function buildOrderHtml(order: Order, siteUrl: string) {
     <div style="font-family:Arial,sans-serif;color:#16161a">
       <h2>Nuevo pedido ${escapeHtml(orderLabel)}</h2>
       <p><strong>Cliente:</strong> ${escapeHtml(order.customer_name || "-")}</p>
+      ${order.sales_client_code ? `<p><strong>Código de cliente:</strong> ${escapeHtml(order.sales_client_code)}</p>` : ""}
+      ${orderSalesClientAddress(order) ? `<p><strong>Dirección:</strong> ${escapeHtml(orderSalesClientAddress(order))}</p>` : ""}
+      ${order.salesman_code ? `<p><strong>Código de vendedor:</strong> ${escapeHtml(order.salesman_code)}</p>` : ""}
       <p><strong>Email de cuenta:</strong> ${escapeHtml(order.customer_email || "-")}</p>
       <p><strong>Teléfono:</strong> ${escapeHtml(order.customer_phone || "-")}</p>
       <p><strong>Fecha:</strong> ${escapeHtml(new Date(order.created_at).toLocaleString("es-AR"))}</p>

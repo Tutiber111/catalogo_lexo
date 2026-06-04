@@ -9,7 +9,10 @@ const state = {
   settings: CATALOG_STORE.loadSettings(),
   user: null,
   profile: null,
+  salesClients: [],
+  selectedSalesClient: null,
   isCheckingAuth: true,
+  isLoadingSalesClients: false,
   isSavingOrder: false,
 };
 
@@ -42,6 +45,23 @@ const els = {
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
+  cartSalesClientPanel: document.querySelector("#cartSalesClientPanel"),
+  cartSalesClientSearch: document.querySelector("#cartSalesClientSearch"),
+  cartSalesClientResults: document.querySelector("#cartSalesClientResults"),
+  cartSelectedSalesClient: document.querySelector("#cartSelectedSalesClient"),
+  clearSalesClient: document.querySelector("#clearSalesClient"),
+  otherSalesClientToggleWrap: document.querySelector("#otherSalesClientToggleWrap"),
+  otherSalesClientToggle: document.querySelector("#otherSalesClientToggle"),
+  otherSalesClientForm: document.querySelector("#otherSalesClientForm"),
+  otherSalesClientCode: document.querySelector("#otherSalesClientCode"),
+  otherSalesClientName: document.querySelector("#otherSalesClientName"),
+  otherSalesClientLegalName: document.querySelector("#otherSalesClientLegalName"),
+  otherSalesClientAddress: document.querySelector("#otherSalesClientAddress"),
+  otherSalesClientLocality: document.querySelector("#otherSalesClientLocality"),
+  createSalesClient: document.querySelector("#createSalesClient"),
+  otherSalesClientMessage: document.querySelector("#otherSalesClientMessage"),
+  cartAccountClientNote: document.querySelector("#cartAccountClientNote"),
+  cartManualClientFields: document.querySelector("#cartManualClientFields"),
   cartClientName: document.querySelector("#cartClientName"),
   cartClientCode: document.querySelector("#cartClientCode"),
   accountStatus: document.querySelector("#accountStatus"),
@@ -53,8 +73,10 @@ const els = {
   newPasswordForm: document.querySelector("#newPasswordForm"),
   authEmail: document.querySelector("#authEmail"),
   authPassword: document.querySelector("#authPassword"),
+  authSalesmanCode: document.querySelector("#authSalesmanCode"),
   createEmail: document.querySelector("#createEmail"),
   createPassword: document.querySelector("#createPassword"),
+  createSalesmanCode: document.querySelector("#createSalesmanCode"),
   resetEmail: document.querySelector("#resetEmail"),
   newPassword: document.querySelector("#newPassword"),
   authName: document.querySelector("#authName"),
@@ -164,6 +186,16 @@ function bindEvents() {
   els.updatePassword.addEventListener("click", updatePassword);
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
+  els.cartSalesClientSearch.addEventListener("input", renderSalesClientResults);
+  els.cartSalesClientSearch.addEventListener("focus", renderSalesClientResults);
+  els.clearSalesClient.addEventListener("click", clearSelectedSalesClient);
+  els.otherSalesClientToggle.addEventListener("change", toggleOtherSalesClientForm);
+  els.createSalesClient.addEventListener("click", createAndSelectSalesClient);
+  els.otherSalesClientForm.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    createAndSelectSalesClient();
+  });
   els.cartClientName.addEventListener("input", () => {
     localStorage.setItem("catalogCartClientName", els.cartClientName.value);
     renderCart();
@@ -192,6 +224,10 @@ function bindEvents() {
   window.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") goToAdjacentVisiblePage(-1);
     if (event.key === "ArrowRight") goToAdjacentVisiblePage(1);
+  });
+  document.addEventListener("click", (event) => {
+    if (!els.cartSalesClientPanel || els.cartSalesClientPanel.contains(event.target)) return;
+    els.cartSalesClientResults.hidden = true;
   });
 }
 
@@ -624,6 +660,7 @@ function updateQty(productId, delta) {
 }
 
 function renderCart() {
+  renderCartClientControls();
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
     .filter((line) => isOrderableProduct(line.product));
@@ -678,6 +715,12 @@ async function saveOrder() {
     openAccount();
     return;
   }
+  if (mustSelectSalesClient() && !state.selectedSalesClient) {
+    showToast("Elegí un cliente antes de enviar el pedido");
+    openCart();
+    els.cartSalesClientSearch.focus();
+    return;
+  }
 
   let customer = readOrderCustomer();
   let notificationResult = { ok: true };
@@ -704,6 +747,7 @@ async function saveOrder() {
   }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
   state.cart.clear();
+  clearSelectedSalesClient({ keepInput: false });
   els.cartClientName.value = "";
   els.cartClientCode.value = "";
   localStorage.removeItem("catalogCartClientName");
@@ -857,12 +901,297 @@ function readAccountCustomer() {
 
 function readOrderCustomer() {
   const accountCustomer = readAccountCustomer();
+  const selectedClient = canSelectSalesClient() ? state.selectedSalesClient : null;
+  if (selectedClient) {
+    return {
+      ...accountCustomer,
+      name: selectedClient.name || selectedClient.legalName || accountCustomer.name,
+      salesClient: selectedClient,
+      salesmanCode: selectedClient.salesmanCode || state.profile?.salesman_code || "",
+      notes: accountCustomer.notes,
+    };
+  }
+
+  if (state.profile?.role === "customer") {
+    return {
+      ...accountCustomer,
+      salesmanCode: state.profile.assigned_salesman_code || "",
+    };
+  }
+
   const clientCode = els.cartClientCode.value.trim();
   return {
     ...accountCustomer,
     name: els.cartClientName.value.trim() || accountCustomer.name,
+    salesmanCode: state.profile?.salesman_code || state.profile?.assigned_salesman_code || "",
     notes: clientCode ? `Código de cliente: ${clientCode}` : accountCustomer.notes,
   };
+}
+
+function renderCartClientControls() {
+  const canSelect = canSelectSalesClient();
+  const signedCustomer = Boolean(state.user && state.profile?.role === "customer");
+
+  els.cartSalesClientPanel.hidden = !canSelect;
+  els.otherSalesClientToggleWrap.hidden = !canSelect || state.profile?.role !== "salesman";
+  els.cartManualClientFields.hidden = CATALOG_SUPABASE.isAvailable() && Boolean(state.user);
+  els.cartAccountClientNote.hidden = !signedCustomer;
+
+  if (!canSelect) {
+    els.cartSalesClientResults.hidden = true;
+    return;
+  }
+
+  els.cartSalesClientSearch.placeholder = state.isLoadingSalesClients
+    ? "Cargando clientes..."
+    : "Buscar por código o nombre";
+  els.cartSalesClientSearch.disabled = state.isLoadingSalesClients || !state.salesClients.length;
+  renderSelectedSalesClient();
+}
+
+function canSelectSalesClient() {
+  return Boolean(state.profile && ["admin", "salesman"].includes(state.profile.role));
+}
+
+function mustSelectSalesClient() {
+  return state.profile?.role === "salesman";
+}
+
+async function loadSalesClients() {
+  state.salesClients = [];
+  state.selectedSalesClient = null;
+  if (!CATALOG_SUPABASE.isAvailable() || !state.user || !canSelectSalesClient()) {
+    renderCart();
+    return;
+  }
+
+  state.isLoadingSalesClients = true;
+  renderCart();
+  try {
+    state.salesClients = await CATALOG_SUPABASE.loadSalesClients();
+    restoreSelectedSalesClient();
+  } catch (error) {
+    console.warn("No se pudieron cargar los clientes del vendedor", error);
+    showToast("No se pudieron cargar los clientes");
+  } finally {
+    state.isLoadingSalesClients = false;
+    renderCart();
+  }
+}
+
+function restoreSelectedSalesClient() {
+  const selectedId = localStorage.getItem("catalogSelectedSalesClientId");
+  if (!selectedId) return;
+  const client = state.salesClients.find((item) => item.id === selectedId);
+  if (client) selectSalesClient(client, { silent: true });
+  else localStorage.removeItem("catalogSelectedSalesClientId");
+}
+
+function renderSalesClientResults() {
+  if (!canSelectSalesClient()) return;
+  const query = normalizeProductSearch(els.cartSalesClientSearch.value);
+  const compactQuery = compactProductSearch(query);
+  const matches = state.salesClients
+    .map((client) => matchingSalesClient(client, query, compactQuery))
+    .filter(Boolean)
+    .sort((first, second) => first.score - second.score || first.client.clientCode.localeCompare(second.client.clientCode, "es"))
+    .slice(0, 10);
+
+  if (!matches.length) {
+    els.cartSalesClientResults.hidden = false;
+    els.cartSalesClientResults.innerHTML = `<p>No hay clientes coincidentes.</p>`;
+    return;
+  }
+
+  els.cartSalesClientResults.hidden = false;
+  els.cartSalesClientResults.innerHTML = matches
+    .map(({ client }) => `
+      <button class="cart-client-result" type="button" role="option" data-client="${escapeAttribute(client.id)}">
+        <strong>${escapeHtml(client.clientCode)}</strong>
+        <span>${escapeHtml(client.name)}</span>
+        <small>${escapeHtml(salesClientAddress(client) || client.legalName || "")}</small>
+      </button>
+    `)
+    .join("");
+
+  els.cartSalesClientResults.querySelectorAll("[data-client]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const client = state.salesClients.find((item) => item.id === button.dataset.client);
+      if (client) selectSalesClient(client);
+    });
+  });
+}
+
+function matchingSalesClient(client, query, compactQuery) {
+  if (!query) return { client, score: 5 };
+  const code = normalizeSkuQuery(client.clientCode);
+  const skuQuery = normalizeSkuQuery(query);
+  if (skuQuery && code.startsWith(skuQuery)) return { client, score: 0 };
+  if (skuQuery && code.includes(skuQuery)) return { client, score: 1 };
+
+  const text = normalizeProductSearch([
+    client.name,
+    client.legalName,
+    client.address,
+    client.locality,
+  ].join(" "));
+  const compactText = compactProductSearch(text);
+  if (text.startsWith(query) || compactText.startsWith(compactQuery)) return { client, score: 2 };
+  if (text.includes(query) || compactText.includes(compactQuery)) return { client, score: 3 };
+  return null;
+}
+
+function selectSalesClient(client, options = {}) {
+  state.selectedSalesClient = client;
+  localStorage.setItem("catalogSelectedSalesClientId", client.id);
+  els.cartSalesClientSearch.value = `${client.clientCode} - ${client.name}`;
+  els.cartSalesClientResults.hidden = true;
+  renderSelectedSalesClient();
+  renderCart();
+  if (!options.silent) showToast("Cliente seleccionado");
+}
+
+function clearSelectedSalesClient(options = {}) {
+  state.selectedSalesClient = null;
+  localStorage.removeItem("catalogSelectedSalesClientId");
+  if (!options.keepInput) els.cartSalesClientSearch.value = "";
+  els.cartSalesClientResults.hidden = true;
+  renderSelectedSalesClient();
+  renderCart();
+}
+
+function renderSelectedSalesClient() {
+  const client = state.selectedSalesClient;
+  els.clearSalesClient.hidden = !client;
+  if (!client) {
+    els.cartSelectedSalesClient.hidden = true;
+    els.cartSelectedSalesClient.innerHTML = "";
+    return;
+  }
+
+  els.cartSelectedSalesClient.hidden = false;
+  els.cartSelectedSalesClient.innerHTML = `
+    <strong>${escapeHtml(client.clientCode)} - ${escapeHtml(client.name)}</strong>
+    ${client.legalName && client.legalName !== client.name ? `<span>${escapeHtml(client.legalName)}</span>` : ""}
+    ${salesClientAddress(client) ? `<span>${escapeHtml(salesClientAddress(client))}</span>` : ""}
+  `;
+}
+
+function toggleOtherSalesClientForm() {
+  const isOpen = Boolean(els.otherSalesClientToggle.checked);
+  els.otherSalesClientForm.hidden = !isOpen;
+  els.otherSalesClientMessage.textContent = "";
+  if (isOpen) {
+    els.cartSalesClientResults.hidden = true;
+    els.otherSalesClientCode.focus();
+  }
+}
+
+async function createAndSelectSalesClient() {
+  const client = readOtherSalesClientForm();
+  if (!client.clientCode || !client.name) {
+    els.otherSalesClientMessage.textContent = "Ingresá código y nombre del cliente.";
+    return;
+  }
+
+  if (!state.profile?.salesman_code) {
+    els.otherSalesClientMessage.textContent = "Tu perfil no tiene código de vendedor asignado.";
+    return;
+  }
+
+  try {
+    els.createSalesClient.disabled = true;
+    els.createSalesClient.textContent = "Creando...";
+    els.otherSalesClientMessage.textContent = "";
+    const savedClient = await CATALOG_SUPABASE.createSalesClient({
+      ...client,
+      salesmanCode: state.profile.salesman_code,
+    });
+    state.salesClients = [
+      savedClient,
+      ...state.salesClients.filter((item) => item.clientCode !== savedClient.clientCode),
+    ].sort((first, second) => first.clientCode.localeCompare(second.clientCode, "es"));
+    clearOtherSalesClientForm();
+    selectSalesClient(savedClient);
+    showToast("Cliente creado y seleccionado");
+  } catch (error) {
+    els.otherSalesClientMessage.textContent = friendlyCreateSalesClientError(error);
+  } finally {
+    els.createSalesClient.disabled = false;
+    els.createSalesClient.textContent = "Crear y seleccionar cliente";
+  }
+}
+
+function readOtherSalesClientForm() {
+  return {
+    clientCode: normalizeClientCode(els.otherSalesClientCode.value),
+    name: els.otherSalesClientName.value.trim(),
+    legalName: els.otherSalesClientLegalName.value.trim(),
+    address: els.otherSalesClientAddress.value.trim(),
+    locality: els.otherSalesClientLocality.value.trim(),
+  };
+}
+
+function clearOtherSalesClientForm() {
+  els.otherSalesClientToggle.checked = false;
+  els.otherSalesClientForm.hidden = true;
+  els.otherSalesClientMessage.textContent = "";
+  [
+    els.otherSalesClientCode,
+    els.otherSalesClientName,
+    els.otherSalesClientLegalName,
+    els.otherSalesClientAddress,
+    els.otherSalesClientLocality,
+  ].forEach((input) => {
+    input.value = "";
+  });
+}
+
+function normalizeClientCode(value) {
+  return String(value || "").trim().replace(/\s+/g, "");
+}
+
+function friendlyCreateSalesClientError(error) {
+  const message = String(error?.message || "No se pudo crear el cliente.");
+  if (message.includes("duplicate key") || message.includes("sales_clients_client_code")) {
+    return "Ese código de cliente ya existe.";
+  }
+  return message;
+}
+
+function salesClientAddress(client) {
+  return [client.address, client.locality].filter(Boolean).join(" - ");
+}
+
+function normalizeSalesmanCode(value) {
+  const text = String(value || "").trim();
+  const match = text.match(/^([^-]+)/);
+  return (match ? match[1] : text).replace(/\s+/g, "").trim();
+}
+
+function readEnteredSalesmanCode() {
+  return normalizeSalesmanCode(els.authSalesmanCode.value || els.createSalesmanCode.value);
+}
+
+async function assignEnteredSalesmanCode() {
+  const code = readEnteredSalesmanCode();
+  if (!code || !state.user || state.profile?.role !== "customer") return;
+
+  if (state.profile?.assigned_salesman_code) {
+    if (state.profile.assigned_salesman_code !== code) {
+      showToast("Tu cuenta ya tiene un vendedor asignado");
+    }
+    return;
+  }
+
+  state.profile = await CATALOG_SUPABASE.upsertProfile(state.user, {
+    name: els.authName.value,
+    phone: els.authPhone.value,
+    company: els.authCompany.value,
+    assignedSalesmanCode: code,
+  });
+  applyProfileToAuthFields();
+  showToast("Vendedor asignado a tu cuenta");
 }
 
 async function initAccount() {
@@ -887,6 +1216,7 @@ async function initAccount() {
     if (state.user) {
       state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
       applyProfileToAuthFields();
+      await loadSalesClients();
     }
   } catch (error) {
     accountError = true;
@@ -928,7 +1258,9 @@ async function signIn() {
     state.user = await CATALOG_SUPABASE.signIn(els.authEmail.value.trim(), els.authPassword.value);
     state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
     if (!state.profile) state.profile = await saveCustomerProfile();
+    await assignEnteredSalesmanCode();
     applyProfileToAuthFields();
+    await loadSalesClients();
     renderAccount();
     await renderCustomerOrders();
     applyAuthGate();
@@ -950,8 +1282,10 @@ async function createAccount() {
       name: els.authName.value,
       phone: els.authPhone.value,
       company: els.authCompany.value,
+      assignedSalesmanCode: normalizeSalesmanCode(els.createSalesmanCode.value),
     });
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
+    await loadSalesClients();
     renderAccount();
     await renderCustomerOrders();
     applyAuthGate();
@@ -970,6 +1304,7 @@ function showCreateAccount() {
   clearAuthMessage();
   els.createEmail.value = els.authEmail.value.trim();
   els.createPassword.value = els.authPassword.value;
+  els.createSalesmanCode.value = els.authSalesmanCode.value.trim();
   setAuthMode("creating");
   els.createEmail.focus();
 }
@@ -977,6 +1312,7 @@ function showCreateAccount() {
 function showSignIn() {
   clearAuthMessage();
   els.authEmail.value = els.createEmail.value.trim() || els.authEmail.value;
+  els.authSalesmanCode.value = els.createSalesmanCode.value.trim() || els.authSalesmanCode.value;
   els.authPassword.value = "";
   els.createPassword.value = "";
   els.newPassword.value = "";
@@ -1024,6 +1360,7 @@ async function updatePassword() {
     clearAuthMessage();
     state.user = await CATALOG_SUPABASE.updatePassword(els.newPassword.value);
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
+    await loadSalesClients();
     els.newPassword.value = "";
     CATALOG_SUPABASE.clearRecoveryMode();
     setAuthMode("signin");
@@ -1041,6 +1378,9 @@ async function signOut() {
     await CATALOG_SUPABASE.signOut();
     state.user = null;
     state.profile = null;
+    state.salesClients = [];
+    state.selectedSalesClient = null;
+    localStorage.removeItem("catalogSelectedSalesClientId");
     renderAccount();
     await renderCustomerOrders();
     applyAuthGate();
@@ -1056,6 +1396,7 @@ async function saveCustomerProfile() {
     name: els.authName.value,
     phone: els.authPhone.value,
     company: els.authCompany.value,
+    assignedSalesmanCode: state.profile?.assigned_salesman_code ? "" : readEnteredSalesmanCode(),
   });
   applyProfileToAuthFields();
   return state.profile;
@@ -1066,6 +1407,10 @@ function applyProfileToAuthFields() {
   els.authName.value = state.profile.name || els.authName.value;
   els.authPhone.value = state.profile.phone || els.authPhone.value;
   els.authCompany.value = state.profile.company || "";
+  if (state.profile.assigned_salesman_code) {
+    els.authSalesmanCode.value = state.profile.assigned_salesman_code;
+    els.createSalesmanCode.value = state.profile.assigned_salesman_code;
+  }
 }
 
 function renderAccount() {
@@ -1100,6 +1445,9 @@ function friendlyAuthError(error) {
   const message = String(error?.message || "No se pudo completar la acción de cuenta");
   if (message.toLowerCase().includes("invalid login credentials")) {
     return "Email o contrase\u00f1a incorrectos.";
+  }
+  if (message.toLowerCase().includes("assigned_salesman_code") || message.toLowerCase().includes("profiles_assigned_salesman_code_fkey")) {
+    return "Código de vendedor no válido.";
   }
   if (message.toLowerCase().includes("email") && message.toLowerCase().includes("limit")) {
     return "Se alcanzó el límite de emails de Supabase. Para pruebas locales, desactivá Confirm email en Supabase Auth > Providers > Email, o configurá SMTP propio.";

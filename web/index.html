@@ -78,15 +78,55 @@
             <span>Valor total</span>
             <strong id="cartTotalValue">$0</strong>
           </div>
-          <label class="cart-client-field">
-            <span>Cliente</span>
-            <input id="cartClientName" type="text" autocomplete="organization" placeholder="Nombre del cliente">
-          </label>
-          <label class="cart-client-field">
-            <span>Código de cliente <em>opcional</em></span>
-            <input id="cartClientCode" type="text" autocomplete="off" placeholder="Código de cliente (opcional)">
-            <small>Este dato es opcional.</small>
-          </label>
+          <div id="cartSalesClientPanel" class="cart-client-selector" hidden>
+            <label class="cart-client-field">
+              <span>Cliente del pedido</span>
+              <input id="cartSalesClientSearch" type="search" autocomplete="off" placeholder="Buscar por código o nombre">
+            </label>
+            <div id="cartSalesClientResults" class="cart-client-results" role="listbox" aria-label="Clientes disponibles" hidden></div>
+            <div id="cartSelectedSalesClient" class="cart-selected-client" hidden></div>
+            <button id="clearSalesClient" class="secondary-button compact-button" type="button" hidden>Cambiar cliente</button>
+            <label id="otherSalesClientToggleWrap" class="cart-check-field">
+              <input id="otherSalesClientToggle" type="checkbox">
+              <span>Otro cliente</span>
+            </label>
+            <div id="otherSalesClientForm" class="other-client-form" hidden>
+              <label class="cart-client-field">
+                <span>CUIT</span>
+                <input id="otherSalesClientCode" type="text" autocomplete="off" inputmode="numeric">
+              </label>
+              <label class="cart-client-field">
+                <span>Nombre</span>
+                <input id="otherSalesClientName" type="text" autocomplete="organization">
+              </label>
+              <label class="cart-client-field">
+                <span>Razón social <em>opcional</em></span>
+                <input id="otherSalesClientLegalName" type="text" autocomplete="organization">
+              </label>
+              <label class="cart-client-field">
+                <span>Domicilio <em>opcional</em></span>
+                <input id="otherSalesClientAddress" type="text" autocomplete="street-address">
+              </label>
+              <label class="cart-client-field">
+                <span>Localidad <em>opcional</em></span>
+                <input id="otherSalesClientLocality" type="text" autocomplete="address-level2">
+              </label>
+              <button id="createSalesClient" class="secondary-button" type="button">Crear y seleccionar cliente</button>
+              <small id="otherSalesClientMessage" class="other-client-message"></small>
+            </div>
+          </div>
+          <p id="cartAccountClientNote" class="cart-account-client-note" hidden>El pedido se enviará con los datos de tu cuenta.</p>
+          <div id="cartManualClientFields" class="cart-manual-client-fields">
+            <label class="cart-client-field">
+              <span>Cliente</span>
+              <input id="cartClientName" type="text" autocomplete="organization" placeholder="Nombre del cliente">
+            </label>
+            <label class="cart-client-field">
+              <span>Código de cliente <em>opcional</em></span>
+              <input id="cartClientCode" type="text" autocomplete="off" placeholder="Código de cliente (opcional)">
+              <small>Este dato es opcional.</small>
+            </label>
+          </div>
           <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
         </div>
       </aside>
@@ -118,6 +158,10 @@
                 <span>Contraseña</span>
                 <input id="authPassword" type="password" autocomplete="current-password">
               </label>
+              <label>
+                <span>Código de vendedor <em>opcional</em></span>
+                <input id="authSalesmanCode" type="text" autocomplete="off" inputmode="numeric" placeholder="Si tu vendedor te dio un código">
+              </label>
               <button id="signIn" class="primary-button" type="button">Iniciar sesión</button>
               <button id="showForgotPassword" class="secondary-button" type="button">¿Olvidaste tu contraseña?</button>
               <button id="showCreateAccount" class="secondary-button" type="button">Crear una cuenta</button>
@@ -142,6 +186,10 @@
               <label>
                 <span>Empresa</span>
                 <input id="authCompany" type="text" autocomplete="organization">
+              </label>
+              <label>
+                <span>Código de vendedor <em>opcional</em></span>
+                <input id="createSalesmanCode" type="text" autocomplete="off" inputmode="numeric" placeholder="Si tu vendedor te dio un código">
               </label>
               <button id="createAccount" class="primary-button" type="button">Crear cuenta</button>
               <button id="showSignIn" class="secondary-button" type="button">Volver al inicio de sesión</button>

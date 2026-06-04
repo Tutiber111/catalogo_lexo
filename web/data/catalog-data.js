@@ -649,7 +649,7 @@ window.CATALOG_DATA = {
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-018.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/page-018.jpg?v=20260604-lexo-no-price-page18",
         "width": 1013,
         "height": 1432
       },
@@ -674,8 +674,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "transparent",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 0,
+            "padY": 0,
+            "radius": 0
+          },
+          "variant": "pdf-no-price-row"
         },
         {
           "id": "pg018-2",
@@ -691,8 +698,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "transparent",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 0,
+            "padY": 0,
+            "radius": 0
+          },
+          "variant": "pdf-no-price-row"
         },
         {
           "id": "pg018-3",
@@ -708,8 +722,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "transparent",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 0,
+            "padY": 0,
+            "radius": 0
+          },
+          "variant": "pdf-no-price-row"
         },
         {
           "id": "pg018-4",
@@ -725,8 +746,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "transparent",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 0,
+            "padY": 0,
+            "radius": 0
+          },
+          "variant": "pdf-no-price-row"
         }
       ]
     },
@@ -736,7 +764,7 @@ window.CATALOG_DATA = {
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-019.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/page-019.jpg?v=20260604-lexo-page19-replaced",
         "width": 1013,
         "height": 1432
       },
@@ -760,8 +788,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "#f5f5f5",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 1,
+            "padY": 0,
+            "radius": 2
+          },
+          "variant": "pdf-embedded-price-row"
         },
         {
           "id": "pg019-2",
@@ -777,8 +812,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "#f5f5f5",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 1,
+            "padY": 0,
+            "radius": 2
+          },
+          "variant": "pdf-embedded-price-row"
         },
         {
           "id": "pg019-3",
@@ -794,8 +836,15 @@ window.CATALOG_DATA = {
           },
           "positionSource": "priced-pdf",
           "style": {
-            "background": "#f5f5f5"
-          }
+            "background": "#f5f5f5",
+            "fontSize": 13,
+            "minWidth": 54,
+            "minHeight": 15,
+            "padX": 1,
+            "padY": 0,
+            "radius": 2
+          },
+          "variant": "pdf-embedded-price-row"
         }
       ]
     },

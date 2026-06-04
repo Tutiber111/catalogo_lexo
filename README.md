@@ -47,6 +47,26 @@ update public.profiles set role = 'admin' where email = 'your-email@example.com'
 
 After that, customer orders save to Supabase and the hidden admin popup can load all remote orders.
 
+### Salesman / Client Setup
+
+The migration `supabase/migrations/20260604000000_add_salesman_clients.sql` adds:
+
+- `salesman` as a profile role.
+- `profiles.salesman_code` for salesman accounts.
+- `profiles.assigned_salesman_code` for customer accounts linked through "Código de vendedor".
+- `salesmen` and `sales_clients`, seeded from `Clientes.xlsx`.
+- client metadata columns on `orders` for the selected client code/address.
+
+To make an existing logged-in account a salesman, use the numeric code from the client spreadsheet:
+
+```sql
+update public.profiles
+set role = 'salesman', salesman_code = '845'
+where email = 'salesman@example.com';
+```
+
+Salesmen can only search and select clients assigned to their `salesman_code`. Admins can search every imported client.
+
 ## Supabase Order Notifications
 
 New Supabase orders can send an email notification through the `send-order-notifications` Edge Function.
