@@ -242,6 +242,17 @@
     }
   }
 
+  async function resendOrderNotification(orderId) {
+    if (!client || !orderId) throw new Error("Supabase no está disponible.");
+    const { data, error } = await client.functions.invoke("send-order-notifications", {
+      body: { order_id: orderId, force: true },
+    });
+    if (error) throw error;
+    const failed = data?.results?.find((result) => result.status === "failed");
+    if (failed) throw new Error(failed.error || "No se pudo reenviar el email.");
+    return data;
+  }
+
   async function loadMyOrders(userId) {
     if (!client || !userId) return [];
     const { data, error } = await client
@@ -257,14 +268,31 @@
     if (!client) return [];
     const { data, error } = await client.from("orders").select("*, order_items(*)").order("created_at", { ascending: false });
     if (error) throw error;
-    return data.map(normalizeOrder);
+    return withOrderNotifications(data.map(normalizeOrder));
   }
 
   async function loadActiveOrders() {
     if (!client) return [];
     const { data, error } = await client.from("orders").select("*, order_items(*)").neq("status", "sent").order("created_at", { ascending: false });
     if (error) throw error;
-    return data.map(normalizeOrder);
+    return withOrderNotifications(data.map(normalizeOrder));
+  }
+
+  async function withOrderNotifications(orders) {
+    if (!orders.length) return orders;
+    try {
+      const ids = orders.map((order) => order.id);
+      const { data, error } = await client
+        .from("order_notifications")
+        .select("order_id,status,attempts,last_error,resend_email_id,resend_to,sent_at,updated_at")
+        .in("order_id", ids);
+      if (error) throw error;
+      const byOrderId = new Map((data || []).map((row) => [row.order_id, normalizeOrderNotification(row)]));
+      return orders.map((order) => ({ ...order, notification: byOrderId.get(order.id) || null }));
+    } catch (error) {
+      console.warn("No se pudieron cargar las notificaciones de pedidos", error);
+      return orders;
+    }
   }
 
   async function loadProductOverrides() {
@@ -379,6 +407,19 @@
       })),
       totalItems: order.total_items,
       totalValue: Number(order.total_value || 0),
+      notification: order.notification ? normalizeOrderNotification(order.notification) : null,
+    };
+  }
+
+  function normalizeOrderNotification(row = {}) {
+    return {
+      status: row.status || "",
+      attempts: Number(row.attempts || 0),
+      lastError: row.last_error || "",
+      resendEmailId: row.resend_email_id || "",
+      resendTo: row.resend_to || "",
+      sentAt: row.sent_at || "",
+      updatedAt: row.updated_at || "",
     };
   }
 
@@ -420,6 +461,7 @@
     createSalesClient,
     saveOrder,
     requestOrderNotification,
+    resendOrderNotification,
     loadMyOrders,
     loadAllOrders,
     loadActiveOrders,

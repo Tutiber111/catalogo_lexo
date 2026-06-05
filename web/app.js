@@ -2,7 +2,7 @@ const state = {
   catalog: null,
   currentIndex: 0,
   zoom: Number(localStorage.getItem("catalogZoom") || 100),
-  brandFilter: localStorage.getItem("catalogBrandFilter") || "all",
+  brandFilter: "all",
   productsById: new Map(),
   productOverrides: {},
   cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
@@ -73,7 +73,6 @@ const els = {
   newPasswordForm: document.querySelector("#newPasswordForm"),
   authEmail: document.querySelector("#authEmail"),
   authPassword: document.querySelector("#authPassword"),
-  authSalesmanCode: document.querySelector("#authSalesmanCode"),
   createEmail: document.querySelector("#createEmail"),
   createPassword: document.querySelector("#createPassword"),
   createSalesmanCode: document.querySelector("#createSalesmanCode"),
@@ -104,6 +103,7 @@ const els = {
 async function init() {
   await loadCatalogData();
 
+  localStorage.removeItem("catalogBrandFilter");
   els.brandName.textContent = state.settings.brandName;
   els.catalogLabel.textContent = state.settings.catalogLabel;
   els.cartClientName.value = localStorage.getItem("catalogCartClientName") || "";
@@ -186,6 +186,8 @@ function bindEvents() {
   els.updatePassword.addEventListener("click", updatePassword);
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
+  els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
+  els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
   els.cartSalesClientSearch.addEventListener("input", renderSalesClientResults);
   els.cartSalesClientSearch.addEventListener("focus", renderSalesClientResults);
   els.clearSalesClient.addEventListener("click", clearSelectedSalesClient);
@@ -274,7 +276,6 @@ function renderBrandTabs() {
   els.brandTabs.querySelectorAll("[data-brand]").forEach((button) => {
     button.addEventListener("click", () => {
       state.brandFilter = button.dataset.brand;
-      localStorage.setItem("catalogBrandFilter", state.brandFilter);
       renderBrandTabs();
       goToFirstVisiblePage();
     });
@@ -283,15 +284,16 @@ function renderBrandTabs() {
 
 function renderLists() {
   const query = els.searchInput.value.trim().toLowerCase();
+  const hasQuery = Boolean(query);
   renderSkuRecommendations(query);
-  const pages = visiblePages().filter((page) => {
+  const pages = (hasQuery ? state.catalog.pages : visiblePages()).filter((page) => {
     if (!query) return true;
     const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
     return [page.title, page.section, String(page.number), ...products.flatMap(searchFields)].join(" ").toLowerCase().includes(query);
   });
 
   const products = state.catalog.products.filter(
-    (product) => brandMatches(product.section) && isVisibleProduct(product) && searchFields(product).join(" ").toLowerCase().includes(query),
+    (product) => (hasQuery || brandMatches(product.section)) && isVisibleProduct(product) && searchFields(product).join(" ").toLowerCase().includes(query),
   );
 
   els.pagesPanel.innerHTML = pages
@@ -321,7 +323,9 @@ function renderLists() {
 
   els.pagesPanel.querySelectorAll("[data-page]").forEach((button) => {
     button.addEventListener("click", () => {
-      const index = state.catalog.pages.findIndex((page) => page.number === Number(button.dataset.page));
+      const page = state.catalog.pages.find((item) => item.number === Number(button.dataset.page));
+      const index = page ? state.catalog.pages.indexOf(page) : -1;
+      if (page && !brandMatches(page.section)) clearBrandFilter();
       goToPage(index);
     });
   });
@@ -330,6 +334,7 @@ function renderLists() {
     button.addEventListener("click", () => {
       const product = state.productsById.get(button.dataset.product);
       const index = state.catalog.pages.findIndex((page) => page.number === product.page);
+      if (!brandMatches(product.section)) clearBrandFilter();
       goToPage(index);
       openProduct(product);
     });
@@ -348,7 +353,7 @@ function renderSkuRecommendations(query) {
   }
 
   const matches = state.catalog.products
-    .filter((product) => brandMatches(product.section) && isVisibleProduct(product))
+    .filter((product) => isVisibleProduct(product))
     .map((product) => matchingProductRecommendation(product, skuQuery, textQuery))
     .filter(Boolean)
     .sort((first, second) => {
@@ -381,15 +386,19 @@ function renderSkuRecommendations(query) {
       const product = state.productsById.get(button.dataset.product);
       if (!product) return;
       const index = state.catalog.pages.findIndex((page) => page.number === product.page);
-      state.brandFilter = "all";
-      localStorage.setItem("catalogBrandFilter", state.brandFilter);
+      clearBrandFilter();
       els.searchInput.value = "";
-      renderBrandTabs();
-      renderLists();
       goToPage(index);
       scrollPageCardIntoView(product.page);
     });
   });
+}
+
+function clearBrandFilter() {
+  if (state.brandFilter === "all") return;
+  state.brandFilter = "all";
+  renderBrandTabs();
+  renderLists();
 }
 
 function renderAll() {
@@ -636,6 +645,14 @@ function openProduct(product) {
     });
   }
   els.productDialog.showModal();
+}
+
+function clearCatalogSelectionFocus() {
+  const active = document.activeElement;
+  if (active && (active.matches?.(".hotspot, .price-overlay") || els.productDialog.contains(active))) {
+    active.blur();
+  }
+  els.pageStrip.querySelectorAll(".hotspot, .price-overlay").forEach((button) => button.blur());
 }
 
 function addToCart(productId, quantity = 1) {
@@ -1170,28 +1187,7 @@ function normalizeSalesmanCode(value) {
 }
 
 function readEnteredSalesmanCode() {
-  return normalizeSalesmanCode(els.authSalesmanCode.value || els.createSalesmanCode.value);
-}
-
-async function assignEnteredSalesmanCode() {
-  const code = readEnteredSalesmanCode();
-  if (!code || !state.user || state.profile?.role !== "customer") return;
-
-  if (state.profile?.assigned_salesman_code) {
-    if (state.profile.assigned_salesman_code !== code) {
-      showToast("Tu cuenta ya tiene un vendedor asignado");
-    }
-    return;
-  }
-
-  state.profile = await CATALOG_SUPABASE.upsertProfile(state.user, {
-    name: els.authName.value,
-    phone: els.authPhone.value,
-    company: els.authCompany.value,
-    assignedSalesmanCode: code,
-  });
-  applyProfileToAuthFields();
-  showToast("Vendedor asignado a tu cuenta");
+  return normalizeSalesmanCode(els.createSalesmanCode.value);
 }
 
 async function initAccount() {
@@ -1258,7 +1254,6 @@ async function signIn() {
     state.user = await CATALOG_SUPABASE.signIn(els.authEmail.value.trim(), els.authPassword.value);
     state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
     if (!state.profile) state.profile = await saveCustomerProfile();
-    await assignEnteredSalesmanCode();
     applyProfileToAuthFields();
     await loadSalesClients();
     renderAccount();
@@ -1304,7 +1299,6 @@ function showCreateAccount() {
   clearAuthMessage();
   els.createEmail.value = els.authEmail.value.trim();
   els.createPassword.value = els.authPassword.value;
-  els.createSalesmanCode.value = els.authSalesmanCode.value.trim();
   setAuthMode("creating");
   els.createEmail.focus();
 }
@@ -1312,7 +1306,6 @@ function showCreateAccount() {
 function showSignIn() {
   clearAuthMessage();
   els.authEmail.value = els.createEmail.value.trim() || els.authEmail.value;
-  els.authSalesmanCode.value = els.createSalesmanCode.value.trim() || els.authSalesmanCode.value;
   els.authPassword.value = "";
   els.createPassword.value = "";
   els.newPassword.value = "";
@@ -1408,7 +1401,6 @@ function applyProfileToAuthFields() {
   els.authPhone.value = state.profile.phone || els.authPhone.value;
   els.authCompany.value = state.profile.company || "";
   if (state.profile.assigned_salesman_code) {
-    els.authSalesmanCode.value = state.profile.assigned_salesman_code;
     els.createSalesmanCode.value = state.profile.assigned_salesman_code;
   }
 }

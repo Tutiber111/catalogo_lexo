@@ -96,6 +96,8 @@ create table if not exists public.order_notifications (
   status text not null default 'pending' check (status in ('pending', 'processing', 'sent', 'failed')),
   attempts integer not null default 0,
   last_error text not null default '',
+  resend_email_id text not null default '',
+  resend_to text not null default '',
   sent_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -111,6 +113,8 @@ alter table public.orders add column if not exists sales_client_name text not nu
 alter table public.orders add column if not exists sales_client_address text not null default '';
 alter table public.orders add column if not exists sales_client_locality text not null default '';
 alter table public.orders add column if not exists salesman_code text not null default '';
+alter table public.order_notifications add column if not exists resend_email_id text not null default '';
+alter table public.order_notifications add column if not exists resend_to text not null default '';
 
 do $$
 begin

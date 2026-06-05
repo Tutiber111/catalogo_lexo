@@ -851,7 +851,7 @@ body.auth-checking .auth-fields {
 }
 
 #signInForm {
-  max-height: 350px;
+  max-height: 270px;
   opacity: 1;
 }
 
@@ -1609,10 +1609,33 @@ body.auth-checking .auth-fields {
 
 .order-card-header p,
 .order-notes,
+.order-notification-status,
 .empty-state {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 13px;
+}
+
+.order-notification-status {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  line-height: 1.35;
+}
+
+.order-notification-status.is-warning {
+  border-color: rgba(184, 15, 26, 0.25);
+  color: var(--brand-dark);
+  background: rgba(184, 15, 26, 0.06);
+}
+
+.order-notification-status span {
+  display: block;
+  color: var(--brand-dark);
+  overflow-wrap: anywhere;
 }
 
 .order-card select {

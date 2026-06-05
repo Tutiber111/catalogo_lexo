@@ -418,6 +418,22 @@
         }
       });
     });
+
+    adminEls.ordersList.querySelectorAll("[data-resend-order]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        try {
+          button.disabled = true;
+          button.textContent = "Reenviando...";
+          await CATALOG_SUPABASE.resendOrderNotification(button.dataset.resendOrder);
+          await renderOrders();
+          showToast("Email reenviado");
+        } catch (error) {
+          button.disabled = false;
+          button.textContent = "Reenviar email";
+          showToast(error.message || "No se pudo reenviar el email");
+        }
+      });
+    });
   }
 
   function renderOrderCard(order) {
@@ -435,14 +451,32 @@
         <div class="order-lines">
           ${order.items.map((item) => `<span>${item.qty} x ${escapeHtml(item.sku)} - ${escapeHtml(item.name)} - ${CATALOG_STORE.formatMoney(item.lineTotal)}</span>`).join("")}
         </div>
+        ${renderNotificationStatus(order)}
         ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
         <div class="order-card-footer">
           <strong>${order.totalItems} unidades - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
+          ${order.remote ? `<button class="secondary-button" type="button" data-resend-order="${escapeHtml(order.id)}">Reenviar email</button>` : ""}
           <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Eliminar</button>
         </div>
       </article>
     `;
   }
+
+  function renderNotificationStatus(order) {
+    if (!order.remote) return "";
+    const notification = order.notification;
+    if (!notification) return `<p class="order-notification-status is-warning">Email: sin registro de notificación.</p>`;
+    const parts = [
+      `Email: ${notificationStatusLabel(notification.status)}`,
+      notification.attempts ? `${notification.attempts} intento${notification.attempts === 1 ? "" : "s"}` : "",
+      notification.sentAt ? `enviado ${formatDate(notification.sentAt)}` : "",
+      notification.resendEmailId ? `Resend ID ${notification.resendEmailId}` : "",
+      notification.resendTo ? `para ${notification.resendTo}` : "",
+    ].filter(Boolean);
+    const error = notification.lastError ? `<span>${escapeHtml(notification.lastError)}</span>` : "";
+    return `<p class="order-notification-status${notification.status === "failed" ? " is-warning" : ""}">${escapeHtml(parts.join(" - "))}${error}</p>`;
+  }
+
 
   async function loadAdminOrders() {
     return loadAdminOrderSet(false);
@@ -593,6 +627,15 @@
       packed: "preparado",
       sent: "enviado",
       cancelled: "cancelado",
+    }[status] || status || "";
+  }
+
+  function notificationStatusLabel(status) {
+    return {
+      pending: "pendiente",
+      processing: "procesando",
+      sent: "aceptado por Resend",
+      failed: "falló",
     }[status] || status || "";
   }
 

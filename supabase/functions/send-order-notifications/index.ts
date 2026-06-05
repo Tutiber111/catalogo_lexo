@@ -7,6 +7,11 @@ type OrderNotification = {
   attempts: number;
 };
 
+type RequestContext = {
+  userId: string;
+  isAdmin: boolean;
+};
+
 type OrderItem = {
   sku: string;
   name: string;
@@ -43,6 +48,11 @@ type EmailAttachment = {
   content_type: string;
 };
 
+type SentEmail = {
+  id: string;
+  to: string[];
+};
+
 const ORDER_TEMPLATE_SHEET_PATH = "xl/worksheets/sheet3.xml";
 const ORDER_TEMPLATE_LAST_INPUT_ROW = 262;
 
@@ -58,7 +68,11 @@ Deno.serve(async (req) => {
 
   try {
     const body = await readJson(req);
-    const result = await sendPendingOrderNotifications(body.order_id);
+    const context = await loadRequestContext(req);
+    const result = await sendPendingOrderNotifications(body.order_id, {
+      context,
+      force: Boolean(body.force),
+    });
     return jsonResponse(result);
   } catch (error) {
     console.error(error);
@@ -66,8 +80,14 @@ Deno.serve(async (req) => {
   }
 });
 
-async function sendPendingOrderNotifications(orderId?: string) {
-  if (orderId) await ensureNotification(orderId);
+async function sendPendingOrderNotifications(orderId: string | undefined, options: { context: RequestContext; force?: boolean }) {
+  if (orderId) {
+    if (options.force && !options.context.isAdmin) {
+      throw new Error("Only admins can resend order emails.");
+    }
+    await ensureCanSendOrderNotification(orderId, options.context);
+    await ensureNotification(orderId, Boolean(options.force));
+  }
 
   const notifications = await loadPendingNotifications(orderId);
   const results = [];
@@ -78,17 +98,20 @@ async function sendPendingOrderNotifications(orderId?: string) {
 
     try {
       const order = await loadOrder(notification.order_id);
-      await sendOrderEmail(order);
+      const sentEmail = await sendOrderEmail(order);
       await updateNotification(notification.id, {
         status: "sent",
         sent_at: new Date().toISOString(),
+        resend_email_id: sentEmail.id,
+        resend_to: sentEmail.to.join(", "),
         last_error: "",
       });
-      results.push({ order_id: notification.order_id, status: "sent" });
+      results.push({ order_id: notification.order_id, status: "sent", email_id: sentEmail.id });
     } catch (error) {
       const message = errorMessage(error);
       await updateNotification(notification.id, {
         status: "failed",
+        resend_email_id: "",
         last_error: message,
       });
       results.push({ order_id: notification.order_id, status: "failed", error: message });
@@ -98,11 +121,49 @@ async function sendPendingOrderNotifications(orderId?: string) {
   return { processed: results.length, results };
 }
 
-async function ensureNotification(orderId: string) {
+async function ensureCanSendOrderNotification(orderId: string, context: RequestContext) {
+  if (context.isAdmin) return;
+  const params = new URLSearchParams({
+    id: `eq.${orderId}`,
+    customer_id: `eq.${context.userId}`,
+    select: "id",
+    limit: "1",
+  });
+  const response = await supabaseFetch(`/rest/v1/orders?${params}`);
+  const rows = await response.json();
+  if (!rows.length) throw new Error("You can only send notifications for your own orders.");
+}
+
+async function ensureNotification(orderId: string, force = false) {
+  if (force) {
+    const params = new URLSearchParams({
+      order_id: `eq.${orderId}`,
+      select: "id",
+    });
+    const response = await supabaseFetch(`/rest/v1/order_notifications?${params}`, {
+      method: "PATCH",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify({
+        status: "pending",
+        last_error: "",
+        resend_email_id: "",
+        updated_at: new Date().toISOString(),
+      }),
+    });
+    const rows = await response.json();
+    if (rows.length) return;
+  }
+
   await supabaseFetch("/rest/v1/order_notifications?on_conflict=order_id", {
     method: "POST",
-    headers: { Prefer: "resolution=ignore-duplicates" },
-    body: JSON.stringify({ order_id: orderId }),
+    headers: { Prefer: force ? "resolution=merge-duplicates" : "resolution=ignore-duplicates" },
+    body: JSON.stringify({
+      order_id: orderId,
+      status: "pending",
+      last_error: "",
+      resend_email_id: "",
+      updated_at: new Date().toISOString(),
+    }),
   });
 }
 
@@ -163,6 +224,40 @@ async function loadCustomerEmail(customerId: string) {
   return rows[0]?.email || "";
 }
 
+async function loadRequestContext(req: Request): Promise<RequestContext> {
+  const authorization = req.headers.get("authorization") || "";
+  if (!authorization.toLowerCase().startsWith("bearer ")) {
+    throw new Error("Missing authenticated user.");
+  }
+
+  const userResponse = await fetch(`${requiredEnv("SUPABASE_URL")}/auth/v1/user`, {
+    headers: {
+      apikey: serviceRoleKey(),
+      Authorization: authorization,
+    },
+  });
+  if (!userResponse.ok) {
+    throw new Error("Invalid authenticated user.");
+  }
+
+  const user = await userResponse.json();
+  const userId = String(user.id || "");
+  if (!userId) throw new Error("Invalid authenticated user.");
+
+  const params = new URLSearchParams({
+    id: `eq.${userId}`,
+    select: "role",
+    limit: "1",
+  });
+  const profileResponse = await supabaseFetch(`/rest/v1/profiles?${params}`);
+  const rows = await profileResponse.json();
+
+  return {
+    userId,
+    isAdmin: String(rows[0]?.role || "") === "admin",
+  };
+}
+
 async function updateNotification(id: string, patch: Record<string, unknown>) {
   await supabaseFetch(`/rest/v1/order_notifications?id=eq.${id}`, {
     method: "PATCH",
@@ -170,7 +265,7 @@ async function updateNotification(id: string, patch: Record<string, unknown>) {
   });
 }
 
-async function sendOrderEmail(order: Order) {
+async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const apiKey = requiredEnv("RESEND_API_KEY");
   const to = emailList(requiredEnv("ORDER_NOTIFICATION_TO"));
   const from = requiredEnv("ORDER_NOTIFICATION_FROM");
@@ -195,6 +290,12 @@ async function sendOrderEmail(order: Order) {
     const message = await response.text();
     throw new Error(`Resend failed: ${response.status} ${message}`);
   }
+
+  const result = await response.json();
+  return {
+    id: String(result.id || ""),
+    to,
+  };
 }
 
 async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachment> {
@@ -261,10 +362,14 @@ function updateXmlFile(files: Record<string, Uint8Array>, path: string, update: 
 }
 
 function markWorkbookForFullCalculation(workbookXml: string) {
-  const calcPr = '<calcPr calcMode="auto" fullCalcOnLoad="1" forceFullCalc="1" calcOnSave="1"/>';
+  const calcPr = '<calcPr calcId="0" calcMode="auto" fullCalcOnLoad="1" forceFullCalc="1" calcOnSave="1"/>';
 
   if (/<calcPr\b[^>]*\/>/.test(workbookXml)) {
     return workbookXml.replace(/<calcPr\b[^>]*\/>/, calcPr);
+  }
+
+  if (/<calcPr\b[^>]*>[\s\S]*?<\/calcPr>/.test(workbookXml)) {
+    return workbookXml.replace(/<calcPr\b[^>]*>[\s\S]*?<\/calcPr>/, calcPr);
   }
 
   return workbookXml.replace("</workbook>", `${calcPr}</workbook>`);
@@ -273,8 +378,23 @@ function markWorkbookForFullCalculation(workbookXml: string) {
 function clearCachedFormulaValues(sheetXml: string) {
   return sheetXml.replace(/<c\b[^>]*\/>|<c\b[^>]*>[\s\S]*?<\/c>/g, (cellXml) => {
     if (!cellXml.includes("<f")) return cellXml;
-    return cellXml.replace(/<v(?:\/>|>[\s\S]*?<\/v>)/g, "");
+    return markFormulaCellsDirty(cellXml).replace(/<v(?:\/>|>[\s\S]*?<\/v>)/g, "");
   });
+}
+
+function markFormulaCellsDirty(cellXml: string) {
+  return cellXml.replace(/<f\b([^>]*)>/g, (_match, attributes: string) => {
+    const nextAttributes = setXmlAttribute(setXmlAttribute(attributes, "ca", "1"), "aca", "1");
+    return `<f${nextAttributes}>`;
+  });
+}
+
+function setXmlAttribute(attributes: string, name: string, value: string) {
+  const pattern = new RegExp(`\\s${name}="[^"]*"`);
+  if (pattern.test(attributes)) {
+    return attributes.replace(pattern, ` ${name}="${value}"`);
+  }
+  return `${attributes} ${name}="${value}"`;
 }
 
 function clearOrderInputCells(sheetXml: string, itemCount: number) {
