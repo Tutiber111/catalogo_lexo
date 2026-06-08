@@ -13,7 +13,7 @@
           <span id="catalogLabel" class="eyebrow">Catálogo interactivo</span>
           <h1 id="brandName">LEXO</h1>
           <p id="catalogMeta">Cargando catálogo...</p>
-          <button id="openAdmin" class="admin-entry-button" type="button" aria-label="Abrir administración"></button>
+          <button id="openAdmin" class="admin-entry-button" type="button" hidden>Admin</button>
         </div>
 
         <div class="search-wrap">
@@ -214,25 +214,6 @@
       </aside>
 
       <aside id="adminDrawer" class="admin-drawer" aria-label="Administración" aria-hidden="true">
-        <section id="adminLogin" class="admin-login-panel">
-          <form id="loginForm" class="admin-card">
-            <div class="admin-panel-header">
-              <div>
-                <span class="eyebrow">Administración privada</span>
-                <h2>Administración</h2>
-              </div>
-              <button id="closeAdminLogin" class="icon-button" type="button" aria-label="Cerrar administración">×</button>
-            </div>
-            <p>Ingresá la contraseña de administración para ver pedidos. Para cargar pedidos de Supabase, primero iniciá sesión con una cuenta administradora desde el panel de perfil.</p>
-            <label>
-              <span>Contraseña</span>
-              <input id="adminPassword" type="password" autocomplete="current-password" required>
-            </label>
-            <button class="primary-button" type="submit">Desbloquear administración</button>
-            <p id="loginMessage" class="admin-message" role="status"></p>
-          </form>
-        </section>
-
         <section id="adminApp" class="admin-app-panel" hidden>
           <header class="admin-drawer-header">
             <div>
@@ -240,7 +221,6 @@
               <h2>Administración</h2>
             </div>
             <div class="admin-actions">
-              <button id="lockAdmin" class="secondary-button" type="button">Bloquear</button>
               <button id="closeAdmin" class="icon-button" type="button" aria-label="Cerrar administración">×</button>
             </div>
           </header>
@@ -260,6 +240,25 @@
               <p id="adminDataStatus" class="admin-data-status"></p>
               <div id="orderSummary" class="admin-summary"></div>
               <div id="ordersList" class="orders-list"></div>
+            </section>
+
+            <section class="admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Stock</span>
+                  <h2>Marcar producto sin stock</h2>
+                </div>
+              </div>
+              <p class="admin-data-status">Ingresá un código de producto para marcarlo como sin stock en Supabase.</p>
+              <form id="stockUpdateForm" class="admin-inline-form">
+                <label>
+                  <span>Código de producto</span>
+                  <input id="stockSkuInput" type="text" autocomplete="off" inputmode="numeric" placeholder="Ej: 41000">
+                </label>
+                <button id="markOutOfStock" class="primary-button" type="submit">Pasar a 0 stock</button>
+                <button id="undoStockChange" class="secondary-button" type="button" disabled>Deshacer</button>
+              </form>
+              <p id="stockUpdateStatus" class="admin-message" role="status"></p>
             </section>
 
             <section class="admin-panel">
@@ -305,10 +304,6 @@
                   <span>Número de WhatsApp</span>
                   <input id="settingWhatsapp" type="tel" placeholder="549...">
                 </label>
-                <label>
-                  <span>Nueva contraseña</span>
-                  <input id="settingPassword" type="password" autocomplete="new-password" placeholder="Dejar en blanco para mantener la actual">
-                </label>
               </div>
             </section>
           </div>
@@ -323,6 +318,13 @@
       <div id="dialogContent"></div>
     </dialog>
 
+    <dialog id="adminOrderDialog" class="admin-order-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
+      </form>
+      <div id="adminOrderDialogContent"></div>
+    </dialog>
+
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="data/catalog-data.js?v=20260518-leifheit-41000"></script>
@@ -330,7 +332,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js?v=20260603-stock-status"></script>
     <script src="supabase-client.js?v=20260603-stock-status"></script>
-    <script src="app.js?v=20260603-name-recommendations"></script>
-    <script src="admin.js?v=20260603-stock-status"></script>
+    <script src="app.js?v=20260608-admin-stock"></script>
+    <script src="admin.js?v=20260608-admin-stock"></script>
   </body>
 </html>

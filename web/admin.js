@@ -3,23 +3,18 @@
     settings: CATALOG_STORE.loadSettings(),
     orders: [],
     source: "local",
+    isAdmin: false,
+    lastStockChange: null,
   };
 
   const adminEls = {
     openAdmin: document.querySelector("#openAdmin"),
     adminDrawer: document.querySelector("#adminDrawer"),
-    adminLogin: document.querySelector("#adminLogin"),
     adminApp: document.querySelector("#adminApp"),
-    loginForm: document.querySelector("#loginForm"),
-    adminPassword: document.querySelector("#adminPassword"),
-    loginMessage: document.querySelector("#loginMessage"),
-    closeAdminLogin: document.querySelector("#closeAdminLogin"),
     closeAdmin: document.querySelector("#closeAdmin"),
-    lockAdmin: document.querySelector("#lockAdmin"),
     settingBrandName: document.querySelector("#settingBrandName"),
     settingCatalogLabel: document.querySelector("#settingCatalogLabel"),
     settingWhatsapp: document.querySelector("#settingWhatsapp"),
-    settingPassword: document.querySelector("#settingPassword"),
     saveSettings: document.querySelector("#saveSettings"),
     adminDataStatus: document.querySelector("#adminDataStatus"),
     orderSummary: document.querySelector("#orderSummary"),
@@ -31,38 +26,65 @@
     importPriceList: document.querySelector("#importPriceList"),
     clearProductOverrides: document.querySelector("#clearProductOverrides"),
     priceListImportStatus: document.querySelector("#priceListImportStatus"),
+    stockUpdateForm: document.querySelector("#stockUpdateForm"),
+    stockSkuInput: document.querySelector("#stockSkuInput"),
+    markOutOfStock: document.querySelector("#markOutOfStock"),
+    undoStockChange: document.querySelector("#undoStockChange"),
+    stockUpdateStatus: document.querySelector("#stockUpdateStatus"),
+    adminOrderDialog: document.querySelector("#adminOrderDialog"),
+    adminOrderDialogContent: document.querySelector("#adminOrderDialogContent"),
     toast: document.querySelector("#toast"),
   };
 
   function initAdmin() {
     bindAdminEvents();
-    if (location.hash === "#admin") openAdmin();
+    refreshAdminAccess();
   }
 
   function bindAdminEvents() {
     adminEls.openAdmin.addEventListener("click", openAdmin);
-    adminEls.closeAdminLogin.addEventListener("click", closeAdmin);
     adminEls.closeAdmin.addEventListener("click", closeAdmin);
-    adminEls.loginForm.addEventListener("submit", unlockAdmin);
-    adminEls.lockAdmin.addEventListener("click", lockAdmin);
     adminEls.saveSettings.addEventListener("click", saveSettings);
     adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
     adminEls.clearOrders.addEventListener("click", clearLocalOrders);
     adminEls.downloadPriceTemplate.addEventListener("click", downloadPriceTemplate);
     adminEls.importPriceList.addEventListener("click", importPriceList);
     adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
+    adminEls.stockUpdateForm.addEventListener("submit", markSkuOutOfStock);
+    adminEls.undoStockChange.addEventListener("click", undoLastStockChange);
+    adminEls.adminOrderDialog.addEventListener("close", () => {
+      adminEls.adminOrderDialogContent.innerHTML = "";
+    });
     window.addEventListener("catalog:orders-changed", () => renderOrders());
+    window.addEventListener("catalog:auth-changed", (event) => refreshAdminAccess(event.detail));
+  }
+
+  async function refreshAdminAccess(detail = {}) {
+    adminState.isAdmin = detail.profile?.role === "admin";
+
+    if (!detail.profile && CATALOG_SUPABASE.isAvailable()) {
+      try {
+        const user = await CATALOG_SUPABASE.getUser();
+        const profile = user ? await CATALOG_SUPABASE.getProfile(user.id) : null;
+        adminState.isAdmin = profile?.role === "admin";
+      } catch (error) {
+        adminState.isAdmin = false;
+      }
+    }
+
+    adminEls.openAdmin.hidden = !adminState.isAdmin;
+    if (!adminState.isAdmin) closeAdmin();
+    else if (location.hash === "#admin") openAdmin();
   }
 
   function openAdmin() {
+    if (!adminState.isAdmin) {
+      showToast("Iniciá sesión con una cuenta administradora");
+      return;
+    }
     adminEls.adminDrawer.classList.add("is-open");
     adminEls.adminDrawer.setAttribute("aria-hidden", "false");
-    if (sessionStorage.getItem("catalogAdminUnlocked") === "true") showAdmin();
-    else {
-      adminEls.adminLogin.hidden = false;
-      adminEls.adminApp.hidden = true;
-      adminEls.adminPassword.focus();
-    }
+    showAdmin();
   }
 
   function closeAdmin() {
@@ -71,36 +93,10 @@
     if (location.hash === "#admin") history.replaceState(null, "", location.pathname + location.search);
   }
 
-  async function unlockAdmin(event) {
-    event.preventDefault();
-    try {
-      const hash = await CATALOG_STORE.hashString(adminEls.adminPassword.value);
-      if (hash !== adminState.settings.adminPasswordHash) {
-        adminEls.loginMessage.textContent = "Contraseña incorrecta.";
-        return;
-      }
-
-      sessionStorage.setItem("catalogAdminUnlocked", "true");
-      adminEls.adminPassword.value = "";
-      adminEls.loginMessage.textContent = "";
-      showAdmin();
-    } catch (error) {
-      adminEls.loginMessage.textContent = error.message;
-    }
-  }
-
   function showAdmin() {
-    adminEls.adminLogin.hidden = true;
     adminEls.adminApp.hidden = false;
     fillSettings();
     renderOrders();
-  }
-
-  function lockAdmin() {
-    sessionStorage.removeItem("catalogAdminUnlocked");
-    adminEls.adminApp.hidden = true;
-    adminEls.adminLogin.hidden = false;
-    adminEls.adminPassword.focus();
   }
 
   function fillSettings() {
@@ -108,7 +104,6 @@
     adminEls.settingBrandName.value = adminState.settings.brandName;
     adminEls.settingCatalogLabel.value = adminState.settings.catalogLabel;
     adminEls.settingWhatsapp.value = adminState.settings.whatsappNumber;
-    adminEls.settingPassword.value = "";
   }
 
   async function saveSettings() {
@@ -118,14 +113,9 @@
       whatsappNumber: adminEls.settingWhatsapp.value.trim(),
     };
 
-    if (adminEls.settingPassword.value) {
-      nextSettings.adminPasswordHash = await CATALOG_STORE.hashString(adminEls.settingPassword.value);
-    }
-
     adminState.settings = CATALOG_STORE.saveSettings(nextSettings);
     document.querySelector("#brandName").textContent = adminState.settings.brandName;
     document.querySelector("#catalogLabel").textContent = adminState.settings.catalogLabel;
-    adminEls.settingPassword.value = "";
     showToast("Configuración guardada");
   }
 
@@ -231,6 +221,119 @@
     showToast("Vista previa local borrada");
   }
 
+  async function markSkuOutOfStock(event) {
+    event.preventDefault();
+    const sku = normalizeSku(adminEls.stockSkuInput.value);
+    if (!sku) {
+      setStockStatus("Ingresá un código de producto.");
+      return;
+    }
+    if (!adminState.isAdmin) {
+      setStockStatus("Iniciá sesión con una cuenta administradora.");
+      return;
+    }
+    if (!CATALOG_SUPABASE.isAvailable()) {
+      setStockStatus("Supabase no está disponible.");
+      return;
+    }
+
+    try {
+      setStockBusy(true, "Actualizando...");
+      setStockStatus("");
+      const currentOverrides = await loadCurrentProductOverrides();
+      const products = findProductsBySku(sku, currentOverrides);
+      if (!products.length) {
+        setStockStatus(`No existe ningún producto con código ${sku}.`);
+        return;
+      }
+
+      const nextOverrides = {};
+      const previousOverrides = {};
+      products.forEach((product) => {
+        previousOverrides[product.id] = buildStockOverride(product, currentOverrides, Boolean(product.outOfStock));
+        nextOverrides[product.id] = buildStockOverride(product, currentOverrides, true);
+      });
+
+      await CATALOG_SUPABASE.setProductStockStatus(nextOverrides, true);
+      CATALOG_STORE.saveProductOverrides(CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), nextOverrides));
+      adminState.lastStockChange = {
+        sku,
+        count: products.length,
+        overrides: previousOverrides,
+      };
+      adminEls.undoStockChange.disabled = false;
+      window.dispatchEvent(new CustomEvent("catalog:products-updated"));
+      setStockStatus(`${sku} marcado como 0 stock en ${products.length} producto${products.length === 1 ? "" : "s"}.`);
+      showToast("Producto actualizado a 0 stock");
+    } catch (error) {
+      setStockStatus(error.message || "No se pudo actualizar el stock.");
+      showToast("No se pudo actualizar el stock");
+    } finally {
+      setStockBusy(false);
+    }
+  }
+
+  async function undoLastStockChange() {
+    const change = adminState.lastStockChange;
+    if (!change) return;
+    try {
+      setStockBusy(true, "Deshaciendo...");
+      await CATALOG_SUPABASE.upsertProductOverrides(change.overrides);
+      CATALOG_STORE.saveProductOverrides(CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), change.overrides));
+      adminState.lastStockChange = null;
+      adminEls.undoStockChange.disabled = true;
+      window.dispatchEvent(new CustomEvent("catalog:products-updated"));
+      setStockStatus(`Cambio de ${change.sku} deshecho.`);
+      showToast("Cambio de stock deshecho");
+    } catch (error) {
+      setStockStatus(error.message || "No se pudo deshacer el cambio.");
+      showToast("No se pudo deshacer el cambio");
+    } finally {
+      setStockBusy(false);
+    }
+  }
+
+  async function loadCurrentProductOverrides() {
+    const localOverrides = CATALOG_STORE.loadProductOverrides();
+    try {
+      const remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
+      return CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
+    } catch (error) {
+      return localOverrides;
+    }
+  }
+
+  function findProductsBySku(sku, overrides = {}) {
+    const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
+    const productIndex = buildProductSkuIndex(catalog.products || []);
+    const matches = new Map();
+    (productIndex.primary.get(sku) || []).forEach((product) => matches.set(product.id, product));
+    (productIndex.related.get(sku) || []).forEach((product) => matches.set(product.id, product));
+    return [...matches.values()];
+  }
+
+  function buildStockOverride(product, overrides, outOfStock) {
+    return {
+      ...(overrides[product.id] || {}),
+      sku: product.sku,
+      name: product.name,
+      category: product.category || "",
+      price: product.price,
+      outOfStock,
+    };
+  }
+
+  function setStockBusy(isBusy, label = "Pasar a 0 stock") {
+    adminEls.markOutOfStock.disabled = isBusy;
+    adminEls.markOutOfStock.textContent = label;
+    adminEls.stockSkuInput.disabled = isBusy;
+    adminEls.undoStockChange.disabled = isBusy || !adminState.lastStockChange;
+  }
+
+  function setStockStatus(message) {
+    adminEls.stockUpdateStatus.textContent = message;
+  }
+
   function readPriceListRows(workbook) {
     const rows = [];
     workbook.SheetNames.forEach((sheetName) => {
@@ -297,14 +400,19 @@
     return { overrides, updatedProducts: updatedProductIds.size, matchedRows, unmatched };
   }
 
-  function buildProductSkuIndex() {
+  function buildProductSkuIndex(products = window.CATALOG_DATA?.products || []) {
     const primary = new Map();
     const related = new Map();
-    (window.CATALOG_DATA?.products || []).forEach((product) => {
+    products.forEach((product) => {
       addSkuIndex(primary, product.sku, product);
       (product.skus || []).forEach((sku) => addSkuIndex(related, sku, product));
     });
     return { primary, related };
+  }
+
+  function cloneCatalog(catalog) {
+    if (typeof structuredClone === "function") return structuredClone(catalog);
+    return JSON.parse(JSON.stringify(catalog));
   }
 
   function addSkuIndex(index, sku, product) {
@@ -392,7 +500,17 @@
     adminEls.ordersList.innerHTML =
       adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos guardados para esta fuente.</p>`;
 
+    adminEls.ordersList.querySelectorAll("[data-order-card]").forEach((card) => {
+      card.addEventListener("click", () => openOrderDialog(card.dataset.orderCard));
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openOrderDialog(card.dataset.orderCard);
+      });
+    });
+
     adminEls.ordersList.querySelectorAll("[data-status]").forEach((select) => {
+      select.addEventListener("click", (event) => event.stopPropagation());
       select.addEventListener("change", async () => {
         try {
           if (select.dataset.remote === "true") await CATALOG_SUPABASE.updateOrderStatus(select.dataset.status, select.value);
@@ -406,7 +524,8 @@
     });
 
     adminEls.ordersList.querySelectorAll("[data-delete-order]").forEach((button) => {
-      button.addEventListener("click", async () => {
+      button.addEventListener("click", async (event) => {
+        event.stopPropagation();
         if (!confirm("¿Eliminar este pedido guardado?")) return;
         try {
           if (button.dataset.remote === "true") await CATALOG_SUPABASE.deleteOrder(button.dataset.deleteOrder);
@@ -420,7 +539,8 @@
     });
 
     adminEls.ordersList.querySelectorAll("[data-resend-order]").forEach((button) => {
-      button.addEventListener("click", async () => {
+      button.addEventListener("click", async (event) => {
+        event.stopPropagation();
         try {
           button.disabled = true;
           button.textContent = "Reenviando...";
@@ -437,29 +557,119 @@
   }
 
   function renderOrderCard(order) {
+    const buyer = orderBuyerLabel(order);
     return `
-      <article class="order-card">
-        <div class="order-card-header">
-          <div>
-            <strong>${escapeHtml(order.displayId || order.id)}</strong>
-            <p>${formatDate(order.createdAt)}${order.customer?.name ? ` - ${escapeHtml(order.customer.name)}` : ""}${order.customer?.phone ? ` - ${escapeHtml(order.customer.phone)}` : ""}</p>
+      <article class="order-card order-card-compact" role="button" tabindex="0" data-order-card="${escapeHtml(order.id)}">
+        <div class="order-compact-main">
+          <div class="order-compact-buyer">
+            <strong>${escapeHtml(buyer)}</strong>
           </div>
+          <strong class="order-compact-total">${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
           <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
             ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${orderStatusLabel(status)}</option>`).join("")}
           </select>
+          <p class="order-compact-meta">${formatDate(order.createdAt)} · ${order.totalItems} unidad${order.totalItems === 1 ? "" : "es"}</p>
         </div>
-        <div class="order-lines">
-          ${order.items.map((item) => `<span>${item.qty} x ${escapeHtml(item.sku)} - ${escapeHtml(item.name)} - ${CATALOG_STORE.formatMoney(item.lineTotal)}</span>`).join("")}
+      </article>
+    `;
+  }
+
+  function openOrderDialog(orderId) {
+    const order = adminState.orders.find((item) => item.id === orderId);
+    if (!order) return;
+    adminEls.adminOrderDialogContent.innerHTML = renderOrderDialog(order);
+    bindOrderDialogActions(order);
+    if (typeof adminEls.adminOrderDialog.showModal === "function") adminEls.adminOrderDialog.showModal();
+    else adminEls.adminOrderDialog.setAttribute("open", "");
+  }
+
+  function renderOrderDialog(order) {
+    const buyer = orderBuyerLabel(order);
+    const salesClient = order.customer?.salesClient;
+    return `
+      <div class="admin-order-detail">
+        <div class="admin-order-detail-header">
+          <div>
+            <span class="eyebrow">Pedido</span>
+            <h2>${escapeHtml(order.displayId || order.id)}</h2>
+            <p>${formatDate(order.createdAt)}</p>
+          </div>
+          <strong>${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
+        </div>
+        <div class="admin-order-meta">
+          <span><strong>Comprador</strong>${escapeHtml(buyer)}</span>
+          <span><strong>Estado</strong>${escapeHtml(orderStatusLabel(order.status))}</span>
+          <span><strong>Unidades</strong>${escapeHtml(order.totalItems)}</span>
+          ${order.customer?.phone ? `<span><strong>Teléfono</strong>${escapeHtml(order.customer.phone)}</span>` : ""}
+          ${salesClient?.clientCode ? `<span><strong>Código cliente</strong>${escapeHtml(salesClient.clientCode)}</span>` : ""}
+          ${salesClientAddress(salesClient) ? `<span><strong>Dirección</strong>${escapeHtml(salesClientAddress(salesClient))}</span>` : ""}
+        </div>
+        <div class="order-lines order-lines-detail">
+          ${order.items.map((item) => `
+            <span>
+              <strong>${escapeHtml(item.qty)} x ${escapeHtml(item.sku)}</strong>
+              <em>${escapeHtml(item.name)}</em>
+              <b>${CATALOG_STORE.formatMoney(item.lineTotal)}</b>
+            </span>
+          `).join("")}
         </div>
         ${renderNotificationStatus(order)}
         ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
         <div class="order-card-footer">
-          <strong>${order.totalItems} unidades - ${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
-          ${order.remote ? `<button class="secondary-button" type="button" data-resend-order="${escapeHtml(order.id)}">Reenviar email</button>` : ""}
-          <button class="secondary-button danger-button" type="button" data-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Eliminar</button>
+          ${order.remote ? `<button class="secondary-button" type="button" data-dialog-resend-order="${escapeHtml(order.id)}">Reenviar email</button>` : ""}
+          <button class="secondary-button danger-button" type="button" data-dialog-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Eliminar</button>
         </div>
-      </article>
+      </div>
     `;
+  }
+
+  function bindOrderDialogActions(order) {
+    const resendButton = adminEls.adminOrderDialogContent.querySelector("[data-dialog-resend-order]");
+    if (resendButton) {
+      resendButton.addEventListener("click", async () => {
+        try {
+          resendButton.disabled = true;
+          resendButton.textContent = "Reenviando...";
+          await CATALOG_SUPABASE.resendOrderNotification(order.id);
+          closeOrderDialog();
+          await renderOrders();
+          showToast("Email reenviado");
+        } catch (error) {
+          resendButton.disabled = false;
+          resendButton.textContent = "Reenviar email";
+          showToast(error.message || "No se pudo reenviar el email");
+        }
+      });
+    }
+
+    const deleteButton = adminEls.adminOrderDialogContent.querySelector("[data-dialog-delete-order]");
+    if (deleteButton) {
+      deleteButton.addEventListener("click", async () => {
+        if (!confirm("¿Eliminar este pedido guardado?")) return;
+        try {
+          if (order.remote) await CATALOG_SUPABASE.deleteOrder(order.id);
+          else CATALOG_STORE.deleteOrder(order.id);
+          closeOrderDialog();
+          await renderOrders();
+          showToast("Pedido eliminado");
+        } catch (error) {
+          showToast(error.message || "No se pudo eliminar el pedido");
+        }
+      });
+    }
+  }
+
+  function closeOrderDialog() {
+    if (adminEls.adminOrderDialog.open && typeof adminEls.adminOrderDialog.close === "function") adminEls.adminOrderDialog.close();
+    else adminEls.adminOrderDialog.removeAttribute("open");
+  }
+
+  function orderBuyerLabel(order) {
+    return order.customer?.salesClient?.name || order.customer?.name || "Cliente";
+  }
+
+  function salesClientAddress(client) {
+    return [client?.address, client?.locality].filter(Boolean).join(" - ");
   }
 
   function renderNotificationStatus(order) {

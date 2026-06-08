@@ -98,22 +98,22 @@ body.auth-required #closeAccount {
 }
 
 .admin-entry-button {
-  position: absolute;
-  right: 0;
-  bottom: 2px;
-  width: 11px;
-  height: 11px;
-  padding: 0;
-  border: 0;
-  border-radius: 2px;
-  background: rgba(99, 106, 115, 0.18);
-  opacity: 0.28;
+  position: static;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 12px;
+  border: 1px solid rgba(215, 25, 32, 0.34);
+  border-radius: 8px;
+  color: #fff;
+  background: var(--brand);
+  font-size: 14px;
+  font-weight: 950;
+  box-shadow: 0 8px 20px rgba(215, 25, 32, 0.18);
 }
 
 .admin-entry-button:hover,
 .admin-entry-button:focus-visible {
-  background: var(--accent);
-  opacity: 0.9;
+  background: var(--brand-dark);
   outline: none;
 }
 
@@ -1124,6 +1124,7 @@ body.auth-checking .auth-fields {
 .admin-form-grid input,
 .admin-form-grid textarea,
 .admin-form-grid select,
+.admin-inline-form input,
 .admin-login-panel input,
 .order-card select {
   width: 100%;
@@ -1145,6 +1146,7 @@ body.auth-checking .auth-fields {
 .admin-form-grid input:focus,
 .admin-form-grid textarea:focus,
 .admin-form-grid select:focus,
+.admin-inline-form input:focus,
 .admin-login-panel input:focus,
 .order-card select:focus {
   border-color: var(--accent);
@@ -1519,6 +1521,7 @@ body.auth-checking .auth-fields {
   display: grid;
   grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1.1fr);
   gap: 18px;
+  align-items: start;
 }
 
 .admin-panel {
@@ -1541,6 +1544,21 @@ body.auth-checking .auth-fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+}
+
+.admin-inline-form {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.admin-inline-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .wide-field {
@@ -1601,6 +1619,64 @@ body.auth-checking .auth-fields {
   background: #fff;
 }
 
+.order-card-compact {
+  gap: 0;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.order-card-compact:hover,
+.order-card-compact:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(17, 115, 122, 0.12);
+  outline: none;
+}
+
+.order-compact-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 132px;
+  grid-template-areas:
+    "buyer status"
+    "total status"
+    "meta meta";
+  gap: 5px 12px;
+  align-items: center;
+}
+
+.order-compact-buyer {
+  grid-area: buyer;
+  min-width: 0;
+}
+
+.order-compact-main select {
+  grid-area: status;
+}
+
+.order-compact-main strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.order-compact-total {
+  grid-area: total;
+  justify-self: start;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.order-compact-meta {
+  grid-area: meta;
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 .order-card-header,
 .order-card-footer {
   justify-content: space-between;
@@ -1647,6 +1723,109 @@ body.auth-checking .auth-fields {
   gap: 6px;
   color: var(--ink);
   font-size: 13px;
+}
+
+.admin-order-dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-height: min(760px, calc(100vh - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.admin-order-dialog::backdrop {
+  background: rgba(22, 22, 26, 0.45);
+}
+
+.admin-order-detail {
+  display: grid;
+  gap: 16px;
+  max-height: min(760px, calc(100vh - 32px));
+  padding: 24px;
+  overflow: auto;
+}
+
+.admin-order-detail-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-right: 42px;
+}
+
+.admin-order-detail-header h2 {
+  margin: 2px 0 4px;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.admin-order-detail-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-order-detail-header > strong {
+  align-self: start;
+  color: var(--brand-dark);
+  font-size: 22px;
+  white-space: nowrap;
+}
+
+.admin-order-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-order-meta span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.admin-order-meta strong {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.order-lines-detail {
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.order-lines-detail span {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.order-lines-detail span:last-child {
+  border-bottom: 0;
+}
+
+.order-lines-detail em {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-style: normal;
+}
+
+.order-lines-detail b {
+  white-space: nowrap;
 }
 
 .import-button {
@@ -1720,6 +1899,24 @@ body.auth-checking .auth-fields {
     max-height: none;
   }
 
+  .order-compact-main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "buyer"
+      "total"
+      "status"
+      "meta";
+  }
+
+  .order-compact-total {
+    justify-self: start;
+  }
+
+  .admin-order-meta,
+  .order-lines-detail span {
+    grid-template-columns: 1fr;
+  }
+
   .admin-header,
   .admin-drawer-header,
   .admin-panel-header,
@@ -1730,7 +1927,8 @@ body.auth-checking .auth-fields {
   }
 
   .admin-grid,
-  .admin-form-grid {
+  .admin-form-grid,
+  .admin-inline-form {
     grid-template-columns: 1fr;
   }
 

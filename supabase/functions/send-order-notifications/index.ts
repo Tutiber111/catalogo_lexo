@@ -384,8 +384,10 @@ function clearCachedFormulaValues(sheetXml: string) {
 
 function markFormulaCellsDirty(cellXml: string) {
   return cellXml.replace(/<f\b([^>]*)>/g, (_match, attributes: string) => {
-    const nextAttributes = setXmlAttribute(setXmlAttribute(attributes, "ca", "1"), "aca", "1");
-    return `<f${nextAttributes}>`;
+    const selfClosing = /\/\s*$/.test(attributes);
+    const cleanAttributes = attributes.replace(/\/\s*$/, "");
+    const nextAttributes = setXmlAttribute(setXmlAttribute(cleanAttributes, "ca", "1"), "aca", "1");
+    return `<f${nextAttributes}${selfClosing ? "/" : ""}>`;
   });
 }
 

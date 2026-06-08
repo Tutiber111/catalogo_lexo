@@ -900,6 +900,17 @@ function applyAuthGate() {
     els.authLoading.hidden = !state.isCheckingAuth;
   }
   if (requiresAuth) openAccount();
+  dispatchAuthChanged();
+}
+
+function dispatchAuthChanged() {
+  window.dispatchEvent(new CustomEvent("catalog:auth-changed", {
+    detail: {
+      user: state.user,
+      profile: state.profile,
+      isCheckingAuth: state.isCheckingAuth,
+    },
+  }));
 }
 
 function saveCart() {

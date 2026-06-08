@@ -348,6 +348,17 @@
     return data || [];
   }
 
+  async function setProductStockStatus(overrides, outOfStock) {
+    const stockOverrides = {};
+    Object.entries(overrides || {}).forEach(([productId, override]) => {
+      stockOverrides[productId] = {
+        ...override,
+        outOfStock: Boolean(outOfStock),
+      };
+    });
+    return upsertProductOverrides(stockOverrides);
+  }
+
   async function updateOrderStatus(orderId, status) {
     const now = new Date().toISOString();
     const payload = {
@@ -467,6 +478,7 @@
     loadActiveOrders,
     loadProductOverrides,
     upsertProductOverrides,
+    setProductStockStatus,
     updateOrderStatus,
     deleteOrder,
     isAdmin,
