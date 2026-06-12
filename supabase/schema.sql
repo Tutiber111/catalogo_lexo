@@ -4,6 +4,7 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
   role text not null default 'customer' check (role::text in ('customer', 'admin', 'salesman')),
+  client_code text not null default '',
   salesman_code text,
   assigned_salesman_code text,
   name text not null default '',
@@ -50,12 +51,14 @@ create table if not exists public.orders (
   status text not null default 'placed' check (status in ('placed', 'confirmed', 'packed', 'sent', 'cancelled')),
   customer_name text not null,
   customer_phone text not null default '',
+  customer_client_code text not null default '',
   sales_client_id uuid references public.sales_clients(id) on delete set null,
   sales_client_code text not null default '',
   sales_client_name text not null default '',
   sales_client_address text not null default '',
   sales_client_locality text not null default '',
   salesman_code text not null default '',
+  order_transport text not null default '',
   notes text not null default '',
   total_items integer not null default 0,
   total_value numeric(12, 2) not null default 0,
@@ -105,14 +108,17 @@ create table if not exists public.order_notifications (
 
 alter table public.orders add column if not exists archived_at timestamptz;
 alter table public.product_overrides add column if not exists out_of_stock boolean not null default false;
+alter table public.profiles add column if not exists client_code text not null default '';
 alter table public.profiles add column if not exists salesman_code text;
 alter table public.profiles add column if not exists assigned_salesman_code text;
+alter table public.orders add column if not exists customer_client_code text not null default '';
 alter table public.orders add column if not exists sales_client_id uuid references public.sales_clients(id) on delete set null;
 alter table public.orders add column if not exists sales_client_code text not null default '';
 alter table public.orders add column if not exists sales_client_name text not null default '';
 alter table public.orders add column if not exists sales_client_address text not null default '';
 alter table public.orders add column if not exists sales_client_locality text not null default '';
 alter table public.orders add column if not exists salesman_code text not null default '';
+alter table public.orders add column if not exists order_transport text not null default '';
 alter table public.order_notifications add column if not exists resend_email_id text not null default '';
 alter table public.order_notifications add column if not exists resend_to text not null default '';
 
@@ -147,6 +153,10 @@ end $$;
 create unique index if not exists profiles_salesman_code_unique
 on public.profiles (salesman_code)
 where salesman_code is not null and salesman_code <> '';
+
+create unique index if not exists profiles_client_code_unique
+on public.profiles (client_code)
+where client_code is not null and client_code <> '';
 
 create index if not exists sales_clients_salesman_code_idx on public.sales_clients (salesman_code);
 create index if not exists sales_clients_search_text_idx on public.sales_clients using gin (search_text gin_trgm_ops);

@@ -90,6 +90,11 @@
     return orders;
   }
 
+  function clearArchivedOrders() {
+    saveArchivedOrders([]);
+    return [];
+  }
+
   function loadAllOrders() {
     return [...loadOrders(), ...loadArchivedOrders()];
   }
@@ -154,6 +159,23 @@
     return loadOrders();
   }
 
+  function restoreOrder(orderId) {
+    const archive = loadArchivedOrders();
+    const order = archive.find((item) => item.id === orderId);
+    if (!order) return loadOrders();
+
+    const now = new Date().toISOString();
+    saveArchivedOrders(archive.filter((item) => item.id !== orderId));
+    const restoredOrder = {
+      ...order,
+      status: "placed",
+      updatedAt: now,
+      archivedAt: "",
+    };
+    saveOrders([restoredOrder, ...loadOrders().filter((item) => item.id !== orderId)]);
+    return loadOrders();
+  }
+
   function priceNumber(value) {
     const digits = String(value || "").replace(/[^\d]/g, "");
     return Number(digits || 0);
@@ -175,9 +197,11 @@
       customer: {
         name: String(customer.name || "").trim(),
         phone: String(customer.phone || "").trim(),
+        clientCode: String(customer.clientCode || "").trim(),
         notes: String(customer.notes || "").trim(),
         salesClient: customer.salesClient || null,
         salesmanCode: String(customer.salesmanCode || "").trim(),
+        transport: String(customer.transport || "").trim(),
       },
       items: lines.map(({ product, qty }) => ({
         productId: product.id,
@@ -221,10 +245,12 @@
     loadArchivedOrders,
     saveArchivedOrders,
     loadAllOrders,
+    clearArchivedOrders,
     addOrder,
     updateOrder,
     deleteOrder,
     archiveOrder,
+    restoreOrder,
     buildOrderFromLines,
     normalizeWhatsAppNumber,
     priceNumber,

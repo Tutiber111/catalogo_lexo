@@ -55,6 +55,13 @@
     return data.user;
   }
 
+  async function getSessionUser() {
+    if (!client) return null;
+    const { data, error } = await client.auth.getSession();
+    if (error) return null;
+    return data.session?.user || null;
+  }
+
   async function signIn(email, password) {
     const { data, error } = await client.auth.signInWithPassword({ email, password });
     if (error) throw error;
@@ -191,12 +198,14 @@
       status: "placed",
       customer_name: order.customer.name,
       customer_phone: order.customer.phone,
+      customer_client_code: order.customer.clientCode || "",
       sales_client_id: order.customer.salesClient?.id || null,
       sales_client_code: order.customer.salesClient?.clientCode || "",
       sales_client_name: order.customer.salesClient?.name || "",
       sales_client_address: order.customer.salesClient?.address || "",
       sales_client_locality: order.customer.salesClient?.locality || "",
       salesman_code: order.customer.salesClient?.salesmanCode || order.customer.salesmanCode || "",
+      order_transport: order.customer.transport || "",
       notes: order.customer.notes,
       total_items: order.totalItems,
       total_value: order.totalValue,
@@ -274,6 +283,13 @@
   async function loadActiveOrders() {
     if (!client) return [];
     const { data, error } = await client.from("orders").select("*, order_items(*)").neq("status", "sent").order("created_at", { ascending: false });
+    if (error) throw error;
+    return withOrderNotifications(data.map(normalizeOrder));
+  }
+
+  async function loadArchivedOrders() {
+    if (!client) return [];
+    const { data, error } = await client.from("orders").select("*, order_items(*)").eq("status", "sent").order("archived_at", { ascending: false, nullsFirst: false });
     if (error) throw error;
     return withOrderNotifications(data.map(normalizeOrder));
   }
@@ -374,6 +390,14 @@
     if (error) throw error;
   }
 
+  async function archiveOrder(orderId) {
+    return updateOrderStatus(orderId, "sent");
+  }
+
+  async function restoreOrder(orderId) {
+    return updateOrderStatus(orderId, "placed");
+  }
+
   async function deleteOrder(orderId) {
     const { error } = await client.from("orders").delete().eq("id", orderId);
     if (error) throw error;
@@ -396,6 +420,7 @@
       customer: {
         name: order.customer_name || "",
         phone: order.customer_phone || "",
+        clientCode: order.customer_client_code || "",
         notes: order.notes || "",
         salesClient: normalizeSalesClient({
           id: order.sales_client_id,
@@ -406,6 +431,7 @@
           salesman_code: order.salesman_code,
         }),
         salesmanCode: order.salesman_code || "",
+        transport: order.order_transport || "",
       },
       items: (order.order_items || []).map((item) => ({
         productId: item.product_id,
@@ -460,6 +486,7 @@
     isRecoveryMode,
     clearRecoveryMode,
     getUser,
+    getSessionUser,
     signIn,
     signUp,
     signOut,
@@ -476,10 +503,13 @@
     loadMyOrders,
     loadAllOrders,
     loadActiveOrders,
+    loadArchivedOrders,
     loadProductOverrides,
     upsertProductOverrides,
     setProductStockStatus,
     updateOrderStatus,
+    archiveOrder,
+    restoreOrder,
     deleteOrder,
     isAdmin,
   };

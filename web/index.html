@@ -4,9 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catálogo interactivo de productos</title>
-    <link rel="stylesheet" href="styles.css?v=20260603-stock-status">
+    <link rel="stylesheet" href="styles.css?v=20260612-offline-toolbar-fix">
   </head>
   <body class="auth-required auth-checking">
+    <div id="offlineBanner" class="offline-banner" hidden>
+      <div>
+        <strong id="offlineBannerTitle">Modo sin conexi&oacute;n</strong>
+        <span id="offlineBannerText">Est&aacute;s trabajando con datos guardados. Conectate a internet para enviar pedidos.</span>
+      </div>
+      <button id="syncOfflineOrders" class="secondary-button compact-button" type="button" hidden>Enviar pendientes</button>
+    </div>
     <div class="app-shell">
       <aside class="sidebar" aria-label="Navegación del catálogo">
         <div class="brand-block">
@@ -34,6 +41,7 @@
 
         <div id="pagesPanel" class="panel is-active"></div>
         <div id="productsPanel" class="panel"></div>
+        <button id="jumpToCatalog" class="mobile-catalog-button" type="button">Ver catálogo</button>
       </aside>
 
       <main class="viewer" aria-label="Visor de páginas del catálogo">
@@ -44,11 +52,13 @@
             <span id="pageSubtitle"></span>
           </div>
           <button id="nextPage" class="icon-button" type="button" aria-label="Página siguiente">›</button>
+          <button id="jumpToFilters" class="mobile-filter-button" type="button">Buscar / filtros</button>
           <label class="zoom-control">
             <span>Zoom</span>
-            <input id="zoomSlider" type="range" min="70" max="170" step="5" value="100">
+            <input id="zoomSlider" type="range" min="45" max="170" step="5" value="100">
             <strong id="zoomValue">100%</strong>
           </label>
+          <button id="openQuickOrderToolbar" class="secondary-button quick-order-toolbar-button" type="button">Carga r&aacute;pida</button>
           <button id="openCart" class="cart-button" type="button">
             Carrito <span id="cartCount">0</span>
           </button>
@@ -67,6 +77,9 @@
             <h2>Carrito</h2>
           </div>
           <button id="closeCart" class="icon-button" type="button" aria-label="Cerrar carrito">×</button>
+        </div>
+        <div id="quickOrderPanel" class="quick-order-panel">
+          <button id="openQuickOrder" class="secondary-button quick-order-open" type="button">Carga r&aacute;pida por SKU</button>
         </div>
         <div id="cartItems" class="cart-items"></div>
         <div class="cart-footer">
@@ -125,6 +138,13 @@
               <span>Código de cliente <em>opcional</em></span>
               <input id="cartClientCode" type="text" autocomplete="off" placeholder="Código de cliente (opcional)">
               <small>Este dato es opcional.</small>
+            </label>
+          </div>
+          <div id="cartTransportPanel" class="cart-transport-panel" hidden>
+            <label class="cart-client-field">
+              <span>Transporte <em>opcional</em></span>
+              <input id="cartTransport" type="text" autocomplete="off" placeholder="Transporte del pedido (opcional)">
+              <small>Este dato es opcional. Si lo completás, se incluirá en la nota de pedido.</small>
             </label>
           </div>
           <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
@@ -238,6 +258,10 @@
                 </div>
               </div>
               <p id="adminDataStatus" class="admin-data-status"></p>
+              <div class="order-view-tabs" role="tablist" aria-label="Vista de pedidos">
+                <button id="activeOrdersTab" class="order-view-tab is-active" type="button">Activos</button>
+                <button id="archivedOrdersTab" class="order-view-tab" type="button">Archivados</button>
+              </div>
               <div id="orderSummary" class="admin-summary"></div>
               <div id="ordersList" class="orders-list"></div>
             </section>
@@ -318,6 +342,24 @@
       <div id="dialogContent"></div>
     </dialog>
 
+    <dialog id="quickOrderDialog" class="quick-order-dialog">
+      <form method="dialog">
+        <button id="closeQuickOrder" class="dialog-close" value="cancel" aria-label="Cerrar">&times;</button>
+      </form>
+      <div class="quick-order-dialog-body">
+        <div class="quick-order-dialog-header">
+          <span class="eyebrow">Carga r&aacute;pida</span>
+          <h2>Pedido por SKU</h2>
+        </div>
+        <div id="quickOrderTable" class="quick-order-table" role="table" aria-label="Carga r&aacute;pida por SKU"></div>
+        <div id="quickOrderPreview" class="quick-order-preview" aria-live="polite"></div>
+        <div class="quick-order-actions">
+          <button id="addQuickOrder" class="primary-button" type="button" disabled>Agregar al carrito</button>
+          <button id="clearQuickOrder" class="secondary-button" type="button">Limpiar</button>
+        </div>
+      </div>
+    </dialog>
+
     <dialog id="adminOrderDialog" class="admin-order-dialog">
       <form method="dialog">
         <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
@@ -331,8 +373,8 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js?v=20260603-stock-status"></script>
-    <script src="supabase-client.js?v=20260603-stock-status"></script>
-    <script src="app.js?v=20260608-admin-stock"></script>
+    <script src="supabase-client.js?v=20260612-offline-mode"></script>
+    <script src="app.js?v=20260612-admin-client-sync"></script>
     <script src="admin.js?v=20260608-admin-stock"></script>
   </body>
 </html>

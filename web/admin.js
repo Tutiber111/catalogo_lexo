@@ -3,6 +3,7 @@
     settings: CATALOG_STORE.loadSettings(),
     orders: [],
     source: "local",
+    orderView: "active",
     isAdmin: false,
     lastStockChange: null,
   };
@@ -17,6 +18,8 @@
     settingWhatsapp: document.querySelector("#settingWhatsapp"),
     saveSettings: document.querySelector("#saveSettings"),
     adminDataStatus: document.querySelector("#adminDataStatus"),
+    activeOrdersTab: document.querySelector("#activeOrdersTab"),
+    archivedOrdersTab: document.querySelector("#archivedOrdersTab"),
     orderSummary: document.querySelector("#orderSummary"),
     ordersList: document.querySelector("#ordersList"),
     exportOrders: document.querySelector("#exportOrders"),
@@ -45,6 +48,8 @@
     adminEls.openAdmin.addEventListener("click", openAdmin);
     adminEls.closeAdmin.addEventListener("click", closeAdmin);
     adminEls.saveSettings.addEventListener("click", saveSettings);
+    adminEls.activeOrdersTab.addEventListener("click", () => setOrderView("active"));
+    adminEls.archivedOrdersTab.addEventListener("click", () => setOrderView("archived"));
     adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
     adminEls.clearOrders.addEventListener("click", clearLocalOrders);
     adminEls.downloadPriceTemplate.addEventListener("click", downloadPriceTemplate);
@@ -173,44 +178,52 @@
     }
   }
 
-  function downloadPriceTemplate() {
+  async function downloadPriceTemplate() {
     if (!window.XLSX) {
       setImportStatus("La herramienta de plantilla Excel todavía está cargando. Probá de nuevo en un momento.");
       return;
     }
 
-    const catalog = CATALOG_STORE.applyProductOverrides(
-      JSON.parse(JSON.stringify(window.CATALOG_DATA || { products: [] })),
-      CATALOG_STORE.loadProductOverrides(),
-    );
-    const rows = [
-      ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock"],
-      ...(catalog.products || []).map((product) => [
-        product.sku || "",
-        product.name || "",
-        product.price || "",
-        product.category || "",
-        product.page || "",
-        product.id || "",
-        product.outOfStock ? "Sí" : "No",
-      ]),
-    ];
+    try {
+      adminEls.downloadPriceTemplate.disabled = true;
+      setImportStatus("Preparando plantilla con datos actuales...");
 
-    const sheet = XLSX.utils.aoa_to_sheet(rows);
-    sheet["!cols"] = [
-      { wch: 16 },
-      { wch: 52 },
-      { wch: 14 },
-      { wch: 24 },
-      { wch: 10 },
-      { wch: 16 },
-      { wch: 12 },
-    ];
+      const overrides = await loadCurrentProductOverrides();
+      CATALOG_STORE.saveProductOverrides(overrides);
+      const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
+      const rows = [
+        ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock"],
+        ...(catalog.products || []).map((product) => [
+          product.sku || "",
+          product.name || "",
+          product.price || "",
+          product.category || "",
+          product.page || "",
+          product.id || "",
+          product.outOfStock ? "Sí" : "No",
+        ]),
+      ];
 
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
-    XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
-    setImportStatus("Plantilla descargada. Editá Código, Descripción, Precio y Sin stock, y después subila acá.");
+      const sheet = XLSX.utils.aoa_to_sheet(rows);
+      sheet["!cols"] = [
+        { wch: 16 },
+        { wch: 52 },
+        { wch: 14 },
+        { wch: 24 },
+        { wch: 10 },
+        { wch: 16 },
+        { wch: 12 },
+      ];
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
+      XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
+      setImportStatus("Plantilla descargada. Editá Código, Descripción, Precio y Sin stock, y después subila acá.");
+    } catch (error) {
+      setImportStatus(error.message || "No se pudo preparar la plantilla.");
+    } finally {
+      adminEls.downloadPriceTemplate.disabled = false;
+    }
   }
 
   function clearLocalProductOverrides() {
@@ -480,10 +493,23 @@
     adminEls.priceListImportStatus.textContent = message;
   }
 
+  function setOrderView(view) {
+    if (!["active", "archived"].includes(view)) return;
+    adminState.orderView = view;
+    renderOrders();
+  }
+
+  function renderOrderViewTabs() {
+    const archived = adminState.orderView === "archived";
+    adminEls.activeOrdersTab.classList.toggle("is-active", !archived);
+    adminEls.archivedOrdersTab.classList.toggle("is-active", archived);
+  }
+
   async function renderOrders() {
     if (adminEls.adminApp.hidden) return;
 
     const result = await loadAdminOrders();
+    renderOrderViewTabs();
     adminState.orders = result.orders;
     adminState.source = result.source;
     adminEls.adminDataStatus.textContent = result.message;
@@ -498,7 +524,7 @@
     `;
 
     adminEls.ordersList.innerHTML =
-      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos guardados para esta fuente.</p>`;
+      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos ${adminState.orderView === "archived" ? "archivados" : "activos"}.</p>`;
 
     adminEls.ordersList.querySelectorAll("[data-order-card]").forEach((card) => {
       card.addEventListener("click", () => openOrderDialog(card.dataset.orderCard));
@@ -509,55 +535,12 @@
       });
     });
 
-    adminEls.ordersList.querySelectorAll("[data-status]").forEach((select) => {
-      select.addEventListener("click", (event) => event.stopPropagation());
-      select.addEventListener("change", async () => {
-        try {
-          if (select.dataset.remote === "true") await CATALOG_SUPABASE.updateOrderStatus(select.dataset.status, select.value);
-          else CATALOG_STORE.updateOrder(select.dataset.status, { status: select.value });
-          await renderOrders();
-          showToast(select.value === "sent" ? "Pedido archivado" : "Estado del pedido actualizado");
-        } catch (error) {
-          showToast(error.message || "No se pudo actualizar el pedido");
-        }
-      });
-    });
-
-    adminEls.ordersList.querySelectorAll("[data-delete-order]").forEach((button) => {
-      button.addEventListener("click", async (event) => {
-        event.stopPropagation();
-        if (!confirm("¿Eliminar este pedido guardado?")) return;
-        try {
-          if (button.dataset.remote === "true") await CATALOG_SUPABASE.deleteOrder(button.dataset.deleteOrder);
-          else CATALOG_STORE.deleteOrder(button.dataset.deleteOrder);
-          await renderOrders();
-          showToast("Pedido eliminado");
-        } catch (error) {
-          showToast(error.message || "No se pudo eliminar el pedido");
-        }
-      });
-    });
-
-    adminEls.ordersList.querySelectorAll("[data-resend-order]").forEach((button) => {
-      button.addEventListener("click", async (event) => {
-        event.stopPropagation();
-        try {
-          button.disabled = true;
-          button.textContent = "Reenviando...";
-          await CATALOG_SUPABASE.resendOrderNotification(button.dataset.resendOrder);
-          await renderOrders();
-          showToast("Email reenviado");
-        } catch (error) {
-          button.disabled = false;
-          button.textContent = "Reenviar email";
-          showToast(error.message || "No se pudo reenviar el email");
-        }
-      });
-    });
+    bindOrderArchiveButtons(adminEls.ordersList);
   }
 
   function renderOrderCard(order) {
     const buyer = orderBuyerLabel(order);
+    const archived = isArchivedOrder(order);
     return `
       <article class="order-card order-card-compact" role="button" tabindex="0" data-order-card="${escapeHtml(order.id)}">
         <div class="order-compact-main">
@@ -565,9 +548,9 @@
             <strong>${escapeHtml(buyer)}</strong>
           </div>
           <strong class="order-compact-total">${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
-          <select data-status="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">
-            ${["placed", "confirmed", "packed", "sent", "cancelled"].map((status) => `<option value="${status}"${order.status === status ? " selected" : ""}>${orderStatusLabel(status)}</option>`).join("")}
-          </select>
+          <button class="secondary-button compact-button ${archived ? "" : "danger-button"}" type="button" data-archive-order="${escapeHtml(order.id)}" data-action="${archived ? "restore" : "archive"}">
+            ${archived ? "Restaurar" : "Archivar"}
+          </button>
           <p class="order-compact-meta">${formatDate(order.createdAt)} · ${order.totalItems} unidad${order.totalItems === 1 ? "" : "es"}</p>
         </div>
       </article>
@@ -586,6 +569,7 @@
   function renderOrderDialog(order) {
     const buyer = orderBuyerLabel(order);
     const salesClient = order.customer?.salesClient;
+    const archived = isArchivedOrder(order);
     return `
       <div class="admin-order-detail">
         <div class="admin-order-detail-header">
@@ -598,8 +582,8 @@
         </div>
         <div class="admin-order-meta">
           <span><strong>Comprador</strong>${escapeHtml(buyer)}</span>
-          <span><strong>Estado</strong>${escapeHtml(orderStatusLabel(order.status))}</span>
           <span><strong>Unidades</strong>${escapeHtml(order.totalItems)}</span>
+          ${archived && order.archivedAt ? `<span><strong>Archivado</strong>${escapeHtml(formatDate(order.archivedAt))}</span>` : ""}
           ${order.customer?.phone ? `<span><strong>Teléfono</strong>${escapeHtml(order.customer.phone)}</span>` : ""}
           ${salesClient?.clientCode ? `<span><strong>Código cliente</strong>${escapeHtml(salesClient.clientCode)}</span>` : ""}
           ${salesClientAddress(salesClient) ? `<span><strong>Dirección</strong>${escapeHtml(salesClientAddress(salesClient))}</span>` : ""}
@@ -616,6 +600,7 @@
         ${renderNotificationStatus(order)}
         ${order.customer?.notes ? `<p class="order-notes">${escapeHtml(order.customer.notes)}</p>` : ""}
         <div class="order-card-footer">
+          <button class="secondary-button ${archived ? "" : "danger-button"}" type="button" data-dialog-archive-order="${escapeHtml(order.id)}" data-action="${archived ? "restore" : "archive"}">${archived ? "Restaurar" : "Archivar"}</button>
           ${order.remote ? `<button class="secondary-button" type="button" data-dialog-resend-order="${escapeHtml(order.id)}">Reenviar email</button>` : ""}
           <button class="secondary-button danger-button" type="button" data-dialog-delete-order="${escapeHtml(order.id)}" data-remote="${order.remote ? "true" : "false"}">Eliminar</button>
         </div>
@@ -624,6 +609,21 @@
   }
 
   function bindOrderDialogActions(order) {
+    const archiveButton = adminEls.adminOrderDialogContent.querySelector("[data-dialog-archive-order]");
+    if (archiveButton) {
+      archiveButton.addEventListener("click", async () => {
+        try {
+          archiveButton.disabled = true;
+          await changeOrderArchiveState(order, archiveButton.dataset.action);
+          closeOrderDialog();
+          await renderOrders();
+        } catch (error) {
+          archiveButton.disabled = false;
+          showToast(error.message || "No se pudo actualizar el pedido");
+        }
+      });
+    }
+
     const resendButton = adminEls.adminOrderDialogContent.querySelector("[data-dialog-resend-order]");
     if (resendButton) {
       resendButton.addEventListener("click", async () => {
@@ -659,6 +659,41 @@
     }
   }
 
+  function bindOrderArchiveButtons(root) {
+    root.querySelectorAll("[data-archive-order]").forEach((button) => {
+      button.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        const order = adminState.orders.find((item) => item.id === button.dataset.archiveOrder);
+        if (!order) return;
+        try {
+          button.disabled = true;
+          await changeOrderArchiveState(order, button.dataset.action);
+          await renderOrders();
+        } catch (error) {
+          button.disabled = false;
+          showToast(error.message || "No se pudo actualizar el pedido");
+        }
+      });
+    });
+  }
+
+  async function changeOrderArchiveState(order, action) {
+    const archive = action !== "restore";
+    if (order.remote) {
+      if (archive) await CATALOG_SUPABASE.archiveOrder(order.id);
+      else await CATALOG_SUPABASE.restoreOrder(order.id);
+    } else if (archive) {
+      CATALOG_STORE.archiveOrder(order.id);
+    } else {
+      CATALOG_STORE.restoreOrder(order.id);
+    }
+    showToast(archive ? "Pedido archivado" : "Pedido restaurado");
+  }
+
+  function isArchivedOrder(order) {
+    return order.status === "sent" || Boolean(order.archivedAt);
+  }
+
   function closeOrderDialog() {
     if (adminEls.adminOrderDialog.open && typeof adminEls.adminOrderDialog.close === "function") adminEls.adminOrderDialog.close();
     else adminEls.adminOrderDialog.removeAttribute("open");
@@ -689,61 +724,56 @@
 
 
   async function loadAdminOrders() {
-    return loadAdminOrderSet(false);
+    return loadAdminOrderSet(adminState.orderView);
   }
 
-  async function loadAdminOrderSet(includeArchived) {
+  async function loadAdminOrderSet(view = "active") {
+    const archived = view === "archived";
     if (!CATALOG_SUPABASE.isAvailable()) {
       return {
-        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: includeArchived ? "Supabase no está disponible; se exportan solo los pedidos locales del navegador." : "Supabase no está disponible; se muestran solo los pedidos locales del navegador.",
+        message: archived ? "Supabase no está disponible; se muestran pedidos archivados locales." : "Supabase no está disponible; se muestran pedidos activos locales.",
       };
     }
 
     const user = await CATALOG_SUPABASE.getUser();
     if (!user) {
       return {
-        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: includeArchived
-          ? "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para exportar todos los pedidos. Se exportan solo los pedidos locales del navegador."
-          : "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para ver todos los pedidos.",
+        message: "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para ver pedidos.",
       };
     }
 
     const profile = await CATALOG_SUPABASE.getProfile(user.id);
     if (profile?.role !== "admin") {
       return {
-        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: includeArchived
-          ? `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para exportar todos los pedidos. Se exportan solo los pedidos locales del navegador.`
-          : `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para ver todos los pedidos.`,
+        message: `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para ver pedidos.`,
       };
     }
 
     try {
       return {
-        orders: includeArchived ? await CATALOG_SUPABASE.loadAllOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
+        orders: archived ? await CATALOG_SUPABASE.loadArchivedOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
         source: "supabase",
-        message: includeArchived ? `Exportando todos los pedidos de Supabase como ${user.email}.` : `Mostrando pedidos activos de Supabase como ${user.email}. Los pedidos enviados se archivan.`,
+        message: archived ? `Mostrando pedidos archivados de Supabase como ${user.email}.` : `Mostrando pedidos activos de Supabase como ${user.email}.`,
       };
     } catch (error) {
       return {
-        orders: includeArchived ? CATALOG_STORE.loadAllOrders() : CATALOG_STORE.loadOrders(),
+        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: includeArchived
-          ? `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se exportan solo los pedidos locales del navegador.`
-          : `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se muestran solo los pedidos locales del navegador.`,
+        message: `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se muestran solo los pedidos locales del navegador.`,
       };
     }
   }
 
   async function exportOrdersCsv() {
     try {
-      const result = await loadAdminOrderSet(false);
-      const filename = `lexo-pedidos-${new Date().toISOString().slice(0, 10)}.csv`;
+      const result = await loadAdminOrderSet(adminState.orderView);
+      const filename = `lexo-pedidos-${adminState.orderView === "archived" ? "archivados" : "activos"}-${new Date().toISOString().slice(0, 10)}.csv`;
       downloadCsv(filename, ordersToCsv(result.orders));
       showToast(`Se exportaron ${result.orders.length} pedidos`);
     } catch (error) {
@@ -756,8 +786,10 @@
       showToast("Usá los botones de eliminar individuales para pedidos de Supabase.");
       return;
     }
-    if (!confirm("¿Borrar todos los pedidos locales guardados en este dispositivo?")) return;
-    CATALOG_STORE.saveOrders([]);
+    const archived = adminState.orderView === "archived";
+    if (!confirm(`¿Borrar todos los pedidos locales ${archived ? "archivados" : "activos"} guardados en este dispositivo?`)) return;
+    if (archived) CATALOG_STORE.clearArchivedOrders();
+    else CATALOG_STORE.saveOrders([]);
     renderOrders();
     showToast("Pedidos locales borrados");
   }
@@ -787,7 +819,7 @@
       return items.map((item) => [
         order.id,
         order.displayId || "",
-        orderStatusLabel(order.status || ""),
+        isArchivedOrder(order) ? "archivado" : "activo",
         order.createdAt || "",
         order.updatedAt || "",
         order.archivedAt || "",
@@ -827,17 +859,6 @@
       dateStyle: "medium",
       timeStyle: "short",
     }).format(new Date(value));
-  }
-
-  function orderStatusLabel(status) {
-    return {
-      new: "nuevo",
-      placed: "recibido",
-      confirmed: "confirmado",
-      packed: "preparado",
-      sent: "enviado",
-      cancelled: "cancelado",
-    }[status] || status || "";
   }
 
   function notificationStatusLabel(status) {
