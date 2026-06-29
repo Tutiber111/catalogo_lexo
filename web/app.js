@@ -18,8 +18,25 @@ const state = {
   connectionLost: false,
   pendingOfflineOrders: loadPendingOfflineOrders(),
   quickOrderRows: [{ sku: "", quantity: "" }],
+  quickOrderSuggestionIndex: -1,
+  quickOrderSuggestionTarget: null,
+  quickOrderSuggestionItems: [],
+  barcodeScanBuffer: "",
+  barcodeScanStartedAt: 0,
+  barcodeScanLastAt: 0,
+  barcodeScanTimer: null,
+  barcodeScanLikely: false,
+  barcodeScanTarget: null,
+  barcodeScanInitialValue: "",
+  barcodeScanInitialStart: null,
+  barcodeScanInitialEnd: null,
   pendingCartRemoval: null,
 };
+
+const BARCODE_SCAN_MIN_LENGTH = 8;
+const BARCODE_SCAN_SETTLE_MS = 260;
+const BARCODE_SCAN_MAX_GAP_MS = 85;
+const BARCODE_SCAN_MAX_TOTAL_MS = 1600;
 
 let pageScrollFrame = 0;
 
@@ -59,6 +76,7 @@ const els = {
   quickOrderDialog: document.querySelector("#quickOrderDialog"),
   closeQuickOrder: document.querySelector("#closeQuickOrder"),
   quickOrderTable: document.querySelector("#quickOrderTable"),
+  quickOrderSuggestions: document.querySelector("#quickOrderSuggestions"),
   quickOrderPreview: document.querySelector("#quickOrderPreview"),
   addQuickOrder: document.querySelector("#addQuickOrder"),
   clearQuickOrder: document.querySelector("#clearQuickOrder"),
@@ -72,6 +90,7 @@ const els = {
   clearSalesClient: document.querySelector("#clearSalesClient"),
   cartTransportPanel: document.querySelector("#cartTransportPanel"),
   cartTransport: document.querySelector("#cartTransport"),
+  cartObservations: document.querySelector("#cartObservations"),
   otherSalesClientToggleWrap: document.querySelector("#otherSalesClientToggleWrap"),
   otherSalesClientToggle: document.querySelector("#otherSalesClientToggle"),
   otherSalesClientForm: document.querySelector("#otherSalesClientForm"),
@@ -205,6 +224,10 @@ function bindEvents() {
   els.quickOrderTable.addEventListener("input", handleQuickOrderInput);
   els.quickOrderTable.addEventListener("keydown", handleQuickOrderKeydown);
   els.quickOrderTable.addEventListener("paste", handleQuickOrderPaste);
+  els.quickOrderTable.addEventListener("focusin", handleQuickOrderFocus);
+  els.quickOrderTable.addEventListener("focusout", handleQuickOrderBlur);
+  els.quickOrderSuggestions.addEventListener("pointerdown", handleQuickOrderSuggestionPointer);
+  els.quickOrderSuggestions.addEventListener("click", handleQuickOrderSuggestionClick);
   els.addQuickOrder.addEventListener("click", addQuickOrderToCart);
   els.clearQuickOrder.addEventListener("click", clearQuickOrder);
   els.openAccount.addEventListener("click", openAccount);
@@ -270,6 +293,7 @@ function bindEvents() {
   window.addEventListener("resize", renderZoom);
   window.addEventListener("online", handleNetworkStatusChange);
   window.addEventListener("offline", handleNetworkStatusChange);
+  window.addEventListener("keydown", handleBarcodeScannerKeydown, true);
   document.addEventListener("click", (event) => {
     if (!els.cartSalesClientPanel || els.cartSalesClientPanel.contains(event.target)) return;
     els.cartSalesClientResults.hidden = true;
@@ -652,6 +676,7 @@ function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
 
 function openProduct(product) {
   if (!product) return;
+  if (els.productDialog.open) els.productDialog.close();
   const outOfStock = Boolean(product.outOfStock);
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
@@ -697,6 +722,145 @@ function clearCatalogSelectionFocus() {
     active.blur();
   }
   els.pageStrip.querySelectorAll(".hotspot, .price-overlay").forEach((button) => button.blur());
+}
+
+function handleBarcodeScannerKeydown(event) {
+  if (!barcodeScannerCanListen() || event.ctrlKey || event.altKey || event.metaKey) return;
+
+  const now = performance.now();
+  if (event.key === "Enter") {
+    if (!state.barcodeScanBuffer) return;
+    if (state.barcodeScanLikely) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    finishBarcodeScan();
+    return;
+  }
+
+  if (!isBarcodeScannerCharacter(event.key)) return;
+
+  const gap = state.barcodeScanLastAt ? now - state.barcodeScanLastAt : 0;
+  if (!state.barcodeScanBuffer || gap > BARCODE_SCAN_MAX_GAP_MS) {
+    startBarcodeScan(event.key, now, event.target);
+  } else {
+    state.barcodeScanBuffer += event.key;
+    state.barcodeScanLastAt = now;
+  }
+
+  updateBarcodeScanLikelihood();
+  if (state.barcodeScanLikely) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  clearTimeout(state.barcodeScanTimer);
+  state.barcodeScanTimer = setTimeout(finishBarcodeScan, BARCODE_SCAN_SETTLE_MS);
+}
+
+function barcodeScannerCanListen() {
+  return Boolean(state.catalog?.products?.length && !document.body.classList.contains("auth-required"));
+}
+
+function isBarcodeScannerCharacter(key) {
+  return typeof key === "string" && key.length === 1 && /^[a-z0-9]$/i.test(key);
+}
+
+function startBarcodeScan(character, now, target) {
+  clearTimeout(state.barcodeScanTimer);
+  state.barcodeScanBuffer = character;
+  state.barcodeScanStartedAt = now;
+  state.barcodeScanLastAt = now;
+  state.barcodeScanLikely = false;
+  state.barcodeScanTarget = editableBarcodeTarget(target) ? target : null;
+  state.barcodeScanInitialValue = state.barcodeScanTarget?.value || "";
+  state.barcodeScanInitialStart = state.barcodeScanTarget?.selectionStart ?? null;
+  state.barcodeScanInitialEnd = state.barcodeScanTarget?.selectionEnd ?? null;
+}
+
+function updateBarcodeScanLikelihood() {
+  if (state.barcodeScanBuffer.length < 3) return;
+  const elapsed = Math.max(1, state.barcodeScanLastAt - state.barcodeScanStartedAt);
+  const averageGap = elapsed / Math.max(1, state.barcodeScanBuffer.length - 1);
+  state.barcodeScanLikely = averageGap <= BARCODE_SCAN_MAX_GAP_MS;
+}
+
+function finishBarcodeScan() {
+  clearTimeout(state.barcodeScanTimer);
+  const rawCode = state.barcodeScanBuffer;
+  const elapsed = state.barcodeScanLastAt - state.barcodeScanStartedAt;
+  const shouldHandle = rawCode.length >= BARCODE_SCAN_MIN_LENGTH
+    && state.barcodeScanLikely
+    && elapsed <= BARCODE_SCAN_MAX_TOTAL_MS;
+  const target = state.barcodeScanTarget;
+  const initialValue = state.barcodeScanInitialValue;
+  const initialStart = state.barcodeScanInitialStart;
+  const initialEnd = state.barcodeScanInitialEnd;
+
+  resetBarcodeScan();
+  if (!shouldHandle) return;
+
+  restoreBarcodeTarget(target, initialValue, initialStart, initialEnd);
+  const product = findProductByBarcode(rawCode);
+  if (!product) {
+    showToast(`Codigo ${rawCode} no encontrado`);
+    return;
+  }
+
+  openProduct(product);
+  showToast(`Producto encontrado: ${product.sku}`);
+}
+
+function resetBarcodeScan() {
+  clearTimeout(state.barcodeScanTimer);
+  state.barcodeScanBuffer = "";
+  state.barcodeScanStartedAt = 0;
+  state.barcodeScanLastAt = 0;
+  state.barcodeScanTimer = null;
+  state.barcodeScanLikely = false;
+  state.barcodeScanTarget = null;
+  state.barcodeScanInitialValue = "";
+  state.barcodeScanInitialStart = null;
+  state.barcodeScanInitialEnd = null;
+}
+
+function editableBarcodeTarget(target) {
+  if (!(target instanceof HTMLElement)) return null;
+  if (target.matches("input, textarea")) return target;
+  return null;
+}
+
+function restoreBarcodeTarget(target, value, selectionStart, selectionEnd) {
+  if (!target || !("value" in target)) return;
+  target.value = value;
+  if (Number.isInteger(selectionStart) && Number.isInteger(selectionEnd) && typeof target.setSelectionRange === "function") {
+    try {
+      target.setSelectionRange(selectionStart, selectionEnd);
+    } catch (error) {
+      // Some input types, such as number, do not allow selection ranges.
+    }
+  }
+  target.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function findProductByBarcode(code) {
+  const barcode = normalizeBarcode(code);
+  if (barcode.length < BARCODE_SCAN_MIN_LENGTH) return null;
+
+  const byEan = state.catalog.products.find((product) => (
+    isVisibleProduct(product)
+    && barcodeFields(product).some((item) => normalizeBarcode(item) === barcode)
+  ));
+  if (byEan) return byEan;
+
+  const skuCode = normalizeSkuQuery(code);
+  return state.catalog.products.find((product) => (
+    isVisibleProduct(product)
+    && skuFields(product).some((item) => {
+      const sku = normalizeSkuQuery(item);
+      return sku.length >= BARCODE_SCAN_MIN_LENGTH && sku === skuCode;
+    })
+  )) || null;
 }
 
 function addToCart(productId, quantity = 1, options = {}) {
@@ -769,6 +933,7 @@ function mergeDuplicateCartSkus() {
 
 function renderQuickOrderTable(focusTarget = null) {
   ensureQuickOrderTrailingRow();
+  hideQuickOrderSuggestions();
   els.quickOrderTable.innerHTML = `
     <div class="quick-order-table-head" role="row">
       <span>SKU</span>
@@ -786,6 +951,7 @@ function renderQuickOrderTable(focusTarget = null) {
       const input = els.quickOrderTable.querySelector(`[data-row="${focusTarget.index}"][data-field="${focusTarget.field}"]`);
       input?.focus();
       input?.select?.();
+      if (input?.dataset.field === "sku") renderQuickOrderSuggestionsForInput(input);
     });
   }
   renderQuickOrderPreview();
@@ -827,6 +993,8 @@ function handleQuickOrderInput(event) {
   if (!state.quickOrderRows[rowIndex]) return;
   state.quickOrderRows[rowIndex][field] = field === "quantity" ? normalizeQuickQuantityText(input.value) : input.value.trim();
   updateQuickOrderRenderedRow(rowIndex);
+  if (field === "sku") renderQuickOrderSuggestionsForInput(input);
+  else hideQuickOrderSuggestions();
   if (rowIndex === state.quickOrderRows.length - 1 && hasQuickOrderRowValue(state.quickOrderRows[rowIndex])) {
     state.quickOrderRows.push({ sku: "", quantity: "" });
     appendQuickOrderRows(rowIndex + 1);
@@ -837,6 +1005,8 @@ function handleQuickOrderInput(event) {
 function handleQuickOrderKeydown(event) {
   const input = event.target.closest("[data-row][data-field]");
   if (!input) return;
+
+  if (input.dataset.field === "sku" && handleQuickOrderSuggestionKeydown(event, input)) return;
 
   if (event.key === "Enter") {
     event.preventDefault();
@@ -869,10 +1039,171 @@ function handleQuickOrderPaste(event) {
   if (!shouldHandlePaste) return;
 
   event.preventDefault();
+  hideQuickOrderSuggestions();
   const startIndex = Number(input.dataset.row);
   state.quickOrderRows.splice(startIndex, parsedRows.length, ...parsedRows);
   ensureQuickOrderTrailingRow();
   renderQuickOrderTable({ index: Math.min(startIndex + parsedRows.length, state.quickOrderRows.length - 1), field: "sku" });
+}
+
+function handleQuickOrderFocus(event) {
+  const input = event.target.closest("[data-row][data-field]");
+  if (!input) return;
+  if (input.dataset.field === "sku") renderQuickOrderSuggestionsForInput(input);
+  else hideQuickOrderSuggestions();
+}
+
+function handleQuickOrderBlur() {
+  requestAnimationFrame(() => {
+    const active = document.activeElement;
+    if (!els.quickOrderTable.contains(active) && !els.quickOrderSuggestions.contains(active)) {
+      hideQuickOrderSuggestions();
+    }
+  });
+}
+
+function handleQuickOrderSuggestionPointer(event) {
+  if (event.target.closest("[data-quick-order-suggestion]")) event.preventDefault();
+}
+
+function handleQuickOrderSuggestionClick(event) {
+  const button = event.target.closest("[data-quick-order-suggestion]");
+  if (!button) return;
+  selectQuickOrderSuggestion(Number(button.dataset.index));
+}
+
+function handleQuickOrderSuggestionKeydown(event, input) {
+  const isOpen = !els.quickOrderSuggestions.hidden && state.quickOrderSuggestionItems.length;
+  if (event.key === "Escape" && isOpen) {
+    event.preventDefault();
+    hideQuickOrderSuggestions();
+    return true;
+  }
+
+  if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    if (!isOpen) renderQuickOrderSuggestionsForInput(input);
+    if (els.quickOrderSuggestions.hidden || !state.quickOrderSuggestionItems.length) return false;
+    event.preventDefault();
+    const direction = event.key === "ArrowDown" ? 1 : -1;
+    const count = state.quickOrderSuggestionItems.length;
+    const next = state.quickOrderSuggestionIndex < 0
+      ? (direction > 0 ? 0 : count - 1)
+      : (state.quickOrderSuggestionIndex + direction + count) % count;
+    setQuickOrderSuggestionIndex(next);
+    return true;
+  }
+
+  if (event.key === "Enter" && isOpen && state.quickOrderSuggestionIndex >= 0) {
+    event.preventDefault();
+    selectQuickOrderSuggestion(state.quickOrderSuggestionIndex);
+    return true;
+  }
+
+  return false;
+}
+
+function renderQuickOrderSuggestionsForInput(input) {
+  const rowIndex = Number(input.dataset.row);
+  const query = input.value.trim();
+  const matches = quickOrderSuggestions(query);
+  if (!matches.length) {
+    hideQuickOrderSuggestions();
+    return;
+  }
+
+  state.quickOrderSuggestionTarget = { rowIndex };
+  state.quickOrderSuggestionItems = matches;
+  state.quickOrderSuggestionIndex = -1;
+  els.quickOrderSuggestions.innerHTML = matches
+    .map(({ product, sku }, index) => `
+      <button class="quick-order-suggestion" type="button" role="option" data-quick-order-suggestion data-index="${index}">
+        <strong>${escapeHtml(sku)}</strong>
+        <span>${escapeHtml(product.name)}</span>
+        <small>${product.outOfStock ? "Sin stock" : escapeHtml(product.price || "")}</small>
+      </button>
+    `)
+    .join("");
+  positionQuickOrderSuggestions(input);
+  els.quickOrderSuggestions.hidden = false;
+}
+
+function positionQuickOrderSuggestions(input) {
+  const body = els.quickOrderDialog.querySelector(".quick-order-dialog-body");
+  if (!body) return;
+  const inputRect = input.getBoundingClientRect();
+  const bodyRect = body.getBoundingClientRect();
+  els.quickOrderSuggestions.style.left = `${Math.max(0, inputRect.left - bodyRect.left + body.scrollLeft)}px`;
+  els.quickOrderSuggestions.style.top = `${inputRect.bottom - bodyRect.top + body.scrollTop + 4}px`;
+  els.quickOrderSuggestions.style.width = `${Math.max(inputRect.width, 320)}px`;
+}
+
+function setQuickOrderSuggestionIndex(index) {
+  state.quickOrderSuggestionIndex = index;
+  els.quickOrderSuggestions.querySelectorAll("[data-quick-order-suggestion]").forEach((button) => {
+    button.classList.toggle("is-active", Number(button.dataset.index) === index);
+  });
+}
+
+function selectQuickOrderSuggestion(index) {
+  const suggestion = state.quickOrderSuggestionItems[index];
+  const rowIndex = state.quickOrderSuggestionTarget?.rowIndex;
+  if (!suggestion || !Number.isInteger(rowIndex) || !state.quickOrderRows[rowIndex]) return;
+
+  state.quickOrderRows[rowIndex].sku = suggestion.sku;
+  const input = els.quickOrderTable.querySelector(`[data-row="${rowIndex}"][data-field="sku"]`);
+  if (input) input.value = suggestion.sku;
+  updateQuickOrderRenderedRow(rowIndex);
+  if (rowIndex === state.quickOrderRows.length - 1 && hasQuickOrderRowValue(state.quickOrderRows[rowIndex])) {
+    state.quickOrderRows.push({ sku: "", quantity: "" });
+    appendQuickOrderRows(rowIndex + 1);
+  }
+  renderQuickOrderPreview();
+  hideQuickOrderSuggestions();
+  focusQuickOrderCell(rowIndex, "quantity");
+}
+
+function hideQuickOrderSuggestions() {
+  if (!els.quickOrderSuggestions) return;
+  els.quickOrderSuggestions.hidden = true;
+  els.quickOrderSuggestions.innerHTML = "";
+  state.quickOrderSuggestionIndex = -1;
+  state.quickOrderSuggestionTarget = null;
+  state.quickOrderSuggestionItems = [];
+}
+
+function quickOrderSuggestions(query) {
+  const skuQuery = normalizeSkuQuery(query);
+  const textQuery = normalizeProductSearch(query);
+  if (skuQuery.length < 3 && textQuery.length < 3) return [];
+
+  return state.catalog.products
+    .map((product) => matchingQuickOrderSuggestion(product, skuQuery, textQuery))
+    .filter(Boolean)
+    .sort((first, second) => first.score - second.score || first.sku.localeCompare(second.sku, "es"))
+    .slice(0, 8);
+}
+
+function matchingQuickOrderSuggestion(product, skuQuery, textQuery) {
+  if (!isVisibleProduct(product)) return null;
+  const skus = skuFields(product)
+    .map((sku) => ({ raw: sku, normalized: normalizeSkuQuery(sku) }))
+    .filter((sku) => sku.normalized.length >= 4);
+
+  if (skuQuery.length >= 3) {
+    const startsWith = skus.find((sku) => sku.normalized.startsWith(skuQuery));
+    if (startsWith) return { product, sku: startsWith.raw, score: 0 };
+    const includes = skus.find((sku) => sku.normalized.includes(skuQuery));
+    if (includes) return { product, sku: includes.raw, score: 1 };
+  }
+
+  const normalizedName = normalizeProductSearch(product.name);
+  const compactName = compactProductSearch(normalizedName);
+  const compactQuery = compactProductSearch(textQuery);
+  if (textQuery.length >= 3 && (normalizedName.includes(textQuery) || compactName.includes(compactQuery))) {
+    return { product, sku: skus[0]?.raw || product.sku || "", score: normalizedName.startsWith(textQuery) ? 2 : 3 };
+  }
+
+  return null;
 }
 
 function focusQuickOrderCell(index, field) {
@@ -1043,7 +1374,11 @@ function splitSkuQuantityToken(token) {
 
 function findProductByQuickSku(sku) {
   const normalized = normalizeSkuQuery(sku);
-  return state.catalog.products.find((product) => isVisibleProduct(product) && skuFields(product).some((item) => normalizeSkuQuery(item) === normalized)) || null;
+  if (normalized.length < 4) return null;
+  return state.catalog.products.find((product) => isVisibleProduct(product) && skuFields(product).some((item) => {
+    const productSku = normalizeSkuQuery(item);
+    return productSku.length >= 4 && productSku === normalized;
+  })) || null;
 }
 
 function renderCart() {
@@ -1451,6 +1786,7 @@ function clearSubmittedCart() {
   els.cartClientName.value = "";
   els.cartClientCode.value = "";
   els.cartTransport.value = "";
+  els.cartObservations.value = "";
   localStorage.removeItem("catalogCartClientName");
   localStorage.removeItem("catalogCartClientCode");
   saveCart();
@@ -1653,6 +1989,7 @@ function readAccountCustomer() {
 
 function readOrderCustomer() {
   const accountCustomer = readAccountCustomer();
+  const observations = orderObservationsValue();
   const selectedClient = canSelectSalesClient() ? state.selectedSalesClient : null;
   if (selectedClient) {
     return {
@@ -1661,7 +1998,7 @@ function readOrderCustomer() {
       salesClient: selectedClient,
       salesmanCode: selectedClient.salesmanCode || state.profile?.salesman_code || "",
       transport: orderTransportValue(),
-      notes: accountCustomer.notes,
+      notes: observations,
     };
   }
 
@@ -1670,6 +2007,7 @@ function readOrderCustomer() {
       ...accountCustomer,
       salesmanCode: state.profile.assigned_salesman_code || "",
       transport: orderTransportValue(),
+      notes: observations,
     };
   }
 
@@ -1677,8 +2015,9 @@ function readOrderCustomer() {
   return {
     ...accountCustomer,
     name: els.cartClientName.value.trim() || accountCustomer.name,
+    clientCode,
     salesmanCode: state.profile?.salesman_code || state.profile?.assigned_salesman_code || "",
-    notes: clientCode ? `Código de cliente: ${clientCode}` : accountCustomer.notes,
+    notes: observations,
   };
 }
 
@@ -1724,6 +2063,10 @@ function canEnterOrderTransport() {
 
 function orderTransportValue() {
   return canEnterOrderTransport() ? els.cartTransport.value.trim() : "";
+}
+
+function orderObservationsValue() {
+  return els.cartObservations.value.trim();
 }
 
 async function loadSalesClients() {
@@ -2195,6 +2538,7 @@ async function signOut() {
     localStorage.removeItem("catalogLastSalesClients");
     localStorage.removeItem("catalogSelectedSalesClientId");
     els.cartTransport.value = "";
+    els.cartObservations.value = "";
     renderAccount();
     await renderCustomerOrders();
     applyAuthGate();
@@ -2416,6 +2760,7 @@ function restoreOrderContext(order) {
   if (canEnterOrderTransport()) {
     els.cartTransport.value = order.customer?.transport || "";
   }
+  els.cartObservations.value = order.customer?.notes || "";
 }
 
 function collapseCustomerOrderDetail() {
@@ -2500,6 +2845,17 @@ function skuFields(product) {
   return [...new Set([product.sku, ...(product.skus || [])].filter(Boolean).map(String))];
 }
 
+function barcodeFields(product) {
+  return [...new Set([
+    product.ean,
+    product.barcode,
+    product.codigoBarras,
+    product.codigo_barra,
+    ...(product.eans || []),
+    ...(product.barcodes || []),
+  ].filter(Boolean).map(String))];
+}
+
 function matchingSku(product, query) {
   const skus = skuFields(product);
   return skus.find((sku) => normalizeSkuQuery(sku).startsWith(query)) || skus.find((sku) => normalizeSkuQuery(sku).includes(query)) || "";
@@ -2531,6 +2887,10 @@ function matchingProductRecommendation(product, skuQuery, textQuery) {
 
 function normalizeSkuQuery(value) {
   return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function normalizeBarcode(value) {
+  return String(value || "").replace(/[^\d]/g, "");
 }
 
 function normalizeProductSearch(value) {

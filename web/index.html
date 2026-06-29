@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catálogo interactivo de productos</title>
-    <link rel="stylesheet" href="styles.css?v=20260612-offline-toolbar-fix">
+    <link rel="stylesheet" href="styles.css?v=20260629-order-observations">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -145,6 +145,13 @@
               <span>Transporte <em>opcional</em></span>
               <input id="cartTransport" type="text" autocomplete="off" placeholder="Transporte del pedido (opcional)">
               <small>Este dato es opcional. Si lo completás, se incluirá en la nota de pedido.</small>
+            </label>
+          </div>
+          <div class="cart-observations-panel">
+            <label class="cart-client-field">
+              <span>Observaciones <em>opcional</em></span>
+              <textarea id="cartObservations" rows="3" placeholder="Observaciones del pedido (opcional)"></textarea>
+              <small>Este dato es opcional. Si lo complet&aacute;s, se incluir&aacute; en la nota de pedido.</small>
             </label>
           </div>
           <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
@@ -352,6 +359,7 @@
           <h2>Pedido por SKU</h2>
         </div>
         <div id="quickOrderTable" class="quick-order-table" role="table" aria-label="Carga r&aacute;pida por SKU"></div>
+        <div id="quickOrderSuggestions" class="quick-order-suggestions" role="listbox" aria-label="Sugerencias para carga r&aacute;pida" hidden></div>
         <div id="quickOrderPreview" class="quick-order-preview" aria-live="polite"></div>
         <div class="quick-order-actions">
           <button id="addQuickOrder" class="primary-button" type="button" disabled>Agregar al carrito</button>
@@ -369,12 +377,12 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="data/catalog-data.js?v=20260518-leifheit-41000"></script>
+    <script src="data/catalog-data.js?v=20260624-ortwo-page"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="catalog-store.js?v=20260603-stock-status"></script>
     <script src="supabase-client.js?v=20260612-offline-mode"></script>
-    <script src="app.js?v=20260612-admin-client-sync"></script>
+    <script src="app.js?v=20260629-order-observations"></script>
     <script src="admin.js?v=20260608-admin-stock"></script>
   </body>
 </html>

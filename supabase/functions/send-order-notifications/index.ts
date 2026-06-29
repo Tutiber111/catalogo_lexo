@@ -319,6 +319,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   sheetXml = upsertCell(sheetXml, "B2", orderSalesClientAddress(order), "string");
   sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
   sheetXml = upsertCell(sheetXml, "B3", order.order_transport || "", "string");
+  sheetXml = upsertCell(sheetXml, "K1", order.notes || "", "string");
 
   order.order_items.forEach((item, index) => {
     const row = 8 + index;
@@ -412,6 +413,7 @@ function clearOrderInputCells(sheetXml: string, itemCount: number) {
   nextXml = clearCell(nextXml, "B2");
   nextXml = clearCell(nextXml, "B3");
   nextXml = clearCell(nextXml, "F1");
+  nextXml = clearCell(nextXml, "K1");
   const lastRow = Math.max(ORDER_TEMPLATE_LAST_INPUT_ROW, 8 + itemCount - 1);
   for (let row = 8; row <= lastRow; row += 1) {
     nextXml = clearCell(nextXml, `A${row}`);
@@ -598,7 +600,7 @@ function buildOrderText(order: Order, siteUrl: string) {
     `Email de cuenta: ${order.customer_email || "-"}`,
     `Teléfono: ${order.customer_phone || "-"}`,
     `Fecha: ${new Date(order.created_at).toLocaleString("es-AR")}`,
-    order.notes ? `Notas: ${order.notes}` : "",
+    order.notes ? `Observaciones: ${order.notes}` : "",
     "",
     ...order.order_items.map((item) =>
       `${item.quantity} x ${item.sku} - ${item.name} - ${formatMoney(Number(item.unit_price))} c/u - ${formatMoney(Number(item.line_total))}${item.page ? ` - Página ${item.page}` : ""}`
@@ -633,7 +635,7 @@ function buildOrderHtml(order: Order, siteUrl: string) {
       <p><strong>Email de cuenta:</strong> ${escapeHtml(order.customer_email || "-")}</p>
       <p><strong>Teléfono:</strong> ${escapeHtml(order.customer_phone || "-")}</p>
       <p><strong>Fecha:</strong> ${escapeHtml(new Date(order.created_at).toLocaleString("es-AR"))}</p>
-      ${order.notes ? `<p><strong>Notas:</strong> ${escapeHtml(order.notes)}</p>` : ""}
+      ${order.notes ? `<p><strong>Observaciones:</strong> ${escapeHtml(order.notes)}</p>` : ""}
       <table cellpadding="6" cellspacing="0" border="1" style="border-collapse:collapse;border-color:#dde1e7">
         <thead>
           <tr>
