@@ -25,6 +25,7 @@ type Order = {
   id: string;
   customer_id: string;
   customer_email?: string;
+  customer_company?: string;
   order_number: number | null;
   status: string;
   customer_name: string;
@@ -212,15 +213,16 @@ async function loadOrder(orderId: string): Promise<Order> {
   const order = rows[0];
   const customerProfile = await loadCustomerProfile(order.customer_id);
   order.customer_email = customerProfile.email;
+  order.customer_company = customerProfile.company;
   if (!order.customer_client_code) order.customer_client_code = customerProfile.client_code;
   return order;
 }
 
 async function loadCustomerProfile(customerId: string) {
-  if (!customerId) return { email: "", client_code: "" };
+  if (!customerId) return { email: "", client_code: "", company: "" };
   const params = new URLSearchParams({
     id: `eq.${customerId}`,
-    select: "email,client_code",
+    select: "email,client_code,company",
     limit: "1",
   });
   const response = await supabaseFetch(`/rest/v1/profiles?${params}`);
@@ -228,6 +230,7 @@ async function loadCustomerProfile(customerId: string) {
   return {
     email: rows[0]?.email || "",
     client_code: rows[0]?.client_code || "",
+    company: rows[0]?.company || "",
   };
 }
 
@@ -279,7 +282,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
   const emailSuffix = order.customer_email ? ` (${order.customer_email})` : "";
-  const subject = `Nuevo pedido ${orderLabel} - ${order.customer_name || "Cliente"}${emailSuffix}`;
+  const subject = `Nuevo pedido ${orderLabel} - ${orderDisplayClientName(order) || "Cliente"}${emailSuffix}`;
   const text = buildOrderText(order, siteUrl);
   const html = buildOrderHtml(order, siteUrl);
   const attachment = await buildOrderWorkbookAttachment(order);
@@ -315,7 +318,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   sheetXml = clearOrderInputCells(sheetXml, order.order_items.length);
   const clientCode = orderClientCode(order);
   const clientCodeType = numericCellValue(clientCode) === null ? "string" : "number";
-  sheetXml = upsertCell(sheetXml, "B1", order.sales_client_name || order.customer_name || "", "string");
+  sheetXml = upsertCell(sheetXml, "B1", orderDisplayClientName(order), "string");
   sheetXml = upsertCell(sheetXml, "B2", orderSalesClientAddress(order), "string");
   sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
   sheetXml = upsertCell(sheetXml, "B3", order.order_transport || "", "string");
@@ -549,6 +552,16 @@ function orderClientCode(order: Order) {
   return order.sales_client_code || order.customer_client_code || clientCodeFromNotes(order.notes);
 }
 
+function orderDisplayClientName(order: Order) {
+  return order.sales_client_name || order.customer_company || order.customer_name || "";
+}
+
+function orderEmailCompanyLine(order: Order) {
+  const company = order.customer_company || "";
+  if (!company || company === orderDisplayClientName(order)) return "";
+  return company;
+}
+
 function orderSalesClientAddress(order: Order) {
   return [order.sales_client_address, order.sales_client_locality].filter(Boolean).join(" - ");
 }
@@ -590,10 +603,12 @@ function escapeRegExp(value: string) {
 
 function buildOrderText(order: Order, siteUrl: string) {
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
+  const companyName = orderEmailCompanyLine(order);
   return [
     `Nuevo pedido ${orderLabel}`,
     "",
-    `Cliente: ${order.customer_name || "-"}`,
+    `Cliente: ${orderDisplayClientName(order) || "-"}`,
+    companyName ? `Empresa: ${companyName}` : "",
     orderClientCode(order) ? `Código de cliente: ${orderClientCode(order)}` : "",
     orderSalesClientAddress(order) ? `Dirección: ${orderSalesClientAddress(order)}` : "",
     order.salesman_code ? `Código de vendedor: ${order.salesman_code}` : "",
@@ -614,6 +629,7 @@ function buildOrderText(order: Order, siteUrl: string) {
 
 function buildOrderHtml(order: Order, siteUrl: string) {
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
+  const companyName = orderEmailCompanyLine(order);
   const rows = order.order_items.map((item) => `
     <tr>
       <td>${escapeHtml(String(item.quantity))}</td>
@@ -628,7 +644,8 @@ function buildOrderHtml(order: Order, siteUrl: string) {
   return `
     <div style="font-family:Arial,sans-serif;color:#16161a">
       <h2>Nuevo pedido ${escapeHtml(orderLabel)}</h2>
-      <p><strong>Cliente:</strong> ${escapeHtml(order.customer_name || "-")}</p>
+      <p><strong>Cliente:</strong> ${escapeHtml(orderDisplayClientName(order) || "-")}</p>
+      ${companyName ? `<p><strong>Empresa:</strong> ${escapeHtml(companyName)}</p>` : ""}
       ${orderClientCode(order) ? `<p><strong>Código de cliente:</strong> ${escapeHtml(orderClientCode(order))}</p>` : ""}
       ${orderSalesClientAddress(order) ? `<p><strong>Dirección:</strong> ${escapeHtml(orderSalesClientAddress(order))}</p>` : ""}
       ${order.salesman_code ? `<p><strong>Código de vendedor:</strong> ${escapeHtml(order.salesman_code)}</p>` : ""}

@@ -13,6 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PDF_BASE = Path(r"C:\Users\Lenovo\Dropbox\ACCESO A CLIENTES")
 DOWNLOADS_BASE = Path(r"C:\Users\Lenovo\Downloads")
 EXCEL_PATH = Path(r"C:\Users\Lenovo\Desktop\Listas de precios\Lista Lexo - Abril 2026.xlsx")
+EXCEL_FALLBACKS = [
+    Path(r"C:\Users\Lenovo\Desktop\Listas de precios\Lista Lexo - Julio 2026.xlsx"),
+    Path(r"C:\Users\Lenovo\Desktop\Listas de precios\Lista General - Abril 2026.xlsx"),
+    Path(r"C:\Users\Lenovo\Desktop\Listas de precios\Copy of Lista Lexo - Abril 2026.xlsx"),
+]
 WEB_DIR = ROOT / "web"
 PAGE_DIR = WEB_DIR / "assets" / "pages"
 DATA_DIR = WEB_DIR / "data"
@@ -152,10 +157,11 @@ def size_value_ml(label: str) -> float | None:
 
 
 def load_price_list() -> dict[str, dict]:
-    if not EXCEL_PATH.exists():
+    excel_path = next((path for path in [EXCEL_PATH, *EXCEL_FALLBACKS] if path.exists()), None)
+    if not excel_path:
         return {}
 
-    workbook = load_workbook(EXCEL_PATH, read_only=True, data_only=True)
+    workbook = load_workbook(excel_path, read_only=True, data_only=True)
     sheet = workbook[workbook.sheetnames[0]]
     products = {}
 
@@ -419,7 +425,7 @@ def extract_products(page: fitz.Page, page_number: int, price_list: dict[str, di
                 "id": f"p{page_number:03d}-{index + 1}",
                 "page": page_number,
                 "sku": matched_sku or sku,
-                "skus": skus,
+                "skus": [matched_sku or sku],
                 "name": price_match["description"] if price_match else name,
                 "category": category,
                 "price": price_match["price"] if price_match and price_match["price"] else price,

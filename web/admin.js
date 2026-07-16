@@ -192,7 +192,7 @@
       CATALOG_STORE.saveProductOverrides(overrides);
       const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
       const rows = [
-        ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock"],
+        ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock", "Video YouTube"],
         ...(catalog.products || []).map((product) => [
           product.sku || "",
           product.name || "",
@@ -201,6 +201,7 @@
           product.page || "",
           product.id || "",
           product.outOfStock ? "Sí" : "No",
+          product.videoUrl || "",
         ]),
       ];
 
@@ -213,12 +214,13 @@
         { wch: 10 },
         { wch: 16 },
         { wch: 12 },
+        { wch: 48 },
       ];
 
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
       XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
-      setImportStatus("Plantilla descargada. Editá Código, Descripción, Precio y Sin stock, y después subila acá.");
+      setImportStatus("Plantilla descargada. Editá los datos y los enlaces de YouTube, y después subila acá.");
     } catch (error) {
       setImportStatus(error.message || "No se pudo preparar la plantilla.");
     } finally {
@@ -257,6 +259,14 @@
       const products = findProductsBySku(sku, currentOverrides);
       if (!products.length) {
         setStockStatus(`No existe ningún producto con código ${sku}.`);
+        return;
+      }
+      const productIdentities = new Set(products.map((product) => [
+        normalizeHeaderCell(product.section),
+        normalizeHeaderCell(product.name),
+      ].join("|")));
+      if (productIdentities.size > 1) {
+        setStockStatus(`${sku} corresponde a más de un producto distinto. No se modificó ninguno; revisá el catálogo antes de continuar.`);
         return;
       }
 
@@ -319,10 +329,7 @@
   function findProductsBySku(sku, overrides = {}) {
     const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
     const productIndex = buildProductSkuIndex(catalog.products || []);
-    const matches = new Map();
-    (productIndex.primary.get(sku) || []).forEach((product) => matches.set(product.id, product));
-    (productIndex.related.get(sku) || []).forEach((product) => matches.set(product.id, product));
-    return [...matches.values()];
+    return [...(productIndex.primary.get(sku) || [])];
   }
 
   function buildStockOverride(product, overrides, outOfStock) {
@@ -365,8 +372,9 @@
         const name = cleanCell(row[header.name]);
         const price = formatImportedPrice(row[header.price]);
         const outOfStock = header.outOfStock >= 0 ? parseStockValue(row[header.outOfStock]) : null;
-        if (!sku || (!name && !price && outOfStock === null)) return;
-        rows.push({ sku, name, price, outOfStock });
+        const videoUrl = header.videoUrl >= 0 ? cleanCell(row[header.videoUrl]) : null;
+        if (!sku || (!name && !price && outOfStock === null && videoUrl === null)) return;
+        rows.push({ sku, name, price, outOfStock, videoUrl });
       });
     });
     return rows;
@@ -378,7 +386,8 @@
     const name = cells.findIndex((cell) => cell.includes("descripcion") || cell.includes("producto") || cell.includes("nombre") || cell.includes("detalle"));
     const price = cells.findIndex((cell) => cell.includes("precio") || cell === "pvp" || cell.includes("lista"));
     const outOfStock = cells.findIndex((cell) => cell.includes("sinstock") || cell.includes("agotado") || cell.includes("stock"));
-    if (sku >= 0 && (name >= 0 || price >= 0 || outOfStock >= 0)) return { sku, name, price, outOfStock };
+    const videoUrl = cells.findIndex((cell) => cell.includes("video") || cell.includes("youtube"));
+    if (sku >= 0 && (name >= 0 || price >= 0 || outOfStock >= 0 || videoUrl >= 0)) return { sku, name, price, outOfStock, videoUrl };
     return null;
   }
 
@@ -390,7 +399,7 @@
     let unmatched = 0;
 
     importedRows.forEach((row) => {
-      const products = productIndex.primary.get(row.sku) || productIndex.related.get(row.sku);
+      const products = productIndex.primary.get(row.sku);
       if (!products?.length) {
         unmatched += 1;
         return;
@@ -405,6 +414,7 @@
           price: row.price || product.price,
         };
         if (row.outOfStock !== null) override.outOfStock = row.outOfStock;
+        if (row.videoUrl) override.videoUrl = normalizeYouTubeUrl(row.videoUrl);
         overrides[product.id] = override;
         updatedProductIds.add(product.id);
       });
@@ -415,12 +425,10 @@
 
   function buildProductSkuIndex(products = window.CATALOG_DATA?.products || []) {
     const primary = new Map();
-    const related = new Map();
     products.forEach((product) => {
       addSkuIndex(primary, product.sku, product);
-      (product.skus || []).forEach((sku) => addSkuIndex(related, sku, product));
     });
-    return { primary, related };
+    return { primary };
   }
 
   function cloneCatalog(catalog) {
@@ -469,6 +477,20 @@
     if (["si", "s", "yes", "y", "true", "verdadero", "1", "agotado", "sinstock"].includes(text)) return true;
     if (["no", "n", "false", "falso", "0", "disponible", "enstock"].includes(text)) return false;
     return null;
+  }
+
+  function normalizeYouTubeUrl(value) {
+    const text = cleanCell(value);
+    if (!text) return "";
+    try {
+      const url = new URL(text);
+      const host = url.hostname.replace(/^www\./, "").toLowerCase();
+      if (host === "youtu.be") return url.pathname.split("/").filter(Boolean)[0] ? text : "";
+      if (["youtube.com", "m.youtube.com", "youtube-nocookie.com"].includes(host)) return text;
+    } catch (error) {
+      return "";
+    }
+    return "";
   }
 
   function normalizeSku(value) {

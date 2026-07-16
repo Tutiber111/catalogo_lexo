@@ -323,6 +323,7 @@
       if (row.name) override.name = row.name;
       if (row.category) override.category = row.category;
       if (row.price) override.price = row.price;
+      if (row.video_url) override.videoUrl = row.video_url;
       if (row.hidden) override.hidden = true;
       override.outOfStock = Boolean(row.out_of_stock);
       overrides[row.product_id] = override;
@@ -342,6 +343,7 @@
         name: String(override.name || "").trim(),
         category: String(override.category || "").trim(),
         price: String(override.price || "").trim(),
+        video_url: String(override.videoUrl || "").trim(),
         hidden: Boolean(override.hidden),
         updated_by: user.id,
         updated_at: new Date().toISOString(),
@@ -354,9 +356,16 @@
 
     if (!rows.length) return [];
     let { data, error } = await client.from("product_overrides").upsert(rows, { onConflict: "product_id" }).select();
-    if (error && error.message?.includes("out_of_stock")) {
-      const rowsWithoutStock = rows.map(({ out_of_stock, ...row }) => row);
-      const retry = await client.from("product_overrides").upsert(rowsWithoutStock, { onConflict: "product_id" }).select();
+    if (error && (error.message?.includes("out_of_stock") || error.message?.includes("video_url"))) {
+      const omitStock = error.message.includes("out_of_stock");
+      const omitVideo = error.message.includes("video_url");
+      const compatibleRows = rows.map((row) => {
+        const nextRow = { ...row };
+        if (omitStock) delete nextRow.out_of_stock;
+        if (omitVideo) delete nextRow.video_url;
+        return nextRow;
+      });
+      const retry = await client.from("product_overrides").upsert(compatibleRows, { onConflict: "product_id" }).select();
       data = retry.data;
       error = retry.error;
     }

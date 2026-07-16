@@ -13,6 +13,37 @@
     adminPasswordHash: "35ae3089bd96dc75b1b486951b452ec9833f112ececfa7a40adc961e9fd756d6",
   };
 
+  const defaultProductVideos = {
+    // Prepara EVAK family
+    "Prepara:3039": "https://www.youtube.com/watch?v=Jh7B4RRu9f4",
+    "Prepara:3040": "https://www.youtube.com/watch?v=Jh7B4RRu9f4",
+    "Prepara:3041": "https://www.youtube.com/watch?v=Jh7B4RRu9f4",
+    "Prepara:3042": "https://www.youtube.com/watch?v=Jh7B4RRu9f4",
+    "Prepara:3044": "https://www.youtube.com/watch?v=Jh7B4RRu9f4",
+    // Prepara Herb Savor family
+    "Prepara:20101": "https://www.youtube.com/watch?v=4ZvU0T-a7WM",
+    "Prepara:20118": "https://www.youtube.com/watch?v=4ZvU0T-a7WM",
+    // Dreamfarm Fluicer family
+    "Dreamfarm:3444": "https://www.youtube.com/watch?v=5PH6bvfHoJ0",
+    "Dreamfarm:3451": "https://www.youtube.com/watch?v=5PH6bvfHoJ0",
+    // OXO POP container family
+    "OXO:11233700": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11233600": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11233500": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234000": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11233900": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11233800": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234200": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234100": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234700": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234600": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234500": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234400": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11235000": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234900": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+    "OXO:11234800": "https://www.youtube.com/watch?v=DTujNDIRMZM",
+  };
+
   function readJson(key, fallback) {
     try {
       return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
@@ -47,18 +78,24 @@
   }
 
   function applyProductOverrides(catalog, overrides = loadProductOverrides()) {
-    catalog.products = catalog.products.map((product) => ({
-      ...product,
-      originalName: product.originalName || product.name,
-      originalCategory: product.originalCategory || product.category,
-      originalPrice: product.originalPrice || product.price,
-      name: product.originalName || product.name,
-      category: product.originalCategory || product.category,
-      price: product.originalPrice || product.price,
-      hidden: false,
-      outOfStock: false,
-      ...(overrides[product.id] || {}),
-    }));
+    catalog.products = catalog.products.map((product) => {
+      const videoKey = `${String(product.section || "").trim()}:${String(product.sku || "").trim()}`;
+      const baselineVideoUrl = product.originalVideoUrl || product.videoUrl || defaultProductVideos[videoKey] || "";
+      return {
+        ...product,
+        originalName: product.originalName || product.name,
+        originalCategory: product.originalCategory || product.category,
+        originalPrice: product.originalPrice || product.price,
+        originalVideoUrl: baselineVideoUrl,
+        name: product.originalName || product.name,
+        category: product.originalCategory || product.category,
+        price: product.originalPrice || product.price,
+        videoUrl: baselineVideoUrl,
+        hidden: false,
+        outOfStock: false,
+        ...(overrides[product.id] || {}),
+      };
+    });
     return catalog;
   }
 

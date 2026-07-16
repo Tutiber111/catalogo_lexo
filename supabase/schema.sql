@@ -88,6 +88,7 @@ create table if not exists public.product_overrides (
   price text not null default '',
   hidden boolean not null default false,
   out_of_stock boolean not null default false,
+  video_url text not null default '',
   updated_by uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -108,6 +109,7 @@ create table if not exists public.order_notifications (
 
 alter table public.orders add column if not exists archived_at timestamptz;
 alter table public.product_overrides add column if not exists out_of_stock boolean not null default false;
+alter table public.product_overrides add column if not exists video_url text not null default '';
 alter table public.profiles add column if not exists client_code text not null default '';
 alter table public.profiles add column if not exists salesman_code text;
 alter table public.profiles add column if not exists assigned_salesman_code text;

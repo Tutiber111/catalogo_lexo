@@ -138,6 +138,9 @@ const els = {
   saveOrder: document.querySelector("#saveOrder"),
   productDialog: document.querySelector("#productDialog"),
   dialogContent: document.querySelector("#dialogContent"),
+  videoDialog: document.querySelector("#videoDialog"),
+  videoDialogTitle: document.querySelector("#videoDialogTitle"),
+  videoFrame: document.querySelector("#videoFrame"),
   toast: document.querySelector("#toast"),
 };
 
@@ -251,6 +254,8 @@ function bindEvents() {
   els.syncOfflineOrders.addEventListener("click", handleOfflineBannerAction);
   els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
   els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
+  els.videoDialog.addEventListener("close", closeProductVideo);
+  els.videoDialog.addEventListener("cancel", closeProductVideo);
   els.cartSalesClientSearch.addEventListener("input", renderSalesClientResults);
   els.cartSalesClientSearch.addEventListener("focus", renderSalesClientResults);
   els.clearSalesClient.addEventListener("click", clearSelectedSalesClient);
@@ -382,7 +387,7 @@ function renderLists() {
         (product) => `
           <button class="product-card${product.outOfStock ? " is-out-of-stock" : ""}" type="button" data-product="${product.id}">
             <strong>${escapeHtml(product.name)}</strong>
-            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${escapeHtml(product.price)} · Página ${product.page}${product.outOfStock ? " · Sin stock" : ""}</p>
+            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${product.outOfStock ? "Sin stock" : escapeHtml(product.price)} · Página ${product.page}</p>
           </button>
         `,
       )
@@ -525,13 +530,16 @@ function renderCurrentPageDetails() {
 function renderHotspot(product) {
   const spot = product.hotspot;
   const stockClass = product.outOfStock ? " is-out-of-stock" : "";
+  const brandClass = product.section === "Lexo" ? " hotspot--lexo" : "";
+  const hotspotStyle = product.hotspotStyle || {};
+  const borderStyle = hotspotStyle.borderColor ? `;--hotspot-border-color:${hotspotStyle.borderColor}` : "";
   return `
     <button
-      class="hotspot${stockClass}"
+      class="hotspot${brandClass}${stockClass}"
       type="button"
       data-product="${product.id}"
       aria-label="Abrir ${escapeHtml(product.name)}${product.outOfStock ? " - sin stock" : ""}"
-      style="left:${spot.x * 100}%;top:${spot.y * 100}%;width:${spot.w * 100}%;height:${spot.h * 100}%"
+      style="left:${spot.x * 100}%;top:${spot.y * 100}%;width:${spot.w * 100}%;height:${spot.h * 100}%${borderStyle}"
     >
       <span>+</span>
     </button>
@@ -542,8 +550,9 @@ function renderPriceOverlay(group) {
   if (!group.price || !group.position) return "";
   const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
   if (!products.length) return "";
+  const allOutOfStock = products.every((product) => product.outOfStock);
   const prices = [...new Set(products.map((product) => product.price).filter(Boolean))];
-  const price = prices.length === 1 ? prices[0] : group.price;
+  const price = allOutOfStock ? "Sin stock" : (prices.length === 1 ? prices[0] : group.price);
   const pos = group.position;
   const cover = group.cover || {};
   const overlayStyle = group.style || {};
@@ -552,23 +561,26 @@ function renderPriceOverlay(group) {
     `top:${pos.y * 100}%`,
     cover.w ? `--cover-w:${cover.w * 100}%` : "",
     cover.h ? `--cover-h:${cover.h * 100}%` : "",
-    overlayStyle.fontSize ? `--price-font-size:${overlayStyle.fontSize}px` : "",
-    overlayStyle.minWidth ? `--price-min-width:${overlayStyle.minWidth}px` : "",
-    overlayStyle.minHeight ? `--price-min-height:${overlayStyle.minHeight}px` : "",
+    overlayStyle.fontSize ? `--price-font-size:${overlayStyle.fontSize}${overlayStyle.fontSizeUnit || "px"}` : "",
+    overlayStyle.minWidth !== undefined ? `--price-min-width:${overlayStyle.minWidth}px` : "",
+    overlayStyle.minHeight !== undefined ? `--price-min-height:${overlayStyle.minHeight}px` : "",
     overlayStyle.padX !== undefined ? `--price-pad-x:${overlayStyle.padX}px` : "",
     overlayStyle.padY !== undefined ? `--price-pad-y:${overlayStyle.padY}px` : "",
     overlayStyle.radius !== undefined ? `--price-radius:${overlayStyle.radius}px` : "",
     overlayStyle.shadow ? `--price-shadow:${overlayStyle.shadow}` : "",
     overlayStyle.color ? `--price-color:${overlayStyle.color}` : "",
     overlayStyle.background ? `--price-bg:${overlayStyle.background}` : "",
+    overlayStyle.borderColor ? `--price-border-color:${overlayStyle.borderColor}` : "",
+    overlayStyle.fontWeight ? `--price-font-weight:${overlayStyle.fontWeight}` : "",
   ].filter(Boolean).join(";");
   const variantClass = group.variant ? ` price-overlay--${escapeAttribute(group.variant)}` : "";
+  const stockClass = allOutOfStock ? " is-out-of-stock" : "";
   return `
     <button
-      class="price-overlay${variantClass}"
+      class="price-overlay${variantClass}${stockClass}"
       type="button"
       data-group="${group.id}"
-      aria-label="Abrir productos con precio ${escapeHtml(price)}"
+      aria-label="${allOutOfStock ? "Abrir productos sin stock" : `Abrir productos con precio ${escapeHtml(price)}`}"
       style="${coverStyle}"
     >${escapeHtml(price)}</button>
   `;
@@ -579,6 +591,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   const group = (page.priceGroups || []).find((item) => item.id === groupId);
   if (!group) return;
   const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  const allOutOfStock = products.length > 0 && products.every((product) => product.outOfStock);
   if (products.length === 1) {
     openProduct(products[0]);
     return;
@@ -589,7 +602,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
         <span class="eyebrow">${escapeHtml(displayCatalogLabel(page.title))}</span>
         <h2>${escapeHtml(group.label)}</h2>
       </div>
-      <div class="price">${escapeHtml(group.price)}</div>
+      <div class="price${allOutOfStock ? " is-out-of-stock" : ""}">${allOutOfStock ? "Sin stock" : escapeHtml(group.price)}</div>
       <div class="group-list">
         ${products
           .map(
@@ -599,6 +612,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
                   <span>${escapeHtml(product.name)}</span>
                   <strong>${escapeHtml(product.sku)}</strong>
                   <em class="group-product-status" data-added-status="${product.id}" aria-live="polite"></em>
+                  ${product.videoUrl ? `<button class="group-video-button" type="button" data-video-product="${product.id}"><span aria-hidden="true">&#9654;</span> Ver video</button>` : ""}
                 </div>
                 <div class="dialog-qty">
                   <span>Cant.</span>
@@ -607,7 +621,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
                     <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}"${product.outOfStock ? " disabled" : ""}>
                     <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${product.outOfStock ? " disabled" : ""}>+</button>
                   </div>
-                  <strong class="dialog-line-total" data-total-for="${product.id}">Total ${formatMoney(priceNumber(product.price))}</strong>
+                  <strong class="dialog-line-total" data-total-for="${product.id}">${product.outOfStock ? "Sin stock" : `Total ${formatMoney(priceNumber(product.price))}`}</strong>
                 </div>
                 <button class="small-add-button" type="button" data-add="${product.id}"${product.outOfStock ? " disabled" : ""}>${product.outOfStock ? "Sin stock" : "Agregar"}</button>
               </div>
@@ -632,6 +646,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
       markGroupProductAdded(button.dataset.add, quantity);
     });
   });
+  bindProductVideoButtons();
   els.productDialog.showModal();
 }
 
@@ -683,30 +698,32 @@ function openProduct(product) {
       <div>
         <span class="eyebrow">${escapeHtml(product.category)}</span>
         <h2>${escapeHtml(product.name)}</h2>
-        ${outOfStock ? `<span class="stock-badge">Sin stock</span>` : ""}
       </div>
+      ${product.videoUrl ? `<button class="product-video-button" type="button" data-video-product="${product.id}"><span aria-hidden="true">&#9654;</span> Ver video</button>` : ""}
       <div class="product-meta">
         <span>SKU: ${escapeHtml(product.sku)}</span>
-        ${product.skus.length > 1 ? `<span>SKU relacionados: ${product.skus.map(escapeHtml).join(", ")}</span>` : ""}
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
       </div>
-      <div class="price${outOfStock ? " is-out-of-stock" : ""}">${escapeHtml(product.price)}</div>
-      <div class="dialog-qty dialog-qty-wide">
-        <span>Cantidad</span>
-        <div class="quantity-stepper">
-          <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad"${outOfStock ? " disabled" : ""}>-</button>
-          <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Cantidad"${outOfStock ? " disabled" : ""}>
-          <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${outOfStock ? " disabled" : ""}>+</button>
+      <div class="price${outOfStock ? " is-out-of-stock" : ""}">${outOfStock ? "Sin stock" : escapeHtml(product.price)}</div>
+      ${outOfStock ? "" : `
+        <div class="dialog-qty dialog-qty-wide">
+          <span>Cantidad</span>
+          <div class="quantity-stepper">
+            <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad">-</button>
+            <input id="productQty" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Cantidad">
+            <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad">+</button>
+          </div>
         </div>
-      </div>
-      <div class="dialog-total" data-total-for="${product.id}">
-        <span>Total</span>
-        <strong>${formatMoney(priceNumber(product.price))}</strong>
-      </div>
+        <div class="dialog-total" data-total-for="${product.id}">
+          <span>Total</span>
+          <strong>${formatMoney(priceNumber(product.price))}</strong>
+        </div>
+      `}
       <button class="primary-button" type="button" data-add="${product.id}"${outOfStock ? " disabled" : ""}>${outOfStock ? "Sin stock" : "Agregar al carrito"}</button>
     </div>
   `;
   bindDialogQuantitySteppers();
+  bindProductVideoButtons();
   if (!outOfStock) {
     els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
       addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
@@ -714,6 +731,49 @@ function openProduct(product) {
     });
   }
   els.productDialog.showModal();
+}
+
+function bindProductVideoButtons() {
+  els.dialogContent.querySelectorAll("[data-video-product]").forEach((button) => {
+    button.addEventListener("click", () => openProductVideo(state.productsById.get(button.dataset.videoProduct)));
+  });
+}
+
+function openProductVideo(product) {
+  const videoId = youtubeVideoId(product?.videoUrl);
+  if (!videoId) {
+    showToast("El enlace de video no es valido");
+    return;
+  }
+
+  els.videoDialogTitle.textContent = product.name;
+  els.videoFrame.title = `Video de ${product.name}`;
+  els.videoFrame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
+  if (!els.videoDialog.open) els.videoDialog.showModal();
+}
+
+function closeProductVideo() {
+  els.videoFrame.src = "";
+  els.videoFrame.title = "Video del producto";
+  els.videoDialogTitle.textContent = "";
+}
+
+function youtubeVideoId(value) {
+  const text = String(value || "").trim();
+  if (!text) return "";
+  try {
+    const url = new URL(text);
+    const host = url.hostname.replace(/^www\./, "").toLowerCase();
+    let videoId = "";
+    if (host === "youtu.be") videoId = url.pathname.split("/").filter(Boolean)[0] || "";
+    if (["youtube.com", "m.youtube.com", "youtube-nocookie.com"].includes(host)) {
+      if (url.pathname === "/watch") videoId = url.searchParams.get("v") || "";
+      if (!videoId) videoId = url.pathname.match(/^\/(?:embed|shorts|live)\/([^/?#]+)/)?.[1] || "";
+    }
+    return /^[a-zA-Z0-9_-]{6,20}$/.test(videoId) ? videoId : "";
+  } catch (error) {
+    return "";
+  }
 }
 
 function clearCatalogSelectionFocus() {
@@ -974,7 +1034,7 @@ function renderQuickOrderTableRow(row, index) {
 function quickOrderRowStatus(row) {
   if (!row.sku && !row.quantity) return { name: "", priceText: "", totalText: "", isError: false };
   if (!row.product) return { name: "No encontrado", priceText: "", totalText: "", isError: true };
-  if (row.product.outOfStock) return { name: row.product.name, priceText: row.product.price, totalText: "Sin stock", isError: true };
+  if (row.product.outOfStock) return { name: row.product.name, priceText: "Sin stock", totalText: "", isError: true };
   if (!row.hasQuantity) return { name: row.product.name, priceText: row.product.price, totalText: "", isError: false };
   if (row.quantity <= 0) return { name: row.product.name, priceText: row.product.price, totalText: "Cant. inv\u00e1lida", isError: true };
   return {
@@ -2838,11 +2898,11 @@ function cssEscape(value) {
 }
 
 function searchFields(product) {
-  return [product.name, product.sku, product.section, product.category, product.price, String(product.page), ...(product.skus || [])];
+  return [product.name, product.sku, product.section, product.category, product.price, String(product.page)];
 }
 
 function skuFields(product) {
-  return [...new Set([product.sku, ...(product.skus || [])].filter(Boolean).map(String))];
+  return [String(product.sku || "")].filter(Boolean);
 }
 
 function barcodeFields(product) {
