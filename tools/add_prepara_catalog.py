@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import fitz
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_sample import load_price_list  # noqa: E402
@@ -21,18 +21,28 @@ DATA_JS = WEB_DIR / "data" / "catalog-data.js"
 PDF_PATH = Path(r"C:\Users\Lenovo\Downloads\Catalogo Prepara.pdf")
 
 BRAND = "Prepara"
-ASSET_VERSION = "20260716-prepara"
+ASSET_VERSION = "20260722-prepara-p3041"
 RENDER_SCALE = 1.7
 PRICE_RE = re.compile(r"^\$[\d.]+(?:,\d+)?$")
 SKU_RE = re.compile(r"^\d{3,6}-?$")
 
 EXTRA_SKUS = {
+    "P3041": {
+        "description": "Frasco EVAK 11,8 x 13 cm",
+        "ean": "811039023980",
+        "unitsPerCase": 6,
+        "price": "$10.277",
+    },
     "3715": {"description": "Spray gourmet de aluminio", "ean": "", "unitsPerCase": None},
+}
+
+PRINTED_SKU_ALIASES = {
+    "3041": "P3041",
 }
 
 NAME_OVERRIDES = {
     "2017": "Vertedor de aceite",
-    "3041": "Frasco EVAK 11,8 x 13 cm",
+    "P3041": "Frasco EVAK 11,8 x 13 cm",
     "3715": "Spray gourmet de aluminio",
 }
 
@@ -259,7 +269,8 @@ def same_line_name(lines: list[Line], word: tuple) -> str:
 
 
 def contextual_name(page: fitz.Page, lines: list[Line], word: tuple, title: str, price_data: dict) -> str:
-    sku = normalize_sku(word_text(word))
+    printed_sku = normalize_sku(word_text(word))
+    sku = PRINTED_SKU_ALIASES.get(printed_sku, printed_sku)
     if sku in NAME_OVERRIDES:
         return NAME_OVERRIDES[sku]
     description = clean_text(price_data.get("description", ""))
@@ -292,6 +303,28 @@ def contextual_name(page: fitz.Page, lines: list[Line], word: tuple, title: str,
 
 
 def clean_rendered_page_artifacts(image: Image.Image, source_page: int) -> None:
+    if source_page == 5:
+        draw = ImageDraw.Draw(image)
+        scale_x = image.width / 1013
+        scale_y = image.height / 1432
+        box = (
+            int(565 * scale_x),
+            int(395 * scale_y),
+            int(660 * scale_x),
+            int(438 * scale_y),
+        )
+        draw.rectangle(box, fill=(245, 245, 245))
+        font = ImageFont.truetype(
+            r"C:\Windows\Fonts\arialbd.ttf",
+            max(12, int(28 * min(scale_x, scale_y))),
+        )
+        draw.text(
+            (int(566 * scale_x), int(397 * scale_y)),
+            "P3041",
+            fill=(91, 137, 59),
+            font=font,
+        )
+
     if source_page == 18:
         draw = ImageDraw.Draw(image)
         # The PDF uses two unsupported icon glyphs before this subtitle; PyMuPDF
@@ -370,7 +403,8 @@ def build_prepara_pages(start_page: int) -> tuple[list[dict], list[dict]]:
             raw = word_text(word)
             if not SKU_RE.fullmatch(raw.strip(".,;:()[]{}")):
                 continue
-            sku = normalize_sku(raw)
+            printed_sku = normalize_sku(raw)
+            sku = PRINTED_SKU_ALIASES.get(printed_sku, printed_sku)
             if sku not in valid_skus or (sku, round(word[0], 2), round(word[1], 2)) in seen:
                 continue
             seen.add((sku, round(word[0], 2), round(word[1], 2)))
@@ -395,6 +429,8 @@ def build_prepara_pages(start_page: int) -> tuple[list[dict], list[dict]]:
                 "pricePosition": normalized_price_position(page, price, word),
                 "section": BRAND,
             }
+            if printed_sku != sku:
+                product["printedSku"] = printed_sku
             page_products.append(product)
 
             if price:

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import fitz
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog_sample import load_price_list  # noqa: E402
@@ -28,6 +28,35 @@ RENDER_SCALE = 1.7
 
 PRICE_RE = re.compile(r"^\$[\d.]+(?:,\d+)?$")
 SKU_RE = re.compile(r"^\d{4,6}$")
+
+
+def placement_sku(source_page: int, page: fitz.Page, word: tuple, printed_sku: str) -> str:
+    if source_page == 32 and printed_sku == "21887" and (word[0] + word[2]) / 2 > page.rect.width / 2:
+        return "21832"
+    return printed_sku
+
+
+def patch_known_page_artifacts(image: Image.Image, source_page: int) -> None:
+    if source_page != 32:
+        return
+
+    draw = ImageDraw.Draw(image)
+    box = (
+        round(image.width * 0.642),
+        round(image.height * 0.628),
+        round(image.width * 0.738),
+        round(image.height * 0.657),
+    )
+    draw.rectangle(box, fill=(245, 245, 245))
+    font_path = Path(r"C:\Windows\Fonts\arialbd.ttf")
+    font = ImageFont.truetype(str(font_path), max(20, round(image.width * 0.0305)))
+    draw.text(
+        ((box[0] + box[2]) / 2, (box[1] + box[3]) / 2),
+        "21832",
+        fill=(112, 114, 90),
+        font=font,
+        anchor="mm",
+    )
 
 
 @dataclass
@@ -333,9 +362,10 @@ def price_cover(page: fitz.Page, price: dict | None) -> dict[str, float]:
     }
 
 
-def render_page(page: fitz.Page, destination: Path) -> dict[str, int | str]:
+def render_page(page: fitz.Page, destination: Path, source_page: int) -> dict[str, int | str]:
     pix = page.get_pixmap(matrix=fitz.Matrix(RENDER_SCALE, RENDER_SCALE), alpha=False)
     image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+    patch_known_page_artifacts(image, source_page)
     destination.parent.mkdir(parents=True, exist_ok=True)
     image.save(destination, "JPEG", quality=88, optimize=True)
     return {
@@ -367,14 +397,15 @@ def build_estia(pdf: Path, old_estia_products: list[dict], app_start: int) -> tu
         page = doc[source_index]
         lines = lines_for_page(page)
         category = title_for_page(page, lines)
-        image = render_page(page, PAGE_DIR / f"estia-20260707-page-{source_page_number:03d}.jpg")
+        image = render_page(page, PAGE_DIR / f"estia-20260707-page-{source_page_number:03d}.jpg", source_page_number)
         prices = price_words_for_page(page)
         page_products = []
         price_assignments: dict[int, list[dict]] = {}
         seen_word_keys = set()
 
         for word in page.get_text("words"):
-            sku = normalize_sku(word_text(word))
+            printed_sku = normalize_sku(word_text(word))
+            sku = placement_sku(source_page_number, page, word, printed_sku)
             if not SKU_RE.fullmatch(sku) or sku not in valid_skus:
                 continue
             word_key = (round(word[0], 3), round(word[1], 3), sku)

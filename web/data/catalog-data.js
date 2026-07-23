@@ -1,12 +1,12 @@
 window.CATALOG_DATA = {
   "source": "C:\\Users\\Lenovo\\Downloads\\Catálogo Lexo.pdf",
   "pricedReference": "C:\\Users\\Lenovo\\Dropbox\\ACCESO A CLIENTES\\Catálogos de productos\\Catálogo Completo.pdf",
-  "totalPagesInPdf": 405,
+  "totalPagesInPdf": 396,
   "priceList": {
-    "source": "C:\\Users\\Lenovo\\Desktop\\Listas de precios\\Lista Lexo - Abril 2026.xlsx",
-    "productCount": 887
+    "source": "C:\\Users\\Lenovo\\Downloads\\Lista Lexo - Julio 2026.xlsx",
+    "productCount": 867
   },
-  "samplePageCount": 405,
+  "samplePageCount": 396,
   "pages": [
     {
       "number": 1,
@@ -4310,7 +4310,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-032.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-032.jpg?v=20260721-estia-21832",
         "width": 1013,
         "height": 1432
       },
@@ -4325,8 +4325,8 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg055-1",
           "page": 55,
-          "label": "Botella de vidrio 1 litro con tapa de corcho",
-          "price": "$6.874",
+          "label": "Botella de vidrio 1100ml con clip de metal",
+          "price": "$3.428",
           "productIds": [
             "estia-p055-1"
           ],
@@ -20704,11 +20704,11 @@ window.CATALOG_DATA = {
     },
     {
       "number": 242,
-      "title": "OXO",
+      "title": "Catálogo",
       "section": "OXO",
-      "showPriceOverlays": true,
+      "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/page-224.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-001.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
@@ -20722,75 +20722,81 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-225.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-002.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p222-1",
-        "p222-2"
+        "oxo-p002-1",
+        "oxo-p002-2"
       ],
       "priceGroups": [
         {
-          "id": "pg222-1",
+          "id": "oxo-pg002-1",
           "page": 243,
-          "label": "Cafeteras 8 tazas con Groundslifter",
-          "price": "$56.453",
+          "label": "Cafeteras",
+          "price": "$27.239",
           "productIds": [
-            "p222-1"
+            "oxo-p002-1"
           ],
           "position": {
-            "x": 0.745477812516,
-            "y": 0.242522822509
+            "x": 0.2538583,
+            "y": 0.244854
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101153856561,
-            "h": 0.019089346114
+            "w": 0.1044276,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg222-2",
+          "id": "oxo-pg002-2",
           "page": 243,
-          "label": "Cafeteras Cafetera prensa 8 tazas",
-          "price": "$27.239",
+          "label": "Cafeteras",
+          "price": "$56.453",
           "productIds": [
-            "p222-2"
+            "oxo-p002-2"
           ],
           "position": {
-            "x": 0.253858513436,
-            "y": 0.243963480362
+            "x": 0.7454772,
+            "y": 0.2434132
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101153856561,
-            "h": 0.019089346114
+            "w": 0.1044276,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
@@ -20804,42 +20810,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-226.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-003.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p223-1"
+        "oxo-p003-1"
       ],
       "priceGroups": [
         {
-          "id": "pg223-1",
+          "id": "oxo-pg003-1",
           "page": 244,
           "label": "Cafetera french press 1 litro",
           "price": "$29.190",
           "productIds": [
-            "p223-1"
+            "oxo-p003-1"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.22027544626
+            "x": 0.4999801,
+            "y": 0.221166
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -20849,81 +20858,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 245,
-      "title": "Cafetera Cold Brew",
+      "title": "Cafetera de infusión rápida",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-227.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-004.jpg?v=20260723-oxo-r4",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p224-1",
-        "p224-2"
+        "oxo-p004-1"
       ],
       "priceGroups": [
         {
-          "id": "pg224-1",
+          "id": "oxo-pg004-1",
           "page": 245,
-          "label": "Cafetera Cold Brew Cafetera",
-          "price": "$44.777",
+          "label": "Cafetera de infusión rápida",
+          "price": "$61.799",
           "productIds": [
-            "p224-1"
+            "oxo-p004-1"
           ],
           "position": {
-            "x": 0.499902707604,
-            "y": 0.149706880903
+            "x": 0.4999801,
+            "y": 0.221166
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.161698425447,
-            "h": 0.03050059151
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 24.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg224-2",
-          "page": 245,
-          "label": "Cafetera Cold Brew con temporizador",
-          "price": "$81.739",
-          "productIds": [
-            "p224-2"
-          ],
-          "position": {
-            "x": 0.499910394651,
-            "y": 0.601666192613
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.161698527941,
-            "h": 0.030500582452
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 24.189,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -20931,48 +20910,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 246,
-      "title": "Molinillo de café",
+      "title": "Cafetera Cold Brew",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-228.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-005.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p225-1"
+        "oxo-p005-1",
+        "oxo-p005-2"
       ],
       "priceGroups": [
         {
-          "id": "pg225-1",
+          "id": "oxo-pg005-1",
           "page": 246,
-          "label": "Molinillo de café",
-          "price": "$67.237",
+          "label": "Cafetera Cold Brew",
+          "price": "$44.777",
           "productIds": [
-            "p225-1"
+            "oxo-p005-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.499902,
+            "y": 0.1512551
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1699543,
+            "h": 0.0310942
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.062,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 24.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg005-2",
+          "page": 246,
+          "label": "Cafetera Cold Brew",
+          "price": "$81.739",
+          "productIds": [
+            "oxo-p005-2"
+          ],
+          "position": {
+            "x": 0.4999101,
+            "y": 0.6032156
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1699543,
+            "h": 0.0310942
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.062,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 24.189,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -20980,48 +20998,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 247,
-      "title": "Infusor de té para tazas",
+      "title": "Molinillo de café",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-229.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-006.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p226-1"
+        "oxo-p006-1"
       ],
       "priceGroups": [
         {
-          "id": "pg226-1",
+          "id": "oxo-pg006-1",
           "page": 247,
-          "label": "Infusor de té para tazas",
-          "price": "$23.083",
+          "label": "Molinillo de café",
+          "price": "$67.237",
           "productIds": [
-            "p226-1"
+            "oxo-p006-1"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.22027544626
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -21033,42 +21054,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-230.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-007.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p227-1"
+        "oxo-p007-1"
       ],
       "priceGroups": [
         {
-          "id": "pg227-1",
+          "id": "oxo-pg007-1",
           "page": 248,
           "label": "Infusor de té",
           "price": "$17.790",
           "productIds": [
-            "p227-1"
+            "oxo-p007-1"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.22027544626
+            "x": 0.4999801,
+            "y": 0.221166
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -21082,207 +21106,225 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-231.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-008.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p228-1",
-        "p228-2",
-        "p228-3",
-        "p228-4",
-        "p228-5",
-        "p228-6"
+        "oxo-p008-1",
+        "oxo-p008-2",
+        "oxo-p008-3",
+        "oxo-p008-4",
+        "oxo-p008-5",
+        "oxo-p008-6"
       ],
       "priceGroups": [
         {
-          "id": "pg228-1",
+          "id": "oxo-pg008-1",
           "page": 249,
-          "label": "Frascos POP 1",
-          "price": "$16.369",
-          "productIds": [
-            "p228-1"
-          ],
-          "position": {
-            "x": 0.239126978953,
-            "y": 0.240175750077
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710877446
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f4f3f4"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg228-2",
-          "page": 249,
-          "label": "Frascos POP 2,6",
-          "price": "$17.563",
-          "productIds": [
-            "p228-2"
-          ],
-          "position": {
-            "x": 0.499996822687,
-            "y": 0.240175750077
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710877446
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f3f1f4"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg228-3",
-          "page": 249,
-          "label": "Frascos POP 1,9 L",
-          "price": "$21.843",
-          "productIds": [
-            "p228-3"
-          ],
-          "position": {
-            "x": 0.783685845952,
-            "y": 0.240175750077
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710877446
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f4f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg228-4",
-          "page": 249,
-          "label": "Frascos POP L",
-          "price": "$12.766",
-          "productIds": [
-            "p228-4"
-          ],
-          "position": {
-            "x": 0.249101967095,
-            "y": 0.482821784241
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818277072,
-            "h": 0.016710913679
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f4f3f4"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg228-5",
-          "page": 249,
-          "label": "Frascos POP L",
+          "label": "Frascos POP",
           "price": "$13.607",
           "productIds": [
-            "p228-5"
+            "oxo-p008-1"
           ],
           "position": {
-            "x": 0.502653056288,
-            "y": 0.482821784241
+            "x": 0.5026529,
+            "y": 0.4837131
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f4f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg228-6",
+          "id": "oxo-pg008-2",
           "page": 249,
-          "label": "Frascos POP 2 L",
-          "price": "$16.028",
+          "label": "Frascos POP",
+          "price": "$12.766",
           "productIds": [
-            "p228-6"
+            "oxo-p008-2"
           ],
           "position": {
-            "x": 0.755300167926,
-            "y": 0.482821784241
+            "x": 0.2491018,
+            "y": 0.4837131
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg008-3",
+          "page": 249,
+          "label": "Frascos POP",
+          "price": "$16.028",
+          "productIds": [
+            "oxo-p008-3"
+          ],
+          "position": {
+            "x": 0.7552999,
+            "y": 0.4837131
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg008-4",
+          "page": 249,
+          "label": "Frascos POP",
+          "price": "$16.369",
+          "productIds": [
+            "oxo-p008-4"
+          ],
+          "position": {
+            "x": 0.2391269,
+            "y": 0.2410661
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg008-5",
+          "page": 249,
+          "label": "Frascos POP",
+          "price": "$17.563",
+          "productIds": [
+            "oxo-p008-5"
+          ],
+          "position": {
+            "x": 0.4999967,
+            "y": 0.2410661
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg008-6",
+          "page": 249,
+          "label": "Frascos POP",
+          "price": "$21.843",
+          "productIds": [
+            "oxo-p008-6"
+          ],
+          "position": {
+            "x": 0.7836848,
+            "y": 0.2410661
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
@@ -21296,306 +21338,297 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-232.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-009.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p229-1",
-        "p229-2",
-        "p229-3",
-        "p229-4",
-        "p229-5",
-        "p229-6",
-        "p229-7",
-        "p229-8",
-        "p229-9"
+        "oxo-p009-1",
+        "oxo-p009-2",
+        "oxo-p009-3",
+        "oxo-p009-4",
+        "oxo-p009-5",
+        "oxo-p009-6",
+        "oxo-p009-7",
+        "oxo-p009-8"
       ],
       "priceGroups": [
         {
-          "id": "pg229-1",
+          "id": "oxo-pg009-1",
           "page": 250,
-          "label": "Frascos POP 0,5 L",
-          "price": "$8.185",
-          "productIds": [
-            "p229-1"
-          ],
-          "position": {
-            "x": 0.323280404937,
-            "y": 0.223092357109
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.074966212864,
-            "h": 0.016710877446
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg229-2",
-          "page": 250,
-          "label": "Frascos POP 0,8 L",
-          "price": "$10.071",
-          "productIds": [
-            "p229-2"
-          ],
-          "position": {
-            "x": 0.669341246687,
-            "y": 0.223092357109
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710877446
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg229-3",
-          "page": 250,
-          "label": "Frascos POP 0,6 L",
-          "price": "$11.936",
-          "productIds": [
-            "p229-3"
-          ],
-          "position": {
-            "x": 0.110657731192,
-            "y": 0.510721280053
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818277072,
-            "h": 0.016710913679
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg229-4",
-          "page": 250,
-          "label": "Frascos POP 1,6 L",
+          "label": "Frascos POP",
           "price": "$15.005",
           "productIds": [
-            "p229-4"
+            "oxo-p009-1"
           ],
           "position": {
-            "x": 0.362161388125,
-            "y": 0.510721280053
+            "x": 0.3621613,
+            "y": 0.5116124
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818289884,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg229-5",
+          "id": "oxo-pg009-2",
           "page": 250,
-          "label": "Frascos POP 2,5 L",
+          "label": "Frascos POP",
           "price": "$16.881",
           "productIds": [
-            "p229-5"
+            "oxo-p009-2"
           ],
           "position": {
-            "x": 0.613663654984,
-            "y": 0.510721280053
+            "x": 0.6136649,
+            "y": 0.5116124
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg229-6",
+          "id": "oxo-pg009-3",
           "page": 250,
-          "label": "Frascos POP 3,5 L",
+          "label": "Frascos POP",
           "price": "$19.829",
           "productIds": [
-            "p229-6"
+            "oxo-p009-3"
           ],
           "position": {
-            "x": 0.865169906296,
-            "y": 0.510721280053
+            "x": 0.8651684,
+            "y": 0.5116124
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg229-7",
+          "id": "oxo-pg009-4",
           "page": 250,
-          "label": "Frascos POP 0,4",
-          "price": "$10.197",
+          "label": "Frascos POP",
+          "price": "$11.936",
           "productIds": [
-            "p229-7"
+            "oxo-p009-4"
           ],
           "position": {
-            "x": 0.16553468488,
-            "y": 0.790352351638
+            "x": 0.1106577,
+            "y": 0.5116124
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818289884,
-            "h": 0.016710841213
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg229-8",
+          "id": "oxo-pg009-5",
           "page": 250,
-          "label": "Frascos POP 1,1 L",
+          "label": "Frascos POP",
           "price": "$12.277",
           "productIds": [
-            "p229-8"
+            "oxo-p009-5"
           ],
           "position": {
-            "x": 0.499997130169,
-            "y": 0.790352351638
+            "x": 0.4999972,
+            "y": 0.7912427
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710841213
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg229-9",
+          "id": "oxo-pg009-6",
           "page": 250,
-          "label": "Frascos POP 1,9",
+          "label": "Frascos POP",
           "price": "$13.982",
           "productIds": [
-            "p229-9"
+            "oxo-p009-6"
           ],
           "position": {
-            "x": 0.834459562646,
-            "y": 0.790352351638
+            "x": 0.8344599,
+            "y": 0.7912427
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818213014,
-            "h": 0.016710841213
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg009-7",
+          "page": 250,
+          "label": "Frascos POP",
+          "price": "$10.197",
+          "productIds": [
+            "oxo-p009-7"
+          ],
+          "position": {
+            "x": 0.1655346,
+            "y": 0.7912427
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg009-8",
+          "page": 250,
+          "label": "Frascos POP",
+          "price": "$10.071",
+          "productIds": [
+            "oxo-p009-8"
+          ],
+          "position": {
+            "x": 0.5030043,
+            "y": 0.2239827
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
@@ -21609,75 +21642,81 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-233.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-010.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p230-1",
-        "p230-2"
+        "oxo-p010-1",
+        "oxo-p010-2"
       ],
       "priceGroups": [
         {
-          "id": "pg230-1",
+          "id": "oxo-pg010-1",
           "page": 251,
-          "label": "POP - Sets de 1 litro",
+          "label": "POP - Sets",
           "price": "$34.466",
           "productIds": [
-            "p230-1"
+            "oxo-p010-1"
           ],
           "position": {
-            "x": 0.499978168785,
-            "y": 0.181772718791
+            "x": 0.4999781,
+            "y": 0.1826631
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.114415858194,
-            "h": 0.021458883251
+            "w": 0.1180343,
+            "h": 0.0220525
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.783,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 16.574,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg230-2",
+          "id": "oxo-pg010-2",
           "page": 251,
-          "label": "POP - Sets 4 piezas de",
+          "label": "POP - Sets",
           "price": "$28.068",
           "productIds": [
-            "p230-2"
+            "oxo-p010-2"
           ],
           "position": {
-            "x": 0.499976503258,
-            "y": 0.46965840968
+            "x": 0.4999767,
+            "y": 0.4705482
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.114415806947,
-            "h": 0.021458901367
+            "w": 0.1180343,
+            "h": 0.0220525
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.783,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 16.574,
           "pdfPriceColor": "#000000"
@@ -21691,141 +21730,153 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-234.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-011.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p231-1",
-        "p231-2",
-        "p231-3",
-        "p231-4"
+        "oxo-p011-1",
+        "oxo-p011-2",
+        "oxo-p011-3",
+        "oxo-p011-4"
       ],
       "priceGroups": [
         {
-          "id": "pg231-1",
+          "id": "oxo-pg011-1",
           "page": 252,
-          "label": "POP - Tapa de acero 2,6",
+          "label": "POP - Tapa de acero",
           "price": "$27.795",
           "productIds": [
-            "p231-1"
+            "oxo-p011-1"
           ],
           "position": {
-            "x": 0.370105925976,
-            "y": 0.194205175216
+            "x": 0.3701059,
+            "y": 0.1950955
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818289884,
-            "h": 0.016710877446
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg231-2",
+          "id": "oxo-pg011-2",
           "page": 252,
-          "label": "POP - Tapa de acero L",
+          "label": "POP - Tapa de acero",
           "price": "$19.293",
           "productIds": [
-            "p231-2"
+            "oxo-p011-2"
           ],
           "position": {
-            "x": 0.668277564317,
-            "y": 0.194205175216
+            "x": 0.668277,
+            "y": 0.1950955
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710877446
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg231-3",
+          "id": "oxo-pg011-3",
           "page": 252,
-          "label": "POP - Tapa de acero L",
-          "price": "$27.795",
-          "productIds": [
-            "p231-3"
-          ],
-          "position": {
-            "x": 0.37009413917,
-            "y": 0.488973852171
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818289884,
-            "h": 0.016710913679
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg231-4",
-          "page": 252,
-          "label": "POP - Tapa de acero 4,2",
+          "label": "POP - Tapa de acero",
           "price": "$29.975",
           "productIds": [
-            "p231-4"
+            "oxo-p011-3"
           ],
           "position": {
-            "x": 0.668287890584,
-            "y": 0.488973852171
+            "x": 0.6682876,
+            "y": 0.4898644
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg011-4",
+          "page": 252,
+          "label": "POP - Tapa de acero",
+          "price": "$27.795",
+          "productIds": [
+            "oxo-p011-4"
+          ],
+          "position": {
+            "x": 0.370094,
+            "y": 0.4898644
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
@@ -21837,13 +21888,28 @@ window.CATALOG_DATA = {
       "number": 253,
       "title": "Línea completa frascos POP",
       "section": "OXO",
-      "showPriceOverlays": true,
+      "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/page-235.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-012.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
-      "products": [],
+      "products": [
+        "oxo-p012-1",
+        "oxo-p012-2",
+        "oxo-p012-3",
+        "oxo-p012-4",
+        "oxo-p012-5",
+        "oxo-p012-6",
+        "oxo-p012-7",
+        "oxo-p012-8",
+        "oxo-p012-9",
+        "oxo-p012-10",
+        "oxo-p012-11",
+        "oxo-p012-12",
+        "oxo-p012-13",
+        "oxo-p012-14"
+      ],
       "priceGroups": [],
       "sourcePage": 12
     },
@@ -21853,141 +21919,153 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-236.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-013.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p233-1",
-        "p233-2",
-        "p233-3",
-        "p233-4"
+        "oxo-p013-1",
+        "oxo-p013-2",
+        "oxo-p013-3",
+        "oxo-p013-4"
       ],
       "priceGroups": [
         {
-          "id": "pg233-1",
+          "id": "oxo-pg013-1",
           "page": 254,
-          "label": "Cerealeros POP 1,2 L",
+          "label": "Cerealeros POP",
           "price": "$21.751",
           "productIds": [
-            "p233-1"
+            "oxo-p013-1"
           ],
           "position": {
-            "x": 0.200656279108,
-            "y": 0.302902385425
+            "x": 0.2006564,
+            "y": 0.3037929
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710895563
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg233-2",
-          "page": 254,
-          "label": "Cerealeros POP 2,4 L",
-          "price": "$26.816",
-          "productIds": [
-            "p233-2"
-          ],
-          "position": {
-            "x": 0.621315623811,
-            "y": 0.307646260623
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710913679
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 12.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg233-3",
+          "id": "oxo-pg013-2",
           "page": 254,
           "label": "Cerealeros POP",
           "price": "$23.931",
           "productIds": [
-            "p233-3"
+            "oxo-p013-2"
           ],
           "position": {
-            "x": 0.200656279108,
-            "y": 0.518676104258
+            "x": 0.2006564,
+            "y": 0.5195666
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg233-4",
+          "id": "oxo-pg013-3",
+          "page": 254,
+          "label": "Cerealeros POP",
+          "price": "$26.816",
+          "productIds": [
+            "oxo-p013-3"
+          ],
+          "position": {
+            "x": 0.6213138,
+            "y": 0.3085366
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg013-4",
           "page": 254,
           "label": "Cerealeros POP",
           "price": "$29.367",
           "productIds": [
-            "p233-4"
+            "oxo-p013-4"
           ],
           "position": {
-            "x": 0.621315623811,
-            "y": 0.518676104258
+            "x": 0.6213138,
+            "y": 0.5195666
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818315508,
-            "h": 0.016710913679
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
@@ -22001,75 +22079,81 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-237.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-014.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p234-1",
-        "p234-2"
+        "oxo-p014-1",
+        "oxo-p014-2"
       ],
       "priceGroups": [
         {
-          "id": "pg234-1",
+          "id": "oxo-pg014-1",
           "page": 255,
-          "label": "POP redondos 2.8 L",
+          "label": "POP redondos",
           "price": "$21.007",
           "productIds": [
-            "p234-1"
+            "oxo-p014-1"
           ],
           "position": {
-            "x": 0.316595697283,
-            "y": 0.242514198961
+            "x": 0.3165956,
+            "y": 0.2441938
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520444881,
-            "h": 0.029306909527
+            "w": 0.1630999,
+            "h": 0.0299006
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.893,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 23.184,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg234-2",
+          "id": "oxo-pg014-2",
           "page": 255,
-          "label": "POP redondos 1.9 L",
+          "label": "POP redondos",
           "price": "$19.029",
           "productIds": [
-            "p234-2"
+            "oxo-p014-2"
           ],
           "position": {
-            "x": 0.677911868924,
-            "y": 0.242514198961
+            "x": 0.6779126,
+            "y": 0.2441938
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520470505,
-            "h": 0.029306909527
+            "w": 0.1630999,
+            "h": 0.0299006
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.893,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 23.184,
           "pdfPriceColor": "#000000"
@@ -22083,75 +22167,81 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-238.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-015.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p235-1",
-        "p235-2"
+        "oxo-p015-1",
+        "oxo-p015-2"
       ],
       "priceGroups": [
         {
-          "id": "pg235-1",
+          "id": "oxo-pg015-1",
           "page": 256,
-          "label": "Accesorios para POP Etiquetas removibles",
+          "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
-            "p235-1"
+            "oxo-p015-1"
           ],
           "position": {
-            "x": 0.253873599266,
-            "y": 0.23616978606
+            "x": 0.2538735,
+            "y": 0.2370604
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.086251759309,
-            "h": 0.019089346114
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg235-2",
+          "id": "oxo-pg015-2",
           "page": 256,
-          "label": "Accesorios para POP Nivelador enganchable",
+          "label": "Accesorios para POP",
           "price": "$3.755",
           "productIds": [
-            "p235-2"
+            "oxo-p015-2"
           ],
           "position": {
-            "x": 0.689578372625,
-            "y": 0.23616978606
+            "x": 0.6895773,
+            "y": 0.2370604
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.086251746497,
-            "h": 0.019089346114
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
@@ -22165,108 +22255,117 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-239.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-016.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p236-1",
-        "p236-2",
-        "p236-3"
+        "oxo-p016-1",
+        "oxo-p016-2",
+        "oxo-p016-3"
       ],
       "priceGroups": [
         {
-          "id": "pg236-1",
+          "id": "oxo-pg016-1",
           "page": 257,
-          "label": "Accesorios para POP Cuchara media taza",
+          "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
-            "p236-1"
+            "oxo-p016-1"
           ],
           "position": {
-            "x": 0.17764321943,
-            "y": 0.24949836678
+            "x": 0.1776432,
+            "y": 0.2503889
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.086251772121,
-            "h": 0.019089346114
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg236-2",
+          "id": "oxo-pg016-2",
           "page": 257,
-          "label": "Accesorios para POP Cuchara para café",
+          "label": "Accesorios para POP",
           "price": "$6.342",
           "productIds": [
-            "p236-2"
+            "oxo-p016-2"
           ],
           "position": {
-            "x": 0.477987371104,
-            "y": 0.24949836678
+            "x": 0.4779872,
+            "y": 0.2503889
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.086251746497,
-            "h": 0.019089346114
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg236-3",
+          "id": "oxo-pg016-3",
           "page": 257,
-          "label": "Accesorios para POP Cuchara para espolvorear",
+          "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
-            "p236-3"
+            "oxo-p016-3"
           ],
           "position": {
-            "x": 0.800321103343,
-            "y": 0.24949836678
+            "x": 0.8003203,
+            "y": 0.2503889
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.086251746497,
-            "h": 0.019089346114
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
@@ -22276,213 +22375,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 258,
-      "title": "Bolsas de silicona",
+      "title": "Accesorios para POP",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-240.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-017.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p237-1",
-        "p237-2",
-        "p237-3",
-        "p237-4",
-        "p237-5",
-        "p237-6"
+        "oxo-p017-1",
+        "oxo-p017-2"
       ],
       "priceGroups": [
         {
-          "id": "pg237-1",
+          "id": "oxo-pg017-1",
           "page": 258,
-          "label": "Bolsas de silicona 235ml",
-          "price": "$12.788",
+          "label": "Accesorios para POP",
+          "price": "$13.718",
           "productIds": [
-            "p237-1"
+            "oxo-p017-1"
           ],
           "position": {
-            "x": 0.200671307286,
-            "y": 0.413193412044
+            "x": 0.2538752,
+            "y": 0.2113367
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785549212,
-            "h": 0.020274105624
+            "w": 0.1044276,
+            "h": 0.019683
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg237-2",
+          "id": "oxo-pg017-2",
           "page": 258,
-          "label": "Bolsas de silicona 355ml",
-          "price": "$16.579",
+          "label": "Accesorios para POP",
+          "price": "$8.231",
           "productIds": [
-            "p237-2"
+            "oxo-p017-2"
           ],
           "position": {
-            "x": 0.487941815611,
-            "y": 0.413193412044
+            "x": 0.6977668,
+            "y": 0.2113367
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
+            "w": 0.0902291,
+            "h": 0.019683
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg237-3",
-          "page": 258,
-          "label": "Bolsas de silicona 945ml",
-          "price": "$24.302",
-          "productIds": [
-            "p237-3"
-          ],
-          "position": {
-            "x": 0.775211593666,
-            "y": 0.413193412044
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg237-4",
-          "page": 258,
-          "label": "Bolsas de silicona 1,89 L",
-          "price": "$31.883",
-          "productIds": [
-            "p237-4"
-          ],
-          "position": {
-            "x": 0.220724110639,
-            "y": 0.631314927977
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785523588,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg237-5",
-          "page": 258,
-          "label": "Bolsas de silicona 830ml",
-          "price": "$16.579",
-          "productIds": [
-            "p237-5"
-          ],
-          "position": {
-            "x": 0.48077369517,
-            "y": 0.631314927977
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg237-6",
-          "page": 258,
-          "label": "Bolsas de silicona",
-          "price": "$21.751",
-          "productIds": [
-            "p237-6"
-          ],
-          "position": {
-            "x": 0.775211593666,
-            "y": 0.631314927977
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -22494,174 +22467,153 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-241.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-018.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p238-1",
-        "p238-2",
-        "p238-3",
-        "p238-4",
-        "p238-5"
+        "oxo-p018-1",
+        "oxo-p018-2",
+        "oxo-p018-3",
+        "oxo-p018-4"
       ],
       "priceGroups": [
         {
-          "id": "pg238-1",
+          "id": "oxo-pg018-1",
           "page": 259,
-          "label": "Bolsas de silicona 3,785",
-          "price": "$38.330",
+          "label": "Bolsas de silicona",
+          "price": "$16.579",
           "productIds": [
-            "p238-1"
+            "oxo-p018-1"
           ],
           "position": {
-            "x": 0.21806495596,
-            "y": 0.21733293235
+            "x": 0.2511999,
+            "y": 0.4374685
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785523588,
-            "h": 0.020274123741
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg238-2",
+          "id": "oxo-pg018-2",
           "page": 259,
-          "label": "Bolsas de silicona 355ml",
-          "price": "$12.788",
+          "label": "Bolsas de silicona",
+          "price": "$31.883",
           "productIds": [
-            "p238-2"
+            "oxo-p018-2"
           ],
           "position": {
-            "x": 0.499995439019,
-            "y": 0.21733293235
+            "x": 0.251208,
+            "y": 0.6864534
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785523588,
-            "h": 0.020274123741
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg238-3",
+          "id": "oxo-pg018-3",
           "page": 259,
-          "label": "Bolsas de silicona 1,89 L",
-          "price": "$28.091",
+          "label": "Bolsas de silicona",
+          "price": "$24.302",
           "productIds": [
-            "p238-3"
+            "oxo-p018-3"
           ],
           "position": {
-            "x": 0.807126907618,
-            "y": 0.21733293235
+            "x": 0.7542515,
+            "y": 0.4374685
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785523588,
-            "h": 0.020274123741
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg238-4",
+          "id": "oxo-pg018-4",
           "page": 259,
-          "label": "Bolsas de silicona bolsas “lunch”",
-          "price": "$51.119",
+          "label": "Bolsas de silicona",
+          "price": "$21.751",
           "productIds": [
-            "p238-4"
+            "oxo-p018-4"
           ],
           "position": {
-            "x": 0.281946574611,
-            "y": 0.61746051013
+            "x": 0.7542515,
+            "y": 0.6864534
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785523588,
-            "h": 0.020274105624
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg238-5",
-          "page": 259,
-          "label": "Bolsas de silicona Set x4 bolsas",
-          "price": "$63.907",
-          "productIds": [
-            "p238-5"
-          ],
-          "position": {
-            "x": 0.729759619879,
-            "y": 0.61746051013
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
@@ -22671,114 +22623,195 @@ window.CATALOG_DATA = {
     },
     {
       "number": 260,
-      "title": "Utensilios de acero inoxidable",
+      "title": "Bolsas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-242.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-019.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p239-1",
-        "p239-2",
-        "p239-3"
+        "oxo-p019-1",
+        "oxo-p019-2",
+        "oxo-p019-3",
+        "oxo-p019-4",
+        "oxo-p019-5"
       ],
       "priceGroups": [
         {
-          "id": "pg239-1",
+          "id": "oxo-pg019-1",
           "page": 260,
-          "label": "Utensilios de acero inoxidable Cucharón",
-          "price": "$16.579",
+          "label": "Bolsas de silicona",
+          "price": "$38.330",
           "productIds": [
-            "p239-1"
+            "oxo-p019-1"
           ],
           "position": {
-            "x": 0.476432934816,
-            "y": 0.291874679561
+            "x": 0.2180647,
+            "y": 0.2182234
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022111429
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg239-2",
+          "id": "oxo-pg019-2",
           "page": 260,
-          "label": "Utensilios de acero inoxidable",
-          "price": "$15.304",
+          "label": "Bolsas de silicona",
+          "price": "$51.119",
           "productIds": [
-            "p239-2"
+            "oxo-p019-2"
           ],
           "position": {
-            "x": 0.476432934816,
-            "y": 0.445494576767
+            "x": 0.2819463,
+            "y": 0.6183499
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg239-3",
+          "id": "oxo-pg019-3",
           "page": 260,
-          "label": "Utensilios de acero inoxidable",
-          "price": "$15.304",
+          "label": "Bolsas de silicona",
+          "price": "$63.907",
           "productIds": [
-            "p239-3"
+            "oxo-p019-3"
           ],
           "position": {
-            "x": 0.476432934816,
-            "y": 0.603083896612
+            "x": 0.7297591,
+            "y": 0.6183499
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 15.576,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg019-4",
+          "page": 260,
+          "label": "Bolsas de silicona",
+          "price": "$12.788",
+          "productIds": [
+            "oxo-p019-4"
+          ],
+          "position": {
+            "x": 0.4999952,
+            "y": 0.2182234
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1112309,
+            "h": 0.0208678
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 15.576,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg019-5",
+          "page": 260,
+          "label": "Bolsas de silicona",
+          "price": "$28.091",
+          "productIds": [
+            "oxo-p019-5"
+          ],
+          "position": {
+            "x": 0.8071252,
+            "y": 0.2182234
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1112309,
+            "h": 0.0208678
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -22786,60 +22819,159 @@ window.CATALOG_DATA = {
     },
     {
       "number": 261,
-      "title": "Utensilios de nylon",
+      "title": "Bolsas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-243.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-020.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p240-1",
-        "p240-2",
-        "p240-3",
-        "p240-4",
-        "p240-5",
-        "p240-6",
-        "p240-7"
+        "oxo-p020-1",
+        "oxo-p020-2",
+        "oxo-p020-3",
+        "oxo-p020-4"
       ],
       "priceGroups": [
         {
-          "id": "pg240-1",
+          "id": "oxo-pg020-1",
           "page": 261,
-          "label": "Utensilios de nylon",
-          "price": "$10.002",
+          "label": "Bolsas de silicona",
+          "price": "$22.180",
           "productIds": [
-            "p240-1",
-            "p240-2",
-            "p240-3",
-            "p240-4",
-            "p240-5",
-            "p240-6",
-            "p240-7"
+            "oxo-p020-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.146374540968
+            "x": 0.2666943,
+            "y": 0.2736289
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1501908,
+            "h": 0.0267024
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.441,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 20.49,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg020-2",
+          "page": 261,
+          "label": "Bolsas de silicona",
+          "price": "$22.180",
+          "productIds": [
+            "oxo-p020-2"
+          ],
+          "position": {
+            "x": 0.7332836,
+            "y": 0.2736289
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1501908,
+            "h": 0.0267024
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.441,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 20.49,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg020-3",
+          "page": 261,
+          "label": "Bolsas de silicona",
+          "price": "$30.225",
+          "productIds": [
+            "oxo-p020-3"
+          ],
+          "position": {
+            "x": 0.2666943,
+            "y": 0.5926733
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1501908,
+            "h": 0.0267024
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.441,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 20.49,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg020-4",
+          "page": 261,
+          "label": "Bolsas de silicona",
+          "price": "$35.712",
+          "productIds": [
+            "oxo-p020-4"
+          ],
+          "position": {
+            "x": 0.7332986,
+            "y": 0.5926733
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1501908,
+            "h": 0.0267024
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.441,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 20.49,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -22847,147 +22979,123 @@ window.CATALOG_DATA = {
     },
     {
       "number": 262,
-      "title": "Espátulas de silicona flexibles",
+      "title": "Utensilios de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-244.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-021.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p241-1",
-        "p241-2",
-        "p241-3",
-        "p241-4"
+        "oxo-p021-1",
+        "oxo-p021-2",
+        "oxo-p021-3"
       ],
       "priceGroups": [
         {
-          "id": "pg241-1",
+          "id": "oxo-pg021-1",
           "page": 262,
-          "label": "Espátulas de silicona flexibles Para omelet",
-          "price": "$19.236",
+          "label": "Utensilios de acero inoxidable",
+          "price": "$16.579",
           "productIds": [
-            "p241-1"
+            "oxo-p021-1"
           ],
           "position": {
-            "x": 0.273400576549,
-            "y": 0.460519949201
+            "x": 0.4764329,
+            "y": 0.2927651
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.094523573202,
-            "h": 0.017904586604
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 13.58,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg241-2",
+          "id": "oxo-pg021-2",
           "page": 262,
-          "label": "Espátulas de silicona flexibles Para panqueque",
-          "price": "$19.236",
+          "label": "Utensilios de acero inoxidable",
+          "price": "$15.304",
           "productIds": [
-            "p241-2"
+            "oxo-p021-2"
           ],
           "position": {
-            "x": 0.432824648097,
-            "y": 0.460519949201
+            "x": 0.4764329,
+            "y": 0.4463844
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.094523598826,
-            "h": 0.017904586604
+            "w": 0.1384954,
+            "h": 0.0256157
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 13.58,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg241-3",
+          "id": "oxo-pg021-3",
           "page": 262,
-          "label": "Espátulas de silicona flexibles Espátula corta",
-          "price": "$15.741",
+          "label": "Utensilios de acero inoxidable",
+          "price": "$15.304",
           "productIds": [
-            "p241-3"
+            "oxo-p021-3"
           ],
           "position": {
-            "x": 0.597785802372,
-            "y": 0.460519949201
+            "x": 0.4764329,
+            "y": 0.6039748
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.094523624449,
-            "h": 0.017904586604
+            "w": 0.1384954,
+            "h": 0.0256157
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 13.58,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg241-4",
-          "page": 262,
-          "label": "Espátulas de silicona flexibles Espátula larga",
-          "price": "$18.838",
-          "productIds": [
-            "p241-4"
-          ],
-          "position": {
-            "x": 0.759393930635,
-            "y": 0.460519949201
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.094523521955,
-            "h": 0.017904586604
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 13.58,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -22995,81 +23103,61 @@ window.CATALOG_DATA = {
     },
     {
       "number": 263,
-      "title": "Espátulas de nylon",
+      "title": "Utensilios de nylon",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-245.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-022.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p242-1",
-        "p242-2"
+        "oxo-p022-1",
+        "oxo-p022-2",
+        "oxo-p022-3",
+        "oxo-p022-4",
+        "oxo-p022-5",
+        "oxo-p022-6"
       ],
       "priceGroups": [
         {
-          "id": "pg242-1",
+          "id": "oxo-pg022-1",
           "page": 263,
-          "label": "Espátulas de nylon Chica",
-          "price": "$12.788",
+          "label": "Utensilios de nylon - 6 productos",
+          "price": "$10.002",
           "productIds": [
-            "p242-1"
+            "oxo-p022-1",
+            "oxo-p022-2",
+            "oxo-p022-3",
+            "oxo-p022-4",
+            "oxo-p022-5",
+            "oxo-p022-6"
           ],
           "position": {
-            "x": 0.32984620678,
-            "y": 0.217225790205
+            "x": 0.4999817,
+            "y": 0.1472652
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg242-2",
-          "page": 263,
-          "label": "Espátulas de nylon Grande",
-          "price": "$15.304",
-          "productIds": [
-            "p242-2"
-          ],
-          "position": {
-            "x": 0.671466869031,
-            "y": 0.217225790205
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23077,81 +23165,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 264,
-      "title": "Abrelatas",
+      "title": "Espátulas de silicona flexibles",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-246.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-023.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p243-1",
-        "p243-2"
+        "oxo-p023-1"
       ],
       "priceGroups": [
         {
-          "id": "pg243-1",
+          "id": "oxo-pg023-1",
           "page": 264,
-          "label": "Abrelatas Con traba",
-          "price": "$27.632",
+          "label": "Espátulas de silicona flexibles",
+          "price": "$18.838",
           "productIds": [
-            "p243-1"
+            "oxo-p023-1"
           ],
           "position": {
-            "x": 0.344366654941,
-            "y": 0.229633245588
+            "x": 0.4999995,
+            "y": 0.4701295
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171644542319,
-            "h": 0.03465747667
+            "w": 0.1180671,
+            "h": 0.0220582
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 2.784,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg243-2",
-          "page": 264,
-          "label": "Abrelatas Sin traba",
-          "price": "$21.751",
-          "productIds": [
-            "p243-2"
-          ],
-          "position": {
-            "x": 0.667494074824,
-            "y": 0.229633245588
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.171644542319,
-            "h": 0.03465747667
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 16.579,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23159,81 +23217,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 265,
-      "title": "Cucharas de helado",
+      "title": "Espátulas de nylon",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-247.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-024.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p244-1",
-        "p244-2"
+        "oxo-p024-1"
       ],
       "priceGroups": [
         {
-          "id": "pg244-1",
+          "id": "oxo-pg024-1",
           "page": 265,
-          "label": "Cucharas de helado Sin gatillo",
-          "price": "$23.679",
+          "label": "Espátulas de nylon",
+          "price": "$12.788",
           "productIds": [
-            "p244-1"
+            "oxo-p024-1"
           ],
           "position": {
-            "x": 0.334136424797,
-            "y": 0.224261427559
+            "x": 0.4999928,
+            "y": 0.2113711
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.208955061726,
-            "h": 0.039405500592
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg244-2",
-          "page": 265,
-          "label": "Cucharas de helado Con gatillo",
-          "price": "$19.634",
-          "productIds": [
-            "p244-2"
-          ],
-          "position": {
-            "x": 0.664944358076,
-            "y": 0.225759116775
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.208955061726,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23241,81 +23269,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 266,
-      "title": "Corta pizzas",
+      "title": "Abrelatas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-248.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-025.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p245-1",
-        "p245-2"
+        "oxo-p025-1",
+        "oxo-p025-2"
       ],
       "priceGroups": [
         {
-          "id": "pg245-1",
+          "id": "oxo-pg025-1",
           "page": 266,
-          "label": "Corta pizzas Para antiadherente",
-          "price": "$15.304",
+          "label": "Abrelatas",
+          "price": "$21.751",
           "productIds": [
-            "p245-1"
+            "oxo-p025-1"
           ],
           "position": {
-            "x": 0.655433046227,
-            "y": 0.243230261406
+            "x": 0.6674924,
+            "y": 0.2313466
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1904155,
+            "h": 0.0346575
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.566,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 27.19,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg245-2",
+          "id": "oxo-pg025-2",
           "page": 266,
-          "label": "Corta pizzas Normal",
-          "price": "$15.304",
+          "label": "Abrelatas",
+          "price": "$27.632",
           "productIds": [
-            "p245-2"
+            "oxo-p025-2"
           ],
           "position": {
-            "x": 0.310994709569,
-            "y": 0.243675642282
+            "x": 0.3443668,
+            "y": 0.2313466
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742184015,
-            "h": 0.031685378195
+            "w": 0.1904155,
+            "h": 0.0346575
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.566,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 27.19,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23323,48 +23357,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 267,
-      "title": "Pincel de repostería",
+      "title": "abrelatas con borde liso",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-249.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-026.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p246-1"
+        "oxo-p026-1",
+        "oxo-p026-2"
       ],
       "priceGroups": [
         {
-          "id": "pg246-1",
+          "id": "oxo-pg026-1",
           "page": 267,
-          "label": "Pincel de repostería",
-          "price": "$12.471",
+          "label": "abrelatas con borde liso",
+          "price": "$27.482",
           "productIds": [
-            "p246-1"
+            "oxo-p026-1"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.22027544626
+            "x": 0.2650149,
+            "y": 0.2081881
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1562965,
+            "h": 0.0287158
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 22.186,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg026-2",
+          "page": 267,
+          "label": "abrelatas con borde liso",
+          "price": "$34.317",
+          "productIds": [
+            "oxo-p026-2"
+          ],
+          "position": {
+            "x": 0.6954745,
+            "y": 0.2081881
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1562965,
+            "h": 0.0287158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 22.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23372,48 +23445,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 268,
-      "title": "Batidor de acero inoxidable",
+      "title": "Cucharas de helado",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-250.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-027.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p247-1"
+        "oxo-p027-1",
+        "oxo-p027-2"
       ],
       "priceGroups": [
         {
-          "id": "pg247-1",
+          "id": "oxo-pg027-1",
           "page": 268,
-          "label": "Batidor de acero inoxidable",
-          "price": "$15.742",
+          "label": "Cucharas de helado",
+          "price": "$19.634",
           "productIds": [
-            "p247-1"
+            "oxo-p027-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222184040277
+            "x": 0.6649455,
+            "y": 0.2269464
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.2176799,
+            "h": 0.0394055
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg027-2",
+          "page": 268,
+          "label": "Cucharas de helado",
+          "price": "$23.679",
+          "productIds": [
+            "oxo-p027-2"
+          ],
+          "position": {
+            "x": 0.3341364,
+            "y": 0.2254487
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23421,112 +23533,85 @@ window.CATALOG_DATA = {
     },
     {
       "number": 269,
-      "title": "Colador",
+      "title": "Corta pizzas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-251.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-028.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p248-1",
-        "p248-2",
-        "p248-3"
+        "oxo-p028-1",
+        "oxo-p028-2"
       ],
       "priceGroups": [
         {
-          "id": "pg248-1",
+          "id": "oxo-pg028-1",
           "page": 269,
-          "label": "Colador 7,5cm",
-          "price": "$14.433",
+          "label": "Corta pizzas",
+          "price": "$15.304",
           "productIds": [
-            "p248-1"
+            "oxo-p028-1"
           ],
           "position": {
-            "x": 0.2800718639,
-            "y": 0.218675452057
+            "x": 0.3109948,
+            "y": 0.2453552
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742196827,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg248-2",
+          "id": "oxo-pg028-2",
           "page": 269,
-          "label": "Colador 15cm",
-          "price": "$26.459",
+          "label": "Corta pizzas",
+          "price": "$15.304",
           "productIds": [
-            "p248-2"
+            "oxo-p028-2"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.218675452057
+            "x": 0.655433,
+            "y": 0.2449098
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
-          },
-          "pdfPriceHeight": 25.187,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg248-3",
-          "page": 269,
-          "label": "Colador 20cm",
-          "price": "$31.269",
-          "productIds": [
-            "p248-3"
-          ],
-          "position": {
-            "x": 0.726579437128,
-            "y": 0.218675452057
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -23536,46 +23621,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 270,
-      "title": "Set x3 coladores",
+      "title": "Pincel de repostería",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-252.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-029.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p249-1"
+        "oxo-p029-1"
       ],
       "priceGroups": [
         {
-          "id": "pg249-1",
+          "id": "oxo-pg029-1",
           "page": 270,
-          "label": "Set x3 coladores",
-          "price": "$31.448",
+          "label": "Pincel de repostería",
+          "price": "$12.471",
           "productIds": [
-            "p249-1"
+            "oxo-p029-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222184040277
+            "x": 0.4999801,
+            "y": 0.221166
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -23585,81 +23673,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 271,
-      "title": "Vaporieras",
+      "title": "Batidor de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-253.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-030.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p250-1",
-        "p250-2"
+        "oxo-p030-1"
       ],
       "priceGroups": [
         {
-          "id": "pg250-1",
+          "id": "oxo-pg030-1",
           "page": 271,
-          "label": "Vaporieras Silicona",
-          "price": "$21.751",
+          "label": "Batidor de acero inoxidable",
+          "price": "$15.742",
           "productIds": [
-            "p250-1"
+            "oxo-p030-1"
           ],
           "position": {
-            "x": 0.173144874605,
-            "y": 0.259555271325
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg250-2",
-          "page": 271,
-          "label": "Vaporieras",
-          "price": "$29.367",
-          "productIds": [
-            "p250-2"
-          ],
-          "position": {
-            "x": 0.173144874605,
-            "y": 0.532792163442
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23667,46 +23725,121 @@ window.CATALOG_DATA = {
     },
     {
       "number": 272,
-      "title": "Tijera de cocina y hierbas",
+      "title": "Colador",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-254.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-031.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p251-1"
+        "oxo-p031-1",
+        "oxo-p031-2",
+        "oxo-p031-3"
       ],
       "priceGroups": [
         {
-          "id": "pg251-1",
+          "id": "oxo-pg031-1",
           "page": 272,
-          "label": "Tijera de cocina y hierbas",
-          "price": "$23.500",
+          "label": "Colador",
+          "price": "$14.433",
           "productIds": [
-            "p251-1"
+            "oxo-p031-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222184040277
+            "x": 0.2800719,
+            "y": 0.2195659
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 25.187,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg031-2",
+          "page": 272,
+          "label": "Colador",
+          "price": "$26.459",
+          "productIds": [
+            "oxo-p031-2"
+          ],
+          "position": {
+            "x": 0.4999817,
+            "y": 0.2195659
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1767577,
+            "h": 0.032279
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 25.187,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg031-3",
+          "page": 272,
+          "label": "Colador",
+          "price": "$31.269",
+          "productIds": [
+            "oxo-p031-3"
+          ],
+          "position": {
+            "x": 0.7265792,
+            "y": 0.2195659
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1767577,
+            "h": 0.032279
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -23716,79 +23849,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 273,
-      "title": "Batidor doble",
+      "title": "Set x3 coladores",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-255.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-032.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p252-1",
-        "p252-2"
+        "oxo-p032-1"
       ],
       "priceGroups": [
         {
-          "id": "pg252-1",
+          "id": "oxo-pg032-1",
           "page": 273,
-          "label": "Batidor doble Machacador de carne",
-          "price": "$24.942",
+          "label": "Set x3 coladores",
+          "price": "$31.448",
           "productIds": [
-            "p252-1"
+            "oxo-p032-1"
           ],
           "position": {
-            "x": 0.290314450973,
-            "y": 0.22288502963
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742184015,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 25.187,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg252-2",
-          "page": 273,
-          "label": "Batidor doble",
-          "price": "$25.539",
-          "productIds": [
-            "p252-2"
-          ],
-          "position": {
-            "x": 0.70966193698,
-            "y": 0.22288502963
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -23798,114 +23901,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 274,
-      "title": "Peladores",
+      "title": "Vaporiera de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-256.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-033.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p253-1",
-        "p253-2",
-        "p253-3"
+        "oxo-p033-1"
       ],
       "priceGroups": [
         {
-          "id": "pg253-1",
+          "id": "oxo-pg033-1",
           "page": 274,
-          "label": "Peladores giratorio",
-          "price": "$9.565",
+          "label": "Vaporiera de silicona",
+          "price": "$21.751",
           "productIds": [
-            "p253-1"
+            "oxo-p033-1"
           ],
           "position": {
-            "x": 0.283870488831,
-            "y": 0.205543075164
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107506586262,
-            "h": 0.025022111429
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg253-2",
-          "page": 274,
-          "label": "Peladores Pelador en Y",
-          "price": "$10.889",
-          "productIds": [
-            "p253-2"
-          ],
-          "position": {
-            "x": 0.636002419678,
-            "y": 0.418458450262
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg253-3",
-          "page": 274,
-          "label": "Peladores Cortador",
-          "price": "$10.889",
-          "productIds": [
-            "p253-3"
-          ],
-          "position": {
-            "x": 0.229467499266,
-            "y": 0.609002331619
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23913,81 +23953,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 275,
-      "title": "Peladores",
+      "title": "Tijeras",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-257.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-034.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p254-1",
-        "p254-2"
+        "oxo-p034-1",
+        "oxo-p034-2"
       ],
       "priceGroups": [
         {
-          "id": "pg254-1",
+          "id": "oxo-pg034-1",
           "page": 275,
-          "label": "Peladores Pelador en Y Prep",
-          "price": "$10.889",
+          "label": "Tijeras",
+          "price": "$41.199",
           "productIds": [
-            "p254-1"
+            "oxo-p034-1"
           ],
           "position": {
-            "x": 0.258484207012,
-            "y": 0.547348313426
+            "x": 0.2800332,
+            "y": 0.2434466
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785549212,
-            "h": 0.020274105624
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg254-2",
+          "id": "oxo-pg034-2",
           "page": 275,
-          "label": "Peladores Cortador Juliana Prep",
-          "price": "$10.889",
+          "label": "Tijeras",
+          "price": "$23.500",
           "productIds": [
-            "p254-2"
+            "oxo-p034-2"
           ],
           "position": {
-            "x": 0.717023258546,
-            "y": 0.547348313426
+            "x": 0.6800389,
+            "y": 0.2419489
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -23995,46 +24041,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 276,
-      "title": "Set de 3 pelapapas",
+      "title": "Batidor doble",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-258.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-035.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p255-1"
+        "oxo-p035-1"
       ],
       "priceGroups": [
         {
-          "id": "pg255-1",
+          "id": "oxo-pg035-1",
           "page": 276,
-          "label": "Set de 3 pelapapas",
-          "price": "$21.715",
+          "label": "Batidor doble",
+          "price": "$23.539",
           "productIds": [
-            "p255-1"
+            "oxo-p035-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222184040277
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -24044,81 +24093,123 @@ window.CATALOG_DATA = {
     },
     {
       "number": 277,
-      "title": "Citrus Zester",
+      "title": "Peladores",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-259.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-036.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p256-1",
-        "p256-2"
+        "oxo-p036-1",
+        "oxo-p036-2",
+        "oxo-p036-3"
       ],
       "priceGroups": [
         {
-          "id": "pg256-1",
+          "id": "oxo-pg036-1",
           "page": 277,
-          "label": "Citrus Zester Descorazador de ananá",
-          "price": "$10.691",
+          "label": "Peladores",
+          "price": "$10.889",
           "productIds": [
-            "p256-1"
+            "oxo-p036-1"
           ],
           "position": {
-            "x": 0.316601795674,
-            "y": 0.212774807646
+            "x": 0.6360047,
+            "y": 0.4193499
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520547375,
-            "h": 0.029306909527
+            "w": 0.1384954,
+            "h": 0.0256157
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg256-2",
+          "id": "oxo-pg036-2",
           "page": 277,
-          "label": "Citrus Zester",
-          "price": "$11.227",
+          "label": "Peladores",
+          "price": "$9.565",
           "productIds": [
-            "p256-2"
+            "oxo-p036-2"
           ],
           "position": {
-            "x": 0.683186336489,
-            "y": 0.212774807646
+            "x": 0.2838706,
+            "y": 0.2064335
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520521752,
-            "h": 0.029306909527
+            "w": 0.11943,
+            "h": 0.0256158
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg036-3",
+          "page": 277,
+          "label": "Peladores",
+          "price": "$10.889",
+          "productIds": [
+            "oxo-p036-3"
+          ],
+          "position": {
+            "x": 0.2294681,
+            "y": 0.6098936
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24126,81 +24217,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 278,
-      "title": "Cortadores de manzana",
+      "title": "Peladores",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-260.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-037.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p257-1",
-        "p257-2"
+        "oxo-p037-1",
+        "oxo-p037-2"
       ],
       "priceGroups": [
         {
-          "id": "pg257-1",
+          "id": "oxo-pg037-1",
           "page": 278,
-          "label": "Cortadores de manzana Normal",
-          "price": "$15.304",
+          "label": "Peladores",
+          "price": "$10.889",
           "productIds": [
-            "p257-1"
+            "oxo-p037-1"
           ],
           "position": {
-            "x": 0.273164705906,
-            "y": 0.218836183392
+            "x": 0.7170215,
+            "y": 0.5482386
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520432069,
-            "h": 0.029306909527
+            "w": 0.1112309,
+            "h": 0.0208678
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg257-2",
+          "id": "oxo-pg037-2",
           "page": 278,
-          "label": "Cortadores de manzana Pop-out",
-          "price": "$23.164",
+          "label": "Peladores",
+          "price": "$10.889",
           "productIds": [
-            "p257-2"
+            "oxo-p037-2"
           ],
           "position": {
-            "x": 0.684863496487,
-            "y": 0.218836183392
+            "x": 0.2584839,
+            "y": 0.5482386
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520521752,
-            "h": 0.029306909527
+            "w": 0.1112309,
+            "h": 0.0208678
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24208,114 +24305,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 279,
-      "title": "Exprimidor pequeño",
+      "title": "Set de 3 pelapapas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-261.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-038.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p258-1",
-        "p258-2",
-        "p258-3"
+        "oxo-p038-1"
       ],
       "priceGroups": [
         {
-          "id": "pg258-1",
+          "id": "oxo-pg038-1",
           "page": 279,
-          "label": "Exprimidor pequeño pequeño",
-          "price": "$15.304",
+          "label": "Set de 3 pelapapas",
+          "price": "$21.715",
           "productIds": [
-            "p258-1"
+            "oxo-p038-1"
           ],
           "position": {
-            "x": 0.287392437708,
-            "y": 0.211009263067
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520470505,
-            "h": 0.029306909527
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg258-2",
-          "page": 279,
-          "label": "Exprimidor pequeño Exprimidor manual",
-          "price": "$26.807",
-          "productIds": [
-            "p258-2"
-          ],
-          "position": {
-            "x": 0.749509643247,
-            "y": 0.212772814809
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.145520470505,
-            "h": 0.029306927644
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 23.184,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg258-3",
-          "page": 279,
-          "label": "Exprimidor pequeño Exprimidor 2",
-          "price": "$21.751",
-          "productIds": [
-            "p258-3"
-          ],
-          "position": {
-            "x": 0.153893442738,
-            "y": 0.83083889365
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.127220666278,
-            "h": 0.025743681349
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 20.183,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24323,50 +24357,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 280,
-      "title": "Cortador de palta",
+      "title": "Citrus Zester",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-262.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-039.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p259-1",
-        "p259-2"
+        "oxo-p039-1"
       ],
       "priceGroups": [
         {
-          "id": "pg259-1",
+          "id": "oxo-pg039-1",
           "page": 280,
-          "label": "Cortador de palta",
-          "price": "$10.202",
+          "label": "Citrus Zester",
+          "price": "$11.227",
           "productIds": [
-            "p259-1",
-            "p259-2"
+            "oxo-p039-1"
           ],
           "position": {
-            "x": 0.484593068723,
-            "y": 0.23699277325
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171644567943,
-            "h": 0.03465747667
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24374,81 +24409,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 281,
-      "title": "Ahuecador doble",
+      "title": "Cortador de manzanas pop-out",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-263.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-040.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p260-1",
-        "p260-2"
+        "oxo-p040-1"
       ],
       "priceGroups": [
         {
-          "id": "pg260-1",
+          "id": "oxo-pg040-1",
           "page": 281,
-          "label": "Ahuecador doble",
-          "price": "$9.941",
+          "label": "Cortador de manzanas pop-out",
+          "price": "$23.164",
           "productIds": [
-            "p260-1"
+            "oxo-p040-1"
           ],
           "position": {
-            "x": 0.325521947955,
-            "y": 0.217819872929
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.123842561275,
-            "h": 0.029306909527
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg260-2",
-          "page": 281,
-          "label": "Pisador de palta",
-          "price": "$11.966",
-          "productIds": [
-            "p260-2"
-          ],
-          "position": {
-            "x": 0.692118147458,
-            "y": 0.217819872929
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.145520572999,
-            "h": 0.029306909527
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24456,48 +24461,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 282,
-      "title": "4 sets de pinches para choclos",
+      "title": "Exprimidores",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-264.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-041.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p261-1"
+        "oxo-p041-1",
+        "oxo-p041-2"
       ],
       "priceGroups": [
         {
-          "id": "pg261-1",
+          "id": "oxo-pg041-1",
           "page": 282,
-          "label": "4 sets de pinches para choclos",
-          "price": "$14.063",
+          "label": "Exprimidores",
+          "price": "$15.304",
           "productIds": [
-            "p261-1"
+            "oxo-p041-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2800332,
+            "y": 0.2434466
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 25.187,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg041-2",
+          "page": 282,
+          "label": "Exprimidores",
+          "price": "$21.751",
+          "productIds": [
+            "oxo-p041-2"
+          ],
+          "position": {
+            "x": 0.6800389,
+            "y": 0.2419489
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1767577,
+            "h": 0.032279
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24505,48 +24549,53 @@ window.CATALOG_DATA = {
     },
     {
       "number": 283,
-      "title": "Mandolina de verduras",
+      "title": "Cortador de palta",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-265.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-042.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p262-1"
+        "oxo-p042-1",
+        "oxo-p042-2"
       ],
       "priceGroups": [
         {
-          "id": "pg262-1",
+          "id": "oxo-pg042-1",
           "page": 283,
-          "label": "Mandolina de verduras",
-          "price": "$24.302",
+          "label": "Cortador de palta - 2 productos",
+          "price": "$10.202",
           "productIds": [
-            "p262-1"
+            "oxo-p042-1",
+            "oxo-p042-2"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4845929,
+            "y": 0.2381802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1904155,
+            "h": 0.0346575
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.566,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 27.19,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24554,48 +24603,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 284,
-      "title": "Rebanador de huevos",
+      "title": "Ahuecador doble",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-266.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-043.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p263-1"
+        "oxo-p043-1"
       ],
       "priceGroups": [
         {
-          "id": "pg263-1",
+          "id": "oxo-pg043-1",
           "page": 284,
-          "label": "Rebanador de huevos",
-          "price": "$15.304",
+          "label": "Ahuecador doble",
+          "price": "$9.941",
           "productIds": [
-            "p263-1"
+            "oxo-p043-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.3255215,
+            "y": 0.2194996
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1405196,
+            "h": 0.0299006
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.893,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 23.184,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24603,46 +24655,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 285,
-      "title": "Separador de yemas",
+      "title": "Ahuecador doble",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-267.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-044.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p264-1"
+        "oxo-p044-1"
       ],
       "priceGroups": [
         {
-          "id": "pg264-1",
+          "id": "oxo-pg044-1",
           "page": 285,
-          "label": "Separador de yemas",
-          "price": "$4.689",
+          "label": "Ahuecador doble",
+          "price": "$9.941",
           "productIds": [
-            "p264-1"
+            "oxo-p044-1"
           ],
           "position": {
-            "x": 0.499999679706,
-            "y": 0.238222099834
+            "x": 0.4999998,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.156505133103,
-            "h": 0.037027031923
+            "w": 0.1755958,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -24652,48 +24707,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 286,
-      "title": "Picador rotativo / chopper",
+      "title": "4 sets de pinches para choclos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-268.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-045.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p265-1"
+        "oxo-p045-1"
       ],
       "priceGroups": [
         {
-          "id": "pg265-1",
+          "id": "oxo-pg045-1",
           "page": 286,
-          "label": "Picador rotativo / chopper Picador rotativo chopper",
-          "price": "$31.186",
+          "label": "4 sets de pinches para choclos",
+          "price": "$14.063",
           "productIds": [
-            "p265-1"
+            "oxo-p045-1"
           ],
           "position": {
-            "x": 0.499992851046,
-            "y": 0.238207787643
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183834764559,
-            "h": 0.037029459561
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.188,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24701,46 +24759,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 287,
-      "title": "Cortador con recipiente",
+      "title": "Mandolina de verduras",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-269.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-046.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p266-1"
+        "oxo-p046-1"
       ],
       "priceGroups": [
         {
-          "id": "pg266-1",
+          "id": "oxo-pg046-1",
           "page": 287,
-          "label": "Cortador con recipiente",
-          "price": "$32.753",
+          "label": "Mandolina de verduras",
+          "price": "$24.302",
           "productIds": [
-            "p266-1"
+            "oxo-p046-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.241740942104
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -24750,48 +24811,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 288,
-      "title": "Rallador con base",
+      "title": "Rebanador de huevos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-270.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-047.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p267-1"
+        "oxo-p047-1"
       ],
       "priceGroups": [
         {
-          "id": "pg267-1",
+          "id": "oxo-pg047-1",
           "page": 288,
-          "label": "Rallador con base",
-          "price": "$29.367",
+          "label": "Rebanador de huevos",
+          "price": "$15.304",
           "productIds": [
-            "p267-1"
+            "oxo-p047-1"
           ],
           "position": {
-            "x": 0.500324111541,
-            "y": 0.222184040277
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24799,81 +24863,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 289,
-      "title": "Rallador con desmontable",
+      "title": "Separador de yemas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-271.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-048.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p268-1",
-        "p268-2"
+        "oxo-p048-1"
       ],
       "priceGroups": [
         {
-          "id": "pg268-1",
+          "id": "oxo-pg048-1",
           "page": 289,
-          "label": "Rallador con desmontable desmontable",
-          "price": "$42.261",
+          "label": "Separador de yemas",
+          "price": "$4.689",
           "productIds": [
-            "p268-1"
+            "oxo-p048-1"
           ],
           "position": {
-            "x": 0.499980795193,
-            "y": 0.150765720311
+            "x": 0.4999998,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.163712252498,
-            "h": 0.032148585901
+            "w": 0.1755958,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.577,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg268-2",
-          "page": 289,
-          "label": "Rallador con desmontable Rallador dos caras",
-          "price": "$23.083",
-          "productIds": [
-            "p268-2"
-          ],
-          "position": {
-            "x": 0.49994047663,
-            "y": 0.687737713709
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.163712226874,
-            "h": 0.032148585901
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 25.577,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24881,48 +24915,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 290,
-      "title": "Rallador de queso manual",
+      "title": "Picador rotativo / chopper",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-272.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-049.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p269-1"
+        "oxo-p049-1"
       ],
       "priceGroups": [
         {
-          "id": "pg269-1",
+          "id": "oxo-pg049-1",
           "page": 290,
-          "label": "Rallador de queso manual",
-          "price": "$25.059",
+          "label": "Picador rotativo / chopper",
+          "price": "$31.186",
           "productIds": [
-            "p269-1"
+            "oxo-p049-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999929,
+            "y": 0.239395
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040359,
+            "h": 0.0370294
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 29.188,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -24930,46 +24967,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 291,
-      "title": "Set mini de rallador con 3 cortes",
+      "title": "Cortador con recipiente",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-273.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-050.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p270-1"
+        "oxo-p050-1"
       ],
       "priceGroups": [
         {
-          "id": "pg270-1",
+          "id": "oxo-pg050-1",
           "page": 291,
-          "label": "Set mini de rallador con 3 cortes",
-          "price": "$35.241",
+          "label": "Cortador con recipiente",
+          "price": "$32.753",
           "productIds": [
-            "p270-1"
+            "oxo-p050-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2429282
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -24979,46 +25019,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 292,
-      "title": "Set de rallador con 4 cortes",
+      "title": "Rallador de dos caras desmontable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-274.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-051.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p271-1"
+        "oxo-p051-1"
       ],
       "priceGroups": [
         {
-          "id": "pg271-1",
+          "id": "oxo-pg051-1",
           "page": 292,
-          "label": "Set de rallador con 4 cortes",
-          "price": "$56.793",
+          "label": "Rallador de dos caras desmontable",
+          "price": "$23.083",
           "productIds": [
-            "p271-1"
+            "oxo-p051-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25028,81 +25071,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 293,
-      "title": "Spiralizers",
+      "title": "Rallador de queso manual",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-275.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-052.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p272-1",
-        "p272-2"
+        "oxo-p052-1"
       ],
       "priceGroups": [
         {
-          "id": "pg272-1",
+          "id": "oxo-pg052-1",
           "page": 293,
-          "label": "Spiralizers Espiralizador de vegetales",
-          "price": "$23.026",
+          "label": "Rallador de queso manual",
+          "price": "$25.059",
           "productIds": [
-            "p272-1"
+            "oxo-p052-1"
           ],
           "position": {
-            "x": 0.274528958235,
-            "y": 0.210004837158
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327635079,
-            "h": 0.020274123741
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg272-2",
-          "page": 293,
-          "label": "Spiralizers Espiralizador de vegetales con 3 cortes",
-          "price": "$36.052",
-          "productIds": [
-            "p272-2"
-          ],
-          "position": {
-            "x": 0.726541796219,
-            "y": 0.210004837158
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.101327686326,
-            "h": 0.020274123741
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25110,46 +25123,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 294,
-      "title": "Espiralizador de vegetales de mesa",
+      "title": "Set mini de rallador con 3 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-276.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-053.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p273-1"
+        "oxo-p053-1"
       ],
       "priceGroups": [
         {
-          "id": "pg273-1",
+          "id": "oxo-pg053-1",
           "page": 294,
-          "label": "Espiralizador de vegetales de mesa",
-          "price": "$61.249",
+          "label": "Set mini de rallador con 3 cortes",
+          "price": "$35.241",
           "productIds": [
-            "p273-1"
+            "oxo-p053-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25159,46 +25175,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 295,
-      "title": "Rallador grueso",
+      "title": "Set de rallador con 4 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-277.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-054.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p274-1"
+        "oxo-p054-1"
       ],
       "priceGroups": [
         {
-          "id": "pg274-1",
+          "id": "oxo-pg054-1",
           "page": 295,
-          "label": "Rallador grueso",
-          "price": "$19.895",
+          "label": "Set de rallador con 4 cortes",
+          "price": "$56.793",
           "productIds": [
-            "p274-1"
+            "oxo-p054-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25208,81 +25227,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 296,
-      "title": "Zesters",
+      "title": "Spiralizers",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-278.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-055.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p275-1",
-        "p275-2"
+        "oxo-p055-1",
+        "oxo-p055-2"
       ],
       "priceGroups": [
         {
-          "id": "pg275-1",
+          "id": "oxo-pg055-1",
           "page": 296,
-          "label": "Zesters Rallador fino",
-          "price": "$16.876",
+          "label": "Spiralizers",
+          "price": "$23.026",
           "productIds": [
-            "p275-1"
+            "oxo-p055-1"
           ],
           "position": {
-            "x": 0.285350283888,
-            "y": 0.465102458979
+            "x": 0.2745288,
+            "y": 0.2108953
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818289884,
-            "h": 0.016710913679
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 12.575,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg275-2",
+          "id": "oxo-pg055-2",
           "page": 296,
-          "label": "Zesters Rallador mediano",
-          "price": "$19.895",
+          "label": "Spiralizers",
+          "price": "$36.052",
           "productIds": [
-            "p275-2"
+            "oxo-p055-2"
           ],
           "position": {
-            "x": 0.750197813353,
-            "y": 0.465102458979
+            "x": 0.7265424,
+            "y": 0.2108953
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.087818264261,
-            "h": 0.016710913679
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 12.575,
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25290,114 +25315,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 297,
-      "title": "Pisapapas",
+      "title": "Espiralizador de vegetales de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-279.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-056.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p276-1",
-        "p276-2",
-        "p276-3"
+        "oxo-p056-1"
       ],
       "priceGroups": [
         {
-          "id": "pg276-1",
+          "id": "oxo-pg056-1",
           "page": 297,
-          "label": "Pisapapas un cabezal de acero",
-          "price": "$20.408",
+          "label": "Espiralizador de vegetales de mesa",
+          "price": "$61.249",
           "productIds": [
-            "p276-1"
+            "oxo-p056-1"
           ],
           "position": {
-            "x": 0.57044761267,
-            "y": 0.139766693177
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327635079,
-            "h": 0.020274123741
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg276-2",
-          "page": 297,
-          "label": "Pisapapas Pisa papas de acero inoxidable",
-          "price": "$24.443",
-          "productIds": [
-            "p276-2"
-          ],
-          "position": {
-            "x": 0.269924109368,
-            "y": 0.43480742857
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.095109582448,
-            "h": 0.019089346114
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 14.578,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg276-3",
-          "page": 297,
-          "label": "Pisapapas papas de acero inoxidable",
-          "price": "$39.900",
-          "productIds": [
-            "p276-3"
-          ],
-          "position": {
-            "x": 0.708082274366,
-            "y": 0.43480742857
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.095109582448,
-            "h": 0.019089346114
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 14.578,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25405,46 +25367,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 298,
-      "title": "Pasa todo",
+      "title": "Rallador grueso",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-280.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-057.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p277-1"
+        "oxo-p057-1"
       ],
       "priceGroups": [
         {
-          "id": "pg277-1",
+          "id": "oxo-pg057-1",
           "page": 298,
-          "label": "Pasa todo",
-          "price": "$76.219",
+          "label": "Rallador grueso",
+          "price": "$19.895",
           "productIds": [
-            "p277-1"
+            "oxo-p057-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25454,48 +25419,123 @@ window.CATALOG_DATA = {
     },
     {
       "number": 299,
-      "title": "Cortador de ajos",
+      "title": "Zesters",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-281.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-058.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p278-1"
+        "oxo-p058-1",
+        "oxo-p058-2",
+        "oxo-p058-3"
       ],
       "priceGroups": [
         {
-          "id": "pg278-1",
+          "id": "oxo-pg058-1",
           "page": 299,
-          "label": "Cortador de ajos",
-          "price": "$18.364",
+          "label": "Zesters",
+          "price": "$16.876",
           "productIds": [
-            "p278-1"
+            "oxo-p058-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.241740942104
+            "x": 0.2853501,
+            "y": 0.4275441
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.0907698,
+            "h": 0.0173045
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg058-2",
+          "page": 299,
+          "label": "Zesters",
+          "price": "$19.895",
+          "productIds": [
+            "oxo-p058-2"
+          ],
+          "position": {
+            "x": 0.7501987,
+            "y": 0.4275441
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0907698,
+            "h": 0.0173045
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.112,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 12.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg058-3",
+          "page": 299,
+          "label": "Zesters",
+          "price": "$17.856",
+          "productIds": [
+            "oxo-p058-3"
+          ],
+          "position": {
+            "x": 0.6131458,
+            "y": 0.7485879
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.0986001,
+            "h": 0.0186681
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.304,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 13.723,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25503,95 +25543,63 @@ window.CATALOG_DATA = {
     },
     {
       "number": 300,
-      "title": "Mandolina de chef 2.0",
+      "title": "Catálogo",
       "section": "OXO",
-      "showPriceOverlays": true,
+      "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/page-282.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-059.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
-      "products": [
-        "p279-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg279-1",
-          "page": 300,
-          "label": "Mandolina de chef 2.0",
-          "price": "$153.504",
-          "productIds": [
-            "p279-1"
-          ],
-          "position": {
-            "x": 0.499986855149,
-            "y": 0.238222099834
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.211089242315,
-            "h": 0.037027031923
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
+      "products": [],
+      "priceGroups": [],
       "sourcePage": 59
     },
     {
       "number": 301,
-      "title": "Mandolina simple",
+      "title": "Pisapapas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-283.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-060.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p280-1"
+        "oxo-p060-1"
       ],
       "priceGroups": [
         {
-          "id": "pg280-1",
+          "id": "oxo-pg060-1",
           "page": 301,
-          "label": "Mandolina simple",
-          "price": "$48.016",
+          "label": "Pisapapas de acero inoxidable",
+          "price": "$20.408",
           "productIds": [
-            "p280-1"
+            "oxo-p060-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.241260523536
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25601,46 +25609,49 @@ window.CATALOG_DATA = {
     },
     {
       "number": 302,
-      "title": "Mandolina con 4 cortes en V",
+      "title": "Pasa todo",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-284.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-061.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p281-1"
+        "oxo-p061-1"
       ],
       "priceGroups": [
         {
-          "id": "pg281-1",
+          "id": "oxo-pg061-1",
           "page": 302,
-          "label": "Mandolina con 4 cortes en V",
-          "price": "$59.083",
+          "label": "Pasa todo",
+          "price": "$76.219",
           "productIds": [
-            "p281-1"
+            "oxo-p061-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -25650,114 +25661,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 303,
-      "title": "Para mariscos",
+      "title": "Cortador de ajos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-285.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-062.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p282-1",
-        "p282-2",
-        "p282-3"
+        "oxo-p062-1",
+        "oxo-p062-2"
       ],
       "priceGroups": [
         {
-          "id": "pg282-1",
+          "id": "oxo-pg062-1",
           "page": 303,
-          "label": "Para mariscos para ostras",
-          "price": "$14.040",
+          "label": "Cortador de ajos",
+          "price": "$18.364",
           "productIds": [
-            "p282-1"
+            "oxo-p062-1"
           ],
           "position": {
-            "x": 0.268701747122,
-            "y": 0.252806765499
+            "x": 0.2507281,
+            "y": 0.1927545
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022111429
+            "w": 0.1521532,
+            "h": 0.0279942
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.624,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 21.578,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg282-2",
+          "id": "oxo-pg062-2",
           "page": 303,
-          "label": "Para mariscos Rompe nueces y mariscos",
-          "price": "$16.579",
+          "label": "Cortador de ajos",
+          "price": "$23.026",
           "productIds": [
-            "p282-2"
+            "oxo-p062-2"
           ],
           "position": {
-            "x": 0.672532396293,
-            "y": 0.432392545342
+            "x": 0.7492496,
+            "y": 0.1927545
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
+            "w": 0.1521532,
+            "h": 0.0279942
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.624,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg282-3",
-          "page": 303,
-          "label": "Para mariscos Tijera para",
-          "price": "$20.370",
-          "productIds": [
-            "p282-3"
-          ],
-          "position": {
-            "x": 0.257772059725,
-            "y": 0.603331805492
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267453185,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 21.578,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25765,48 +25749,123 @@ window.CATALOG_DATA = {
     },
     {
       "number": 304,
-      "title": "Set x2 embudos",
+      "title": "Para mariscos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-286.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-063.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p283-1"
+        "oxo-p063-1",
+        "oxo-p063-2",
+        "oxo-p063-3"
       ],
       "priceGroups": [
         {
-          "id": "pg283-1",
+          "id": "oxo-pg063-1",
           "page": 304,
-          "label": "Set x2 embudos",
-          "price": "$18.364",
+          "label": "Para mariscos",
+          "price": "$15.304",
           "productIds": [
-            "p283-1"
+            "oxo-p063-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2687018,
+            "y": 0.2536971
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg063-2",
+          "page": 304,
+          "label": "Para mariscos",
+          "price": "$16.579",
+          "productIds": [
+            "oxo-p063-2"
+          ],
+          "position": {
+            "x": 0.6725333,
+            "y": 0.4332837
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256157
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg063-3",
+          "page": 304,
+          "label": "Para mariscos",
+          "price": "$20.370",
+          "productIds": [
+            "oxo-p063-3"
+          ],
+          "position": {
+            "x": 0.2577718,
+            "y": 0.6042234
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256157
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25814,81 +25873,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 305,
-      "title": "Espátulas de silicona",
+      "title": "Set x2 embudos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-287.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-064.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p284-1",
-        "p284-2"
+        "oxo-p064-1"
       ],
       "priceGroups": [
         {
-          "id": "pg284-1",
+          "id": "oxo-pg064-1",
           "page": 305,
-          "label": "Espátulas de silicona Set de 2 espátulas",
+          "label": "Set x2 embudos",
           "price": "$18.364",
           "productIds": [
-            "p284-1"
+            "oxo-p064-1"
           ],
           "position": {
-            "x": 0.256235963451,
-            "y": 0.188942111718
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327635079,
-            "h": 0.020274123741
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg284-2",
-          "page": 305,
-          "label": "Espátulas de silicona Set de 3 espátulas",
-          "price": "$32.180",
-          "productIds": [
-            "p284-2"
-          ],
-          "position": {
-            "x": 0.708510904128,
-            "y": 0.188942111718
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.101327686326,
-            "h": 0.020274123741
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -25900,42 +25929,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-288.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-065.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p285-1"
+        "oxo-p065-1"
       ],
       "priceGroups": [
         {
-          "id": "pg285-1",
+          "id": "oxo-pg065-1",
           "page": 306,
           "label": "Set de 3 espátulas de silicona",
           "price": "$24.104",
           "productIds": [
-            "p285-1"
+            "oxo-p065-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222171503523
+            "x": 0.4999817,
+            "y": 0.223062
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1767577,
+            "h": 0.032279
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
@@ -25949,42 +25981,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-289.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-066.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p286-1"
+        "oxo-p066-1"
       ],
       "priceGroups": [
         {
-          "id": "pg286-1",
+          "id": "oxo-pg066-1",
           "page": 307,
           "label": "Set x12 moldes de silicona",
           "price": "$17.672",
           "productIds": [
-            "p286-1"
+            "oxo-p066-1"
           ],
           "position": {
-            "x": 0.499992543564,
-            "y": 0.219687269578
+            "x": 0.499992,
+            "y": 0.2208745
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171630295658,
-            "h": 0.034652349645
+            "w": 0.1903858,
+            "h": 0.0346523
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.565,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 27.186,
           "pdfPriceColor": "#000000"
@@ -25998,42 +26033,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-290.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-067.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p287-1"
+        "oxo-p067-1"
       ],
       "priceGroups": [
         {
-          "id": "pg287-1",
+          "id": "oxo-pg067-1",
           "page": 308,
           "label": "Vaso medidor de silicona",
           "price": "$15.304",
           "productIds": [
-            "p287-1"
+            "oxo-p067-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -26047,42 +26085,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-291.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-068.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p288-1"
+        "oxo-p068-1"
       ],
       "priceGroups": [
         {
-          "id": "pg288-1",
+          "id": "oxo-pg068-1",
           "page": 309,
           "label": "Set x3 vasos medidores de silicona",
           "price": "$31.528",
           "productIds": [
-            "p288-1"
+            "oxo-p068-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -26096,108 +26137,117 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-292.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-069.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p289-1",
-        "p289-2",
-        "p289-3"
+        "oxo-p069-1",
+        "oxo-p069-2",
+        "oxo-p069-3"
       ],
       "priceGroups": [
         {
-          "id": "pg289-1",
+          "id": "oxo-pg069-1",
           "page": 310,
-          "label": "Batidores Batidor de acero inoxidable",
+          "label": "Batidores",
           "price": "$18.364",
           "productIds": [
-            "p289-1"
+            "oxo-p069-1"
           ],
           "position": {
-            "x": 0.256235963451,
-            "y": 0.188942111718
+            "x": 0.2562356,
+            "y": 0.1898327
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327635079,
-            "h": 0.020274123741
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg289-2",
+          "id": "oxo-pg069-2",
           "page": 310,
-          "label": "Batidores batidor de acero inoxidable",
+          "label": "Batidores",
           "price": "$13.816",
           "productIds": [
-            "p289-2"
+            "oxo-p069-2"
           ],
           "position": {
-            "x": 0.708510904128,
-            "y": 0.188942111718
+            "x": 0.7085097,
+            "y": 0.1898327
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327686326,
-            "h": 0.020274123741
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg289-3",
+          "id": "oxo-pg069-3",
           "page": 310,
-          "label": "Batidores Batidor de silicona",
+          "label": "Batidores",
           "price": "$24.443",
           "productIds": [
-            "p289-3"
+            "oxo-p069-3"
           ],
           "position": {
-            "x": 0.49927436835,
-            "y": 0.465655742902
+            "x": 0.4992743,
+            "y": 0.4665464
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327635079,
-            "h": 0.020274105624
+            "w": 0.1112309,
+            "h": 0.0208678
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
@@ -26207,81 +26257,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 311,
-      "title": "Amasado",
+      "title": "Bolsa para amasar",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-293.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-070.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p290-1",
-        "p290-2"
+        "oxo-p070-1"
       ],
       "priceGroups": [
         {
-          "id": "pg290-1",
+          "id": "oxo-pg070-1",
           "page": 311,
-          "label": "Amasado Palo de amasar antiadherente",
-          "price": "$35.241",
-          "productIds": [
-            "p290-1"
-          ],
-          "position": {
-            "x": 0.256236495139,
-            "y": 0.188942111718
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.101327647891,
-            "h": 0.020274123741
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg290-2",
-          "page": 311,
-          "label": "Amasado Bolsa para amasar",
+          "label": "Bolsa para amasar",
           "price": "$26.101",
           "productIds": [
-            "p290-2"
+            "oxo-p070-1"
           ],
           "position": {
-            "x": 0.708510904128,
-            "y": 0.188942111718
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.101327686326,
-            "h": 0.020274123741
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26293,42 +26313,45 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-294.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-071.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p291-1"
+        "oxo-p071-1"
       ],
       "priceGroups": [
         {
-          "id": "pg291-1",
+          "id": "oxo-pg071-1",
           "page": 312,
           "label": "Prensa para cookies",
           "price": "$52.075",
           "productIds": [
-            "p291-1"
+            "oxo-p071-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -26338,48 +26361,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 313,
-      "title": "Placa de silicona",
+      "title": "Vasos medidores",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-295.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-072.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p292-1"
+        "oxo-p072-1",
+        "oxo-p072-2"
       ],
       "priceGroups": [
         {
-          "id": "pg292-1",
+          "id": "oxo-pg072-1",
           "page": 313,
-          "label": "Placa de silicona",
-          "price": "$33.710",
+          "label": "Vasos medidores",
+          "price": "$18.364",
           "productIds": [
-            "p292-1"
+            "oxo-p072-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2911322,
+            "y": 0.2080363
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg072-2",
+          "page": 313,
+          "label": "Vasos medidores",
+          "price": "$35.241",
+          "productIds": [
+            "oxo-p072-2"
+          ],
+          "position": {
+            "x": 0.7338158,
+            "y": 0.2080363
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26387,48 +26449,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 314,
-      "title": "Set x6 cucharas medidoras",
+      "title": "Jarras medidoras",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-296.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-073.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p293-1"
+        "oxo-p073-1",
+        "oxo-p073-2"
       ],
       "priceGroups": [
         {
-          "id": "pg293-1",
+          "id": "oxo-pg073-1",
           "page": 314,
-          "label": "Set x6 cucharas medidoras",
-          "price": "$15.346",
+          "label": "Jarras medidoras",
+          "price": "$14.063",
           "productIds": [
-            "p293-1"
+            "oxo-p073-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2578106,
+            "y": 0.5292565
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256157
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg073-2",
+          "page": 314,
+          "label": "Jarras medidoras",
+          "price": "$12.788",
+          "productIds": [
+            "oxo-p073-2"
+          ],
+          "position": {
+            "x": 0.2589918,
+            "y": 0.3135906
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256157
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26436,81 +26537,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 315,
-      "title": "Vasos medidores",
+      "title": "Set x3 bowls de plástico",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-297.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-074.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p294-1",
-        "p294-2"
+        "oxo-p074-1",
+        "oxo-p074-2"
       ],
       "priceGroups": [
         {
-          "id": "pg294-1",
+          "id": "oxo-pg074-1",
           "page": 315,
-          "label": "Vasos medidores Set mini x4",
-          "price": "$18.364",
+          "label": "Set x3 bowls de plástico",
+          "price": "$42.978",
           "productIds": [
-            "p294-1"
+            "oxo-p074-1"
           ],
           "position": {
-            "x": 0.291132263132,
-            "y": 0.207145931805
+            "x": 0.2672527,
+            "y": 0.2738787
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1316921,
+            "h": 0.024431
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.12,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 18.577,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg294-2",
+          "id": "oxo-pg074-2",
           "page": 315,
-          "label": "Vasos medidores Set x7",
-          "price": "$35.241",
+          "label": "Set x3 bowls de plástico",
+          "price": "$42.978",
           "productIds": [
-            "p294-2"
+            "oxo-p074-2"
           ],
           "position": {
-            "x": 0.733814460505,
-            "y": 0.207145931805
+            "x": 0.7195262,
+            "y": 0.2738787
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1316921,
+            "h": 0.024431
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.12,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 18.577,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26518,81 +26625,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 316,
-      "title": "Jarra Medidora",
+      "title": "Set x2 garras para desmenuzar carnes",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-298.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-075.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p295-1",
-        "p295-2"
+        "oxo-p075-1"
       ],
       "priceGroups": [
         {
-          "id": "pg295-1",
+          "id": "oxo-pg075-1",
           "page": 316,
-          "label": "Jarra Medidora 4 tazas",
-          "price": "$14.900",
+          "label": "Set x2 garras para desmenuzar carnes",
+          "price": "$21.751",
           "productIds": [
-            "p295-1"
+            "oxo-p075-1"
           ],
           "position": {
-            "x": 0.66655087411,
-            "y": 0.229633245588
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.173383352438,
-            "h": 0.03465747667
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg295-2",
-          "page": 316,
-          "label": "Jarra Medidora 1 taza",
-          "price": "$8.347",
-          "productIds": [
-            "p295-2"
-          ],
-          "position": {
-            "x": 0.319740019958,
-            "y": 0.230233053189
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.146216302034,
-            "h": 0.03465747667
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26600,147 +26677,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 317,
-      "title": "Jarras medidoras",
+      "title": "Cuchillo Santoku 10cm",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-299.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-076.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p296-1",
-        "p296-2",
-        "p296-3",
-        "p296-4"
+        "oxo-p076-1"
       ],
       "priceGroups": [
         {
-          "id": "pg296-1",
+          "id": "oxo-pg076-1",
           "page": 317,
-          "label": "Jarras medidoras",
-          "price": "$12.788",
-          "productIds": [
-            "p296-1"
-          ],
-          "position": {
-            "x": 0.343102827481,
-            "y": 0.227028100809
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg296-2",
-          "page": 317,
-          "label": "Jarras medidoras tazas",
+          "label": "Cuchillo Santoku 10cm",
           "price": "$14.063",
           "productIds": [
-            "p296-2"
+            "oxo-p076-1"
           ],
           "position": {
-            "x": 0.344242291326,
-            "y": 0.351868284367
+            "x": 0.4999817,
+            "y": 0.221166
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg296-3",
-          "page": 317,
-          "label": "Jarras medidoras 4",
-          "price": "$16.579",
-          "productIds": [
-            "p296-3"
-          ],
-          "position": {
-            "x": 0.343100406061,
-            "y": 0.516552827382
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg296-4",
-          "page": 317,
-          "label": "Jarras medidoras Set x3 jarras",
-          "price": "$36.771",
-          "productIds": [
-            "p296-4"
-          ],
-          "position": {
-            "x": 0.499992722928,
-            "y": 0.661131242787
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26748,48 +26729,123 @@ window.CATALOG_DATA = {
     },
     {
       "number": 318,
-      "title": "Set x3 bowls de acero inoxidable",
+      "title": "Tablas de cortar",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-300.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-077.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p297-1"
+        "oxo-p077-1",
+        "oxo-p077-2",
+        "oxo-p077-3"
       ],
       "priceGroups": [
         {
-          "id": "pg297-1",
+          "id": "oxo-pg077-1",
           "page": 318,
-          "label": "Set x3 bowls de acero inoxidable",
-          "price": "$92.034",
+          "label": "Tablas de cortar",
+          "price": "$20.600",
           "productIds": [
-            "p297-1"
+            "oxo-p077-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.261601,
+            "y": 0.2669363
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1930754,
+            "h": 0.0351207
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.631,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 27.58,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg077-2",
+          "page": 318,
+          "label": "Tablas de cortar",
+          "price": "$24.738",
+          "productIds": [
+            "oxo-p077-2"
+          ],
+          "position": {
+            "x": 0.261601,
+            "y": 0.4465832
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1930754,
+            "h": 0.0351207
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.631,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 27.58,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg077-3",
+          "page": 318,
+          "label": "Tablas de cortar",
+          "price": "$28.830",
+          "productIds": [
+            "oxo-p077-3"
+          ],
+          "position": {
+            "x": 0.261601,
+            "y": 0.6257417
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1930754,
+            "h": 0.0351207
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.631,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 27.58,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26797,81 +26853,51 @@ window.CATALOG_DATA = {
     },
     {
       "number": 319,
-      "title": "Set x3 bowls de plástico",
+      "title": "Afilador de cuchillos compacto",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-301.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-078.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p298-1",
-        "p298-2"
+        "oxo-p078-1"
       ],
       "priceGroups": [
         {
-          "id": "pg298-1",
+          "id": "oxo-pg078-1",
           "page": 319,
-          "label": "Set x3 bowls de plástico Color",
-          "price": "$42.978",
+          "label": "Afilador de cuchillos compacto",
+          "price": "$27.632",
           "productIds": [
-            "p298-1"
+            "oxo-p078-1"
           ],
           "position": {
-            "x": 0.267252424802,
-            "y": 0.272988113635
+            "x": 0.4820662,
+            "y": 0.170012
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.120049438989,
-            "h": 0.023837351919
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 18.577,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg298-2",
-          "page": 319,
-          "label": "Set x3 bowls de plástico Negro",
-          "price": "$42.978",
-          "productIds": [
-            "p298-2"
-          ],
-          "position": {
-            "x": 0.719527211738,
-            "y": 0.272988113635
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.120049438989,
-            "h": 0.023837351919
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 18.577,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26879,48 +26905,87 @@ window.CATALOG_DATA = {
     },
     {
       "number": 320,
-      "title": "Espátula para omelets",
+      "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-302.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-079.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p299-1"
+        "oxo-p079-1",
+        "oxo-p079-2"
       ],
       "priceGroups": [
         {
-          "id": "pg299-1",
+          "id": "oxo-pg079-1",
           "page": 320,
-          "label": "Espátula para omelets",
-          "price": "$15.304",
+          "label": "Pinzas de acero inoxidable",
+          "price": "$19.235",
           "productIds": [
-            "p299-1"
+            "oxo-p079-1"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.22027544626
+            "x": 0.2687018,
+            "y": 0.3675733
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1384954,
+            "h": 0.0256157
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg079-2",
+          "page": 320,
+          "label": "Pinzas de acero inoxidable",
+          "price": "$20.369",
+          "productIds": [
+            "oxo-p079-2"
+          ],
+          "position": {
+            "x": 0.2687018,
+            "y": 0.5211926
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256157
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
@@ -26928,1441 +26993,1489 @@ window.CATALOG_DATA = {
     },
     {
       "number": 321,
-      "title": "Set x2 garras para desmenuzar carnes",
+      "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-304.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-080.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p301-1"
+        "oxo-p080-1",
+        "oxo-p080-2",
+        "oxo-p080-3"
       ],
       "priceGroups": [
         {
-          "id": "pg301-1",
+          "id": "oxo-pg080-1",
           "page": 321,
-          "label": "Set x2 garras para desmenuzar carnes",
-          "price": "$21.751",
+          "label": "Pinzas de acero inoxidable",
+          "price": "$20.369",
           "productIds": [
-            "p301-1"
+            "oxo-p080-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2687018,
+            "y": 0.2806346
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg080-2",
+          "page": 321,
+          "label": "Pinzas de acero inoxidable",
+          "price": "$21.751",
+          "productIds": [
+            "oxo-p080-2"
+          ],
+          "position": {
+            "x": 0.2687018,
+            "y": 0.434254
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256157
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg080-3",
+          "page": 321,
+          "label": "Pinzas de acero inoxidable",
+          "price": "$39.851",
+          "productIds": [
+            "oxo-p080-3"
+          ],
+          "position": {
+            "x": 0.2687018,
+            "y": 0.5878732
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        }
+      ],
+      "sourcePage": 80
+    },
+    {
+      "number": 322,
+      "title": "Sets de parrilla",
+      "section": "OXO",
+      "showPriceOverlays": true,
+      "image": {
+        "src": "assets/pages/oxo-20260722-page-081.jpg?v=20260722-oxo-r2",
+        "width": 1013,
+        "height": 1432
+      },
+      "products": [
+        "oxo-p081-1",
+        "oxo-p081-2"
+      ],
+      "priceGroups": [
+        {
+          "id": "oxo-pg081-1",
+          "page": 322,
+          "label": "Sets de parrilla",
+          "price": "$35.241",
+          "productIds": [
+            "oxo-p081-1"
+          ],
+          "position": {
+            "x": 0.290641,
+            "y": 0.5519225
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1112309,
+            "h": 0.0208678
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 15.576,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg081-2",
+          "page": 322,
+          "label": "Sets de parrilla",
+          "price": "$42.261",
+          "productIds": [
+            "oxo-p081-2"
+          ],
+          "position": {
+            "x": 0.7112324,
+            "y": 0.5519225
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1112309,
+            "h": 0.0208678
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 81
     },
     {
-      "number": 322,
-      "title": "Cuchillos",
+      "number": 323,
+      "title": "Set x6 pinches de brochette de acero",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-305.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-082.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p302-1",
-        "p302-2",
-        "p302-3"
+        "oxo-p082-1"
       ],
       "priceGroups": [
         {
-          "id": "pg302-1",
-          "page": 322,
-          "label": "Cuchillos Cuchillo",
-          "price": "$12.788",
+          "id": "oxo-pg082-1",
+          "page": 323,
+          "label": "Set x6 pinches de brochette de acero",
+          "price": "$23.083",
           "productIds": [
-            "p302-1"
+            "oxo-p082-1"
           ],
           "position": {
-            "x": 0.268701747122,
-            "y": 0.250828639599
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022111429
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg302-2",
-          "page": 322,
-          "label": "Cuchillos Cuchillo Santoku 10cm",
-          "price": "$14.063",
-          "productIds": [
-            "p302-2"
-          ],
-          "position": {
-            "x": 0.672532396293,
-            "y": 0.432392545342
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg302-3",
-          "page": 322,
-          "label": "Cuchillos universal 13cm",
-          "price": "$14.063",
-          "productIds": [
-            "p302-3"
-          ],
-          "position": {
-            "x": 0.28388039231,
-            "y": 0.591281230921
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626741475,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 82
     },
     {
-      "number": 323,
-      "title": "Para cortar",
+      "number": 324,
+      "title": "Pala para carbón",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-306.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-083.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p303-1",
-        "p303-2"
+        "oxo-p083-1"
       ],
       "priceGroups": [
         {
-          "id": "pg303-1",
-          "page": 323,
-          "label": "Para cortar tablas",
-          "price": "$36.771",
+          "id": "oxo-pg083-1",
+          "page": 324,
+          "label": "Pala para carbón",
+          "price": "$35.241",
           "productIds": [
-            "p303-1"
+            "oxo-p083-1"
           ],
           "position": {
-            "x": 0.325027786114,
-            "y": 0.280983011973
+            "x": 0.4999817,
+            "y": 0.2230746
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg303-2",
-          "page": 323,
-          "label": "Para cortar Afilador de",
-          "price": "$27.632",
-          "productIds": [
-            "p303-2"
-          ],
-          "position": {
-            "x": 0.323527351335,
-            "y": 0.556520036161
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 83
     },
     {
-      "number": 324,
-      "title": "Pinzas de acero inoxidable",
+      "number": 325,
+      "title": "Pincel de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-307.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-084.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p304-1",
-        "p304-2",
-        "p304-3"
+        "oxo-p084-1"
       ],
       "priceGroups": [
         {
-          "id": "pg304-1",
-          "page": 324,
-          "label": "Pinzas de acero inoxidable 23cm",
-          "price": "$19.235",
+          "id": "oxo-pg084-1",
+          "page": 325,
+          "label": "Pincel de silicona",
+          "price": "$23.640",
           "productIds": [
-            "p304-1"
+            "oxo-p084-1"
           ],
           "position": {
-            "x": 0.268701747122,
-            "y": 0.26113303634
+            "x": 0.4999801,
+            "y": 0.2093496
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022111429
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg304-2",
-          "page": 324,
-          "label": "Pinzas de acero inoxidable",
-          "price": "$20.369",
-          "productIds": [
-            "p304-2"
-          ],
-          "position": {
-            "x": 0.268701747122,
-            "y": 0.414751230577
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg304-3",
-          "page": 324,
-          "label": "Pinzas de acero inoxidable",
-          "price": "$23.026",
-          "productIds": [
-            "p304-3"
-          ],
-          "position": {
-            "x": 0.268701747122,
-            "y": 0.572343376626
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 84
     },
     {
-      "number": 325,
-      "title": "Pinzas de acero inoxidable",
+      "number": 326,
+      "title": "Jeringa gastronómica",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-308.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-085.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p305-1",
-        "p305-2"
+        "oxo-p085-1"
       ],
       "priceGroups": [
         {
-          "id": "pg305-1",
-          "page": 325,
-          "label": "Pinzas de acero inoxidable 23cm",
-          "price": "$20.369",
+          "id": "oxo-pg085-1",
+          "page": 326,
+          "label": "Jeringa gastronómica",
+          "price": "$23.026",
           "productIds": [
-            "p305-1"
+            "oxo-p085-1"
           ],
           "position": {
-            "x": 0.268701747122,
-            "y": 0.37949425429
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022129545
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg305-2",
-          "page": 325,
-          "label": "Pinzas de acero inoxidable",
-          "price": "$21.751",
-          "productIds": [
-            "p305-2"
-          ],
-          "position": {
-            "x": 0.268701747122,
-            "y": 0.533114169612
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 85
     },
     {
-      "number": 326,
-      "title": "Sets de parrilla",
+      "number": 327,
+      "title": "Limpieza de parrilla",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-309.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-086.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p306-1",
-        "p306-2"
+        "oxo-p086-1",
+        "oxo-p086-2",
+        "oxo-p086-3"
       ],
       "priceGroups": [
         {
-          "id": "pg306-1",
-          "page": 326,
-          "label": "Sets de parrilla Set de parrilla",
-          "price": "$35.241",
+          "id": "oxo-pg086-1",
+          "page": 327,
+          "label": "Limpieza de parrilla",
+          "price": "$16.005",
           "productIds": [
-            "p306-1"
+            "oxo-p086-1"
           ],
           "position": {
-            "x": 0.290641227357,
-            "y": 0.551032742306
+            "x": 0.2612337,
+            "y": 0.1991472
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785549212,
-            "h": 0.020274105624
+            "w": 0.1044276,
+            "h": 0.019683
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 14.578,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg086-2",
+          "page": 327,
+          "label": "Limpieza de parrilla",
+          "price": "$24.443",
+          "productIds": [
+            "oxo-p086-2"
+          ],
+          "position": {
+            "x": 0.735414,
+            "y": 0.5808374
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1112309,
+            "h": 0.0208678
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.616,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 15.576,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg306-2",
-          "page": 326,
-          "label": "Sets de parrilla Set de parrilla con base",
-          "price": "$42.261",
+          "id": "oxo-pg086-3",
+          "page": 327,
+          "label": "Limpieza de parrilla",
+          "price": "$33.710",
           "productIds": [
-            "p306-2"
+            "oxo-p086-3"
           ],
           "position": {
-            "x": 0.711232298267,
-            "y": 0.551032742306
+            "x": 0.7354011,
+            "y": 0.1991472
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
+            "w": 0.1044276,
+            "h": 0.019683
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 86
     },
     {
-      "number": 327,
-      "title": "Set x6 pinches de brochette de acero",
+      "number": 328,
+      "title": "Set desgrasadores de alimentos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-310.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-087.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p307-1"
+        "oxo-p087-1"
       ],
       "priceGroups": [
         {
-          "id": "pg307-1",
-          "page": 327,
-          "label": "Set x6 pinches de brochette de acero inoxidable",
-          "price": "$23.083",
+          "id": "oxo-pg087-1",
+          "page": 328,
+          "label": "Set desgrasadores de alimentos",
+          "price": "$25.063",
           "productIds": [
-            "p307-1"
+            "oxo-p087-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4968149,
+            "y": 0.2215404
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1904155,
+            "h": 0.0346575
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.566,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 27.19,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 87
     },
     {
-      "number": 328,
-      "title": "Pala para carbón",
+      "number": 329,
+      "title": "355ml",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-311.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-088.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p308-1"
+        "oxo-p088-1",
+        "oxo-p088-2",
+        "oxo-p088-3"
       ],
       "priceGroups": [
         {
-          "id": "pg308-1",
-          "page": 328,
-          "label": "Pala para carbón",
-          "price": "$35.241",
+          "id": "oxo-pg088-1",
+          "page": 329,
+          "label": "355ml",
+          "price": "$26.101",
           "productIds": [
-            "p308-1"
+            "oxo-p088-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.222184040277
+            "x": 0.6710618,
+            "y": 0.1789649
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1726143,
+            "h": 0.0315575
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.127,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 24.579,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg088-2",
+          "page": 329,
+          "label": "355ml",
+          "price": "$35.241",
+          "productIds": [
+            "oxo-p088-2"
+          ],
+          "position": {
+            "x": 0.4999989,
+            "y": 0.6403396
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1726143,
+            "h": 0.0315575
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.127,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 24.579,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg088-3",
+          "page": 329,
+          "label": "355ml",
+          "price": "$18.364",
+          "productIds": [
+            "oxo-p088-3"
+          ],
+          "position": {
+            "x": 0.3318935,
+            "y": 0.1789649
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1726143,
+            "h": 0.0315575
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.127,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 24.579,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 88
     },
     {
-      "number": 329,
-      "title": "Pincel de silicona",
+      "number": 330,
+      "title": "Manoplas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-312.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-089.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p309-1"
+        "oxo-p089-1",
+        "oxo-p089-2",
+        "oxo-p089-3"
       ],
       "priceGroups": [
         {
-          "id": "pg309-1",
-          "page": 329,
-          "label": "Pincel de silicona",
-          "price": "$23.640",
+          "id": "oxo-pg089-1",
+          "page": 330,
+          "label": "Manoplas - 3 productos",
+          "price": "$24.941",
           "productIds": [
-            "p309-1"
+            "oxo-p089-1",
+            "oxo-p089-2",
+            "oxo-p089-3"
           ],
           "position": {
-            "x": 0.499979936806,
-            "y": 0.208459084346
+            "x": 0.4999811,
+            "y": 0.2381802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.1904155,
+            "h": 0.0346575
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.566,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 27.19,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 89
     },
     {
-      "number": 330,
-      "title": "Set de botella con pico y pincel",
+      "number": 331,
+      "title": "Agarradera negra",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-313.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-090.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p310-1"
+        "oxo-p090-1"
       ],
       "priceGroups": [
         {
-          "id": "pg310-1",
-          "page": 330,
-          "label": "Set de botella con pico y pincel",
-          "price": "$15.346",
+          "id": "oxo-pg090-1",
+          "page": 331,
+          "label": "Agarradera negra",
+          "price": "$16.579",
           "productIds": [
-            "p310-1"
+            "oxo-p090-1"
           ],
           "position": {
-            "x": 0.49998157671,
-            "y": 0.220163756823
+            "x": 0.4820736,
+            "y": 0.2186768
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.2244832,
+            "h": 0.0405902
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 5.405,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 32.187,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 90
     },
     {
-      "number": 331,
-      "title": "Jeringa gastronómica",
+      "number": 332,
+      "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-314.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-091.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p311-1"
+        "oxo-p091-1",
+        "oxo-p091-2"
       ],
       "priceGroups": [
         {
-          "id": "pg311-1",
-          "page": 331,
-          "label": "Jeringa gastronómica",
-          "price": "$23.026",
+          "id": "oxo-pg091-1",
+          "page": 332,
+          "label": "Sacacorchos",
+          "price": "$26.101",
           "productIds": [
-            "p311-1"
+            "oxo-p091-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.7232852,
+            "y": 0.2170129
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2176799,
+            "h": 0.0394055
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg091-2",
+          "page": 332,
+          "label": "Sacacorchos",
+          "price": "$36.856",
+          "productIds": [
+            "oxo-p091-2"
+          ],
+          "position": {
+            "x": 0.2754816,
+            "y": 0.2170129
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 91
     },
     {
-      "number": 332,
-      "title": "Limpieza de parrilla",
+      "number": 333,
+      "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-315.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-092.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p312-1",
-        "p312-2",
-        "p312-3"
+        "oxo-p092-1",
+        "oxo-p092-2"
       ],
       "priceGroups": [
         {
-          "id": "pg312-1",
-          "page": 332,
-          "label": "Limpieza de parrilla Cepillo para waffleras y parrillas",
-          "price": "$16.005",
+          "id": "oxo-pg092-1",
+          "page": 333,
+          "label": "Sacacorchos",
+          "price": "$27.482",
           "productIds": [
-            "p312-1"
+            "oxo-p092-1"
           ],
           "position": {
-            "x": 0.261234530073,
-            "y": 0.198256775192
+            "x": 0.7232852,
+            "y": 0.2170129
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.095109556824,
-            "h": 0.019089346114
+            "w": 0.2176799,
+            "h": 0.0394055
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 14.578,
+          "pdfPriceHeight": 31.189,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg312-2",
-          "page": 332,
-          "label": "Limpieza de parrilla Cepillo para",
-          "price": "$33.710",
+          "id": "oxo-pg092-2",
+          "page": 333,
+          "label": "Sacacorchos",
+          "price": "$69.079",
           "productIds": [
-            "p312-2"
+            "oxo-p092-2"
           ],
           "position": {
-            "x": 0.735403193835,
-            "y": 0.198256775192
+            "x": 0.2753517,
+            "y": 0.2167732
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.095109531201,
-            "h": 0.019089346114
+            "w": 0.1699543,
+            "h": 0.0310942
           },
-          "variant": "pdf-small",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
+            "fontSize": 4.062,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 14.578,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg312-3",
-          "page": 332,
-          "label": "Limpieza de parrilla repuestos",
-          "price": "$24.443",
-          "productIds": [
-            "p312-3"
-          ],
-          "position": {
-            "x": 0.735415313746,
-            "y": 0.579946736911
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.101327583832,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 24.189,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 92
     },
     {
-      "number": 333,
-      "title": "Set desgrasadores de alimentos",
+      "number": 334,
+      "title": "Coctelera 590ml",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-316.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-093.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p313-1"
+        "oxo-p093-1"
       ],
       "priceGroups": [
         {
-          "id": "pg313-1",
-          "page": 333,
-          "label": "Set desgrasadores de alimentos",
-          "price": "$25.063",
+          "id": "oxo-pg093-1",
+          "page": 334,
+          "label": "Coctelera 590ml",
+          "price": "$15.304",
           "productIds": [
-            "p313-1"
+            "oxo-p093-1"
           ],
           "position": {
-            "x": 0.496815089715,
-            "y": 0.220353058189
+            "x": 0.4999898,
+            "y": 0.239395
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171644516696,
-            "h": 0.03465747667
+            "w": 0.2040359,
+            "h": 0.0370294
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 29.188,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 93
     },
     {
-      "number": 334,
-      "title": "Shaker para aderezos",
+      "number": 335,
+      "title": "Tapón antigoteo de vino",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-317.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-094.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p314-1",
-        "p314-2",
-        "p314-3"
+        "oxo-p094-1"
       ],
       "priceGroups": [
         {
-          "id": "pg314-1",
-          "page": 334,
-          "label": "Shaker para aderezos 355ml",
-          "price": "$18.364",
+          "id": "oxo-pg094-1",
+          "page": 335,
+          "label": "Tapón antigoteo de vino",
+          "price": "$15.304",
           "productIds": [
-            "p314-1"
+            "oxo-p094-1"
           ],
           "position": {
-            "x": 0.331893626228,
-            "y": 0.178074466871
+            "x": 0.4999922,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.15749422549,
-            "h": 0.030963826391
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 24.579,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg314-2",
-          "page": 334,
-          "label": "Shaker para aderezos 235ml",
-          "price": "$26.101",
-          "productIds": [
-            "p314-2"
-          ],
-          "position": {
-            "x": 0.671063734642,
-            "y": 0.178074466871
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.15749422549,
-            "h": 0.030963826391
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 24.579,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg314-3",
-          "page": 334,
-          "label": "Shaker para aderezos de",
-          "price": "$35.241",
-          "productIds": [
-            "p314-3"
-          ],
-          "position": {
-            "x": 0.499998987872,
-            "y": 0.639450339416
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.157494251113,
-            "h": 0.030963826391
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 24.579,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 94
     },
     {
-      "number": 335,
-      "title": "Manoplas",
+      "number": 336,
+      "title": "Hielera de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-318.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-095.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p315-1",
-        "p315-2"
+        "oxo-p095-1"
       ],
       "priceGroups": [
         {
-          "id": "pg315-1",
-          "page": 335,
-          "label": "Manoplas",
-          "price": "$24.941",
+          "id": "oxo-pg095-1",
+          "page": 336,
+          "label": "Hielera de acero inoxidable",
+          "price": "$49.799",
           "productIds": [
-            "p315-1",
-            "p315-2"
+            "oxo-p095-1"
           ],
           "position": {
-            "x": 0.499981269228,
-            "y": 0.23699277325
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171644542319,
-            "h": 0.03465747667
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 95
     },
     {
-      "number": 336,
-      "title": "Agarraderas",
+      "number": 337,
+      "title": "Cubetera con tapa",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-319.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-096.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p316-1",
-        "p316-2",
-        "p316-3"
+        "oxo-p096-1"
       ],
       "priceGroups": [
         {
-          "id": "pg316-1",
-          "page": 336,
-          "label": "Agarraderas Blanco",
-          "price": "$16.579",
+          "id": "oxo-pg096-1",
+          "page": 337,
+          "label": "Cubetera con tapa",
+          "price": "$8.856",
           "productIds": [
-            "p316-1"
+            "oxo-p096-1"
           ],
           "position": {
-            "x": 0.499981961062,
-            "y": 0.270918534649
+            "x": 0.4999998,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1755958,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg316-2",
-          "page": 336,
-          "label": "Agarraderas",
-          "price": "$16.579",
-          "productIds": [
-            "p316-2"
-          ],
-          "position": {
-            "x": 0.499981961062,
-            "y": 0.436903313
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg316-3",
-          "page": 336,
-          "label": "Agarraderas",
-          "price": "$16.579",
-          "productIds": [
-            "p316-3"
-          ],
-          "position": {
-            "x": 0.499981961062,
-            "y": 0.602887294217
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 96
     },
     {
-      "number": 337,
-      "title": "Sacacorchos",
+      "number": 338,
+      "title": "Cubetera con tapa involcable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-320.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-097.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p317-1",
-        "p317-2"
+        "oxo-p097-1"
       ],
       "priceGroups": [
         {
-          "id": "pg317-1",
-          "page": 337,
-          "label": "Sacacorchos con cortacápsulas",
-          "price": "$36.856",
+          "id": "oxo-pg097-1",
+          "page": 338,
+          "label": "Cubetera con tapa involcable",
+          "price": "$14.063",
           "productIds": [
-            "p317-1"
+            "oxo-p097-1"
           ],
           "position": {
-            "x": 0.275481537147,
-            "y": 0.215825749986
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.208955061726,
-            "h": 0.039405500592
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg317-2",
-          "page": 337,
-          "label": "Sacacorchos con alas y abridor",
-          "price": "$26.101",
-          "productIds": [
-            "p317-2"
-          ],
-          "position": {
-            "x": 0.723283871796,
-            "y": 0.215825749986
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.208955061726,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 97
     },
     {
-      "number": 338,
-      "title": "Sacacorchos a palanca",
+      "number": 339,
+      "title": "Tapa de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-321.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-098.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p318-1"
+        "oxo-p098-1",
+        "oxo-p098-2",
+        "oxo-p098-3"
       ],
       "priceGroups": [
         {
-          "id": "pg318-1",
-          "page": 338,
-          "label": "Sacacorchos a palanca",
-          "price": "$69.079",
+          "id": "oxo-pg098-1",
+          "page": 339,
+          "label": "Tapa de silicona",
+          "price": "$14.156",
           "productIds": [
-            "p318-1"
+            "oxo-p098-1"
           ],
           "position": {
-            "x": 0.499981269228,
-            "y": 0.220626040578
+            "x": 0.5091212,
+            "y": 0.2250004
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.171644542319,
-            "h": 0.03465747667
+            "w": 0.2176799,
+            "h": 0.0394055
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 27.19,
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg098-2",
+          "page": 339,
+          "label": "Tapa de silicona",
+          "price": "$24.822",
+          "productIds": [
+            "oxo-p098-2"
+          ],
+          "position": {
+            "x": 0.7817988,
+            "y": 0.2250004
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg098-3",
+          "page": 339,
+          "label": "Tapa de silicona",
+          "price": "$11.319",
+          "productIds": [
+            "oxo-p098-3"
+          ],
+          "position": {
+            "x": 0.2364436,
+            "y": 0.2250004
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 98
     },
     {
-      "number": 339,
-      "title": "Coctelera 590ml",
+      "number": 340,
+      "title": "Centrifugador de verduras 5.9L",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-322.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-099.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p319-1"
+        "oxo-p099-1"
       ],
       "priceGroups": [
         {
-          "id": "pg319-1",
-          "page": 339,
-          "label": "Coctelera 590ml",
-          "price": "$15.304",
+          "id": "oxo-pg099-1",
+          "page": 340,
+          "label": "Centrifugador de verduras 5.9L",
+          "price": "$48.149",
           "productIds": [
-            "p319-1"
+            "oxo-p099-1"
           ],
           "position": {
-            "x": 0.499989904344,
-            "y": 0.238207787643
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183834815806,
-            "h": 0.037029459561
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.188,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 99
     },
     {
-      "number": 340,
-      "title": "Vaso medidor",
+      "number": 341,
+      "title": "Termómetro de precisión para carnes",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-323.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-100.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p320-1"
+        "oxo-p100-1"
       ],
       "priceGroups": [
         {
-          "id": "pg320-1",
-          "page": 340,
-          "label": "Vaso medidor",
-          "price": "$15.304",
+          "id": "oxo-pg100-1",
+          "page": 341,
+          "label": "Termómetro de precisión para carnes",
+          "price": "$16.579",
           "productIds": [
-            "p320-1"
+            "oxo-p100-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -28371,47 +28484,50 @@ window.CATALOG_DATA = {
       "sourcePage": 100
     },
     {
-      "number": 341,
-      "title": "Tapón antigoteo de vino",
+      "number": 342,
+      "title": "Termómetro digital",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-324.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-101.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p321-1"
+        "oxo-p101-1"
       ],
       "priceGroups": [
         {
-          "id": "pg321-1",
-          "page": 341,
-          "label": "Tapón antigoteo de vino",
-          "price": "$14.040",
+          "id": "oxo-pg101-1",
+          "page": 342,
+          "label": "Termómetro digital",
+          "price": "$29.367",
           "productIds": [
-            "p321-1"
+            "oxo-p101-1"
           ],
           "position": {
-            "x": 0.499992377011,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -28420,96 +28536,102 @@ window.CATALOG_DATA = {
       "sourcePage": 101
     },
     {
-      "number": 342,
-      "title": "Set x3 tapones de silicona para vino",
+      "number": 343,
+      "title": "Colador",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-325.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-102.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p322-1"
+        "oxo-p102-1"
       ],
       "priceGroups": [
         {
-          "id": "pg322-1",
-          "page": 342,
-          "label": "Set x3 tapones de silicona para vino",
-          "price": "$16.537",
+          "id": "oxo-pg102-1",
+          "page": 343,
+          "label": "Colador",
+          "price": "$19.236",
           "productIds": [
-            "p322-1"
+            "oxo-p102-1"
           ],
           "position": {
-            "x": 0.499992812611,
-            "y": 0.238207787643
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183834738936,
-            "h": 0.037029459561
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.188,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 102
     },
     {
-      "number": 343,
-      "title": "Hielera de acero inoxidable",
+      "number": 344,
+      "title": "Colador 2.8L de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-326.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-103.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p323-1"
+        "oxo-p103-1"
       ],
       "priceGroups": [
         {
-          "id": "pg323-1",
-          "page": 343,
-          "label": "Hielera de acero inoxidable",
-          "price": "$49.755",
+          "id": "oxo-pg103-1",
+          "page": 344,
+          "label": "Colador 2.8L de acero inoxidable",
+          "price": "$41.199",
           "productIds": [
-            "p323-1"
+            "oxo-p103-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -28518,47 +28640,50 @@ window.CATALOG_DATA = {
       "sourcePage": 103
     },
     {
-      "number": 344,
-      "title": "Hielera de acero inoxidable",
+      "number": 345,
+      "title": "Organizador de cajón extensible",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-327.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-104.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p324-1"
+        "oxo-p104-1"
       ],
       "priceGroups": [
         {
-          "id": "pg324-1",
-          "page": 344,
-          "label": "Hielera de acero inoxidable",
-          "price": "$78.565",
+          "id": "oxo-pg104-1",
+          "page": 345,
+          "label": "Organizador de cajón extensible",
+          "price": "$28.762",
           "productIds": [
-            "p324-1"
+            "oxo-p104-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -28567,129 +28692,140 @@ window.CATALOG_DATA = {
       "sourcePage": 104
     },
     {
-      "number": 345,
-      "title": "Cubetera con tapa",
+      "number": 346,
+      "title": "Portarollos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-328.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-105.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p325-1",
-        "p325-2"
+        "oxo-p105-1",
+        "oxo-p105-2"
       ],
       "priceGroups": [
         {
-          "id": "pg325-1",
-          "page": 345,
-          "label": "Cubetera con tapa Individual",
-          "price": "$8.856",
+          "id": "oxo-pg105-1",
+          "page": 346,
+          "label": "Portarollos",
+          "price": "$23.251",
           "productIds": [
-            "p325-1"
+            "oxo-p105-1"
           ],
           "position": {
-            "x": 0.345658219832,
-            "y": 0.221755616629
+            "x": 0.4999924,
+            "y": 0.6005877
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.15650518435,
-            "h": 0.037027031923
+            "w": 0.1318967,
+            "h": 0.0244666
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.125,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 18.607,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg325-2",
-          "page": 345,
-          "label": "Cubetera con tapa Set x2",
-          "price": "$16.876",
+          "id": "oxo-pg105-2",
+          "page": 346,
+          "label": "Portarollos",
+          "price": "$33.710",
           "productIds": [
-            "p325-2"
+            "oxo-p105-2"
           ],
           "position": {
-            "x": 0.662864012442,
-            "y": 0.221755616629
+            "x": 0.4999975,
+            "y": 0.1407266
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797149274,
-            "h": 0.037027031923
+            "w": 0.1316921,
+            "h": 0.024431
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.12,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 18.577,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 105
     },
     {
-      "number": 346,
-      "title": "Cubetera con tapa involcable",
+      "number": 347,
+      "title": "Cesto para compost de 2,83 L",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-329.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-106.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p326-1"
+        "oxo-p106-1",
+        "oxo-p106-2"
       ],
       "priceGroups": [
         {
-          "id": "pg326-1",
-          "page": 346,
-          "label": "Cubetera con tapa involcable",
-          "price": "$14.063",
+          "id": "oxo-pg106-1",
+          "page": 347,
+          "label": "Cesto para compost de 2,83 L - 2 productos",
+          "price": "$31.506",
           "productIds": [
-            "p326-1"
+            "oxo-p106-1",
+            "oxo-p106-2"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2303017
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -28698,375 +28834,258 @@ window.CATALOG_DATA = {
       "sourcePage": 106
     },
     {
-      "number": 347,
-      "title": "Tapa de silicona",
+      "number": 348,
+      "title": "Molinillo de pimienta",
       "section": "OXO",
-      "showPriceOverlays": true,
+      "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/page-330.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-107.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p327-1",
-        "p327-2",
-        "p327-3"
+        "oxo-p107-1"
       ],
-      "priceGroups": [
-        {
-          "id": "pg327-1",
-          "page": 347,
-          "label": "Tapa de silicona 15cm",
-          "price": "$11.319",
-          "productIds": [
-            "p327-1"
-          ],
-          "position": {
-            "x": 0.236443667728,
-            "y": 0.215610016359
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.208955100161,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg327-2",
-          "page": 347,
-          "label": "Tapa de silicona 20cm",
-          "price": "$14.156",
-          "productIds": [
-            "p327-2"
-          ],
-          "position": {
-            "x": 0.509121130135,
-            "y": 0.215610016359
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.208955087349,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg327-3",
-          "page": 347,
-          "label": "Tapa de silicona 28cm",
-          "price": "$24.822",
-          "productIds": [
-            "p327-3"
-          ],
-          "position": {
-            "x": 0.781798214596,
-            "y": 0.215610016359
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.208955112973,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        }
-      ],
+      "priceGroups": [],
       "sourcePage": 107
     },
     {
-      "number": 348,
-      "title": "Centrifugadora de verduras",
+      "number": 349,
+      "title": "Pimentero y salero doble",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-331.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-108.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p328-1",
-        "p328-2",
-        "p328-3"
+        "oxo-p108-1"
       ],
       "priceGroups": [
         {
-          "id": "pg328-1",
-          "page": 348,
-          "label": "Centrifugadora de verduras 2.85",
-          "price": "$38.259",
+          "id": "oxo-pg108-1",
+          "page": 349,
+          "label": "Pimentero y salero doble",
+          "price": "$35.712",
           "productIds": [
-            "p328-1"
+            "oxo-p108-1"
           ],
           "position": {
-            "x": 0.268701747122,
-            "y": 0.256173463749
+            "x": 0.4999929,
+            "y": 0.239395
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267427561,
-            "h": 0.025022111429
+            "w": 0.2040359,
+            "h": 0.0370294
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg328-2",
-          "page": 348,
-          "label": "Centrifugadora de verduras 5.9 L",
-          "price": "$48.150",
-          "productIds": [
-            "p328-2"
-          ],
-          "position": {
-            "x": 0.672532396293,
-            "y": 0.420909023383
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg328-3",
-          "page": 348,
-          "label": "Centrifugadora de verduras L",
-          "price": "$48.150",
-          "productIds": [
-            "p328-3"
-          ],
-          "position": {
-            "x": 0.28388039231,
-            "y": 0.59840783221
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626741475,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 29.188,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 108
     },
     {
-      "number": 349,
-      "title": "Termómetro de precisión para carnes",
+      "number": 350,
+      "title": "Recipientes para condimentos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-332.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-109.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p329-1"
+        "oxo-p109-1",
+        "oxo-p109-2"
       ],
       "priceGroups": [
         {
-          "id": "pg329-1",
-          "page": 349,
-          "label": "Termómetro de precisión para carnes",
-          "price": "$16.579",
+          "id": "oxo-pg109-1",
+          "page": 350,
+          "label": "Recipientes para condimentos",
+          "price": "$15.742",
           "productIds": [
-            "p329-1"
+            "oxo-p109-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.317935,
+            "y": 0.2449098
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1767577,
+            "h": 0.032279
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 25.187,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg109-2",
+          "page": 350,
+          "label": "Recipientes para condimentos",
+          "price": "$15.742",
+          "productIds": [
+            "oxo-p109-2"
+          ],
+          "position": {
+            "x": 0.6829479,
+            "y": 0.2449098
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1767577,
+            "h": 0.032279
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.23,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 25.187,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 109
     },
     {
-      "number": 350,
-      "title": "Termómetro digital",
+      "number": 351,
+      "title": "Clips",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-333.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-110.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p330-1"
+        "oxo-p110-1"
       ],
       "priceGroups": [
         {
-          "id": "pg330-1",
-          "page": 350,
-          "label": "Termómetro digital",
-          "price": "$29.367",
+          "id": "oxo-pg110-1",
+          "page": 351,
+          "label": "Clips",
+          "price": "$12.788",
           "productIds": [
-            "p330-1"
+            "oxo-p110-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.219064,
+            "y": 0.3303155
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256157
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 110
     },
     {
-      "number": 351,
-      "title": "Colador",
+      "number": 352,
+      "title": "Clips magnéticos - set x4",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-334.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-111.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p331-1"
+        "oxo-p111-1"
       ],
       "priceGroups": [
         {
-          "id": "pg331-1",
-          "page": 351,
-          "label": "Colador",
-          "price": "$19.236",
+          "id": "oxo-pg111-1",
+          "page": 352,
+          "label": "Clips magnéticos - set x4",
+          "price": "$12.788",
           "productIds": [
-            "p331-1"
+            "oxo-p111-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -29075,180 +29094,226 @@ window.CATALOG_DATA = {
       "sourcePage": 111
     },
     {
-      "number": 352,
-      "title": "Colador",
+      "number": 353,
+      "title": "Organizadores de bacha",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-335.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-112.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p332-1"
+        "oxo-p112-1",
+        "oxo-p112-2"
       ],
       "priceGroups": [
         {
-          "id": "pg332-1",
-          "page": 352,
-          "label": "Colador",
-          "price": "$18.364",
+          "id": "oxo-pg112-1",
+          "page": 353,
+          "label": "Organizadores de bacha",
+          "price": "$29.367",
           "productIds": [
-            "p332-1"
+            "oxo-p112-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2512204,
+            "y": 0.2080802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg112-2",
+          "page": 353,
+          "label": "Organizadores de bacha",
+          "price": "$37.061",
+          "productIds": [
+            "oxo-p112-2"
+          ],
+          "position": {
+            "x": 0.684529,
+            "y": 0.2080802
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1384954,
+            "h": 0.0256158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 112
     },
     {
-      "number": 353,
-      "title": "Organizadores",
+      "number": 354,
+      "title": "Secaplatos",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-336.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-113.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p333-1",
-        "p333-2"
+        "oxo-p113-1",
+        "oxo-p113-2"
       ],
       "priceGroups": [
         {
-          "id": "pg333-1",
-          "page": 353,
-          "label": "Organizadores Para especieros",
-          "price": "$21.159",
+          "id": "oxo-pg113-1",
+          "page": 354,
+          "label": "Secaplatos",
+          "price": "$69.079",
           "productIds": [
-            "p333-1"
+            "oxo-p113-1"
           ],
           "position": {
-            "x": 0.306745156033,
-            "y": 0.241506149713
+            "x": 0.2512204,
+            "y": 0.2080802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520444881,
-            "h": 0.029306909527
+            "w": 0.1384954,
+            "h": 0.0256158
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg333-2",
-          "page": 353,
-          "label": "Organizadores Para cuchillos",
-          "price": "$21.159",
+          "id": "oxo-pg113-2",
+          "page": 354,
+          "label": "Secaplatos",
+          "price": "$84.425",
           "productIds": [
-            "p333-2"
+            "oxo-p113-2"
           ],
           "position": {
-            "x": 0.685991006975,
-            "y": 0.241506149713
+            "x": 0.7415585,
+            "y": 0.2080802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.145520470505,
-            "h": 0.029306909527
+            "w": 0.1384954,
+            "h": 0.0256158
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 23.184,
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 113
     },
     {
-      "number": 354,
-      "title": "Organizador de cajón extensible",
+      "number": 355,
+      "title": "Secaplatos de aluminio",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-337.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-114.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p334-1",
-        "p334-2"
+        "oxo-p114-1"
       ],
       "priceGroups": [
         {
-          "id": "pg334-1",
-          "page": 354,
-          "label": "Organizador de cajón extensible",
-          "price": "$28.762",
+          "id": "oxo-pg114-1",
+          "page": 355,
+          "label": "Secaplatos de aluminio",
+          "price": "$64.142",
           "productIds": [
-            "p334-1",
-            "p334-2"
+            "oxo-p114-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -29257,213 +29322,154 @@ window.CATALOG_DATA = {
       "sourcePage": 114
     },
     {
-      "number": 355,
-      "title": "Portarollos",
+      "number": 356,
+      "title": "Escurridor de botellas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-338.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-115.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p335-1",
-        "p335-2"
+        "oxo-p115-1"
       ],
       "priceGroups": [
         {
-          "id": "pg335-1",
-          "page": 355,
-          "label": "Portarollos",
-          "price": "$33.710",
+          "id": "oxo-pg115-1",
+          "page": 356,
+          "label": "Escurridor de botellas",
+          "price": "$28.091",
           "productIds": [
-            "p335-1"
+            "oxo-p115-1"
           ],
           "position": {
-            "x": 0.499994849678,
-            "y": 0.154855600867
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.121121064642,
-            "h": 0.022652592409
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 17.579,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg335-2",
-          "page": 355,
-          "label": "Portarollos con sujetador",
-          "price": "$39.789",
-          "productIds": [
-            "p335-2"
-          ],
-          "position": {
-            "x": 0.499992184835,
-            "y": 0.592621359223
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107785574835,
-            "h": 0.020274105624
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 15.576,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 115
     },
     {
-      "number": 356,
-      "title": "Servilletero",
+      "number": 357,
+      "title": "Filtro y tapón de silicona para bacha",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-339.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-116.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p336-1",
-        "p336-2"
+        "oxo-p116-1"
       ],
       "priceGroups": [
         {
-          "id": "pg336-1",
-          "page": 356,
-          "label": "Servilletero",
-          "price": "$29.367",
+          "id": "oxo-pg116-1",
+          "page": 357,
+          "label": "Filtro y tapón de silicona para bacha",
+          "price": "$15.304",
           "productIds": [
-            "p336-1"
+            "oxo-p116-1"
           ],
           "position": {
-            "x": 0.499997463274,
-            "y": 0.139836206943
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.127752116705,
-            "h": 0.023837351919
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 18.577,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg336-2",
-          "page": 356,
-          "label": "Servilletero ajustable",
-          "price": "$23.251",
-          "productIds": [
-            "p336-2"
-          ],
-          "position": {
-            "x": 0.499992107965,
-            "y": 0.599696980128
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.127981754434,
-            "h": 0.023872987461
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 18.607,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 116
     },
     {
-      "number": 357,
-      "title": "Cesto para compost de 2,83 L",
+      "number": 358,
+      "title": "Protector de desagüe para bañera",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-340.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-117.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p337-1",
-        "p337-2"
+        "oxo-p117-1"
       ],
       "priceGroups": [
         {
-          "id": "pg337-1",
-          "page": 357,
-          "label": "Cesto para compost de 2,83 L",
-          "price": "$31.506",
+          "id": "oxo-pg117-1",
+          "page": 358,
+          "label": "Protector de desagüe para bañera",
+          "price": "$10.159",
           "productIds": [
-            "p337-1",
-            "p337-2"
+            "oxo-p117-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.229114473973
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -29472,457 +29478,562 @@ window.CATALOG_DATA = {
       "sourcePage": 117
     },
     {
-      "number": 358,
-      "title": "Molinillos",
+      "number": 359,
+      "title": "Dispensers de jabón",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-341.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-118.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p338-1",
-        "p338-2"
+        "oxo-p118-1",
+        "oxo-p118-2",
+        "oxo-p118-3"
       ],
       "priceGroups": [
         {
-          "id": "pg338-1",
-          "page": 358,
-          "label": "Molinillos Molinillo de sal",
-          "price": "$27.632",
+          "id": "oxo-pg118-1",
+          "page": 359,
+          "label": "Dispensers de jabón",
+          "price": "$30.024",
           "productIds": [
-            "p338-1"
+            "oxo-p118-1"
           ],
           "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
+            "x": 0.2437876,
+            "y": 0.2408451
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1562965,
+            "h": 0.0287158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 22.186,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg338-2",
-          "page": 358,
-          "label": "Molinillos Molinillo de pimienta",
-          "price": "$27.632",
+          "id": "oxo-pg118-2",
+          "page": 359,
+          "label": "Dispensers de jabón",
+          "price": "$30.024",
           "productIds": [
-            "p338-2"
+            "oxo-p118-2"
           ],
           "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
+            "x": 0.4987131,
+            "y": 0.2408451
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
+            "w": 0.1562965,
+            "h": 0.0287158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 22.186,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg118-3",
+          "page": 359,
+          "label": "Dispensers de jabón",
+          "price": "$38.456",
+          "productIds": [
+            "oxo-p118-3"
+          ],
+          "position": {
+            "x": 0.7560976,
+            "y": 0.2408451
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1562965,
+            "h": 0.0287158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 22.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 118
     },
     {
-      "number": 359,
-      "title": "Molinillos",
+      "number": 360,
+      "title": "Esponjas con dispensers",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-342.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-119.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p339-1",
-        "p339-2",
-        "p339-3"
+        "oxo-p119-1",
+        "oxo-p119-2",
+        "oxo-p119-3",
+        "oxo-p119-4"
       ],
       "priceGroups": [
         {
-          "id": "pg339-1",
-          "page": 359,
-          "label": "Molinillos Molinillo de sal",
-          "price": "$42.978",
+          "id": "oxo-pg119-1",
+          "page": 360,
+          "label": "Esponjas con dispensers",
+          "price": "$12.788",
           "productIds": [
-            "p339-1"
+            "oxo-p119-1"
           ],
           "position": {
-            "x": 0.327020845325,
-            "y": 0.207189810445
+            "x": 0.2512204,
+            "y": 0.2080802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022111429
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg339-2",
-          "page": 359,
-          "label": "Molinillos Molinillo de pimienta",
-          "price": "$42.978",
+          "id": "oxo-pg119-2",
+          "page": 360,
+          "label": "Esponjas con dispensers",
+          "price": "$14.063",
           "productIds": [
-            "p339-2"
+            "oxo-p119-2"
           ],
           "position": {
-            "x": 0.679626182985,
-            "y": 0.207189810445
+            "x": 0.7415585,
+            "y": 0.2080802
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg339-3",
-          "page": 359,
-          "label": "Set molinillos",
-          "price": "$76.191",
+          "id": "oxo-pg119-3",
+          "page": 360,
+          "label": "Esponjas con dispensers",
+          "price": "$8.856",
           "productIds": [
-            "p339-3"
+            "oxo-p119-3"
           ],
           "position": {
-            "x": 0.499995464642,
-            "y": 0.65815597389
+            "x": 0.2220324,
+            "y": 0.7109053
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.113832001322,
-            "h": 0.022652610525
+            "w": 0.11943,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 17.579,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg119-4",
+          "page": 360,
+          "label": "Esponjas con dispensers",
+          "price": "$8.856",
+          "productIds": [
+            "oxo-p119-4"
+          ],
+          "position": {
+            "x": 0.7668542,
+            "y": 0.7109053
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.11943,
+            "h": 0.0256158
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 119
     },
     {
-      "number": 360,
-      "title": "Set salero y pimentero",
+      "number": 361,
+      "title": "Cepillo con dispenser",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-343.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-120.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p340-1"
+        "oxo-p120-1",
+        "oxo-p120-2"
       ],
       "priceGroups": [
         {
-          "id": "pg340-1",
-          "page": 360,
-          "label": "Set salero y pimentero",
-          "price": "$26.101",
+          "id": "oxo-pg120-1",
+          "page": 361,
+          "label": "Cepillo con dispenser",
+          "price": "$8.856",
           "productIds": [
-            "p340-1"
+            "oxo-p120-1"
           ],
           "position": {
-            "x": 0.499992851046,
-            "y": 0.238207787643
+            "x": 0.7729657,
+            "y": 0.4829641
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183834764559,
-            "h": 0.037029459561
+            "w": 0.11943,
+            "h": 0.0256157
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.188,
+          "pdfPriceHeight": 19.575,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg120-2",
+          "page": 361,
+          "label": "Cepillo con dispenser",
+          "price": "$15.304",
+          "productIds": [
+            "oxo-p120-2"
+          ],
+          "position": {
+            "x": 0.4999835,
+            "y": 0.2394094
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2040221,
+            "h": 0.037027
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 120
     },
     {
-      "number": 361,
-      "title": "Recipientes para condimentos",
+      "number": 362,
+      "title": "Cepillo de palma",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-344.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-121.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p341-1",
-        "p341-2"
+        "oxo-p121-1",
+        "oxo-p121-2"
       ],
       "priceGroups": [
         {
-          "id": "pg341-1",
-          "page": 361,
-          "label": "Recipientes para condimentos Especiero ajustable",
-          "price": "$15.742",
+          "id": "oxo-pg121-1",
+          "page": 362,
+          "label": "Cepillo de palma",
+          "price": "$8.856",
           "productIds": [
-            "p341-1"
+            "oxo-p121-1"
           ],
           "position": {
-            "x": 0.317935114043,
-            "y": 0.243230261406
+            "x": 0.4999847,
+            "y": 0.6642163
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742184015,
-            "h": 0.031685378195
+            "w": 0.1077672,
+            "h": 0.0232462
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 2.952,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 17.579,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg341-2",
-          "page": 361,
-          "label": "Recipientes para condimentos Azucarera",
-          "price": "$15.742",
+          "id": "oxo-pg121-2",
+          "page": 362,
+          "label": "Cepillo de palma",
+          "price": "$11.513",
           "productIds": [
-            "p341-2"
+            "oxo-p121-2"
           ],
           "position": {
-            "x": 0.682948268631,
-            "y": 0.243230261406
+            "x": 0.4999835,
+            "y": 0.2394094
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 121
     },
     {
-      "number": 362,
-      "title": "Clips",
+      "number": 363,
+      "title": "Set compacto de cepillo de mesa con",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-345.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-122.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p342-1",
-        "p342-2"
+        "oxo-p122-1"
       ],
       "priceGroups": [
         {
-          "id": "pg342-1",
-          "page": 362,
-          "label": "Clips Set",
+          "id": "oxo-pg122-1",
+          "page": 363,
+          "label": "Set compacto de cepillo de mesa con",
           "price": "$12.788",
           "productIds": [
-            "p342-1"
+            "oxo-p122-1"
           ],
           "position": {
-            "x": 0.234478589369,
-            "y": 0.261691248005
+            "x": 0.4999835,
+            "y": 0.235483
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267453185,
-            "h": 0.025022111429
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg342-2",
-          "page": 362,
-          "label": "Clips x4",
-          "price": "$12.788",
-          "productIds": [
-            "p342-2"
-          ],
-          "position": {
-            "x": 0.234467564862,
-            "y": 0.540206602811
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 122
     },
     {
-      "number": 363,
-      "title": "Escurridor de silicona",
+      "number": 364,
+      "title": "Pala y cepillo de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-346.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-123.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p343-1"
+        "oxo-p123-1"
       ],
       "priceGroups": [
         {
-          "id": "pg343-1",
-          "page": 363,
-          "label": "Escurridor de silicona",
-          "price": "$27.234",
+          "id": "oxo-pg123-1",
+          "page": 364,
+          "label": "Pala y cepillo de mesa",
+          "price": "$15.304",
           "productIds": [
-            "p343-1"
+            "oxo-p123-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.1798839
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -29931,211 +30042,188 @@ window.CATALOG_DATA = {
       "sourcePage": 123
     },
     {
-      "number": 364,
-      "title": "Organizadores de bacha",
+      "number": 365,
+      "title": "Plumeros de microfibra",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-347.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-124.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p344-1",
-        "p344-2"
+        "oxo-p124-1",
+        "oxo-p124-2",
+        "oxo-p124-3"
       ],
       "priceGroups": [
         {
-          "id": "pg344-1",
-          "page": 364,
-          "label": "Organizadores de bacha Blanco",
-          "price": "$18.194",
+          "id": "oxo-pg124-1",
+          "page": 365,
+          "label": "Plumeros de microfibra",
+          "price": "$15.304",
           "productIds": [
-            "p344-1"
+            "oxo-p124-1"
           ],
           "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
+            "x": 0.306745,
+            "y": 0.2431859
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1630999,
+            "h": 0.0299006
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.893,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 23.184,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg344-2",
-          "page": 364,
-          "label": "Organizadores de bacha Acero inoxidable",
-          "price": "$29.367",
+          "id": "oxo-pg124-2",
+          "page": 365,
+          "label": "Plumeros de microfibra",
+          "price": "$23.026",
           "productIds": [
-            "p344-2"
+            "oxo-p124-2"
           ],
           "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
+            "x": 0.6859921,
+            "y": 0.2431859
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
+            "w": 0.1630999,
+            "h": 0.0299006
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.893,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 19.575,
+          "pdfPriceHeight": 23.184,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg124-3",
+          "page": 365,
+          "label": "Plumeros de microfibra",
+          "price": "$10.132",
+          "productIds": [
+            "oxo-p124-3"
+          ],
+          "position": {
+            "x": 0.4999904,
+            "y": 0.6582973
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.1044276,
+            "h": 0.019683
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 2.448,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 14.578,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 124
     },
     {
-      "number": 365,
-      "title": "Secaplatos",
+      "number": 366,
+      "title": "Catálogo",
       "section": "OXO",
-      "showPriceOverlays": true,
+      "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/page-348.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-125.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
-      "products": [
-        "p345-1",
-        "p345-2"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg345-1",
-          "page": 365,
-          "label": "Secaplatos Plegable",
-          "price": "$69.079",
-          "productIds": [
-            "p345-1"
-          ],
-          "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg345-2",
-          "page": 365,
-          "label": "Secaplatos Aluminio",
-          "price": "$84.425",
-          "productIds": [
-            "p345-2"
-          ],
-          "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        }
-      ],
+      "products": [],
+      "priceGroups": [],
       "sourcePage": 125
     },
     {
-      "number": 366,
-      "title": "Secaplatos de aluminio",
+      "number": 367,
+      "title": "Limpia notebooks",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-349.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-126.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p346-1"
+        "oxo-p126-1"
       ],
       "priceGroups": [
         {
-          "id": "pg346-1",
-          "page": 366,
-          "label": "Secaplatos de aluminio",
-          "price": "$64.142",
+          "id": "oxo-pg126-1",
+          "page": 367,
+          "label": "Limpia notebooks",
+          "price": "$15.304",
           "productIds": [
-            "p346-1"
+            "oxo-p126-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.235483
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -30144,96 +30232,174 @@ window.CATALOG_DATA = {
       "sourcePage": 126
     },
     {
-      "number": 367,
-      "title": "Escurridor de botellas",
+      "number": 368,
+      "title": "Cepillo quita pelusas",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-350.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-127.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p347-1"
+        "oxo-p127-1",
+        "oxo-p127-2",
+        "oxo-p127-3"
       ],
       "priceGroups": [
         {
-          "id": "pg347-1",
-          "page": 367,
-          "label": "Escurridor de botellas",
-          "price": "$28.091",
+          "id": "oxo-pg127-1",
+          "page": 368,
+          "label": "Cepillo quita pelusas",
+          "price": "$9.941",
           "productIds": [
-            "p347-1"
+            "oxo-p127-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.3301383,
+            "y": 0.5103006
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1873024,
+            "h": 0.0394055
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg127-2",
+          "page": 368,
+          "label": "Cepillo quita pelusas",
+          "price": "$23.026",
+          "productIds": [
+            "oxo-p127-2"
+          ],
+          "position": {
+            "x": 0.3257811,
+            "y": 0.2676071
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg127-3",
+          "page": 368,
+          "label": "Cepillo quita pelusas",
+          "price": "$17.856",
+          "productIds": [
+            "oxo-p127-3"
+          ],
+          "position": {
+            "x": 0.337327,
+            "y": 0.7172034
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.2176799,
+            "h": 0.0394055
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 5.237,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 31.189,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 127
     },
     {
-      "number": 368,
-      "title": "Filtro y tapón de silicona para bacha",
+      "number": 369,
+      "title": "Set x2 cepillos de limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-351.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-128.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p348-1"
+        "oxo-p128-1"
       ],
       "priceGroups": [
         {
-          "id": "pg348-1",
-          "page": 368,
-          "label": "Filtro y tapón de silicona para bacha",
-          "price": "$15.304",
+          "id": "oxo-pg128-1",
+          "page": 369,
+          "label": "Set x2 cepillos de limpieza",
+          "price": "$11.513",
           "productIds": [
-            "p348-1"
+            "oxo-p128-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.4999835,
+            "y": 0.235483
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.2040221,
+            "h": 0.037027
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
@@ -30242,244 +30408,262 @@ window.CATALOG_DATA = {
       "sourcePage": 128
     },
     {
-      "number": 369,
-      "title": "Protector de desagüe para bañera",
+      "number": 370,
+      "title": "Limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-352.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-129.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p349-1"
+        "oxo-p129-1",
+        "oxo-p129-2"
       ],
       "priceGroups": [
         {
-          "id": "pg349-1",
-          "page": 369,
-          "label": "Protector de desagüe para bañera",
-          "price": "$10.159",
+          "id": "oxo-pg129-1",
+          "page": 370,
+          "label": "Limpieza",
+          "price": "$13.718",
           "productIds": [
-            "p349-1"
+            "oxo-p129-1"
           ],
           "position": {
-            "x": 0.499983357542,
-            "y": 0.238222099834
+            "x": 0.2651604,
+            "y": 0.230012
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
+            "w": 0.1562965,
+            "h": 0.0287158
           },
-          "variant": "pdf-large",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
+            "fontSize": 3.726,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 29.186,
+          "pdfPriceHeight": 22.186,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "oxo-pg129-2",
+          "page": 370,
+          "label": "Limpieza",
+          "price": "$17.856",
+          "productIds": [
+            "oxo-p129-2"
+          ],
+          "position": {
+            "x": 0.7335136,
+            "y": 0.2297012
+          },
+          "positionSource": "oxo-20260722-pdf",
+          "cover": {
+            "w": 0.15645,
+            "h": 0.0287425
+          },
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 3.729,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
+          },
+          "pdfPriceHeight": 22.208,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 129
     },
     {
-      "number": 370,
-      "title": "Dispensers de jabón",
+      "number": 371,
+      "title": "Limpiavidrios",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-353.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-130.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p350-1",
-        "p350-2"
+        "oxo-p130-1"
       ],
       "priceGroups": [
         {
-          "id": "pg350-1",
-          "page": 370,
-          "label": "Dispensers de jabón Dispensers",
-          "price": "$30.024",
+          "id": "oxo-pg130-1",
+          "page": 371,
+          "label": "Limpiavidrios",
+          "price": "$13.718",
           "productIds": [
-            "p350-1"
+            "oxo-p130-1"
           ],
           "position": {
-            "x": 0.319402456083,
-            "y": 0.241766975798
+            "x": 0.4999835,
+            "y": 0.235483
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.157742209639,
-            "h": 0.031685378195
+            "w": 0.2040221,
+            "h": 0.037027
           },
           "variant": "pdf-regular",
           "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
+            "fontSize": 4.901,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
-          "pdfPriceHeight": 25.187,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg350-2",
-          "page": 370,
-          "label": "Dispensers de jabón de jabón",
-          "price": "$30.024",
-          "productIds": [
-            "p350-2"
-          ],
-          "position": {
-            "x": 0.67056207793,
-            "y": 0.241766975798
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.157742158392,
-            "h": 0.031685378195
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 25.187,
+          "pdfPriceHeight": 29.186,
           "pdfPriceColor": "#000000"
         }
       ],
       "sourcePage": 130
     },
     {
-      "number": 371,
-      "title": "Esponjas con dispensers",
+      "number": 372,
+      "title": "Organizadores de ducha",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-354.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/oxo-20260722-page-131.jpg?v=20260722-oxo-r2",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p351-1",
-        "p351-2",
-        "p351-3"
+        "oxo-p131-1",
+        "oxo-p131-2",
+        "oxo-p131-3"
       ],
       "priceGroups": [
         {
-          "id": "pg351-1",
-          "page": 371,
-          "label": "Esponjas con dispensers Esponja",
-          "price": "$12.788",
+          "id": "oxo-pg131-1",
+          "page": 372,
+          "label": "Organizadores de ducha",
+          "price": "$58.750",
           "productIds": [
-            "p351-1"
+            "oxo-p131-1"
           ],
           "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
+            "x": 0.1971407,
+            "y": 0.2028986
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg351-2",
-          "page": 371,
-          "label": "Esponjas con dispensers Fibra",
-          "price": "$14.063",
+          "id": "oxo-pg131-2",
+          "page": 372,
+          "label": "Organizadores de ducha",
+          "price": "$79.706",
           "productIds": [
-            "p351-2"
+            "oxo-p131-2"
           ],
           "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
+            "x": 0.4999818,
+            "y": 0.2028986
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
+            "w": 0.1384954,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
         },
         {
-          "id": "pg351-3",
-          "page": 371,
-          "label": "Esponjas con dispensers Set x2",
-          "price": "$8.856",
+          "id": "oxo-pg131-3",
+          "page": 372,
+          "label": "Organizadores de ducha",
+          "price": "$204.473",
           "productIds": [
-            "p351-3"
+            "oxo-p131-3"
           ],
           "position": {
-            "x": 0.222032305175,
-            "y": 0.710014583941
+            "x": 0.8028327,
+            "y": 0.2028986
           },
-          "positionSource": "priced-pdf",
+          "positionSource": "oxo-20260722-pdf",
           "cover": {
-            "w": 0.107506611886,
-            "h": 0.025022129545
+            "w": 0.1575608,
+            "h": 0.0256158
           },
-          "variant": "pdf-medium",
+          "variant": "pdf-regular",
           "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
+            "fontSize": 3.287,
+            "fontSizeUnit": "cqw",
+            "fontWeight": 800,
+            "minWidth": 0,
+            "minHeight": 0,
+            "padX": 0,
             "padY": 0,
             "radius": 1,
             "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
+            "color": "#111111",
+            "background": "#f5f5f5",
+            "borderColor": "rgba(215, 25, 32, 0.10)"
           },
           "pdfPriceHeight": 19.575,
           "pdfPriceColor": "#000000"
@@ -30488,860 +30672,7 @@ window.CATALOG_DATA = {
       "sourcePage": 131
     },
     {
-      "number": 372,
-      "title": "Cepillos con dispensers",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-355.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p352-1",
-        "p352-2",
-        "p352-3"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg352-1",
-          "page": 372,
-          "label": "Cepillos con dispensers Cepillo",
-          "price": "$15.304",
-          "productIds": [
-            "p352-1"
-          ],
-          "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg352-2",
-          "page": 372,
-          "label": "Cepillos con dispensers Cepillo con base",
-          "price": "$19.235",
-          "productIds": [
-            "p352-2"
-          ],
-          "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg352-3",
-          "page": 372,
-          "label": "Cepillos con dispensers Set x2 repuestos",
-          "price": "$8.856",
-          "productIds": [
-            "p352-3"
-          ],
-          "position": {
-            "x": 0.499999026307,
-            "y": 0.476047045438
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107506637509,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 132
-    },
-    {
       "number": 373,
-      "title": "Cepillo de palma",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-356.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p353-1",
-        "p353-2",
-        "p353-3"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg353-1",
-          "page": 373,
-          "label": "Cepillo de palma Cepillo",
-          "price": "$11.513",
-          "productIds": [
-            "p353-1"
-          ],
-          "position": {
-            "x": 0.251220344396,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg353-2",
-          "page": 373,
-          "label": "Cepillo de palma Cepillo con base",
-          "price": "$15.304",
-          "productIds": [
-            "p353-2"
-          ],
-          "position": {
-            "x": 0.7415586739,
-            "y": 0.207189810445
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626749162,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg353-3",
-          "page": 373,
-          "label": "Cepillo de palma Set x2 repuestos",
-          "price": "$8.856",
-          "productIds": [
-            "p353-3"
-          ],
-          "position": {
-            "x": 0.499999026307,
-            "y": 0.434940042792
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.107506637509,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 133
-    },
-    {
-      "number": 374,
-      "title": "Set compacto de cepillo de mesa con",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-357.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p354-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg354-1",
-          "page": 374,
-          "label": "Set compacto de cepillo de mesa con recogedor de migas",
-          "price": "$12.788",
-          "productIds": [
-            "p354-1"
-          ],
-          "position": {
-            "x": 0.499983357542,
-            "y": 0.234295740583
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 134
-    },
-    {
-      "number": 375,
-      "title": "Pala y cepillo de mesa",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-358.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p355-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg355-1",
-          "page": 375,
-          "label": "Pala y cepillo de mesa",
-          "price": "$14.040",
-          "productIds": [
-            "p355-1"
-          ],
-          "position": {
-            "x": 0.499983357542,
-            "y": 0.178696684826
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 135
-    },
-    {
-      "number": 376,
-      "title": "Plumeros de microfibra",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-359.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p356-1",
-        "p356-2",
-        "p356-3"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg356-1",
-          "page": 376,
-          "label": "Plumeros de microfibra De mano",
-          "price": "$14.040",
-          "productIds": [
-            "p356-1"
-          ],
-          "position": {
-            "x": 0.306745156033,
-            "y": 0.241506149713
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.145520444881,
-            "h": 0.029306909527
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 23.184,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg356-2",
-          "page": 376,
-          "label": "Plumeros de microfibra Extensible",
-          "price": "$21.125",
-          "productIds": [
-            "p356-2"
-          ],
-          "position": {
-            "x": 0.685991006975,
-            "y": 0.241506149713
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.145520470505,
-            "h": 0.029306909527
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 23.184,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg356-3",
-          "page": 376,
-          "label": "Plumeros de microfibra Repuesto para plumero",
-          "price": "$9.295",
-          "productIds": [
-            "p356-3"
-          ],
-          "position": {
-            "x": 0.499990468061,
-            "y": 0.653572811911
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.081137297636,
-            "h": 0.019089346114
-          },
-          "variant": "pdf-small",
-          "style": {
-            "fontSize": 11,
-            "minWidth": 36,
-            "minHeight": 14,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 14.578,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 136
-    },
-    {
-      "number": 377,
-      "title": "Limpia notebooks",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-360.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p357-1",
-        "p357-2"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg357-1",
-          "page": 377,
-          "label": "Limpia notebooks Limpia",
-          "price": "$14.040",
-          "productIds": [
-            "p357-1"
-          ],
-          "position": {
-            "x": 0.348307586337,
-            "y": 0.207119427078
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.12626741475,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg357-2",
-          "page": 377,
-          "label": "Limpia notebooks para objetos delicados",
-          "price": "$11.732",
-          "productIds": [
-            "p357-2"
-          ],
-          "position": {
-            "x": 0.348339795065,
-            "y": 0.518889192847
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267465997,
-            "h": 0.025022129545
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 137
-    },
-    {
-      "number": 378,
-      "title": "Cepillo quita pelusas",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-361.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p358-1",
-        "p358-2"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg358-1",
-          "page": 378,
-          "label": "Cepillo quita pelusas De",
-          "price": "$21.125",
-          "productIds": [
-            "p358-1"
-          ],
-          "position": {
-            "x": 0.325781142381,
-            "y": 0.266419923294
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.196020323323,
-            "h": 0.039405500592
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg358-2",
-          "page": 378,
-          "label": "Cepillo quita pelusas bolsillo",
-          "price": "$9.120",
-          "productIds": [
-            "p358-2"
-          ],
-          "position": {
-            "x": 0.330138340205,
-            "y": 0.547603034184
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.166853000695,
-            "h": 0.039405482475
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 31.189,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 138
-    },
-    {
-      "number": 379,
-      "title": "Set limpiador de botellas",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-362.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p359-1",
-        "p359-2"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg359-1",
-          "page": 379,
-          "label": "Set limpiador de botellas",
-          "price": "$15.304",
-          "productIds": [
-            "p359-1"
-          ],
-          "position": {
-            "x": 0.733515357491,
-            "y": 0.228810783783
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.139586479898,
-            "h": 0.028148854028
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 22.208,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg359-2",
-          "page": 379,
-          "label": "Set limpiador de botellas Set x2 cepillos de limpieza",
-          "price": "$11.513",
-          "productIds": [
-            "p359-2"
-          ],
-          "position": {
-            "x": 0.265160740773,
-            "y": 0.229121503251
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.139443731428,
-            "h": 0.0281221319
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 15,
-            "minWidth": 44,
-            "minHeight": 18,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 22.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 139
-    },
-    {
-      "number": 380,
-      "title": "Limpiavidrios de acero inoxidable",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-363.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p360-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg360-1",
-          "page": 380,
-          "label": "Limpiavidrios de acero inoxidable",
-          "price": "$23.026",
-          "productIds": [
-            "p360-1"
-          ],
-          "position": {
-            "x": 0.499983357542,
-            "y": 0.234295740583
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.183797174897,
-            "h": 0.037027031923
-          },
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 140
-    },
-    {
-      "number": 381,
-      "title": "Organizadores de ducha",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-364.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p361-1",
-        "p361-2",
-        "p361-3"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg361-1",
-          "page": 381,
-          "label": "Organizadores de ducha Gancho colgante",
-          "price": "$58.750",
-          "productIds": [
-            "p361-1"
-          ],
-          "position": {
-            "x": 0.197140761727,
-            "y": 0.202008253967
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg361-2",
-          "page": 381,
-          "label": "Organizadores de ducha Gancho de 3 niveles",
-          "price": "$79.706",
-          "productIds": [
-            "p361-2"
-          ],
-          "position": {
-            "x": 0.499981961062,
-            "y": 0.202008253967
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.126267440373,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        },
-        {
-          "id": "pg361-3",
-          "page": 381,
-          "label": "Organizadores de ducha Palo extendible",
-          "price": "$204.473",
-          "productIds": [
-            "p361-3"
-          ],
-          "position": {
-            "x": 0.802833794146,
-            "y": 0.202008253967
-          },
-          "positionSource": "priced-pdf",
-          "cover": {
-            "w": 0.145028345731,
-            "h": 0.025022111429
-          },
-          "variant": "pdf-medium",
-          "style": {
-            "fontSize": 12,
-            "minWidth": 40,
-            "minHeight": 15,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#f5f5f5"
-          },
-          "pdfPriceHeight": 19.575,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 141
-    },
-    {
-      "number": 382,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31354,7 +30685,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 383,
+      "number": 374,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31367,7 +30698,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 384,
+      "number": 375,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31382,7 +30713,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg384-1",
-          "page": 384,
+          "page": 375,
           "label": "Salad pod con tapa removible y contenedor de salsa",
           "price": "$22.785",
           "productIds": [
@@ -31415,7 +30746,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 385,
+      "number": 376,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31428,12 +30759,12 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 386,
+      "number": 377,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/prepara-20260716-page-005.jpg?v=20260716-prepara",
+        "src": "assets/pages/prepara-20260716-page-005.jpg?v=20260722-prepara-p3041",
         "width": 1013,
         "height": 1432
       },
@@ -31447,7 +30778,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg386-1",
-          "page": 386,
+          "page": 377,
           "label": "Frasco EVAK 9,6 x 10,3 cm",
           "price": "$7.394",
           "productIds": [
@@ -31479,7 +30810,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-2",
-          "page": 386,
+          "page": 377,
           "label": "Frasco EVAK 11,8 x 26,6 cm",
           "price": "$13.067",
           "productIds": [
@@ -31511,7 +30842,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-3",
-          "page": 386,
+          "page": 377,
           "label": "Frasco EVAK 11,8 x 13 cm",
           "price": "$10.277",
           "productIds": [
@@ -31543,7 +30874,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-4",
-          "page": 386,
+          "page": 377,
           "label": "Frasco EVAK 9,6 x 20 cm",
           "price": "$9.161",
           "productIds": [
@@ -31575,7 +30906,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-5",
-          "page": 386,
+          "page": 377,
           "label": "Frasco EVAK 14,4 x 29,1 cm",
           "price": "$7.394",
           "productIds": [
@@ -31608,7 +30939,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 387,
+      "number": 378,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31621,7 +30952,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 388,
+      "number": 379,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31634,7 +30965,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 389,
+      "number": 380,
       "title": "Conservador",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31650,7 +30981,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg389-1",
-          "page": 389,
+          "page": 380,
           "label": "Conservador de hierbas - individual",
           "price": "$9.161",
           "productIds": [
@@ -31682,7 +31013,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg389-2",
-          "page": 389,
+          "page": 380,
           "label": "Conservador de hierbas - set x3",
           "price": "$23.111",
           "productIds": [
@@ -31715,7 +31046,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 390,
+      "number": 381,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31730,7 +31061,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg390-1",
-          "page": 390,
+          "page": 381,
           "label": "Hierbas \"cool tool\" para preparar hierbas",
           "price": "$1.721",
           "productIds": [
@@ -31763,7 +31094,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 391,
+      "number": 382,
       "title": "Porta-tacos",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31776,7 +31107,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 392,
+      "number": 383,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31793,7 +31124,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg392-1",
-          "page": 392,
+          "page": 383,
           "label": "Porta tacos amarillo",
           "price": "$7.301",
           "productIds": [
@@ -31825,7 +31156,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg392-2",
-          "page": 392,
+          "page": 383,
           "label": "Porta tacos azul",
           "price": "$7.301",
           "productIds": [
@@ -31857,7 +31188,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg392-3",
-          "page": 392,
+          "page": 383,
           "label": "Porta tacos rojo",
           "price": "$7.301",
           "productIds": [
@@ -31890,7 +31221,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 393,
+      "number": 384,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31906,7 +31237,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg393-1",
-          "page": 393,
+          "page": 384,
           "label": "Porta tacos oruga - set x4",
           "price": "$13.392",
           "productIds": [
@@ -31938,7 +31269,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg393-2",
-          "page": 393,
+          "page": 384,
           "label": "Porta tacos sombrero - set x4",
           "price": "$9.300",
           "productIds": [
@@ -31971,7 +31302,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 394,
+      "number": 385,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31984,7 +31315,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 395,
+      "number": 386,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32000,7 +31331,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg395-1",
-          "page": 395,
+          "page": 386,
           "label": "Organizador de cajón single extensible",
           "price": "$15.996",
           "productIds": [
@@ -32032,7 +31363,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg395-2",
-          "page": 395,
+          "page": 386,
           "label": "Organizador de cajón doble extensible",
           "price": "$31.899",
           "productIds": [
@@ -32065,7 +31396,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 396,
+      "number": 387,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -32078,7 +31409,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 397,
+      "number": 388,
       "title": "Sprays para aceite",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -32091,7 +31422,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 398,
+      "number": 389,
       "title": "Sprays",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32108,7 +31439,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg398-1",
-          "page": 398,
+          "page": 389,
           "label": "Spray de aceite Simple",
           "price": "$25.250",
           "productIds": [
@@ -32140,7 +31471,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg398-2",
-          "page": 398,
+          "page": 389,
           "label": "Spray de aceite Deluxe",
           "price": "$20.693",
           "productIds": [
@@ -32172,7 +31503,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg398-3",
-          "page": 398,
+          "page": 389,
           "label": "Spray gourmet de aluminio",
           "price": "$13.020",
           "productIds": [
@@ -32205,7 +31536,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 399,
+      "number": 390,
       "title": "aceite",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32220,7 +31551,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg399-1",
-          "page": 399,
+          "page": 390,
           "label": "Vertedor de aceite",
           "price": "$8.556",
           "productIds": [
@@ -32253,7 +31584,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 400,
+      "number": 391,
       "title": "Otros accesorios",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -32266,7 +31597,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 401,
+      "number": 392,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32283,7 +31614,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg401-1",
-          "page": 401,
+          "page": 392,
           "label": "Cortador de cebolla",
           "price": "$13.718",
           "productIds": [
@@ -32315,7 +31646,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg401-2",
-          "page": 401,
+          "page": 392,
           "label": "Guante resistente a cortes",
           "price": "$10.928",
           "productIds": [
@@ -32347,7 +31678,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg401-3",
-          "page": 401,
+          "page": 392,
           "label": "Cortador de manzana cuchillas de acero inoxidable",
           "price": "$13.020",
           "productIds": [
@@ -32380,7 +31711,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 402,
+      "number": 393,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32397,7 +31728,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg402-1",
-          "page": 402,
+          "page": 393,
           "label": "Exprimidor convertible",
           "price": "$12.323",
           "productIds": [
@@ -32429,7 +31760,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg402-2",
-          "page": 402,
+          "page": 393,
           "label": "Pisapapas flip de acero inoxidable",
           "price": "$15.950",
           "productIds": [
@@ -32461,7 +31792,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg402-3",
-          "page": 402,
+          "page": 393,
           "label": "Exprimidor de mano",
           "price": "$5.162",
           "productIds": [
@@ -32494,7 +31825,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 403,
+      "number": 394,
       "title": "Accesorios para palta",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32510,7 +31841,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg403-1",
-          "page": 403,
+          "page": 394,
           "label": "Cortador de palta cactus",
           "price": "$7.487",
           "productIds": [
@@ -32542,7 +31873,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg403-2",
-          "page": 403,
+          "page": 394,
           "label": "Avocado \"Cool Tool\" 3 en 1",
           "price": "$1.535",
           "productIds": [
@@ -32575,7 +31906,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 404,
+      "number": 395,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32591,7 +31922,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg404-1",
-          "page": 404,
+          "page": 395,
           "label": "Colador para latas",
           "price": "$4.836",
           "productIds": [
@@ -32623,7 +31954,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg404-2",
-          "page": 404,
+          "page": 395,
           "label": "Rallador de queso Cactus",
           "price": "$4.743",
           "productIds": [
@@ -32656,7 +31987,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 405,
+      "number": 396,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32673,7 +32004,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg405-1",
-          "page": 405,
+          "page": 396,
           "label": "Cucharas para helado - set x4",
           "price": "$7.673",
           "productIds": [
@@ -32705,7 +32036,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg405-2",
-          "page": 405,
+          "page": 396,
           "label": "Bolas de hielo - set x2",
           "price": "$4.929",
           "productIds": [
@@ -32737,7 +32068,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg405-3",
-          "page": 405,
+          "page": 396,
           "label": "Bolas de hielo - set x4",
           "price": "$6.092",
           "productIds": [
@@ -46218,7662 +45549,6 @@ window.CATALOG_DATA = {
       "hotspotSource": "leifheit-sku-text"
     },
     {
-      "id": "p222-1",
-      "page": 243,
-      "sku": "11294500",
-      "skus": [
-        "11294500"
-      ],
-      "name": "Cafeteras 8 tazas con Groundslifter",
-      "category": "Cafeteras",
-      "price": "$56.453",
-      "pdfPrice": "$56.453",
-      "priceSource": "pdf",
-      "ean": "719812000893",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.676065517012358,
-        "y": 0.21698822595869,
-        "w": 0.138823719809378,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.745477812516399,
-        "y": 0.243413294394513
-      },
-      "section": "OXO",
-      "sourcePage": 2,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p222-2",
-      "page": 243,
-      "sku": "11181100",
-      "skus": [
-        "11181100"
-      ],
-      "name": "Cafeteras Cafetera prensa 8 tazas",
-      "category": "Cafeteras",
-      "price": "$27.239",
-      "pdfPrice": "$27.239",
-      "priceSource": "pdf",
-      "ean": "719812048123",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.184465794279033,
-        "y": 0.218428883812188,
-        "w": 0.138823694185886,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.253858513435729,
-        "y": 0.24485395224801
-      },
-      "section": "OXO",
-      "sourcePage": 2,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p223-1",
-      "page": 244,
-      "sku": "11344700",
-      "skus": [
-        "11344700"
-      ],
-      "name": "Cafetera french press 1 litro",
-      "category": "Cafetera french press 1 litro",
-      "price": "$29.190",
-      "pdfPrice": "$29.190",
-      "priceSource": "pdf",
-      "ean": "840097703374",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367815788006,
-        "y": 0.163383727945186,
-        "w": 0.277231595978629,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.22116591814514
-      },
-      "section": "OXO",
-      "sourcePage": 3,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p224-1",
-      "page": 245,
-      "sku": "11237500",
-      "skus": [
-        "11237500"
-      ],
-      "name": "Cafetera Cold Brew Cafetera",
-      "category": "Cafetera Cold Brew",
-      "price": "$44.777",
-      "pdfPrice": "$44.777",
-      "priceSource": "pdf",
-      "ean": "719812685311",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.376869310559994,
-        "y": 0.104134012830245,
-        "w": 0.246240751969524,
-        "h": 0.046525389644858
-      },
-      "pricePosition": {
-        "x": 0.499902707603576,
-        "y": 0.15059735278825
-      },
-      "section": "OXO",
-      "sourcePage": 4,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p224-2",
-      "page": 245,
-      "sku": "11212400",
-      "skus": [
-        "11212400"
-      ],
-      "name": "Cafetera Cold Brew con temporizador",
-      "category": "Cafetera Cold Brew",
-      "price": "$81.739",
-      "pdfPrice": "$81.739",
-      "priceSource": "pdf",
-      "ean": "719812682792",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.383906033737734,
-        "y": 0.556093351715742,
-        "w": 0.246240854463489,
-        "h": 0.04652538058651
-      },
-      "pricePosition": {
-        "x": 0.499910394650963,
-        "y": 0.602556664498702
-      },
-      "section": "OXO",
-      "sourcePage": 4,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p225-1",
-      "page": 246,
-      "sku": "11303600",
-      "skus": [
-        "11303600"
-      ],
-      "name": "Molinillo de café",
-      "category": "Molinillo de café",
-      "price": "$67.237",
-      "pdfPrice": "$67.237",
-      "priceSource": "pdf",
-      "ean": "719812001807",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 5,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p226-1",
-      "page": 247,
-      "sku": "11213300",
-      "skus": [
-        "11213300"
-      ],
-      "name": "Infusor de té para tazas",
-      "category": "Infusor de té para tazas",
-      "price": "$23.083",
-      "pdfPrice": "$23.083",
-      "priceSource": "pdf",
-      "ean": "719812682884",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.36136589402616,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.22116591814514
-      },
-      "section": "OXO",
-      "sourcePage": 6,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p227-1",
-      "page": 248,
-      "sku": "1410280",
-      "skus": [
-        "1410280"
-      ],
-      "name": "Infusor de té",
-      "category": "Infusor de té",
-      "price": "$17.790",
-      "pdfPrice": "$17.790",
-      "priceSource": "pdf",
-      "ean": "719812031026",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.376957429746537,
-        "y": 0.163383727945186,
-        "w": 0.246074429887568,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.22116591814514
-      },
-      "section": "OXO",
-      "sourcePage": 7,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-1",
-      "page": 249,
-      "sku": "11233700",
-      "skus": [
-        "11233700"
-      ],
-      "name": "Frascos POP Cuadrado Grande Mini 1 L",
-      "category": "Frascos POP",
-      "price": "$16.369",
-      "pdfPrice": "$16.369",
-      "priceSource": "pdf",
-      "ean": "719812684932",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.17740593308866,
-        "y": 0.217313583718162,
-        "w": 0.123424309026685,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.239126978953479,
-        "y": 0.241066221962147
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-2",
-      "page": 249,
-      "sku": "11233600",
-      "skus": [
-        "11233600"
-      ],
-      "name": "Frascos POP Cuadrado Grande Bajo 2,6 L",
-      "category": "Frascos POP",
-      "price": "$17.563",
-      "pdfPrice": "$17.563",
-      "priceSource": "pdf",
-      "ean": "719812684925",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.438275776822261,
-        "y": 0.217313583718162,
-        "w": 0.123424257779702,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.49999682268708,
-        "y": 0.241066221962147
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-3",
-      "page": 249,
-      "sku": "11233500",
-      "skus": [
-        "11233500"
-      ],
-      "name": "Frascos POP Cuadrado Grande Mediano 1,9 L",
-      "category": "Frascos POP",
-      "price": "$21.843",
-      "pdfPrice": "$21.843",
-      "priceSource": "pdf",
-      "ean": "719812684918",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.721964825711062,
-        "y": 0.217313583718162,
-        "w": 0.123424257779702,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.78368584595239,
-        "y": 0.241066221962147
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-4",
-      "page": 249,
-      "sku": "11234000",
-      "skus": [
-        "11234000"
-      ],
-      "name": "Frascos POP Cuadrado Chico Bajo 1 L",
-      "category": "Frascos POP",
-      "price": "$12.766",
-      "pdfPrice": "$12.766",
-      "priceSource": "pdf",
-      "ean": "719812684963",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.187400721783001,
-        "y": 0.459959599765932,
-        "w": 0.123424296214939,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.249101967094927,
-        "y": 0.483712256126614
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-5",
-      "page": 249,
-      "sku": "11233900",
-      "skus": [
-        "11233900"
-      ],
-      "name": "Frascos POP Cuadrado Chico Mediano 1,6 L",
-      "category": "Frascos POP",
-      "price": "$13.607",
-      "pdfPrice": "$13.607",
-      "priceSource": "pdf",
-      "ean": "719812684956",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.440932164164174,
-        "y": 0.459959599765932,
-        "w": 0.123424309026685,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.502653056288046,
-        "y": 0.483712256126614
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p228-6",
-      "page": 249,
-      "sku": "11233800",
-      "skus": [
-        "11233800"
-      ],
-      "name": "Frascos POP Cuadrado Chico Alto 2 L",
-      "category": "Frascos POP",
-      "price": "$16.028",
-      "pdfPrice": "$16.028",
-      "priceSource": "pdf",
-      "ean": "719812684949",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.693598954643551,
-        "y": 0.459959599765932,
-        "w": 0.123424257779702,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.755300167926113,
-        "y": 0.483712256126614
-      },
-      "section": "OXO",
-      "sourcePage": 8,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-1",
-      "page": 250,
-      "sku": "11234200",
-      "skus": [
-        "11234200"
-      ],
-      "name": "Frascos POP Mini cuadrado Corto 0,5 L",
-      "category": "Frascos POP",
-      "price": "$8.185",
-      "pdfPrice": "$8.185",
-      "priceSource": "pdf",
-      "ean": "719812684987",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.261567725142344,
-        "y": 0.200230190750702,
-        "w": 0.123424309026685,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.323280404937257,
-        "y": 0.223982828994686
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-2",
-      "page": 250,
-      "sku": "11234100",
-      "skus": [
-        "11234100"
-      ],
-      "name": "Frascos POP Mini cuadrado Mediano 0,8 L",
-      "category": "Frascos POP",
-      "price": "$10.071",
-      "pdfPrice": "$10.071",
-      "priceSource": "pdf",
-      "ean": "719812684970",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.607620354563523,
-        "y": 0.200230190750702,
-        "w": 0.123424257779702,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.669341246687395,
-        "y": 0.223982828994686
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-3",
-      "page": 250,
-      "sku": "11234700",
-      "skus": [
-        "11234700"
-      ],
-      "name": "Frascos POP Rectangulo Mini 0,6 L",
-      "category": "Frascos POP",
-      "price": "$11.936",
-      "pdfPrice": "$11.936",
-      "priceSource": "pdf",
-      "ean": "719812685038",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.04893682625592,
-        "y": 0.487859095578258,
-        "w": 0.123424302620812,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.110657731191537,
-        "y": 0.511611751938939
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-4",
-      "page": 250,
-      "sku": "11234600",
-      "skus": [
-        "11234600"
-      ],
-      "name": "Frascos POP Rectangulo Corto 1,6 L",
-      "category": "Frascos POP",
-      "price": "$15.005",
-      "pdfPrice": "$15.005",
-      "priceSource": "pdf",
-      "ean": "719812685021",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.30044048318935,
-        "y": 0.487859095578258,
-        "w": 0.123424309026685,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.362161388124967,
-        "y": 0.511611751938939
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-5",
-      "page": 250,
-      "sku": "11234500",
-      "skus": [
-        "11234500"
-      ],
-      "name": "Frascos POP Rectangulo Mediano 2,5 L",
-      "category": "Frascos POP",
-      "price": "$16.881",
-      "pdfPrice": "$16.881",
-      "priceSource": "pdf",
-      "ean": "719812685014",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.551942762860123,
-        "y": 0.487859095578258,
-        "w": 0.123424257779702,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.613663654983995,
-        "y": 0.511611751938939
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-6",
-      "page": 250,
-      "sku": "11234400",
-      "skus": [
-        "11234400"
-      ],
-      "name": "Frascos POP Rectangulo Alto 3,5 L",
-      "category": "Frascos POP",
-      "price": "$19.829",
-      "pdfPrice": "$19.829",
-      "priceSource": "pdf",
-      "ean": "719812685007",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.803449014172046,
-        "y": 0.487859095578258,
-        "w": 0.123424309026685,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.865169906295917,
-        "y": 0.511611751938939
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-7",
-      "page": 250,
-      "sku": "11235000",
-      "skus": [
-        "11235000"
-      ],
-      "name": "Frascos POP Rectangulo Fino Mini 0,4 L",
-      "category": "Frascos POP",
-      "price": "$10.197",
-      "pdfPrice": "$10.197",
-      "priceSource": "pdf",
-      "ean": "719812685069",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.103813779944637,
-        "y": 0.767490167162762,
-        "w": 0.123424309026685,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.165534684880254,
-        "y": 0.791242823523444
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-8",
-      "page": 250,
-      "sku": "11234900",
-      "skus": [
-        "11234900"
-      ],
-      "name": "Frascos POP Rectangulo Fino Corto 1,1 L",
-      "category": "Frascos POP",
-      "price": "$12.277",
-      "pdfPrice": "$12.277",
-      "priceSource": "pdf",
-      "ean": "719812685052",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.438276238045104,
-        "y": 0.767490167162762,
-        "w": 0.123424257779702,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.499997130168976,
-        "y": 0.791242823523444
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p229-9",
-      "page": 250,
-      "sku": "11234800",
-      "skus": [
-        "11234800"
-      ],
-      "name": "Frascos POP Rectangulo Fino Mediano 1,9 L",
-      "category": "Frascos POP",
-      "price": "$13.982",
-      "pdfPrice": "$13.982",
-      "priceSource": "pdf",
-      "ean": "719812685045",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.772738696145571,
-        "y": 0.767490167162762,
-        "w": 0.123424257779702,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.834459562645951,
-        "y": 0.791242823523444
-      },
-      "section": "OXO",
-      "sourcePage": 9,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p230-1",
-      "page": 251,
-      "sku": "11236200",
-      "skus": [
-        "11236200"
-      ],
-      "name": "POP - Sets de 1 litro",
-      "category": "POP - Sets",
-      "price": "$34.466",
-      "pdfPrice": "$34.466",
-      "priceSource": "pdf",
-      "ean": "719812685182",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.422911880198494,
-        "y": 0.15356571016546,
-        "w": 0.154136369450567,
-        "h": 0.031550897954081
-      },
-      "pricePosition": {
-        "x": 0.499978168785422,
-        "y": 0.182663190676423
-      },
-      "section": "OXO",
-      "sourcePage": 10,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p230-2",
-      "page": 251,
-      "sku": "11236100",
-      "skus": [
-        "11236100"
-      ],
-      "name": "POP - Sets 4 piezas de",
-      "category": "POP - Sets",
-      "price": "$28.068",
-      "pdfPrice": "$28.068",
-      "priceSource": "pdf",
-      "ean": "719812685175",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.422909727825226,
-        "y": 0.441451401054754,
-        "w": 0.154136369450567,
-        "h": 0.031550916070778
-      },
-      "pricePosition": {
-        "x": 0.499976503258488,
-        "y": 0.470548881565717
-      },
-      "section": "OXO",
-      "sourcePage": 10,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p231-1",
-      "page": 252,
-      "sku": "3118700",
-      "skus": [
-        "3118700"
-      ],
-      "name": "POP - Tapa de acero Rectangulo Mediano 2,6 L",
-      "category": "POP - Tapa de acero",
-      "price": "$27.795",
-      "pdfPrice": "$27.795",
-      "priceSource": "pdf",
-      "ean": "719812051871",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.314408950101018,
-        "y": 0.171342990740556,
-        "w": 0.111374170413846,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.370105925975579,
-        "y": 0.195095647101238
-      },
-      "section": "OXO",
-      "sourcePage": 11,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p231-2",
-      "page": 252,
-      "sku": "3118400",
-      "skus": [
-        "3118400"
-      ],
-      "name": "POP - Tapa de acero Cuadrado chico Corto 1 L",
-      "category": "POP - Tapa de acero",
-      "price": "$19.293",
-      "pdfPrice": "$19.293",
-      "priceSource": "pdf",
-      "ean": "719812051840",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.612600280095508,
-        "y": 0.171342990740556,
-        "w": 0.111374144790355,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.668277564317013,
-        "y": 0.195095647101238
-      },
-      "section": "OXO",
-      "sourcePage": 11,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p231-3",
-      "page": 252,
-      "sku": "3118300",
-      "skus": [
-        "3118300"
-      ],
-      "name": "POP - Tapa de acero Cuadrado Grande Corto 2,6 L",
-      "category": "POP - Tapa de acero",
-      "price": "$27.795",
-      "pdfPrice": "$27.795",
-      "priceSource": "pdf",
-      "ean": "719812051833",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.3144169446303,
-        "y": 0.466111667696299,
-        "w": 0.111374196037337,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.370094139169586,
-        "y": 0.489864324056981
-      },
-      "section": "OXO",
-      "sourcePage": 11,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p231-4",
-      "page": 252,
-      "sku": "3118200",
-      "skus": [
-        "3118200"
-      ],
-      "name": "POP - Tapa de acero Cuadrado Grande Mediano 4,2 L",
-      "category": "POP - Tapa de acero",
-      "price": "$29.975",
-      "pdfPrice": "$29.975",
-      "priceSource": "pdf",
-      "ean": "719812051826",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.612591055638644,
-        "y": 0.466111667696299,
-        "w": 0.111374144790355,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.668287890584002,
-        "y": 0.489864324056981
-      },
-      "section": "OXO",
-      "sourcePage": 11,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p233-1",
-      "page": 254,
-      "sku": "11247400",
-      "skus": [
-        "11247400"
-      ],
-      "name": "Cerealeros POP 1,2 L",
-      "category": "Cerealeros POP",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812686301",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.138935361360923,
-        "y": 0.280040237183796,
-        "w": 0.123424309026685,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.200656279108286,
-        "y": 0.303792857311084
-      },
-      "section": "OXO",
-      "sourcePage": 13,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p233-2",
-      "page": 254,
-      "sku": "11113900",
-      "skus": [
-        "11113900"
-      ],
-      "name": "Cerealeros POP 2,4 L",
-      "category": "Cerealeros POP",
-      "price": "$26.816",
-      "pdfPrice": "$26.816",
-      "priceSource": "pdf",
-      "ean": "719812041407",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.559594706063707,
-        "y": 0.284784094264797,
-        "w": 0.123424257779702,
-        "h": 0.026802910266189
-      },
-      "pricePosition": {
-        "x": 0.62131562381107,
-        "y": 0.308536732508782
-      },
-      "section": "OXO",
-      "sourcePage": 13,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p233-3",
-      "page": 254,
-      "sku": "11247600",
-      "skus": [
-        "11247600"
-      ],
-      "name": "Cerealeros POP 1,6 L",
-      "category": "Cerealeros POP",
-      "price": "$23.931",
-      "pdfPrice": "$23.931",
-      "priceSource": "pdf",
-      "ean": "719812686325",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.138935361360923,
-        "y": 0.495813956016283,
-        "w": 0.123424309026685,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.200656279108286,
-        "y": 0.519566576143571
-      },
-      "section": "OXO",
-      "sourcePage": 13,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p233-4",
-      "page": 254,
-      "sku": "11114000",
-      "skus": [
-        "11114000"
-      ],
-      "name": "Cerealeros POP 4,2 L",
-      "category": "Cerealeros POP",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812041414",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.559594706063707,
-        "y": 0.495813956016283,
-        "w": 0.123424257779702,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.62131562381107,
-        "y": 0.519566576143571
-      },
-      "section": "OXO",
-      "sourcePage": 13,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p234-1",
-      "page": 255,
-      "sku": "1128580",
-      "skus": [
-        "1128580"
-      ],
-      "name": "POP redondos 2.8 L",
-      "category": "POP redondos",
-      "price": "$21.007",
-      "pdfPrice": "$21.007",
-      "priceSource": "pdf",
-      "ean": "719812032856",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.200707218608968,
-        "y": 0.197738130393114,
-        "w": 0.231983380193574,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.316595697282844,
-        "y": 0.243404670846793
-      },
-      "section": "OXO",
-      "sourcePage": 14,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p234-2",
-      "page": 255,
-      "sku": "1128680",
-      "skus": [
-        "1128680"
-      ],
-      "name": "POP redondos 1.9 L",
-      "category": "POP redondos",
-      "price": "$19.029",
-      "pdfPrice": "$19.029",
-      "priceSource": "pdf",
-      "ean": "719812032863",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.56202324932108,
-        "y": 0.197738130393114,
-        "w": 0.231983354570083,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.677911868924158,
-        "y": 0.243404670846793
-      },
-      "section": "OXO",
-      "sourcePage": 14,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p235-1",
-      "page": 256,
-      "sku": "11235300",
-      "skus": [
-        "11235300"
-      ],
-      "name": "Accesorios para POP Etiquetas removibles",
-      "category": "Accesorios para POP",
-      "price": "$7.617",
-      "pdfPrice": "$7.617",
-      "priceSource": "pdf",
-      "ean": "719812685090",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.184470790859834,
-        "y": 0.210635189509708,
-        "w": 0.138823694185886,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.253873599266225,
-        "y": 0.23706025794553
-      },
-      "section": "OXO",
-      "sourcePage": 15,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p235-2",
-      "page": 256,
-      "sku": "11235600",
-      "skus": [
-        "11235600"
-      ],
-      "name": "Accesorios para POP Nivelador enganchable",
-      "category": "Accesorios para POP",
-      "price": "$3.755",
-      "pdfPrice": "$3.755",
-      "priceSource": "pdf",
-      "ean": "719812685120",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.620175609060139,
-        "y": 0.210635189509708,
-        "w": 0.138823668562395,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.68957837262542,
-        "y": 0.23706025794553
-      },
-      "section": "OXO",
-      "sourcePage": 15,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p236-1",
-      "page": 257,
-      "sku": "11235200",
-      "skus": [
-        "11235200"
-      ],
-      "name": "Accesorios para POP Cuchara media taza",
-      "category": "Accesorios para POP",
-      "price": "$7.617",
-      "pdfPrice": "$7.617",
-      "priceSource": "pdf",
-      "ean": "719812685083",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.108240404617476,
-        "y": 0.223963770229557,
-        "w": 0.138823706997632,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.17764321942974,
-        "y": 0.250388838665379
-      },
-      "section": "OXO",
-      "sourcePage": 16,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p236-2",
-      "page": 257,
-      "sku": "11235500",
-      "skus": [
-        "11235500"
-      ],
-      "name": "Accesorios para POP Cuchara para café",
-      "category": "Accesorios para POP",
-      "price": "$6.342",
-      "pdfPrice": "$6.342",
-      "priceSource": "pdf",
-      "ean": "719812685113",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.408584581914817,
-        "y": 0.223963770229557,
-        "w": 0.138823694185886,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.477987371103589,
-        "y": 0.250388838665379
-      },
-      "section": "OXO",
-      "sourcePage": 16,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p236-3",
-      "page": 257,
-      "sku": "11235400",
-      "skus": [
-        "11235400"
-      ],
-      "name": "Accesorios para POP Cuchara para espolvorear",
-      "category": "Accesorios para POP",
-      "price": "$7.617",
-      "pdfPrice": "$7.617",
-      "priceSource": "pdf",
-      "ean": "719812685106",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.730918339778154,
-        "y": 0.223963770229557,
-        "w": 0.138823719809378,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.800321103343435,
-        "y": 0.250388838665379
-      },
-      "section": "OXO",
-      "sourcePage": 16,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-1",
-      "page": 258,
-      "sku": "11385900",
-      "skus": [
-        "11385900"
-      ],
-      "name": "Bolsas de silicona 235ml",
-      "category": "Bolsas de silicona",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "840097707495",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.127450835694794,
-        "y": 0.386768035624673,
-        "w": 0.146454472385666,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.200671307285927,
-        "y": 0.414083883929946
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-2",
-      "page": 258,
-      "sku": "11386000",
-      "skus": [
-        "11386000"
-      ],
-      "name": "Bolsas de silicona 355ml",
-      "category": "Bolsas de silicona",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "840097707501",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.414721331208018,
-        "y": 0.386768035624673,
-        "w": 0.146454498009157,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.487941815610897,
-        "y": 0.414083883929946
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-3",
-      "page": 258,
-      "sku": "11386100",
-      "skus": [
-        "11386100"
-      ],
-      "name": "Bolsas de silicona 945ml",
-      "category": "Bolsas de silicona",
-      "price": "$24.302",
-      "pdfPrice": "$24.302",
-      "priceSource": "pdf",
-      "ean": "840097707518",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.701991109263487,
-        "y": 0.386768035624673,
-        "w": 0.146454446762175,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.775211593666365,
-        "y": 0.414083883929946
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-4",
-      "page": 258,
-      "sku": "11386200",
-      "skus": [
-        "11386200"
-      ],
-      "name": "Bolsas de silicona 1,89 L",
-      "category": "Bolsas de silicona",
-      "price": "$31.883",
-      "pdfPrice": "$31.883",
-      "priceSource": "pdf",
-      "ean": "840097707525",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.147503639048233,
-        "y": 0.604889479090614,
-        "w": 0.14645445957392,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.220724110639366,
-        "y": 0.632205399862675
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-5",
-      "page": 258,
-      "sku": "11386500",
-      "skus": [
-        "11386500"
-      ],
-      "name": "Bolsas de silicona 830ml",
-      "category": "Bolsas de silicona",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "840097707556",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.407553185143459,
-        "y": 0.604889479090614,
-        "w": 0.146454472385666,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.480773695169828,
-        "y": 0.632205399862675
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p237-6",
-      "page": 258,
-      "sku": "11386400",
-      "skus": [
-        "11386400"
-      ],
-      "name": "Bolsas de silicona",
-      "category": "Bolsas de silicona",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "840097707549",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.701991109263487,
-        "y": 0.604889479090614,
-        "w": 0.146454446762175,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.775211593666365,
-        "y": 0.632205399862675
-      },
-      "section": "OXO",
-      "sourcePage": 17,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p238-1",
-      "page": 259,
-      "sku": "11386700",
-      "skus": [
-        "11386700"
-      ],
-      "name": "Bolsas de silicona 3,785",
-      "category": "Bolsas de silicona",
-      "price": "$38.330",
-      "pdfPrice": "$38.330",
-      "priceSource": "pdf",
-      "ean": "840097707570",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.14484448436926,
-        "y": 0.190907519697379,
-        "w": 0.14645445957392,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.218064955960393,
-        "y": 0.218223404236046
-      },
-      "section": "OXO",
-      "sourcePage": 18,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p238-2",
-      "page": 259,
-      "sku": "11386300",
-      "skus": [
-        "11386300"
-      ],
-      "name": "Bolsas de silicona 355ml",
-      "category": "Bolsas de silicona",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "840097707532",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.426774980239163,
-        "y": 0.190907519697379,
-        "w": 0.146454498009157,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.499995439018551,
-        "y": 0.218223404236046
-      },
-      "section": "OXO",
-      "sourcePage": 18,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p238-3",
-      "page": 259,
-      "sku": "11386600",
-      "skus": [
-        "11386600"
-      ],
-      "name": "Bolsas de silicona 1,89 L",
-      "category": "Bolsas de silicona",
-      "price": "$28.091",
-      "pdfPrice": "$28.091",
-      "priceSource": "pdf",
-      "ean": "840097707563",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.733906448838292,
-        "y": 0.190907519697379,
-        "w": 0.146454498009157,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.807126907617679,
-        "y": 0.218223404236046
-      },
-      "section": "OXO",
-      "sourcePage": 18,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p238-4",
-      "page": 259,
-      "sku": "11391100",
-      "skus": [
-        "11391100"
-      ],
-      "name": "Bolsas de silicona bolsas “lunch”",
-      "category": "Bolsas de silicona",
-      "price": "$51.119",
-      "pdfPrice": "$51.119",
-      "priceSource": "pdf",
-      "ean": "840097708010",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.208726243948756,
-        "y": 0.591035133710281,
-        "w": 0.146454446762175,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.281946574610687,
-        "y": 0.618350982015555
-      },
-      "section": "OXO",
-      "sourcePage": 18,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p238-5",
-      "page": 259,
-      "sku": "11391000",
-      "skus": [
-        "11391000"
-      ],
-      "name": "Bolsas de silicona Set x4 bolsas",
-      "category": "Bolsas de silicona",
-      "price": "$63.907",
-      "pdfPrice": "$63.907",
-      "priceSource": "pdf",
-      "ean": "840097708003",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.656539084228721,
-        "y": 0.591035133710281,
-        "w": 0.146454498009157,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.729759619878582,
-        "y": 0.618350982015555
-      },
-      "section": "OXO",
-      "sourcePage": 18,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p239-1",
-      "page": 260,
-      "sku": "11283400",
-      "skus": [
-        "11283400"
-      ],
-      "name": "Utensilios de acero inoxidable Cucharón",
-      "category": "Utensilios de acero inoxidable",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "719812689920",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.382868436081484,
-        "y": 0.259213626654734,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.476432934816298,
-        "y": 0.292765151446528
-      },
-      "section": "OXO",
-      "sourcePage": 19,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p239-2",
-      "page": 260,
-      "sku": "11283300",
-      "skus": [
-        "11283300"
-      ],
-      "name": "Utensilios de acero inoxidable",
-      "category": "Utensilios de acero inoxidable",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812689913",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.382868436081484,
-        "y": 0.412833505743899,
-        "w": 0.187150418708346,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.476432934816298,
-        "y": 0.446385048652389
-      },
-      "section": "OXO",
-      "sourcePage": 19,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p239-3",
-      "page": 260,
-      "sku": "11283100",
-      "skus": [
-        "11283100"
-      ],
-      "name": "Utensilios de acero inoxidable",
-      "category": "Utensilios de acero inoxidable",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812689890",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.382868436081484,
-        "y": 0.570422825588747,
-        "w": 0.187150418708346,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.476432934816298,
-        "y": 0.603974368497238
-      },
-      "section": "OXO",
-      "sourcePage": 19,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-1",
-      "page": 261,
-      "sku": "1190400",
-      "skus": [
-        "1190400"
-      ],
-      "name": "Utensilios de nylon Espátula",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029047",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.617178224296153,
-        "y": 0.224976312418815,
-        "w": 0.111356054605505,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-2",
-      "page": 261,
-      "sku": "1190300",
-      "skus": [
-        "1190300"
-      ],
-      "name": "Utensilios de nylon Espátula acanalada",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029030",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.449239043805101,
-        "y": 0.224976312418815,
-        "w": 0.111356054605505,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-3",
-      "page": 261,
-      "sku": "1191300",
-      "skus": [
-        "1191300"
-      ],
-      "name": "Utensilios de nylon Cuchara acanalada",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029139",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.151476510125584,
-        "y": 0.659261817068465,
-        "w": 0.11135606741725,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-4",
-      "page": 261,
-      "sku": "1190800",
-      "skus": [
-        "1190800"
-      ],
-      "name": "Utensilios de nylon Cucharón",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029085",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.346168806330683,
-        "y": 0.659261817068465,
-        "w": 0.111356054605505,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-5",
-      "page": 261,
-      "sku": "1190700",
-      "skus": [
-        "1190700"
-      ],
-      "name": "Utensilios de nylon Tenedor",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029078",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.512811796891399,
-        "y": 0.659261817068465,
-        "w": 0.111356054605505,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-6",
-      "page": 261,
-      "sku": "1190200",
-      "skus": [
-        "1190200"
-      ],
-      "name": "Utensilios de nylon Espumadera",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029023",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.284235469840536,
-        "y": 0.224976312418815,
-        "w": 0.111356105852487,
-        "h": 0.026802892149492
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p240-7",
-      "page": 261,
-      "sku": "1190900",
-      "skus": [
-        "1190900"
-      ],
-      "name": "Utensilios de nylon Cuchara para fideos",
-      "category": "Utensilios de nylon",
-      "price": "$10.002",
-      "pdfPrice": "$10.002",
-      "priceSource": "pdf",
-      "ean": "719812029092",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.698809696585065,
-        "y": 0.659261817068465,
-        "w": 0.111356054605505,
-        "h": 0.026802855916098
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.147265012853796
-      },
-      "section": "OXO",
-      "sourcePage": 20,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p241-1",
-      "page": 262,
-      "sku": "1071532",
-      "skus": [
-        "1071532"
-      ],
-      "name": "Espátulas de silicona flexibles Para omelet",
-      "category": "Espátulas de silicona flexibles",
-      "price": "$19.236",
-      "pdfPrice": "$19.236",
-      "priceSource": "pdf",
-      "ean": "719812018423",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.214311498838948,
-        "y": 0.433203738561571,
-        "w": 0.118150507673108,
-        "h": 0.027996601307663
-      },
-      "pricePosition": {
-        "x": 0.273400576549053,
-        "y": 0.461410421086386
-      },
-      "section": "OXO",
-      "sourcePage": 21,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p241-2",
-      "page": 262,
-      "sku": "1071533",
-      "skus": [
-        "1071533"
-      ],
-      "name": "Espátulas de silicona flexibles Para panqueque",
-      "category": "Espátulas de silicona flexibles",
-      "price": "$19.236",
-      "pdfPrice": "$19.236",
-      "priceSource": "pdf",
-      "ean": "719812018430",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373735583198861,
-        "y": 0.433203738561571,
-        "w": 0.118150482049617,
-        "h": 0.027996601307663
-      },
-      "pricePosition": {
-        "x": 0.43282464809722,
-        "y": 0.461410421086386
-      },
-      "section": "OXO",
-      "sourcePage": 21,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p241-3",
-      "page": 262,
-      "sku": "1071536",
-      "skus": [
-        "1071536"
-      ],
-      "name": "Espátulas de silicona flexibles Espátula corta",
-      "category": "Espátulas de silicona flexibles",
-      "price": "$15.741",
-      "pdfPrice": "$15.741",
-      "priceSource": "pdf",
-      "ean": "719812018461",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.538696750285343,
-        "y": 0.433203738561571,
-        "w": 0.118150482049617,
-        "h": 0.027996601307663
-      },
-      "pricePosition": {
-        "x": 0.597785802371956,
-        "y": 0.461410421086386
-      },
-      "section": "OXO",
-      "sourcePage": 21,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p241-4",
-      "page": 262,
-      "sku": "1071534",
-      "skus": [
-        "1071534"
-      ],
-      "name": "Espátulas de silicona flexibles Espátula larga",
-      "category": "Espátulas de silicona flexibles",
-      "price": "$18.838",
-      "pdfPrice": "$18.838",
-      "priceSource": "pdf",
-      "ean": "719812018447",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.700304878548751,
-        "y": 0.433203738561571,
-        "w": 0.118150430802634,
-        "h": 0.027996601307663
-      },
-      "pricePosition": {
-        "x": 0.759393930635364,
-        "y": 0.461410421086386
-      },
-      "section": "OXO",
-      "sourcePage": 21,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p242-1",
-      "page": 263,
-      "sku": "65191",
-      "skus": [
-        "65191"
-      ],
-      "name": "Espátulas de nylon Chica",
-      "category": "Espátulas de nylon",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "719812651910",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.266283728714053,
-        "y": 0.184564737298837,
-        "w": 0.127136076727802,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.329846206780345,
-        "y": 0.218116262090631
-      },
-      "section": "OXO",
-      "sourcePage": 22,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p242-2",
-      "page": 263,
-      "sku": "1058984",
-      "skus": [
-        "1058984"
-      ],
-      "name": "Espátulas de nylon Grande",
-      "category": "Espátulas de nylon",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812006727",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.587883347928474,
-        "y": 0.184564737298837,
-        "w": 0.167173550571342,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.671466869030751,
-        "y": 0.218116262090631
-      },
-      "section": "OXO",
-      "sourcePage": 22,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p243-1",
-      "page": 264,
-      "sku": "11314700",
-      "skus": [
-        "11314700"
-      ],
-      "name": "Abrelatas Con traba",
-      "category": "Abrelatas",
-      "price": "$27.632",
-      "pdfPrice": "$27.632",
-      "priceSource": "pdf",
-      "ean": "840097700373",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.205821846834658,
-        "y": 0.138121796741531,
-        "w": 0.277231698472594,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.344366654941357,
-        "y": 0.230820541435603
-      },
-      "section": "OXO",
-      "sourcePage": 23,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p243-2",
-      "page": 264,
-      "sku": "28081",
-      "skus": [
-        "28081"
-      ],
-      "name": "Abrelatas Sin traba",
-      "category": "Abrelatas",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812280813",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.575684567442669,
-        "y": 0.138121796741531,
-        "w": 0.183759995211482,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.667494074823874,
-        "y": 0.230820541435603
-      },
-      "section": "OXO",
-      "sourcePage": 23,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p244-1",
-      "page": 265,
-      "sku": "11295000",
-      "skus": [
-        "11295000"
-      ],
-      "name": "Cucharas de helado Sin gatillo",
-      "category": "Cucharas de helado",
-      "price": "$23.679",
-      "pdfPrice": "$23.679",
-      "priceSource": "pdf",
-      "ean": "840097700212",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.203473453858037,
-        "y": 0.132213054167112,
-        "w": 0.261312028322772,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.334136424797308,
-        "y": 0.225448723406954
-      },
-      "section": "OXO",
-      "sourcePage": 24,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p244-2",
-      "page": 265,
-      "sku": "11295100",
-      "skus": [
-        "11295100"
-      ],
-      "name": "Cucharas de helado Con gatillo",
-      "category": "Cucharas de helado",
-      "price": "$19.634",
-      "pdfPrice": "$19.634",
-      "priceSource": "pdf",
-      "ean": "840097700229",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.534301142848709,
-        "y": 0.133710743382424,
-        "w": 0.261312053946264,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.664944358076196,
-        "y": 0.226946412622265
-      },
-      "section": "OXO",
-      "sourcePage": 24,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p245-1",
-      "page": 266,
-      "sku": "11301100",
-      "skus": [
-        "11301100"
-      ],
-      "name": "Corta pizzas Para antiadherente",
-      "category": "Corta pizzas",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812001555",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.516936615272093,
-        "y": 0.158367848660361,
-        "w": 0.27723162160212,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.655433046227238,
-        "y": 0.244120733291423
-      },
-      "section": "OXO",
-      "sourcePage": 25,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p245-2",
-      "page": 266,
-      "sku": "11300900",
-      "skus": [
-        "11300900"
-      ],
-      "name": "Corta pizzas Normal",
-      "category": "Corta pizzas",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812001531",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.172478433219852,
-        "y": 0.158813229536738,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.310994709569001,
-        "y": 0.2445661141678
-      },
-      "section": "OXO",
-      "sourcePage": 25,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p246-1",
-      "page": 267,
-      "sku": "11295300",
-      "skus": [
-        "11295300"
-      ],
-      "name": "Pincel de repostería",
-      "category": "Pincel de repostería",
-      "price": "$12.471",
-      "pdfPrice": "$12.471",
-      "priceSource": "pdf",
-      "ean": "840097700243",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.36136589402616,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.22116591814514
-      },
-      "section": "OXO",
-      "sourcePage": 26,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p247-1",
-      "page": 268,
-      "sku": "11278500",
-      "skus": [
-        "11278500"
-      ],
-      "name": "Batidor de acero inoxidable",
-      "category": "Batidor de acero inoxidable",
-      "price": "$15.742",
-      "pdfPrice": "$15.742",
-      "priceSource": "pdf",
-      "ean": "719812689432",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367175200724,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 27,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p248-1",
-      "page": 269,
-      "sku": "1136000",
-      "skus": [
-        "1136000"
-      ],
-      "name": "Colador 7,5cm",
-      "category": "Colador",
-      "price": "$14.433",
-      "pdfPrice": "$14.433",
-      "priceSource": "pdf",
-      "ean": "719812023601",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.182874806081418,
-        "y": 0.119734146531468,
-        "w": 0.23214473131822,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.280071863899904,
-        "y": 0.219565923942483
-      },
-      "section": "OXO",
-      "sourcePage": 28,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p248-2",
-      "page": 269,
-      "sku": "38891",
-      "skus": [
-        "38891"
-      ],
-      "name": "Colador 15cm",
-      "category": "Colador",
-      "price": "$26.459",
-      "pdfPrice": "$26.459",
-      "priceSource": "pdf",
-      "ean": "719812388915",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.442255258760364,
-        "y": 0.119734146531468,
-        "w": 0.17381003481515,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.219565923942483
-      },
-      "section": "OXO",
-      "sourcePage": 28,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p248-3",
-      "page": 269,
-      "sku": "38991",
-      "skus": [
-        "38991"
-      ],
-      "name": "Colador 20cm",
-      "category": "Colador",
-      "price": "$31.269",
-      "pdfPrice": "$31.269",
-      "priceSource": "pdf",
-      "ean": "719812389912",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.643284052185007,
-        "y": 0.119734146531468,
-        "w": 0.173810086062133,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.726579437127742,
-        "y": 0.219565923942483
-      },
-      "section": "OXO",
-      "sourcePage": 28,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p249-1",
-      "page": 270,
-      "sku": "11344300",
-      "skus": [
-        "11344300"
-      ],
-      "name": "Set x3 coladores",
-      "category": "Set x3 coladores",
-      "price": "$31.448",
-      "pdfPrice": "$31.448",
-      "priceSource": "pdf",
-      "ean": "840097703336",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367175200724,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 29,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p250-1",
-      "page": 271,
-      "sku": "1142380",
-      "skus": [
-        "1142380"
-      ],
-      "name": "Vaporieras Silicona",
-      "category": "Vaporieras",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812034232",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.08958101953207,
-        "y": 0.226894218418521,
-        "w": 0.167145633777583,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.173144874604783,
-        "y": 0.260445743210315
-      },
-      "section": "OXO",
-      "sourcePage": 30,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p250-2",
-      "page": 271,
-      "sku": "1067247",
-      "skus": [
-        "1067247"
-      ],
-      "name": "Vaporieras",
-      "category": "Vaporieras",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812014814",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.08958101953207,
-        "y": 0.500131092418706,
-        "w": 0.167145633777583,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.173144874604783,
-        "y": 0.533682635327197
-      },
-      "section": "OXO",
-      "sourcePage": 30,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p251-1",
-      "page": 272,
-      "sku": "1072121",
-      "skus": [
-        "1072121"
-      ],
-      "name": "Tijera de cocina y hierbas",
-      "category": "Tijera de cocina y hierbas",
-      "price": "$23.500",
-      "pdfPrice": "$23.500",
-      "priceSource": "pdf",
-      "ean": "719812019611",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.376958710921101,
-        "y": 0.163383727945186,
-        "w": 0.246074429887568,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 31,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p252-1",
-      "page": 273,
-      "sku": "11303000",
-      "skus": [
-        "11303000"
-      ],
-      "name": "Batidor doble Machacador de carne",
-      "category": "Batidor doble",
-      "price": "$24.942",
-      "pdfPrice": "$24.942",
-      "priceSource": "pdf",
-      "ean": "719812001746",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.163750226511663,
-        "y": 0.155633749232305,
-        "w": 0.253136955921035,
-        "h": 0.045340621076603
-      },
-      "pricePosition": {
-        "x": 0.290314450972627,
-        "y": 0.223775501515462
-      },
-      "section": "OXO",
-      "sourcePage": 32,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p252-2",
-      "page": 273,
-      "sku": "1126980",
-      "skus": [
-        "1126980"
-      ],
-      "name": "Batidor doble",
-      "category": "Batidor doble",
-      "price": "$25.539",
-      "pdfPrice": "$25.539",
-      "priceSource": "pdf",
-      "ean": "719812032696",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.597172375990502,
-        "y": 0.155633749232305,
-        "w": 0.224978302027577,
-        "h": 0.045340621076603
-      },
-      "pricePosition": {
-        "x": 0.709661936980151,
-        "y": 0.223775501515462
-      },
-      "section": "OXO",
-      "sourcePage": 32,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p253-1",
-      "page": 274,
-      "sku": "20081",
-      "skus": [
-        "20081"
-      ],
-      "name": "Peladores giratorio",
-      "category": "Peladores",
-      "price": "$9.565",
-      "pdfPrice": "$9.565",
-      "priceSource": "pdf",
-      "ean": "719812200811",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.220317798937999,
-        "y": 0.172882022258174,
-        "w": 0.12713602548082,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.283870488830618,
-        "y": 0.206433547049968
-      },
-      "section": "OXO",
-      "sourcePage": 33,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p253-2",
-      "page": 274,
-      "sku": "21081",
-      "skus": [
-        "21081"
-      ],
-      "name": "Peladores Pelador en Y",
-      "category": "Peladores",
-      "price": "$10.889",
-      "pdfPrice": "$10.889",
-      "priceSource": "pdf",
-      "ean": "719812210810",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.572420647122297,
-        "y": 0.385797379238628,
-        "w": 0.127154730629461,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.636002419677529,
-        "y": 0.419348922147118
-      },
-      "section": "OXO",
-      "sourcePage": 33,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p253-3",
-      "page": 274,
-      "sku": "1054751",
-      "skus": [
-        "1054751"
-      ],
-      "name": "Peladores Cortador",
-      "category": "Peladores",
-      "price": "$10.889",
-      "pdfPrice": "$10.889",
-      "priceSource": "pdf",
-      "ean": "719812003665",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.145884605939402,
-        "y": 0.576341260596003,
-        "w": 0.167173601818325,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.229467499266143,
-        "y": 0.609892803504494
-      },
-      "section": "OXO",
-      "sourcePage": 33,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p254-1",
-      "page": 275,
-      "sku": "11258900",
-      "skus": [
-        "11258900"
-      ],
-      "name": "Peladores Pelador en Y Prep",
-      "category": "Peladores",
-      "price": "$10.889",
-      "pdfPrice": "$10.889",
-      "priceSource": "pdf",
-      "ean": "719812687476",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.185263735421258,
-        "y": 0.520922937006433,
-        "w": 0.146454472385666,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.258484207012391,
-        "y": 0.548238785311707
-      },
-      "section": "OXO",
-      "sourcePage": 34,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p254-2",
-      "page": 275,
-      "sku": "11259100",
-      "skus": [
-        "11259100"
-      ],
-      "name": "Peladores Cortador Juliana Prep",
-      "category": "Peladores",
-      "price": "$10.889",
-      "pdfPrice": "$10.889",
-      "priceSource": "pdf",
-      "ean": "719812687490",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.643802774142659,
-        "y": 0.520922937006433,
-        "w": 0.146454498009157,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.717023258545537,
-        "y": 0.548238785311707
-      },
-      "section": "OXO",
-      "sourcePage": 34,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p255-1",
-      "page": 276,
-      "sku": "11244100",
-      "skus": [
-        "11244100"
-      ],
-      "name": "Set de 3 pelapapas",
-      "category": "Set de 3 pelapapas",
-      "price": "$21.715",
-      "pdfPrice": "$21.715",
-      "priceSource": "pdf",
-      "ean": "719812685977",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367175200724,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 35,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p256-1",
-      "page": 277,
-      "sku": "1127580",
-      "skus": [
-        "1127580"
-      ],
-      "name": "Citrus Zester Descorazador de ananá",
-      "category": "Citrus Zester",
-      "price": "$10.691",
-      "pdfPrice": "$10.691",
-      "priceSource": "pdf",
-      "ean": "719812032757",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.200713675728773,
-        "y": 0.135038851256484,
-        "w": 0.231983277699609,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.316601795673771,
-        "y": 0.213665279531575
-      },
-      "section": "OXO",
-      "sourcePage": 36,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p256-2",
-      "page": 277,
-      "sku": "11261400",
-      "skus": [
-        "11261400"
-      ],
-      "name": "Citrus Zester",
-      "category": "Citrus Zester",
-      "price": "$11.227",
-      "pdfPrice": "$11.227",
-      "priceSource": "pdf",
-      "ean": "719812687728",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.552709571460432,
-        "y": 0.135038851256484,
-        "w": 0.261137404229639,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.683186336488508,
-        "y": 0.213665279531575
-      },
-      "section": "OXO",
-      "sourcePage": 36,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p257-1",
-      "page": 278,
-      "sku": "32681",
-      "skus": [
-        "32681"
-      ],
-      "name": "Cortadores de manzana Normal",
-      "category": "Cortadores de manzana",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812326818",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.191057744894981,
-        "y": 0.133082972660093,
-        "w": 0.17367522962748,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.273164705905866,
-        "y": 0.219726655277303
-      },
-      "section": "OXO",
-      "sourcePage": 37,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p257-2",
-      "page": 278,
-      "sku": "11154000",
-      "skus": [
-        "11154000"
-      ],
-      "name": "Cortadores de manzana Pop-out",
-      "category": "Cortadores de manzana",
-      "price": "$23.164",
-      "pdfPrice": "$23.164",
-      "priceSource": "pdf",
-      "ean": "719812045412",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.547773410851569,
-        "y": 0.133082972660093,
-        "w": 0.261137301735674,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.684863496487327,
-        "y": 0.219726655277303
-      },
-      "section": "OXO",
-      "sourcePage": 37,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p258-1",
-      "page": 279,
-      "sku": "11155800",
-      "skus": [
-        "11155800"
-      ],
-      "name": "Exprimidor pequeño pequeño",
-      "category": "Exprimidor pequeño",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812045597",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.156829705866919,
-        "y": 0.157328729276763,
-        "w": 0.261137481100113,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.287392437708268,
-        "y": 0.211899734952724
-      },
-      "section": "OXO",
-      "sourcePage": 38,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p258-2",
-      "page": 279,
-      "sku": "1057962",
-      "skus": [
-        "1057962"
-      ],
-      "name": "Exprimidor pequeño Exprimidor manual",
-      "category": "Exprimidor pequeño",
-      "price": "$26.807",
-      "pdfPrice": "$26.807",
-      "priceSource": "pdf",
-      "ean": "719812005980",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.631894154072208,
-        "y": 0.158201265632445,
-        "w": 0.231983405817066,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.749509643247206,
-        "y": 0.213663286694917
-      },
-      "section": "OXO",
-      "sourcePage": 38,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p258-3",
-      "page": 279,
-      "sku": "11263400",
-      "skus": [
-        "11263400"
-      ],
-      "name": "Exprimidor pequeño Exprimidor 2",
-      "category": "Exprimidor pequeño",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812687926",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.047409256199245,
-        "y": 0.768437887810543,
-        "w": 0.212948015214614,
-        "h": 0.039398887997145
-      },
-      "pricePosition": {
-        "x": 0.153893442738467,
-        "y": 0.831729365535158
-      },
-      "section": "OXO",
-      "sourcePage": 38,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p259-1",
-      "page": 280,
-      "sku": "1252180",
-      "skus": [
-        "1252180"
-      ],
-      "name": "Cortador de palta Verde",
-      "category": "Cortador de palta",
-      "price": "$10.202",
-      "pdfPrice": "$10.202",
-      "priceSource": "pdf",
-      "ean": "719812035215",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.554564353500866,
-        "y": 0.130104415582533,
-        "w": 0.246074481134551,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.484593068722614,
-        "y": 0.238180069097082
-      },
-      "section": "OXO",
-      "sourcePage": 39,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p259-2",
-      "page": 280,
-      "sku": "1143380",
-      "skus": [
-        "1143380"
-      ],
-      "name": "Cortador de palta Blanco",
-      "category": "Cortador de palta",
-      "price": "$10.202",
-      "pdfPrice": "$10.202",
-      "priceSource": "pdf",
-      "ean": "719812034331",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.206005516020217,
-        "y": 0.130104415582533,
-        "w": 0.246074506758042,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.484593068722614,
-        "y": 0.238180069097082
-      },
-      "section": "OXO",
-      "sourcePage": 39,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p260-1",
-      "page": 281,
-      "sku": "39781",
-      "skus": [
-        "39781"
-      ],
-      "name": "Ahuecador doble",
-      "category": "Ahuecador doble",
-      "price": "$9.941",
-      "pdfPrice": "$9.941",
-      "priceSource": "pdf",
-      "ean": "719812397818",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.238799613228773,
-        "y": 0.140083916540001,
-        "w": 0.173675178380497,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.325521947955204,
-        "y": 0.218710344815092
-      },
-      "section": "OXO",
-      "sourcePage": 40,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p260-2",
-      "page": 281,
-      "sku": "11324800",
-      "skus": [
-        "11324800"
-      ],
-      "name": "Pisador de palta",
-      "category": "Ahuecador doble",
-      "price": "$11.966",
-      "pdfPrice": "$11.966",
-      "priceSource": "pdf",
-      "ean": "840097701387",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.561641356806911,
-        "y": 0.140083916540001,
-        "w": 0.261137352982656,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.692118147458478,
-        "y": 0.218710344815092
-      },
-      "section": "OXO",
-      "sourcePage": 40,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p261-1",
-      "page": 282,
-      "sku": "11263300",
-      "skus": [
-        "11263300"
-      ],
-      "name": "4 sets de pinches para choclos",
-      "category": "4 sets de pinches para choclos",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "719812687919",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 41,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p262-1",
-      "page": 283,
-      "sku": "1119100",
-      "skus": [
-        "1119100"
-      ],
-      "name": "Mandolina de verduras",
-      "category": "Mandolina de verduras",
-      "price": "$24.302",
-      "pdfPrice": "$24.302",
-      "priceSource": "pdf",
-      "ean": "719812021911",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 42,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p263-1",
-      "page": 284,
-      "sku": "1271080",
-      "skus": [
-        "1271080"
-      ],
-      "name": "Rebanador de huevos",
-      "category": "Rebanador de huevos",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812037103",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 43,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p264-1",
-      "page": 285,
-      "sku": "1147780",
-      "skus": [
-        "1147780"
-      ],
-      "name": "Separador de yemas",
-      "category": "Separador de yemas",
-      "price": "$4.689",
-      "pdfPrice": "$4.689",
-      "priceSource": "pdf",
-      "ean": "719812034775",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499999679706359,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 44,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p265-1",
-      "page": 286,
-      "sku": "11339900",
-      "skus": [
-        "11339900"
-      ],
-      "name": "Picador rotativo / chopper Picador rotativo chopper",
-      "category": "Picador rotativo / chopper",
-      "price": "$31.186",
-      "pdfPrice": "$31.186",
-      "priceSource": "pdf",
-      "ean": "840097702896",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.357363248451931,
-        "y": 0.168033015868415,
-        "w": 0.285246598430284,
-        "h": 0.05008893486504
-      },
-      "pricePosition": {
-        "x": 0.49999285104593,
-        "y": 0.239395083490798
-      },
-      "section": "OXO",
-      "sourcePage": 45,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p266-1",
-      "page": 287,
-      "sku": "11122600",
-      "skus": [
-        "11122600"
-      ],
-      "name": "Cortador con recipiente",
-      "category": "Cortador con recipiente",
-      "price": "$32.753",
-      "pdfPrice": "$32.753",
-      "priceSource": "pdf",
-      "ean": "719812042275",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.171270016685478,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.242928237951944
-      },
-      "section": "OXO",
-      "sourcePage": 46,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p267-1",
-      "page": 288,
-      "sku": "1057961",
-      "skus": [
-        "1057961"
-      ],
-      "name": "Rallador con base",
-      "category": "Rallador con base",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812005973",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.377301296999633,
-        "y": 0.163383727945186,
-        "w": 0.246074429887568,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.500324111541312,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 47,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p268-1",
-      "page": 289,
-      "sku": "11231700",
-      "skus": [
-        "11231700"
-      ],
-      "name": "Rallador con desmontable desmontable",
-      "category": "Rallador con desmontable",
-      "price": "$42.261",
-      "pdfPrice": "$42.261",
-      "priceSource": "pdf",
-      "ean": "719812684734",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.381807931024021,
-        "y": 0.110087394945804,
-        "w": 0.236359308788899,
-        "h": 0.042240600604735
-      },
-      "pricePosition": {
-        "x": 0.499980795193279,
-        "y": 0.151656192196414
-      },
-      "section": "OXO",
-      "sourcePage": 48,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p268-2",
-      "page": 289,
-      "sku": "32780",
-      "skus": [
-        "32780"
-      ],
-      "name": "Rallador con desmontable Rallador dos caras",
-      "category": "Rallador con desmontable",
-      "price": "$23.083",
-      "pdfPrice": "$23.083",
-      "priceSource": "pdf",
-      "ean": "719812327808",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.420982687539358,
-        "y": 0.647059352110686,
-        "w": 0.157916398132478,
-        "h": 0.042240600604735
-      },
-      "pricePosition": {
-        "x": 0.499940476629736,
-        "y": 0.68862818559469
-      },
-      "section": "OXO",
-      "sourcePage": 48,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p269-1",
-      "page": 290,
-      "sku": "11316100",
-      "skus": [
-        "11316100"
-      ],
-      "name": "Rallador de queso manual",
-      "category": "Rallador de queso manual",
-      "price": "$25.059",
-      "pdfPrice": "$25.059",
-      "priceSource": "pdf",
-      "ean": "840097700519",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 49,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p270-1",
-      "page": 291,
-      "sku": "11223200",
-      "skus": [
-        "11223200"
-      ],
-      "name": "Set mini de rallador con 3 cortes",
-      "category": "Set mini de rallador con 3 cortes",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "719812683874",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 50,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p271-1",
-      "page": 292,
-      "sku": "11243900",
-      "skus": [
-        "11243900"
-      ],
-      "name": "Set de rallador con 4 cortes",
-      "category": "Set de rallador con 4 cortes",
-      "price": "$56.793",
-      "pdfPrice": "$56.793",
-      "priceSource": "pdf",
-      "ean": "719812685953",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 51,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p272-1",
-      "page": 293,
-      "sku": "11151300",
-      "skus": [
-        "11151300"
-      ],
-      "name": "Spiralizers Espiralizador de vegetales",
-      "category": "Spiralizers",
-      "price": "$23.026",
-      "pdfPrice": "$23.026",
-      "priceSource": "pdf",
-      "ean": "719812045146",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.197332463877027,
-        "y": 0.183579424505007,
-        "w": 0.154402507842838,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.274528958234939,
-        "y": 0.210895309043674
-      },
-      "section": "OXO",
-      "sourcePage": 52,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p272-2",
-      "page": 293,
-      "sku": "11194200",
-      "skus": [
-        "11194200"
-      ],
-      "name": "Spiralizers Espiralizador de vegetales con 3 cortes",
-      "category": "Spiralizers",
-      "price": "$36.052",
-      "pdfPrice": "$36.052",
-      "priceSource": "pdf",
-      "ean": "719812049434",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.649344520344642,
-        "y": 0.183579424505007,
-        "w": 0.154402546278075,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.726541796219039,
-        "y": 0.210895309043674
-      },
-      "section": "OXO",
-      "sourcePage": 52,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p273-1",
-      "page": 294,
-      "sku": "11151400",
-      "skus": [
-        "11151400"
-      ],
-      "name": "Espiralizador de vegetales de mesa",
-      "category": "Espiralizador de vegetales de mesa",
-      "price": "$61.249",
-      "pdfPrice": "$61.249",
-      "priceSource": "pdf",
-      "ean": "719812045153",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 53,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p274-1",
-      "page": 295,
-      "sku": "11216100",
-      "skus": [
-        "11216100"
-      ],
-      "name": "Rallador grueso",
-      "category": "Rallador grueso",
-      "price": "$19.895",
-      "pdfPrice": "$19.895",
-      "priceSource": "pdf",
-      "ean": "719812683164",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 54,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p275-1",
-      "page": 296,
-      "sku": "11215400",
-      "skus": [
-        "11215400"
-      ],
-      "name": "Zesters Rallador fino",
-      "category": "Zesters",
-      "price": "$16.876",
-      "pdfPrice": "$16.876",
-      "priceSource": "pdf",
-      "ean": "719812683096",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.223649006546495,
-        "y": 0.442240310737585,
-        "w": 0.123403220893354,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.285350283887785,
-        "y": 0.465992930864873
-      },
-      "section": "OXO",
-      "sourcePage": 55,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p275-2",
-      "page": 296,
-      "sku": "11215900",
-      "skus": [
-        "11215900"
-      ],
-      "name": "Zesters Rallador mediano",
-      "category": "Zesters",
-      "price": "$19.895",
-      "pdfPrice": "$19.895",
-      "priceSource": "pdf",
-      "ean": "719812683140",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.688496548823205,
-        "y": 0.442240310737585,
-        "w": 0.12340314402288,
-        "h": 0.026802928382886
-      },
-      "pricePosition": {
-        "x": 0.75019781335275,
-        "y": 0.465992930864873
-      },
-      "section": "OXO",
-      "sourcePage": 55,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p276-1",
-      "page": 297,
-      "sku": "11282900",
-      "skus": [
-        "11282900"
-      ],
-      "name": "Pisapapas un cabezal de acero",
-      "category": "Pisapapas",
-      "price": "$20.408",
-      "pdfPrice": "$20.408",
-      "priceSource": "pdf",
-      "ean": "719812689876",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.493250362418661,
-        "y": 0.113341298641067,
-        "w": 0.154402495031093,
-        "h": 0.030366129385826
-      },
-      "pricePosition": {
-        "x": 0.570447612669566,
-        "y": 0.140657165063037
-      },
-      "section": "OXO",
-      "sourcePage": 56,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p276-2",
-      "page": 297,
-      "sku": "34581",
-      "skus": [
-        "34581"
-      ],
-      "name": "Pisapapas Pisa papas de acero inoxidable",
-      "category": "Pisapapas",
-      "price": "$24.443",
-      "pdfPrice": "$24.443",
-      "priceSource": "pdf",
-      "ean": "71981245819",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.219164588089053,
-        "y": 0.409272813903478,
-        "w": 0.101556427232565,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.26992410936844,
-        "y": 0.435697900455997
-      },
-      "section": "OXO",
-      "sourcePage": 56,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p276-3",
-      "page": 297,
-      "sku": "26981",
-      "skus": [
-        "26981"
-      ],
-      "name": "Pisapapas papas de acero inoxidable",
-      "category": "Pisapapas",
-      "price": "$39.900",
-      "pdfPrice": "$39.900",
-      "priceSource": "pdf",
-      "ean": "719812269818",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.657322701839316,
-        "y": 0.409272813903478,
-        "w": 0.101556452856056,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.708082274365685,
-        "y": 0.435697900455997
-      },
-      "section": "OXO",
-      "sourcePage": 56,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p277-1",
-      "page": 298,
-      "sku": "1071478",
-      "skus": [
-        "1071478"
-      ],
-      "name": "Pasa todo",
-      "category": "Pasa todo",
-      "price": "$76.219",
-      "pdfPrice": "$76.219",
-      "priceSource": "pdf",
-      "ean": "719812018218",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 57,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p278-1",
-      "page": 299,
-      "sku": "11178600",
-      "skus": [
-        "11178600"
-      ],
-      "name": "Cortador de ajos",
-      "category": "Cortador de ajos",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.162361873773726,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.242928237951944
-      },
-      "section": "OXO",
-      "sourcePage": 58,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p279-1",
-      "page": 300,
-      "sku": "11194500",
-      "skus": [
-        "11194500"
-      ],
-      "name": "Mandolina de chef 2.0",
-      "category": "Mandolina de chef 2.0",
-      "price": "$153.504",
-      "pdfPrice": "$153.504",
-      "priceSource": "pdf",
-      "ean": "719812049465",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499986855148969,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 59,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p280-1",
-      "page": 301,
-      "sku": "1273180",
-      "skus": [
-        "1273180"
-      ],
-      "name": "Mandolina simple",
-      "category": "Mandolina simple",
-      "price": "$48.016",
-      "pdfPrice": "$48.016",
-      "priceSource": "pdf",
-      "ean": "719812037318",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.170789561883919,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.242447819383779
-      },
-      "section": "OXO",
-      "sourcePage": 60,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p281-1",
-      "page": 302,
-      "sku": "1155700",
-      "skus": [
-        "1155700"
-      ],
-      "name": "Mandolina con 4 cortes en V",
-      "category": "Mandolina con 4 cortes en V",
-      "price": "$59.083",
-      "pdfPrice": "$59.083",
-      "priceSource": "pdf",
-      "ean": "719812025575",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 61,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p282-1",
-      "page": 303,
-      "sku": "35681",
-      "skus": [
-        "35681"
-      ],
-      "name": "Para mariscos para ostras",
-      "category": "Para mariscos",
-      "price": "$14.040",
-      "pdfPrice": "$14.040",
-      "priceSource": "pdf",
-      "ean": "719812356815",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.20513916015625,
-        "y": 0.220145712593097,
-        "w": 0.12713602548082,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.253697237384891
-      },
-      "section": "OXO",
-      "sourcePage": 62,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p282-2",
-      "page": 303,
-      "sku": "11350300",
-      "skus": [
-        "11350300"
-      ],
-      "name": "Para mariscos Rompe nueces y mariscos",
-      "category": "Para mariscos",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "84009770390",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.578948897738901,
-        "y": 0.399731474318676,
-        "w": 0.187150393084855,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.672532396292506,
-        "y": 0.433283017227167
-      },
-      "section": "OXO",
-      "sourcePage": 62,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p282-3",
-      "page": 303,
-      "sku": "11350600",
-      "skus": [
-        "11350600"
-      ],
-      "name": "Para mariscos Tijera para",
-      "category": "Para mariscos",
-      "price": "$20.370",
-      "pdfPrice": "$20.370",
-      "priceSource": "pdf",
-      "ean": "840097703961",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.164187798872402,
-        "y": 0.570670734469009,
-        "w": 0.187150469955329,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.257772059724873,
-        "y": 0.604222277377499
-      },
-      "section": "OXO",
-      "sourcePage": 62,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p283-1",
-      "page": 304,
-      "sku": "1047091",
-      "skus": [
-        "1047091"
-      ],
-      "name": "Set x2 embudos",
-      "category": "Set x2 embudos",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812000312",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 63,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p284-1",
-      "page": 305,
-      "sku": "11299800",
-      "skus": [
-        "11299800"
-      ],
-      "name": "Espátulas de silicona Set de 2 espátulas",
-      "category": "Espátulas de silicona",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812001425",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.179039200046901,
-        "y": 0.162516717182056,
-        "w": 0.154402520654584,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.256235963451472,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 64,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p284-2",
-      "page": 305,
-      "sku": "11299900",
-      "skus": [
-        "11299900"
-      ],
-      "name": "Espátulas de silicona Set de 3 espátulas",
-      "category": "Espátulas de silicona",
-      "price": "$32.180",
-      "pdfPrice": "$32.180",
-      "priceSource": "pdf",
-      "ean": "719812001432",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.63131485818115,
-        "y": 0.162516717182056,
-        "w": 0.154402546278075,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.708510904127965,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 64,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p285-1",
-      "page": 306,
-      "sku": "1238580",
-      "skus": [
-        "1238580"
-      ],
-      "name": "Set de 3 espátulas de silicona",
-      "category": "Set de 3 espátulas de silicona",
-      "price": "$24.104",
-      "pdfPrice": "$24.104",
-      "priceSource": "pdf",
-      "ean": "719812033853",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.376961529505143,
-        "y": 0.163383727945186,
-        "w": 0.246074429887568,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223061975408396
-      },
-      "section": "OXO",
-      "sourcePage": 65,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p286-1",
-      "page": 307,
-      "sku": "11211000",
-      "skus": [
-        "11211000"
-      ],
-      "name": "Set x12 moldes de silicona",
-      "category": "Set x12 moldes de silicona",
-      "price": "$17.672",
-      "pdfPrice": "$17.672",
-      "priceSource": "pdf",
-      "ean": "719812682655",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.365393983727238,
-        "y": 0.153600240589735,
-        "w": 0.269176646504054,
-        "h": 0.047711824949228
-      },
-      "pricePosition": {
-        "x": 0.499992543564035,
-        "y": 0.220874565425733
-      },
-      "section": "OXO",
-      "sourcePage": 66,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p287-1",
-      "page": 308,
-      "sku": "11161000",
-      "skus": [
-        "11161000"
-      ],
-      "name": "Vaso medidor de silicona",
-      "category": "Vaso medidor de silicona",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812046112",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 67,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p288-1",
-      "page": 309,
-      "sku": "11172700",
-      "skus": [
-        "11172700"
-      ],
-      "name": "Set x3 vasos medidores de silicona",
-      "category": "Set x3 vasos medidores de silicona",
-      "price": "$31.528",
-      "pdfPrice": "$31.528",
-      "priceSource": "pdf",
-      "ean": "719812047287",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 68,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p289-1",
-      "page": 310,
-      "sku": "74291",
-      "skus": [
-        "74291"
-      ],
-      "name": "Batidores Batidor de acero inoxidable",
-      "category": "Batidores",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812742915",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.202918756518616,
-        "y": 0.162516717182056,
-        "w": 0.106650121065872,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.256235963451472,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 69,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p289-2",
-      "page": 310,
-      "sku": "11362100",
-      "skus": [
-        "11362100"
-      ],
-      "name": "Batidores batidor de acero inoxidable",
-      "category": "Batidores",
-      "price": "$13.816",
-      "pdfPrice": "$13.816",
-      "priceSource": "pdf",
-      "ean": "840097705118",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.63131485818115,
-        "y": 0.162516717182056,
-        "w": 0.154402546278075,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.708510904127965,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 69,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p289-3",
-      "page": 310,
-      "sku": "1244780",
-      "skus": [
-        "1244780"
-      ],
-      "name": "Batidores Batidor de silicona",
-      "category": "Batidores",
-      "price": "$24.443",
-      "pdfPrice": "$24.443",
-      "priceSource": "pdf",
-      "ean": "719812034478",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.430050636118545,
-        "y": 0.439230366482661,
-        "w": 0.138485079748504,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.499274368350192,
-        "y": 0.466546214787935
-      },
-      "section": "OXO",
-      "sourcePage": 69,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p290-1",
-      "page": 311,
-      "sku": "11249400",
-      "skus": [
-        "11249400"
-      ],
-      "name": "Amasado Palo de amasar antiadherente",
-      "category": "Amasado",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "719812686523",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.179039853445929,
-        "y": 0.162516717182056,
-        "w": 0.154402507842838,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.256236495138916,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 70,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p290-2",
-      "page": 311,
-      "sku": "11211100",
-      "skus": [
-        "11211100"
-      ],
-      "name": "Amasado Bolsa para amasar",
-      "category": "Amasado",
-      "price": "$26.101",
-      "pdfPrice": "$26.101",
-      "priceSource": "pdf",
-      "ean": "719812682662",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.63131485818115,
-        "y": 0.162516717182056,
-        "w": 0.154402546278075,
-        "h": 0.030366138444174
-      },
-      "pricePosition": {
-        "x": 0.708510904127965,
-        "y": 0.189832583604027
-      },
-      "section": "OXO",
-      "sourcePage": 70,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p291-1",
-      "page": 312,
-      "sku": "1257580",
-      "skus": [
-        "1257580"
-      ],
-      "name": "Prensa para cookies",
-      "category": "Prensa para cookies",
-      "price": "$52.075",
-      "pdfPrice": "$52.075",
-      "priceSource": "pdf",
-      "ean": "71981205758",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 71,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p292-1",
-      "page": 313,
-      "sku": "11211200",
-      "skus": [
-        "11211200"
-      ],
-      "name": "Placa de silicona",
-      "category": "Placa de silicona",
-      "price": "$33.710",
-      "pdfPrice": "$33.710",
-      "priceSource": "pdf",
-      "ean": "719812682679",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 72,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p293-1",
-      "page": 314,
-      "sku": "11111102",
-      "skus": [
-        "11111102"
-      ],
-      "name": "Set x6 cucharas medidoras",
-      "category": "Set x6 cucharas medidoras",
-      "price": "$15.346",
-      "pdfPrice": "$15.346",
-      "priceSource": "pdf",
-      "ean": "719812041124",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 73,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p294-1",
-      "page": 315,
-      "sku": "1263680",
-      "skus": [
-        "1263680"
-      ],
-      "name": "Vasos medidores Set mini x4",
-      "category": "Vasos medidores",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812036366",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.207548870147526,
-        "y": 0.17448487889894,
-        "w": 0.167145646589329,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.291132263132347,
-        "y": 0.208036403690733
-      },
-      "section": "OXO",
-      "sourcePage": 74,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p294-2",
-      "page": 315,
-      "sku": "11124400",
-      "skus": [
-        "11124400"
-      ],
-      "name": "Vasos medidores Set x7",
-      "category": "Vasos medidores",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "719812042459",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.640250025828479,
-        "y": 0.17448487889894,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.733814460504565,
-        "y": 0.208036403690733
-      },
-      "section": "OXO",
-      "sourcePage": 74,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p295-1",
-      "page": 316,
-      "sku": "1050588",
-      "skus": [
-        "1050588"
-      ],
-      "name": "Jarra Medidora 4 tazas",
-      "category": "Jarra Medidora",
-      "price": "$14.900",
-      "pdfPrice": "$14.900",
-      "priceSource": "pdf",
-      "ean": "719812002675",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.543594578151238,
-        "y": 0.138121796741531,
-        "w": 0.246074481134551,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.666550874109532,
-        "y": 0.230820541435603
-      },
-      "section": "OXO",
-      "sourcePage": 75,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p295-2",
-      "page": 316,
-      "sku": "1050585",
-      "skus": [
-        "1050585"
-      ],
-      "name": "Jarra Medidora 1 taza",
-      "category": "Jarra Medidora",
-      "price": "$8.347",
-      "pdfPrice": "$8.347",
-      "priceSource": "pdf",
-      "ean": "719812002644",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.196783595881874,
-        "y": 0.138721622458907,
-        "w": 0.246074481134551,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.319740019957625,
-        "y": 0.231420349036282
-      },
-      "section": "OXO",
-      "sourcePage": 75,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p296-1",
-      "page": 317,
-      "sku": "70881",
-      "skus": [
-        "70881"
-      ],
-      "name": "Jarras medidoras",
-      "category": "Jarras medidoras",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "719812708812",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.279540349414227,
-        "y": 0.194367047902358,
-        "w": 0.127136076727802,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.343102827480518,
-        "y": 0.227918572694152
-      },
-      "section": "OXO",
-      "sourcePage": 76,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p296-2",
-      "page": 317,
-      "sku": "70981",
-      "skus": [
-        "70981"
-      ],
-      "name": "Jarras medidoras tazas",
-      "category": "Jarras medidoras",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "719812709819",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.280679672330893,
-        "y": 0.319207213344034,
-        "w": 0.127136076727802,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.344242291326387,
-        "y": 0.352758756252525
-      },
-      "section": "OXO",
-      "sourcePage": 76,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p296-3",
-      "page": 317,
-      "sku": "1050030",
-      "skus": [
-        "1050030"
-      ],
-      "name": "Jarras medidoras 4",
-      "category": "Jarras medidoras",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "719812002019",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.259517025887516,
-        "y": 0.483891756359414,
-        "w": 0.167173601818325,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.343100406060591,
-        "y": 0.517443299267904
-      },
-      "section": "OXO",
-      "sourcePage": 76,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p296-4",
-      "page": 317,
-      "sku": "1056988",
-      "skus": [
-        "1056988"
-      ],
-      "name": "Jarras medidoras Set x3 jarras",
-      "category": "Jarras medidoras",
-      "price": "$36.771",
-      "pdfPrice": "$36.771",
-      "priceSource": "pdf",
-      "ean": "719812004754",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.416409304320162,
-        "y": 0.628470171764403,
-        "w": 0.167173601818325,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.499992722928474,
-        "y": 0.662021714672894
-      },
-      "section": "OXO",
-      "sourcePage": 76,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p297-1",
-      "page": 318,
-      "sku": "11289200",
-      "skus": [
-        "11289200"
-      ],
-      "name": "Set x3 bowls de acero inoxidable",
-      "category": "Set x3 bowls de acero inoxidable",
-      "price": "$92.034",
-      "pdfPrice": "$92.034",
-      "priceSource": "pdf",
-      "ean": "719812000640",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 77,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p298-1",
-      "page": 319,
-      "sku": "11323100",
-      "skus": [
-        "11323100"
-      ],
-      "name": "Set x3 bowls de plástico Color",
-      "category": "Set x3 bowls de plástico",
-      "price": "$42.978",
-      "pdfPrice": "$42.978",
-      "priceSource": "pdf",
-      "ean": "840097701219",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.177761689641714,
-        "y": 0.242108674817972,
-        "w": 0.17898590318502,
-        "h": 0.03392936662216
-      },
-      "pricePosition": {
-        "x": 0.267252424802228,
-        "y": 0.273878585520773
-      },
-      "section": "OXO",
-      "sourcePage": 78,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p298-2",
-      "page": 319,
-      "sku": "1066421",
-      "skus": [
-        "1066421"
-      ],
-      "name": "Set x3 bowls de plástico Negro",
-      "category": "Set x3 bowls de plástico",
-      "price": "$42.978",
-      "pdfPrice": "$42.978",
-      "priceSource": "pdf",
-      "ean": "719812013633",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.639525291000866,
-        "y": 0.242108674817972,
-        "w": 0.160000049197103,
-        "h": 0.03392936662216
-      },
-      "pricePosition": {
-        "x": 0.719527211737773,
-        "y": 0.273878585520773
-      },
-      "section": "OXO",
-      "sourcePage": 78,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p299-1",
-      "page": 320,
-      "sku": "11282700",
-      "skus": [
-        "11282700"
-      ],
-      "name": "Espátula para omelets",
-      "category": "Espátula para omelets",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.36136589402616,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.22116591814514
-      },
-      "section": "OXO",
-      "sourcePage": 79,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p301-1",
-      "page": 321,
-      "sku": "11164700",
-      "skus": [
-        "11164700"
-      ],
-      "name": "Set x2 garras para desmenuzar carnes",
-      "category": "Set x2 garras para desmenuzar carnes",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812046488",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 81,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p302-1",
-      "page": 322,
-      "sku": "22081",
-      "skus": [
-        "22081"
-      ],
-      "name": "Cuchillos Cuchillo",
-      "category": "Cuchillos",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "719812220819",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.20511948131494,
-        "y": 0.218167586692924,
-        "w": 0.127154730629461,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.251719111484718
-      },
-      "section": "OXO",
-      "sourcePage": 82,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p302-2",
-      "page": 322,
-      "sku": "23081",
-      "skus": [
-        "23081"
-      ],
-      "name": "Cuchillos Cuchillo Santoku 10cm",
-      "category": "Cuchillos",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "719812230818",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.608970763801427,
-        "y": 0.399731474318676,
-        "w": 0.127136127974785,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.672532396292506,
-        "y": 0.433283017227167
-      },
-      "section": "OXO",
-      "sourcePage": 82,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p302-3",
-      "page": 322,
-      "sku": "22181",
-      "skus": [
-        "22181"
-      ],
-      "name": "Cuchillos universal 13cm",
-      "category": "Cuchillos",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "719812221816",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.220317798937999,
-        "y": 0.558620159897967,
-        "w": 0.12713602548082,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.283880392310001,
-        "y": 0.592171702806457
-      },
-      "section": "OXO",
-      "sourcePage": 82,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p303-1",
-      "page": 323,
-      "sku": "11284600",
-      "skus": [
-        "11284600"
-      ],
-      "name": "Para cortar tablas",
-      "category": "Para cortar",
-      "price": "$36.771",
-      "pdfPrice": "$36.771",
-      "priceSource": "pdf",
-      "ean": "719812000831",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.231443646973066,
-        "y": 0.248321959067135,
-        "w": 0.187183037412757,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.325027786113954,
-        "y": 0.281873483858929
-      },
-      "section": "OXO",
-      "sourcePage": 83,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p303-2",
-      "page": 323,
-      "sku": "11382200",
-      "skus": [
-        "11382200"
-      ],
-      "name": "Para cortar Afilador de",
-      "category": "Para cortar",
-      "price": "$27.632",
-      "pdfPrice": "$27.632",
-      "priceSource": "pdf",
-      "ean": "840097707129",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.229963249763854,
-        "y": 0.52385896513804,
-        "w": 0.187150444331838,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.323527351334553,
-        "y": 0.557410508046531
-      },
-      "section": "OXO",
-      "sourcePage": 83,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p304-1",
-      "page": 324,
-      "sku": "28481",
-      "skus": [
-        "28481"
-      ],
-      "name": "Pinzas de acero inoxidable 23cm",
-      "category": "Pinzas de acero inoxidable",
-      "price": "$19.235",
-      "pdfPrice": "$19.235",
-      "priceSource": "pdf",
-      "ean": "719812284811",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.20513916015625,
-        "y": 0.228471983434092,
-        "w": 0.12713602548082,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.262023508225886
-      },
-      "section": "OXO",
-      "sourcePage": 84,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p304-2",
-      "page": 324,
-      "sku": "28581",
-      "skus": [
-        "28581"
-      ],
-      "name": "Pinzas de acero inoxidable",
-      "category": "Pinzas de acero inoxidable",
-      "price": "$20.369",
-      "pdfPrice": "$20.369",
-      "priceSource": "pdf",
-      "ean": "719812285818",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.20513916015625,
-        "y": 0.38209015955375,
-        "w": 0.12713602548082,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.41564170246224
-      },
-      "section": "OXO",
-      "sourcePage": 84,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p304-3",
-      "page": 324,
-      "sku": "39681",
-      "skus": [
-        "39681"
-      ],
-      "name": "Pinzas de acero inoxidable",
-      "category": "Pinzas de acero inoxidable",
-      "price": "$23.026",
-      "pdfPrice": "$23.026",
-      "priceSource": "pdf",
-      "ean": "719812396811",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.20513916015625,
-        "y": 0.539682305603313,
-        "w": 0.12713602548082,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.573233848511804
-      },
-      "section": "OXO",
-      "sourcePage": 84,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p305-1",
-      "page": 325,
-      "sku": "1101880",
-      "skus": [
-        "1101880"
-      ],
-      "name": "Pinzas de acero inoxidable 23cm",
-      "category": "Pinzas de acero inoxidable",
-      "price": "$20.369",
-      "pdfPrice": "$20.369",
-      "priceSource": "pdf",
-      "ean": "719812030180",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.185137898455539,
-        "y": 0.346833183266694,
-        "w": 0.167145646589329,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.380384726175185
-      },
-      "section": "OXO",
-      "sourcePage": 85,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p305-2",
-      "page": 325,
-      "sku": "1101980",
-      "skus": [
-        "1101980"
-      ],
-      "name": "Pinzas de acero inoxidable",
-      "category": "Pinzas de acero inoxidable",
-      "price": "$21.751",
-      "pdfPrice": "$21.751",
-      "priceSource": "pdf",
-      "ean": "719812030197",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.185137898455539,
-        "y": 0.500453098589253,
-        "w": 0.167145646589329,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.534004641497744
-      },
-      "section": "OXO",
-      "sourcePage": 85,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p306-1",
-      "page": 326,
-      "sku": "11320200",
-      "skus": [
-        "11320200"
-      ],
-      "name": "Sets de parrilla Set de parrilla",
-      "category": "Sets de parrilla",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "840097700922",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.217420883883357,
-        "y": 0.524607365886622,
-        "w": 0.146454446762175,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.290641227357033,
-        "y": 0.551923214191896
-      },
-      "section": "OXO",
-      "sourcePage": 86,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p306-2",
-      "page": 326,
-      "sku": "11324100",
-      "skus": [
-        "11324100"
-      ],
-      "name": "Sets de parrilla Set de parrilla con base",
-      "category": "Sets de parrilla",
-      "price": "$42.261",
-      "pdfPrice": "$42.261",
-      "priceSource": "pdf",
-      "ean": "840097701318",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.638011608876469,
-        "y": 0.524607365886622,
-        "w": 0.146454446762175,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.711232298267278,
-        "y": 0.551923214191896
-      },
-      "section": "OXO",
-      "sourcePage": 86,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p307-1",
-      "page": 327,
-      "sku": "11308000",
-      "skus": [
-        "11308000"
-      ],
-      "name": "Set x6 pinches de brochette de acero inoxidable",
-      "category": "Set x6 pinches de brochette de acero",
-      "price": "$23.083",
-      "pdfPrice": "$23.083",
-      "priceSource": "pdf",
-      "ean": "719812002248",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 87,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p308-1",
-      "page": 328,
-      "sku": "11329200",
-      "skus": [
-        "11329200"
-      ],
-      "name": "Pala para carbón",
-      "category": "Pala para carbón",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "840097701820",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367175200724,
-        "y": 0.163383727945186,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.223074512162644
-      },
-      "section": "OXO",
-      "sourcePage": 88,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p309-1",
-      "page": 329,
-      "sku": "11309300",
-      "skus": [
-        "11309300"
-      ],
-      "name": "Pincel de silicona",
-      "category": "Pincel de silicona",
-      "price": "$23.640",
-      "pdfPrice": "$23.640",
-      "priceSource": "pdf",
-      "ean": "719812002378",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.36136589402616,
-        "y": 0.151567094281102,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499979936806321,
-        "y": 0.20934955623151
-      },
-      "section": "OXO",
-      "sourcePage": 89,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p310-1",
-      "page": 330,
-      "sku": "11329100",
-      "skus": [
-        "11329100"
-      ],
-      "name": "Set de botella con pico y pincel",
-      "category": "Set de botella con pico y pincel",
-      "price": "$15.346",
-      "pdfPrice": "$15.346",
-      "priceSource": "pdf",
-      "ean": "840097701813",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.361367815788006,
-        "y": 0.163383727945186,
-        "w": 0.277231595978629,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.499981576709763,
-        "y": 0.221054228708805
-      },
-      "section": "OXO",
-      "sourcePage": 90,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p311-1",
-      "page": 331,
-      "sku": "11197700",
-      "skus": [
-        "11197700"
-      ],
-      "name": "Jeringa gastronómica",
-      "category": "Jeringa gastronómica",
-      "price": "$23.026",
-      "pdfPrice": "$23.026",
-      "priceSource": "pdf",
-      "ean": "719812049786",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 91,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p312-1",
-      "page": 332,
-      "sku": "1312480",
-      "skus": [
-        "1312480"
-      ],
-      "name": "Limpieza de parrilla Cepillo para waffleras y parrillas",
-      "category": "Limpieza de parrilla",
-      "price": "$16.005",
-      "pdfPrice": "$16.005",
-      "priceSource": "pdf",
-      "ean": "719812031248",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.195571386944237,
-        "y": 0.172722178641501,
-        "w": 0.131360634548338,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.261234530073369,
-        "y": 0.199147247077324
-      },
-      "section": "OXO",
-      "sourcePage": 92,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p312-2",
-      "page": 332,
-      "sku": "11329400",
-      "skus": [
-        "11329400"
-      ],
-      "name": "Limpieza de parrilla Cepillo para",
-      "category": "Limpieza de parrilla",
-      "price": "$33.710",
-      "pdfPrice": "$33.710",
-      "priceSource": "pdf",
-      "ean": "840097703220",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.662280078698966,
-        "y": 0.172722178641501,
-        "w": 0.146262731800352,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.735403193834947,
-        "y": 0.199147247077324
-      },
-      "section": "OXO",
-      "sourcePage": 92,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p312-3",
-      "page": 332,
-      "sku": "11343200",
-      "skus": [
-        "11343200"
-      ],
-      "name": "Limpieza de parrilla repuestos",
-      "category": "Limpieza de parrilla",
-      "price": "$24.443",
-      "pdfPrice": "$24.443",
-      "priceSource": "pdf",
-      "ean": "840097703220",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.658218550341756,
-        "y": 0.55352136049147,
-        "w": 0.154402546278075,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.735415313746327,
-        "y": 0.580837208796743
-      },
-      "section": "OXO",
-      "sourcePage": 92,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p313-1",
-      "page": 333,
-      "sku": "11210100",
-      "skus": [
-        "11210100"
-      ],
-      "name": "Set desgrasadores de alimentos",
-      "category": "Set desgrasadores de alimentos",
-      "price": "$25.063",
-      "pdfPrice": "$25.063",
-      "priceSource": "pdf",
-      "ean": "719812682563",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.362210136817144,
-        "y": 0.161415747395272,
-        "w": 0.269230327718304,
-        "h": 0.047719071627984
-      },
-      "pricePosition": {
-        "x": 0.496815089715018,
-        "y": 0.221540354036491
-      },
-      "section": "OXO",
-      "sourcePage": 93,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p314-1",
-      "page": 334,
-      "sku": "1268980",
-      "skus": [
-        "1268980"
-      ],
-      "name": "Shaker para aderezos 355ml",
-      "category": "Shaker para aderezos",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "719812036892",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.230354084876482,
-        "y": 0.103545446639987,
-        "w": 0.20306534851228,
-        "h": 0.04105583203648
-      },
-      "pricePosition": {
-        "x": 0.331893626228288,
-        "y": 0.178964938756506
-      },
-      "section": "OXO",
-      "sourcePage": 94,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p314-2",
-      "page": 334,
-      "sku": "1188500",
-      "skus": [
-        "1188500"
-      ],
-      "name": "Shaker para aderezos 235ml",
-      "category": "Shaker para aderezos",
-      "price": "$26.101",
-      "pdfPrice": "$26.101",
-      "priceSource": "pdf",
-      "ean": "719812028859",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.569524270160973,
-        "y": 0.103545446639987,
-        "w": 0.20306534851228,
-        "h": 0.04105583203648
-      },
-      "pricePosition": {
-        "x": 0.671063734642304,
-        "y": 0.178964938756506
-      },
-      "section": "OXO",
-      "sourcePage": 94,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p314-3",
-      "page": 334,
-      "sku": "11159500",
-      "skus": [
-        "11159500"
-      ],
-      "name": "Shaker para aderezos de",
-      "category": "Shaker para aderezos",
-      "price": "$35.241",
-      "pdfPrice": "$35.241",
-      "priceSource": "pdf",
-      "ean": "719812045962",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.38590023319427,
-        "y": 0.599662812037458,
-        "w": 0.22819394769036,
-        "h": 0.041055841094828
-      },
-      "pricePosition": {
-        "x": 0.499998987872094,
-        "y": 0.64034081130192
-      },
-      "section": "OXO",
-      "sourcePage": 94,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p315-1",
-      "page": 335,
-      "sku": "11318200",
-      "skus": [
-        "11318200"
-      ],
-      "name": "Manoplas Rojo",
-      "category": "Manoplas",
-      "price": "$24.941",
-      "pdfPrice": "$24.941",
-      "priceSource": "pdf",
-      "ean": "840097700724",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.554364285280883,
-        "y": 0.130104415582533,
-        "w": 0.277231672849103,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.499981269227868,
-        "y": 0.238180069097082
-      },
-      "section": "OXO",
-      "sourcePage": 95,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p315-2",
-      "page": 335,
-      "sku": "11219800",
-      "skus": [
-        "11219800"
-      ],
-      "name": "Manoplas Negro",
-      "category": "Manoplas",
-      "price": "$24.941",
-      "pdfPrice": "$24.941",
-      "priceSource": "pdf",
-      "ean": "719812683539",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.205821846834658,
-        "y": 0.130104415582533,
-        "w": 0.277231698472594,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.499981269227868,
-        "y": 0.238180069097082
-      },
-      "section": "OXO",
-      "sourcePage": 95,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p316-1",
-      "page": 336,
-      "sku": "11318700",
-      "skus": [
-        "11318700"
-      ],
-      "name": "Agarraderas Blanco",
-      "category": "Agarraderas",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "84009770779",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.406417449515573,
-        "y": 0.238257481742899,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.499981961062133,
-        "y": 0.271809006534693
-      },
-      "section": "OXO",
-      "sourcePage": 96,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p316-2",
-      "page": 336,
-      "sku": "11318500",
-      "skus": [
-        "11318500"
-      ],
-      "name": "Agarraderas",
-      "category": "Agarraderas",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "840097700755",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.406417449515573,
-        "y": 0.404242241977474,
-        "w": 0.187150418708346,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.499981961062133,
-        "y": 0.437793784885964
-      },
-      "section": "OXO",
-      "sourcePage": 96,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p316-3",
-      "page": 336,
-      "sku": "11220500",
-      "skus": [
-        "11220500"
-      ],
-      "name": "Agarraderas",
-      "category": "Agarraderas",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "71981268607",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.406417449515573,
-        "y": 0.570226186960689,
-        "w": 0.187150418708346,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.499981961062133,
-        "y": 0.603777766102573
-      },
-      "section": "OXO",
-      "sourcePage": 96,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p317-1",
-      "page": 337,
-      "sku": "3113400",
-      "skus": [
-        "3113400"
-      ],
-      "name": "Sacacorchos con cortacápsulas",
-      "category": "Sacacorchos",
-      "price": "$36.856",
-      "pdfPrice": "$36.856",
-      "priceSource": "pdf",
-      "ean": "719812051345",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.159406199162993,
-        "y": 0.133576263141399,
-        "w": 0.23214473131822,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.275481537147093,
-        "y": 0.217013045833431
-      },
-      "section": "OXO",
-      "sourcePage": 97,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p317-2",
-      "page": 337,
-      "sku": "11245400",
-      "skus": [
-        "11245400"
-      ],
-      "name": "Sacacorchos con alas y abridor",
-      "category": "Sacacorchos",
-      "price": "$26.101",
-      "pdfPrice": "$26.101",
-      "priceSource": "pdf",
-      "ean": "719812686103",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.592640656568141,
-        "y": 0.133576263141399,
-        "w": 0.261312053946264,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.723283871795629,
-        "y": 0.217013045833431
-      },
-      "section": "OXO",
-      "sourcePage": 97,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p318-1",
-      "page": 338,
-      "sku": "11147600",
-      "skus": [
-        "11147600"
-      ],
-      "name": "Sacacorchos a palanca",
-      "category": "Sacacorchos a palanca",
-      "price": "$69.079",
-      "pdfPrice": "$69.079",
-      "priceSource": "pdf",
-      "ean": "719812043647",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.365376277894758,
-        "y": 0.161688747900728,
-        "w": 0.269230378965287,
-        "h": 0.047719071627984
-      },
-      "pricePosition": {
-        "x": 0.499981269227868,
-        "y": 0.22181333642525
-      },
-      "section": "OXO",
-      "sourcePage": 98,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p319-1",
-      "page": 339,
-      "sku": "11327200",
-      "skus": [
-        "11327200"
-      ],
-      "name": "Coctelera 590ml",
-      "category": "Coctelera 590ml",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "840097701622",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.357360686102802,
-        "y": 0.168033015868415,
-        "w": 0.285246649677267,
-        "h": 0.05008893486504
-      },
-      "pricePosition": {
-        "x": 0.499989904344432,
-        "y": 0.239395083490798
-      },
-      "section": "OXO",
-      "sourcePage": 99,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p320-1",
-      "page": 340,
-      "sku": "3105000",
-      "skus": [
-        "3105000"
-      ],
-      "name": "Vaso medidor",
-      "category": "Vaso medidor",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812050508",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 100,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p321-1",
-      "page": 341,
-      "sku": "11136400",
-      "skus": [
-        "11136400"
-      ],
-      "name": "Tapón antigoteo de vino",
-      "category": "Tapón antigoteo de vino",
-      "price": "$14.040",
-      "pdfPrice": "$14.040",
-      "priceSource": "pdf",
-      "ean": "719812043654",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.357374394670642,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499992377011342,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 101,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p322-1",
-      "page": 342,
-      "sku": "11327400",
-      "skus": [
-        "11327400"
-      ],
-      "name": "Set x3 tapones de silicona para vino",
-      "category": "Set x3 tapones de silicona para vino",
-      "price": "$16.537",
-      "pdfPrice": "$16.537",
-      "priceSource": "pdf",
-      "ean": "840097701646",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35736322282844,
-        "y": 0.168033015868415,
-        "w": 0.285246624053776,
-        "h": 0.05008893486504
-      },
-      "pricePosition": {
-        "x": 0.499992812610694,
-        "y": 0.239395083490798
-      },
-      "section": "OXO",
-      "sourcePage": 102,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p323-1",
-      "page": 343,
-      "sku": "11169200",
-      "skus": [
-        "11169200"
-      ],
-      "name": "Hielera de acero inoxidable",
-      "category": "Hielera de acero inoxidable",
-      "price": "$49.755",
-      "pdfPrice": "$49.755",
-      "priceSource": "pdf",
-      "ean": "719812046938",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 103,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p324-1",
-      "page": 344,
-      "sku": "3107300",
-      "skus": [
-        "3107300"
-      ],
-      "name": "Hielera de acero inoxidable",
-      "category": "Hielera de acero inoxidable",
-      "price": "$78.565",
-      "pdfPrice": "$78.565",
-      "priceSource": "pdf",
-      "ean": "719812050737",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 104,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p325-1",
-      "page": 345,
-      "sku": "11284400",
-      "skus": [
-        "11284400"
-      ],
-      "name": "Cubetera con tapa Individual",
-      "category": "Cubetera con tapa",
-      "price": "$8.856",
-      "pdfPrice": "$8.856",
-      "priceSource": "pdf",
-      "ean": "719812000886",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.198421141963161,
-        "y": 0.121429171867668,
-        "w": 0.285231378076459,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.345658219831516,
-        "y": 0.222942912476426
-      },
-      "section": "OXO",
-      "sourcePage": 105,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p325-2",
-      "page": 345,
-      "sku": "11284500",
-      "skus": [
-        "11284500"
-      ],
-      "name": "Cubetera con tapa Set x2",
-      "category": "Cubetera con tapa",
-      "price": "$16.876",
-      "pdfPrice": "$16.876",
-      "priceSource": "pdf",
-      "ean": "719812000855",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.51632580248675,
-        "y": 0.121429171867668,
-        "w": 0.285231429323441,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.662864012441947,
-        "y": 0.222942912476426
-      },
-      "section": "OXO",
-      "sourcePage": 105,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p326-1",
-      "page": 346,
-      "sku": "1132080",
-      "skus": [
-        "1132080"
-      ],
-      "name": "Cubetera con tapa involcable",
-      "category": "Cubetera con tapa involcable",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "719812033204",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 106,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p327-1",
-      "page": 347,
-      "sku": "11242300",
-      "skus": [
-        "11242300"
-      ],
-      "name": "Tapa de silicona 15cm",
-      "category": "Tapa de silicona",
-      "price": "$11.319",
-      "pdfPrice": "$11.319",
-      "priceSource": "pdf",
-      "ean": "719812685793",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.10578078006517,
-        "y": 0.123561661083705,
-        "w": 0.261312041134518,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.236443667728094,
-        "y": 0.216797312206849
-      },
-      "section": "OXO",
-      "sourcePage": 107,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p327-2",
-      "page": 347,
-      "sku": "11242400",
-      "skus": [
-        "11242400"
-      ],
-      "name": "Tapa de silicona 20cm",
-      "category": "Tapa de silicona",
-      "price": "$14.156",
-      "pdfPrice": "$14.156",
-      "priceSource": "pdf",
-      "ean": "719812685809",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.378458248878306,
-        "y": 0.123561661083705,
-        "w": 0.261312053946264,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.509121130135358,
-        "y": 0.216797312206849
-      },
-      "section": "OXO",
-      "sourcePage": 107,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p327-3",
-      "page": 347,
-      "sku": "11242500",
-      "skus": [
-        "11242500"
-      ],
-      "name": "Tapa de silicona 28cm",
-      "category": "Tapa de silicona",
-      "price": "$24.822",
-      "pdfPrice": "$24.822",
-      "priceSource": "pdf",
-      "ean": "719812685816",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.651135294903836,
-        "y": 0.123561661083705,
-        "w": 0.261312002699281,
-        "h": 0.048903858312937
-      },
-      "pricePosition": {
-        "x": 0.781798214596125,
-        "y": 0.216797312206849
-      },
-      "section": "OXO",
-      "sourcePage": 107,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p328-1",
-      "page": 348,
-      "sku": "1045409",
-      "skus": [
-        "1045409"
-      ],
-      "name": "Centrifugadora de verduras 2,85 L",
-      "category": "Centrifugadora de verduras",
-      "price": "$38.259",
-      "pdfPrice": "$38.259",
-      "priceSource": "pdf",
-      "ean": "719812601113",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.18511824523772,
-        "y": 0.223512410843205,
-        "w": 0.167173601818325,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.268701747122379,
-        "y": 0.257063935634999
-      },
-      "section": "OXO",
-      "sourcePage": 108,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p328-2",
-      "page": 348,
-      "sku": "32480",
-      "skus": [
-        "32480"
-      ],
-      "name": "Centrifugadora de verduras 5,9 L",
-      "category": "Centrifugadora de verduras",
-      "price": "$48.150",
-      "pdfPrice": "$48.150",
-      "priceSource": "pdf",
-      "ean": "719812324807",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.608970763801427,
-        "y": 0.388247952360334,
-        "w": 0.127136127974785,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.672532396292506,
-        "y": 0.421799495268825
-      },
-      "section": "OXO",
-      "sourcePage": 108,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p328-3",
-      "page": 348,
-      "sku": "1155901",
-      "skus": [
-        "1155901"
-      ],
-      "name": "Centrifugadora de verduras verde 5,9 L",
-      "category": "Centrifugadora de verduras",
-      "price": "$48.150",
-      "pdfPrice": "$48.150",
-      "priceSource": "pdf",
-      "ean": "719812025599",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.200296871207723,
-        "y": 0.565746761187513,
-        "w": 0.167145633777583,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.283880392310001,
-        "y": 0.599298304096004
-      },
-      "section": "OXO",
-      "sourcePage": 108,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p329-1",
-      "page": 349,
-      "sku": "11133300",
-      "skus": [
-        "11133300"
-      ],
-      "name": "Termómetro de precisión para carnes",
-      "category": "Termómetro de precisión para carnes",
-      "price": "$16.579",
-      "pdfPrice": "$16.579",
-      "priceSource": "pdf",
-      "ean": "719812043340",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 109,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p330-1",
-      "page": 350,
-      "sku": "11181400",
-      "skus": [
-        "11181400"
-      ],
-      "name": "Termómetro digital",
-      "category": "Termómetro digital",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812048154",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 110,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p331-1",
-      "page": 351,
-      "sku": "11166900",
-      "skus": [
-        "11166900"
-      ],
-      "name": "Colador",
-      "category": "Colador",
-      "price": "$19.236",
-      "pdfPrice": "$19.236",
-      "priceSource": "pdf",
-      "ean": "719812046709",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 111,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p332-1",
-      "page": 352,
-      "sku": "11331000",
-      "skus": [
-        "11331000"
-      ],
-      "name": "Colador",
-      "category": "Colador",
-      "price": "$18.364",
-      "pdfPrice": "$18.364",
-      "priceSource": "pdf",
-      "ean": "",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.167751138181482,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 112,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p333-1",
-      "page": 353,
-      "sku": "13322500",
-      "skus": [
-        "13322500"
-      ],
-      "name": "Organizadores Para especieros",
-      "category": "Organizadores",
-      "price": "$21.159",
-      "pdfPrice": "$21.159",
-      "priceSource": "pdf",
-      "ean": "840097701158",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.183730310396824,
-        "y": 0.163770193323273,
-        "w": 0.24624076478127,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.306745156032713,
-        "y": 0.242396621598364
-      },
-      "section": "OXO",
-      "sourcePage": 113,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p333-2",
-      "page": 353,
-      "sku": "13322300",
-      "skus": [
-        "13322300"
-      ],
-      "name": "Organizadores Para cuchillos",
-      "category": "Organizadores",
-      "price": "$21.159",
-      "pdfPrice": "$21.159",
-      "priceSource": "pdf",
-      "ean": "840097701134",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.562976033221164,
-        "y": 0.163770193323273,
-        "w": 0.246240777593015,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.685991006974509,
-        "y": 0.242396621598364
-      },
-      "section": "OXO",
-      "sourcePage": 113,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p334-1",
-      "page": 354,
-      "sku": "13321900",
-      "skus": [
-        "13321900"
-      ],
-      "name": "Organizador de cajón extensible",
-      "category": "Organizador de cajón extensible",
-      "price": "$28.762",
-      "pdfPrice": "$28.762",
-      "priceSource": "pdf",
-      "ean": "840097701097",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.198421141963161,
-        "y": 0.158843013386427,
-        "w": 0.285231378076459,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 114,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p334-2",
-      "page": 354,
-      "sku": "13322100",
-      "skus": [
-        "13322100"
-      ],
-      "name": "Organizador de cajón extensible",
-      "category": "Organizador de cajón extensible",
-      "price": "$28.762",
-      "pdfPrice": "$28.762",
-      "priceSource": "pdf",
-      "ean": "840097701110",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.51632580248675,
-        "y": 0.158843013386427,
-        "w": 0.285231429323441,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 114,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p335-1",
-      "page": 355,
-      "sku": "13245000",
-      "skus": [
-        "13245000"
-      ],
-      "name": "Portarollos",
-      "category": "Portarollos",
-      "price": "$33.710",
-      "pdfPrice": "$33.710",
-      "priceSource": "pdf",
-      "ean": "719812686066",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.414575328554655,
-        "y": 0.124866969094727,
-        "w": 0.170821413285186,
-        "h": 0.032744588995556
-      },
-      "pricePosition": {
-        "x": 0.499994849678251,
-        "y": 0.155746072753031
-      },
-      "section": "OXO",
-      "sourcePage": 115,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p335-2",
-      "page": 355,
-      "sku": "1066736",
-      "skus": [
-        "1066736"
-      ],
-      "name": "Portarollos con sujetador",
-      "category": "Portarollos",
-      "price": "$39.789",
-      "pdfPrice": "$39.789",
-      "priceSource": "pdf",
-      "ean": "719812014234",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.430748415033323,
-        "y": 0.566195946570238,
-        "w": 0.138485079748504,
-        "h": 0.030366120327477
-      },
-      "pricePosition": {
-        "x": 0.499992184835157,
-        "y": 0.593511831108905
-      },
-      "section": "OXO",
-      "sourcePage": 115,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p336-1",
-      "page": 356,
-      "sku": "1449680",
-      "skus": [
-        "1449680"
-      ],
-      "name": "Servilletero",
-      "category": "Servilletero",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812034966",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.420002435256612,
-        "y": 0.108956768126208,
-        "w": 0.160000100444086,
-        "h": 0.03392936662216
-      },
-      "pricePosition": {
-        "x": 0.499997463274362,
-        "y": 0.140726678829009
-      },
-      "section": "OXO",
-      "sourcePage": 116,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p336-2",
-      "page": 356,
-      "sku": "13245100",
-      "skus": [
-        "13245100"
-      ],
-      "name": "Servilletero ajustable",
-      "category": "Servilletero",
-      "price": "$23.251",
-      "pdfPrice": "$23.251",
-      "priceSource": "pdf",
-      "ean": "719812686073",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.410354755187015,
-        "y": 0.568817505077204,
-        "w": 0.179270067703414,
-        "h": 0.033965002164945
-      },
-      "pricePosition": {
-        "x": 0.499992107964683,
-        "y": 0.600587452013399
-      },
-      "section": "OXO",
-      "sourcePage": 116,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p337-1",
-      "page": 357,
-      "sku": "13295800",
-      "skus": [
-        "13295800"
-      ],
-      "name": "Cesto para compost de 2,83 L Blanco",
-      "category": "Cesto para compost de 2,83 L",
-      "price": "$31.506",
-      "pdfPrice": "$31.506",
-      "priceSource": "pdf",
-      "ean": "719812001029",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.198421141963161,
-        "y": 0.158843049619821,
-        "w": 0.285231378076459,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.230301769820119
-      },
-      "section": "OXO",
-      "sourcePage": 117,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p337-2",
-      "page": 357,
-      "sku": "13295900",
-      "skus": [
-        "13295900"
-      ],
-      "name": "Cesto para compost de 2,83 L Gris",
-      "category": "Cesto para compost de 2,83 L",
-      "price": "$31.506",
-      "pdfPrice": "$31.506",
-      "priceSource": "pdf",
-      "ean": "719812001036",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.51632580248675,
-        "y": 0.158843049619821,
-        "w": 0.285231429323441,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.230301769820119
-      },
-      "section": "OXO",
-      "sourcePage": 117,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p338-1",
-      "page": 358,
-      "sku": "11312400",
-      "skus": [
-        "11312400"
-      ],
-      "name": "Molinillos Molinillo de sal",
-      "category": "Molinillos",
-      "price": "$27.632",
-      "pdfPrice": "$27.632",
-      "priceSource": "pdf",
-      "ean": "840097700144",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.157655858473053,
-        "y": 0.174528757538811,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 118,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p338-2",
-      "page": 358,
-      "sku": "11312500",
-      "skus": [
-        "11312500"
-      ],
-      "name": "Molinillos Molinillo de pimienta",
-      "category": "Molinillos",
-      "price": "$27.632",
-      "pdfPrice": "$27.632",
-      "priceSource": "pdf",
-      "ean": "840097700151",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.647974688500341,
-        "y": 0.174528757538811,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 118,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p339-1",
-      "page": 359,
-      "sku": "1140600",
-      "skus": [
-        "1140600"
-      ],
-      "name": "Molinillos Molinillo de sal",
-      "category": "Molinillos",
-      "price": "$42.978",
-      "pdfPrice": "$42.978",
-      "priceSource": "pdf",
-      "ean": "719812024066",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.243456990252414,
-        "y": 0.174528757538811,
-        "w": 0.167145620965838,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.327020845325127,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 119,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p339-2",
-      "page": 359,
-      "sku": "1140700",
-      "skus": [
-        "1140700"
-      ],
-      "name": "Molinillos Molinillo de pimienta",
-      "category": "Molinillos",
-      "price": "$42.978",
-      "pdfPrice": "$42.978",
-      "priceSource": "pdf",
-      "ean": "719812024073",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.596042790000525,
-        "y": 0.174528757538811,
-        "w": 0.16714567221282,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.679626182985346,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 119,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p339-3",
-      "page": 359,
-      "sku": "1141000",
-      "skus": [
-        "1141000"
-      ],
-      "name": "Set molinillos",
-      "category": "Molinillos",
-      "price": "$76.191",
-      "pdfPrice": "$76.191",
-      "priceSource": "pdf",
-      "ean": "719812024103",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.423574606177188,
-        "y": 0.628167333059167,
-        "w": 0.152854374934404,
-        "h": 0.03274462522895
-      },
-      "pricePosition": {
-        "x": 0.499995464642042,
-        "y": 0.65904644577582
-      },
-      "section": "OXO",
-      "sourcePage": 119,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p340-1",
-      "page": 360,
-      "sku": "1234780",
-      "skus": [
-        "1234780"
-      ],
-      "name": "Set salero y pimentero",
-      "category": "Set salero y pimentero",
-      "price": "$26.101",
-      "pdfPrice": "$26.101",
-      "priceSource": "pdf",
-      "ean": "719812033471",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373444602831785,
-        "y": 0.158925299423708,
-        "w": 0.253091884199858,
-        "h": 0.05008893486504
-      },
-      "pricePosition": {
-        "x": 0.49999285104593,
-        "y": 0.239395083490798
-      },
-      "section": "OXO",
-      "sourcePage": 120,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p341-1",
-      "page": 361,
-      "sku": "11247200",
-      "skus": [
-        "11247200"
-      ],
-      "name": "Recipientes para condimentos Especiero ajustable",
-      "category": "Recipientes para condimentos",
-      "price": "$15.742",
-      "pdfPrice": "$15.742",
-      "priceSource": "pdf",
-      "ean": "719812044736",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.179418581458924,
-        "y": 0.158367848660361,
-        "w": 0.277231647225611,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.317935114042985,
-        "y": 0.244120733291423
-      },
-      "section": "OXO",
-      "sourcePage": 121,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p341-2",
-      "page": 361,
-      "sku": "1272380",
-      "skus": [
-        "1272380"
-      ],
-      "name": "Recipientes para condimentos Azucarera",
-      "category": "Recipientes para condimentos",
-      "price": "$15.742",
-      "pdfPrice": "$15.742",
-      "priceSource": "pdf",
-      "ean": "719812037233",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.560023335825987,
-        "y": 0.158367848660361,
-        "w": 0.246074378640586,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.682948268630943,
-        "y": 0.244120733291423
-      },
-      "section": "OXO",
-      "sourcePage": 121,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p342-1",
-      "page": 362,
-      "sku": "13362600",
-      "skus": [
-        "13362600"
-      ],
-      "name": "Clips Set",
-      "category": "Clips",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "840097701110",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.140874764981338,
-        "y": 0.229030195098709,
-        "w": 0.187183024601011,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.234478589369408,
-        "y": 0.262581719890503
-      },
-      "section": "OXO",
-      "sourcePage": 122,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p342-2",
-      "page": 362,
-      "sku": "13328400",
-      "skus": [
-        "13328400"
-      ],
-      "name": "Clips x4",
-      "category": "Clips",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "840097701745",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.140903207056669,
-        "y": 0.507545531788462,
-        "w": 0.187150405896601,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.234467564862281,
-        "y": 0.541097074696953
-      },
-      "section": "OXO",
-      "sourcePage": 122,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p343-1",
-      "page": 363,
-      "sku": "1410880",
-      "skus": [
-        "1410880"
-      ],
-      "name": "Escurridor de silicona",
-      "category": "Escurridor de silicona",
-      "price": "$27.234",
-      "pdfPrice": "$27.234",
-      "priceSource": "pdf",
-      "ean": "719812031088",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 123,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p344-1",
-      "page": 364,
-      "sku": "13199900",
-      "skus": [
-        "13199900"
-      ],
-      "name": "Organizadores de bacha Blanco",
-      "category": "Organizadores de bacha",
-      "price": "$18.194",
-      "pdfPrice": "$18.194",
-      "priceSource": "pdf",
-      "ean": "719812681542",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.157655858473053,
-        "y": 0.174528757538811,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 124,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p344-2",
-      "page": 364,
-      "sku": "13192100",
-      "skus": [
-        "13192100"
-      ],
-      "name": "Organizadores de bacha Acero inoxidable",
-      "category": "Organizadores de bacha",
-      "price": "$29.367",
-      "pdfPrice": "$29.367",
-      "priceSource": "pdf",
-      "ean": "719812049229",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.647974688500341,
-        "y": 0.174528757538811,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 124,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p345-1",
-      "page": 365,
-      "sku": "1473480",
-      "skus": [
-        "1473480"
-      ],
-      "name": "Secaplatos Plegable",
-      "category": "Secaplatos",
-      "price": "$69.079",
-      "pdfPrice": "$69.079",
-      "priceSource": "pdf",
-      "ean": "719812037349",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.167656489323409,
-        "y": 0.174528757538811,
-        "w": 0.167145633777583,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 125,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p345-2",
-      "page": 365,
-      "sku": "13229100",
-      "skus": [
-        "13229100"
-      ],
-      "name": "Secaplatos Aluminio",
-      "category": "Secaplatos",
-      "price": "$84.425",
-      "pdfPrice": "$84.425",
-      "priceSource": "pdf",
-      "ean": "719812684475",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.647974688500341,
-        "y": 0.174528757538811,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 125,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p346-1",
-      "page": 366,
-      "sku": "13322800",
-      "skus": [
-        "13322800"
-      ],
-      "name": "Secaplatos de aluminio",
-      "category": "Secaplatos de aluminio",
-      "price": "$64.142",
-      "pdfPrice": "$64.142",
-      "priceSource": "pdf",
-      "ean": "840097701189",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 126,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p347-1",
-      "page": 367,
-      "sku": "13314400",
-      "skus": [
-        "13314400"
-      ],
-      "name": "Escurridor de botellas",
-      "category": "Escurridor de botellas",
-      "price": "$28.091",
-      "pdfPrice": "$28.091",
-      "priceSource": "pdf",
-      "ean": "840097700342",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 127,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p348-1",
-      "page": 368,
-      "sku": "13259500",
-      "skus": [
-        "13259500"
-      ],
-      "name": "Filtro y tapón de silicona para bacha",
-      "category": "Filtro y tapón de silicona para bacha",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812687537",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.35738669394646,
-        "y": 0.158843013386427,
-        "w": 0.285231301205985,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 128,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p349-1",
-      "page": 369,
-      "sku": "1395500",
-      "skus": [
-        "1395500"
-      ],
-      "name": "Protector de desagüe para bañera",
-      "category": "Protector de desagüe para bañera",
-      "price": "$10.159",
-      "pdfPrice": "$10.159",
-      "priceSource": "pdf",
-      "ean": "719812039565",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373450701222712,
-        "y": 0.167751138181482,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.239409395681342
-      },
-      "section": "OXO",
-      "sourcePage": 129,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p350-1",
-      "page": 370,
-      "sku": "13144000",
-      "skus": [
-        "13144000"
-      ],
-      "name": "Dispensers de jabón Dispensers",
-      "category": "Dispensers de jabón",
-      "price": "$30.024",
-      "pdfPrice": "$30.024",
-      "priceSource": "pdf",
-      "ean": "719812044415",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.180886205357729,
-        "y": 0.192536881065697,
-        "w": 0.277231685660848,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.319402456083386,
-        "y": 0.242657447683509
-      },
-      "section": "OXO",
-      "sourcePage": 130,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p350-2",
-      "page": 370,
-      "sku": "13273700",
-      "skus": [
-        "13273700"
-      ],
-      "name": "Dispensers de jabón de jabón",
-      "category": "Dispensers de jabón",
-      "price": "$30.024",
-      "pdfPrice": "$30.024",
-      "priceSource": "pdf",
-      "ean": "719812688954",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.532065595727724,
-        "y": 0.192536881065697,
-        "w": 0.277231672849103,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.670562077929851,
-        "y": 0.242657447683509
-      },
-      "section": "OXO",
-      "sourcePage": 130,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p351-1",
-      "page": 371,
-      "sku": "12361300",
-      "skus": [
-        "12361300"
-      ],
-      "name": "Esponjas con dispensers Esponja",
-      "category": "Esponjas con dispensers",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "840097705033",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.157655858473053,
-        "y": 0.174528757538811,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 131,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p351-2",
-      "page": 371,
-      "sku": "12361600",
-      "skus": [
-        "12361600"
-      ],
-      "name": "Esponjas con dispensers Fibra",
-      "category": "Esponjas con dispensers",
-      "price": "$14.063",
-      "pdfPrice": "$14.063",
-      "priceSource": "pdf",
-      "ean": "840097705064",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.647974688500341,
-        "y": 0.174528757538811,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 131,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p351-3",
-      "page": 371,
-      "sku": "12361400",
-      "skus": [
-        "12361400"
-      ],
-      "name": "Esponjas con dispensers Set x2",
-      "category": "Esponjas con dispensers",
-      "price": "$8.856",
-      "pdfPrice": "$8.856",
-      "priceSource": "pdf",
-      "ean": "840097705040",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.128457915772919,
-        "y": 0.677353512918111,
-        "w": 0.187150393084855,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.222032305175371,
-        "y": 0.710905055826601
-      },
-      "section": "OXO",
-      "sourcePage": 131,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p352-1",
-      "page": 372,
-      "sku": "12361700",
-      "skus": [
-        "12361700"
-      ],
-      "name": "Cepillos con dispensers Cepillo",
-      "category": "Cepillos con dispensers",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "840097705071",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.157655858473053,
-        "y": 0.174528757538811,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 132,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p352-2",
-      "page": 372,
-      "sku": "12361800",
-      "skus": [
-        "12361800"
-      ],
-      "name": "Cepillos con dispensers Cepillo con base",
-      "category": "Cepillos con dispensers",
-      "price": "$19.235",
-      "pdfPrice": "$19.235",
-      "priceSource": "pdf",
-      "ean": "840097705088",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.647974688500341,
-        "y": 0.174528757538811,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 132,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p352-3",
-      "page": 372,
-      "sku": "12361200",
-      "skus": [
-        "12361200"
-      ],
-      "name": "Cepillos con dispensers Set x2 repuestos",
-      "category": "Cepillos con dispensers",
-      "price": "$8.856",
-      "pdfPrice": "$8.856",
-      "priceSource": "pdf",
-      "ean": "840097705026",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.406424649716625,
-        "y": 0.443385974415601,
-        "w": 0.187150393084855,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.499999026307331,
-        "y": 0.476937517324091
-      },
-      "section": "OXO",
-      "sourcePage": 132,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p353-1",
-      "page": 373,
-      "sku": "36481",
-      "skus": [
-        "36481"
-      ],
-      "name": "Cepillo de palma Cepillo",
-      "category": "Cepillo de palma",
-      "price": "$11.513",
-      "pdfPrice": "$11.513",
-      "priceSource": "pdf",
-      "ean": "719812364810",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.187657738212374,
-        "y": 0.174528757538811,
-        "w": 0.127136051104311,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.251220344396122,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 133,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p353-2",
-      "page": 373,
-      "sku": "1312280",
-      "skus": [
-        "1312280"
-      ],
-      "name": "Cepillo de palma Cepillo con base",
-      "category": "Cepillo de palma",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812031224",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.65797528091546,
-        "y": 0.174528757538811,
-        "w": 0.16714567221282,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.741558673900281,
-        "y": 0.208080282330604
-      },
-      "section": "OXO",
-      "sourcePage": 133,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p353-3",
-      "page": 373,
-      "sku": "1256500",
-      "skus": [
-        "1256500"
-      ],
-      "name": "Cepillo de palma Set x2 repuestos",
-      "category": "Cepillo de palma",
-      "price": "$8.856",
-      "pdfPrice": "$8.856",
-      "priceSource": "pdf",
-      "ean": "719812025650",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.416425267755235,
-        "y": 0.402278971768751,
-        "w": 0.167145595342346,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.499999026307331,
-        "y": 0.435830514677242
-      },
-      "section": "OXO",
-      "sourcePage": 133,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p354-1",
-      "page": 374,
-      "sku": "1334280",
-      "skus": [
-        "1334280"
-      ],
-      "name": "Set compacto de cepillo de mesa con recogedor de migas",
-      "category": "Set compacto de cepillo de mesa con",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "pdf",
-      "ean": "719812033426",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373468330184719,
-        "y": 0.155279767091745,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.235483036430866
-      },
-      "section": "OXO",
-      "sourcePage": 134,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p355-1",
-      "page": 375,
-      "sku": "1334480",
-      "skus": [
-        "1334480"
-      ],
-      "name": "Pala y cepillo de mesa",
-      "category": "Pala y cepillo de mesa",
-      "price": "$14.040",
-      "pdfPrice": "$14.040",
-      "priceSource": "pdf",
-      "ean": "719812033440",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373468330184719,
-        "y": 0.111630176619678,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.179883980673108
-      },
-      "section": "OXO",
-      "sourcePage": 135,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p356-1",
-      "page": 376,
-      "sku": "1335180",
-      "skus": [
-        "1335180"
-      ],
-      "name": "Plumeros de microfibra De mano",
-      "category": "Plumeros de microfibra",
-      "price": "$14.040",
-      "pdfPrice": "$14.040",
-      "priceSource": "pdf",
-      "ean": "719812033518",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.190856805476294,
-        "y": 0.163770193323273,
-        "w": 0.231983405817066,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.306745156032713,
-        "y": 0.242396621598364
-      },
-      "section": "OXO",
-      "sourcePage": 136,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p356-2",
-      "page": 376,
-      "sku": "1334580",
-      "skus": [
-        "1334580"
-      ],
-      "name": "Plumeros de microfibra Extensible",
-      "category": "Plumeros de microfibra",
-      "price": "$21.125",
-      "pdfPrice": "$21.125",
-      "priceSource": "pdf",
-      "ean": "719812033457",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.570102541112379,
-        "y": 0.163770193323273,
-        "w": 0.231983354570083,
-        "h": 0.046525398703207
-      },
-      "pricePosition": {
-        "x": 0.685991006974509,
-        "y": 0.242396621598364
-      },
-      "section": "OXO",
-      "sourcePage": 136,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p356-3",
-      "page": 376,
-      "sku": "1334680",
-      "skus": [
-        "1334680"
-      ],
-      "name": "Plumeros de microfibra Repuesto para plumero",
-      "category": "Plumeros de microfibra",
-      "price": "$9.295",
-      "pdfPrice": "$9.295",
-      "priceSource": "pdf",
-      "ean": "719812033464",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.434306390539725,
-        "y": 0.628038269710513,
-        "w": 0.13136057048961,
-        "h": 0.02918136081757
-      },
-      "pricePosition": {
-        "x": 0.499990468061241,
-        "y": 0.654463283796245
-      },
-      "section": "OXO",
-      "sourcePage": 136,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p357-1",
-      "page": 377,
-      "sku": "12246100",
-      "skus": [
-        "12246100"
-      ],
-      "name": "Limpia notebooks Limpia",
-      "category": "Limpia notebooks",
-      "price": "$14.040",
-      "pdfPrice": "$14.040",
-      "priceSource": "pdf",
-      "ean": "719812686172",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.254723434384183,
-        "y": 0.174458374171388,
-        "w": 0.187183037412757,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.348307586336816,
-        "y": 0.208009898963181
-      },
-      "section": "OXO",
-      "sourcePage": 137,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p357-2",
-      "page": 377,
-      "sku": "1373380",
-      "skus": [
-        "1373380"
-      ],
-      "name": "Limpia notebooks para objetos delicados",
-      "category": "Limpia notebooks",
-      "price": "$11.732",
-      "pdfPrice": "$11.732",
-      "priceSource": "pdf",
-      "ean": "719812037332",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.264755492446605,
-        "y": 0.486228121823917,
-        "w": 0.16714567221282,
-        "h": 0.035114144248764
-      },
-      "pricePosition": {
-        "x": 0.348339795065367,
-        "y": 0.519779664732407
-      },
-      "section": "OXO",
-      "sourcePage": 137,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p358-1",
-      "page": 378,
-      "sku": "12168800",
-      "skus": [
-        "12168800"
-      ],
-      "name": "Cepillo quita pelusas De",
-      "category": "Cepillo quita pelusas",
-      "price": "$21.125",
-      "pdfPrice": "$21.125",
-      "priceSource": "pdf",
-      "ean": "719812046891",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.187175209436168,
-        "y": 0.174371540843187,
-        "w": 0.27723171128434,
-        "h": 0.048903867371285
-      },
-      "pricePosition": {
-        "x": 0.325781142381337,
-        "y": 0.267607219141377
-      },
-      "section": "OXO",
-      "sourcePage": 138,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p358-2",
-      "page": 378,
-      "sku": "12168900",
-      "skus": [
-        "12168900"
-      ],
-      "name": "Cepillo quita pelusas bolsillo",
-      "category": "Cepillo quita pelusas",
-      "price": "$9.120",
-      "pdfPrice": "$9.120",
-      "priceSource": "pdf",
-      "ean": "719812046907",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.191508910517849,
-        "y": 0.45555463361698,
-        "w": 0.27723171128434,
-        "h": 0.048903849254589
-      },
-      "pricePosition": {
-        "x": 0.330138340204529,
-        "y": 0.548790330031867
-      },
-      "section": "OXO",
-      "sourcePage": 138,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p359-1",
-      "page": 379,
-      "sku": "1329080",
-      "skus": [
-        "1329080"
-      ],
-      "name": "Set limpiador de botellas",
-      "category": "Set limpiador de botellas",
-      "price": "$15.304",
-      "pdfPrice": "$15.304",
-      "priceSource": "pdf",
-      "ean": "719812032900",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.642051920982893,
-        "y": 0.192586502698482,
-        "w": 0.182949985404859,
-        "h": 0.038240868731849
-      },
-      "pricePosition": {
-        "x": 0.733515357490751,
-        "y": 0.229701255668262
-      },
-      "section": "OXO",
-      "sourcePage": 139,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p359-2",
-      "page": 379,
-      "sku": "1285700",
-      "skus": [
-        "1285700"
-      ],
-      "name": "Set limpiador de botellas Set x2 cepillos de limpieza",
-      "category": "Set limpiador de botellas",
-      "price": "$11.513",
-      "pdfPrice": "$11.513",
-      "priceSource": "pdf",
-      "ean": "719812028576",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.173768729747192,
-        "y": 0.192897204050169,
-        "w": 0.18278538009682,
-        "h": 0.038214146603935
-      },
-      "pricePosition": {
-        "x": 0.265160740773083,
-        "y": 0.230011975136645
-      },
-      "section": "OXO",
-      "sourcePage": 139,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p360-1",
-      "page": 380,
-      "sku": "1060619",
-      "skus": [
-        "1060619"
-      ],
-      "name": "Limpiavidrios de acero inoxidable",
-      "category": "Limpiavidrios de acero inoxidable",
-      "price": "$23.026",
-      "pdfPrice": "$23.026",
-      "priceSource": "pdf",
-      "ean": "719812009490",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.373468330184719,
-        "y": 0.164187910003497,
-        "w": 0.253078713725336,
-        "h": 0.050088626881193
-      },
-      "pricePosition": {
-        "x": 0.499983357542408,
-        "y": 0.235483036430866
-      },
-      "section": "OXO",
-      "sourcePage": 140,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p361-1",
-      "page": 381,
-      "sku": "13248000",
-      "skus": [
-        "13248000"
-      ],
-      "name": "Organizadores de ducha Gancho colgante",
-      "category": "Organizadores de ducha",
-      "price": "$58.750",
-      "pdfPrice": "$58.750",
-      "priceSource": "pdf",
-      "ean": "719812686363",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.103576275803881,
-        "y": 0.169347201060914,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.19714076172695,
-        "y": 0.202898725852708
-      },
-      "section": "OXO",
-      "sourcePage": 141,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p361-2",
-      "page": 381,
-      "sku": "13208800",
-      "skus": [
-        "13208800"
-      ],
-      "name": "Organizadores de ducha Gancho de 3 niveles",
-      "category": "Organizadores de ducha",
-      "price": "$79.706",
-      "pdfPrice": "$79.706",
-      "priceSource": "pdf",
-      "ean": "719812682433",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.406417449515573,
-        "y": 0.169347201060914,
-        "w": 0.187150418708346,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.499981961062133,
-        "y": 0.202898725852708
-      },
-      "section": "OXO",
-      "sourcePage": 141,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
-      "id": "p361-3",
-      "page": 381,
-      "sku": "13241500",
-      "skus": [
-        "13241500"
-      ],
-      "name": "Organizadores de ducha Palo extendible",
-      "category": "Organizadores de ducha",
-      "price": "$204.473",
-      "pdfPrice": "$204.473",
-      "priceSource": "pdf",
-      "ean": "719812685717",
-      "unitsPerCase": null,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.709259571296442,
-        "y": 0.169347201060914,
-        "w": 0.187150393084855,
-        "h": 0.035114126132067
-      },
-      "pricePosition": {
-        "x": 0.802833794146201,
-        "y": 0.202898725852708
-      },
-      "section": "OXO",
-      "sourcePage": 141,
-      "hotspotSource": "oxo-sku-text"
-    },
-    {
       "id": "p362-1",
       "page": 125,
       "sku": "51000",
@@ -56090,18 +47765,18 @@ window.CATALOG_DATA = {
     {
       "id": "estia-p055-1",
       "page": 55,
-      "sku": "21887",
+      "sku": "21832",
       "skus": [
-        "21887"
+        "21832"
       ],
-      "name": "Botella de vidrio 1 litro con tapa de corcho",
+      "name": "Botella de vidrio 1100ml con clip de metal",
       "category": "Accesorios de cocina",
-      "price": "$6.874",
+      "price": "$3.428",
       "pdfPrice": "$6.874",
       "priceSource": "excel",
-      "ean": "5207158021887",
-      "unitsPerCase": 6,
-      "sizeLabel": "1 Litro",
+      "ean": "5207158021832",
+      "unitsPerCase": 12,
+      "sizeLabel": "1100ML",
       "hotspot": {
         "x": 0.643207,
         "y": 0.6290213,
@@ -57588,8 +49263,7752 @@ window.CATALOG_DATA = {
       "section": "Estia"
     },
     {
+      "id": "oxo-p002-1",
+      "page": 243,
+      "sku": "11181100",
+      "skus": [
+        "11181100"
+      ],
+      "name": "Cafetera prensa 8 tazas",
+      "category": "Cafeteras",
+      "price": "$27.239",
+      "pdfPrice": "$27.239",
+      "priceSource": "excel-july-2026",
+      "ean": "719812048123",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1928619,
+        "y": 0.2219908,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2538583,
+        "y": 0.244854
+      },
+      "section": "OXO",
+      "sourcePage": 2,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p002-2",
+      "page": 243,
+      "sku": "11294500",
+      "skus": [
+        "11294500"
+      ],
+      "name": "Cafetera de acero inoxidable",
+      "category": "Cafeteras",
+      "price": "$56.453",
+      "pdfPrice": "$56.453",
+      "priceSource": "excel-july-2026",
+      "ean": "719812000893",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6844611,
+        "y": 0.22055,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7454772,
+        "y": 0.2434132
+      },
+      "section": "OXO",
+      "sourcePage": 2,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p003-1",
+      "page": 244,
+      "sku": "11344700",
+      "skus": [
+        "11344700"
+      ],
+      "name": "Cafetera french press 1 litro",
+      "category": "Cafetera french press 1 litro",
+      "price": "$29.190",
+      "pdfPrice": "$29.190",
+      "priceSource": "excel-july-2026",
+      "ean": "840097703374",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697639,
+        "y": 0.1669455,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999801,
+        "y": 0.221166
+      },
+      "section": "OXO",
+      "sourcePage": 3,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p004-1",
+      "page": 245,
+      "sku": "8722500",
+      "skus": [
+        "8722500"
+      ],
+      "name": "Infusionador rápido",
+      "category": "Cafetera de infusión rápida",
+      "price": "$61.799",
+      "pdfPrice": "$29.190",
+      "priceSource": "excel-july-2026",
+      "ean": "840097786186",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3853554,
+        "y": 0.1669455,
+        "w": 0.2292817,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999801,
+        "y": 0.221166
+      },
+      "section": "OXO",
+      "sourcePage": 4,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p005-1",
+      "page": 246,
+      "sku": "11237500",
+      "skus": [
+        "11237500"
+      ],
+      "name": "Cafetera Cold Brew",
+      "category": "Cafetera Cold Brew",
+      "price": "$44.777",
+      "pdfPrice": "$44.777",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685311",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3852658,
+        "y": 0.1083536,
+        "w": 0.2294482,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.499902,
+        "y": 0.1512551
+      },
+      "section": "OXO",
+      "sourcePage": 5,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p005-2",
+      "page": 246,
+      "sku": "11212400",
+      "skus": [
+        "11212400"
+      ],
+      "name": "Balanza de cocina",
+      "category": "Cafetera Cold Brew",
+      "price": "$81.739",
+      "pdfPrice": "$81.739",
+      "priceSource": "excel-july-2026",
+      "ean": "719812682792",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3923019,
+        "y": 0.5603141,
+        "w": 0.2294481,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999101,
+        "y": 0.6032156
+      },
+      "section": "OXO",
+      "sourcePage": 5,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p006-1",
+      "page": 247,
+      "sku": "11303600",
+      "skus": [
+        "11303600"
+      ],
+      "name": "Molinillo de café",
+      "category": "Molinillo de café",
+      "price": "$67.237",
+      "pdfPrice": "$67.237",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001807",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 6,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p007-1",
+      "page": 248,
+      "sku": "1410280",
+      "skus": [
+        "1410280"
+      ],
+      "name": "Colador de té",
+      "category": "Infusor de té",
+      "price": "$17.790",
+      "pdfPrice": "$17.790",
+      "priceSource": "excel-july-2026",
+      "ean": "719812031026",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3853543,
+        "y": 0.1669455,
+        "w": 0.2292817,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999801,
+        "y": 0.221166
+      },
+      "section": "OXO",
+      "sourcePage": 7,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-1",
+      "page": 249,
+      "sku": "11233900",
+      "skus": [
+        "11233900"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado alto 1,6 lts.",
+      "category": "Frascos POP",
+      "price": "$13.607",
+      "pdfPrice": "$13.607",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684956",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4493283,
+        "y": 0.4635223,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5026529,
+        "y": 0.4837131
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-2",
+      "page": 249,
+      "sku": "11234000",
+      "skus": [
+        "11234000"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 1 lts.",
+      "category": "Frascos POP",
+      "price": "$12.766",
+      "pdfPrice": "$12.766",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684963",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1957968,
+        "y": 0.4635223,
+        "w": 0.1066317,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2491018,
+        "y": 0.4837131
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-3",
+      "page": 249,
+      "sku": "11233800",
+      "skus": [
+        "11233800"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado alto 2 lts.",
+      "category": "Frascos POP",
+      "price": "$16.028",
+      "pdfPrice": "$16.028",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684949",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.701995,
+        "y": 0.4635223,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7552999,
+        "y": 0.4837131
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-4",
+      "page": 249,
+      "sku": "11233700",
+      "skus": [
+        "11233700"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 1 lts.",
+      "category": "Frascos POP",
+      "price": "$16.369",
+      "pdfPrice": "$16.369",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684932",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1858023,
+        "y": 0.2208754,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2391269,
+        "y": 0.2410661
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-5",
+      "page": 249,
+      "sku": "11233600",
+      "skus": [
+        "11233600"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 2,6 lts.",
+      "category": "Frascos POP",
+      "price": "$17.563",
+      "pdfPrice": "$17.563",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684925",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4466721,
+        "y": 0.2208754,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999967,
+        "y": 0.2410661
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p008-6",
+      "page": 249,
+      "sku": "11233500",
+      "skus": [
+        "11233500"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 4,2 lts.",
+      "category": "Frascos POP",
+      "price": "$21.843",
+      "pdfPrice": "$21.843",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684918",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7303602,
+        "y": 0.2208754,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7836848,
+        "y": 0.2410661
+      },
+      "section": "OXO",
+      "sourcePage": 8,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-1",
+      "page": 250,
+      "sku": "11234600",
+      "skus": [
+        "11234600"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.6 lts.",
+      "category": "Frascos POP",
+      "price": "$15.005",
+      "pdfPrice": "$15.005",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685021",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3088367,
+        "y": 0.4914217,
+        "w": 0.1066317,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3621613,
+        "y": 0.5116124
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-2",
+      "page": 250,
+      "sku": "11234500",
+      "skus": [
+        "11234500"
+      ],
+      "name": "Contenedor pop 2.0 rect. mediano 2.5 lts.",
+      "category": "Frascos POP",
+      "price": "$16.881",
+      "pdfPrice": "$16.881",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685014",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5603402,
+        "y": 0.4914217,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6136649,
+        "y": 0.5116124
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-3",
+      "page": 250,
+      "sku": "11234400",
+      "skus": [
+        "11234400"
+      ],
+      "name": "Contenedor pop 2.0 rectang. alto 3.5 lts.",
+      "category": "Frascos POP",
+      "price": "$19.829",
+      "pdfPrice": "$19.829",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685007",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.8118438,
+        "y": 0.4914217,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8651684,
+        "y": 0.5116124
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-4",
+      "page": 250,
+      "sku": "11234700",
+      "skus": [
+        "11234700"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 0.6 lts.",
+      "category": "Frascos POP",
+      "price": "$11.936",
+      "pdfPrice": "$11.936",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685038",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.0573331,
+        "y": 0.4914217,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1106577,
+        "y": 0.5116124
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-5",
+      "page": 250,
+      "sku": "11234900",
+      "skus": [
+        "11234900"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.1 lts.",
+      "category": "Frascos POP",
+      "price": "$12.277",
+      "pdfPrice": "$12.277",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685052",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4466726,
+        "y": 0.771052,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999972,
+        "y": 0.7912427
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-6",
+      "page": 250,
+      "sku": "11234800",
+      "skus": [
+        "11234800"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.9 lts.",
+      "category": "Frascos POP",
+      "price": "$13.982",
+      "pdfPrice": "$13.982",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685045",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7811353,
+        "y": 0.771052,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8344599,
+        "y": 0.7912427
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-7",
+      "page": 250,
+      "sku": "11235000",
+      "skus": [
+        "11235000"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 0.4 lts.",
+      "category": "Frascos POP",
+      "price": "$10.197",
+      "pdfPrice": "$10.197",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685069",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.11221,
+        "y": 0.771052,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1655346,
+        "y": 0.7912427
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p009-8",
+      "page": 250,
+      "sku": "11234100",
+      "skus": [
+        "11234100"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 0.8 lts.",
+      "category": "Frascos POP",
+      "price": "$10.071",
+      "pdfPrice": "$10.071",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684970",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4496797,
+        "y": 0.203792,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5030043,
+        "y": 0.2239827
+      },
+      "section": "OXO",
+      "sourcePage": 9,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p010-1",
+      "page": 251,
+      "sku": "11236200",
+      "skus": [
+        "11236200"
+      ],
+      "name": "Set x 3 contenedores pop 2.0 cuadrados de 1.0lts. (código 11234000)",
+      "category": "POP - Sets",
+      "price": "$34.466",
+      "pdfPrice": "$34.466",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685182",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4313074,
+        "y": 0.1571276,
+        "w": 0.1373438,
+        "h": 0.0244271
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999781,
+        "y": 0.1826631
+      },
+      "section": "OXO",
+      "sourcePage": 10,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p010-2",
+      "page": 251,
+      "sku": "11236100",
+      "skus": [
+        "11236100"
+      ],
+      "name": "Set x 4 contenedores pop 2.0 cuadrados de 0,2lts. (código 11234300)",
+      "category": "POP - Sets",
+      "price": "$28.068",
+      "pdfPrice": "$28.068",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685175",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.431306,
+        "y": 0.4450126,
+        "w": 0.1373439,
+        "h": 0.0244271
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999767,
+        "y": 0.4705482
+      },
+      "section": "OXO",
+      "sourcePage": 10,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p011-1",
+      "page": 252,
+      "sku": "3118700",
+      "skus": [
+        "3118700"
+      ],
+      "name": "Contenedor pop 2.0 rectang. 2,6lts. tapa de acero",
+      "category": "POP - Tapa de acero",
+      "price": "$27.795",
+      "pdfPrice": "$27.795",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051871",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3228053,
+        "y": 0.1749048,
+        "w": 0.0945815,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3701059,
+        "y": 0.1950955
+      },
+      "section": "OXO",
+      "sourcePage": 11,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p011-2",
+      "page": 252,
+      "sku": "3118400",
+      "skus": [
+        "3118400"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 1,0lts. tapa de acero",
+      "category": "POP - Tapa de acero",
+      "price": "$19.293",
+      "pdfPrice": "$19.293",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051840",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6209961,
+        "y": 0.1749048,
+        "w": 0.0945815,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.668277,
+        "y": 0.1950955
+      },
+      "section": "OXO",
+      "sourcePage": 11,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p011-3",
+      "page": 252,
+      "sku": "3118200",
+      "skus": [
+        "3118200"
+      ],
+      "name": "Contenedor pop 2.0 rectang. de 4,2lts. tapa de acero",
+      "category": "POP - Tapa de acero",
+      "price": "$29.975",
+      "pdfPrice": "$29.975",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051826",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6209871,
+        "y": 0.4696737,
+        "w": 0.0945815,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6682876,
+        "y": 0.4898644
+      },
+      "section": "OXO",
+      "sourcePage": 11,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p011-4",
+      "page": 252,
+      "sku": "3118300",
+      "skus": [
+        "3118300"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 2,6lts. tapa de acero",
+      "category": "POP - Tapa de acero",
+      "price": "$27.795",
+      "pdfPrice": "$27.795",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051833",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3228131,
+        "y": 0.4696737,
+        "w": 0.0945815,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.370094,
+        "y": 0.4898644
+      },
+      "section": "OXO",
+      "sourcePage": 11,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-1",
+      "page": 253,
+      "sku": "11233500",
+      "skus": [
+        "11233500"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 4,2 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$21.843",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684918",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1341208,
+        "y": 0.4690228,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1890442,
+        "y": 0.4925934
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-2",
+      "page": 253,
+      "sku": "11233600",
+      "skus": [
+        "11233600"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 2,6 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$17.563",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684925",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1341208,
+        "y": 0.6314777,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1890442,
+        "y": 0.6550483
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-3",
+      "page": 253,
+      "sku": "11233700",
+      "skus": [
+        "11233700"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 1 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$16.369",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684932",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1341208,
+        "y": 0.7439328,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1890442,
+        "y": 0.7675034
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-4",
+      "page": 253,
+      "sku": "11234500",
+      "skus": [
+        "11234500"
+      ],
+      "name": "Contenedor pop 2.0 rect. mediano 2.5 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$16.881",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685014",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3191683,
+        "y": 0.4690228,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3740917,
+        "y": 0.4925934
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-5",
+      "page": 253,
+      "sku": "11234600",
+      "skus": [
+        "11234600"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.6 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$15.005",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685021",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3191683,
+        "y": 0.6314777,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3740917,
+        "y": 0.6550483
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-6",
+      "page": 253,
+      "sku": "11234700",
+      "skus": [
+        "11234700"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 0.6 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$11.936",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685038",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3191683,
+        "y": 0.7439328,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3740917,
+        "y": 0.7675034
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-7",
+      "page": 253,
+      "sku": "11234400",
+      "skus": [
+        "11234400"
+      ],
+      "name": "Contenedor pop 2.0 rectang. alto 3.5 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$19.829",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685007",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3188993,
+        "y": 0.2578399,
+        "w": 0.1103984,
+        "h": 0.0200978
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3740985,
+        "y": 0.2814996
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-8",
+      "page": 253,
+      "sku": "11233900",
+      "skus": [
+        "11233900"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado alto 1,6 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$13.607",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684956",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4909845,
+        "y": 0.4690228,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5459079,
+        "y": 0.4925934
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-9",
+      "page": 253,
+      "sku": "11234000",
+      "skus": [
+        "11234000"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 1 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$12.766",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684963",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4909845,
+        "y": 0.6314777,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5459079,
+        "y": 0.6550483
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-10",
+      "page": 253,
+      "sku": "11233800",
+      "skus": [
+        "11233800"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado alto 2 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$16.028",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684949",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4907154,
+        "y": 0.2578399,
+        "w": 0.1103984,
+        "h": 0.0200978
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5459146,
+        "y": 0.2814996
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-11",
+      "page": 253,
+      "sku": "11234800",
+      "skus": [
+        "11234800"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.9 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$13.982",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685045",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6759247,
+        "y": 0.4690228,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7308481,
+        "y": 0.4925934
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-12",
+      "page": 253,
+      "sku": "11234900",
+      "skus": [
+        "11234900"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 1.1 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$12.277",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685052",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6759247,
+        "y": 0.6314777,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7308481,
+        "y": 0.6550483
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-13",
+      "page": 253,
+      "sku": "11235000",
+      "skus": [
+        "11235000"
+      ],
+      "name": "Contenedor pop 2.0 rectangular 0.4 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$10.197",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685069",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6759247,
+        "y": 0.7439328,
+        "w": 0.1098468,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7308481,
+        "y": 0.7675034
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p012-14",
+      "page": 253,
+      "sku": "11234100",
+      "skus": [
+        "11234100"
+      ],
+      "name": "Contenedor pop 2.0 cuadrado de 0.8 lts.",
+      "category": "Línea completa frascos POP",
+      "price": "$10.071",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684970",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.8450736,
+        "y": 0.4690228,
+        "w": 0.1098467,
+        "h": 0.0200087
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8999969,
+        "y": 0.4925934
+      },
+      "section": "OXO",
+      "sourcePage": 12,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p013-1",
+      "page": 254,
+      "sku": "11247400",
+      "skus": [
+        "11247400"
+      ],
+      "name": "Contenedor pop 2.0 cerealero de 1,2 lts.",
+      "category": "Cerealeros POP",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686301",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1473318,
+        "y": 0.2836022,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2006564,
+        "y": 0.3037929
+      },
+      "section": "OXO",
+      "sourcePage": 13,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p013-2",
+      "page": 254,
+      "sku": "11247600",
+      "skus": [
+        "11247600"
+      ],
+      "name": "Contenedor pop 2.0 cerealero de 1,6 lts.",
+      "category": "Cerealeros POP",
+      "price": "$23.931",
+      "pdfPrice": "$23.931",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686325",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1473318,
+        "y": 0.4993759,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2006564,
+        "y": 0.5195666
+      },
+      "section": "OXO",
+      "sourcePage": 13,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p013-3",
+      "page": 254,
+      "sku": "11113900",
+      "skus": [
+        "11113900"
+      ],
+      "name": "Contenedor pop 2.0 cerealero de 2,4 lts.",
+      "category": "Cerealeros POP",
+      "price": "$26.816",
+      "pdfPrice": "$26.816",
+      "priceSource": "excel-july-2026",
+      "ean": "719812041407",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5679893,
+        "y": 0.2883459,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6213138,
+        "y": 0.3085366
+      },
+      "section": "OXO",
+      "sourcePage": 13,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p013-4",
+      "page": 254,
+      "sku": "11114000",
+      "skus": [
+        "11114000"
+      ],
+      "name": "Contenedor pop 2.0 cerealero de 3,2 lts.",
+      "category": "Cerealeros POP",
+      "price": "$29.367",
+      "pdfPrice": "$29.367",
+      "priceSource": "excel-july-2026",
+      "ean": "719812041414",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5679893,
+        "y": 0.4993759,
+        "w": 0.1066316,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6213138,
+        "y": 0.5195666
+      },
+      "section": "OXO",
+      "sourcePage": 13,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p014-1",
+      "page": 255,
+      "sku": "1128580",
+      "skus": [
+        "1128580"
+      ],
+      "name": "Contenedor pop 2.0 redondo de 2,8 lts.",
+      "category": "POP redondos",
+      "price": "$21.007",
+      "pdfPrice": "$21.007",
+      "priceSource": "excel-july-2026",
+      "ean": "719812032856",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2091034,
+        "y": 0.2020892,
+        "w": 0.2151903,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3165956,
+        "y": 0.2441938
+      },
+      "section": "OXO",
+      "sourcePage": 14,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p014-2",
+      "page": 255,
+      "sku": "1128680",
+      "skus": [
+        "1128680"
+      ],
+      "name": "Contenedor pop 2.0 redondo de 1,9 lts.",
+      "category": "POP redondos",
+      "price": "$19.029",
+      "pdfPrice": "$19.029",
+      "priceSource": "excel-july-2026",
+      "ean": "719812032863",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5704204,
+        "y": 0.2020892,
+        "w": 0.2151903,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6779126,
+        "y": 0.2441938
+      },
+      "section": "OXO",
+      "sourcePage": 14,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p015-1",
+      "page": 256,
+      "sku": "11235300",
+      "skus": [
+        "11235300"
+      ],
+      "name": "Etiquetas para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$7.617",
+      "pdfPrice": "$7.617",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685090",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.192867,
+        "y": 0.2141972,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2538735,
+        "y": 0.2370604
+      },
+      "section": "OXO",
+      "sourcePage": 15,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p015-2",
+      "page": 256,
+      "sku": "11235600",
+      "skus": [
+        "11235600"
+      ],
+      "name": "Nivelador para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$3.755",
+      "pdfPrice": "$3.755",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685120",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6285708,
+        "y": 0.2141972,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6895773,
+        "y": 0.2370604
+      },
+      "section": "OXO",
+      "sourcePage": 15,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p016-1",
+      "page": 257,
+      "sku": "11235200",
+      "skus": [
+        "11235200"
+      ],
+      "name": "Cuchara media taza para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$7.617",
+      "pdfPrice": "$7.617",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685083",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1166367,
+        "y": 0.2275258,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1776432,
+        "y": 0.2503889
+      },
+      "section": "OXO",
+      "sourcePage": 16,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p016-2",
+      "page": 257,
+      "sku": "11235500",
+      "skus": [
+        "11235500"
+      ],
+      "name": "Cuchara para café para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$6.342",
+      "pdfPrice": "$6.342",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685113",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4169807,
+        "y": 0.2275258,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4779872,
+        "y": 0.2503889
+      },
+      "section": "OXO",
+      "sourcePage": 16,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p016-3",
+      "page": 257,
+      "sku": "11235400",
+      "skus": [
+        "11235400"
+      ],
+      "name": "Cuchara con tapa para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$7.617",
+      "pdfPrice": "$7.617",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685106",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7393138,
+        "y": 0.2275258,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8003203,
+        "y": 0.2503889
+      },
+      "section": "OXO",
+      "sourcePage": 16,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p017-1",
+      "page": 258,
+      "sku": "13382400",
+      "skus": [
+        "13382400"
+      ],
+      "name": "Set x3 mini pinza para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$13.718",
+      "pdfPrice": "$7.617",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707143",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1928687,
+        "y": 0.1884735,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2538752,
+        "y": 0.2113367
+      },
+      "section": "OXO",
+      "sourcePage": 17,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p017-2",
+      "page": 258,
+      "sku": "11241000",
+      "skus": [
+        "11241000"
+      ],
+      "name": "Cuchara medidora de arroz para contenedor pop 2.0",
+      "category": "Accesorios para POP",
+      "price": "$8.231",
+      "pdfPrice": "$3.755",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685663",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6367603,
+        "y": 0.1884735,
+        "w": 0.122031,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6977668,
+        "y": 0.2113367
+      },
+      "section": "OXO",
+      "sourcePage": 17,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p018-1",
+      "page": 259,
+      "sku": "11386000",
+      "skus": [
+        "11386000"
+      ],
+      "name": "Bolsas de silicona 13*17 cm - 355 ml",
+      "category": "Bolsas de silicona",
+      "price": "$16.579",
+      "pdfPrice": "$16.579",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707501",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.186376,
+        "y": 0.4137146,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2511999,
+        "y": 0.4374685
+      },
+      "section": "OXO",
+      "sourcePage": 18,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p018-2",
+      "page": 259,
+      "sku": "11386200",
+      "skus": [
+        "11386200"
+      ],
+      "name": "Bolsas de silicona 18,5*30 cm - 1.890 ml",
+      "category": "Bolsas de silicona",
+      "price": "$31.883",
+      "pdfPrice": "$31.883",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707525",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.186384,
+        "y": 0.6626995,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.251208,
+        "y": 0.6864534
+      },
+      "section": "OXO",
+      "sourcePage": 18,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p018-3",
+      "page": 259,
+      "sku": "11386100",
+      "skus": [
+        "11386100"
+      ],
+      "name": "Bolsas de silicona 15*24 cm - 945 ml",
+      "category": "Bolsas de silicona",
+      "price": "$24.302",
+      "pdfPrice": "$24.302",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707518",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6894275,
+        "y": 0.4137146,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7542515,
+        "y": 0.4374685
+      },
+      "section": "OXO",
+      "sourcePage": 18,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p018-4",
+      "page": 259,
+      "sku": "11386400",
+      "skus": [
+        "11386400"
+      ],
+      "name": "Bolsas de silicona 14,5*29 cm - 890 ml",
+      "category": "Bolsas de silicona",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707549",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6894275,
+        "y": 0.6626995,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7542515,
+        "y": 0.6864534
+      },
+      "section": "OXO",
+      "sourcePage": 18,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p019-1",
+      "page": 260,
+      "sku": "11386700",
+      "skus": [
+        "11386700"
+      ],
+      "name": "Bolsas de silicona 31*28 cm - 3.785 ml.",
+      "category": "Bolsas de silicona",
+      "price": "$38.330",
+      "pdfPrice": "$38.330",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707570",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1532408,
+        "y": 0.1944695,
+        "w": 0.1296618,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2180647,
+        "y": 0.2182234
+      },
+      "section": "OXO",
+      "sourcePage": 19,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p019-2",
+      "page": 260,
+      "sku": "11391100",
+      "skus": [
+        "11391100"
+      ],
+      "name": "Set lunch x4 bolsas de silicona",
+      "category": "Bolsas de silicona",
+      "price": "$51.119",
+      "pdfPrice": "$51.119",
+      "priceSource": "excel-july-2026",
+      "ean": "840097708010",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2171223,
+        "y": 0.5945959,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2819463,
+        "y": 0.6183499
+      },
+      "section": "OXO",
+      "sourcePage": 19,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p019-3",
+      "page": 260,
+      "sku": "11391000",
+      "skus": [
+        "11391000"
+      ],
+      "name": "Set starter x4 bolsas de silicona",
+      "category": "Bolsas de silicona",
+      "price": "$63.907",
+      "pdfPrice": "$63.907",
+      "priceSource": "excel-july-2026",
+      "ean": "840097708003",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6649351,
+        "y": 0.5945959,
+        "w": 0.1296617,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7297591,
+        "y": 0.6183499
+      },
+      "section": "OXO",
+      "sourcePage": 19,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p019-4",
+      "page": 260,
+      "sku": "11386300",
+      "skus": [
+        "11386300"
+      ],
+      "name": "Bolsas de silicona 12*19 cm - 355 ml",
+      "category": "Bolsas de silicona",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707532",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4351712,
+        "y": 0.1944695,
+        "w": 0.1296618,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999952,
+        "y": 0.2182234
+      },
+      "section": "OXO",
+      "sourcePage": 19,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p019-5",
+      "page": 260,
+      "sku": "11386600",
+      "skus": [
+        "11386600"
+      ],
+      "name": "Bolsas de silicona 19*12 cm - 1.890 ml",
+      "category": "Bolsas de silicona",
+      "price": "$28.091",
+      "pdfPrice": "$28.091",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707563",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7423012,
+        "y": 0.1944695,
+        "w": 0.1296618,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8071252,
+        "y": 0.2182234
+      },
+      "section": "OXO",
+      "sourcePage": 19,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p020-1",
+      "page": 261,
+      "sku": "11388100",
+      "skus": [
+        "11388100"
+      ],
+      "name": "Bolsas de silicona azul 13*17 cm - 355 ml",
+      "category": "Bolsas de silicona",
+      "price": "$22.180",
+      "pdfPrice": "$313131",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707716",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1829832,
+        "y": 0.2431296,
+        "w": 0.1674262,
+        "h": 0.029077
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2666943,
+        "y": 0.2736289
+      },
+      "section": "OXO",
+      "sourcePage": 20,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p020-2",
+      "page": 261,
+      "sku": "11388200",
+      "skus": [
+        "11388200"
+      ],
+      "name": "Bolsas de silicona roja 13*17 cm - 355 ml",
+      "category": "Bolsas de silicona",
+      "price": "$22.180",
+      "pdfPrice": "$313131",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707723",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6495725,
+        "y": 0.2431296,
+        "w": 0.1674261,
+        "h": 0.029077
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7332836,
+        "y": 0.2736289
+      },
+      "section": "OXO",
+      "sourcePage": 20,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p020-3",
+      "page": 261,
+      "sku": "11388300",
+      "skus": [
+        "11388300"
+      ],
+      "name": "Bolsas de silicona azul 15*24 cm - 945 ml",
+      "category": "Bolsas de silicona",
+      "price": "$30.225",
+      "pdfPrice": "$313131",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707730",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1829832,
+        "y": 0.5621741,
+        "w": 0.1674262,
+        "h": 0.029077
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2666943,
+        "y": 0.5926733
+      },
+      "section": "OXO",
+      "sourcePage": 20,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p020-4",
+      "page": 261,
+      "sku": "11388500",
+      "skus": [
+        "11388500"
+      ],
+      "name": "Bolsas de silicona azul 18,5*30 cm - 1.890 ml",
+      "category": "Bolsas de silicona",
+      "price": "$35.712",
+      "pdfPrice": "$313131",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707754",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6495617,
+        "y": 0.5621741,
+        "w": 0.1674261,
+        "h": 0.029077
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7332986,
+        "y": 0.5926733
+      },
+      "section": "OXO",
+      "sourcePage": 20,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p021-1",
+      "page": 262,
+      "sku": "11283400",
+      "skus": [
+        "11283400"
+      ],
+      "name": "Cucharón de acero inoxidable",
+      "category": "Utensilios de acero inoxidable",
+      "price": "$16.579",
+      "pdfPrice": "$16.579",
+      "priceSource": "excel-july-2026",
+      "ean": "719812689920",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3912648,
+        "y": 0.2627755,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4764329,
+        "y": 0.2927651
+      },
+      "section": "OXO",
+      "sourcePage": 21,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p021-2",
+      "page": 262,
+      "sku": "11283300",
+      "skus": [
+        "11283300"
+      ],
+      "name": "Espátula de acero inoxidable",
+      "category": "Utensilios de acero inoxidable",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812689913",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3912648,
+        "y": 0.4163947,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4764329,
+        "y": 0.4463844
+      },
+      "section": "OXO",
+      "sourcePage": 21,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p021-3",
+      "page": 262,
+      "sku": "11283100",
+      "skus": [
+        "11283100"
+      ],
+      "name": "Cuchara de acero inoxidable",
+      "category": "Utensilios de acero inoxidable",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812689890",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3912648,
+        "y": 0.5739852,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4764329,
+        "y": 0.6039748
+      },
+      "section": "OXO",
+      "sourcePage": 21,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-1",
+      "page": 263,
+      "sku": "1190300",
+      "skus": [
+        "1190300"
+      ],
+      "name": "Espátula acanalada nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029030",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4440041,
+        "y": 0.2231932,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-2",
+      "page": 263,
+      "sku": "1190200",
+      "skus": [
+        "1190200"
+      ],
+      "name": "Espumadera nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029023",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2031506,
+        "y": 0.2231932,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-3",
+      "page": 263,
+      "sku": "1190900",
+      "skus": [
+        "1190900"
+      ],
+      "name": "Cuchara para fideos nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029092",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6948294,
+        "y": 0.2231932,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-4",
+      "page": 263,
+      "sku": "1191300",
+      "skus": [
+        "1191300"
+      ],
+      "name": "Cuchara acanalada nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029139",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1935376,
+        "y": 0.6670527,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-5",
+      "page": 263,
+      "sku": "1190800",
+      "skus": [
+        "1190800"
+      ],
+      "name": "Cucharón nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029085",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4457253,
+        "y": 0.6670527,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p022-6",
+      "page": 263,
+      "sku": "1190700",
+      "skus": [
+        "1190700"
+      ],
+      "name": "Tenedor nylon",
+      "category": "Utensilios de nylon",
+      "price": "$10.002",
+      "pdfPrice": "$10.002",
+      "priceSource": "excel-july-2026",
+      "ean": "719812029078",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7030978,
+        "y": 0.6670527,
+        "w": 0.0945634,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.1472652
+      },
+      "section": "OXO",
+      "sourcePage": 22,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p023-1",
+      "page": 264,
+      "sku": "1071534",
+      "skus": [
+        "1071534"
+      ],
+      "name": "Espátula de silicona large",
+      "category": "Espátulas de silicona flexibles",
+      "price": "$18.838",
+      "pdfPrice": "$18.838",
+      "priceSource": "excel-july-2026",
+      "ean": "719812018447",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4392241,
+        "y": 0.4405738,
+        "w": 0.1215179,
+        "h": 0.0244328
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999995,
+        "y": 0.4701295
+      },
+      "section": "OXO",
+      "sourcePage": 23,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p024-1",
+      "page": 265,
+      "sku": "65191",
+      "skus": [
+        "65191"
+      ],
+      "name": "Espátula flexible de nylon chica",
+      "category": "Espátulas de nylon",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "719812651910",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4448265,
+        "y": 0.1813814,
+        "w": 0.1103433,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999928,
+        "y": 0.2113711
+      },
+      "section": "OXO",
+      "sourcePage": 24,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p025-1",
+      "page": 266,
+      "sku": "28081",
+      "skus": [
+        "28081"
+      ],
+      "name": "Abrelatas",
+      "category": "Abrelatas",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812280813",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5840792,
+        "y": 0.1422098,
+        "w": 0.1669673,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6674924,
+        "y": 0.2313466
+      },
+      "section": "OXO",
+      "sourcePage": 25,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p025-2",
+      "page": 266,
+      "sku": "11314700",
+      "skus": [
+        "11314700"
+      ],
+      "name": "Abrelatas con traba",
+      "category": "Abrelatas",
+      "price": "$27.632",
+      "pdfPrice": "$27.632",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700373",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2142184,
+        "y": 0.1422098,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3443668,
+        "y": 0.2313466
+      },
+      "section": "OXO",
+      "sourcePage": 25,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p026-1",
+      "page": 267,
+      "sku": "11332200",
+      "skus": [
+        "11332200"
+      ],
+      "name": "Abrejarras con base antideslizante",
+      "category": "abrelatas con borde liso",
+      "price": "$27.482",
+      "pdfPrice": "$27.632",
+      "priceSource": "excel-july-2026",
+      "ean": "840097702124",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1616439,
+        "y": 0.138649,
+        "w": 0.2068858,
+        "h": 0.0358384
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2650149,
+        "y": 0.2081881
+      },
+      "section": "OXO",
+      "sourcePage": 26,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p026-2",
+      "page": 267,
+      "sku": "1049953",
+      "skus": [
+        "1049953"
+      ],
+      "name": "Abrelatas con borde liso",
+      "category": "abrelatas con borde liso",
+      "price": "$34.317",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001937",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6043484,
+        "y": 0.138649,
+        "w": 0.1824008,
+        "h": 0.0358384
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6954745,
+        "y": 0.2081881
+      },
+      "section": "OXO",
+      "sourcePage": 26,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p027-1",
+      "page": 268,
+      "sku": "11295100",
+      "skus": [
+        "11295100"
+      ],
+      "name": "Cuchara helados gatillo profesional",
+      "category": "Cucharas de helado",
+      "price": "$19.634",
+      "pdfPrice": "$19.634",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700229",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5426987,
+        "y": 0.1372727,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6649455,
+        "y": 0.2269464
+      },
+      "section": "OXO",
+      "sourcePage": 27,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p027-2",
+      "page": 268,
+      "sku": "11295000",
+      "skus": [
+        "11295000"
+      ],
+      "name": "Cuchara acero inoxidable para helados",
+      "category": "Cucharas de helado",
+      "price": "$23.679",
+      "pdfPrice": "$23.679",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700212",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2118699,
+        "y": 0.135775,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3341364,
+        "y": 0.2254487
+      },
+      "section": "OXO",
+      "sourcePage": 27,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p028-1",
+      "page": 269,
+      "sku": "11300900",
+      "skus": [
+        "11300900"
+      ],
+      "name": "Corta pizza con rueda de acero",
+      "category": "Corta pizzas",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001531",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1808749,
+        "y": 0.1631643,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3109948,
+        "y": 0.2453552
+      },
+      "section": "OXO",
+      "sourcePage": 28,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p028-2",
+      "page": 269,
+      "sku": "11301100",
+      "skus": [
+        "11301100"
+      ],
+      "name": "Corta pizza para superficies antiadherentes",
+      "category": "Corta pizzas",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001555",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5253328,
+        "y": 0.1627189,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.655433,
+        "y": 0.2449098
+      },
+      "section": "OXO",
+      "sourcePage": 28,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p029-1",
+      "page": 270,
+      "sku": "11295300",
+      "skus": [
+        "11295300"
+      ],
+      "name": "Pincel de cerda natural",
+      "category": "Pincel de repostería",
+      "price": "$12.471",
+      "pdfPrice": "$12.471",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700243",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697628,
+        "y": 0.1669455,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999801,
+        "y": 0.221166
+      },
+      "section": "OXO",
+      "sourcePage": 29,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p030-1",
+      "page": 271,
+      "sku": "11278500",
+      "skus": [
+        "11278500"
+      ],
+      "name": "Batidor de acero inoxidable",
+      "category": "Batidor de acero inoxidable",
+      "price": "$15.742",
+      "pdfPrice": "$15.742",
+      "priceSource": "excel-july-2026",
+      "ean": "719812689432",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697627,
+        "y": 0.1669455,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 30,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p031-1",
+      "page": 272,
+      "sku": "1136000",
+      "skus": [
+        "1136000"
+      ],
+      "name": "Colador 7,5cm",
+      "category": "Colador",
+      "price": "$14.433",
+      "pdfPrice": "$14.433",
+      "priceSource": "excel-july-2026",
+      "ean": "719812023601",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1912711,
+        "y": 0.123296,
+        "w": 0.2153521,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2800719,
+        "y": 0.2195659
+      },
+      "section": "OXO",
+      "sourcePage": 31,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p031-2",
+      "page": 272,
+      "sku": "38891",
+      "skus": [
+        "38891"
+      ],
+      "name": "Colador 15cm",
+      "category": "Colador",
+      "price": "$26.459",
+      "pdfPrice": "$26.459",
+      "priceSource": "excel-july-2026",
+      "ean": "719812388915",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4506521,
+        "y": 0.123296,
+        "w": 0.1570174,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2195659
+      },
+      "section": "OXO",
+      "sourcePage": 31,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p031-3",
+      "page": 272,
+      "sku": "38991",
+      "skus": [
+        "38991"
+      ],
+      "name": "Colador 20cm",
+      "category": "Colador",
+      "price": "$31.269",
+      "pdfPrice": "$31.269",
+      "priceSource": "excel-july-2026",
+      "ean": "719812389912",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.651681,
+        "y": 0.123296,
+        "w": 0.1570175,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7265792,
+        "y": 0.2195659
+      },
+      "section": "OXO",
+      "sourcePage": 31,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p032-1",
+      "page": 273,
+      "sku": "11344300",
+      "skus": [
+        "11344300"
+      ],
+      "name": "Set x 3 coladores",
+      "category": "Set x3 coladores",
+      "price": "$31.448",
+      "pdfPrice": "$31.448",
+      "priceSource": "excel-july-2026",
+      "ean": "840097703336",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697627,
+        "y": 0.1669455,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 32,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p033-1",
+      "page": 274,
+      "sku": "1142380",
+      "skus": [
+        "1142380"
+      ],
+      "name": "Vaporiera de silicona",
+      "category": "Vaporiera de silicona",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812034232",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3853542,
+        "y": 0.1669455,
+        "w": 0.2292817,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 33,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p034-1",
+      "page": 275,
+      "sku": "1072292",
+      "skus": [
+        "1072292"
+      ],
+      "name": "Tijera para aves",
+      "category": "Tijeras",
+      "price": "$41.199",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812019680",
+      "unitsPerCase": 3,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1655048,
+        "y": 0.1612557,
+        "w": 0.2292817,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2800332,
+        "y": 0.2434466
+      },
+      "section": "OXO",
+      "sourcePage": 34,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p034-2",
+      "page": 275,
+      "sku": "1072121",
+      "skus": [
+        "1072121"
+      ],
+      "name": "Tijera de cocina y hierbas",
+      "category": "Tijeras",
+      "price": "$23.500",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812019611",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5655106,
+        "y": 0.1597579,
+        "w": 0.2292817,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6800389,
+        "y": 0.2419489
+      },
+      "section": "OXO",
+      "sourcePage": 34,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p035-1",
+      "page": 276,
+      "sku": "1126980",
+      "skus": [
+        "1126980"
+      ],
+      "name": "Batidor de huevos doble",
+      "category": "Batidor doble",
+      "price": "$23.539",
+      "pdfPrice": "$25.539",
+      "priceSource": "excel-july-2026",
+      "ean": "719812032696",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3853542,
+        "y": 0.1669455,
+        "w": 0.2292817,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 35,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p036-1",
+      "page": 277,
+      "sku": "21081",
+      "skus": [
+        "21081"
+      ],
+      "name": "Pelapapas Y",
+      "category": "Peladores",
+      "price": "$10.889",
+      "pdfPrice": "$10.889",
+      "priceSource": "excel-july-2026",
+      "ean": "719812210810",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5808187,
+        "y": 0.3893602,
+        "w": 0.1103621,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6360047,
+        "y": 0.4193499
+      },
+      "section": "OXO",
+      "sourcePage": 36,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p036-2",
+      "page": 277,
+      "sku": "20081",
+      "skus": [
+        "20081"
+      ],
+      "name": "Pelador giratorio",
+      "category": "Peladores",
+      "price": "$9.565",
+      "pdfPrice": "$9.565",
+      "priceSource": "excel-july-2026",
+      "ean": "719812200811",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2287141,
+        "y": 0.1764439,
+        "w": 0.1103433,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2838706,
+        "y": 0.2064335
+      },
+      "section": "OXO",
+      "sourcePage": 36,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p036-3",
+      "page": 277,
+      "sku": "1054751",
+      "skus": [
+        "1054751"
+      ],
+      "name": "Cortador para juliana",
+      "category": "Peladores",
+      "price": "$10.889",
+      "pdfPrice": "$10.889",
+      "priceSource": "excel-july-2026",
+      "ean": "719812003665",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1542809,
+        "y": 0.579904,
+        "w": 0.1503809,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2294681,
+        "y": 0.6098936
+      },
+      "section": "OXO",
+      "sourcePage": 36,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p037-1",
+      "page": 278,
+      "sku": "11259100",
+      "skus": [
+        "11259100"
+      ],
+      "name": "Cortador para juliana",
+      "category": "Peladores",
+      "price": "$10.889",
+      "pdfPrice": "$10.889",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687490",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6521975,
+        "y": 0.5244846,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7170215,
+        "y": 0.5482386
+      },
+      "section": "OXO",
+      "sourcePage": 37,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p037-2",
+      "page": 278,
+      "sku": "11258900",
+      "skus": [
+        "11258900"
+      ],
+      "name": "Pelapapas Y",
+      "category": "Peladores",
+      "price": "$10.889",
+      "pdfPrice": "$10.889",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687476",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.19366,
+        "y": 0.5244846,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2584839,
+        "y": 0.5482386
+      },
+      "section": "OXO",
+      "sourcePage": 37,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p038-1",
+      "page": 279,
+      "sku": "11244100",
+      "skus": [
+        "11244100"
+      ],
+      "name": "Set x 3 pelapapas",
+      "category": "Set de 3 pelapapas",
+      "price": "$21.715",
+      "pdfPrice": "$21.715",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685977",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697627,
+        "y": 0.1654823,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 38,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p039-1",
+      "page": 280,
+      "sku": "11261400",
+      "skus": [
+        "11261400"
+      ],
+      "name": "Citrus zester",
+      "category": "Citrus Zester",
+      "price": "$11.227",
+      "pdfPrice": "$11.227",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687728",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 39,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p040-1",
+      "page": 281,
+      "sku": "11154000",
+      "skus": [
+        "11154000"
+      ],
+      "name": "Corta manzanas con recoge manzanas",
+      "category": "Cortador de manzanas pop-out",
+      "price": "$23.164",
+      "pdfPrice": "$23.164",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045412",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 40,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p041-1",
+      "page": 282,
+      "sku": "11155800",
+      "skus": [
+        "11155800"
+      ],
+      "name": "Exprimidor de cítricos",
+      "category": "Exprimidores",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045597",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1499133,
+        "y": 0.1612557,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2800332,
+        "y": 0.2434466
+      },
+      "section": "OXO",
+      "sourcePage": 41,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p041-2",
+      "page": 282,
+      "sku": "11263400",
+      "skus": [
+        "11263400"
+      ],
+      "name": "Exprimidor de cítricos 2 en 1",
+      "category": "Exprimidores",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687926",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5499387,
+        "y": 0.1597579,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6800389,
+        "y": 0.2419489
+      },
+      "section": "OXO",
+      "sourcePage": 41,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p042-1",
+      "page": 283,
+      "sku": "1252180",
+      "skus": [
+        "1252180"
+      ],
+      "name": "Cortador de palta verde",
+      "category": "Cortador de palta",
+      "price": "$10.202",
+      "pdfPrice": "$10.202",
+      "priceSource": "excel-july-2026",
+      "ean": "719812035215",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5629624,
+        "y": 0.1418695,
+        "w": 0.2292817,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4845929,
+        "y": 0.2381802
+      },
+      "section": "OXO",
+      "sourcePage": 42,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p042-2",
+      "page": 283,
+      "sku": "1143380",
+      "skus": [
+        "1143380"
+      ],
+      "name": "Cortador de palta blanco",
+      "category": "Cortador de palta",
+      "price": "$10.202",
+      "pdfPrice": "$10.202",
+      "priceSource": "excel-july-2026",
+      "ean": "719812034331",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.214402,
+        "y": 0.1418695,
+        "w": 0.2292817,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4845929,
+        "y": 0.2381802
+      },
+      "section": "OXO",
+      "sourcePage": 42,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p043-1",
+      "page": 284,
+      "sku": "39781",
+      "skus": [
+        "39781"
+      ],
+      "name": "Ahuecador para melon",
+      "category": "Ahuecador doble",
+      "price": "$9.941",
+      "pdfPrice": "$9.941",
+      "priceSource": "excel-july-2026",
+      "ean": "719812397818",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2471962,
+        "y": 0.1444351,
+        "w": 0.1568823,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3255215,
+        "y": 0.2194996
+      },
+      "section": "OXO",
+      "sourcePage": 43,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p044-1",
+      "page": 285,
+      "sku": "39781",
+      "skus": [
+        "39781"
+      ],
+      "name": "Ahuecador para melon",
+      "category": "Ahuecador doble",
+      "price": "$9.941",
+      "pdfPrice": "$9.941",
+      "priceSource": "excel-july-2026",
+      "ean": "719812397818",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4139949,
+        "y": 0.1713129,
+        "w": 0.171981,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999998,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 44,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p045-1",
+      "page": 286,
+      "sku": "11263300",
+      "skus": [
+        "11263300"
+      ],
+      "name": "4 sets de pinches para choclos",
+      "category": "4 sets de pinches para choclos",
+      "price": "$14.063",
+      "pdfPrice": "$14.063",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687919",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 45,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p046-1",
+      "page": 287,
+      "sku": "1119100",
+      "skus": [
+        "1119100"
+      ],
+      "name": "Mandolina",
+      "category": "Mandolina de verduras",
+      "price": "$24.302",
+      "pdfPrice": "$24.302",
+      "priceSource": "excel-july-2026",
+      "ean": "719812021911",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 46,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p047-1",
+      "page": 288,
+      "sku": "1271080",
+      "skus": [
+        "1271080"
+      ],
+      "name": "Rebanador de huevos",
+      "category": "Rebanador de huevos",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812037103",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 47,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p048-1",
+      "page": 289,
+      "sku": "1147780",
+      "skus": [
+        "1147780"
+      ],
+      "name": "Separador de yemas",
+      "category": "Separador de yemas",
+      "price": "$4.689",
+      "pdfPrice": "$4.689",
+      "priceSource": "excel-july-2026",
+      "ean": "719812034775",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999998,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 48,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p049-1",
+      "page": 290,
+      "sku": "11339900",
+      "skus": [
+        "11339900"
+      ],
+      "name": "Picador rotativo",
+      "category": "Picador rotativo / chopper",
+      "price": "$31.186",
+      "pdfPrice": "$31.186",
+      "priceSource": "excel-july-2026",
+      "ean": "840097702896",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657592,
+        "y": 0.1715948,
+        "w": 0.268454,
+        "h": 0.0429651
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999929,
+        "y": 0.239395
+      },
+      "section": "OXO",
+      "sourcePage": 49,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p050-1",
+      "page": 291,
+      "sku": "11122600",
+      "skus": [
+        "11122600"
+      ],
+      "name": "Cortador de frutas y vegetales con depósito",
+      "category": "Cortador con recipiente",
+      "price": "$32.753",
+      "pdfPrice": "$32.753",
+      "priceSource": "excel-july-2026",
+      "ean": "719812042275",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1748318,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2429282
+      },
+      "section": "OXO",
+      "sourcePage": 50,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p051-1",
+      "page": 292,
+      "sku": "32780",
+      "skus": [
+        "32780"
+      ],
+      "name": "Rallador dos caras desmontable",
+      "category": "Rallador de dos caras desmontable",
+      "price": "$23.083",
+      "pdfPrice": "$23.083",
+      "priceSource": "excel-july-2026",
+      "ean": "719812327808",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4139949,
+        "y": 0.170871,
+        "w": 0.171981,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 51,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p052-1",
+      "page": 293,
+      "sku": "11316100",
+      "skus": [
+        "11316100"
+      ],
+      "name": "Rallador de queso",
+      "category": "Rallador de queso manual",
+      "price": "$25.059",
+      "pdfPrice": "$25.059",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700519",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 52,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p053-1",
+      "page": 294,
+      "sku": "11223200",
+      "skus": [
+        "11223200"
+      ],
+      "name": "Rallador mini con base y 3 cortes",
+      "category": "Set mini de rallador con 3 cortes",
+      "price": "$35.241",
+      "pdfPrice": "$35.241",
+      "priceSource": "excel-july-2026",
+      "ean": "719812683874",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 53,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p054-1",
+      "page": 295,
+      "sku": "11243900",
+      "skus": [
+        "11243900"
+      ],
+      "name": "Rallador con base y 4 cortes",
+      "category": "Set de rallador con 4 cortes",
+      "price": "$56.793",
+      "pdfPrice": "$56.793",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685953",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 54,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p055-1",
+      "page": 296,
+      "sku": "11151300",
+      "skus": [
+        "11151300"
+      ],
+      "name": "Espiralizador de vegetales",
+      "category": "Spiralizers",
+      "price": "$23.026",
+      "pdfPrice": "$23.026",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045146",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2057286,
+        "y": 0.1871413,
+        "w": 0.1376098,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2745288,
+        "y": 0.2108953
+      },
+      "section": "OXO",
+      "sourcePage": 55,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p055-2",
+      "page": 296,
+      "sku": "11194200",
+      "skus": [
+        "11194200"
+      ],
+      "name": "Espiralizador de vegetales con 3 filos",
+      "category": "Spiralizers",
+      "price": "$36.052",
+      "pdfPrice": "$36.052",
+      "priceSource": "excel-july-2026",
+      "ean": "719812049434",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6577422,
+        "y": 0.1871413,
+        "w": 0.1376098,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7265424,
+        "y": 0.2108953
+      },
+      "section": "OXO",
+      "sourcePage": 55,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p056-1",
+      "page": 297,
+      "sku": "11151400",
+      "skus": [
+        "11151400"
+      ],
+      "name": "Spiralizer con 3 filos",
+      "category": "Espiralizador de vegetales de mesa",
+      "price": "$61.249",
+      "pdfPrice": "$61.249",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045153",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 56,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p057-1",
+      "page": 298,
+      "sku": "11216100",
+      "skus": [
+        "11216100"
+      ],
+      "name": "Rallador grueso",
+      "category": "Rallador grueso",
+      "price": "$19.895",
+      "pdfPrice": "$19.895",
+      "priceSource": "excel-july-2026",
+      "ean": "719812683164",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 57,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p058-1",
+      "page": 299,
+      "sku": "11215400",
+      "skus": [
+        "11215400"
+      ],
+      "name": "Rallador para quesos, cítricos, chocolates y más",
+      "category": "Zesters",
+      "price": "$16.876",
+      "pdfPrice": "$16.876",
+      "priceSource": "excel-july-2026",
+      "ean": "719812683096",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2320452,
+        "y": 0.4073534,
+        "w": 0.1066105,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2853501,
+        "y": 0.4275441
+      },
+      "section": "OXO",
+      "sourcePage": 58,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p058-2",
+      "page": 299,
+      "sku": "11215900",
+      "skus": [
+        "11215900"
+      ],
+      "name": "Rallador medium para zanahorias, quesos duros, chocolates, zucchini",
+      "category": "Zesters",
+      "price": "$19.895",
+      "pdfPrice": "$19.895",
+      "priceSource": "excel-july-2026",
+      "ean": "719812683140",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6968937,
+        "y": 0.4073534,
+        "w": 0.1066105,
+        "h": 0.0196791
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7501987,
+        "y": 0.4275441
+      },
+      "section": "OXO",
+      "sourcePage": 58,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p058-3",
+      "page": 299,
+      "sku": "11273000",
+      "skus": [
+        "11273000"
+      ],
+      "name": "Rallador de ajo y jengibre",
+      "category": "Zesters",
+      "price": "$17.856",
+      "pdfPrice": "$16.876",
+      "priceSource": "excel-july-2026",
+      "ean": "719812688886",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5554324,
+        "y": 0.7267699,
+        "w": 0.1154505,
+        "h": 0.0210427
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6131458,
+        "y": 0.7485879
+      },
+      "section": "OXO",
+      "sourcePage": 58,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p060-1",
+      "page": 301,
+      "sku": "11282900",
+      "skus": [
+        "11282900"
+      ],
+      "name": "Pisa papas de acero inoxidable",
+      "category": "Pisapapas de acero inoxidable",
+      "price": "$20.408",
+      "pdfPrice": "$20.408",
+      "priceSource": "excel-july-2026",
+      "ean": "719812689876",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 60,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p061-1",
+      "page": 302,
+      "sku": "1071478",
+      "skus": [
+        "1071478"
+      ],
+      "name": "Pasatuto",
+      "category": "Pasa todo",
+      "price": "$76.219",
+      "pdfPrice": "$76.219",
+      "priceSource": "excel-july-2026",
+      "ean": "719812018218",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 61,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p062-1",
+      "page": 303,
+      "sku": "11178600",
+      "skus": [
+        "11178600"
+      ],
+      "name": "Cortador de ajos",
+      "category": "Cortador de ajos",
+      "price": "$18.364",
+      "pdfPrice": "$18.364",
+      "priceSource": "excel-july-2026",
+      "ean": "719812047874",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1573196,
+        "y": 0.1600924,
+        "w": 0.1868127,
+        "h": 0.0303688
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2507281,
+        "y": 0.1927545
+      },
+      "section": "OXO",
+      "sourcePage": 62,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p062-2",
+      "page": 303,
+      "sku": "11327300",
+      "skus": [
+        "11327300"
+      ],
+      "name": "Prensa ajos",
+      "category": "Cortador de ajos",
+      "price": "$23.026",
+      "pdfPrice": "$23.026",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701639",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6558409,
+        "y": 0.1600924,
+        "w": 0.1868127,
+        "h": 0.0303688
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7492496,
+        "y": 0.1927545
+      },
+      "section": "OXO",
+      "sourcePage": 62,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p063-1",
+      "page": 304,
+      "sku": "35681",
+      "skus": [
+        "35681"
+      ],
+      "name": "Cuchillo para ostras",
+      "category": "Para mariscos",
+      "price": "$15.304",
+      "pdfPrice": "$14.040",
+      "priceSource": "excel-july-2026",
+      "ean": "719812356815",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2135356,
+        "y": 0.2237075,
+        "w": 0.1103433,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.2536971
+      },
+      "section": "OXO",
+      "sourcePage": 63,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p063-2",
+      "page": 304,
+      "sku": "11350300",
+      "skus": [
+        "11350300"
+      ],
+      "name": "Rompe nueces y mariscos",
+      "category": "Para mariscos",
+      "price": "$16.579",
+      "pdfPrice": "$16.579",
+      "priceSource": "excel-july-2026",
+      "ean": "84009770390",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5873456,
+        "y": 0.403294,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6725333,
+        "y": 0.4332837
+      },
+      "section": "OXO",
+      "sourcePage": 63,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p063-3",
+      "page": 304,
+      "sku": "11350600",
+      "skus": [
+        "11350600"
+      ],
+      "name": "Tijera para frutos de mar",
+      "category": "Para mariscos",
+      "price": "$20.370",
+      "pdfPrice": "$20.370",
+      "priceSource": "excel-july-2026",
+      "ean": "840097703961",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.172584,
+        "y": 0.5742338,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2577718,
+        "y": 0.6042234
+      },
+      "section": "OXO",
+      "sourcePage": 63,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p064-1",
+      "page": 305,
+      "sku": "1047091",
+      "skus": [
+        "1047091"
+      ],
+      "name": "Set x2 embudos",
+      "category": "Set x2 embudos",
+      "price": "$18.364",
+      "pdfPrice": "$18.364",
+      "priceSource": "excel-july-2026",
+      "ean": "719812000312",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 64,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p065-1",
+      "page": 306,
+      "sku": "1238580",
+      "skus": [
+        "1238580"
+      ],
+      "name": "Set x 3 espátulas de goma",
+      "category": "Set de 3 espátulas de silicona",
+      "price": "$24.104",
+      "pdfPrice": "$24.104",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033853",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.385358,
+        "y": 0.1669455,
+        "w": 0.2292817,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.223062
+      },
+      "section": "OXO",
+      "sourcePage": 65,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p066-1",
+      "page": 307,
+      "sku": "11211000",
+      "skus": [
+        "11211000"
+      ],
+      "name": "Set x 12 moldes de silicona",
+      "category": "Set x12 moldes de silicona",
+      "price": "$17.672",
+      "pdfPrice": "$17.672",
+      "priceSource": "excel-july-2026",
+      "ean": "719812682655",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.37379,
+        "y": 0.165102,
+        "w": 0.2523836,
+        "h": 0.040588
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.499992,
+        "y": 0.2208745
+      },
+      "section": "OXO",
+      "sourcePage": 66,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p067-1",
+      "page": 308,
+      "sku": "11161000",
+      "skus": [
+        "11161000"
+      ],
+      "name": "Jarra medidora de silicona",
+      "category": "Vaso medidor de silicona",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046112",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 67,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p068-1",
+      "page": 309,
+      "sku": "11172700",
+      "skus": [
+        "11172700"
+      ],
+      "name": "Set x3 vasos medidores de silicona",
+      "category": "Set x3 vasos medidores de silicona",
+      "price": "$31.528",
+      "pdfPrice": "$31.528",
+      "priceSource": "excel-july-2026",
+      "ean": "719812047287",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 68,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p069-1",
+      "page": 310,
+      "sku": "74291",
+      "skus": [
+        "74291"
+      ],
+      "name": "Batidor de acero 28 cm",
+      "category": "Batidores",
+      "price": "$18.364",
+      "pdfPrice": "$18.364",
+      "priceSource": "excel-july-2026",
+      "ean": "719812742915",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2113149,
+        "y": 0.1660787,
+        "w": 0.0898575,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2562356,
+        "y": 0.1898327
+      },
+      "section": "OXO",
+      "sourcePage": 69,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p069-2",
+      "page": 310,
+      "sku": "11362100",
+      "skus": [
+        "11362100"
+      ],
+      "name": "Batidor de acero 18 cm",
+      "category": "Batidores",
+      "price": "$13.816",
+      "pdfPrice": "$13.816",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705118",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6397095,
+        "y": 0.1660787,
+        "w": 0.1376098,
+        "h": 0.0232424
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7085097,
+        "y": 0.1898327
+      },
+      "section": "OXO",
+      "sourcePage": 69,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p069-3",
+      "page": 310,
+      "sku": "1244780",
+      "skus": [
+        "1244780"
+      ],
+      "name": "Batidor de silicona 28 cm",
+      "category": "Batidores",
+      "price": "$24.443",
+      "pdfPrice": "$24.443",
+      "priceSource": "excel-july-2026",
+      "ean": "719812034478",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.438447,
+        "y": 0.4427924,
+        "w": 0.1216923,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4992743,
+        "y": 0.4665464
+      },
+      "section": "OXO",
+      "sourcePage": 69,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p070-1",
+      "page": 311,
+      "sku": "11211100",
+      "skus": [
+        "11211100"
+      ],
+      "name": "Placa redonda de silicona con medidas para amasar 36 cm",
+      "category": "Bolsa para amasar",
+      "price": "$26.101",
+      "pdfPrice": "$26.101",
+      "priceSource": "excel-july-2026",
+      "ean": "719812682662",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1739954,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 70,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p071-1",
+      "page": 312,
+      "sku": "1257580",
+      "skus": [
+        "1257580"
+      ],
+      "name": "Prensa para cookies",
+      "category": "Prensa para cookies",
+      "price": "$52.075",
+      "pdfPrice": "$52.075",
+      "priceSource": "excel-july-2026",
+      "ean": "71981205758",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 71,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p072-1",
+      "page": 313,
+      "sku": "1263680",
+      "skus": [
+        "1263680"
+      ],
+      "name": "Set x4 vasos medidores",
+      "category": "Vasos medidores",
+      "price": "$18.364",
+      "pdfPrice": "$18.364",
+      "priceSource": "excel-july-2026",
+      "ean": "719812036366",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.215945,
+        "y": 0.1780467,
+        "w": 0.1503527,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2911322,
+        "y": 0.2080363
+      },
+      "section": "OXO",
+      "sourcePage": 72,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p072-2",
+      "page": 313,
+      "sku": "11124400",
+      "skus": [
+        "11124400"
+      ],
+      "name": "Set x7 vasos medidores",
+      "category": "Vasos medidores",
+      "price": "$35.241",
+      "pdfPrice": "$35.241",
+      "priceSource": "excel-july-2026",
+      "ean": "719812042459",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6486477,
+        "y": 0.1780467,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7338158,
+        "y": 0.2080363
+      },
+      "section": "OXO",
+      "sourcePage": 72,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p073-1",
+      "page": 314,
+      "sku": "70981",
+      "skus": [
+        "70981"
+      ],
+      "name": "Jarra medidora 2 tazas (tritán)",
+      "category": "Jarras medidoras",
+      "price": "$14.063",
+      "pdfPrice": "$14.063",
+      "priceSource": "excel-july-2026",
+      "ean": "719812709819",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2026443,
+        "y": 0.4992669,
+        "w": 0.1103433,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2578106,
+        "y": 0.5292565
+      },
+      "section": "OXO",
+      "sourcePage": 73,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p073-2",
+      "page": 314,
+      "sku": "70881",
+      "skus": [
+        "70881"
+      ],
+      "name": "Jarra medidora 1 taza (tritán)",
+      "category": "Jarras medidoras",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "719812708812",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2038255,
+        "y": 0.2836009,
+        "w": 0.1103432,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2589918,
+        "y": 0.3135906
+      },
+      "section": "OXO",
+      "sourcePage": 73,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p074-1",
+      "page": 315,
+      "sku": "11323100",
+      "skus": [
+        "11323100"
+      ],
+      "name": "Set x3 bowls de plástico",
+      "category": "Set x3 bowls de plástico",
+      "price": "$42.978",
+      "pdfPrice": "$42.978",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701219",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1861581,
+        "y": 0.2456707,
+        "w": 0.1621932,
+        "h": 0.0268056
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2672527,
+        "y": 0.2738787
+      },
+      "section": "OXO",
+      "sourcePage": 74,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p074-2",
+      "page": 315,
+      "sku": "1066421",
+      "skus": [
+        "1066421"
+      ],
+      "name": "Set x3 bowls de plástico",
+      "category": "Set x3 bowls de plástico",
+      "price": "$42.978",
+      "pdfPrice": "$42.978",
+      "priceSource": "excel-july-2026",
+      "ean": "719812013633",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6479204,
+        "y": 0.2456707,
+        "w": 0.1432073,
+        "h": 0.0268056
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7195262,
+        "y": 0.2738787
+      },
+      "section": "OXO",
+      "sourcePage": 74,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p075-1",
+      "page": 316,
+      "sku": "11164700",
+      "skus": [
+        "11164700"
+      ],
+      "name": "Set x2 garras para desmenuzar carnes",
+      "category": "Set x2 garras para desmenuzar carnes",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046488",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 75,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p076-1",
+      "page": 317,
+      "sku": "23081",
+      "skus": [
+        "23081"
+      ],
+      "name": "Cuchillo santoku 10 cm",
+      "category": "Cuchillo Santoku 10cm",
+      "price": "$14.063",
+      "pdfPrice": "$14.063",
+      "priceSource": "excel-july-2026",
+      "ean": "719812230818",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.416498,
+        "y": 0.1669455,
+        "w": 0.1669673,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.221166
+      },
+      "section": "OXO",
+      "sourcePage": 76,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p077-1",
+      "page": 318,
+      "sku": "11272600",
+      "skus": [
+        "11272600"
+      ],
+      "name": "Tabla de cortar 27 x 18 cm",
+      "category": "Tablas de cortar",
+      "price": "$20.600",
+      "pdfPrice": "$36.771",
+      "priceSource": "excel-july-2026",
+      "ean": "719812688848",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1436032,
+        "y": 0.2253661,
+        "w": 0.2359907,
+        "h": 0.0374953
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.261601,
+        "y": 0.2669363
+      },
+      "section": "OXO",
+      "sourcePage": 77,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p077-2",
+      "page": 318,
+      "sku": "11272700",
+      "skus": [
+        "11272700"
+      ],
+      "name": "Tabla de cortar 33 x 23 cm",
+      "category": "Tablas de cortar",
+      "price": "$24.738",
+      "pdfPrice": "$36.771",
+      "priceSource": "excel-july-2026",
+      "ean": "719812688855",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1436032,
+        "y": 0.4050131,
+        "w": 0.2359907,
+        "h": 0.0374953
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.261601,
+        "y": 0.4465832
+      },
+      "section": "OXO",
+      "sourcePage": 77,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p077-3",
+      "page": 318,
+      "sku": "11272800",
+      "skus": [
+        "11272800"
+      ],
+      "name": "Tabla de cortar 38 x 27 cm",
+      "category": "Tablas de cortar",
+      "price": "$28.830",
+      "pdfPrice": "$36.771",
+      "priceSource": "excel-july-2026",
+      "ean": "719812688862",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1436032,
+        "y": 0.5841716,
+        "w": 0.2359907,
+        "h": 0.0374952
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.261601,
+        "y": 0.6257417
+      },
+      "section": "OXO",
+      "sourcePage": 77,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p078-1",
+      "page": 319,
+      "sku": "11382200",
+      "skus": [
+        "11382200"
+      ],
+      "name": "Afilador de cuchillos compact",
+      "category": "Afilador de cuchillos compacto",
+      "price": "$27.632",
+      "pdfPrice": "$27.632",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707129",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3968784,
+        "y": 0.1400224,
+        "w": 0.1703903,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4820662,
+        "y": 0.170012
+      },
+      "section": "OXO",
+      "sourcePage": 78,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p079-1",
+      "page": 320,
+      "sku": "28481",
+      "skus": [
+        "28481"
+      ],
+      "name": "Pinza de 23 cm.",
+      "category": "Pinzas de acero inoxidable",
+      "price": "$19.235",
+      "pdfPrice": "$19.235",
+      "priceSource": "excel-july-2026",
+      "ean": "719812284811",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2135356,
+        "y": 0.3375837,
+        "w": 0.1103433,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.3675733
+      },
+      "section": "OXO",
+      "sourcePage": 79,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p079-2",
+      "page": 320,
+      "sku": "28581",
+      "skus": [
+        "28581"
+      ],
+      "name": "Pinza de 30 cm.",
+      "category": "Pinzas de acero inoxidable",
+      "price": "$20.369",
+      "pdfPrice": "$20.369",
+      "priceSource": "excel-july-2026",
+      "ean": "719812285818",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2135356,
+        "y": 0.4912029,
+        "w": 0.1103433,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.5211926
+      },
+      "section": "OXO",
+      "sourcePage": 79,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p080-1",
+      "page": 321,
+      "sku": "1101880",
+      "skus": [
+        "1101880"
+      ],
+      "name": "Pinza de silicona 23 cm.",
+      "category": "Pinzas de acero inoxidable",
+      "price": "$20.369",
+      "pdfPrice": "$20.369",
+      "priceSource": "excel-july-2026",
+      "ean": "719812030180",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1935343,
+        "y": 0.250645,
+        "w": 0.1503527,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.2806346
+      },
+      "section": "OXO",
+      "sourcePage": 80,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p080-2",
+      "page": 321,
+      "sku": "1101980",
+      "skus": [
+        "1101980"
+      ],
+      "name": "Pinza de silicona 30 cm.",
+      "category": "Pinzas de acero inoxidable",
+      "price": "$21.751",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "719812030197",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1935343,
+        "y": 0.4042643,
+        "w": 0.1503527,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.434254
+      },
+      "section": "OXO",
+      "sourcePage": 80,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p080-3",
+      "page": 321,
+      "sku": "11387100",
+      "skus": [
+        "11387100"
+      ],
+      "name": "Set x2 pinzas de silicona 23 y 30cm",
+      "category": "Pinzas de acero inoxidable",
+      "price": "$39.851",
+      "pdfPrice": "$21.751",
+      "priceSource": "excel-july-2026",
+      "ean": "840097707617",
+      "unitsPerCase": 3,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1835337,
+        "y": 0.5578836,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2687018,
+        "y": 0.5878732
+      },
+      "section": "OXO",
+      "sourcePage": 80,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p081-1",
+      "page": 322,
+      "sku": "11320200",
+      "skus": [
+        "11320200"
+      ],
+      "name": "Set de parrilla x dos piezas: espátula y pinza",
+      "category": "Sets de parrilla",
+      "price": "$35.241",
+      "pdfPrice": "$35.241",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700922",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.225817,
+        "y": 0.5281685,
+        "w": 0.1296618,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.290641,
+        "y": 0.5519225
+      },
+      "section": "OXO",
+      "sourcePage": 81,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p081-2",
+      "page": 322,
+      "sku": "11324100",
+      "skus": [
+        "11324100"
+      ],
+      "name": "Set parrillero 3 pzs: espátula, pinza y base para apoyar los utensilios",
+      "category": "Sets de parrilla",
+      "price": "$42.261",
+      "pdfPrice": "$42.261",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701318",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6464085,
+        "y": 0.5281685,
+        "w": 0.1296617,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7112324,
+        "y": 0.5519225
+      },
+      "section": "OXO",
+      "sourcePage": 81,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p082-1",
+      "page": 323,
+      "sku": "11308000",
+      "skus": [
+        "11308000"
+      ],
+      "name": "Set x6 pinches de brochette de acero inox. 34 cm",
+      "category": "Set x6 pinches de brochette de acero",
+      "price": "$23.083",
+      "pdfPrice": "$23.083",
+      "priceSource": "excel-july-2026",
+      "ean": "719812002248",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 82,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p083-1",
+      "page": 324,
+      "sku": "11329200",
+      "skus": [
+        "11329200"
+      ],
+      "name": "Pala para carbón",
+      "category": "Pala para carbón",
+      "price": "$35.241",
+      "pdfPrice": "$35.241",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701820",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697627,
+        "y": 0.1669455,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999817,
+        "y": 0.2230746
+      },
+      "section": "OXO",
+      "sourcePage": 83,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p084-1",
+      "page": 325,
+      "sku": "11309300",
+      "skus": [
+        "11309300"
+      ],
+      "name": "Pincel para asados",
+      "category": "Pincel de silicona",
+      "price": "$23.640",
+      "pdfPrice": "$23.640",
+      "priceSource": "excel-july-2026",
+      "ean": "719812002378",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3697628,
+        "y": 0.1551291,
+        "w": 0.2604389,
+        "h": 0.04178
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999801,
+        "y": 0.2093496
+      },
+      "section": "OXO",
+      "sourcePage": 84,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p085-1",
+      "page": 326,
+      "sku": "11197700",
+      "skus": [
+        "11197700"
+      ],
+      "name": "Jeringa gastronomica",
+      "category": "Jeringa gastronómica",
+      "price": "$23.026",
+      "pdfPrice": "$23.026",
+      "priceSource": "excel-july-2026",
+      "ean": "719812049786",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 85,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p086-1",
+      "page": 327,
+      "sku": "1312480",
+      "skus": [
+        "1312480"
+      ],
+      "name": "Cepillo para limpiar parrilla",
+      "category": "Limpieza de parrilla",
+      "price": "$16.005",
+      "pdfPrice": "$16.005",
+      "priceSource": "excel-july-2026",
+      "ean": "719812031248",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2039681,
+        "y": 0.1762841,
+        "w": 0.1145681,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2612337,
+        "y": 0.1991472
+      },
+      "section": "OXO",
+      "sourcePage": 86,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p086-2",
+      "page": 327,
+      "sku": "11343200",
+      "skus": [
+        "11343200"
+      ],
+      "name": "Set x2 repuestos de cepillo para parrilla",
+      "category": "Limpieza de parrilla",
+      "price": "$24.443",
+      "pdfPrice": "$24.443",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701844",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6666138,
+        "y": 0.5570835,
+        "w": 0.1376098,
+        "h": 0.0232423
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.735414,
+        "y": 0.5808374
+      },
+      "section": "OXO",
+      "sourcePage": 86,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p086-3",
+      "page": 327,
+      "sku": "11329400",
+      "skus": [
+        "11329400"
+      ],
+      "name": "Cepillo para limpiar parrillas",
+      "category": "Limpieza de parrilla",
+      "price": "$33.710",
+      "pdfPrice": "$33.710",
+      "priceSource": "excel-july-2026",
+      "ean": "840097703220",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6706744,
+        "y": 0.1762841,
+        "w": 0.1294702,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7354011,
+        "y": 0.1991472
+      },
+      "section": "OXO",
+      "sourcePage": 86,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p087-1",
+      "page": 328,
+      "sku": "11210100",
+      "skus": [
+        "11210100"
+      ],
+      "name": "Posa fuentes",
+      "category": "Set desgrasadores de alimentos",
+      "price": "$25.063",
+      "pdfPrice": "$25.063",
+      "priceSource": "excel-july-2026",
+      "ean": "719812682563",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3706058,
+        "y": 0.1649776,
+        "w": 0.2524378,
+        "h": 0.0405953
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4968149,
+        "y": 0.2215404
+      },
+      "section": "OXO",
+      "sourcePage": 87,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p088-1",
+      "page": 329,
+      "sku": "1188500",
+      "skus": [
+        "1188500"
+      ],
+      "name": "Mezclador de aderezos verde",
+      "category": "355ml",
+      "price": "$26.101",
+      "pdfPrice": "$26.101",
+      "priceSource": "excel-july-2026",
+      "ean": "719812028859",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5779187,
+        "y": 0.1071073,
+        "w": 0.1862725,
+        "h": 0.033932
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6710618,
+        "y": 0.1789649
+      },
+      "section": "OXO",
+      "sourcePage": 88,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p088-2",
+      "page": 329,
+      "sku": "11159500",
+      "skus": [
+        "11159500"
+      ],
+      "name": "Mezclador de aderezos",
+      "category": "355ml",
+      "price": "$35.241",
+      "pdfPrice": "$35.241",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045962",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3942959,
+        "y": 0.6032235,
+        "w": 0.2114011,
+        "h": 0.0339321
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999989,
+        "y": 0.6403396
+      },
+      "section": "OXO",
+      "sourcePage": 88,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p088-3",
+      "page": 329,
+      "sku": "1268980",
+      "skus": [
+        "1268980"
+      ],
+      "name": "Mezclador de aderezos negro",
+      "category": "355ml",
+      "price": "$18.364",
+      "pdfPrice": "$18.364",
+      "priceSource": "excel-july-2026",
+      "ean": "719812036892",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2387504,
+        "y": 0.1071073,
+        "w": 0.1862725,
+        "h": 0.033932
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3318935,
+        "y": 0.1789649
+      },
+      "section": "OXO",
+      "sourcePage": 88,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p089-1",
+      "page": 330,
+      "sku": "11318200",
+      "skus": [
+        "11318200"
+      ],
+      "name": "Guante para horno rojo",
+      "category": "Manoplas",
+      "price": "$24.941",
+      "pdfPrice": "$24.941",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700724",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3858227,
+        "y": 0.1402802,
+        "w": 0.2283431,
+        "h": 0.037032
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999811,
+        "y": 0.2381802
+      },
+      "section": "OXO",
+      "sourcePage": 89,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p089-2",
+      "page": 330,
+      "sku": "11219800",
+      "skus": [
+        "11219800"
+      ],
+      "name": "Guante para horno negro",
+      "category": "Manoplas",
+      "price": "$24.941",
+      "pdfPrice": "$24.941",
+      "priceSource": "excel-july-2026",
+      "ean": "719812683539",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1020593,
+        "y": 0.1402802,
+        "w": 0.2283431,
+        "h": 0.037032
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999811,
+        "y": 0.2381802
+      },
+      "section": "OXO",
+      "sourcePage": 89,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p089-3",
+      "page": 330,
+      "sku": "11318400",
+      "skus": [
+        "11318400"
+      ],
+      "name": "Guante para horno avena",
+      "category": "Manoplas",
+      "price": "$24.941",
+      "pdfPrice": "$24.941",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700748",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6754501,
+        "y": 0.1402802,
+        "w": 0.2283431,
+        "h": 0.037032
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999811,
+        "y": 0.2381802
+      },
+      "section": "OXO",
+      "sourcePage": 89,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p090-1",
+      "page": 331,
+      "sku": "11220500",
+      "skus": [
+        "11220500"
+      ],
+      "name": "Agarradera negra",
+      "category": "Agarradera negra",
+      "price": "$16.579",
+      "pdfPrice": "$16.579",
+      "priceSource": "excel-july-2026",
+      "ean": "71981268607",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3478615,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4820736,
+        "y": 0.2186768
+      },
+      "section": "OXO",
+      "sourcePage": 90,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p091-1",
+      "page": 332,
+      "sku": "11245400",
+      "skus": [
+        "11245400"
+      ],
+      "name": "Sacacorchos con alas",
+      "category": "Sacacorchos",
+      "price": "$26.101",
+      "pdfPrice": "$26.101",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686103",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6010384,
+        "y": 0.1371381,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7232852,
+        "y": 0.2170129
+      },
+      "section": "OXO",
+      "sourcePage": 91,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p091-2",
+      "page": 332,
+      "sku": "3113400",
+      "skus": [
+        "3113400"
+      ],
+      "name": "Sacacorchos aleta",
+      "category": "Sacacorchos",
+      "price": "$36.856",
+      "pdfPrice": "$36.856",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051345",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1678026,
+        "y": 0.1371381,
+        "w": 0.2153521,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2754816,
+        "y": 0.2170129
+      },
+      "section": "OXO",
+      "sourcePage": 91,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p092-1",
+      "page": 333,
+      "sku": "3110200",
+      "skus": [
+        "3110200"
+      ],
+      "name": "Sacacorchos de mesero doble",
+      "category": "Sacacorchos",
+      "price": "$27.482",
+      "pdfPrice": "$26.101",
+      "priceSource": "excel-july-2026",
+      "ean": "719812051024",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6156062,
+        "y": 0.1371381,
+        "w": 0.2153521,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7232852,
+        "y": 0.2170129
+      },
+      "section": "OXO",
+      "sourcePage": 92,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p092-2",
+      "page": 333,
+      "sku": "11147600",
+      "skus": [
+        "11147600"
+      ],
+      "name": "Sacacorchos de palanca",
+      "category": "Sacacorchos",
+      "price": "$69.079",
+      "pdfPrice": "$69.076",
+      "priceSource": "excel-july-2026",
+      "ean": "719812043647",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1532151,
+        "y": 0.137168,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2753517,
+        "y": 0.2167732
+      },
+      "section": "OXO",
+      "sourcePage": 92,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p093-1",
+      "page": 334,
+      "sku": "11327200",
+      "skus": [
+        "11327200"
+      ],
+      "name": "Cocktelera",
+      "category": "Coctelera 590ml",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701622",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657571,
+        "y": 0.1715948,
+        "w": 0.2684539,
+        "h": 0.0429651
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999898,
+        "y": 0.239395
+      },
+      "section": "OXO",
+      "sourcePage": 93,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p094-1",
+      "page": 335,
+      "sku": "11136400",
+      "skus": [
+        "11136400"
+      ],
+      "name": "Tapon y antigoteo de vino",
+      "category": "Tapón antigoteo de vino",
+      "price": "$15.304",
+      "pdfPrice": "$14.040",
+      "priceSource": "excel-july-2026",
+      "ean": "719812043654",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657705,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999922,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 94,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p095-1",
+      "page": 336,
+      "sku": "11169200",
+      "skus": [
+        "11169200"
+      ],
+      "name": "Hielera de acero inoxidable",
+      "category": "Hielera de acero inoxidable",
+      "price": "$49.799",
+      "pdfPrice": "$49.755",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046938",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 95,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p096-1",
+      "page": 337,
+      "sku": "11284400",
+      "skus": [
+        "11284400"
+      ],
+      "name": "Cubetera con tapa",
+      "category": "Cubetera con tapa",
+      "price": "$8.856",
+      "pdfPrice": "$8.856",
+      "priceSource": "excel-july-2026",
+      "ean": "719812000886",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999998,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 96,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p097-1",
+      "page": 338,
+      "sku": "1132080",
+      "skus": [
+        "1132080"
+      ],
+      "name": "Cubetera involcable",
+      "category": "Cubetera con tapa involcable",
+      "price": "$14.063",
+      "pdfPrice": "$14.063",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033204",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 97,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p098-1",
+      "page": 339,
+      "sku": "11242400",
+      "skus": [
+        "11242400"
+      ],
+      "name": "Tapa de silicona 20cm",
+      "category": "Tapa de silicona",
+      "price": "$14.156",
+      "pdfPrice": "$14.156",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685809",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3868547,
+        "y": 0.1353267,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.5091212,
+        "y": 0.2250004
+      },
+      "section": "OXO",
+      "sourcePage": 98,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p098-2",
+      "page": 339,
+      "sku": "11242500",
+      "skus": [
+        "11242500"
+      ],
+      "name": "Tapa de silicona 28cm",
+      "category": "Tapa de silicona",
+      "price": "$24.822",
+      "pdfPrice": "$24.822",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685816",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6595324,
+        "y": 0.1353267,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7817988,
+        "y": 0.2250004
+      },
+      "section": "OXO",
+      "sourcePage": 98,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p098-3",
+      "page": 339,
+      "sku": "11242300",
+      "skus": [
+        "11242300"
+      ],
+      "name": "Tapa de silicona 15cm",
+      "category": "Tapa de silicona",
+      "price": "$11.319",
+      "pdfPrice": "$11.319",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685793",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1141771,
+        "y": 0.1353267,
+        "w": 0.2445194,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2364436,
+        "y": 0.2250004
+      },
+      "section": "OXO",
+      "sourcePage": 98,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p099-1",
+      "page": 340,
+      "sku": "32480",
+      "skus": [
+        "32480"
+      ],
+      "name": "Centrifugador de verduras 5.90 litros",
+      "category": "Centrifugador de verduras 5.9L",
+      "price": "$48.149",
+      "pdfPrice": "$48.150",
+      "priceSource": "excel-july-2026",
+      "ean": "719812324807",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4139949,
+        "y": 0.1713129,
+        "w": 0.171981,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 99,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p100-1",
+      "page": 341,
+      "sku": "11133300",
+      "skus": [
+        "11133300"
+      ],
+      "name": "Termometro para carnes",
+      "category": "Termómetro de precisión para carnes",
+      "price": "$16.579",
+      "pdfPrice": "$16.579",
+      "priceSource": "excel-july-2026",
+      "ean": "719812043340",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 100,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p101-1",
+      "page": 342,
+      "sku": "11181400",
+      "skus": [
+        "11181400"
+      ],
+      "name": "Termometro digital",
+      "category": "Termómetro digital",
+      "price": "$29.367",
+      "pdfPrice": "$29.367",
+      "priceSource": "excel-july-2026",
+      "ean": "719812048154",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 101,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p102-1",
+      "page": 343,
+      "sku": "11166900",
+      "skus": [
+        "11166900"
+      ],
+      "name": "Colador 25cm",
+      "category": "Colador",
+      "price": "$19.236",
+      "pdfPrice": "$19.236",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046709",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 102,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p103-1",
+      "page": 344,
+      "sku": "11330800",
+      "skus": [
+        "11330800"
+      ],
+      "name": "Colador de acero inoxidable",
+      "category": "Colador 2.8L de acero inoxidable",
+      "price": "$41.199",
+      "pdfPrice": "$21.159",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701981",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 103,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p104-1",
+      "page": 345,
+      "sku": "13322100",
+      "skus": [
+        "13322100"
+      ],
+      "name": "Organizador de cajones p/utensilios 41.5x45.9cm",
+      "category": "Organizador de cajón extensible",
+      "price": "$28.762",
+      "pdfPrice": "$28.762",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701110",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 104,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p105-1",
+      "page": 346,
+      "sku": "13245100",
+      "skus": [
+        "13245100"
+      ],
+      "name": "Servilletero ajustable de acero antihuellas",
+      "category": "Portarollos",
+      "price": "$23.251",
+      "pdfPrice": "$23.251",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686073",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4187509,
+        "y": 0.5723797,
+        "w": 0.1624771,
+        "h": 0.0268412
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999924,
+        "y": 0.6005877
+      },
+      "section": "OXO",
+      "sourcePage": 105,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p105-2",
+      "page": 346,
+      "sku": "13245000",
+      "skus": [
+        "13245000"
+      ],
+      "name": "Portarrollos de acero inoxidable",
+      "category": "Portarollos",
+      "price": "$33.710",
+      "pdfPrice": "$33.710",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686066",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4188904,
+        "y": 0.1125185,
+        "w": 0.1621932,
+        "h": 0.0268056
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999975,
+        "y": 0.1407266
+      },
+      "section": "OXO",
+      "sourcePage": 105,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p106-1",
+      "page": 347,
+      "sku": "13295800",
+      "skus": [
+        "13295800"
+      ],
+      "name": "Cesto para compost de 2.8 litros de capacidad",
+      "category": "Cesto para compost de 2,83 L",
+      "price": "$31.506",
+      "pdfPrice": "$31.506",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001029",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2068167,
+        "y": 0.1624048,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2303017
+      },
+      "section": "OXO",
+      "sourcePage": 106,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p106-2",
+      "page": 347,
+      "sku": "13295900",
+      "skus": [
+        "13295900"
+      ],
+      "name": "Cesto para compost de 2.83lts gris oscuro",
+      "category": "Cesto para compost de 2,83 L",
+      "price": "$31.506",
+      "pdfPrice": "$31.506",
+      "priceSource": "excel-july-2026",
+      "ean": "719812001036",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5247215,
+        "y": 0.1624048,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2303017
+      },
+      "section": "OXO",
+      "sourcePage": 106,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p107-1",
+      "page": 348,
+      "sku": "1140700",
+      "skus": [
+        "1140700"
+      ],
+      "name": "Molinillo de pimienta",
+      "category": "Molinillo de pimienta",
+      "price": "$42.978",
+      "pdfPrice": "",
+      "priceSource": "excel-july-2026",
+      "ean": "719812024073",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818411,
+        "y": 0.1709532,
+        "w": 0.2362992,
+        "h": 0.0429651
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999907,
+        "y": 0.2174802
+      },
+      "section": "OXO",
+      "sourcePage": 107,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p108-1",
+      "page": 349,
+      "sku": "11187100",
+      "skus": [
+        "11187100"
+      ],
+      "name": "Molinillo de pimienta / salero doble",
+      "category": "Pimentero y salero doble",
+      "price": "$35.712",
+      "pdfPrice": "$26.101",
+      "priceSource": "excel-july-2026",
+      "ean": "719812048727",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657592,
+        "y": 0.1709532,
+        "w": 0.268454,
+        "h": 0.0429651
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999929,
+        "y": 0.239395
+      },
+      "section": "OXO",
+      "sourcePage": 108,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p109-1",
+      "page": 350,
+      "sku": "11247200",
+      "skus": [
+        "11247200"
+      ],
+      "name": "Especiero",
+      "category": "Recipientes para condimentos",
+      "price": "$15.742",
+      "pdfPrice": "$15.742",
+      "priceSource": "excel-july-2026",
+      "ean": "719812044736",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.187815,
+        "y": 0.1627189,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.317935,
+        "y": 0.2449098
+      },
+      "section": "OXO",
+      "sourcePage": 109,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p109-2",
+      "page": 350,
+      "sku": "1272380",
+      "skus": [
+        "1272380"
+      ],
+      "name": "Azucarera",
+      "category": "Recipientes para condimentos",
+      "price": "$15.742",
+      "pdfPrice": "$15.742",
+      "priceSource": "excel-july-2026",
+      "ean": "719812037233",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5684195,
+        "y": 0.1627189,
+        "w": 0.2292817,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6829479,
+        "y": 0.2449098
+      },
+      "section": "OXO",
+      "sourcePage": 109,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p110-1",
+      "page": 351,
+      "sku": "13328400",
+      "skus": [
+        "13328400"
+      ],
+      "name": "Set x 4 clips",
+      "category": "Clips",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701745",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1338959,
+        "y": 0.3003259,
+        "w": 0.1703574,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.219064,
+        "y": 0.3303155
+      },
+      "section": "OXO",
+      "sourcePage": 110,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p111-1",
+      "page": 352,
+      "sku": "13328400",
+      "skus": [
+        "13328400"
+      ],
+      "name": "Set x 4 clips",
+      "category": "Clips magnéticos - set x4",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701745",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 111,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p112-1",
+      "page": 353,
+      "sku": "13192100",
+      "skus": [
+        "13192100"
+      ],
+      "name": "Organizador de bacha de acero inoxidable",
+      "category": "Organizadores de bacha",
+      "price": "$29.367",
+      "pdfPrice": "$29.367",
+      "priceSource": "excel-july-2026",
+      "ean": "719812049229",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1660523,
+        "y": 0.1780905,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2512204,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 112,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p112-2",
+      "page": 353,
+      "sku": "12426900",
+      "skus": [
+        "12426900"
+      ],
+      "name": "Organizador de bacha de acero inoxidable negro",
+      "category": "Organizadores de bacha",
+      "price": "$37.061",
+      "pdfPrice": "$29.367",
+      "priceSource": "excel-july-2026",
+      "ean": "840097711591",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5993608,
+        "y": 0.1780905,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.684529,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 112,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p113-1",
+      "page": 354,
+      "sku": "1473480",
+      "skus": [
+        "1473480"
+      ],
+      "name": "Secaplatos plegable",
+      "category": "Secaplatos",
+      "price": "$69.079",
+      "pdfPrice": "$69.079",
+      "priceSource": "excel-july-2026",
+      "ean": "719812037349",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1760529,
+        "y": 0.1780905,
+        "w": 0.1503527,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2512204,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 113,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p113-2",
+      "page": 354,
+      "sku": "13229100",
+      "skus": [
+        "13229100"
+      ],
+      "name": "Secaplatos de aluminio",
+      "category": "Secaplatos",
+      "price": "$84.425",
+      "pdfPrice": "$84.425",
+      "priceSource": "excel-july-2026",
+      "ean": "719812684475",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6563707,
+        "y": 0.1780905,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7415585,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 113,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p114-1",
+      "page": 355,
+      "sku": "13322800",
+      "skus": [
+        "13322800"
+      ],
+      "name": "Escurridor de platos",
+      "category": "Secaplatos de aluminio",
+      "price": "$64.142",
+      "pdfPrice": "$64.142",
+      "priceSource": "excel-july-2026",
+      "ean": "840097701189",
+      "unitsPerCase": 4,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 114,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p115-1",
+      "page": 356,
+      "sku": "13314400",
+      "skus": [
+        "13314400"
+      ],
+      "name": "Escurridor de botellas",
+      "category": "Escurridor de botellas",
+      "price": "$28.091",
+      "pdfPrice": "$28.091",
+      "priceSource": "excel-july-2026",
+      "ean": "840097700342",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 115,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p116-1",
+      "page": 357,
+      "sku": "13259500",
+      "skus": [
+        "13259500"
+      ],
+      "name": "Filtro y tapón para bacha de silicona",
+      "category": "Filtro y tapón de silicona para bacha",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812687537",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.170871,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 116,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p117-1",
+      "page": 358,
+      "sku": "1395500",
+      "skus": [
+        "1395500"
+      ],
+      "name": "Filtro para bañera",
+      "category": "Protector de desagüe para bañera",
+      "price": "$10.159",
+      "pdfPrice": "$10.159",
+      "priceSource": "excel-july-2026",
+      "ean": "719812039565",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818472,
+        "y": 0.1713129,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 117,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p118-1",
+      "page": 359,
+      "sku": "13144000",
+      "skus": [
+        "13144000"
+      ],
+      "name": "Dispenser de jabón de acero inoxidable",
+      "category": "Dispensers de jabón",
+      "price": "$30.024",
+      "pdfPrice": "$30.024",
+      "priceSource": "excel-july-2026",
+      "ean": "719812044415",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1257307,
+        "y": 0.1996313,
+        "w": 0.2363444,
+        "h": 0.0382168
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2437876,
+        "y": 0.2408451
+      },
+      "section": "OXO",
+      "sourcePage": 118,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p118-2",
+      "page": 359,
+      "sku": "13273700",
+      "skus": [
+        "13273700"
+      ],
+      "name": "Dispenser de jabón de acero inoxidable",
+      "category": "Dispensers de jabón",
+      "price": "$30.024",
+      "pdfPrice": "$30.024",
+      "priceSource": "excel-july-2026",
+      "ean": "719812688954",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3806562,
+        "y": 0.1996313,
+        "w": 0.2363444,
+        "h": 0.0382168
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4987131,
+        "y": 0.2408451
+      },
+      "section": "OXO",
+      "sourcePage": 118,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p118-3",
+      "page": 359,
+      "sku": "12427000",
+      "skus": [
+        "12427000"
+      ],
+      "name": "Dispenser de jabón negro de acero inoxidable",
+      "category": "Dispensers de jabón",
+      "price": "$38.456",
+      "pdfPrice": "$30.024",
+      "priceSource": "excel-july-2026",
+      "ean": "840097711607",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6380407,
+        "y": 0.1996313,
+        "w": 0.2363444,
+        "h": 0.0382168
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7560976,
+        "y": 0.2408451
+      },
+      "section": "OXO",
+      "sourcePage": 118,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p119-1",
+      "page": 360,
+      "sku": "12361300",
+      "skus": [
+        "12361300"
+      ],
+      "name": "Cepillo p/limpiar platos con dispenser",
+      "category": "Esponjas con dispensers",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705033",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1660523,
+        "y": 0.1780905,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2512204,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 119,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p119-2",
+      "page": 360,
+      "sku": "12361600",
+      "skus": [
+        "12361600"
+      ],
+      "name": "Cepillo p/limpiar platos con dispenser",
+      "category": "Esponjas con dispensers",
+      "price": "$14.063",
+      "pdfPrice": "$14.063",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705064",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6563707,
+        "y": 0.1780905,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7415585,
+        "y": 0.2080802
+      },
+      "section": "OXO",
+      "sourcePage": 119,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p119-3",
+      "page": 360,
+      "sku": "12361400",
+      "skus": [
+        "12361400"
+      ],
+      "name": "Set x2 esponjas de repuesto para 12361300",
+      "category": "Esponjas con dispensers",
+      "price": "$8.856",
+      "pdfPrice": "$8.856",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705040",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1368544,
+        "y": 0.6809157,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2220324,
+        "y": 0.7109053
+      },
+      "section": "OXO",
+      "sourcePage": 119,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p119-4",
+      "page": 360,
+      "sku": "12361500",
+      "skus": [
+        "12361500"
+      ],
+      "name": "Set x2 esponjas de repuesto para 12361600",
+      "category": "Esponjas con dispensers",
+      "price": "$8.856",
+      "pdfPrice": "$8.856",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705057",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6816762,
+        "y": 0.6809157,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7668542,
+        "y": 0.7109053
+      },
+      "section": "OXO",
+      "sourcePage": 119,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p120-1",
+      "page": 361,
+      "sku": "12361200",
+      "skus": [
+        "12361200"
+      ],
+      "name": "Set de 2 refill para cepillo 12361700 (ex 1062326)",
+      "category": "Cepillo con dispenser",
+      "price": "$8.856",
+      "pdfPrice": "$8.856",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705026",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6877877,
+        "y": 0.4529745,
+        "w": 0.1703575,
+        "h": 0.0279903
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7729657,
+        "y": 0.4829641
+      },
+      "section": "OXO",
+      "sourcePage": 120,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p120-2",
+      "page": 361,
+      "sku": "12361700",
+      "skus": [
+        "12361700"
+      ],
+      "name": "Cepillo p/limpiar platos con dispenser",
+      "category": "Cepillo con dispenser",
+      "price": "$15.304",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "840097705071",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3657833,
+        "y": 0.1713129,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 120,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p121-1",
+      "page": 362,
+      "sku": "1256500",
+      "skus": [
+        "1256500"
+      ],
+      "name": "Repuesto para cepillo 36481",
+      "category": "Cepillo de palma",
+      "price": "$8.856",
+      "pdfPrice": "$8.856",
+      "priceSource": "excel-july-2026",
+      "ean": "719812025650",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4319596,
+        "y": 0.636899,
+        "w": 0.136062,
+        "h": 0.0256208
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999847,
+        "y": 0.6642163
+      },
+      "section": "OXO",
+      "sourcePage": 121,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p121-2",
+      "page": 362,
+      "sku": "36481",
+      "skus": [
+        "36481"
+      ],
+      "name": "Cepillo p/limpiar platos con dispenser",
+      "category": "Cepillo de palma",
+      "price": "$11.513",
+      "pdfPrice": "$11.513",
+      "priceSource": "excel-july-2026",
+      "ean": "719812364810",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4139949,
+        "y": 0.1713129,
+        "w": 0.171981,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.2394094
+      },
+      "section": "OXO",
+      "sourcePage": 121,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p122-1",
+      "page": 363,
+      "sku": "1334280",
+      "skus": [
+        "1334280"
+      ],
+      "name": "Set compacto de cepillo de mesa con recogedor de migas",
+      "category": "Set compacto de cepillo de mesa con",
+      "price": "$12.788",
+      "pdfPrice": "$12.788",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033426",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818649,
+        "y": 0.1670447,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.235483
+      },
+      "section": "OXO",
+      "sourcePage": 122,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p123-1",
+      "page": 364,
+      "sku": "1334480",
+      "skus": [
+        "1334480"
+      ],
+      "name": "Pala y cepillo de mesa",
+      "category": "Pala y cepillo de mesa",
+      "price": "$15.304",
+      "pdfPrice": "$14.040",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033440",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818649,
+        "y": 0.1233951,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.1798839
+      },
+      "section": "OXO",
+      "sourcePage": 123,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p124-1",
+      "page": 365,
+      "sku": "1335180",
+      "skus": [
+        "1335180"
+      ],
+      "name": "Plumero de microfibras",
+      "category": "Plumeros de microfibra",
+      "price": "$15.304",
+      "pdfPrice": "$14.040",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033518",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1992529,
+        "y": 0.1681214,
+        "w": 0.2151903,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.306745,
+        "y": 0.2431859
+      },
+      "section": "OXO",
+      "sourcePage": 124,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p124-2",
+      "page": 365,
+      "sku": "1334580",
+      "skus": [
+        "1334580"
+      ],
+      "name": "Cepillo extensible de microfibras (hasta 1,40mts) con rotación de 270°",
+      "category": "Plumeros de microfibra",
+      "price": "$23.026",
+      "pdfPrice": "$21.125",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033457",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.5785,
+        "y": 0.1681214,
+        "w": 0.2151903,
+        "h": 0.0394016
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.6859921,
+        "y": 0.2431859
+      },
+      "section": "OXO",
+      "sourcePage": 124,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p124-3",
+      "page": 365,
+      "sku": "1334680",
+      "skus": [
+        "1334680"
+      ],
+      "name": "Repuesto plumero",
+      "category": "Plumeros de microfibra",
+      "price": "$10.132",
+      "pdfPrice": "$9.295",
+      "priceSource": "excel-july-2026",
+      "ean": "719812033464",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4427027,
+        "y": 0.6354341,
+        "w": 0.1145681,
+        "h": 0.0220576
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999904,
+        "y": 0.6582973
+      },
+      "section": "OXO",
+      "sourcePage": 124,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p126-1",
+      "page": 367,
+      "sku": "12246100",
+      "skus": [
+        "12246100"
+      ],
+      "name": "Limpia notebooks",
+      "category": "Limpia notebooks",
+      "price": "$15.304",
+      "pdfPrice": "$14.040",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686172",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3658009,
+        "y": 0.1676182,
+        "w": 0.2684388,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.235483
+      },
+      "section": "OXO",
+      "sourcePage": 126,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p127-1",
+      "page": 368,
+      "sku": "12168900",
+      "skus": [
+        "12168900"
+      ],
+      "name": "Cepillo quita pelusas de bolsillo",
+      "category": "Cepillo quita pelusas",
+      "price": "$9.941",
+      "pdfPrice": "$9.120",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046907",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1999052,
+        "y": 0.4206269,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3301383,
+        "y": 0.5103006
+      },
+      "section": "OXO",
+      "sourcePage": 127,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p127-2",
+      "page": 368,
+      "sku": "12168800",
+      "skus": [
+        "12168800"
+      ],
+      "name": "Cepillo quita pelusas",
+      "category": "Cepillo quita pelusas",
+      "price": "$23.026",
+      "pdfPrice": "$21.125",
+      "priceSource": "excel-july-2026",
+      "ean": "719812046891",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1955716,
+        "y": 0.1779333,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.3257811,
+        "y": 0.2676071
+      },
+      "section": "OXO",
+      "sourcePage": 127,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p127-3",
+      "page": 368,
+      "sku": "12331200",
+      "skus": [
+        "12331200"
+      ],
+      "name": "Quita pelusas reutilizable",
+      "category": "Cepillo quita pelusas",
+      "price": "$17.856",
+      "pdfPrice": "$9.120",
+      "priceSource": "excel-july-2026",
+      "ean": "840097702025",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2070939,
+        "y": 0.6275297,
+        "w": 0.2604389,
+        "h": 0.0417801
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.337327,
+        "y": 0.7172034
+      },
+      "section": "OXO",
+      "sourcePage": 127,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p128-1",
+      "page": 369,
+      "sku": "1285700",
+      "skus": [
+        "1285700"
+      ],
+      "name": "Set x 2 cepillos de limpieza para hornallas, mamparas",
+      "category": "Set x2 cepillos de limpieza",
+      "price": "$11.513",
+      "pdfPrice": "$11.513",
+      "priceSource": "excel-july-2026",
+      "ean": "719812028576",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818649,
+        "y": 0.1676182,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.235483
+      },
+      "section": "OXO",
+      "sourcePage": 128,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p129-1",
+      "page": 370,
+      "sku": "12237300",
+      "skus": [
+        "12237300"
+      ],
+      "name": "Limpiador de platos de silicona antideslizante",
+      "category": "Limpieza",
+      "price": "$13.718",
+      "pdfPrice": "$11.513",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685298",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1711011,
+        "y": 0.1964592,
+        "w": 0.1881542,
+        "h": 0.0310904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.2651604,
+        "y": 0.230012
+      },
+      "section": "OXO",
+      "sourcePage": 129,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p129-2",
+      "page": 370,
+      "sku": "12155000",
+      "skus": [
+        "12155000"
+      ],
+      "name": "Set de limpieza de cocina",
+      "category": "Limpieza",
+      "price": "$17.856",
+      "pdfPrice": "$15.304",
+      "priceSource": "excel-july-2026",
+      "ean": "719812045511",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.6393434,
+        "y": 0.1961483,
+        "w": 0.1883423,
+        "h": 0.0311171
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.7335136,
+        "y": 0.2297012
+      },
+      "section": "OXO",
+      "sourcePage": 129,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p130-1",
+      "page": 371,
+      "sku": "1062122",
+      "skus": [
+        "1062122"
+      ],
+      "name": "Limpia vidrios con sopapa",
+      "category": "Limpiavidrios",
+      "price": "$13.718",
+      "pdfPrice": "$23.026",
+      "priceSource": "excel-july-2026",
+      "ean": "719812010847",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.3818649,
+        "y": 0.1676182,
+        "w": 0.2362862,
+        "h": 0.0429648
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999835,
+        "y": 0.235483
+      },
+      "section": "OXO",
+      "sourcePage": 130,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p131-1",
+      "page": 372,
+      "sku": "13248000",
+      "skus": [
+        "13248000"
+      ],
+      "name": "Organizador de ducha con gancho colgante",
+      "category": "Organizadores de ducha",
+      "price": "$58.750",
+      "pdfPrice": "$58.750",
+      "priceSource": "excel-july-2026",
+      "ean": "719812686363",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.1119726,
+        "y": 0.172909,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.1971407,
+        "y": 0.2028986
+      },
+      "section": "OXO",
+      "sourcePage": 131,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p131-2",
+      "page": 372,
+      "sku": "13208800",
+      "skus": [
+        "13208800"
+      ],
+      "name": "Organizador de ducha con gancho de 3 niveles",
+      "category": "Organizadores de ducha",
+      "price": "$79.706",
+      "pdfPrice": "$79.706",
+      "priceSource": "excel-july-2026",
+      "ean": "719812682433",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.4148137,
+        "y": 0.172909,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.4999818,
+        "y": 0.2028986
+      },
+      "section": "OXO",
+      "sourcePage": 131,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
+      "id": "oxo-p131-3",
+      "page": 372,
+      "sku": "13241500",
+      "skus": [
+        "13241500"
+      ],
+      "name": "Organizador de ducha con 4 niveles extendible",
+      "category": "Organizadores de ducha",
+      "price": "$204.473",
+      "pdfPrice": "$204.473",
+      "priceSource": "excel-july-2026",
+      "ean": "719812685717",
+      "unitsPerCase": 1,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7176547,
+        "y": 0.172909,
+        "w": 0.1703575,
+        "h": 0.0279904
+      },
+      "hotspotStyle": {
+        "borderColor": "rgba(215, 25, 32, 0.42)"
+      },
+      "pricePosition": {
+        "x": 0.8028327,
+        "y": 0.2028986
+      },
+      "section": "OXO",
+      "sourcePage": 131,
+      "hotspotSource": "oxo-20260722-sku-text"
+    },
+    {
       "id": "prepara-p384-1",
-      "page": 384,
+      "page": 375,
       "sku": "29401",
       "skus": [
         "29401"
@@ -57619,7 +57038,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-1",
-      "page": 386,
+      "page": 377,
       "sku": "3039",
       "skus": [
         "3039"
@@ -57649,7 +57068,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-2",
-      "page": 386,
+      "page": 377,
       "sku": "3042",
       "skus": [
         "3042"
@@ -57679,23 +57098,24 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-3",
-      "page": 386,
-      "sku": "3041",
+      "page": 377,
+      "sku": "P3041",
       "skus": [
-        "3041"
+        "P3041"
       ],
+      "printedSku": "3041",
       "name": "Frasco EVAK 11,8 x 13 cm",
       "category": "Frascos EVAK",
       "price": "$10.277",
       "pdfPrice": "$10.277",
       "priceSource": "pdf",
-      "ean": "400650103041",
+      "ean": "811039023980",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.5624696,
+        "x": 0.5547878,
         "y": 0.2731178,
-        "w": 0.0797902,
+        "w": 0.0927937,
         "h": 0.0347448
       },
       "hotspotStyle": {
@@ -57709,7 +57129,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-4",
-      "page": 386,
+      "page": 377,
       "sku": "3040",
       "skus": [
         "3040"
@@ -57739,7 +57159,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-5",
-      "page": 386,
+      "page": 377,
       "sku": "3044",
       "skus": [
         "3044"
@@ -57769,7 +57189,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p389-1",
-      "page": 389,
+      "page": 380,
       "sku": "20101",
       "skus": [
         "20101"
@@ -57799,7 +57219,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p389-2",
-      "page": 389,
+      "page": 380,
       "sku": "20118",
       "skus": [
         "20118"
@@ -57829,7 +57249,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p390-1",
-      "page": 390,
+      "page": 381,
       "sku": "1028",
       "skus": [
         "1028"
@@ -57859,7 +57279,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-1",
-      "page": 392,
+      "page": 383,
       "sku": "4025",
       "skus": [
         "4025"
@@ -57889,7 +57309,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-2",
-      "page": 392,
+      "page": 383,
       "sku": "4019",
       "skus": [
         "4019"
@@ -57919,7 +57339,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-3",
-      "page": 392,
+      "page": 383,
       "sku": "4022",
       "skus": [
         "4022"
@@ -57949,7 +57369,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p393-1",
-      "page": 393,
+      "page": 384,
       "sku": "29852",
       "skus": [
         "29852"
@@ -57979,7 +57399,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p393-2",
-      "page": 393,
+      "page": 384,
       "sku": "29340",
       "skus": [
         "29340"
@@ -58009,7 +57429,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p395-1",
-      "page": 395,
+      "page": 386,
       "sku": "27575",
       "skus": [
         "27575"
@@ -58039,7 +57459,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p395-2",
-      "page": 395,
+      "page": 386,
       "sku": "27583",
       "skus": [
         "27583"
@@ -58069,7 +57489,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-1",
-      "page": 398,
+      "page": 389,
       "sku": "2016",
       "skus": [
         "2016"
@@ -58099,7 +57519,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-2",
-      "page": 398,
+      "page": 389,
       "sku": "2018",
       "skus": [
         "2018"
@@ -58129,7 +57549,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-3",
-      "page": 398,
+      "page": 389,
       "sku": "3715",
       "skus": [
         "3715"
@@ -58159,7 +57579,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p399-1",
-      "page": 399,
+      "page": 390,
       "sku": "2017",
       "skus": [
         "2017"
@@ -58189,7 +57609,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-1",
-      "page": 401,
+      "page": 392,
       "sku": "1038",
       "skus": [
         "1038"
@@ -58219,7 +57639,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-2",
-      "page": 401,
+      "page": 392,
       "sku": "3119",
       "skus": [
         "3119"
@@ -58249,7 +57669,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-3",
-      "page": 401,
+      "page": 392,
       "sku": "1029",
       "skus": [
         "1029"
@@ -58279,7 +57699,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-1",
-      "page": 402,
+      "page": 393,
       "sku": "3784",
       "skus": [
         "3784"
@@ -58309,7 +57729,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-2",
-      "page": 402,
+      "page": 393,
       "sku": "1720",
       "skus": [
         "1720"
@@ -58339,7 +57759,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-3",
-      "page": 402,
+      "page": 393,
       "sku": "3785",
       "skus": [
         "3785"
@@ -58369,7 +57789,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p403-1",
-      "page": 403,
+      "page": 394,
       "sku": "25571",
       "skus": [
         "25571"
@@ -58399,7 +57819,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p403-2",
-      "page": 403,
+      "page": 394,
       "sku": "1026",
       "skus": [
         "1026"
@@ -58429,7 +57849,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p404-1",
-      "page": 404,
+      "page": 395,
       "sku": "28831",
       "skus": [
         "28831"
@@ -58459,7 +57879,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p404-2",
-      "page": 404,
+      "page": 395,
       "sku": "4789",
       "skus": [
         "4789"
@@ -58489,7 +57909,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-1",
-      "page": 405,
+      "page": 396,
       "sku": "3050",
       "skus": [
         "3050"
@@ -58519,7 +57939,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-2",
-      "page": 405,
+      "page": 396,
       "sku": "3937",
       "skus": [
         "3937"
@@ -58549,7 +57969,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-3",
-      "page": 405,
+      "page": 396,
       "sku": "3890",
       "skus": [
         "3890"
@@ -58580,15 +58000,15 @@ window.CATALOG_DATA = {
   ],
   "sources": {
     "Leifheit": "C:\\Users\\Lenovo\\Downloads\\Catálogo Leifheit.pdf",
-    "OXO": "C:\\Users\\Lenovo\\Dropbox\\ACCESO A CLIENTES\\Catálogos de productos\\Catálogo OXO.pdf",
+    "OXO": "C:\\Users\\Lenovo\\Downloads\\Catálogo OXO nuevo 2026.pdf",
     "Estia": "C:\\Users\\Lenovo\\Downloads\\Catálogo Lexo.pdf",
     "Prepara": "C:\\Users\\Lenovo\\Downloads\\Catalogo Prepara.pdf"
   },
   "sourcePageCounts": {
     "Leifheit": 236,
-    "OXO": 141,
+    "OXO": 131,
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260716-prepara"
+  "assetVersion": "20260723-oxo-r4"
 };

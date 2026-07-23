@@ -1,13 +1,13 @@
-const CACHE_NAME = "lexo-catalog-v20260716-prepara";
+const CACHE_NAME = "lexo-catalog-v20260723-oxo-r4";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260716-prepara",
-  "./app.js?v=20260716-prepara",
+  "./styles.css?v=20260723-oxo-r4",
+  "./app.js?v=20260723-oxo-r4",
   "./admin.js?v=20260714-no-related-skus",
   "./catalog-store.js?v=20260714-no-related-skus",
-  "./supabase-client.js?v=20260716-prepara",
-  "./data/catalog-data.js?v=20260716-prepara",
+  "./supabase-client.js?v=20260723-oxo-r4",
+  "./data/catalog-data.js?v=20260723-oxo-r4",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
 ];
