@@ -7,6 +7,9 @@ create table if not exists public.profiles (
   client_code text not null default '',
   salesman_code text,
   assigned_salesman_code text,
+  price_access_approved boolean not null default false,
+  price_access_approved_at timestamptz,
+  price_access_approved_by uuid references auth.users(id) on delete set null,
   name text not null default '',
   phone text not null default '',
   company text not null default '',
@@ -113,6 +116,18 @@ alter table public.product_overrides add column if not exists video_url text not
 alter table public.profiles add column if not exists client_code text not null default '';
 alter table public.profiles add column if not exists salesman_code text;
 alter table public.profiles add column if not exists assigned_salesman_code text;
+alter table public.profiles add column if not exists price_access_approved boolean;
+alter table public.profiles add column if not exists price_access_approved_at timestamptz;
+alter table public.profiles add column if not exists price_access_approved_by uuid references auth.users(id) on delete set null;
+
+update public.profiles
+set
+  price_access_approved = true,
+  price_access_approved_at = coalesce(price_access_approved_at, now())
+where price_access_approved is null;
+
+alter table public.profiles alter column price_access_approved set default false;
+alter table public.profiles alter column price_access_approved set not null;
 alter table public.orders add column if not exists customer_client_code text not null default '';
 alter table public.orders add column if not exists sales_client_id uuid references public.sales_clients(id) on delete set null;
 alter table public.orders add column if not exists sales_client_code text not null default '';
@@ -218,6 +233,23 @@ as $$
   );
 $$;
 
+create or replace function public.has_price_access()
+returns boolean
+language sql
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.profiles
+    where id = auth.uid()
+      and (
+        role::text in ('admin', 'salesman')
+        or price_access_approved = true
+      )
+  );
+$$;
+
 create or replace function public.protect_profile_privilege_fields()
 returns trigger
 language plpgsql
@@ -237,6 +269,12 @@ begin
     if old.assigned_salesman_code is not null
       and new.assigned_salesman_code is distinct from old.assigned_salesman_code then
       raise exception 'The assigned salesman code cannot be changed';
+    end if;
+
+    if new.price_access_approved is distinct from old.price_access_approved
+      or new.price_access_approved_at is distinct from old.price_access_approved_at
+      or new.price_access_approved_by is distinct from old.price_access_approved_by then
+      raise exception 'Only admins can approve price access';
     end if;
   end if;
 
@@ -265,6 +303,9 @@ with check (
     id = auth.uid()
     and role::text = 'customer'
     and salesman_code is null
+    and price_access_approved = false
+    and price_access_approved_at is null
+    and price_access_approved_by is null
   )
 );
 
@@ -345,7 +386,10 @@ drop policy if exists "orders insert own" on public.orders;
 create policy "orders insert own"
 on public.orders for insert
 to authenticated
-with check (customer_id = auth.uid());
+with check (
+  customer_id = auth.uid()
+  and public.has_price_access()
+);
 
 drop policy if exists "orders admin update" on public.orders;
 create policy "orders admin update"

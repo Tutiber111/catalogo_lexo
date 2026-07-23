@@ -3675,7 +3675,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-025.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-025.jpg?v=20260723-estia-14537",
         "width": 1013,
         "height": 1432
       },
@@ -3687,7 +3687,7 @@ window.CATALOG_DATA = {
           "id": "estia-pg048-1",
           "page": 48,
           "label": "Tabla de cortar de bambú",
-          "price": "$31.262",
+          "price": "$24.562",
           "productIds": [
             "estia-p048-1"
           ],
@@ -47255,16 +47255,16 @@ window.CATALOG_DATA = {
     {
       "id": "estia-p048-1",
       "page": 48,
-      "sku": "23614",
+      "sku": "14537",
       "skus": [
-        "23614"
+        "14537"
       ],
       "name": "Tabla de cortar de bambú",
       "category": "Tabla de cortar de bambú",
-      "price": "$31.262",
+      "price": "$24.562",
       "pdfPrice": "$12.345",
       "priceSource": "excel",
-      "ean": "5207158023614",
+      "ean": "5207158014537",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
@@ -58010,5 +58010,5 @@ window.CATALOG_DATA = {
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260723-oxo-r4"
+  "assetVersion": "20260723-estia-14537"
 };

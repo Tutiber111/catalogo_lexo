@@ -1,13 +1,13 @@
-const CACHE_NAME = "lexo-catalog-v20260723-oxo-r4";
+const CACHE_NAME = "lexo-catalog-v20260723-price-approval-estia-14537";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260723-oxo-r4",
-  "./app.js?v=20260723-oxo-r4",
-  "./admin.js?v=20260714-no-related-skus",
+  "./styles.css?v=20260723-price-approval",
+  "./app.js?v=20260723-price-approval",
+  "./admin.js?v=20260723-price-approval",
   "./catalog-store.js?v=20260714-no-related-skus",
-  "./supabase-client.js?v=20260723-oxo-r4",
-  "./data/catalog-data.js?v=20260723-oxo-r4",
+  "./supabase-client.js?v=20260723-price-approval",
+  "./data/catalog-data.js?v=20260723-estia-14537",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
 ];

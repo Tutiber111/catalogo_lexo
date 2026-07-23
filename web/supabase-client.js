@@ -190,6 +190,37 @@
     return normalizeSalesClient(data);
   }
 
+  async function loadPendingPriceApprovals() {
+    if (!client) return [];
+    const { data, error } = await client
+      .from("profiles")
+      .select("id,email,name,phone,company,assigned_salesman_code,created_at")
+      .eq("role", "customer")
+      .eq("price_access_approved", false)
+      .order("created_at", { ascending: true });
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function approveProfilePriceAccess(profileId) {
+    if (!client || !profileId) throw new Error("Supabase no estÃ¡ disponible.");
+    const user = await getUser();
+    if (!user) throw new Error("IniciÃ¡ sesiÃ³n con tu cuenta administradora.");
+    const { data, error } = await client
+      .from("profiles")
+      .update({
+        price_access_approved: true,
+        price_access_approved_at: new Date().toISOString(),
+        price_access_approved_by: user.id,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", profileId)
+      .select("id,email,name,company,price_access_approved")
+      .single();
+    if (error) throw error;
+    return data;
+  }
+
   async function saveOrder(order, userId) {
     if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
@@ -506,6 +537,8 @@
     upsertProfile,
     loadSalesClients,
     createSalesClient,
+    loadPendingPriceApprovals,
+    approveProfilePriceAccess,
     saveOrder,
     requestOrderNotification,
     resendOrderNotification,

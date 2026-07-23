@@ -31,12 +31,16 @@ const state = {
   barcodeScanInitialStart: null,
   barcodeScanInitialEnd: null,
   pendingCartRemoval: null,
+  priceAccessActive: null,
 };
 
 const BARCODE_SCAN_MIN_LENGTH = 8;
 const BARCODE_SCAN_SETTLE_MS = 260;
 const BARCODE_SCAN_MAX_GAP_MS = 85;
 const BARCODE_SCAN_MAX_TOTAL_MS = 1600;
+const PENDING_PRICE_COVERS = new Map([
+  [348, [{ x: 0.5, y: 0.217, w: 0.31, h: 0.065, background: "#f7f7f7" }]],
+]);
 
 let pageScrollFrame = 0;
 
@@ -45,6 +49,8 @@ const els = {
   offlineBannerTitle: document.querySelector("#offlineBannerTitle"),
   offlineBannerText: document.querySelector("#offlineBannerText"),
   syncOfflineOrders: document.querySelector("#syncOfflineOrders"),
+  priceAccessNotice: document.querySelector("#priceAccessNotice"),
+  checkPriceAccess: document.querySelector("#checkPriceAccess"),
   brandName: document.querySelector("#brandName"),
   catalogLabel: document.querySelector("#catalogLabel"),
   catalogMeta: document.querySelector("#catalogMeta"),
@@ -252,6 +258,7 @@ function bindEvents() {
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
   els.syncOfflineOrders.addEventListener("click", handleOfflineBannerAction);
+  els.checkPriceAccess.addEventListener("click", refreshCurrentPriceAccess);
   els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
   els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
   els.videoDialog.addEventListener("close", closeProductVideo);
@@ -387,7 +394,7 @@ function renderLists() {
         (product) => `
           <button class="product-card${product.outOfStock ? " is-out-of-stock" : ""}" type="button" data-product="${product.id}">
             <strong>${escapeHtml(product.name)}</strong>
-            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)} · ${product.outOfStock ? "Sin stock" : escapeHtml(product.price)} · Página ${product.page}</p>
+            <p>${escapeHtml(product.section || "Catálogo")} · ${escapeHtml(product.sku)}${hasPriceAccess() ? ` · ${product.outOfStock ? "Sin stock" : escapeHtml(product.price)}` : ""} · Página ${product.page}</p>
           </button>
         `,
       )
@@ -510,6 +517,7 @@ function renderPageFrame(page, index) {
       <div class="hotspot-layer">
         ${products.map(renderHotspot).join("")}
         ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
+        ${renderPendingPriceCovers(page)}
       </div>
     </article>
   `;
@@ -550,9 +558,10 @@ function renderPriceOverlay(group) {
   if (!group.price || !group.position) return "";
   const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
   if (!products.length) return "";
+  const pricesVisible = hasPriceAccess();
   const allOutOfStock = products.every((product) => product.outOfStock);
   const prices = [...new Set(products.map((product) => product.price).filter(Boolean))];
-  const price = allOutOfStock ? "Sin stock" : (prices.length === 1 ? prices[0] : group.price);
+  const price = pricesVisible ? (allOutOfStock ? "Sin stock" : (prices.length === 1 ? prices[0] : group.price)) : "";
   const pos = group.position;
   const cover = group.cover || {};
   const overlayStyle = group.style || {};
@@ -574,16 +583,28 @@ function renderPriceOverlay(group) {
     overlayStyle.fontWeight ? `--price-font-weight:${overlayStyle.fontWeight}` : "",
   ].filter(Boolean).join(";");
   const variantClass = group.variant ? ` price-overlay--${escapeAttribute(group.variant)}` : "";
-  const stockClass = allOutOfStock ? " is-out-of-stock" : "";
+  const stockClass = pricesVisible && allOutOfStock ? " is-out-of-stock" : "";
+  const hiddenClass = pricesVisible ? "" : " is-price-hidden";
   return `
     <button
-      class="price-overlay${variantClass}${stockClass}"
+      class="price-overlay${variantClass}${stockClass}${hiddenClass}"
       type="button"
-      data-group="${group.id}"
-      aria-label="${allOutOfStock ? "Abrir productos sin stock" : `Abrir productos con precio ${escapeHtml(price)}`}"
+      ${pricesVisible ? `data-group="${group.id}"` : 'aria-hidden="true" tabindex="-1"'}
+      ${pricesVisible ? `aria-label="${allOutOfStock ? "Abrir productos sin stock" : `Abrir productos con precio ${escapeHtml(price)}`}"` : ""}
       style="${coverStyle}"
-    >${escapeHtml(price)}</button>
+    >${pricesVisible ? escapeHtml(price) : "&nbsp;"}</button>
   `;
+}
+
+function renderPendingPriceCovers(page) {
+  if (hasPriceAccess()) return "";
+  return (PENDING_PRICE_COVERS.get(page.number) || []).map((cover) => `
+    <span
+      class="price-overlay is-price-hidden pending-price-cover"
+      aria-hidden="true"
+      style="left:${cover.x * 100}%;top:${cover.y * 100}%;--cover-w:${cover.w * 100}%;--cover-h:${cover.h * 100}%;--price-bg:${cover.background};--price-border-color:transparent"
+    >&nbsp;</span>
+  `).join("");
 }
 
 function openPriceGroup(groupId, pageIndex = state.currentIndex) {
@@ -591,6 +612,10 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   const group = (page.priceGroups || []).find((item) => item.id === groupId);
   if (!group) return;
   const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  if (!hasPriceAccess()) {
+    renderReadOnlyProductGroup(page, group, products);
+    return;
+  }
   const allOutOfStock = products.length > 0 && products.every((product) => product.outOfStock);
   if (products.length === 1) {
     openProduct(products[0]);
@@ -650,6 +675,31 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
   els.productDialog.showModal();
 }
 
+function renderReadOnlyProductGroup(page, group, products) {
+  els.dialogContent.innerHTML = `
+    <div class="dialog-body">
+      <div>
+        <span class="eyebrow">${escapeHtml(displayCatalogLabel(page.title))}</span>
+        <h2>${escapeHtml(group.label)}</h2>
+      </div>
+      <p class="price-access-dialog-message">Los precios y pedidos se habilitar&aacute;n cuando un administrador apruebe tu cuenta.</p>
+      <div class="group-list">
+        ${products.map((product) => `
+          <div class="group-product${product.outOfStock ? " is-out-of-stock" : ""}">
+            <div>
+              <span>${escapeHtml(product.name)}</span>
+              <strong>${escapeHtml(product.sku)}</strong>
+              ${product.videoUrl ? `<button class="group-video-button" type="button" data-video-product="${product.id}"><span aria-hidden="true">&#9654;</span> Ver video</button>` : ""}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+  bindProductVideoButtons();
+  els.productDialog.showModal();
+}
+
 function markGroupProductAdded(productId, quantity) {
   const product = state.productsById.get(productId);
   const row = els.dialogContent.querySelector(`[data-group-product="${cssEscape(productId)}"]`);
@@ -693,6 +743,7 @@ function openProduct(product) {
   if (!product) return;
   if (els.productDialog.open) els.productDialog.close();
   const outOfStock = Boolean(product.outOfStock);
+  const pricesVisible = hasPriceAccess();
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
@@ -704,8 +755,10 @@ function openProduct(product) {
         <span>SKU: ${escapeHtml(product.sku)}</span>
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
       </div>
-      <div class="price${outOfStock ? " is-out-of-stock" : ""}">${outOfStock ? "Sin stock" : escapeHtml(product.price)}</div>
-      ${outOfStock ? "" : `
+      ${pricesVisible ? `<div class="price${outOfStock ? " is-out-of-stock" : ""}">${outOfStock ? "Sin stock" : escapeHtml(product.price)}</div>` : `
+        <p class="price-access-dialog-message">Los precios y pedidos se habilitar&aacute;n cuando un administrador apruebe tu cuenta.</p>
+      `}
+      ${outOfStock || !pricesVisible ? "" : `
         <div class="dialog-qty dialog-qty-wide">
           <span>Cantidad</span>
           <div class="quantity-stepper">
@@ -719,12 +772,12 @@ function openProduct(product) {
           <strong>${formatMoney(priceNumber(product.price))}</strong>
         </div>
       `}
-      <button class="primary-button" type="button" data-add="${product.id}"${outOfStock ? " disabled" : ""}>${outOfStock ? "Sin stock" : "Agregar al carrito"}</button>
+      ${pricesVisible ? `<button class="primary-button" type="button" data-add="${product.id}"${outOfStock ? " disabled" : ""}>${outOfStock ? "Sin stock" : "Agregar al carrito"}</button>` : ""}
     </div>
   `;
   bindDialogQuantitySteppers();
   bindProductVideoButtons();
-  if (!outOfStock) {
+  if (!outOfStock && pricesVisible) {
     els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
       addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
       els.productDialog.close();
@@ -924,6 +977,10 @@ function findProductByBarcode(code) {
 }
 
 function addToCart(productId, quantity = 1, options = {}) {
+  if (!hasPriceAccess()) {
+    if (!options.silent) showToast("Tu cuenta todavía no tiene acceso a precios y pedidos");
+    return;
+  }
   const product = state.productsById.get(productId);
   if (product?.outOfStock) {
     if (!options.silent) showToast("Este producto está sin stock");
@@ -992,6 +1049,13 @@ function mergeDuplicateCartSkus() {
 }
 
 function renderQuickOrderTable(focusTarget = null) {
+  if (!hasPriceAccess()) {
+    hideQuickOrderSuggestions();
+    els.quickOrderTable.innerHTML = `<p class="quick-order-locked">La carga r&aacute;pida se habilitar&aacute; cuando un administrador apruebe tu cuenta.</p>`;
+    els.quickOrderPreview.innerHTML = "";
+    els.addQuickOrder.disabled = true;
+    return;
+  }
   ensureQuickOrderTrailingRow();
   hideQuickOrderSuggestions();
   els.quickOrderTable.innerHTML = `
@@ -1443,6 +1507,15 @@ function findProductByQuickSku(sku) {
 
 function renderCart() {
   renderCartClientControls();
+  if (!hasPriceAccess()) {
+    els.cartCount.textContent = "0";
+    els.cartTotalItems.textContent = "0";
+    els.cartTotalValue.textContent = "—";
+    els.cartItems.innerHTML = `<p class="cart-access-message">El carrito y los pedidos se habilitar&aacute;n cuando un administrador apruebe tu cuenta.</p>`;
+    els.saveOrder.disabled = true;
+    els.saveOrder.textContent = "Pendiente de aprobación";
+    return;
+  }
   if (mergeDuplicateCartSkus()) saveCart();
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
@@ -1493,6 +1566,10 @@ function renderCart() {
 
 async function saveOrder() {
   if (state.isSavingOrder) return;
+  if (!hasPriceAccess()) {
+    showToast("Tu cuenta todavía no tiene acceso a precios y pedidos");
+    return;
+  }
   mergeDuplicateCartSkus();
 
   const lines = [...state.cart.entries()]
@@ -1678,12 +1755,20 @@ function brandMatches(brand) {
 }
 
 function openCart() {
+  if (!hasPriceAccess()) {
+    showToast("El carrito se habilitará cuando aprueben tu cuenta");
+    return;
+  }
   closeAccount();
   els.cartDrawer.classList.add("is-open");
   els.cartDrawer.setAttribute("aria-hidden", "false");
 }
 
 function openQuickOrder() {
+  if (!hasPriceAccess()) {
+    showToast("La carga rápida se habilitará cuando aprueben tu cuenta");
+    return;
+  }
   renderQuickOrderTable();
   els.quickOrderDialog.showModal();
   focusQuickOrderCell(0, "sku");
@@ -1719,7 +1804,67 @@ function applyAuthGate() {
     els.authLoading.hidden = !state.isCheckingAuth;
   }
   if (requiresAuth) openAccount();
+  applyPriceAccessState();
   dispatchAuthChanged();
+}
+
+function hasPriceAccess() {
+  const role = state.profile?.role;
+  if (role === "admin" || role === "salesman") return true;
+  return role === "customer" && state.profile?.price_access_approved === true;
+}
+
+function isPriceAccessPending() {
+  return Boolean(state.user && state.profile?.role === "customer" && !hasPriceAccess());
+}
+
+function applyPriceAccessState() {
+  const access = hasPriceAccess();
+  const pending = isPriceAccessPending();
+  const changed = state.priceAccessActive !== access;
+  state.priceAccessActive = access;
+
+  document.body.classList.toggle("catalog-prices-pending", pending);
+  els.priceAccessNotice.hidden = !pending;
+  els.openCart.hidden = !access;
+  els.openQuickOrderToolbar.hidden = !access;
+  els.quickOrderPanel.hidden = !access;
+
+  if (!access) {
+    closeCart();
+    if (els.quickOrderDialog.open) els.quickOrderDialog.close();
+    if (els.productDialog.open) els.productDialog.close();
+  }
+
+  if (changed && state.catalog && !state.isCheckingAuth) {
+    renderViewerPages();
+    renderLists();
+    renderQuickOrderTable();
+    renderCart();
+  }
+}
+
+async function refreshCurrentPriceAccess() {
+  if (!state.user || !CATALOG_SUPABASE.isAvailable() || !isOnline()) {
+    showToast("Conectate a internet para comprobar el acceso");
+    return;
+  }
+
+  els.checkPriceAccess.disabled = true;
+  els.checkPriceAccess.textContent = "Comprobando...";
+  try {
+    state.profile = await CATALOG_SUPABASE.getProfile(state.user.id);
+    rememberAccountSnapshot();
+    applyProfileToAuthFields();
+    renderAccount();
+    await renderCustomerOrders();
+    showToast(hasPriceAccess() ? "Precios habilitados" : "Tu cuenta todavía está pendiente de aprobación");
+  } catch (error) {
+    showToast(error.message || "No se pudo comprobar el acceso");
+  } finally {
+    els.checkPriceAccess.disabled = false;
+    els.checkPriceAccess.textContent = "Comprobar acceso";
+  }
 }
 
 function dispatchAuthChanged() {
@@ -2504,7 +2649,9 @@ async function createAccount() {
     await renderCustomerOrders();
     applyAuthGate();
     if (state.user) closeAccount();
-    showToast("Cuenta creada. Revisá tu email si la confirmación está activada.");
+    showToast(state.user
+      ? "Cuenta creada. Podés navegar el catálogo mientras aprobamos tus precios."
+      : "Cuenta creada. Revisá tu email para confirmar el acceso.");
   } catch (error) {
     showAuthError(error);
   }
@@ -2642,7 +2789,11 @@ function renderAccount() {
     applyAuthGate();
     return;
   }
-  els.accountStatus.textContent = signedIn ? `Sesión iniciada como ${state.user.email}` : "Sesión no iniciada";
+  els.accountStatus.textContent = signedIn
+    ? (isPriceAccessPending()
+      ? `Sesión iniciada como ${state.user.email}. Precios pendientes de aprobación.`
+      : `Sesión iniciada como ${state.user.email}`)
+    : "Sesión no iniciada";
   els.authFields.classList.toggle("is-hidden", signedIn && !resettingPassword);
   els.signOut.classList.toggle("is-hidden", !signedIn || resettingPassword);
   els.openAccount.classList.toggle("is-signed-in", signedIn);
@@ -2699,6 +2850,12 @@ function friendlyRecoveryError(authHash) {
 async function renderCustomerOrders() {
   if (!state.user || !CATALOG_SUPABASE.isAvailable()) {
     els.customerOrders.innerHTML = "";
+    collapseCustomerOrderDetail();
+    return;
+  }
+  if (!hasPriceAccess()) {
+    state.customerOrders = [];
+    els.customerOrders.innerHTML = `<p>El historial de pedidos se habilitar&aacute; junto con el acceso a precios.</p>`;
     collapseCustomerOrderDetail();
     return;
   }
@@ -2773,6 +2930,10 @@ function showCustomerOrderDetail(orderId) {
 }
 
 function repeatPastOrder(orderId) {
+  if (!hasPriceAccess()) {
+    showToast("Tu cuenta todavía no tiene acceso a pedidos");
+    return;
+  }
   const order = (state.customerOrders || []).find((item) => item.id === orderId);
   if (!order) return;
 
@@ -2834,7 +2995,7 @@ function isVisibleProduct(product) {
 }
 
 function isOrderableProduct(product) {
-  return isVisibleProduct(product) && !product.outOfStock;
+  return hasPriceAccess() && isVisibleProduct(product) && !product.outOfStock;
 }
 
 function readQuantity(input) {

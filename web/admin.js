@@ -6,6 +6,8 @@
     orderView: "active",
     isAdmin: false,
     lastStockChange: null,
+    pendingPriceApprovals: [],
+    isLoadingPriceApprovals: false,
   };
 
   const adminEls = {
@@ -34,6 +36,9 @@
     markOutOfStock: document.querySelector("#markOutOfStock"),
     undoStockChange: document.querySelector("#undoStockChange"),
     stockUpdateStatus: document.querySelector("#stockUpdateStatus"),
+    refreshPriceApprovals: document.querySelector("#refreshPriceApprovals"),
+    priceApprovalsStatus: document.querySelector("#priceApprovalsStatus"),
+    priceApprovalsList: document.querySelector("#priceApprovalsList"),
     adminOrderDialog: document.querySelector("#adminOrderDialog"),
     adminOrderDialogContent: document.querySelector("#adminOrderDialogContent"),
     toast: document.querySelector("#toast"),
@@ -57,6 +62,8 @@
     adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
     adminEls.stockUpdateForm.addEventListener("submit", markSkuOutOfStock);
     adminEls.undoStockChange.addEventListener("click", undoLastStockChange);
+    adminEls.refreshPriceApprovals.addEventListener("click", renderPendingPriceApprovals);
+    adminEls.priceApprovalsList.addEventListener("click", handlePriceApprovalClick);
     adminEls.adminOrderDialog.addEventListener("close", () => {
       adminEls.adminOrderDialogContent.innerHTML = "";
     });
@@ -102,6 +109,84 @@
     adminEls.adminApp.hidden = false;
     fillSettings();
     renderOrders();
+    renderPendingPriceApprovals();
+  }
+
+  async function renderPendingPriceApprovals() {
+    if (!adminState.isAdmin || adminState.isLoadingPriceApprovals) return;
+    adminState.isLoadingPriceApprovals = true;
+    adminEls.refreshPriceApprovals.disabled = true;
+    adminEls.priceApprovalsStatus.textContent = "Cargando cuentas pendientes...";
+
+    try {
+      adminState.pendingPriceApprovals = await CATALOG_SUPABASE.loadPendingPriceApprovals();
+      renderPendingPriceApprovalsList();
+    } catch (error) {
+      adminState.pendingPriceApprovals = [];
+      adminEls.priceApprovalsList.innerHTML = "";
+      adminEls.priceApprovalsStatus.textContent = friendlyPriceApprovalError(error);
+    } finally {
+      adminState.isLoadingPriceApprovals = false;
+      adminEls.refreshPriceApprovals.disabled = false;
+    }
+  }
+
+  function renderPendingPriceApprovalsList() {
+    const profiles = adminState.pendingPriceApprovals;
+    adminEls.priceApprovalsStatus.textContent = profiles.length
+      ? `${profiles.length} cuenta${profiles.length === 1 ? "" : "s"} esperando acceso a precios.`
+      : "No hay cuentas pendientes de aprobación.";
+    adminEls.priceApprovalsList.innerHTML = profiles.map((profile) => `
+      <article class="price-approval-row" data-price-approval="${escapeHtml(profile.id)}">
+        <div class="price-approval-identity">
+          <strong>${escapeHtml(profile.company || profile.name || "Cliente sin nombre")}</strong>
+          <span>${escapeHtml(profile.email || "")}</span>
+        </div>
+        <div class="price-approval-meta">
+          ${profile.name && profile.company ? `<span>${escapeHtml(profile.name)}</span>` : ""}
+          ${profile.phone ? `<span>${escapeHtml(profile.phone)}</span>` : ""}
+          ${profile.assigned_salesman_code ? `<span>Vendedor: ${escapeHtml(profile.assigned_salesman_code)}</span>` : ""}
+          <span>Registro: ${escapeHtml(formatApprovalDate(profile.created_at))}</span>
+        </div>
+        <button class="primary-button" type="button" data-approve-price-access="${escapeHtml(profile.id)}">Aprobar precios</button>
+      </article>
+    `).join("");
+  }
+
+  async function handlePriceApprovalClick(event) {
+    const button = event.target.closest("[data-approve-price-access]");
+    if (!button || !adminState.isAdmin) return;
+    const profileId = button.dataset.approvePriceAccess;
+    button.disabled = true;
+    button.textContent = "Aprobando...";
+
+    try {
+      await CATALOG_SUPABASE.approveProfilePriceAccess(profileId);
+      adminState.pendingPriceApprovals = adminState.pendingPriceApprovals.filter((profile) => profile.id !== profileId);
+      renderPendingPriceApprovalsList();
+      showToast("Cuenta aprobada. Ya puede ver precios y realizar pedidos.");
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = "Aprobar precios";
+      showToast(friendlyPriceApprovalError(error));
+    }
+  }
+
+  function formatApprovalDate(value) {
+    if (!value) return "Sin fecha";
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? "Sin fecha" : date.toLocaleString("es-AR", {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
+  }
+
+  function friendlyPriceApprovalError(error) {
+    const message = String(error?.message || "No se pudieron cargar las cuentas pendientes.");
+    if (message.includes("price_access_approved")) {
+      return "Falta aplicar la actualización de acceso a precios en Supabase.";
+    }
+    return message;
   }
 
   function fillSettings() {
