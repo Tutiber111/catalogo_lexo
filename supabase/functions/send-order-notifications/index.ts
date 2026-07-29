@@ -45,6 +45,15 @@ type Order = {
   order_items: OrderItem[];
 };
 
+type CustomerProfile = {
+  email: string;
+  client_code: string;
+  company: string;
+  role: string;
+  salesman_code: string;
+  assigned_salesman_code: string;
+};
+
 type EmailAttachment = {
   filename: string;
   content: string;
@@ -215,14 +224,24 @@ async function loadOrder(orderId: string): Promise<Order> {
   order.customer_email = customerProfile.email;
   order.customer_company = customerProfile.company;
   if (!order.customer_client_code) order.customer_client_code = customerProfile.client_code;
+  order.salesman_code = await resolveOrderSalesmanCode(order, customerProfile);
   return order;
 }
 
-async function loadCustomerProfile(customerId: string) {
-  if (!customerId) return { email: "", client_code: "", company: "" };
+async function loadCustomerProfile(customerId: string): Promise<CustomerProfile> {
+  if (!customerId) {
+    return {
+      email: "",
+      client_code: "",
+      company: "",
+      role: "",
+      salesman_code: "",
+      assigned_salesman_code: "",
+    };
+  }
   const params = new URLSearchParams({
     id: `eq.${customerId}`,
-    select: "email,client_code,company",
+    select: "email,client_code,company,role,salesman_code,assigned_salesman_code",
     limit: "1",
   });
   const response = await supabaseFetch(`/rest/v1/profiles?${params}`);
@@ -231,7 +250,50 @@ async function loadCustomerProfile(customerId: string) {
     email: rows[0]?.email || "",
     client_code: rows[0]?.client_code || "",
     company: rows[0]?.company || "",
+    role: rows[0]?.role || "",
+    salesman_code: rows[0]?.salesman_code || "",
+    assigned_salesman_code: rows[0]?.assigned_salesman_code || "",
   };
+}
+
+async function resolveOrderSalesmanCode(order: Order, customerProfile: CustomerProfile) {
+  if (order.sales_client_id) {
+    const params = new URLSearchParams({
+      id: `eq.${order.sales_client_id}`,
+      select: "salesman_code",
+      limit: "1",
+    });
+    const response = await supabaseFetch(`/rest/v1/sales_clients?${params}`);
+    const rows = await response.json();
+    const linkedCode = String(rows[0]?.salesman_code || "").trim();
+    if (linkedCode) return linkedCode;
+  }
+
+  if (customerProfile.role === "salesman") {
+    return String(customerProfile.salesman_code || "").trim();
+  }
+  if (customerProfile.assigned_salesman_code) {
+    return String(customerProfile.assigned_salesman_code).trim();
+  }
+  if (customerProfile.role === "admin") {
+    return String(order.salesman_code || "").trim();
+  }
+  return "";
+}
+
+async function loadSalesmanEmail(salesmanCode: string) {
+  const code = String(salesmanCode || "").trim();
+  if (!code) return "";
+
+  const params = new URLSearchParams({
+    salesman_code: `eq.${code}`,
+    role: "eq.salesman",
+    select: "email",
+    limit: "1",
+  });
+  const response = await supabaseFetch(`/rest/v1/profiles?${params}`);
+  const rows = await response.json();
+  return String(rows[0]?.email || "").trim();
 }
 
 async function loadRequestContext(req: Request): Promise<RequestContext> {
@@ -277,7 +339,13 @@ async function updateNotification(id: string, patch: Record<string, unknown>) {
 
 async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const apiKey = requiredEnv("RESEND_API_KEY");
-  const to = emailList(requiredEnv("ORDER_NOTIFICATION_TO"));
+  const to = uniqueEmails(emailList(requiredEnv("ORDER_NOTIFICATION_TO")));
+  if (!to.length) throw new Error("ORDER_NOTIFICATION_TO has no valid recipients.");
+  const salesmanEmail = await loadSalesmanEmail(order.salesman_code);
+  const bcc = salesmanEmail && !to.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase())
+    ? [salesmanEmail]
+    : [];
+  const recipients = [...to, ...bcc];
   const from = requiredEnv("ORDER_NOTIFICATION_FROM");
   const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
@@ -293,7 +361,15 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from, to, subject, text, html, attachments: [attachment] }),
+    body: JSON.stringify({
+      from,
+      to,
+      ...(bcc.length ? { bcc } : {}),
+      subject,
+      text,
+      html,
+      attachments: [attachment],
+    }),
   });
 
   if (!response.ok) {
@@ -304,7 +380,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const result = await response.json();
   return {
     id: String(result.id || ""),
-    to,
+    to: recipients,
   };
 }
 
@@ -726,6 +802,16 @@ function requiredEnv(name: string) {
 
 function emailList(value: string) {
   return value.split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function uniqueEmails(values: string[]) {
+  const seen = new Set<string>();
+  return values.filter((value) => {
+    const key = value.toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function formatMoney(value: number) {

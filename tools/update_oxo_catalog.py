@@ -21,11 +21,12 @@ PDF_PATH = Path.home() / "Downloads" / "Catálogo OXO nuevo 2026.pdf"
 PRICE_LIST_PATH = Path.home() / "Downloads" / "Lista Lexo - Julio 2026.xlsx"
 
 BRAND = "OXO"
-ASSET_VERSION = "20260723-oxo-r4"
+ASSET_VERSION = "20260727-oxo-remove-pages-r3"
 ASSET_PREFIX = "oxo-20260722-page"
 RENDER_SCALE = 1.7
 OXO_FIRST_ROW = 696
 OXO_LAST_ROW = 924
+EXCLUDED_SOURCE_PAGES = {44, 60, 111, 125}
 PRICE_RE = re.compile(r"^\$[\d.]+(?:,\d+)?$")
 
 # The PDF still prints the retired code; the July list explicitly names its replacement.
@@ -309,7 +310,10 @@ def build_oxo_pages(start_page: int, price_aliases: dict[str, dict]) -> tuple[li
 
     for page_index, page in enumerate(document):
         source_page = page_index + 1
-        app_page = start_page + page_index
+        if source_page in EXCLUDED_SOURCE_PAGES:
+            continue
+
+        app_page = start_page + len(pages)
         title = title_for_page(page)
         prices = price_words_for_page(page)
         hits, unpriced_hits = product_hits(page, price_aliases)

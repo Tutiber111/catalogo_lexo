@@ -33,6 +33,8 @@ SKU_RE = re.compile(r"^\d{4,6}$")
 def placement_sku(source_page: int, page: fitz.Page, word: tuple, printed_sku: str) -> str:
     if source_page == 25 and printed_sku == "23614":
         return "14537"
+    if source_page == 35 and printed_sku == "18146" and (word[0] + word[2]) / 2 > page.rect.width / 2:
+        return "24932"
     if source_page == 32 and printed_sku == "21887" and (word[0] + word[2]) / 2 > page.rect.width / 2:
         return "21832"
     return printed_sku
@@ -53,6 +55,26 @@ def patch_known_page_artifacts(image: Image.Image, source_page: int) -> None:
         draw.text(
             ((box[0] + box[2]) / 2, (box[1] + box[3]) / 2),
             "14537",
+            fill=(112, 114, 90),
+            font=font,
+            anchor="mm",
+        )
+        return
+
+    if source_page == 35:
+        draw = ImageDraw.Draw(image)
+        box = (
+            round(image.width * 0.651),
+            round(image.height * 0.658),
+            round(image.width * 0.745),
+            round(image.height * 0.685),
+        )
+        draw.rectangle(box, fill=(245, 245, 245))
+        font_path = Path(r"C:\Windows\Fonts\arialbd.ttf")
+        font = ImageFont.truetype(str(font_path), max(20, round(image.width * 0.0276)))
+        draw.text(
+            ((box[0] + box[2]) / 2, (box[1] + box[3]) / 2),
+            "24932",
             fill=(112, 114, 90),
             font=font,
             anchor="mm",

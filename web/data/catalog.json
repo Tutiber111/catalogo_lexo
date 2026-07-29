@@ -1,12 +1,12 @@
 {
   "source": "C:\\Users\\Lenovo\\Downloads\\Catálogo Lexo.pdf",
   "pricedReference": "C:\\Users\\Lenovo\\Dropbox\\ACCESO A CLIENTES\\Catálogos de productos\\Catálogo Completo.pdf",
-  "totalPagesInPdf": 396,
+  "totalPagesInPdf": 392,
   "priceList": {
     "source": "C:\\Users\\Lenovo\\Downloads\\Lista Lexo - Julio 2026.xlsx",
     "productCount": 867
   },
-  "samplePageCount": 396,
+  "samplePageCount": 392,
   "pages": [
     {
       "number": 1,
@@ -4687,7 +4687,7 @@
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-035.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-035.jpg?v=20260727-estia-24932",
         "width": 1013,
         "height": 1432
       },
@@ -4797,8 +4797,8 @@
         {
           "id": "estia-pg058-4",
           "page": 58,
-          "label": "Dispenser para detergente con porta esponja",
-          "price": "$20.427",
+          "label": "Organizador de bacha con dispenser beige",
+          "price": "$11.213",
           "productIds": [
             "estia-p058-4"
           ],
@@ -24655,58 +24655,6 @@
     },
     {
       "number": 285,
-      "title": "Ahuecador doble",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/oxo-20260722-page-044.jpg?v=20260722-oxo-r2",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "oxo-p044-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "oxo-pg044-1",
-          "page": 285,
-          "label": "Ahuecador doble",
-          "price": "$9.941",
-          "productIds": [
-            "oxo-p044-1"
-          ],
-          "position": {
-            "x": 0.4999998,
-            "y": 0.2394094
-          },
-          "positionSource": "oxo-20260722-pdf",
-          "cover": {
-            "w": 0.1755958,
-            "h": 0.037027
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 4.901,
-            "fontSizeUnit": "cqw",
-            "fontWeight": 800,
-            "minWidth": 0,
-            "minHeight": 0,
-            "padX": 0,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#111111",
-            "background": "#f5f5f5",
-            "borderColor": "rgba(215, 25, 32, 0.10)"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 44
-    },
-    {
-      "number": 286,
       "title": "4 sets de pinches para choclos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24721,7 +24669,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg045-1",
-          "page": 286,
+          "page": 285,
           "label": "4 sets de pinches para choclos",
           "price": "$14.063",
           "productIds": [
@@ -24758,7 +24706,7 @@
       "sourcePage": 45
     },
     {
-      "number": 287,
+      "number": 286,
       "title": "Mandolina de verduras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24773,7 +24721,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg046-1",
-          "page": 287,
+          "page": 286,
           "label": "Mandolina de verduras",
           "price": "$24.302",
           "productIds": [
@@ -24810,7 +24758,7 @@
       "sourcePage": 46
     },
     {
-      "number": 288,
+      "number": 287,
       "title": "Rebanador de huevos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24825,7 +24773,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg047-1",
-          "page": 288,
+          "page": 287,
           "label": "Rebanador de huevos",
           "price": "$15.304",
           "productIds": [
@@ -24862,7 +24810,7 @@
       "sourcePage": 47
     },
     {
-      "number": 289,
+      "number": 288,
       "title": "Separador de yemas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24877,7 +24825,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg048-1",
-          "page": 289,
+          "page": 288,
           "label": "Separador de yemas",
           "price": "$4.689",
           "productIds": [
@@ -24914,7 +24862,7 @@
       "sourcePage": 48
     },
     {
-      "number": 290,
+      "number": 289,
       "title": "Picador rotativo / chopper",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24929,7 +24877,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg049-1",
-          "page": 290,
+          "page": 289,
           "label": "Picador rotativo / chopper",
           "price": "$31.186",
           "productIds": [
@@ -24966,7 +24914,7 @@
       "sourcePage": 49
     },
     {
-      "number": 291,
+      "number": 290,
       "title": "Cortador con recipiente",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24981,7 +24929,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg050-1",
-          "page": 291,
+          "page": 290,
           "label": "Cortador con recipiente",
           "price": "$32.753",
           "productIds": [
@@ -25018,7 +24966,7 @@
       "sourcePage": 50
     },
     {
-      "number": 292,
+      "number": 291,
       "title": "Rallador de dos caras desmontable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25033,7 +24981,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg051-1",
-          "page": 292,
+          "page": 291,
           "label": "Rallador de dos caras desmontable",
           "price": "$23.083",
           "productIds": [
@@ -25070,7 +25018,7 @@
       "sourcePage": 51
     },
     {
-      "number": 293,
+      "number": 292,
       "title": "Rallador de queso manual",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25085,7 +25033,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg052-1",
-          "page": 293,
+          "page": 292,
           "label": "Rallador de queso manual",
           "price": "$25.059",
           "productIds": [
@@ -25122,7 +25070,7 @@
       "sourcePage": 52
     },
     {
-      "number": 294,
+      "number": 293,
       "title": "Set mini de rallador con 3 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25137,7 +25085,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg053-1",
-          "page": 294,
+          "page": 293,
           "label": "Set mini de rallador con 3 cortes",
           "price": "$35.241",
           "productIds": [
@@ -25174,7 +25122,7 @@
       "sourcePage": 53
     },
     {
-      "number": 295,
+      "number": 294,
       "title": "Set de rallador con 4 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25189,7 +25137,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg054-1",
-          "page": 295,
+          "page": 294,
           "label": "Set de rallador con 4 cortes",
           "price": "$56.793",
           "productIds": [
@@ -25226,7 +25174,7 @@
       "sourcePage": 54
     },
     {
-      "number": 296,
+      "number": 295,
       "title": "Spiralizers",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25242,7 +25190,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg055-1",
-          "page": 296,
+          "page": 295,
           "label": "Spiralizers",
           "price": "$23.026",
           "productIds": [
@@ -25277,7 +25225,7 @@
         },
         {
           "id": "oxo-pg055-2",
-          "page": 296,
+          "page": 295,
           "label": "Spiralizers",
           "price": "$36.052",
           "productIds": [
@@ -25314,7 +25262,7 @@
       "sourcePage": 55
     },
     {
-      "number": 297,
+      "number": 296,
       "title": "Espiralizador de vegetales de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25329,7 +25277,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg056-1",
-          "page": 297,
+          "page": 296,
           "label": "Espiralizador de vegetales de mesa",
           "price": "$61.249",
           "productIds": [
@@ -25366,7 +25314,7 @@
       "sourcePage": 56
     },
     {
-      "number": 298,
+      "number": 297,
       "title": "Rallador grueso",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25381,7 +25329,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg057-1",
-          "page": 298,
+          "page": 297,
           "label": "Rallador grueso",
           "price": "$19.895",
           "productIds": [
@@ -25418,7 +25366,7 @@
       "sourcePage": 57
     },
     {
-      "number": 299,
+      "number": 298,
       "title": "Zesters",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25435,7 +25383,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg058-1",
-          "page": 299,
+          "page": 298,
           "label": "Zesters",
           "price": "$16.876",
           "productIds": [
@@ -25470,7 +25418,7 @@
         },
         {
           "id": "oxo-pg058-2",
-          "page": 299,
+          "page": 298,
           "label": "Zesters",
           "price": "$19.895",
           "productIds": [
@@ -25505,7 +25453,7 @@
         },
         {
           "id": "oxo-pg058-3",
-          "page": 299,
+          "page": 298,
           "label": "Zesters",
           "price": "$17.856",
           "productIds": [
@@ -25542,7 +25490,7 @@
       "sourcePage": 58
     },
     {
-      "number": 300,
+      "number": 299,
       "title": "Catálogo",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -25556,59 +25504,7 @@
       "sourcePage": 59
     },
     {
-      "number": 301,
-      "title": "Pisapapas de acero inoxidable",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/oxo-20260722-page-060.jpg?v=20260722-oxo-r2",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "oxo-p060-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "oxo-pg060-1",
-          "page": 301,
-          "label": "Pisapapas de acero inoxidable",
-          "price": "$20.408",
-          "productIds": [
-            "oxo-p060-1"
-          ],
-          "position": {
-            "x": 0.4999835,
-            "y": 0.2394094
-          },
-          "positionSource": "oxo-20260722-pdf",
-          "cover": {
-            "w": 0.2040221,
-            "h": 0.037027
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 4.901,
-            "fontSizeUnit": "cqw",
-            "fontWeight": 800,
-            "minWidth": 0,
-            "minHeight": 0,
-            "padX": 0,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#111111",
-            "background": "#f5f5f5",
-            "borderColor": "rgba(215, 25, 32, 0.10)"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 60
-    },
-    {
-      "number": 302,
+      "number": 300,
       "title": "Pasa todo",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25623,7 +25519,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg061-1",
-          "page": 302,
+          "page": 300,
           "label": "Pasa todo",
           "price": "$76.219",
           "productIds": [
@@ -25660,7 +25556,7 @@
       "sourcePage": 61
     },
     {
-      "number": 303,
+      "number": 301,
       "title": "Cortador de ajos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25676,7 +25572,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg062-1",
-          "page": 303,
+          "page": 301,
           "label": "Cortador de ajos",
           "price": "$18.364",
           "productIds": [
@@ -25711,7 +25607,7 @@
         },
         {
           "id": "oxo-pg062-2",
-          "page": 303,
+          "page": 301,
           "label": "Cortador de ajos",
           "price": "$23.026",
           "productIds": [
@@ -25748,7 +25644,7 @@
       "sourcePage": 62
     },
     {
-      "number": 304,
+      "number": 302,
       "title": "Para mariscos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25765,7 +25661,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg063-1",
-          "page": 304,
+          "page": 302,
           "label": "Para mariscos",
           "price": "$15.304",
           "productIds": [
@@ -25800,7 +25696,7 @@
         },
         {
           "id": "oxo-pg063-2",
-          "page": 304,
+          "page": 302,
           "label": "Para mariscos",
           "price": "$16.579",
           "productIds": [
@@ -25835,7 +25731,7 @@
         },
         {
           "id": "oxo-pg063-3",
-          "page": 304,
+          "page": 302,
           "label": "Para mariscos",
           "price": "$20.370",
           "productIds": [
@@ -25872,7 +25768,7 @@
       "sourcePage": 63
     },
     {
-      "number": 305,
+      "number": 303,
       "title": "Set x2 embudos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25887,7 +25783,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg064-1",
-          "page": 305,
+          "page": 303,
           "label": "Set x2 embudos",
           "price": "$18.364",
           "productIds": [
@@ -25924,7 +25820,7 @@
       "sourcePage": 64
     },
     {
-      "number": 306,
+      "number": 304,
       "title": "Set de 3 espátulas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25939,7 +25835,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg065-1",
-          "page": 306,
+          "page": 304,
           "label": "Set de 3 espátulas de silicona",
           "price": "$24.104",
           "productIds": [
@@ -25976,7 +25872,7 @@
       "sourcePage": 65
     },
     {
-      "number": 307,
+      "number": 305,
       "title": "Set x12 moldes de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25991,7 +25887,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg066-1",
-          "page": 307,
+          "page": 305,
           "label": "Set x12 moldes de silicona",
           "price": "$17.672",
           "productIds": [
@@ -26028,7 +25924,7 @@
       "sourcePage": 66
     },
     {
-      "number": 308,
+      "number": 306,
       "title": "Vaso medidor de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26043,7 +25939,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg067-1",
-          "page": 308,
+          "page": 306,
           "label": "Vaso medidor de silicona",
           "price": "$15.304",
           "productIds": [
@@ -26080,7 +25976,7 @@
       "sourcePage": 67
     },
     {
-      "number": 309,
+      "number": 307,
       "title": "Set x3 vasos medidores de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26095,7 +25991,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg068-1",
-          "page": 309,
+          "page": 307,
           "label": "Set x3 vasos medidores de silicona",
           "price": "$31.528",
           "productIds": [
@@ -26132,7 +26028,7 @@
       "sourcePage": 68
     },
     {
-      "number": 310,
+      "number": 308,
       "title": "Batidores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26149,7 +26045,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg069-1",
-          "page": 310,
+          "page": 308,
           "label": "Batidores",
           "price": "$18.364",
           "productIds": [
@@ -26184,7 +26080,7 @@
         },
         {
           "id": "oxo-pg069-2",
-          "page": 310,
+          "page": 308,
           "label": "Batidores",
           "price": "$13.816",
           "productIds": [
@@ -26219,7 +26115,7 @@
         },
         {
           "id": "oxo-pg069-3",
-          "page": 310,
+          "page": 308,
           "label": "Batidores",
           "price": "$24.443",
           "productIds": [
@@ -26256,7 +26152,7 @@
       "sourcePage": 69
     },
     {
-      "number": 311,
+      "number": 309,
       "title": "Bolsa para amasar",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26271,7 +26167,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg070-1",
-          "page": 311,
+          "page": 309,
           "label": "Bolsa para amasar",
           "price": "$26.101",
           "productIds": [
@@ -26308,7 +26204,7 @@
       "sourcePage": 70
     },
     {
-      "number": 312,
+      "number": 310,
       "title": "Prensa para cookies",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26323,7 +26219,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg071-1",
-          "page": 312,
+          "page": 310,
           "label": "Prensa para cookies",
           "price": "$52.075",
           "productIds": [
@@ -26360,7 +26256,7 @@
       "sourcePage": 71
     },
     {
-      "number": 313,
+      "number": 311,
       "title": "Vasos medidores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26376,7 +26272,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg072-1",
-          "page": 313,
+          "page": 311,
           "label": "Vasos medidores",
           "price": "$18.364",
           "productIds": [
@@ -26411,7 +26307,7 @@
         },
         {
           "id": "oxo-pg072-2",
-          "page": 313,
+          "page": 311,
           "label": "Vasos medidores",
           "price": "$35.241",
           "productIds": [
@@ -26448,7 +26344,7 @@
       "sourcePage": 72
     },
     {
-      "number": 314,
+      "number": 312,
       "title": "Jarras medidoras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26464,7 +26360,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg073-1",
-          "page": 314,
+          "page": 312,
           "label": "Jarras medidoras",
           "price": "$14.063",
           "productIds": [
@@ -26499,7 +26395,7 @@
         },
         {
           "id": "oxo-pg073-2",
-          "page": 314,
+          "page": 312,
           "label": "Jarras medidoras",
           "price": "$12.788",
           "productIds": [
@@ -26536,7 +26432,7 @@
       "sourcePage": 73
     },
     {
-      "number": 315,
+      "number": 313,
       "title": "Set x3 bowls de plástico",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26552,7 +26448,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg074-1",
-          "page": 315,
+          "page": 313,
           "label": "Set x3 bowls de plástico",
           "price": "$42.978",
           "productIds": [
@@ -26587,7 +26483,7 @@
         },
         {
           "id": "oxo-pg074-2",
-          "page": 315,
+          "page": 313,
           "label": "Set x3 bowls de plástico",
           "price": "$42.978",
           "productIds": [
@@ -26624,7 +26520,7 @@
       "sourcePage": 74
     },
     {
-      "number": 316,
+      "number": 314,
       "title": "Set x2 garras para desmenuzar carnes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26639,7 +26535,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg075-1",
-          "page": 316,
+          "page": 314,
           "label": "Set x2 garras para desmenuzar carnes",
           "price": "$21.751",
           "productIds": [
@@ -26676,7 +26572,7 @@
       "sourcePage": 75
     },
     {
-      "number": 317,
+      "number": 315,
       "title": "Cuchillo Santoku 10cm",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26691,7 +26587,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg076-1",
-          "page": 317,
+          "page": 315,
           "label": "Cuchillo Santoku 10cm",
           "price": "$14.063",
           "productIds": [
@@ -26728,7 +26624,7 @@
       "sourcePage": 76
     },
     {
-      "number": 318,
+      "number": 316,
       "title": "Tablas de cortar",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26745,7 +26641,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg077-1",
-          "page": 318,
+          "page": 316,
           "label": "Tablas de cortar",
           "price": "$20.600",
           "productIds": [
@@ -26780,7 +26676,7 @@
         },
         {
           "id": "oxo-pg077-2",
-          "page": 318,
+          "page": 316,
           "label": "Tablas de cortar",
           "price": "$24.738",
           "productIds": [
@@ -26815,7 +26711,7 @@
         },
         {
           "id": "oxo-pg077-3",
-          "page": 318,
+          "page": 316,
           "label": "Tablas de cortar",
           "price": "$28.830",
           "productIds": [
@@ -26852,7 +26748,7 @@
       "sourcePage": 77
     },
     {
-      "number": 319,
+      "number": 317,
       "title": "Afilador de cuchillos compacto",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26867,7 +26763,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg078-1",
-          "page": 319,
+          "page": 317,
           "label": "Afilador de cuchillos compacto",
           "price": "$27.632",
           "productIds": [
@@ -26904,7 +26800,7 @@
       "sourcePage": 78
     },
     {
-      "number": 320,
+      "number": 318,
       "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26920,7 +26816,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg079-1",
-          "page": 320,
+          "page": 318,
           "label": "Pinzas de acero inoxidable",
           "price": "$19.235",
           "productIds": [
@@ -26955,7 +26851,7 @@
         },
         {
           "id": "oxo-pg079-2",
-          "page": 320,
+          "page": 318,
           "label": "Pinzas de acero inoxidable",
           "price": "$20.369",
           "productIds": [
@@ -26992,7 +26888,7 @@
       "sourcePage": 79
     },
     {
-      "number": 321,
+      "number": 319,
       "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27009,7 +26905,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg080-1",
-          "page": 321,
+          "page": 319,
           "label": "Pinzas de acero inoxidable",
           "price": "$20.369",
           "productIds": [
@@ -27044,7 +26940,7 @@
         },
         {
           "id": "oxo-pg080-2",
-          "page": 321,
+          "page": 319,
           "label": "Pinzas de acero inoxidable",
           "price": "$21.751",
           "productIds": [
@@ -27079,7 +26975,7 @@
         },
         {
           "id": "oxo-pg080-3",
-          "page": 321,
+          "page": 319,
           "label": "Pinzas de acero inoxidable",
           "price": "$39.851",
           "productIds": [
@@ -27116,7 +27012,7 @@
       "sourcePage": 80
     },
     {
-      "number": 322,
+      "number": 320,
       "title": "Sets de parrilla",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27132,7 +27028,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg081-1",
-          "page": 322,
+          "page": 320,
           "label": "Sets de parrilla",
           "price": "$35.241",
           "productIds": [
@@ -27167,7 +27063,7 @@
         },
         {
           "id": "oxo-pg081-2",
-          "page": 322,
+          "page": 320,
           "label": "Sets de parrilla",
           "price": "$42.261",
           "productIds": [
@@ -27204,7 +27100,7 @@
       "sourcePage": 81
     },
     {
-      "number": 323,
+      "number": 321,
       "title": "Set x6 pinches de brochette de acero",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27219,7 +27115,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg082-1",
-          "page": 323,
+          "page": 321,
           "label": "Set x6 pinches de brochette de acero",
           "price": "$23.083",
           "productIds": [
@@ -27256,7 +27152,7 @@
       "sourcePage": 82
     },
     {
-      "number": 324,
+      "number": 322,
       "title": "Pala para carbón",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27271,7 +27167,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg083-1",
-          "page": 324,
+          "page": 322,
           "label": "Pala para carbón",
           "price": "$35.241",
           "productIds": [
@@ -27308,7 +27204,7 @@
       "sourcePage": 83
     },
     {
-      "number": 325,
+      "number": 323,
       "title": "Pincel de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27323,7 +27219,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg084-1",
-          "page": 325,
+          "page": 323,
           "label": "Pincel de silicona",
           "price": "$23.640",
           "productIds": [
@@ -27360,7 +27256,7 @@
       "sourcePage": 84
     },
     {
-      "number": 326,
+      "number": 324,
       "title": "Jeringa gastronómica",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27375,7 +27271,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg085-1",
-          "page": 326,
+          "page": 324,
           "label": "Jeringa gastronómica",
           "price": "$23.026",
           "productIds": [
@@ -27412,7 +27308,7 @@
       "sourcePage": 85
     },
     {
-      "number": 327,
+      "number": 325,
       "title": "Limpieza de parrilla",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27429,7 +27325,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg086-1",
-          "page": 327,
+          "page": 325,
           "label": "Limpieza de parrilla",
           "price": "$16.005",
           "productIds": [
@@ -27464,7 +27360,7 @@
         },
         {
           "id": "oxo-pg086-2",
-          "page": 327,
+          "page": 325,
           "label": "Limpieza de parrilla",
           "price": "$24.443",
           "productIds": [
@@ -27499,7 +27395,7 @@
         },
         {
           "id": "oxo-pg086-3",
-          "page": 327,
+          "page": 325,
           "label": "Limpieza de parrilla",
           "price": "$33.710",
           "productIds": [
@@ -27536,7 +27432,7 @@
       "sourcePage": 86
     },
     {
-      "number": 328,
+      "number": 326,
       "title": "Set desgrasadores de alimentos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27551,7 +27447,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg087-1",
-          "page": 328,
+          "page": 326,
           "label": "Set desgrasadores de alimentos",
           "price": "$25.063",
           "productIds": [
@@ -27588,7 +27484,7 @@
       "sourcePage": 87
     },
     {
-      "number": 329,
+      "number": 327,
       "title": "355ml",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27605,7 +27501,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg088-1",
-          "page": 329,
+          "page": 327,
           "label": "355ml",
           "price": "$26.101",
           "productIds": [
@@ -27640,7 +27536,7 @@
         },
         {
           "id": "oxo-pg088-2",
-          "page": 329,
+          "page": 327,
           "label": "355ml",
           "price": "$35.241",
           "productIds": [
@@ -27675,7 +27571,7 @@
         },
         {
           "id": "oxo-pg088-3",
-          "page": 329,
+          "page": 327,
           "label": "355ml",
           "price": "$18.364",
           "productIds": [
@@ -27712,7 +27608,7 @@
       "sourcePage": 88
     },
     {
-      "number": 330,
+      "number": 328,
       "title": "Manoplas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27729,7 +27625,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg089-1",
-          "page": 330,
+          "page": 328,
           "label": "Manoplas - 3 productos",
           "price": "$24.941",
           "productIds": [
@@ -27768,7 +27664,7 @@
       "sourcePage": 89
     },
     {
-      "number": 331,
+      "number": 329,
       "title": "Agarradera negra",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27783,7 +27679,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg090-1",
-          "page": 331,
+          "page": 329,
           "label": "Agarradera negra",
           "price": "$16.579",
           "productIds": [
@@ -27820,7 +27716,7 @@
       "sourcePage": 90
     },
     {
-      "number": 332,
+      "number": 330,
       "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27836,7 +27732,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg091-1",
-          "page": 332,
+          "page": 330,
           "label": "Sacacorchos",
           "price": "$26.101",
           "productIds": [
@@ -27871,7 +27767,7 @@
         },
         {
           "id": "oxo-pg091-2",
-          "page": 332,
+          "page": 330,
           "label": "Sacacorchos",
           "price": "$36.856",
           "productIds": [
@@ -27908,7 +27804,7 @@
       "sourcePage": 91
     },
     {
-      "number": 333,
+      "number": 331,
       "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27924,7 +27820,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg092-1",
-          "page": 333,
+          "page": 331,
           "label": "Sacacorchos",
           "price": "$27.482",
           "productIds": [
@@ -27959,7 +27855,7 @@
         },
         {
           "id": "oxo-pg092-2",
-          "page": 333,
+          "page": 331,
           "label": "Sacacorchos",
           "price": "$69.079",
           "productIds": [
@@ -27996,7 +27892,7 @@
       "sourcePage": 92
     },
     {
-      "number": 334,
+      "number": 332,
       "title": "Coctelera 590ml",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28011,7 +27907,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg093-1",
-          "page": 334,
+          "page": 332,
           "label": "Coctelera 590ml",
           "price": "$15.304",
           "productIds": [
@@ -28048,7 +27944,7 @@
       "sourcePage": 93
     },
     {
-      "number": 335,
+      "number": 333,
       "title": "Tapón antigoteo de vino",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28063,7 +27959,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg094-1",
-          "page": 335,
+          "page": 333,
           "label": "Tapón antigoteo de vino",
           "price": "$15.304",
           "productIds": [
@@ -28100,7 +27996,7 @@
       "sourcePage": 94
     },
     {
-      "number": 336,
+      "number": 334,
       "title": "Hielera de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28115,7 +28011,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg095-1",
-          "page": 336,
+          "page": 334,
           "label": "Hielera de acero inoxidable",
           "price": "$49.799",
           "productIds": [
@@ -28152,7 +28048,7 @@
       "sourcePage": 95
     },
     {
-      "number": 337,
+      "number": 335,
       "title": "Cubetera con tapa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28167,7 +28063,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg096-1",
-          "page": 337,
+          "page": 335,
           "label": "Cubetera con tapa",
           "price": "$8.856",
           "productIds": [
@@ -28204,7 +28100,7 @@
       "sourcePage": 96
     },
     {
-      "number": 338,
+      "number": 336,
       "title": "Cubetera con tapa involcable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28219,7 +28115,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg097-1",
-          "page": 338,
+          "page": 336,
           "label": "Cubetera con tapa involcable",
           "price": "$14.063",
           "productIds": [
@@ -28256,7 +28152,7 @@
       "sourcePage": 97
     },
     {
-      "number": 339,
+      "number": 337,
       "title": "Tapa de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28273,7 +28169,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg098-1",
-          "page": 339,
+          "page": 337,
           "label": "Tapa de silicona",
           "price": "$14.156",
           "productIds": [
@@ -28308,7 +28204,7 @@
         },
         {
           "id": "oxo-pg098-2",
-          "page": 339,
+          "page": 337,
           "label": "Tapa de silicona",
           "price": "$24.822",
           "productIds": [
@@ -28343,7 +28239,7 @@
         },
         {
           "id": "oxo-pg098-3",
-          "page": 339,
+          "page": 337,
           "label": "Tapa de silicona",
           "price": "$11.319",
           "productIds": [
@@ -28380,7 +28276,7 @@
       "sourcePage": 98
     },
     {
-      "number": 340,
+      "number": 338,
       "title": "Centrifugador de verduras 5.9L",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28395,7 +28291,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg099-1",
-          "page": 340,
+          "page": 338,
           "label": "Centrifugador de verduras 5.9L",
           "price": "$48.149",
           "productIds": [
@@ -28432,7 +28328,7 @@
       "sourcePage": 99
     },
     {
-      "number": 341,
+      "number": 339,
       "title": "Termómetro de precisión para carnes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28447,7 +28343,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg100-1",
-          "page": 341,
+          "page": 339,
           "label": "Termómetro de precisión para carnes",
           "price": "$16.579",
           "productIds": [
@@ -28484,7 +28380,7 @@
       "sourcePage": 100
     },
     {
-      "number": 342,
+      "number": 340,
       "title": "Termómetro digital",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28499,7 +28395,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg101-1",
-          "page": 342,
+          "page": 340,
           "label": "Termómetro digital",
           "price": "$29.367",
           "productIds": [
@@ -28536,7 +28432,7 @@
       "sourcePage": 101
     },
     {
-      "number": 343,
+      "number": 341,
       "title": "Colador",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28551,7 +28447,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg102-1",
-          "page": 343,
+          "page": 341,
           "label": "Colador",
           "price": "$19.236",
           "productIds": [
@@ -28588,7 +28484,7 @@
       "sourcePage": 102
     },
     {
-      "number": 344,
+      "number": 342,
       "title": "Colador 2.8L de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28603,7 +28499,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg103-1",
-          "page": 344,
+          "page": 342,
           "label": "Colador 2.8L de acero inoxidable",
           "price": "$41.199",
           "productIds": [
@@ -28640,7 +28536,7 @@
       "sourcePage": 103
     },
     {
-      "number": 345,
+      "number": 343,
       "title": "Organizador de cajón extensible",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28655,7 +28551,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg104-1",
-          "page": 345,
+          "page": 343,
           "label": "Organizador de cajón extensible",
           "price": "$28.762",
           "productIds": [
@@ -28692,7 +28588,7 @@
       "sourcePage": 104
     },
     {
-      "number": 346,
+      "number": 344,
       "title": "Portarollos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28708,7 +28604,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg105-1",
-          "page": 346,
+          "page": 344,
           "label": "Portarollos",
           "price": "$23.251",
           "productIds": [
@@ -28743,7 +28639,7 @@
         },
         {
           "id": "oxo-pg105-2",
-          "page": 346,
+          "page": 344,
           "label": "Portarollos",
           "price": "$33.710",
           "productIds": [
@@ -28780,7 +28676,7 @@
       "sourcePage": 105
     },
     {
-      "number": 347,
+      "number": 345,
       "title": "Cesto para compost de 2,83 L",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28796,7 +28692,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg106-1",
-          "page": 347,
+          "page": 345,
           "label": "Cesto para compost de 2,83 L - 2 productos",
           "price": "$31.506",
           "productIds": [
@@ -28834,7 +28730,7 @@
       "sourcePage": 106
     },
     {
-      "number": 348,
+      "number": 346,
       "title": "Molinillo de pimienta",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -28850,7 +28746,7 @@
       "sourcePage": 107
     },
     {
-      "number": 349,
+      "number": 347,
       "title": "Pimentero y salero doble",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28865,7 +28761,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg108-1",
-          "page": 349,
+          "page": 347,
           "label": "Pimentero y salero doble",
           "price": "$35.712",
           "productIds": [
@@ -28902,7 +28798,7 @@
       "sourcePage": 108
     },
     {
-      "number": 350,
+      "number": 348,
       "title": "Recipientes para condimentos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28918,7 +28814,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg109-1",
-          "page": 350,
+          "page": 348,
           "label": "Recipientes para condimentos",
           "price": "$15.742",
           "productIds": [
@@ -28953,7 +28849,7 @@
         },
         {
           "id": "oxo-pg109-2",
-          "page": 350,
+          "page": 348,
           "label": "Recipientes para condimentos",
           "price": "$15.742",
           "productIds": [
@@ -28990,7 +28886,7 @@
       "sourcePage": 109
     },
     {
-      "number": 351,
+      "number": 349,
       "title": "Clips",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29005,7 +28901,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg110-1",
-          "page": 351,
+          "page": 349,
           "label": "Clips",
           "price": "$12.788",
           "productIds": [
@@ -29042,59 +28938,7 @@
       "sourcePage": 110
     },
     {
-      "number": 352,
-      "title": "Clips magnéticos - set x4",
-      "section": "OXO",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/oxo-20260722-page-111.jpg?v=20260722-oxo-r2",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "oxo-p111-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "oxo-pg111-1",
-          "page": 352,
-          "label": "Clips magnéticos - set x4",
-          "price": "$12.788",
-          "productIds": [
-            "oxo-p111-1"
-          ],
-          "position": {
-            "x": 0.4999835,
-            "y": 0.2394094
-          },
-          "positionSource": "oxo-20260722-pdf",
-          "cover": {
-            "w": 0.2040221,
-            "h": 0.037027
-          },
-          "variant": "pdf-regular",
-          "style": {
-            "fontSize": 4.901,
-            "fontSizeUnit": "cqw",
-            "fontWeight": 800,
-            "minWidth": 0,
-            "minHeight": 0,
-            "padX": 0,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#111111",
-            "background": "#f5f5f5",
-            "borderColor": "rgba(215, 25, 32, 0.10)"
-          },
-          "pdfPriceHeight": 29.186,
-          "pdfPriceColor": "#000000"
-        }
-      ],
-      "sourcePage": 111
-    },
-    {
-      "number": 353,
+      "number": 350,
       "title": "Organizadores de bacha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29110,7 +28954,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg112-1",
-          "page": 353,
+          "page": 350,
           "label": "Organizadores de bacha",
           "price": "$29.367",
           "productIds": [
@@ -29145,7 +28989,7 @@
         },
         {
           "id": "oxo-pg112-2",
-          "page": 353,
+          "page": 350,
           "label": "Organizadores de bacha",
           "price": "$37.061",
           "productIds": [
@@ -29182,7 +29026,7 @@
       "sourcePage": 112
     },
     {
-      "number": 354,
+      "number": 351,
       "title": "Secaplatos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29198,7 +29042,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg113-1",
-          "page": 354,
+          "page": 351,
           "label": "Secaplatos",
           "price": "$69.079",
           "productIds": [
@@ -29233,7 +29077,7 @@
         },
         {
           "id": "oxo-pg113-2",
-          "page": 354,
+          "page": 351,
           "label": "Secaplatos",
           "price": "$84.425",
           "productIds": [
@@ -29270,7 +29114,7 @@
       "sourcePage": 113
     },
     {
-      "number": 355,
+      "number": 352,
       "title": "Secaplatos de aluminio",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29285,7 +29129,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg114-1",
-          "page": 355,
+          "page": 352,
           "label": "Secaplatos de aluminio",
           "price": "$64.142",
           "productIds": [
@@ -29322,7 +29166,7 @@
       "sourcePage": 114
     },
     {
-      "number": 356,
+      "number": 353,
       "title": "Escurridor de botellas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29337,7 +29181,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg115-1",
-          "page": 356,
+          "page": 353,
           "label": "Escurridor de botellas",
           "price": "$28.091",
           "productIds": [
@@ -29374,7 +29218,7 @@
       "sourcePage": 115
     },
     {
-      "number": 357,
+      "number": 354,
       "title": "Filtro y tapón de silicona para bacha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29389,7 +29233,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg116-1",
-          "page": 357,
+          "page": 354,
           "label": "Filtro y tapón de silicona para bacha",
           "price": "$15.304",
           "productIds": [
@@ -29426,7 +29270,7 @@
       "sourcePage": 116
     },
     {
-      "number": 358,
+      "number": 355,
       "title": "Protector de desagüe para bañera",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29441,7 +29285,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg117-1",
-          "page": 358,
+          "page": 355,
           "label": "Protector de desagüe para bañera",
           "price": "$10.159",
           "productIds": [
@@ -29478,7 +29322,7 @@
       "sourcePage": 117
     },
     {
-      "number": 359,
+      "number": 356,
       "title": "Dispensers de jabón",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29495,7 +29339,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg118-1",
-          "page": 359,
+          "page": 356,
           "label": "Dispensers de jabón",
           "price": "$30.024",
           "productIds": [
@@ -29530,7 +29374,7 @@
         },
         {
           "id": "oxo-pg118-2",
-          "page": 359,
+          "page": 356,
           "label": "Dispensers de jabón",
           "price": "$30.024",
           "productIds": [
@@ -29565,7 +29409,7 @@
         },
         {
           "id": "oxo-pg118-3",
-          "page": 359,
+          "page": 356,
           "label": "Dispensers de jabón",
           "price": "$38.456",
           "productIds": [
@@ -29602,7 +29446,7 @@
       "sourcePage": 118
     },
     {
-      "number": 360,
+      "number": 357,
       "title": "Esponjas con dispensers",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29620,7 +29464,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg119-1",
-          "page": 360,
+          "page": 357,
           "label": "Esponjas con dispensers",
           "price": "$12.788",
           "productIds": [
@@ -29655,7 +29499,7 @@
         },
         {
           "id": "oxo-pg119-2",
-          "page": 360,
+          "page": 357,
           "label": "Esponjas con dispensers",
           "price": "$14.063",
           "productIds": [
@@ -29690,7 +29534,7 @@
         },
         {
           "id": "oxo-pg119-3",
-          "page": 360,
+          "page": 357,
           "label": "Esponjas con dispensers",
           "price": "$8.856",
           "productIds": [
@@ -29725,7 +29569,7 @@
         },
         {
           "id": "oxo-pg119-4",
-          "page": 360,
+          "page": 357,
           "label": "Esponjas con dispensers",
           "price": "$8.856",
           "productIds": [
@@ -29762,7 +29606,7 @@
       "sourcePage": 119
     },
     {
-      "number": 361,
+      "number": 358,
       "title": "Cepillo con dispenser",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29778,7 +29622,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg120-1",
-          "page": 361,
+          "page": 358,
           "label": "Cepillo con dispenser",
           "price": "$8.856",
           "productIds": [
@@ -29813,7 +29657,7 @@
         },
         {
           "id": "oxo-pg120-2",
-          "page": 361,
+          "page": 358,
           "label": "Cepillo con dispenser",
           "price": "$15.304",
           "productIds": [
@@ -29850,7 +29694,7 @@
       "sourcePage": 120
     },
     {
-      "number": 362,
+      "number": 359,
       "title": "Cepillo de palma",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29866,7 +29710,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg121-1",
-          "page": 362,
+          "page": 359,
           "label": "Cepillo de palma",
           "price": "$8.856",
           "productIds": [
@@ -29901,7 +29745,7 @@
         },
         {
           "id": "oxo-pg121-2",
-          "page": 362,
+          "page": 359,
           "label": "Cepillo de palma",
           "price": "$11.513",
           "productIds": [
@@ -29938,7 +29782,7 @@
       "sourcePage": 121
     },
     {
-      "number": 363,
+      "number": 360,
       "title": "Set compacto de cepillo de mesa con",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29953,7 +29797,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg122-1",
-          "page": 363,
+          "page": 360,
           "label": "Set compacto de cepillo de mesa con",
           "price": "$12.788",
           "productIds": [
@@ -29990,7 +29834,7 @@
       "sourcePage": 122
     },
     {
-      "number": 364,
+      "number": 361,
       "title": "Pala y cepillo de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30005,7 +29849,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg123-1",
-          "page": 364,
+          "page": 361,
           "label": "Pala y cepillo de mesa",
           "price": "$15.304",
           "productIds": [
@@ -30042,7 +29886,7 @@
       "sourcePage": 123
     },
     {
-      "number": 365,
+      "number": 362,
       "title": "Plumeros de microfibra",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30059,7 +29903,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg124-1",
-          "page": 365,
+          "page": 362,
           "label": "Plumeros de microfibra",
           "price": "$15.304",
           "productIds": [
@@ -30094,7 +29938,7 @@
         },
         {
           "id": "oxo-pg124-2",
-          "page": 365,
+          "page": 362,
           "label": "Plumeros de microfibra",
           "price": "$23.026",
           "productIds": [
@@ -30129,7 +29973,7 @@
         },
         {
           "id": "oxo-pg124-3",
-          "page": 365,
+          "page": 362,
           "label": "Plumeros de microfibra",
           "price": "$10.132",
           "productIds": [
@@ -30166,21 +30010,7 @@
       "sourcePage": 124
     },
     {
-      "number": 366,
-      "title": "Catálogo",
-      "section": "OXO",
-      "showPriceOverlays": false,
-      "image": {
-        "src": "assets/pages/oxo-20260722-page-125.jpg?v=20260722-oxo-r2",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [],
-      "priceGroups": [],
-      "sourcePage": 125
-    },
-    {
-      "number": 367,
+      "number": 363,
       "title": "Limpia notebooks",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30195,7 +30025,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg126-1",
-          "page": 367,
+          "page": 363,
           "label": "Limpia notebooks",
           "price": "$15.304",
           "productIds": [
@@ -30232,7 +30062,7 @@
       "sourcePage": 126
     },
     {
-      "number": 368,
+      "number": 364,
       "title": "Cepillo quita pelusas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30249,7 +30079,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg127-1",
-          "page": 368,
+          "page": 364,
           "label": "Cepillo quita pelusas",
           "price": "$9.941",
           "productIds": [
@@ -30284,7 +30114,7 @@
         },
         {
           "id": "oxo-pg127-2",
-          "page": 368,
+          "page": 364,
           "label": "Cepillo quita pelusas",
           "price": "$23.026",
           "productIds": [
@@ -30319,7 +30149,7 @@
         },
         {
           "id": "oxo-pg127-3",
-          "page": 368,
+          "page": 364,
           "label": "Cepillo quita pelusas",
           "price": "$17.856",
           "productIds": [
@@ -30356,7 +30186,7 @@
       "sourcePage": 127
     },
     {
-      "number": 369,
+      "number": 365,
       "title": "Set x2 cepillos de limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30371,7 +30201,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg128-1",
-          "page": 369,
+          "page": 365,
           "label": "Set x2 cepillos de limpieza",
           "price": "$11.513",
           "productIds": [
@@ -30408,7 +30238,7 @@
       "sourcePage": 128
     },
     {
-      "number": 370,
+      "number": 366,
       "title": "Limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30424,7 +30254,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg129-1",
-          "page": 370,
+          "page": 366,
           "label": "Limpieza",
           "price": "$13.718",
           "productIds": [
@@ -30459,7 +30289,7 @@
         },
         {
           "id": "oxo-pg129-2",
-          "page": 370,
+          "page": 366,
           "label": "Limpieza",
           "price": "$17.856",
           "productIds": [
@@ -30496,7 +30326,7 @@
       "sourcePage": 129
     },
     {
-      "number": 371,
+      "number": 367,
       "title": "Limpiavidrios",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30511,7 +30341,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg130-1",
-          "page": 371,
+          "page": 367,
           "label": "Limpiavidrios",
           "price": "$13.718",
           "productIds": [
@@ -30548,7 +30378,7 @@
       "sourcePage": 130
     },
     {
-      "number": 372,
+      "number": 368,
       "title": "Organizadores de ducha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30565,7 +30395,7 @@
       "priceGroups": [
         {
           "id": "oxo-pg131-1",
-          "page": 372,
+          "page": 368,
           "label": "Organizadores de ducha",
           "price": "$58.750",
           "productIds": [
@@ -30600,7 +30430,7 @@
         },
         {
           "id": "oxo-pg131-2",
-          "page": 372,
+          "page": 368,
           "label": "Organizadores de ducha",
           "price": "$79.706",
           "productIds": [
@@ -30635,7 +30465,7 @@
         },
         {
           "id": "oxo-pg131-3",
-          "page": 372,
+          "page": 368,
           "label": "Organizadores de ducha",
           "price": "$204.473",
           "productIds": [
@@ -30672,7 +30502,7 @@
       "sourcePage": 131
     },
     {
-      "number": 373,
+      "number": 369,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30685,7 +30515,7 @@
       "priceGroups": []
     },
     {
-      "number": 374,
+      "number": 370,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30698,7 +30528,7 @@
       "priceGroups": []
     },
     {
-      "number": 375,
+      "number": 371,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30713,7 +30543,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg384-1",
-          "page": 375,
+          "page": 371,
           "label": "Salad pod con tapa removible y contenedor de salsa",
           "price": "$22.785",
           "productIds": [
@@ -30746,7 +30576,7 @@
       ]
     },
     {
-      "number": 376,
+      "number": 372,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30759,7 +30589,7 @@
       "priceGroups": []
     },
     {
-      "number": 377,
+      "number": 373,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30778,7 +30608,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg386-1",
-          "page": 377,
+          "page": 373,
           "label": "Frasco EVAK 9,6 x 10,3 cm",
           "price": "$7.394",
           "productIds": [
@@ -30810,7 +30640,7 @@
         },
         {
           "id": "prepara-pg386-2",
-          "page": 377,
+          "page": 373,
           "label": "Frasco EVAK 11,8 x 26,6 cm",
           "price": "$13.067",
           "productIds": [
@@ -30842,7 +30672,7 @@
         },
         {
           "id": "prepara-pg386-3",
-          "page": 377,
+          "page": 373,
           "label": "Frasco EVAK 11,8 x 13 cm",
           "price": "$10.277",
           "productIds": [
@@ -30874,7 +30704,7 @@
         },
         {
           "id": "prepara-pg386-4",
-          "page": 377,
+          "page": 373,
           "label": "Frasco EVAK 9,6 x 20 cm",
           "price": "$9.161",
           "productIds": [
@@ -30906,7 +30736,7 @@
         },
         {
           "id": "prepara-pg386-5",
-          "page": 377,
+          "page": 373,
           "label": "Frasco EVAK 14,4 x 29,1 cm",
           "price": "$7.394",
           "productIds": [
@@ -30939,7 +30769,7 @@
       ]
     },
     {
-      "number": 378,
+      "number": 374,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30952,7 +30782,7 @@
       "priceGroups": []
     },
     {
-      "number": 379,
+      "number": 375,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30965,7 +30795,7 @@
       "priceGroups": []
     },
     {
-      "number": 380,
+      "number": 376,
       "title": "Conservador",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30981,7 +30811,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg389-1",
-          "page": 380,
+          "page": 376,
           "label": "Conservador de hierbas - individual",
           "price": "$9.161",
           "productIds": [
@@ -31013,7 +30843,7 @@
         },
         {
           "id": "prepara-pg389-2",
-          "page": 380,
+          "page": 376,
           "label": "Conservador de hierbas - set x3",
           "price": "$23.111",
           "productIds": [
@@ -31046,7 +30876,7 @@
       ]
     },
     {
-      "number": 381,
+      "number": 377,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31061,7 +30891,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg390-1",
-          "page": 381,
+          "page": 377,
           "label": "Hierbas \"cool tool\" para preparar hierbas",
           "price": "$1.721",
           "productIds": [
@@ -31094,7 +30924,7 @@
       ]
     },
     {
-      "number": 382,
+      "number": 378,
       "title": "Porta-tacos",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31107,7 +30937,7 @@
       "priceGroups": []
     },
     {
-      "number": 383,
+      "number": 379,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31124,7 +30954,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg392-1",
-          "page": 383,
+          "page": 379,
           "label": "Porta tacos amarillo",
           "price": "$7.301",
           "productIds": [
@@ -31156,7 +30986,7 @@
         },
         {
           "id": "prepara-pg392-2",
-          "page": 383,
+          "page": 379,
           "label": "Porta tacos azul",
           "price": "$7.301",
           "productIds": [
@@ -31188,7 +31018,7 @@
         },
         {
           "id": "prepara-pg392-3",
-          "page": 383,
+          "page": 379,
           "label": "Porta tacos rojo",
           "price": "$7.301",
           "productIds": [
@@ -31221,7 +31051,7 @@
       ]
     },
     {
-      "number": 384,
+      "number": 380,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31237,7 +31067,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg393-1",
-          "page": 384,
+          "page": 380,
           "label": "Porta tacos oruga - set x4",
           "price": "$13.392",
           "productIds": [
@@ -31269,7 +31099,7 @@
         },
         {
           "id": "prepara-pg393-2",
-          "page": 384,
+          "page": 380,
           "label": "Porta tacos sombrero - set x4",
           "price": "$9.300",
           "productIds": [
@@ -31302,7 +31132,7 @@
       ]
     },
     {
-      "number": 385,
+      "number": 381,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31315,7 +31145,7 @@
       "priceGroups": []
     },
     {
-      "number": 386,
+      "number": 382,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31331,7 +31161,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg395-1",
-          "page": 386,
+          "page": 382,
           "label": "Organizador de cajón single extensible",
           "price": "$15.996",
           "productIds": [
@@ -31363,7 +31193,7 @@
         },
         {
           "id": "prepara-pg395-2",
-          "page": 386,
+          "page": 382,
           "label": "Organizador de cajón doble extensible",
           "price": "$31.899",
           "productIds": [
@@ -31396,7 +31226,7 @@
       ]
     },
     {
-      "number": 387,
+      "number": 383,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31409,7 +31239,7 @@
       "priceGroups": []
     },
     {
-      "number": 388,
+      "number": 384,
       "title": "Sprays para aceite",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31422,7 +31252,7 @@
       "priceGroups": []
     },
     {
-      "number": 389,
+      "number": 385,
       "title": "Sprays",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31439,7 +31269,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg398-1",
-          "page": 389,
+          "page": 385,
           "label": "Spray de aceite Simple",
           "price": "$25.250",
           "productIds": [
@@ -31471,7 +31301,7 @@
         },
         {
           "id": "prepara-pg398-2",
-          "page": 389,
+          "page": 385,
           "label": "Spray de aceite Deluxe",
           "price": "$20.693",
           "productIds": [
@@ -31503,7 +31333,7 @@
         },
         {
           "id": "prepara-pg398-3",
-          "page": 389,
+          "page": 385,
           "label": "Spray gourmet de aluminio",
           "price": "$13.020",
           "productIds": [
@@ -31536,7 +31366,7 @@
       ]
     },
     {
-      "number": 390,
+      "number": 386,
       "title": "aceite",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31551,7 +31381,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg399-1",
-          "page": 390,
+          "page": 386,
           "label": "Vertedor de aceite",
           "price": "$8.556",
           "productIds": [
@@ -31584,7 +31414,7 @@
       ]
     },
     {
-      "number": 391,
+      "number": 387,
       "title": "Otros accesorios",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31597,7 +31427,7 @@
       "priceGroups": []
     },
     {
-      "number": 392,
+      "number": 388,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31614,7 +31444,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg401-1",
-          "page": 392,
+          "page": 388,
           "label": "Cortador de cebolla",
           "price": "$13.718",
           "productIds": [
@@ -31646,7 +31476,7 @@
         },
         {
           "id": "prepara-pg401-2",
-          "page": 392,
+          "page": 388,
           "label": "Guante resistente a cortes",
           "price": "$10.928",
           "productIds": [
@@ -31678,7 +31508,7 @@
         },
         {
           "id": "prepara-pg401-3",
-          "page": 392,
+          "page": 388,
           "label": "Cortador de manzana cuchillas de acero inoxidable",
           "price": "$13.020",
           "productIds": [
@@ -31711,7 +31541,7 @@
       ]
     },
     {
-      "number": 393,
+      "number": 389,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31728,7 +31558,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg402-1",
-          "page": 393,
+          "page": 389,
           "label": "Exprimidor convertible",
           "price": "$12.323",
           "productIds": [
@@ -31760,7 +31590,7 @@
         },
         {
           "id": "prepara-pg402-2",
-          "page": 393,
+          "page": 389,
           "label": "Pisapapas flip de acero inoxidable",
           "price": "$15.950",
           "productIds": [
@@ -31792,7 +31622,7 @@
         },
         {
           "id": "prepara-pg402-3",
-          "page": 393,
+          "page": 389,
           "label": "Exprimidor de mano",
           "price": "$5.162",
           "productIds": [
@@ -31825,7 +31655,7 @@
       ]
     },
     {
-      "number": 394,
+      "number": 390,
       "title": "Accesorios para palta",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31841,7 +31671,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg403-1",
-          "page": 394,
+          "page": 390,
           "label": "Cortador de palta cactus",
           "price": "$7.487",
           "productIds": [
@@ -31873,7 +31703,7 @@
         },
         {
           "id": "prepara-pg403-2",
-          "page": 394,
+          "page": 390,
           "label": "Avocado \"Cool Tool\" 3 en 1",
           "price": "$1.535",
           "productIds": [
@@ -31906,7 +31736,7 @@
       ]
     },
     {
-      "number": 395,
+      "number": 391,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31922,7 +31752,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg404-1",
-          "page": 395,
+          "page": 391,
           "label": "Colador para latas",
           "price": "$4.836",
           "productIds": [
@@ -31954,7 +31784,7 @@
         },
         {
           "id": "prepara-pg404-2",
-          "page": 395,
+          "page": 391,
           "label": "Rallador de queso Cactus",
           "price": "$4.743",
           "productIds": [
@@ -31987,7 +31817,7 @@
       ]
     },
     {
-      "number": 396,
+      "number": 392,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -32004,7 +31834,7 @@
       "priceGroups": [
         {
           "id": "prepara-pg405-1",
-          "page": 396,
+          "page": 392,
           "label": "Cucharas para helado - set x4",
           "price": "$7.673",
           "productIds": [
@@ -32036,7 +31866,7 @@
         },
         {
           "id": "prepara-pg405-2",
-          "page": 396,
+          "page": 392,
           "label": "Bolas de hielo - set x2",
           "price": "$4.929",
           "productIds": [
@@ -32068,7 +31898,7 @@
         },
         {
           "id": "prepara-pg405-3",
-          "page": 396,
+          "page": 392,
           "label": "Bolas de hielo - set x4",
           "price": "$6.092",
           "productIds": [
@@ -34383,7 +34213,8 @@
         "x": 0.5694191113527236,
         "y": 0.44518945138579696
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p054-2",
@@ -34410,7 +34241,8 @@
         "x": 0.5694139610309745,
         "y": 0.4832314015425571
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p054-3",
@@ -34437,7 +34269,8 @@
         "x": 0.5694139610309745,
         "y": 0.5212733154659209
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p054-4",
@@ -34464,7 +34297,8 @@
         "x": 0.5694287970324308,
         "y": 0.5593152656226811
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p055-1",
@@ -34491,7 +34325,8 @@
         "x": 0.5694270290115317,
         "y": 0.44518945138579696
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p055-2",
@@ -34518,7 +34353,8 @@
         "x": 0.5694287201619569,
         "y": 0.4832314015425571
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p055-3",
@@ -34545,7 +34381,8 @@
         "x": 0.5694287201619569,
         "y": 0.5212733154659209
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p055-4",
@@ -34572,7 +34409,8 @@
         "x": 0.569423851698612,
         "y": 0.5593152656226811
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
     },
     {
       "id": "p056-1",
@@ -34815,7 +34653,8 @@
         "x": 0.5694264140477409,
         "y": 0.46491958649868287
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=XLP5-PUNUJ4"
     },
     {
       "id": "p058-2",
@@ -34842,7 +34681,8 @@
         "x": 0.5694326661796153,
         "y": 0.5029615004220466
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=XLP5-PUNUJ4"
     },
     {
       "id": "p058-3",
@@ -34869,7 +34709,8 @@
         "x": 0.5694281820686398,
         "y": 0.5410034143454103
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=XLP5-PUNUJ4"
     },
     {
       "id": "p059-1",
@@ -35004,7 +34845,8 @@
         "x": 0.5540310517766713,
         "y": 0.15347415044280108
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p060-2",
@@ -35031,7 +34873,8 @@
         "x": 0.5684565905259499,
         "y": 0.22806453733141324
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p060-3",
@@ -35058,7 +34901,8 @@
         "x": 0.5464878034231344,
         "y": 0.30089973320625557
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p060-4",
@@ -35085,7 +34929,8 @@
         "x": 0.5233521481505169,
         "y": 0.4091034886673531
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p060-5",
@@ -35112,7 +34957,8 @@
         "x": 0.5432431263447208,
         "y": 0.5170340080861346
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p060-6",
@@ -35139,7 +34985,8 @@
         "x": 0.5540923431678343,
         "y": 0.611444071868507
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p061-1",
@@ -35166,7 +35013,8 @@
         "x": 0.6190401296671652,
         "y": 0.15347415044280108
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p061-2",
@@ -35193,7 +35041,8 @@
         "x": 0.6246315854422492,
         "y": 0.29614187157377003
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p061-3",
@@ -35220,7 +35069,8 @@
         "x": 0.612655729330657,
         "y": 0.5814773138357079
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p061-4",
@@ -35247,7 +35097,8 @@
         "x": 0.6327640459779729,
         "y": 0.4388095474129935
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-1",
@@ -35274,7 +35125,8 @@
         "x": 0.5382115694777891,
         "y": 0.23320649108252633
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-2",
@@ -35301,7 +35153,8 @@
         "x": 0.5575100300594301,
         "y": 0.4691200516775193
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-3",
@@ -35328,7 +35181,8 @@
         "x": 0.5463235055969905,
         "y": 0.13970126579196349
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-4",
@@ -35355,7 +35209,8 @@
         "x": 0.5647943530334933,
         "y": 0.3604783069206367
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-5",
@@ -35382,7 +35237,8 @@
         "x": 0.5701764905082388,
         "y": 0.5698841487876596
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p062-6",
@@ -35409,7 +35265,8 @@
         "x": 0.5527320176388014,
         "y": 0.6635617544616355
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p063-1",
@@ -35436,7 +35293,8 @@
         "x": 0.6748132201225991,
         "y": 0.14661435325126615
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p063-2",
@@ -35463,7 +35321,8 @@
         "x": 0.7543530724410946,
         "y": 0.17957423440282724
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p064-1",
@@ -35517,7 +35376,8 @@
         "x": 0.4244381306453676,
         "y": 0.14663323990914404
       },
-      "section": "Magefesa"
+      "section": "Magefesa",
+      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
     },
     {
       "id": "p066-1",
@@ -35706,7 +35566,8 @@
         "x": 0.5018754601979035,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=4pBMmT4H6uk"
     },
     {
       "id": "p070-1",
@@ -35733,7 +35594,8 @@
         "x": 0.4698391464266139,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=5Q3XXkzx-8Q"
     },
     {
       "id": "p070-2",
@@ -35760,7 +35622,8 @@
         "x": 0.530134410130376,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=5Q3XXkzx-8Q"
     },
     {
       "id": "p071-1",
@@ -35787,7 +35650,8 @@
         "x": 0.5018681318793949,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=ugXYfPxsS6A"
     },
     {
       "id": "p072-1",
@@ -35814,7 +35678,8 @@
         "x": 0.30248571182878753,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=O0dNCrznauk"
     },
     {
       "id": "p072-2",
@@ -35841,7 +35706,8 @@
         "x": 0.5219992133276237,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=O0dNCrznauk"
     },
     {
       "id": "p072-3",
@@ -35868,7 +35734,8 @@
         "x": 0.5812245489659481,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=O0dNCrznauk"
     },
     {
       "id": "p072-4",
@@ -35895,7 +35762,8 @@
         "x": 0.6404498846042728,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=O0dNCrznauk"
     },
     {
       "id": "p072-5",
@@ -35922,7 +35790,8 @@
         "x": 0.6996752202425974,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=O0dNCrznauk"
     },
     {
       "id": "p073-1",
@@ -35949,7 +35818,8 @@
         "x": 0.2067515759984552,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p073-2",
@@ -35976,7 +35846,8 @@
         "x": 0.42673580192098287,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p073-3",
@@ -36003,7 +35874,8 @@
         "x": 0.6178860944102395,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p073-4",
@@ -36030,7 +35902,8 @@
         "x": 0.677134435487482,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p073-5",
@@ -36057,7 +35930,8 @@
         "x": 0.7363827765647246,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p073-6",
@@ -36084,7 +35958,8 @@
         "x": 0.7956311176419671,
         "y": 0.7587352196729371
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zfhQ4SgOfR0"
     },
     {
       "id": "p074-1",
@@ -36111,7 +35986,8 @@
         "x": 0.3741311714691239,
         "y": 0.7418523410832221
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=lEs0Op82fmM"
     },
     {
       "id": "p074-2",
@@ -36138,7 +36014,8 @@
         "x": 0.3735065091867391,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=lEs0Op82fmM"
     },
     {
       "id": "p075-1",
@@ -36165,7 +36042,8 @@
         "x": 0.5018726928608443,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=XmHJhqsZGVA"
     },
     {
       "id": "p076-1",
@@ -36192,7 +36070,8 @@
         "x": 0.5018727697313182,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=QRl01zySK1k"
     },
     {
       "id": "p077-1",
@@ -36219,7 +36098,8 @@
         "x": 0.4646547953870112,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=I_Q24Guqrk4"
     },
     {
       "id": "p077-2",
@@ -36246,7 +36126,8 @@
         "x": 0.5390744987821481,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=I_Q24Guqrk4"
     },
     {
       "id": "p078-1",
@@ -36273,7 +36154,8 @@
         "x": 0.5018626484522591,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=Ux_lOiTGbN0"
     },
     {
       "id": "p079-1",
@@ -36300,7 +36182,8 @@
         "x": 0.5018667225873741,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=Ap59OFT9Cec"
     },
     {
       "id": "p080-1",
@@ -36327,7 +36210,8 @@
         "x": 0.36809393100434246,
         "y": 0.7396253640731671
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=tyhNHBkQ_zg"
     },
     {
       "id": "p080-2",
@@ -36354,7 +36238,8 @@
         "x": 0.37617164695092753,
         "y": 0.7565507082034728
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=tyhNHBkQ_zg"
     },
     {
       "id": "p081-1",
@@ -36381,7 +36266,8 @@
         "x": 0.5018752295864819,
         "y": 0.7418523410832221
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=5PH6bvfHoJ0"
     },
     {
       "id": "p081-2",
@@ -36408,7 +36294,8 @@
         "x": 0.5018672863041824,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=5PH6bvfHoJ0"
     },
     {
       "id": "p082-1",
@@ -36435,7 +36322,8 @@
         "x": 0.5018733590716179,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=XF24PA5pwxU"
     },
     {
       "id": "p083-1",
@@ -36462,7 +36350,8 @@
         "x": 0.4723565348694491,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BeKXGjekp40"
     },
     {
       "id": "p083-2",
@@ -36489,7 +36378,8 @@
         "x": 0.5313830086962257,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BeKXGjekp40"
     },
     {
       "id": "p084-1",
@@ -36516,7 +36406,8 @@
         "x": 0.4066796254179411,
         "y": 0.7418523410832221
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p084-2",
@@ -36543,7 +36434,8 @@
         "x": 0.4624486966457415,
         "y": 0.7418523410832221
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p084-3",
@@ -36570,7 +36462,8 @@
         "x": 0.5182177678735419,
         "y": 0.7418523410832221
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p084-4",
@@ -36597,7 +36490,8 @@
         "x": 0.41779334622063163,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p084-5",
@@ -36624,7 +36518,8 @@
         "x": 0.47221101621536526,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p084-6",
@@ -36651,7 +36546,8 @@
         "x": 0.5266286862100988,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=EsZgKfhfDlY"
     },
     {
       "id": "p085-1",
@@ -36678,7 +36574,8 @@
         "x": 0.20565481370081928,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p085-2",
@@ -36705,7 +36602,8 @@
         "x": 0.42615999723061304,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p085-3",
@@ -36732,7 +36630,8 @@
         "x": 0.6222936084148365,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p085-4",
@@ -36759,7 +36658,8 @@
         "x": 0.6817354319177686,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p085-5",
@@ -36786,7 +36686,8 @@
         "x": 0.7411772554207008,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p085-6",
@@ -36813,7 +36714,8 @@
         "x": 0.8006190789236329,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=BtUSu40ah6s"
     },
     {
       "id": "p086-1",
@@ -36840,7 +36742,8 @@
         "x": 0.30469124102972817,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GeHMMXgEu6w"
     },
     {
       "id": "p086-2",
@@ -36867,7 +36770,8 @@
         "x": 0.5242264094185786,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GeHMMXgEu6w"
     },
     {
       "id": "p086-3",
@@ -36894,7 +36798,8 @@
         "x": 0.5833357152039583,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GeHMMXgEu6w"
     },
     {
       "id": "p086-4",
@@ -36921,7 +36826,8 @@
         "x": 0.6424450209893381,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GeHMMXgEu6w"
     },
     {
       "id": "p086-5",
@@ -36948,7 +36854,8 @@
         "x": 0.7015543267747177,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GeHMMXgEu6w"
     },
     {
       "id": "p087-1",
@@ -36975,7 +36882,8 @@
         "x": 0.5018754601979035,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=zBgslwJQQYI"
     },
     {
       "id": "p088-1",
@@ -37002,7 +36910,8 @@
         "x": 0.46332873545405645,
         "y": 0.7402315487950801
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=NYchn52H224"
     },
     {
       "id": "p088-2",
@@ -37029,7 +36938,8 @@
         "x": 0.46289777395406956,
         "y": 0.7571568929253859
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=NYchn52H224"
     },
     {
       "id": "p089-1",
@@ -37056,7 +36966,8 @@
         "x": 0.5018740252823913,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=azJhRRx4W-4"
     },
     {
       "id": "p090-1",
@@ -37083,7 +36994,8 @@
         "x": 0.43885891623701195,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=sAW5ZqhCZUE"
     },
     {
       "id": "p090-2",
@@ -37110,7 +37022,8 @@
         "x": 0.5018732309541614,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=sAW5ZqhCZUE"
     },
     {
       "id": "p090-3",
@@ -37137,7 +37050,8 @@
         "x": 0.5648875456713108,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=sAW5ZqhCZUE"
     },
     {
       "id": "p091-1",
@@ -37164,7 +37078,8 @@
         "x": 0.5018672606806911,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=GCOeCluEUI0"
     },
     {
       "id": "p092-1",
@@ -37191,7 +37106,8 @@
         "x": 0.5018745377522171,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=uYILPJXbBj4"
     },
     {
       "id": "p093-1",
@@ -37218,7 +37134,8 @@
         "x": 0.5018682856203427,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=nd0DfTJOFXE"
     },
     {
       "id": "p094-1",
@@ -37245,7 +37162,8 @@
         "x": 0.5018664663524611,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=Gc5IEx-EJEw"
     },
     {
       "id": "p095-1",
@@ -37272,7 +37190,8 @@
         "x": 0.5018679781384472,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=TXrQAWfF2lk"
     },
     {
       "id": "p096-1",
@@ -37299,7 +37218,8 @@
         "x": 0.5018693618069768,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=RLddCfGKTB4"
     },
     {
       "id": "p097-1",
@@ -37326,7 +37246,8 @@
         "x": 0.4799030089358339,
         "y": 0.7604317397595726
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=6ORgAWxVZKE"
     },
     {
       "id": "p098-1",
@@ -37353,7 +37274,8 @@
         "x": 0.5018733590716179,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=yH-sGieBz0w"
     },
     {
       "id": "p099-1",
@@ -37380,7 +37302,8 @@
         "x": 0.40928279642894627,
         "y": 0.7432085571107896
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=Fvhfzqn0WEE"
     },
     {
       "id": "p099-2",
@@ -37407,7 +37330,8 @@
         "x": 0.4580185743663413,
         "y": 0.7601339012410953
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=Fvhfzqn0WEE"
     },
     {
       "id": "p100-1",
@@ -37434,7 +37358,8 @@
         "x": 0.5018713860627886,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=jFdBr-bMMh4"
     },
     {
       "id": "p101-1",
@@ -37461,7 +37386,8 @@
         "x": 0.5018674400451302,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=I5u-bOzZ0PM"
     },
     {
       "id": "p102-1",
@@ -37488,7 +37414,8 @@
         "x": 0.5018748452341126,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=bFNKYWe_9yY"
     },
     {
       "id": "p103-1",
@@ -37515,7 +37442,8 @@
         "x": 0.5018685931022382,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=S3sM4Skj6kk"
     },
     {
       "id": "p104-1",
@@ -37542,7 +37470,8 @@
         "x": 0.5018686955962033,
         "y": 0.7587776852135277
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=dY5DQAGaNnQ"
     },
     {
       "id": "p107-1",
@@ -38006,7 +37935,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 9,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kbG2wG1qxoo"
     },
     {
       "id": "p113-2",
@@ -38093,7 +38023,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 10,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=86XtrC3p5w0"
     },
     {
       "id": "p114-2",
@@ -38354,7 +38285,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 14,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=2M1HWHnZrx4"
     },
     {
       "id": "p118-2",
@@ -38441,7 +38373,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 15,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=2M1HWHnZrx4"
     },
     {
       "id": "p119-2",
@@ -38557,7 +38490,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 16,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=KoyzjJYbP8c"
     },
     {
       "id": "p121-1",
@@ -38586,7 +38520,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 17,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=5TG_fv3Eh_U"
     },
     {
       "id": "p122-1",
@@ -38615,7 +38550,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 18,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=MwOAWrPu1ig"
     },
     {
       "id": "p122-2",
@@ -38760,7 +38696,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 20,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=7h_2CgWytJo"
     },
     {
       "id": "p124-2",
@@ -38789,7 +38726,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 20,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=7h_2CgWytJo"
     },
     {
       "id": "p124-3",
@@ -39572,7 +39510,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 36,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=t5Z5f8FL0UQ"
     },
     {
       "id": "p141-1",
@@ -39659,7 +39598,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 38,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DxCtyd2lc3E"
     },
     {
       "id": "p142-2",
@@ -39775,7 +39715,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 40,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=K-GS8YW3Zkc"
     },
     {
       "id": "p144-2",
@@ -40007,7 +39948,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 43,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=l0K_NHPqMW4"
     },
     {
       "id": "p147-2",
@@ -40123,7 +40065,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 45,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=fhEoUBz_2PI"
     },
     {
       "id": "p149-2",
@@ -40239,7 +40182,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 47,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=010ctBdTvtQ"
     },
     {
       "id": "p152-1",
@@ -40500,7 +40444,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 51,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=010ctBdTvtQ"
     },
     {
       "id": "p156-1",
@@ -40674,7 +40619,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 54,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=JvGUeK74tLI"
     },
     {
       "id": "p158-3",
@@ -40732,7 +40678,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 54,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=JvGUeK74tLI"
     },
     {
       "id": "p158-5",
@@ -41312,7 +41259,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 62,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0KsgoTVDH_0"
     },
     {
       "id": "p166-2",
@@ -41370,7 +41318,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 62,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0KsgoTVDH_0"
     },
     {
       "id": "p166-4",
@@ -41399,7 +41348,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 62,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0KsgoTVDH_0"
     },
     {
       "id": "p167-1",
@@ -41573,7 +41523,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 65,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=aQVW4XcJERM"
     },
     {
       "id": "p170-1",
@@ -41718,7 +41669,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 68,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=rrwD9VYr4eQ"
     },
     {
       "id": "p172-2",
@@ -41747,7 +41699,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 68,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=rrwD9VYr4eQ"
     },
     {
       "id": "p173-1",
@@ -44357,7 +44310,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 101,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kxEEpcT6_zQ"
     },
     {
       "id": "p205-2",
@@ -44386,7 +44340,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 101,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kxEEpcT6_zQ"
     },
     {
       "id": "p205-3",
@@ -44415,7 +44370,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 101,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kxEEpcT6_zQ"
     },
     {
       "id": "p205-4",
@@ -44444,7 +44400,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 101,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kxEEpcT6_zQ"
     },
     {
       "id": "p206-1",
@@ -44560,7 +44517,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 103,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kBsmJMhTqzs"
     },
     {
       "id": "p207-2",
@@ -44589,7 +44547,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 103,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kBsmJMhTqzs"
     },
     {
       "id": "p207-3",
@@ -44618,7 +44577,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 103,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kBsmJMhTqzs"
     },
     {
       "id": "p208-1",
@@ -45488,7 +45448,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 115,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=84UBLs1RCc0"
     },
     {
       "id": "p219-2",
@@ -45517,7 +45478,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 115,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=84UBLs1RCc0"
     },
     {
       "id": "p220-1",
@@ -45575,7 +45537,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 3,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=2IzkdZcl6CM"
     },
     {
       "id": "p363-1",
@@ -45604,7 +45567,8 @@
       },
       "section": "Leifheit",
       "sourcePage": 4,
-      "hotspotSource": "leifheit-sku-text"
+      "hotspotSource": "leifheit-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=MFnNHOY0AEs"
     },
     {
       "id": "p364-1",
@@ -45660,7 +45624,8 @@
         "x": 0.911,
         "y": 0.735
       },
-      "section": "Dreamfarm"
+      "section": "Dreamfarm",
+      "videoUrl": "https://www.youtube.com/watch?v=nE3BWeI_9Uw"
     },
     {
       "id": "estia-p026-1",
@@ -48185,16 +48150,16 @@
     {
       "id": "estia-p058-4",
       "page": 58,
-      "sku": "18146",
+      "sku": "24932",
       "skus": [
-        "18146"
+        "24932"
       ],
-      "name": "Dispenser para detergente con porta esponja",
+      "name": "Organizador de bacha con dispenser beige",
       "category": "Organizadores de bacha",
-      "price": "$20.427",
+      "price": "$11.213",
       "pdfPrice": "$20.427",
       "priceSource": "excel",
-      "ean": "5207158018146",
+      "ean": "5207158024932",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
@@ -49324,7 +49289,8 @@
       },
       "section": "OXO",
       "sourcePage": 2,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=3fQoUzcWiZA"
     },
     {
       "id": "oxo-p003-1",
@@ -49420,7 +49386,8 @@
       },
       "section": "OXO",
       "sourcePage": 5,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=yLhkN_N9N64"
     },
     {
       "id": "oxo-p005-2",
@@ -49548,7 +49515,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p008-2",
@@ -49580,7 +49548,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p008-3",
@@ -49612,7 +49581,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p008-4",
@@ -49644,7 +49614,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p008-5",
@@ -49676,7 +49647,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p008-6",
@@ -49708,7 +49680,8 @@
       },
       "section": "OXO",
       "sourcePage": 8,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-1",
@@ -49740,7 +49713,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-2",
@@ -49772,7 +49746,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-3",
@@ -49804,7 +49779,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-4",
@@ -49836,7 +49812,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-5",
@@ -49868,7 +49845,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-6",
@@ -49900,7 +49878,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-7",
@@ -49932,7 +49911,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p009-8",
@@ -49964,7 +49944,8 @@
       },
       "section": "OXO",
       "sourcePage": 9,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p010-1",
@@ -49996,7 +49977,8 @@
       },
       "section": "OXO",
       "sourcePage": 10,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p010-2",
@@ -50028,7 +50010,8 @@
       },
       "section": "OXO",
       "sourcePage": 10,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p011-1",
@@ -50188,7 +50171,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-2",
@@ -50220,7 +50204,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-3",
@@ -50252,7 +50237,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-4",
@@ -50284,7 +50270,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-5",
@@ -50316,7 +50303,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-6",
@@ -50348,7 +50336,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-7",
@@ -50380,7 +50369,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-8",
@@ -50412,7 +50402,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-9",
@@ -50444,7 +50435,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-10",
@@ -50476,7 +50468,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-11",
@@ -50508,7 +50501,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-12",
@@ -50540,7 +50534,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-13",
@@ -50572,7 +50567,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p012-14",
@@ -50604,7 +50600,8 @@
       },
       "section": "OXO",
       "sourcePage": 12,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DTujNDIRMZM"
     },
     {
       "id": "oxo-p013-1",
@@ -50636,7 +50633,8 @@
       },
       "section": "OXO",
       "sourcePage": 13,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p013-2",
@@ -50668,7 +50666,8 @@
       },
       "section": "OXO",
       "sourcePage": 13,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p013-3",
@@ -50700,7 +50699,8 @@
       },
       "section": "OXO",
       "sourcePage": 13,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p013-4",
@@ -50732,7 +50732,8 @@
       },
       "section": "OXO",
       "sourcePage": 13,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p014-1",
@@ -50764,7 +50765,8 @@
       },
       "section": "OXO",
       "sourcePage": 14,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p014-2",
@@ -50796,7 +50798,8 @@
       },
       "section": "OXO",
       "sourcePage": 14,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0ctcXLcGywI"
     },
     {
       "id": "oxo-p015-1",
@@ -51852,7 +51855,8 @@
       },
       "section": "OXO",
       "sourcePage": 25,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=XLgGWqnAx-4"
     },
     {
       "id": "oxo-p026-1",
@@ -51948,7 +51952,8 @@
       },
       "section": "OXO",
       "sourcePage": 27,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=WsjqBGhqltQ"
     },
     {
       "id": "oxo-p027-2",
@@ -52140,7 +52145,8 @@
       },
       "section": "OXO",
       "sourcePage": 31,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=TC9arpIauQ0"
     },
     {
       "id": "oxo-p031-2",
@@ -52172,7 +52178,8 @@
       },
       "section": "OXO",
       "sourcePage": 31,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=TC9arpIauQ0"
     },
     {
       "id": "oxo-p031-3",
@@ -52204,7 +52211,8 @@
       },
       "section": "OXO",
       "sourcePage": 31,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=TC9arpIauQ0"
     },
     {
       "id": "oxo-p032-1",
@@ -52268,7 +52276,8 @@
       },
       "section": "OXO",
       "sourcePage": 33,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=qVTKGGRveLo"
     },
     {
       "id": "oxo-p034-1",
@@ -52396,7 +52405,8 @@
       },
       "section": "OXO",
       "sourcePage": 36,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
     },
     {
       "id": "oxo-p036-2",
@@ -52428,7 +52438,8 @@
       },
       "section": "OXO",
       "sourcePage": 36,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
     },
     {
       "id": "oxo-p036-3",
@@ -52524,7 +52535,8 @@
       },
       "section": "OXO",
       "sourcePage": 37,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=zy4S5GtwPm4"
     },
     {
       "id": "oxo-p038-1",
@@ -52556,7 +52568,8 @@
       },
       "section": "OXO",
       "sourcePage": 38,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
     },
     {
       "id": "oxo-p039-1",
@@ -52588,7 +52601,8 @@
       },
       "section": "OXO",
       "sourcePage": 39,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=HDIkZASxlNs"
     },
     {
       "id": "oxo-p040-1",
@@ -52652,7 +52666,8 @@
       },
       "section": "OXO",
       "sourcePage": 41,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=atrj_d_6y4w"
     },
     {
       "id": "oxo-p041-2",
@@ -52783,40 +52798,8 @@
       "hotspotSource": "oxo-20260722-sku-text"
     },
     {
-      "id": "oxo-p044-1",
-      "page": 285,
-      "sku": "39781",
-      "skus": [
-        "39781"
-      ],
-      "name": "Ahuecador para melon",
-      "category": "Ahuecador doble",
-      "price": "$9.941",
-      "pdfPrice": "$9.941",
-      "priceSource": "excel-july-2026",
-      "ean": "719812397818",
-      "unitsPerCase": 6,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.4139949,
-        "y": 0.1713129,
-        "w": 0.171981,
-        "h": 0.0429648
-      },
-      "hotspotStyle": {
-        "borderColor": "rgba(215, 25, 32, 0.42)"
-      },
-      "pricePosition": {
-        "x": 0.4999998,
-        "y": 0.2394094
-      },
-      "section": "OXO",
-      "sourcePage": 44,
-      "hotspotSource": "oxo-20260722-sku-text"
-    },
-    {
       "id": "oxo-p045-1",
-      "page": 286,
+      "page": 285,
       "sku": "11263300",
       "skus": [
         "11263300"
@@ -52848,7 +52831,7 @@
     },
     {
       "id": "oxo-p046-1",
-      "page": 287,
+      "page": 286,
       "sku": "1119100",
       "skus": [
         "1119100"
@@ -52876,11 +52859,12 @@
       },
       "section": "OXO",
       "sourcePage": 46,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=p2XPunFkTCs"
     },
     {
       "id": "oxo-p047-1",
-      "page": 288,
+      "page": 287,
       "sku": "1271080",
       "skus": [
         "1271080"
@@ -52908,11 +52892,12 @@
       },
       "section": "OXO",
       "sourcePage": 47,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=cJ8dxSRMmyE"
     },
     {
       "id": "oxo-p048-1",
-      "page": 289,
+      "page": 288,
       "sku": "1147780",
       "skus": [
         "1147780"
@@ -52944,7 +52929,7 @@
     },
     {
       "id": "oxo-p049-1",
-      "page": 290,
+      "page": 289,
       "sku": "11339900",
       "skus": [
         "11339900"
@@ -52972,11 +52957,12 @@
       },
       "section": "OXO",
       "sourcePage": 49,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=njnwjVxw1u4"
     },
     {
       "id": "oxo-p050-1",
-      "page": 291,
+      "page": 290,
       "sku": "11122600",
       "skus": [
         "11122600"
@@ -53008,7 +52994,7 @@
     },
     {
       "id": "oxo-p051-1",
-      "page": 292,
+      "page": 291,
       "sku": "32780",
       "skus": [
         "32780"
@@ -53040,7 +53026,7 @@
     },
     {
       "id": "oxo-p052-1",
-      "page": 293,
+      "page": 292,
       "sku": "11316100",
       "skus": [
         "11316100"
@@ -53072,7 +53058,7 @@
     },
     {
       "id": "oxo-p053-1",
-      "page": 294,
+      "page": 293,
       "sku": "11223200",
       "skus": [
         "11223200"
@@ -53104,7 +53090,7 @@
     },
     {
       "id": "oxo-p054-1",
-      "page": 295,
+      "page": 294,
       "sku": "11243900",
       "skus": [
         "11243900"
@@ -53136,7 +53122,7 @@
     },
     {
       "id": "oxo-p055-1",
-      "page": 296,
+      "page": 295,
       "sku": "11151300",
       "skus": [
         "11151300"
@@ -53164,11 +53150,12 @@
       },
       "section": "OXO",
       "sourcePage": 55,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=bupslJWxGGE"
     },
     {
       "id": "oxo-p055-2",
-      "page": 296,
+      "page": 295,
       "sku": "11194200",
       "skus": [
         "11194200"
@@ -53196,11 +53183,12 @@
       },
       "section": "OXO",
       "sourcePage": 55,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=BEQy3HuymMo"
     },
     {
       "id": "oxo-p056-1",
-      "page": 297,
+      "page": 296,
       "sku": "11151400",
       "skus": [
         "11151400"
@@ -53232,7 +53220,7 @@
     },
     {
       "id": "oxo-p057-1",
-      "page": 298,
+      "page": 297,
       "sku": "11216100",
       "skus": [
         "11216100"
@@ -53260,11 +53248,12 @@
       },
       "section": "OXO",
       "sourcePage": 57,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=P6GPlOLEHUA"
     },
     {
       "id": "oxo-p058-1",
-      "page": 299,
+      "page": 298,
       "sku": "11215400",
       "skus": [
         "11215400"
@@ -53292,11 +53281,12 @@
       },
       "section": "OXO",
       "sourcePage": 58,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=HDIkZASxlNs"
     },
     {
       "id": "oxo-p058-2",
-      "page": 299,
+      "page": 298,
       "sku": "11215900",
       "skus": [
         "11215900"
@@ -53328,7 +53318,7 @@
     },
     {
       "id": "oxo-p058-3",
-      "page": 299,
+      "page": 298,
       "sku": "11273000",
       "skus": [
         "11273000"
@@ -53359,40 +53349,8 @@
       "hotspotSource": "oxo-20260722-sku-text"
     },
     {
-      "id": "oxo-p060-1",
-      "page": 301,
-      "sku": "11282900",
-      "skus": [
-        "11282900"
-      ],
-      "name": "Pisa papas de acero inoxidable",
-      "category": "Pisapapas de acero inoxidable",
-      "price": "$20.408",
-      "pdfPrice": "$20.408",
-      "priceSource": "excel-july-2026",
-      "ean": "719812689876",
-      "unitsPerCase": 6,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.3657833,
-        "y": 0.1713129,
-        "w": 0.2684388,
-        "h": 0.0429648
-      },
-      "hotspotStyle": {
-        "borderColor": "rgba(215, 25, 32, 0.42)"
-      },
-      "pricePosition": {
-        "x": 0.4999835,
-        "y": 0.2394094
-      },
-      "section": "OXO",
-      "sourcePage": 60,
-      "hotspotSource": "oxo-20260722-sku-text"
-    },
-    {
       "id": "oxo-p061-1",
-      "page": 302,
+      "page": 300,
       "sku": "1071478",
       "skus": [
         "1071478"
@@ -53420,11 +53378,12 @@
       },
       "section": "OXO",
       "sourcePage": 61,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=KqCn_r2GRL8"
     },
     {
       "id": "oxo-p062-1",
-      "page": 303,
+      "page": 301,
       "sku": "11178600",
       "skus": [
         "11178600"
@@ -53452,11 +53411,12 @@
       },
       "section": "OXO",
       "sourcePage": 62,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=m30wjX22Xo4"
     },
     {
       "id": "oxo-p062-2",
-      "page": 303,
+      "page": 301,
       "sku": "11327300",
       "skus": [
         "11327300"
@@ -53488,7 +53448,7 @@
     },
     {
       "id": "oxo-p063-1",
-      "page": 304,
+      "page": 302,
       "sku": "35681",
       "skus": [
         "35681"
@@ -53520,7 +53480,7 @@
     },
     {
       "id": "oxo-p063-2",
-      "page": 304,
+      "page": 302,
       "sku": "11350300",
       "skus": [
         "11350300"
@@ -53552,7 +53512,7 @@
     },
     {
       "id": "oxo-p063-3",
-      "page": 304,
+      "page": 302,
       "sku": "11350600",
       "skus": [
         "11350600"
@@ -53584,7 +53544,7 @@
     },
     {
       "id": "oxo-p064-1",
-      "page": 305,
+      "page": 303,
       "sku": "1047091",
       "skus": [
         "1047091"
@@ -53616,7 +53576,7 @@
     },
     {
       "id": "oxo-p065-1",
-      "page": 306,
+      "page": 304,
       "sku": "1238580",
       "skus": [
         "1238580"
@@ -53644,11 +53604,12 @@
       },
       "section": "OXO",
       "sourcePage": 65,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=a3KjvLMpv88"
     },
     {
       "id": "oxo-p066-1",
-      "page": 307,
+      "page": 305,
       "sku": "11211000",
       "skus": [
         "11211000"
@@ -53680,7 +53641,7 @@
     },
     {
       "id": "oxo-p067-1",
-      "page": 308,
+      "page": 306,
       "sku": "11161000",
       "skus": [
         "11161000"
@@ -53708,11 +53669,12 @@
       },
       "section": "OXO",
       "sourcePage": 67,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=udbRqQZD9MM"
     },
     {
       "id": "oxo-p068-1",
-      "page": 309,
+      "page": 307,
       "sku": "11172700",
       "skus": [
         "11172700"
@@ -53740,11 +53702,12 @@
       },
       "section": "OXO",
       "sourcePage": 68,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=udbRqQZD9MM"
     },
     {
       "id": "oxo-p069-1",
-      "page": 310,
+      "page": 308,
       "sku": "74291",
       "skus": [
         "74291"
@@ -53776,7 +53739,7 @@
     },
     {
       "id": "oxo-p069-2",
-      "page": 310,
+      "page": 308,
       "sku": "11362100",
       "skus": [
         "11362100"
@@ -53808,7 +53771,7 @@
     },
     {
       "id": "oxo-p069-3",
-      "page": 310,
+      "page": 308,
       "sku": "1244780",
       "skus": [
         "1244780"
@@ -53840,7 +53803,7 @@
     },
     {
       "id": "oxo-p070-1",
-      "page": 311,
+      "page": 309,
       "sku": "11211100",
       "skus": [
         "11211100"
@@ -53872,7 +53835,7 @@
     },
     {
       "id": "oxo-p071-1",
-      "page": 312,
+      "page": 310,
       "sku": "1257580",
       "skus": [
         "1257580"
@@ -53900,11 +53863,12 @@
       },
       "section": "OXO",
       "sourcePage": 71,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=95wvdjxRn1I"
     },
     {
       "id": "oxo-p072-1",
-      "page": 313,
+      "page": 311,
       "sku": "1263680",
       "skus": [
         "1263680"
@@ -53936,7 +53900,7 @@
     },
     {
       "id": "oxo-p072-2",
-      "page": 313,
+      "page": 311,
       "sku": "11124400",
       "skus": [
         "11124400"
@@ -53968,7 +53932,7 @@
     },
     {
       "id": "oxo-p073-1",
-      "page": 314,
+      "page": 312,
       "sku": "70981",
       "skus": [
         "70981"
@@ -54000,7 +53964,7 @@
     },
     {
       "id": "oxo-p073-2",
-      "page": 314,
+      "page": 312,
       "sku": "70881",
       "skus": [
         "70881"
@@ -54032,7 +53996,7 @@
     },
     {
       "id": "oxo-p074-1",
-      "page": 315,
+      "page": 313,
       "sku": "11323100",
       "skus": [
         "11323100"
@@ -54064,7 +54028,7 @@
     },
     {
       "id": "oxo-p074-2",
-      "page": 315,
+      "page": 313,
       "sku": "1066421",
       "skus": [
         "1066421"
@@ -54096,7 +54060,7 @@
     },
     {
       "id": "oxo-p075-1",
-      "page": 316,
+      "page": 314,
       "sku": "11164700",
       "skus": [
         "11164700"
@@ -54124,11 +54088,12 @@
       },
       "section": "OXO",
       "sourcePage": 75,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=J0HR6m62JGI"
     },
     {
       "id": "oxo-p076-1",
-      "page": 317,
+      "page": 315,
       "sku": "23081",
       "skus": [
         "23081"
@@ -54160,7 +54125,7 @@
     },
     {
       "id": "oxo-p077-1",
-      "page": 318,
+      "page": 316,
       "sku": "11272600",
       "skus": [
         "11272600"
@@ -54192,7 +54157,7 @@
     },
     {
       "id": "oxo-p077-2",
-      "page": 318,
+      "page": 316,
       "sku": "11272700",
       "skus": [
         "11272700"
@@ -54224,7 +54189,7 @@
     },
     {
       "id": "oxo-p077-3",
-      "page": 318,
+      "page": 316,
       "sku": "11272800",
       "skus": [
         "11272800"
@@ -54256,7 +54221,7 @@
     },
     {
       "id": "oxo-p078-1",
-      "page": 319,
+      "page": 317,
       "sku": "11382200",
       "skus": [
         "11382200"
@@ -54288,7 +54253,7 @@
     },
     {
       "id": "oxo-p079-1",
-      "page": 320,
+      "page": 318,
       "sku": "28481",
       "skus": [
         "28481"
@@ -54320,7 +54285,7 @@
     },
     {
       "id": "oxo-p079-2",
-      "page": 320,
+      "page": 318,
       "sku": "28581",
       "skus": [
         "28581"
@@ -54352,7 +54317,7 @@
     },
     {
       "id": "oxo-p080-1",
-      "page": 321,
+      "page": 319,
       "sku": "1101880",
       "skus": [
         "1101880"
@@ -54380,11 +54345,12 @@
       },
       "section": "OXO",
       "sourcePage": 80,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=VsDoTxjBsIw"
     },
     {
       "id": "oxo-p080-2",
-      "page": 321,
+      "page": 319,
       "sku": "1101980",
       "skus": [
         "1101980"
@@ -54412,11 +54378,12 @@
       },
       "section": "OXO",
       "sourcePage": 80,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=VsDoTxjBsIw"
     },
     {
       "id": "oxo-p080-3",
-      "page": 321,
+      "page": 319,
       "sku": "11387100",
       "skus": [
         "11387100"
@@ -54448,7 +54415,7 @@
     },
     {
       "id": "oxo-p081-1",
-      "page": 322,
+      "page": 320,
       "sku": "11320200",
       "skus": [
         "11320200"
@@ -54480,7 +54447,7 @@
     },
     {
       "id": "oxo-p081-2",
-      "page": 322,
+      "page": 320,
       "sku": "11324100",
       "skus": [
         "11324100"
@@ -54512,7 +54479,7 @@
     },
     {
       "id": "oxo-p082-1",
-      "page": 323,
+      "page": 321,
       "sku": "11308000",
       "skus": [
         "11308000"
@@ -54544,7 +54511,7 @@
     },
     {
       "id": "oxo-p083-1",
-      "page": 324,
+      "page": 322,
       "sku": "11329200",
       "skus": [
         "11329200"
@@ -54576,7 +54543,7 @@
     },
     {
       "id": "oxo-p084-1",
-      "page": 325,
+      "page": 323,
       "sku": "11309300",
       "skus": [
         "11309300"
@@ -54608,7 +54575,7 @@
     },
     {
       "id": "oxo-p085-1",
-      "page": 326,
+      "page": 324,
       "sku": "11197700",
       "skus": [
         "11197700"
@@ -54640,7 +54607,7 @@
     },
     {
       "id": "oxo-p086-1",
-      "page": 327,
+      "page": 325,
       "sku": "1312480",
       "skus": [
         "1312480"
@@ -54672,7 +54639,7 @@
     },
     {
       "id": "oxo-p086-2",
-      "page": 327,
+      "page": 325,
       "sku": "11343200",
       "skus": [
         "11343200"
@@ -54704,7 +54671,7 @@
     },
     {
       "id": "oxo-p086-3",
-      "page": 327,
+      "page": 325,
       "sku": "11329400",
       "skus": [
         "11329400"
@@ -54736,7 +54703,7 @@
     },
     {
       "id": "oxo-p087-1",
-      "page": 328,
+      "page": 326,
       "sku": "11210100",
       "skus": [
         "11210100"
@@ -54768,7 +54735,7 @@
     },
     {
       "id": "oxo-p088-1",
-      "page": 329,
+      "page": 327,
       "sku": "1188500",
       "skus": [
         "1188500"
@@ -54796,11 +54763,12 @@
       },
       "section": "OXO",
       "sourcePage": 88,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=JJfP5UFXo-0"
     },
     {
       "id": "oxo-p088-2",
-      "page": 329,
+      "page": 327,
       "sku": "11159500",
       "skus": [
         "11159500"
@@ -54828,11 +54796,12 @@
       },
       "section": "OXO",
       "sourcePage": 88,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=JJfP5UFXo-0"
     },
     {
       "id": "oxo-p088-3",
-      "page": 329,
+      "page": 327,
       "sku": "1268980",
       "skus": [
         "1268980"
@@ -54860,11 +54829,12 @@
       },
       "section": "OXO",
       "sourcePage": 88,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=JJfP5UFXo-0"
     },
     {
       "id": "oxo-p089-1",
-      "page": 330,
+      "page": 328,
       "sku": "11318200",
       "skus": [
         "11318200"
@@ -54896,7 +54866,7 @@
     },
     {
       "id": "oxo-p089-2",
-      "page": 330,
+      "page": 328,
       "sku": "11219800",
       "skus": [
         "11219800"
@@ -54928,7 +54898,7 @@
     },
     {
       "id": "oxo-p089-3",
-      "page": 330,
+      "page": 328,
       "sku": "11318400",
       "skus": [
         "11318400"
@@ -54960,7 +54930,7 @@
     },
     {
       "id": "oxo-p090-1",
-      "page": 331,
+      "page": 329,
       "sku": "11220500",
       "skus": [
         "11220500"
@@ -54992,7 +54962,7 @@
     },
     {
       "id": "oxo-p091-1",
-      "page": 332,
+      "page": 330,
       "sku": "11245400",
       "skus": [
         "11245400"
@@ -55024,7 +54994,7 @@
     },
     {
       "id": "oxo-p091-2",
-      "page": 332,
+      "page": 330,
       "sku": "3113400",
       "skus": [
         "3113400"
@@ -55056,7 +55026,7 @@
     },
     {
       "id": "oxo-p092-1",
-      "page": 333,
+      "page": 331,
       "sku": "3110200",
       "skus": [
         "3110200"
@@ -55088,7 +55058,7 @@
     },
     {
       "id": "oxo-p092-2",
-      "page": 333,
+      "page": 331,
       "sku": "11147600",
       "skus": [
         "11147600"
@@ -55116,11 +55086,12 @@
       },
       "section": "OXO",
       "sourcePage": 92,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=YTv99ElZmwk"
     },
     {
       "id": "oxo-p093-1",
-      "page": 334,
+      "page": 332,
       "sku": "11327200",
       "skus": [
         "11327200"
@@ -55152,7 +55123,7 @@
     },
     {
       "id": "oxo-p094-1",
-      "page": 335,
+      "page": 333,
       "sku": "11136400",
       "skus": [
         "11136400"
@@ -55184,7 +55155,7 @@
     },
     {
       "id": "oxo-p095-1",
-      "page": 336,
+      "page": 334,
       "sku": "11169200",
       "skus": [
         "11169200"
@@ -55212,11 +55183,12 @@
       },
       "section": "OXO",
       "sourcePage": 95,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=ZhdiPlnvJ78"
     },
     {
       "id": "oxo-p096-1",
-      "page": 337,
+      "page": 335,
       "sku": "11284400",
       "skus": [
         "11284400"
@@ -55248,7 +55220,7 @@
     },
     {
       "id": "oxo-p097-1",
-      "page": 338,
+      "page": 336,
       "sku": "1132080",
       "skus": [
         "1132080"
@@ -55280,7 +55252,7 @@
     },
     {
       "id": "oxo-p098-1",
-      "page": 339,
+      "page": 337,
       "sku": "11242400",
       "skus": [
         "11242400"
@@ -55312,7 +55284,7 @@
     },
     {
       "id": "oxo-p098-2",
-      "page": 339,
+      "page": 337,
       "sku": "11242500",
       "skus": [
         "11242500"
@@ -55344,7 +55316,7 @@
     },
     {
       "id": "oxo-p098-3",
-      "page": 339,
+      "page": 337,
       "sku": "11242300",
       "skus": [
         "11242300"
@@ -55376,7 +55348,7 @@
     },
     {
       "id": "oxo-p099-1",
-      "page": 340,
+      "page": 338,
       "sku": "32480",
       "skus": [
         "32480"
@@ -55408,7 +55380,7 @@
     },
     {
       "id": "oxo-p100-1",
-      "page": 341,
+      "page": 339,
       "sku": "11133300",
       "skus": [
         "11133300"
@@ -55436,11 +55408,12 @@
       },
       "section": "OXO",
       "sourcePage": 100,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=IEFgZG_EFZE"
     },
     {
       "id": "oxo-p101-1",
-      "page": 342,
+      "page": 340,
       "sku": "11181400",
       "skus": [
         "11181400"
@@ -55468,11 +55441,12 @@
       },
       "section": "OXO",
       "sourcePage": 101,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=eE_eXae8tbg"
     },
     {
       "id": "oxo-p102-1",
-      "page": 343,
+      "page": 341,
       "sku": "11166900",
       "skus": [
         "11166900"
@@ -55500,11 +55474,12 @@
       },
       "section": "OXO",
       "sourcePage": 102,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=uUHtkKrwOSI"
     },
     {
       "id": "oxo-p103-1",
-      "page": 344,
+      "page": 342,
       "sku": "11330800",
       "skus": [
         "11330800"
@@ -55536,7 +55511,7 @@
     },
     {
       "id": "oxo-p104-1",
-      "page": 345,
+      "page": 343,
       "sku": "13322100",
       "skus": [
         "13322100"
@@ -55568,7 +55543,7 @@
     },
     {
       "id": "oxo-p105-1",
-      "page": 346,
+      "page": 344,
       "sku": "13245100",
       "skus": [
         "13245100"
@@ -55600,7 +55575,7 @@
     },
     {
       "id": "oxo-p105-2",
-      "page": 346,
+      "page": 344,
       "sku": "13245000",
       "skus": [
         "13245000"
@@ -55628,11 +55603,12 @@
       },
       "section": "OXO",
       "sourcePage": 105,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=DunDIh4pSAI"
     },
     {
       "id": "oxo-p106-1",
-      "page": 347,
+      "page": 345,
       "sku": "13295800",
       "skus": [
         "13295800"
@@ -55660,11 +55636,12 @@
       },
       "section": "OXO",
       "sourcePage": 106,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=8dftMEyYCFc"
     },
     {
       "id": "oxo-p106-2",
-      "page": 347,
+      "page": 345,
       "sku": "13295900",
       "skus": [
         "13295900"
@@ -55692,11 +55669,12 @@
       },
       "section": "OXO",
       "sourcePage": 106,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=8dftMEyYCFc"
     },
     {
       "id": "oxo-p107-1",
-      "page": 348,
+      "page": 346,
       "sku": "1140700",
       "skus": [
         "1140700"
@@ -55724,11 +55702,12 @@
       },
       "section": "OXO",
       "sourcePage": 107,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=8vDNU8LKdVM"
     },
     {
       "id": "oxo-p108-1",
-      "page": 349,
+      "page": 347,
       "sku": "11187100",
       "skus": [
         "11187100"
@@ -55760,7 +55739,7 @@
     },
     {
       "id": "oxo-p109-1",
-      "page": 350,
+      "page": 348,
       "sku": "11247200",
       "skus": [
         "11247200"
@@ -55792,7 +55771,7 @@
     },
     {
       "id": "oxo-p109-2",
-      "page": 350,
+      "page": 348,
       "sku": "1272380",
       "skus": [
         "1272380"
@@ -55824,7 +55803,7 @@
     },
     {
       "id": "oxo-p110-1",
-      "page": 351,
+      "page": 349,
       "sku": "13328400",
       "skus": [
         "13328400"
@@ -55855,40 +55834,8 @@
       "hotspotSource": "oxo-20260722-sku-text"
     },
     {
-      "id": "oxo-p111-1",
-      "page": 352,
-      "sku": "13328400",
-      "skus": [
-        "13328400"
-      ],
-      "name": "Set x 4 clips",
-      "category": "Clips magnéticos - set x4",
-      "price": "$12.788",
-      "pdfPrice": "$12.788",
-      "priceSource": "excel-july-2026",
-      "ean": "840097701745",
-      "unitsPerCase": 6,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.3657833,
-        "y": 0.170871,
-        "w": 0.2684388,
-        "h": 0.0429648
-      },
-      "hotspotStyle": {
-        "borderColor": "rgba(215, 25, 32, 0.42)"
-      },
-      "pricePosition": {
-        "x": 0.4999835,
-        "y": 0.2394094
-      },
-      "section": "OXO",
-      "sourcePage": 111,
-      "hotspotSource": "oxo-20260722-sku-text"
-    },
-    {
       "id": "oxo-p112-1",
-      "page": 353,
+      "page": 350,
       "sku": "13192100",
       "skus": [
         "13192100"
@@ -55920,7 +55867,7 @@
     },
     {
       "id": "oxo-p112-2",
-      "page": 353,
+      "page": 350,
       "sku": "12426900",
       "skus": [
         "12426900"
@@ -55952,7 +55899,7 @@
     },
     {
       "id": "oxo-p113-1",
-      "page": 354,
+      "page": 351,
       "sku": "1473480",
       "skus": [
         "1473480"
@@ -55984,7 +55931,7 @@
     },
     {
       "id": "oxo-p113-2",
-      "page": 354,
+      "page": 351,
       "sku": "13229100",
       "skus": [
         "13229100"
@@ -56016,7 +55963,7 @@
     },
     {
       "id": "oxo-p114-1",
-      "page": 355,
+      "page": 352,
       "sku": "13322800",
       "skus": [
         "13322800"
@@ -56044,11 +55991,12 @@
       },
       "section": "OXO",
       "sourcePage": 114,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=oP5DALi_xN4"
     },
     {
       "id": "oxo-p115-1",
-      "page": 356,
+      "page": 353,
       "sku": "13314400",
       "skus": [
         "13314400"
@@ -56076,11 +56024,12 @@
       },
       "section": "OXO",
       "sourcePage": 115,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=uUluvEfKjWk"
     },
     {
       "id": "oxo-p116-1",
-      "page": 357,
+      "page": 354,
       "sku": "13259500",
       "skus": [
         "13259500"
@@ -56112,7 +56061,7 @@
     },
     {
       "id": "oxo-p117-1",
-      "page": 358,
+      "page": 355,
       "sku": "1395500",
       "skus": [
         "1395500"
@@ -56140,11 +56089,12 @@
       },
       "section": "OXO",
       "sourcePage": 117,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=fz3H945nGX8"
     },
     {
       "id": "oxo-p118-1",
-      "page": 359,
+      "page": 356,
       "sku": "13144000",
       "skus": [
         "13144000"
@@ -56176,7 +56126,7 @@
     },
     {
       "id": "oxo-p118-2",
-      "page": 359,
+      "page": 356,
       "sku": "13273700",
       "skus": [
         "13273700"
@@ -56208,7 +56158,7 @@
     },
     {
       "id": "oxo-p118-3",
-      "page": 359,
+      "page": 356,
       "sku": "12427000",
       "skus": [
         "12427000"
@@ -56240,7 +56190,7 @@
     },
     {
       "id": "oxo-p119-1",
-      "page": 360,
+      "page": 357,
       "sku": "12361300",
       "skus": [
         "12361300"
@@ -56268,11 +56218,12 @@
       },
       "section": "OXO",
       "sourcePage": 119,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=kqnHr-yiPS4"
     },
     {
       "id": "oxo-p119-2",
-      "page": 360,
+      "page": 357,
       "sku": "12361600",
       "skus": [
         "12361600"
@@ -56304,7 +56255,7 @@
     },
     {
       "id": "oxo-p119-3",
-      "page": 360,
+      "page": 357,
       "sku": "12361400",
       "skus": [
         "12361400"
@@ -56336,7 +56287,7 @@
     },
     {
       "id": "oxo-p119-4",
-      "page": 360,
+      "page": 357,
       "sku": "12361500",
       "skus": [
         "12361500"
@@ -56368,7 +56319,7 @@
     },
     {
       "id": "oxo-p120-1",
-      "page": 361,
+      "page": 358,
       "sku": "12361200",
       "skus": [
         "12361200"
@@ -56400,7 +56351,7 @@
     },
     {
       "id": "oxo-p120-2",
-      "page": 361,
+      "page": 358,
       "sku": "12361700",
       "skus": [
         "12361700"
@@ -56432,7 +56383,7 @@
     },
     {
       "id": "oxo-p121-1",
-      "page": 362,
+      "page": 359,
       "sku": "1256500",
       "skus": [
         "1256500"
@@ -56464,7 +56415,7 @@
     },
     {
       "id": "oxo-p121-2",
-      "page": 362,
+      "page": 359,
       "sku": "36481",
       "skus": [
         "36481"
@@ -56492,11 +56443,12 @@
       },
       "section": "OXO",
       "sourcePage": 121,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=G1nN4VxCoeU"
     },
     {
       "id": "oxo-p122-1",
-      "page": 363,
+      "page": 360,
       "sku": "1334280",
       "skus": [
         "1334280"
@@ -56528,7 +56480,7 @@
     },
     {
       "id": "oxo-p123-1",
-      "page": 364,
+      "page": 361,
       "sku": "1334480",
       "skus": [
         "1334480"
@@ -56560,7 +56512,7 @@
     },
     {
       "id": "oxo-p124-1",
-      "page": 365,
+      "page": 362,
       "sku": "1335180",
       "skus": [
         "1335180"
@@ -56592,7 +56544,7 @@
     },
     {
       "id": "oxo-p124-2",
-      "page": 365,
+      "page": 362,
       "sku": "1334580",
       "skus": [
         "1334580"
@@ -56624,7 +56576,7 @@
     },
     {
       "id": "oxo-p124-3",
-      "page": 365,
+      "page": 362,
       "sku": "1334680",
       "skus": [
         "1334680"
@@ -56656,7 +56608,7 @@
     },
     {
       "id": "oxo-p126-1",
-      "page": 367,
+      "page": 363,
       "sku": "12246100",
       "skus": [
         "12246100"
@@ -56688,7 +56640,7 @@
     },
     {
       "id": "oxo-p127-1",
-      "page": 368,
+      "page": 364,
       "sku": "12168900",
       "skus": [
         "12168900"
@@ -56720,7 +56672,7 @@
     },
     {
       "id": "oxo-p127-2",
-      "page": 368,
+      "page": 364,
       "sku": "12168800",
       "skus": [
         "12168800"
@@ -56752,7 +56704,7 @@
     },
     {
       "id": "oxo-p127-3",
-      "page": 368,
+      "page": 364,
       "sku": "12331200",
       "skus": [
         "12331200"
@@ -56784,7 +56736,7 @@
     },
     {
       "id": "oxo-p128-1",
-      "page": 369,
+      "page": 365,
       "sku": "1285700",
       "skus": [
         "1285700"
@@ -56812,11 +56764,12 @@
       },
       "section": "OXO",
       "sourcePage": 128,
-      "hotspotSource": "oxo-20260722-sku-text"
+      "hotspotSource": "oxo-20260722-sku-text",
+      "videoUrl": "https://www.youtube.com/watch?v=0nbSCzSEJZ8"
     },
     {
       "id": "oxo-p129-1",
-      "page": 370,
+      "page": 366,
       "sku": "12237300",
       "skus": [
         "12237300"
@@ -56848,7 +56801,7 @@
     },
     {
       "id": "oxo-p129-2",
-      "page": 370,
+      "page": 366,
       "sku": "12155000",
       "skus": [
         "12155000"
@@ -56880,7 +56833,7 @@
     },
     {
       "id": "oxo-p130-1",
-      "page": 371,
+      "page": 367,
       "sku": "1062122",
       "skus": [
         "1062122"
@@ -56912,7 +56865,7 @@
     },
     {
       "id": "oxo-p131-1",
-      "page": 372,
+      "page": 368,
       "sku": "13248000",
       "skus": [
         "13248000"
@@ -56944,7 +56897,7 @@
     },
     {
       "id": "oxo-p131-2",
-      "page": 372,
+      "page": 368,
       "sku": "13208800",
       "skus": [
         "13208800"
@@ -56976,7 +56929,7 @@
     },
     {
       "id": "oxo-p131-3",
-      "page": 372,
+      "page": 368,
       "sku": "13241500",
       "skus": [
         "13241500"
@@ -57008,7 +56961,7 @@
     },
     {
       "id": "prepara-p384-1",
-      "page": 375,
+      "page": 371,
       "sku": "29401",
       "skus": [
         "29401"
@@ -57034,11 +56987,12 @@
         "x": 0.7823652,
         "y": 0.175795
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=h1-L8XD7idE"
     },
     {
       "id": "prepara-p386-1",
-      "page": 377,
+      "page": 373,
       "sku": "3039",
       "skus": [
         "3039"
@@ -57064,11 +57018,12 @@
         "x": 0.2897873,
         "y": 0.5068813
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=Jh7B4RRu9f4"
     },
     {
       "id": "prepara-p386-2",
-      "page": 377,
+      "page": 373,
       "sku": "3042",
       "skus": [
         "3042"
@@ -57094,11 +57049,12 @@
         "x": 0.4345079,
         "y": 0.9278853
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=Jh7B4RRu9f4"
     },
     {
       "id": "prepara-p386-3",
-      "page": 377,
+      "page": 373,
       "sku": "P3041",
       "skus": [
         "P3041"
@@ -57125,11 +57081,12 @@
         "x": 0.6013621,
         "y": 0.5068813
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=Jh7B4RRu9f4"
     },
     {
       "id": "prepara-p386-4",
-      "page": 377,
+      "page": 373,
       "sku": "3040",
       "skus": [
         "3040"
@@ -57155,11 +57112,12 @@
         "x": 0.129129,
         "y": 0.9278853
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=Jh7B4RRu9f4"
     },
     {
       "id": "prepara-p386-5",
-      "page": 377,
+      "page": 373,
       "sku": "3044",
       "skus": [
         "3044"
@@ -57185,11 +57143,12 @@
         "x": 0.7614764,
         "y": 0.9278853
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=Jh7B4RRu9f4"
     },
     {
       "id": "prepara-p389-1",
-      "page": 380,
+      "page": 376,
       "sku": "20101",
       "skus": [
         "20101"
@@ -57215,11 +57174,12 @@
         "x": 0.6649869,
         "y": 0.2148382
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=4ZvU0T-a7WM"
     },
     {
       "id": "prepara-p389-2",
-      "page": 380,
+      "page": 376,
       "sku": "20118",
       "skus": [
         "20118"
@@ -57245,11 +57205,12 @@
         "x": 0.8786191,
         "y": 0.2148382
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=4ZvU0T-a7WM"
     },
     {
       "id": "prepara-p390-1",
-      "page": 381,
+      "page": 377,
       "sku": "1028",
       "skus": [
         "1028"
@@ -57275,11 +57236,12 @@
         "x": 0.2877856,
         "y": 0.3510403
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=XkGVw7BcpOU"
     },
     {
       "id": "prepara-p392-1",
-      "page": 383,
+      "page": 379,
       "sku": "4025",
       "skus": [
         "4025"
@@ -57309,7 +57271,7 @@
     },
     {
       "id": "prepara-p392-2",
-      "page": 383,
+      "page": 379,
       "sku": "4019",
       "skus": [
         "4019"
@@ -57339,7 +57301,7 @@
     },
     {
       "id": "prepara-p392-3",
-      "page": 383,
+      "page": 379,
       "sku": "4022",
       "skus": [
         "4022"
@@ -57369,7 +57331,7 @@
     },
     {
       "id": "prepara-p393-1",
-      "page": 384,
+      "page": 380,
       "sku": "29852",
       "skus": [
         "29852"
@@ -57399,7 +57361,7 @@
     },
     {
       "id": "prepara-p393-2",
-      "page": 384,
+      "page": 380,
       "sku": "29340",
       "skus": [
         "29340"
@@ -57429,7 +57391,7 @@
     },
     {
       "id": "prepara-p395-1",
-      "page": 386,
+      "page": 382,
       "sku": "27575",
       "skus": [
         "27575"
@@ -57459,7 +57421,7 @@
     },
     {
       "id": "prepara-p395-2",
-      "page": 386,
+      "page": 382,
       "sku": "27583",
       "skus": [
         "27583"
@@ -57489,7 +57451,7 @@
     },
     {
       "id": "prepara-p398-1",
-      "page": 389,
+      "page": 385,
       "sku": "2016",
       "skus": [
         "2016"
@@ -57515,11 +57477,12 @@
         "x": 0.3030603,
         "y": 0.2306802
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=hij42LcF8DI"
     },
     {
       "id": "prepara-p398-2",
-      "page": 389,
+      "page": 385,
       "sku": "2018",
       "skus": [
         "2018"
@@ -57545,11 +57508,12 @@
         "x": 0.5474811,
         "y": 0.6112273
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=m-2U5YiyHEU"
     },
     {
       "id": "prepara-p398-3",
-      "page": 389,
+      "page": 385,
       "sku": "3715",
       "skus": [
         "3715"
@@ -57575,11 +57539,12 @@
         "x": 0.8019118,
         "y": 0.2479401
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=ny54kzwxBgM"
     },
     {
       "id": "prepara-p399-1",
-      "page": 390,
+      "page": 386,
       "sku": "2017",
       "skus": [
         "2017"
@@ -57605,11 +57570,12 @@
         "x": 0.2877856,
         "y": 0.3152116
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=jLEf_XpyisY"
     },
     {
       "id": "prepara-p401-1",
-      "page": 392,
+      "page": 388,
       "sku": "1038",
       "skus": [
         "1038"
@@ -57639,7 +57605,7 @@
     },
     {
       "id": "prepara-p401-2",
-      "page": 392,
+      "page": 388,
       "sku": "3119",
       "skus": [
         "3119"
@@ -57669,7 +57635,7 @@
     },
     {
       "id": "prepara-p401-3",
-      "page": 392,
+      "page": 388,
       "sku": "1029",
       "skus": [
         "1029"
@@ -57695,11 +57661,12 @@
         "x": 0.7600492,
         "y": 0.2668784
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=C6tgr3m-RC8"
     },
     {
       "id": "prepara-p402-1",
-      "page": 393,
+      "page": 389,
       "sku": "3784",
       "skus": [
         "3784"
@@ -57729,7 +57696,7 @@
     },
     {
       "id": "prepara-p402-2",
-      "page": 393,
+      "page": 389,
       "sku": "1720",
       "skus": [
         "1720"
@@ -57755,11 +57722,12 @@
         "x": 0.5463568,
         "y": 0.6343883
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=UabWQdBrPkY"
     },
     {
       "id": "prepara-p402-3",
-      "page": 393,
+      "page": 389,
       "sku": "3785",
       "skus": [
         "3785"
@@ -57789,7 +57757,7 @@
     },
     {
       "id": "prepara-p403-1",
-      "page": 394,
+      "page": 390,
       "sku": "25571",
       "skus": [
         "25571"
@@ -57819,7 +57787,7 @@
     },
     {
       "id": "prepara-p403-2",
-      "page": 394,
+      "page": 390,
       "sku": "1026",
       "skus": [
         "1026"
@@ -57845,11 +57813,12 @@
         "x": 0.5477836,
         "y": 0.6343883
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=VnemBnMe5l0"
     },
     {
       "id": "prepara-p404-1",
-      "page": 395,
+      "page": 391,
       "sku": "28831",
       "skus": [
         "28831"
@@ -57879,7 +57848,7 @@
     },
     {
       "id": "prepara-p404-2",
-      "page": 395,
+      "page": 391,
       "sku": "4789",
       "skus": [
         "4789"
@@ -57909,7 +57878,7 @@
     },
     {
       "id": "prepara-p405-1",
-      "page": 396,
+      "page": 392,
       "sku": "3050",
       "skus": [
         "3050"
@@ -57939,7 +57908,7 @@
     },
     {
       "id": "prepara-p405-2",
-      "page": 396,
+      "page": 392,
       "sku": "3937",
       "skus": [
         "3937"
@@ -57965,11 +57934,12 @@
         "x": 0.4199787,
         "y": 0.2531968
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=q7nSw0EbObc"
     },
     {
       "id": "prepara-p405-3",
-      "page": 396,
+      "page": 392,
       "sku": "3890",
       "skus": [
         "3890"
@@ -57995,7 +57965,8 @@
         "x": 0.6830988,
         "y": 0.2531968
       },
-      "section": "Prepara"
+      "section": "Prepara",
+      "videoUrl": "https://www.youtube.com/watch?v=jWYgwqFFOXw"
     }
   ],
   "sources": {
@@ -58006,9 +57977,9 @@
   },
   "sourcePageCounts": {
     "Leifheit": 236,
-    "OXO": 131,
+    "OXO": 127,
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260723-estia-14537"
+  "assetVersion": "20260727-catalog-fixes"
 }
