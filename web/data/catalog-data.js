@@ -3675,7 +3675,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-025.jpg?v=20260723-estia-14537",
+        "src": "assets/pages/estia-20260729-page-025.jpg?v=20260729-estia-page-48",
         "width": 1013,
         "height": 1432
       },

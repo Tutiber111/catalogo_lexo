@@ -446,12 +446,10 @@
       let header = null;
 
       sheetRows.forEach((row) => {
-        const nextHeader = detectPriceListHeader(row);
-        if (nextHeader) {
-          header = nextHeader;
+        if (!header) {
+          header = detectPriceListHeader(row);
           return;
         }
-        if (!header) return;
 
         const sku = normalizeSku(row[header.sku]);
         const name = cleanCell(row[header.name]);

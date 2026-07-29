@@ -81,6 +81,10 @@
     catalog.products = catalog.products.map((product) => {
       const videoKey = `${String(product.section || "").trim()}:${String(product.sku || "").trim()}`;
       const baselineVideoUrl = product.originalVideoUrl || product.videoUrl || defaultProductVideos[videoKey] || "";
+      const savedOverride = overrides[product.id] || {};
+      const productSku = normalizeProductSku(product.sku);
+      const overrideSku = normalizeProductSku(savedOverride.sku);
+      const matchingOverride = overrideSku && productSku && overrideSku !== productSku ? {} : savedOverride;
       return {
         ...product,
         originalName: product.originalName || product.name,
@@ -93,10 +97,14 @@
         videoUrl: baselineVideoUrl,
         hidden: false,
         outOfStock: false,
-        ...(overrides[product.id] || {}),
+        ...matchingOverride,
       };
     });
     return catalog;
+  }
+
+  function normalizeProductSku(value) {
+    return String(value || "").trim().replace(/\.0$/, "").replace(/\s+/g, "").toUpperCase();
   }
 
   function mergeProductOverrides(...sources) {

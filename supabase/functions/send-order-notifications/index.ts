@@ -63,6 +63,7 @@ type EmailAttachment = {
 type SentEmail = {
   id: string;
   to: string[];
+  warning: string;
 };
 
 const ORDER_TEMPLATE_SHEET_PATH = "xl/worksheets/sheet3.xml";
@@ -116,9 +117,14 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
         sent_at: new Date().toISOString(),
         resend_email_id: sentEmail.id,
         resend_to: sentEmail.to.join(", "),
-        last_error: "",
+        last_error: sentEmail.warning,
       });
-      results.push({ order_id: notification.order_id, status: "sent", email_id: sentEmail.id });
+      results.push({
+        order_id: notification.order_id,
+        status: "sent",
+        email_id: sentEmail.id,
+        ...(sentEmail.warning ? { warning: sentEmail.warning } : {}),
+      });
     } catch (error) {
       const message = errorMessage(error);
       await updateNotification(notification.id, {
@@ -339,14 +345,14 @@ async function updateNotification(id: string, patch: Record<string, unknown>) {
 
 async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const apiKey = requiredEnv("RESEND_API_KEY");
-  const to = uniqueEmails(emailList(requiredEnv("ORDER_NOTIFICATION_TO")));
-  if (!to.length) throw new Error("ORDER_NOTIFICATION_TO has no valid recipients.");
+  const primaryRecipients = uniqueEmails(emailList(requiredEnv("ORDER_NOTIFICATION_TO")));
+  if (!primaryRecipients.length) throw new Error("ORDER_NOTIFICATION_TO has no valid recipients.");
   const salesmanEmail = await loadSalesmanEmail(order.salesman_code);
-  const bcc = salesmanEmail && !to.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase())
-    ? [salesmanEmail]
-    : [];
-  const recipients = [...to, ...bcc];
   const from = requiredEnv("ORDER_NOTIFICATION_FROM");
+  const salesmanNeedsCopy = salesmanEmail
+    && !primaryRecipients.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase());
+  const usesTestingSender = /@resend\.dev\b/i.test(from);
+  const optionalRecipients = salesmanNeedsCopy && !usesTestingSender ? [salesmanEmail] : [];
   const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
   const emailSuffix = order.customer_email ? ` (${order.customer_email})` : "";
@@ -355,21 +361,70 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const html = buildOrderHtml(order, siteUrl);
   const attachment = await buildOrderWorkbookAttachment(order);
 
+  const deliveredTo: string[] = [];
+  const emailIds: string[] = [];
+  const primaryErrors: string[] = [];
+  for (const recipient of primaryRecipients) {
+    try {
+      const emailId = await sendResendEmail(apiKey, {
+        from,
+        to: [recipient],
+        subject,
+        text,
+        html,
+        attachments: [attachment],
+      });
+      deliveredTo.push(recipient);
+      emailIds.push(emailId);
+    } catch (error) {
+      primaryErrors.push(`${recipient}: ${errorMessage(error)}`);
+    }
+  }
+
+  if (!deliveredTo.length) {
+    throw new Error(`No primary order email could be sent. ${primaryErrors.join(" | ")}`);
+  }
+
+  const optionalErrors: string[] = [];
+  for (const recipient of optionalRecipients) {
+    try {
+      const emailId = await sendResendEmail(apiKey, {
+        from,
+        to: [recipient],
+        subject,
+        text,
+        html,
+        attachments: [attachment],
+      });
+      deliveredTo.push(recipient);
+      emailIds.push(emailId);
+    } catch (error) {
+      optionalErrors.push(`${recipient}: ${errorMessage(error)}`);
+    }
+  }
+
+  const warnings = [
+    ...primaryErrors.map((error) => `Primary recipient failed: ${error}`),
+    ...(salesmanNeedsCopy && usesTestingSender
+      ? ["Salesman copy skipped: verify a sending domain in Resend and update ORDER_NOTIFICATION_FROM."]
+      : []),
+    ...optionalErrors.map((error) => `Salesman copy failed: ${error}`),
+  ];
+  return {
+    id: emailIds.join(", "),
+    to: deliveredTo,
+    warning: warnings.join(" | "),
+  };
+}
+
+async function sendResendEmail(apiKey: string, payload: Record<string, unknown>) {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from,
-      to,
-      ...(bcc.length ? { bcc } : {}),
-      subject,
-      text,
-      html,
-      attachments: [attachment],
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
@@ -378,10 +433,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
   }
 
   const result = await response.json();
-  return {
-    id: String(result.id || ""),
-    to: recipients,
-  };
+  return String(result.id || "");
 }
 
 async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachment> {
