@@ -294,12 +294,12 @@ async function loadSalesmanEmail(salesmanCode: string) {
   const params = new URLSearchParams({
     salesman_code: `eq.${code}`,
     role: "eq.salesman",
-    select: "email",
+    select: "email,order_notification_email",
     limit: "1",
   });
   const response = await supabaseFetch(`/rest/v1/profiles?${params}`);
   const rows = await response.json();
-  return String(rows[0]?.email || "").trim();
+  return String(rows[0]?.order_notification_email || rows[0]?.email || "").trim();
 }
 
 async function loadRequestContext(req: Request): Promise<RequestContext> {
@@ -348,6 +348,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
   const primaryRecipients = uniqueEmails(emailList(requiredEnv("ORDER_NOTIFICATION_TO")));
   if (!primaryRecipients.length) throw new Error("ORDER_NOTIFICATION_TO has no valid recipients.");
   const salesmanEmail = await loadSalesmanEmail(order.salesman_code);
+  const missingSalesmanEmail = Boolean(order.salesman_code) && !salesmanEmail;
   const from = requiredEnv("ORDER_NOTIFICATION_FROM");
   const salesmanNeedsCopy = salesmanEmail
     && !primaryRecipients.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase());
@@ -405,6 +406,9 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
 
   const warnings = [
     ...primaryErrors.map((error) => `Primary recipient failed: ${error}`),
+    ...(missingSalesmanEmail
+      ? [`Salesman copy skipped: no notification email was found for salesman code ${order.salesman_code}.`]
+      : []),
     ...(salesmanNeedsCopy && usesTestingSender
       ? ["Salesman copy skipped: verify a sending domain in Resend and update ORDER_NOTIFICATION_FROM."]
       : []),

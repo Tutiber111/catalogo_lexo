@@ -1572,7 +1572,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/estia-20260707-page-001.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-001.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -1585,7 +1585,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/estia-20260707-page-002.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-002.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -1598,7 +1598,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-003.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-003.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -1712,7 +1712,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-004.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-004.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -1826,7 +1826,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-005.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-005.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2171,7 +2171,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-006.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-006.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2285,7 +2285,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-007.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-007.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2333,7 +2333,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-008.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-008.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2414,7 +2414,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-009.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-009.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2528,7 +2528,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-010.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-010.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2642,7 +2642,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-011.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-011.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2756,7 +2756,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-012.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-012.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2870,7 +2870,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-013.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-013.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -2984,7 +2984,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-014.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-014.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3164,7 +3164,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-015.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-015.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3245,7 +3245,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/estia-20260707-page-016.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-016.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3258,7 +3258,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-017.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-017.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3306,7 +3306,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-018.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-018.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3354,7 +3354,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-019.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-019.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3402,7 +3402,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-020.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-020.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3483,7 +3483,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-021.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-021.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3494,8 +3494,8 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg044-1",
           "page": 44,
-          "label": "Set de 5 cuchillos con base de bambú",
-          "price": "$31.262",
+          "label": "Balanza de cocina de bambú (5 kg)",
+          "price": "$19.831",
           "productIds": [
             "estia-p044-1"
           ],
@@ -3531,7 +3531,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-022.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-022.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3542,7 +3542,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg045-1",
           "page": 45,
-          "label": "Set de 5 cuchillos con base de acacia",
+          "label": "Set de cuchillos de acero inoxidable con base de acacia",
           "price": "$69.998",
           "productIds": [
             "estia-p045-1"
@@ -3575,11 +3575,11 @@ window.CATALOG_DATA = {
     },
     {
       "number": 46,
-      "title": "Set de cuchillos de acero",
+      "title": "Base de acacia para cuchillos",
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-023.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-023.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3590,7 +3590,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg046-1",
           "page": 46,
-          "label": "inoxidable con base de acacia",
+          "label": "Base de acacia para cuchillos",
           "price": "$31.262",
           "productIds": [
             "estia-p046-1"
@@ -3627,7 +3627,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-024.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-024.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3638,7 +3638,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg047-1",
           "page": 47,
-          "label": "Afilador de cuchillos con soporte de ventosa",
+          "label": "Afilador de cuchillos con ventosa",
           "price": "$7.638",
           "productIds": [
             "estia-p047-1"
@@ -3675,7 +3675,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260729-page-025.jpg?v=20260729-estia-page-48",
+        "src": "assets/pages/estia-20260707-page-025.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3723,7 +3723,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-026.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-026.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3734,7 +3734,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg049-1",
           "page": 49,
-          "label": "Tabla de cortar de bambú con cuchillo para pan",
+          "label": "Tabla de cortar de bambú con cuchillo de pan integrado",
           "price": "$13.098",
           "productIds": [
             "estia-p049-1"
@@ -3771,7 +3771,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-027.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-027.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3852,7 +3852,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-028.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-028.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -3999,7 +3999,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-029.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-029.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4113,7 +4113,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-030.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-030.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4194,7 +4194,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-031.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-031.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4241,7 +4241,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg054-2",
           "page": 54,
-          "label": "Botellas de aceite y vinagre - 2x280ml con base de madera",
+          "label": "Set de aceite y vinagre con base de madera 280 ml",
           "price": "$29.599",
           "productIds": [
             "estia-p054-1"
@@ -4273,7 +4273,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg054-3",
           "page": 54,
-          "label": "Botellas de aceite y vinagre marfil",
+          "label": "Botellas de aceite y vinagre de cerámica",
           "price": "$18.205",
           "productIds": [
             "estia-p054-2"
@@ -4310,7 +4310,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-032.jpg?v=20260721-estia-21832",
+        "src": "assets/pages/estia-20260707-page-032.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4459,7 +4459,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-033.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-033.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4505,7 +4505,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg056-2",
           "page": 56,
-          "label": "Pelapapas de fundición con mango antideslizante",
+          "label": "Pelapapas de zinc con mango antideslizante",
           "price": "$8.980",
           "productIds": [
             "estia-p056-2"
@@ -4537,7 +4537,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg056-3",
           "page": 56,
-          "label": "Rompenueces de fundición",
+          "label": "Rompenueces de zinc con mango antideslizante",
           "price": "$15.481",
           "productIds": [
             "estia-p056-3"
@@ -4606,7 +4606,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-034.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-034.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4687,7 +4687,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-035.jpg?v=20260727-estia-24932",
+        "src": "assets/pages/estia-20260707-page-035.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -4733,7 +4733,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg058-2",
           "page": 58,
-          "label": "Organizador de bacha con dispenser",
+          "label": "Organizador de bacha",
           "price": "$22.846",
           "productIds": [
             "estia-p058-2"
@@ -4765,7 +4765,7 @@ window.CATALOG_DATA = {
         {
           "id": "estia-pg058-3",
           "page": 58,
-          "label": "Dispenser para detergente con porta esponja",
+          "label": "Organizador de bacha con cepillo color mármol",
           "price": "$20.427",
           "productIds": [
             "estia-p058-3"
@@ -4834,7 +4834,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-036.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-036.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5014,7 +5014,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-037.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-037.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5062,7 +5062,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": false,
       "image": {
-        "src": "assets/pages/estia-20260707-page-038.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-038.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5075,7 +5075,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-039.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-039.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5137,7 +5137,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-040.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-040.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5191,7 +5191,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-041.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-041.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5249,7 +5249,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-042.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-042.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5303,7 +5303,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-043.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-043.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -5357,7 +5357,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-044.jpg?v=20260707-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-044.jpg?v=20260730-estia-refresh",
         "width": 1013,
         "height": 1432
       },
@@ -47100,16 +47100,16 @@ window.CATALOG_DATA = {
     {
       "id": "estia-p044-1",
       "page": 44,
-      "sku": "23614",
+      "sku": "30766",
       "skus": [
-        "23614"
+        "30766"
       ],
-      "name": "Set de 5 cuchillos con base de bambú",
+      "name": "Balanza de cocina de bambú (5 kg)",
       "category": "Balanza de cocina de bambú",
-      "price": "$31.262",
+      "price": "$19.831",
       "pdfPrice": "$12.345",
       "priceSource": "excel",
-      "ean": "5207158023614",
+      "ean": "5207158030766",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
@@ -47134,7 +47134,7 @@ window.CATALOG_DATA = {
       "skus": [
         "24826"
       ],
-      "name": "Set de 5 cuchillos con base de acacia",
+      "name": "Set de cuchillos de acero inoxidable con base de acacia",
       "category": "Set de cuchillos de acero",
       "price": "$69.998",
       "pdfPrice": "$69.998",
@@ -47164,8 +47164,8 @@ window.CATALOG_DATA = {
       "skus": [
         "23614"
       ],
-      "name": "inoxidable con base de acacia",
-      "category": "Set de cuchillos de acero",
+      "name": "Base de acacia para cuchillos",
+      "category": "Base de acacia para cuchillos",
       "price": "$31.262",
       "pdfPrice": "$12.345",
       "priceSource": "excel",
@@ -47194,7 +47194,7 @@ window.CATALOG_DATA = {
       "skus": [
         "36812"
       ],
-      "name": "Afilador de cuchillos con soporte de ventosa",
+      "name": "Afilador de cuchillos con ventosa",
       "category": "Afilador de cuchillos",
       "price": "$7.638",
       "pdfPrice": "$12.345",
@@ -47254,7 +47254,7 @@ window.CATALOG_DATA = {
       "skus": [
         "12946"
       ],
-      "name": "Tabla de cortar de bambú con cuchillo para pan",
+      "name": "Tabla de cortar de bambú con cuchillo de pan integrado",
       "category": "Tabla de cortar de bambú",
       "price": "$13.098",
       "pdfPrice": "$12.345",
@@ -47614,7 +47614,7 @@ window.CATALOG_DATA = {
       "skus": [
         "34061"
       ],
-      "name": "Botellas de aceite y vinagre - 2x280ml con base de madera",
+      "name": "Set de aceite y vinagre con base de madera 280 ml",
       "category": "Accesorios de cocina",
       "price": "$29.599",
       "pdfPrice": "$77.571",
@@ -47644,7 +47644,7 @@ window.CATALOG_DATA = {
       "skus": [
         "24987"
       ],
-      "name": "Botellas de aceite y vinagre marfil",
+      "name": "Botellas de aceite y vinagre de cerámica",
       "category": "Accesorios de cocina",
       "price": "$18.205",
       "pdfPrice": "$88.324",
@@ -47674,7 +47674,7 @@ window.CATALOG_DATA = {
       "skus": [
         "26752"
       ],
-      "name": "Molinillo de sal de cerámica / pimienta blanco",
+      "name": "Molinillo de sal y pimienta blanco",
       "category": "Accesorios de cocina",
       "price": "$27.004",
       "pdfPrice": "$58.029",
@@ -47704,7 +47704,7 @@ window.CATALOG_DATA = {
       "skus": [
         "26769"
       ],
-      "name": "Molinillo de sal de cerámica / pimienta negro",
+      "name": "Molinillo de sal y pimienta negro",
       "category": "Accesorios de cocina",
       "price": "$27.004",
       "pdfPrice": "$58.029",
@@ -47794,7 +47794,7 @@ window.CATALOG_DATA = {
       "skus": [
         "21771"
       ],
-      "name": "Accesorios de cocina Spray de aceite 100ml",
+      "name": "Spray de aceite 100 ml",
       "category": "Accesorios de cocina",
       "price": "$7.890",
       "pdfPrice": "$7.890",
@@ -47914,7 +47914,7 @@ window.CATALOG_DATA = {
       "skus": [
         "7577"
       ],
-      "name": "Pelapapas de fundición con mango antideslizante",
+      "name": "Pelapapas de zinc con mango antideslizante",
       "category": "Accesorios de cocina",
       "price": "$8.980",
       "pdfPrice": "$8.980",
@@ -47944,7 +47944,7 @@ window.CATALOG_DATA = {
       "skus": [
         "9304"
       ],
-      "name": "Rompenueces de fundición",
+      "name": "Rompenueces de zinc con mango antideslizante",
       "category": "Accesorios de cocina",
       "price": "$15.481",
       "pdfPrice": "$15.481",
@@ -48094,7 +48094,7 @@ window.CATALOG_DATA = {
       "skus": [
         "23560"
       ],
-      "name": "Organizador de bacha con dispenser",
+      "name": "Organizador de bacha",
       "category": "Organizadores de bacha",
       "price": "$22.846",
       "pdfPrice": "$22.846",
@@ -48124,7 +48124,7 @@ window.CATALOG_DATA = {
       "skus": [
         "18146"
       ],
-      "name": "Dispenser para detergente con porta esponja",
+      "name": "Organizador de bacha con cepillo color mármol",
       "category": "Organizadores de bacha",
       "price": "$20.427",
       "pdfPrice": "$20.427",
@@ -57981,5 +57981,5 @@ window.CATALOG_DATA = {
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260727-catalog-fixes"
+  "assetVersion": "20260730-estia-refresh"
 };

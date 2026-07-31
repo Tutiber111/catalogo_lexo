@@ -3,6 +3,7 @@ create extension if not exists pg_trgm;
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
+  order_notification_email text not null default '',
   role text not null default 'customer' check (role::text in ('customer', 'admin', 'salesman')),
   client_code text not null default '',
   salesman_code text,
@@ -116,6 +117,7 @@ alter table public.product_overrides add column if not exists video_url text not
 alter table public.profiles add column if not exists client_code text not null default '';
 alter table public.profiles add column if not exists salesman_code text;
 alter table public.profiles add column if not exists assigned_salesman_code text;
+alter table public.profiles add column if not exists order_notification_email text not null default '';
 alter table public.profiles add column if not exists price_access_approved boolean;
 alter table public.profiles add column if not exists price_access_approved_at timestamptz;
 alter table public.profiles add column if not exists price_access_approved_by uuid references auth.users(id) on delete set null;
@@ -125,6 +127,12 @@ set
   price_access_approved = true,
   price_access_approved_at = coalesce(price_access_approved_at, now())
 where price_access_approved is null;
+
+update public.profiles
+set order_notification_email = coalesce(email, '')
+where role::text = 'salesman'
+  and coalesce(order_notification_email, '') = ''
+  and coalesce(email, '') <> '';
 
 alter table public.profiles alter column price_access_approved set default false;
 alter table public.profiles alter column price_access_approved set not null;
