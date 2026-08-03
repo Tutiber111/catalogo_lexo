@@ -8,6 +8,10 @@
     lastStockChange: null,
     pendingPriceApprovals: [],
     isLoadingPriceApprovals: false,
+    passwordCustomers: [],
+    selectedPasswordCustomer: null,
+    isSearchingPasswordCustomer: false,
+    isResettingCustomerPassword: false,
   };
 
   const adminEls = {
@@ -39,6 +43,17 @@
     refreshPriceApprovals: document.querySelector("#refreshPriceApprovals"),
     priceApprovalsStatus: document.querySelector("#priceApprovalsStatus"),
     priceApprovalsList: document.querySelector("#priceApprovalsList"),
+    customerPasswordSearchForm: document.querySelector("#customerPasswordSearchForm"),
+    customerPasswordSearch: document.querySelector("#customerPasswordSearch"),
+    searchCustomerPassword: document.querySelector("#searchCustomerPassword"),
+    customerPasswordResults: document.querySelector("#customerPasswordResults"),
+    selectedPasswordCustomer: document.querySelector("#selectedPasswordCustomer"),
+    customerPasswordForm: document.querySelector("#customerPasswordForm"),
+    customerTemporaryPassword: document.querySelector("#customerTemporaryPassword"),
+    confirmCustomerTemporaryPassword: document.querySelector("#confirmCustomerTemporaryPassword"),
+    showCustomerTemporaryPassword: document.querySelector("#showCustomerTemporaryPassword"),
+    setCustomerTemporaryPassword: document.querySelector("#setCustomerTemporaryPassword"),
+    customerPasswordStatus: document.querySelector("#customerPasswordStatus"),
     adminOrderDialog: document.querySelector("#adminOrderDialog"),
     adminOrderDialogContent: document.querySelector("#adminOrderDialogContent"),
     toast: document.querySelector("#toast"),
@@ -64,6 +79,10 @@
     adminEls.undoStockChange.addEventListener("click", undoLastStockChange);
     adminEls.refreshPriceApprovals.addEventListener("click", renderPendingPriceApprovals);
     adminEls.priceApprovalsList.addEventListener("click", handlePriceApprovalClick);
+    adminEls.customerPasswordSearchForm.addEventListener("submit", searchCustomerForPassword);
+    adminEls.customerPasswordResults.addEventListener("click", handlePasswordCustomerSelection);
+    adminEls.customerPasswordForm.addEventListener("submit", resetSelectedCustomerPassword);
+    adminEls.showCustomerTemporaryPassword.addEventListener("change", toggleCustomerPasswordVisibility);
     adminEls.adminOrderDialog.addEventListener("close", () => {
       adminEls.adminOrderDialogContent.innerHTML = "";
     });
@@ -186,6 +205,149 @@
     if (message.includes("price_access_approved")) {
       return "Falta aplicar la actualización de acceso a precios en Supabase.";
     }
+    return message;
+  }
+
+  async function searchCustomerForPassword(event) {
+    event.preventDefault();
+    if (!adminState.isAdmin || adminState.isSearchingPasswordCustomer) return;
+    const query = adminEls.customerPasswordSearch.value.trim();
+    if (query.length < 2) {
+      setCustomerPasswordStatus("Ingresá al menos dos caracteres para buscar.");
+      adminEls.customerPasswordSearch.focus();
+      return;
+    }
+
+    adminState.isSearchingPasswordCustomer = true;
+    adminEls.searchCustomerPassword.disabled = true;
+    adminEls.searchCustomerPassword.textContent = "Buscando...";
+    setCustomerPasswordStatus("Buscando cuentas...");
+    try {
+      adminState.passwordCustomers = await CATALOG_SUPABASE.searchCustomerAccounts(query);
+      renderPasswordCustomerResults();
+    } catch (error) {
+      adminState.passwordCustomers = [];
+      adminEls.customerPasswordResults.hidden = true;
+      setCustomerPasswordStatus(friendlyCustomerPasswordError(error));
+    } finally {
+      adminState.isSearchingPasswordCustomer = false;
+      adminEls.searchCustomerPassword.disabled = false;
+      adminEls.searchCustomerPassword.textContent = "Buscar";
+    }
+  }
+
+  function renderPasswordCustomerResults() {
+    const customers = adminState.passwordCustomers;
+    adminEls.customerPasswordResults.hidden = false;
+    if (!customers.length) {
+      adminEls.customerPasswordResults.innerHTML = `<p>No se encontraron cuentas de clientes.</p>`;
+      setCustomerPasswordStatus("Revisá el email, nombre, empresa o código ingresado.");
+      return;
+    }
+
+    adminEls.customerPasswordResults.innerHTML = customers.map((customer) => `
+      <button class="customer-password-result" type="button" data-password-customer="${escapeHtml(customer.id)}">
+        <strong>${escapeHtml(customer.company || customer.name || customer.email || "Cliente sin nombre")}</strong>
+        <span>${escapeHtml(customer.email || "Sin email")}</span>
+        ${customer.clientCode ? `<small>Código ${escapeHtml(customer.clientCode)}</small>` : ""}
+      </button>
+    `).join("");
+    setCustomerPasswordStatus(`${customers.length} cuenta${customers.length === 1 ? " encontrada" : "s encontradas"}. Elegí la correcta.`);
+  }
+
+  function handlePasswordCustomerSelection(event) {
+    const button = event.target.closest("[data-password-customer]");
+    if (!button || !adminState.isAdmin) return;
+    const customer = adminState.passwordCustomers.find((item) => item.id === button.dataset.passwordCustomer);
+    if (!customer) return;
+    adminState.selectedPasswordCustomer = customer;
+    adminEls.customerPasswordResults.hidden = true;
+    adminEls.selectedPasswordCustomer.hidden = false;
+    adminEls.selectedPasswordCustomer.innerHTML = `
+      <span>Cuenta seleccionada</span>
+      <strong>${escapeHtml(customer.company || customer.name || "Cliente")}</strong>
+      <small>${escapeHtml(customer.email || "Sin email")}${customer.clientCode ? ` · Código ${escapeHtml(customer.clientCode)}` : ""}</small>
+      <button class="secondary-button compact-button" type="button" data-change-password-customer>Elegir otra</button>
+    `;
+    adminEls.selectedPasswordCustomer.querySelector("[data-change-password-customer]").addEventListener("click", clearSelectedPasswordCustomer);
+    adminEls.customerPasswordForm.hidden = false;
+    adminEls.customerTemporaryPassword.value = "";
+    adminEls.confirmCustomerTemporaryPassword.value = "";
+    adminEls.showCustomerTemporaryPassword.checked = false;
+    toggleCustomerPasswordVisibility();
+    setCustomerPasswordStatus("Ingresá y confirmá la nueva contraseña temporal.");
+    adminEls.customerTemporaryPassword.focus();
+  }
+
+  function clearSelectedPasswordCustomer() {
+    adminState.selectedPasswordCustomer = null;
+    adminEls.selectedPasswordCustomer.hidden = true;
+    adminEls.selectedPasswordCustomer.innerHTML = "";
+    adminEls.customerPasswordForm.hidden = true;
+    adminEls.customerTemporaryPassword.value = "";
+    adminEls.confirmCustomerTemporaryPassword.value = "";
+    adminEls.customerPasswordSearch.focus();
+  }
+
+  function toggleCustomerPasswordVisibility() {
+    const type = adminEls.showCustomerTemporaryPassword.checked ? "text" : "password";
+    adminEls.customerTemporaryPassword.type = type;
+    adminEls.confirmCustomerTemporaryPassword.type = type;
+  }
+
+  async function resetSelectedCustomerPassword(event) {
+    event.preventDefault();
+    if (!adminState.isAdmin || adminState.isResettingCustomerPassword) return;
+    const customer = adminState.selectedPasswordCustomer;
+    const password = adminEls.customerTemporaryPassword.value;
+    const confirmation = adminEls.confirmCustomerTemporaryPassword.value;
+    if (!customer) {
+      setCustomerPasswordStatus("Elegí una cuenta de cliente primero.");
+      return;
+    }
+    if (password.length < 8) {
+      setCustomerPasswordStatus("La contraseña temporal debe tener al menos 8 caracteres.");
+      adminEls.customerTemporaryPassword.focus();
+      return;
+    }
+    if (password !== confirmation) {
+      setCustomerPasswordStatus("Las dos contraseñas no coinciden.");
+      adminEls.confirmCustomerTemporaryPassword.focus();
+      return;
+    }
+
+    const label = customer.company || customer.name || customer.email || "este cliente";
+    if (!confirm(`¿Reemplazar la contraseña de ${label}? La contraseña anterior dejará de funcionar.`)) return;
+
+    adminState.isResettingCustomerPassword = true;
+    adminEls.setCustomerTemporaryPassword.disabled = true;
+    adminEls.setCustomerTemporaryPassword.textContent = "Cambiando...";
+    setCustomerPasswordStatus("Actualizando la contraseña...");
+    try {
+      await CATALOG_SUPABASE.setCustomerTemporaryPassword(customer.id, password);
+      adminEls.customerTemporaryPassword.value = "";
+      adminEls.confirmCustomerTemporaryPassword.value = "";
+      setCustomerPasswordStatus(`Contraseña actualizada correctamente para ${customer.email || label}.`);
+      showToast("Contraseña del cliente actualizada");
+    } catch (error) {
+      setCustomerPasswordStatus(friendlyCustomerPasswordError(error));
+    } finally {
+      adminState.isResettingCustomerPassword = false;
+      adminEls.setCustomerTemporaryPassword.disabled = false;
+      adminEls.setCustomerTemporaryPassword.textContent = "Cambiar contraseña";
+    }
+  }
+
+  function setCustomerPasswordStatus(message) {
+    adminEls.customerPasswordStatus.textContent = message;
+  }
+
+  function friendlyCustomerPasswordError(error) {
+    const message = String(error?.message || "No se pudo cambiar la contraseña del cliente.");
+    if (message.includes("Only administrators")) return "Solo una cuenta administradora puede cambiar contraseñas.";
+    if (message.includes("at least eight")) return "La contraseña temporal debe tener al menos 8 caracteres.";
+    if (message.includes("Customer account not found")) return "No se encontró esa cuenta de cliente.";
+    if (message.includes("Invalid session") || message.includes("Sign in first")) return "La sesión administradora venció. Volvé a iniciar sesión.";
     return message;
   }
 

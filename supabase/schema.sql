@@ -111,6 +111,23 @@ create table if not exists public.order_notifications (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.catalog_guest_links (
+  id uuid primary key default gen_random_uuid(),
+  sales_client_id uuid not null references public.sales_clients(id) on delete cascade,
+  salesman_code text not null references public.salesmen(code),
+  created_by uuid not null references public.profiles(id) on delete cascade,
+  link_token_hash text not null unique,
+  otp_hash text not null,
+  session_token_hash text not null default '',
+  failed_attempts integer not null default 0 check (failed_attempts >= 0),
+  last_attempt_at timestamptz,
+  expires_at timestamptz not null,
+  redeemed_at timestamptz,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 alter table public.orders add column if not exists archived_at timestamptz;
 alter table public.product_overrides add column if not exists out_of_stock boolean not null default false;
 alter table public.product_overrides add column if not exists video_url text not null default '';
@@ -185,6 +202,15 @@ where client_code is not null and client_code <> '';
 
 create index if not exists sales_clients_salesman_code_idx on public.sales_clients (salesman_code);
 create index if not exists sales_clients_search_text_idx on public.sales_clients using gin (search_text gin_trgm_ops);
+create index if not exists catalog_guest_links_session_token_idx
+on public.catalog_guest_links (session_token_hash)
+where session_token_hash <> '';
+
+create unique index if not exists catalog_guest_links_session_token_unique_idx
+on public.catalog_guest_links (session_token_hash)
+where session_token_hash <> '';
+create index if not exists catalog_guest_links_client_idx
+on public.catalog_guest_links (sales_client_id, salesman_code, expires_at desc);
 
 update public.orders
 set archived_at = coalesce(archived_at, updated_at, now())
@@ -198,6 +224,7 @@ alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.product_overrides enable row level security;
 alter table public.order_notifications enable row level security;
+alter table public.catalog_guest_links enable row level security;
 
 create or replace function public.is_admin()
 returns boolean

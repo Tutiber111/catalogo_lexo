@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260723-price-approval">
+    <link rel="stylesheet" href="styles.css?v=20260803-admin-password">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -16,6 +16,20 @@
       </div>
       <button id="syncOfflineOrders" class="secondary-button compact-button" type="button" hidden>Enviar pendientes</button>
     </div>
+    <section id="guestAccessGate" class="guest-access-gate" aria-label="Acceso temporal al catálogo" hidden>
+      <div class="guest-access-panel">
+        <span class="eyebrow">Acceso exclusivo</span>
+        <h1>Catálogo Lexo</h1>
+        <p id="guestAccessIntro">Ingresá la clave de un solo uso que te envió tu vendedor.</p>
+        <label class="guest-access-code-field">
+          <span>Clave de un solo uso</span>
+          <input id="guestAccessCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000">
+        </label>
+        <button id="redeemGuestAccess" class="primary-button" type="button">Abrir catálogo</button>
+        <button id="cancelGuestAccess" class="secondary-button" type="button">Iniciar sesión con una cuenta</button>
+        <p id="guestAccessMessage" class="auth-message" role="status"></p>
+      </div>
+    </section>
     <div class="app-shell">
       <aside class="sidebar" aria-label="Navegación del catálogo">
         <div class="brand-block">
@@ -97,84 +111,110 @@
           </div>
           <button id="closeCart" class="icon-button" type="button" aria-label="Cerrar carrito">×</button>
         </div>
-        <div id="quickOrderPanel" class="quick-order-panel">
-          <button id="openQuickOrder" class="secondary-button quick-order-open" type="button">Carga r&aacute;pida por SKU</button>
+        <div class="cart-view-tabs" role="tablist" aria-label="Secciones del carrito">
+          <button id="cartProductsTab" class="cart-view-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="cartProductsView">1. Productos</button>
+          <button id="cartDetailsTab" class="cart-view-tab" type="button" role="tab" aria-selected="false" aria-controls="cartDetailsView">2. Datos del pedido</button>
         </div>
-        <div id="cartItems" class="cart-items"></div>
-        <div class="cart-footer">
-          <div class="cart-total">
-            <span>Total de unidades</span>
-            <strong id="cartTotalItems">0</strong>
+        <section id="cartProductsView" class="cart-view cart-products-view" role="tabpanel" aria-labelledby="cartProductsTab">
+          <div id="quickOrderPanel" class="quick-order-panel">
+            <button id="openQuickOrder" class="secondary-button quick-order-open" type="button">Carga r&aacute;pida por SKU</button>
           </div>
-          <div class="cart-total cart-total-value">
-            <span>Valor total</span>
-            <strong id="cartTotalValue">$0</strong>
+          <div id="cartItems" class="cart-items"></div>
+          <div class="cart-products-footer">
+            <div class="cart-summary-totals">
+              <div class="cart-total">
+                <span>Total de unidades</span>
+                <strong id="cartTotalItems">0</strong>
+              </div>
+              <div class="cart-total cart-total-value">
+                <span>Valor total</span>
+                <strong id="cartTotalValue">$0</strong>
+              </div>
+            </div>
+            <button id="continueCart" class="primary-button" type="button">Continuar con los datos</button>
           </div>
-          <div id="cartSalesClientPanel" class="cart-client-selector" hidden>
-            <label class="cart-client-field">
-              <span>Cliente del pedido</span>
-              <input id="cartSalesClientSearch" type="search" autocomplete="off" placeholder="Buscar por código o nombre">
-            </label>
-            <div id="cartSalesClientResults" class="cart-client-results" role="listbox" aria-label="Clientes disponibles" hidden></div>
-            <div id="cartSelectedSalesClient" class="cart-selected-client" hidden></div>
-            <button id="clearSalesClient" class="secondary-button compact-button" type="button" hidden>Cambiar cliente</button>
-            <label id="otherSalesClientToggleWrap" class="cart-check-field">
-              <input id="otherSalesClientToggle" type="checkbox">
-              <span>Otro cliente</span>
-            </label>
-            <div id="otherSalesClientForm" class="other-client-form" hidden>
+        </section>
+        <section id="cartDetailsView" class="cart-view cart-details-view" role="tabpanel" aria-labelledby="cartDetailsTab" hidden>
+          <div class="cart-details-scroll">
+            <div class="cart-details-heading">
+              <span class="eyebrow">Finalizar pedido</span>
+              <h3>Datos del pedido</h3>
+            </div>
+            <div id="cartSalesClientPanel" class="cart-client-selector" hidden>
               <label class="cart-client-field">
-                <span>CUIT</span>
-                <input id="otherSalesClientCode" type="text" autocomplete="off" inputmode="numeric">
+                <span>Cliente del pedido</span>
+                <input id="cartSalesClientSearch" type="search" autocomplete="off" placeholder="Buscar por código o nombre">
+              </label>
+              <div id="cartSalesClientResults" class="cart-client-results" role="listbox" aria-label="Clientes disponibles" hidden></div>
+              <div id="cartSelectedSalesClient" class="cart-selected-client" hidden></div>
+              <button id="clearSalesClient" class="secondary-button compact-button" type="button" hidden>Cambiar cliente</button>
+              <label id="otherSalesClientToggleWrap" class="cart-check-field">
+                <input id="otherSalesClientToggle" type="checkbox">
+                <span>Otro cliente</span>
+              </label>
+              <div id="otherSalesClientForm" class="other-client-form" hidden>
+                <label class="cart-client-field">
+                  <span>CUIT</span>
+                  <input id="otherSalesClientCode" type="text" autocomplete="off" inputmode="numeric">
+                </label>
+                <label class="cart-client-field">
+                  <span>Nombre</span>
+                  <input id="otherSalesClientName" type="text" autocomplete="organization">
+                </label>
+                <label class="cart-client-field">
+                  <span>Razón social <em>opcional</em></span>
+                  <input id="otherSalesClientLegalName" type="text" autocomplete="organization">
+                </label>
+                <label class="cart-client-field">
+                  <span>Domicilio <em>opcional</em></span>
+                  <input id="otherSalesClientAddress" type="text" autocomplete="street-address">
+                </label>
+                <label class="cart-client-field">
+                  <span>Localidad <em>opcional</em></span>
+                  <input id="otherSalesClientLocality" type="text" autocomplete="address-level2">
+                </label>
+                <button id="createSalesClient" class="secondary-button" type="button">Crear y seleccionar cliente</button>
+                <small id="otherSalesClientMessage" class="other-client-message"></small>
+              </div>
+            </div>
+            <p id="cartAccountClientNote" class="cart-account-client-note" hidden>El pedido se enviará con los datos de tu cuenta.</p>
+            <div id="cartManualClientFields" class="cart-manual-client-fields">
+              <label class="cart-client-field">
+                <span>Cliente</span>
+                <input id="cartClientName" type="text" autocomplete="organization" placeholder="Nombre del cliente">
               </label>
               <label class="cart-client-field">
-                <span>Nombre</span>
-                <input id="otherSalesClientName" type="text" autocomplete="organization">
+                <span>Código de cliente <em>opcional</em></span>
+                <input id="cartClientCode" type="text" autocomplete="off" placeholder="Código de cliente (opcional)">
+                <small>Este dato es opcional.</small>
               </label>
+            </div>
+            <div id="cartTransportPanel" class="cart-transport-panel" hidden>
               <label class="cart-client-field">
-                <span>Razón social <em>opcional</em></span>
-                <input id="otherSalesClientLegalName" type="text" autocomplete="organization">
+                <span>Transporte <em>opcional</em></span>
+                <input id="cartTransport" type="text" autocomplete="off" placeholder="Transporte del pedido (opcional)">
+                <small>Este dato es opcional. Si lo completás, se incluirá en la nota de pedido.</small>
               </label>
+            </div>
+            <div class="cart-observations-panel">
               <label class="cart-client-field">
-                <span>Domicilio <em>opcional</em></span>
-                <input id="otherSalesClientAddress" type="text" autocomplete="street-address">
+                <span>Observaciones <em>opcional</em></span>
+                <textarea id="cartObservations" rows="3" placeholder="Observaciones del pedido (opcional)"></textarea>
+                <small>Este dato es opcional. Si lo complet&aacute;s, se incluir&aacute; en la nota de pedido.</small>
               </label>
-              <label class="cart-client-field">
-                <span>Localidad <em>opcional</em></span>
-                <input id="otherSalesClientLocality" type="text" autocomplete="address-level2">
-              </label>
-              <button id="createSalesClient" class="secondary-button" type="button">Crear y seleccionar cliente</button>
-              <small id="otherSalesClientMessage" class="other-client-message"></small>
             </div>
           </div>
-          <p id="cartAccountClientNote" class="cart-account-client-note" hidden>El pedido se enviará con los datos de tu cuenta.</p>
-          <div id="cartManualClientFields" class="cart-manual-client-fields">
-            <label class="cart-client-field">
-              <span>Cliente</span>
-              <input id="cartClientName" type="text" autocomplete="organization" placeholder="Nombre del cliente">
-            </label>
-            <label class="cart-client-field">
-              <span>Código de cliente <em>opcional</em></span>
-              <input id="cartClientCode" type="text" autocomplete="off" placeholder="Código de cliente (opcional)">
-              <small>Este dato es opcional.</small>
-            </label>
+          <div class="cart-submit-footer">
+            <div class="cart-details-total" aria-live="polite">
+              <span><strong id="cartDetailsTotalItems">0</strong> unidades</span>
+              <strong id="cartDetailsTotalValue">$0</strong>
+            </div>
+            <div class="cart-submit-actions">
+              <button id="backToCartProducts" class="secondary-button" type="button">Volver</button>
+              <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
+            </div>
           </div>
-          <div id="cartTransportPanel" class="cart-transport-panel" hidden>
-            <label class="cart-client-field">
-              <span>Transporte <em>opcional</em></span>
-              <input id="cartTransport" type="text" autocomplete="off" placeholder="Transporte del pedido (opcional)">
-              <small>Este dato es opcional. Si lo completás, se incluirá en la nota de pedido.</small>
-            </label>
-          </div>
-          <div class="cart-observations-panel">
-            <label class="cart-client-field">
-              <span>Observaciones <em>opcional</em></span>
-              <textarea id="cartObservations" rows="3" placeholder="Observaciones del pedido (opcional)"></textarea>
-              <small>Este dato es opcional. Si lo complet&aacute;s, se incluir&aacute; en la nota de pedido.</small>
-            </label>
-          </div>
-          <button id="saveOrder" class="primary-button" type="button">Enviar pedido</button>
-        </div>
+        </section>
       </aside>
 
       <aside id="accountDrawer" class="account-drawer" aria-label="Cuenta" aria-hidden="true">
@@ -254,6 +294,48 @@
             </section>
             <p id="authMessage" class="auth-message" role="status"></p>
           </div>
+          <section id="salesmanCatalogTools" class="salesman-catalog-tools" hidden>
+            <div class="account-tool-section">
+              <div>
+                <span class="eyebrow">Acceso de clientes</span>
+                <h3>Compartir catálogo</h3>
+              </div>
+              <label>
+                <span>Cliente</span>
+                <input id="guestLinkClientInput" type="text" list="guestLinkClientOptions" autocomplete="off" placeholder="Código o nombre del cliente">
+                <datalist id="guestLinkClientOptions"></datalist>
+              </label>
+              <button id="createGuestLink" class="primary-button" type="button">Crear enlace de 7 días</button>
+              <div id="guestLinkResult" class="guest-link-result" hidden>
+                <label>
+                  <span>Enlace exclusivo</span>
+                  <input id="guestLinkUrl" type="text" readonly>
+                </label>
+                <label>
+                  <span>Clave de un solo uso</span>
+                  <input id="guestLinkPassword" type="text" readonly>
+                </label>
+                <div class="guest-link-actions">
+                  <button id="copyGuestLink" class="secondary-button" type="button">Copiar enlace</button>
+                  <button id="copyGuestPassword" class="secondary-button" type="button">Copiar clave</button>
+                </div>
+                <small id="guestLinkExpiry"></small>
+              </div>
+              <p id="guestLinkMessage" class="auth-message" role="status"></p>
+            </div>
+            <div class="account-tool-section">
+              <div>
+                <span class="eyebrow">Catálogo actualizado</span>
+                <h3>Exportar PDF</h3>
+              </div>
+              <label>
+                <span>Marca</span>
+                <select id="pdfBrandSelect"></select>
+              </label>
+              <button id="exportCatalogPdf" class="secondary-button" type="button">Descargar PDF con precios actuales</button>
+              <p id="pdfExportStatus" class="auth-message" role="status"></p>
+            </div>
+          </section>
           <div id="customerOrders" class="customer-orders"></div>
           <div id="customerOrderDetail" class="customer-order-detail" hidden></div>
         </div>
@@ -282,6 +364,43 @@
               </div>
               <p id="priceApprovalsStatus" class="admin-data-status">Cargando cuentas pendientes...</p>
               <div id="priceApprovalsList" class="price-approvals-list"></div>
+            </section>
+
+            <section class="admin-panel customer-password-admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Acceso de clientes</span>
+                  <h2>Cambiar contraseña</h2>
+                </div>
+              </div>
+              <p class="admin-data-status">La contraseña actual no se puede consultar. Esta herramienta la reemplaza por una nueva contraseña temporal.</p>
+              <form id="customerPasswordSearchForm" class="admin-inline-form customer-password-search-form">
+                <label>
+                  <span>Buscar cuenta</span>
+                  <input id="customerPasswordSearch" type="search" autocomplete="off" placeholder="Email, empresa, nombre o código">
+                </label>
+                <button id="searchCustomerPassword" class="secondary-button" type="submit">Buscar</button>
+              </form>
+              <div id="customerPasswordResults" class="customer-password-results" hidden></div>
+              <div id="selectedPasswordCustomer" class="selected-password-customer" hidden></div>
+              <form id="customerPasswordForm" class="customer-password-form" hidden>
+                <div class="customer-password-fields">
+                  <label>
+                    <span>Nueva contraseña temporal</span>
+                    <input id="customerTemporaryPassword" type="password" minlength="8" maxlength="72" autocomplete="new-password">
+                  </label>
+                  <label>
+                    <span>Confirmar contraseña</span>
+                    <input id="confirmCustomerTemporaryPassword" type="password" minlength="8" maxlength="72" autocomplete="new-password">
+                  </label>
+                </div>
+                <label class="customer-password-visibility">
+                  <input id="showCustomerTemporaryPassword" type="checkbox">
+                  <span>Mostrar contraseña mientras la escribo</span>
+                </label>
+                <button id="setCustomerTemporaryPassword" class="primary-button" type="submit">Cambiar contraseña</button>
+              </form>
+              <p id="customerPasswordStatus" class="admin-message" role="status"></p>
             </section>
 
             <section class="admin-panel">
@@ -432,9 +551,10 @@
   <script src="data/catalog-data.js?v=20260730-estia-refresh"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20260714-no-related-skus"></script>
-    <script src="supabase-client.js?v=20260723-price-approval"></script>
-    <script src="app.js?v=20260723-price-approval"></script>
-    <script src="admin.js?v=20260723-price-approval"></script>
+    <script src="supabase-client.js?v=20260803-admin-password"></script>
+    <script src="app.js?v=20260803-direct-pdf-download"></script>
+    <script src="admin.js?v=20260803-admin-password"></script>
   </body>
 </html>

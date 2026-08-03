@@ -32,6 +32,12 @@ const state = {
   barcodeScanInitialEnd: null,
   pendingCartRemoval: null,
   priceAccessActive: null,
+  cartView: "products",
+  guestAccess: null,
+  guestLinkToken: "",
+  isRedeemingGuestAccess: false,
+  isCreatingGuestLink: false,
+  isExportingCatalogPdf: false,
 };
 
 const BARCODE_SCAN_MIN_LENGTH = 8;
@@ -51,6 +57,12 @@ const els = {
   syncOfflineOrders: document.querySelector("#syncOfflineOrders"),
   priceAccessNotice: document.querySelector("#priceAccessNotice"),
   checkPriceAccess: document.querySelector("#checkPriceAccess"),
+  guestAccessGate: document.querySelector("#guestAccessGate"),
+  guestAccessIntro: document.querySelector("#guestAccessIntro"),
+  guestAccessCode: document.querySelector("#guestAccessCode"),
+  redeemGuestAccess: document.querySelector("#redeemGuestAccess"),
+  cancelGuestAccess: document.querySelector("#cancelGuestAccess"),
+  guestAccessMessage: document.querySelector("#guestAccessMessage"),
   brandName: document.querySelector("#brandName"),
   catalogLabel: document.querySelector("#catalogLabel"),
   catalogMeta: document.querySelector("#catalogMeta"),
@@ -89,6 +101,14 @@ const els = {
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
+  cartDetailsTotalItems: document.querySelector("#cartDetailsTotalItems"),
+  cartDetailsTotalValue: document.querySelector("#cartDetailsTotalValue"),
+  cartProductsTab: document.querySelector("#cartProductsTab"),
+  cartDetailsTab: document.querySelector("#cartDetailsTab"),
+  cartProductsView: document.querySelector("#cartProductsView"),
+  cartDetailsView: document.querySelector("#cartDetailsView"),
+  continueCart: document.querySelector("#continueCart"),
+  backToCartProducts: document.querySelector("#backToCartProducts"),
   cartSalesClientPanel: document.querySelector("#cartSalesClientPanel"),
   cartSalesClientSearch: document.querySelector("#cartSalesClientSearch"),
   cartSalesClientResults: document.querySelector("#cartSalesClientResults"),
@@ -141,6 +161,20 @@ const els = {
   signOut: document.querySelector("#signOut"),
   customerOrders: document.querySelector("#customerOrders"),
   customerOrderDetail: document.querySelector("#customerOrderDetail"),
+  salesmanCatalogTools: document.querySelector("#salesmanCatalogTools"),
+  guestLinkClientInput: document.querySelector("#guestLinkClientInput"),
+  guestLinkClientOptions: document.querySelector("#guestLinkClientOptions"),
+  createGuestLink: document.querySelector("#createGuestLink"),
+  guestLinkResult: document.querySelector("#guestLinkResult"),
+  guestLinkUrl: document.querySelector("#guestLinkUrl"),
+  guestLinkPassword: document.querySelector("#guestLinkPassword"),
+  guestLinkExpiry: document.querySelector("#guestLinkExpiry"),
+  guestLinkMessage: document.querySelector("#guestLinkMessage"),
+  copyGuestLink: document.querySelector("#copyGuestLink"),
+  copyGuestPassword: document.querySelector("#copyGuestPassword"),
+  pdfBrandSelect: document.querySelector("#pdfBrandSelect"),
+  exportCatalogPdf: document.querySelector("#exportCatalogPdf"),
+  pdfExportStatus: document.querySelector("#pdfExportStatus"),
   saveOrder: document.querySelector("#saveOrder"),
   productDialog: document.querySelector("#productDialog"),
   dialogContent: document.querySelector("#dialogContent"),
@@ -163,6 +197,7 @@ async function init() {
   renderOfflineStatus();
   renderQuickOrderTable();
   renderBrandTabs();
+  renderPdfBrandOptions();
   ensureCurrentPageMatchesBrand();
   await initAccount();
   renderTabs();
@@ -229,6 +264,10 @@ function bindEvents() {
   els.openCart.addEventListener("click", openCart);
   els.openQuickOrderToolbar.addEventListener("click", openQuickOrder);
   els.closeCart.addEventListener("click", closeCart);
+  els.cartProductsTab.addEventListener("click", () => setCartView("products"));
+  els.cartDetailsTab.addEventListener("click", () => setCartView("details"));
+  els.continueCart.addEventListener("click", () => setCartView("details", { focus: true }));
+  els.backToCartProducts.addEventListener("click", () => setCartView("products", { focus: true }));
   els.openQuickOrder.addEventListener("click", openQuickOrder);
   els.quickOrderTable.addEventListener("input", handleQuickOrderInput);
   els.quickOrderTable.addEventListener("keydown", handleQuickOrderKeydown);
@@ -259,6 +298,20 @@ function bindEvents() {
   els.saveOrder.addEventListener("click", saveOrder);
   els.syncOfflineOrders.addEventListener("click", handleOfflineBannerAction);
   els.checkPriceAccess.addEventListener("click", refreshCurrentPriceAccess);
+  els.redeemGuestAccess.addEventListener("click", redeemGuestAccess);
+  els.cancelGuestAccess.addEventListener("click", cancelGuestAccess);
+  els.guestAccessCode.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    redeemGuestAccess();
+  });
+  els.guestAccessCode.addEventListener("input", () => {
+    els.guestAccessCode.value = els.guestAccessCode.value.replace(/\D/g, "").slice(0, 6);
+  });
+  els.createGuestLink.addEventListener("click", createGuestLink);
+  els.copyGuestLink.addEventListener("click", () => copyGuestValue(els.guestLinkUrl.value, "Enlace copiado"));
+  els.copyGuestPassword.addEventListener("click", () => copyGuestValue(els.guestLinkPassword.value, "Clave copiada"));
+  els.exportCatalogPdf.addEventListener("click", exportCatalogPdf);
   els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
   els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
   els.videoDialog.addEventListener("close", closeProductVideo);
@@ -1511,7 +1564,10 @@ function renderCart() {
     els.cartCount.textContent = "0";
     els.cartTotalItems.textContent = "0";
     els.cartTotalValue.textContent = "—";
+    els.cartDetailsTotalItems.textContent = "0";
+    els.cartDetailsTotalValue.textContent = "—";
     els.cartItems.innerHTML = `<p class="cart-access-message">El carrito y los pedidos se habilitar&aacute;n cuando un administrador apruebe tu cuenta.</p>`;
+    els.continueCart.disabled = true;
     els.saveOrder.disabled = true;
     els.saveOrder.textContent = "Pendiente de aprobación";
     return;
@@ -1526,6 +1582,8 @@ function renderCart() {
   els.cartCount.textContent = total;
   els.cartTotalItems.textContent = total;
   els.cartTotalValue.textContent = formatMoney(totalValue);
+  els.cartDetailsTotalItems.textContent = total;
+  els.cartDetailsTotalValue.textContent = formatMoney(totalValue);
   els.cartItems.innerHTML =
     lines
       .map(
@@ -1561,11 +1619,18 @@ function renderCart() {
   });
 
   els.saveOrder.disabled = state.isSavingOrder || !lines.length;
+  els.continueCart.disabled = state.isSavingOrder || !lines.length;
   els.saveOrder.textContent = state.isSavingOrder ? "Enviando..." : (isOnline() ? "Enviar pedido" : "Guardar pendiente");
 }
 
 async function saveOrder() {
   if (state.isSavingOrder) return;
+  if (state.guestAccess && !hasGuestAccess()) {
+    clearGuestAccess();
+    applyAuthGate();
+    showToast("El acceso temporal venció. Pedile un enlace nuevo a tu vendedor.");
+    return;
+  }
   if (!hasPriceAccess()) {
     showToast("Tu cuenta todavía no tiene acceso a precios y pedidos");
     return;
@@ -1579,7 +1644,7 @@ async function saveOrder() {
     showToast("Agregá productos antes de enviar el pedido");
     return;
   }
-  if (CATALOG_SUPABASE.isAvailable() && isOnline() && !state.user) {
+  if (CATALOG_SUPABASE.isAvailable() && isOnline() && !state.user && !hasGuestAccess()) {
     showToast("Iniciá sesión antes de enviar el pedido");
     openAccount();
     return;
@@ -1587,6 +1652,7 @@ async function saveOrder() {
   if (mustSelectSalesClient() && !state.selectedSalesClient) {
     showToast("Elegí un cliente antes de enviar el pedido");
     openCart();
+    setCartView("details");
     els.cartSalesClientSearch.focus();
     return;
   }
@@ -1599,6 +1665,9 @@ async function saveOrder() {
   try {
     const order = CATALOG_STORE.buildOrderFromLines(lines, customer);
     if (!isOnline()) {
+      if (hasGuestAccess()) {
+        throw new Error("El acceso temporal necesita conexión para enviar pedidos.");
+      }
       queueOfflineOrder(order, "Sin conexión");
       clearSubmittedCart();
       state.isSavingOrder = false;
@@ -1607,7 +1676,10 @@ async function saveOrder() {
       return;
     }
 
-    if (CATALOG_SUPABASE.isAvailable() && state.user) {
+    if (CATALOG_SUPABASE.isAvailable() && hasGuestAccess()) {
+      const savedOrder = await CATALOG_SUPABASE.saveGuestOrder(order, state.guestAccess.sessionToken);
+      notificationResult = savedOrder.notification || notificationResult;
+    } else if (CATALOG_SUPABASE.isAvailable() && state.user) {
       await saveCustomerProfile();
       customer = readOrderCustomer();
       const updatedOrder = CATALOG_STORE.buildOrderFromLines(lines, customer);
@@ -1618,7 +1690,7 @@ async function saveOrder() {
       CATALOG_STORE.addOrder(order);
     }
   } catch (error) {
-    if (isNetworkError(error)) {
+    if (isNetworkError(error) && !hasGuestAccess()) {
       markConnectionLost(error);
       const order = CATALOG_STORE.buildOrderFromLines(lines, readOrderCustomer());
       queueOfflineOrder(order, error.message || "Error de conexión");
@@ -1764,6 +1836,21 @@ function openCart() {
   els.cartDrawer.setAttribute("aria-hidden", "false");
 }
 
+function setCartView(view, options = {}) {
+  const nextView = view === "details" ? "details" : "products";
+  state.cartView = nextView;
+  const showingProducts = nextView === "products";
+  els.cartProductsView.hidden = !showingProducts;
+  els.cartDetailsView.hidden = showingProducts;
+  els.cartProductsTab.classList.toggle("is-active", showingProducts);
+  els.cartDetailsTab.classList.toggle("is-active", !showingProducts);
+  els.cartProductsTab.setAttribute("aria-selected", String(showingProducts));
+  els.cartDetailsTab.setAttribute("aria-selected", String(!showingProducts));
+  if (options.focus) {
+    (showingProducts ? els.cartProductsTab : els.cartDetailsTab).focus();
+  }
+}
+
 function openQuickOrder() {
   if (!hasPriceAccess()) {
     showToast("La carga rápida se habilitará cuando aprueben tu cuenta");
@@ -1777,17 +1864,18 @@ function openQuickOrder() {
 function closeCart() {
   els.cartDrawer.classList.remove("is-open");
   els.cartDrawer.setAttribute("aria-hidden", "true");
+  setCartView("products");
 }
 
 function openAccount() {
   closeCart();
   els.accountDrawer.classList.add("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "false");
-  if (!state.user) els.authEmail.focus();
+  if (!state.user && !hasGuestAccess()) els.authEmail.focus();
 }
 
 function closeAccount() {
-  if (!state.user) {
+  if (!state.user && !hasGuestAccess()) {
     openAccount();
     return;
   }
@@ -1797,18 +1885,20 @@ function closeAccount() {
 }
 
 function applyAuthGate() {
-  const requiresAuth = !state.user;
+  const requiresAuth = !state.user && !hasGuestAccess();
   document.body.classList.toggle("auth-required", requiresAuth);
   document.body.classList.toggle("auth-checking", state.isCheckingAuth);
+  document.body.classList.toggle("guest-catalog-session", hasGuestAccess());
   if (els.authLoading) {
     els.authLoading.hidden = !state.isCheckingAuth;
   }
-  if (requiresAuth) openAccount();
+  if (requiresAuth && !state.guestLinkToken) openAccount();
   applyPriceAccessState();
   dispatchAuthChanged();
 }
 
 function hasPriceAccess() {
+  if (hasGuestAccess()) return true;
   const role = state.profile?.role;
   if (role === "admin" || role === "salesman") return true;
   return role === "customer" && state.profile?.price_access_approved === true;
@@ -1872,6 +1962,7 @@ function dispatchAuthChanged() {
     detail: {
       user: state.user,
       profile: state.profile,
+      guestAccess: state.guestAccess,
       isCheckingAuth: state.isCheckingAuth,
     },
   }));
@@ -1995,6 +2086,7 @@ function clearSubmittedCart() {
   localStorage.removeItem("catalogCartClientName");
   localStorage.removeItem("catalogCartClientCode");
   saveCart();
+  setCartView("products");
 }
 
 function isNetworkError(error) {
@@ -2181,6 +2273,15 @@ async function precacheCatalogAssets() {
 }
 
 function readAccountCustomer() {
+  if (hasGuestAccess()) {
+    const client = state.guestAccess.client;
+    return {
+      name: client.legalName || client.name || "",
+      phone: "",
+      clientCode: client.clientCode || "",
+      notes: "",
+    };
+  }
   const name = state.profile?.name || els.authName.value || state.user?.email || "";
   const phone = state.profile?.phone || els.authPhone.value || "";
   const clientCode = state.profile?.client_code || "";
@@ -2195,6 +2296,16 @@ function readAccountCustomer() {
 function readOrderCustomer() {
   const accountCustomer = readAccountCustomer();
   const observations = orderObservationsValue();
+  if (hasGuestAccess()) {
+    const client = state.guestAccess.client;
+    return {
+      ...accountCustomer,
+      salesClient: client,
+      salesmanCode: client.salesmanCode || "",
+      transport: orderTransportValue(),
+      notes: observations,
+    };
+  }
   const selectedClient = canSelectSalesClient() ? state.selectedSalesClient : null;
   if (selectedClient) {
     return {
@@ -2228,14 +2339,20 @@ function readOrderCustomer() {
 
 function renderCartClientControls() {
   const canSelect = canSelectSalesClient();
-  const signedCustomer = Boolean(state.user && state.profile?.role === "customer");
+  const guestClient = hasGuestAccess() ? state.guestAccess.client : null;
+  const signedCustomer = Boolean((state.user && state.profile?.role === "customer") || guestClient);
   const canEnterTransport = canEnterOrderTransport();
 
   els.cartSalesClientPanel.hidden = !canSelect;
   els.cartTransportPanel.hidden = !canEnterTransport;
   els.otherSalesClientToggleWrap.hidden = !canSelect || !canCreateOtherSalesClient();
-  els.cartManualClientFields.hidden = CATALOG_SUPABASE.isAvailable() && Boolean(state.user);
+  els.cartManualClientFields.hidden = CATALOG_SUPABASE.isAvailable() && Boolean(state.user || guestClient);
   els.cartAccountClientNote.hidden = !signedCustomer;
+  if (guestClient) {
+    els.cartAccountClientNote.textContent = `El pedido se enviará para ${guestClient.clientCode} - ${guestClient.legalName || guestClient.name}.`;
+  } else if (signedCustomer) {
+    els.cartAccountClientNote.textContent = "El pedido se enviará con los datos de tu cuenta.";
+  }
   if (!canEnterTransport) els.cartTransport.value = "";
 
   if (!canSelect) {
@@ -2263,7 +2380,7 @@ function mustSelectSalesClient() {
 }
 
 function canEnterOrderTransport() {
-  return ["admin", "customer", "salesman"].includes(state.profile?.role);
+  return hasGuestAccess() || ["admin", "customer", "salesman"].includes(state.profile?.role);
 }
 
 function orderTransportValue() {
@@ -2300,6 +2417,7 @@ async function loadSalesClients() {
   } finally {
     state.isLoadingSalesClients = false;
     renderCart();
+    renderSalesmanCatalogTools();
   }
 }
 
@@ -2513,6 +2631,128 @@ function readEnteredSalesmanCode() {
   return normalizeSalesmanCode(els.createSalesmanCode.value);
 }
 
+function hasGuestAccess() {
+  return Boolean(
+    state.guestAccess?.sessionToken
+    && new Date(state.guestAccess.expiresAt).getTime() > Date.now(),
+  );
+}
+
+function guestLinkTokenFromUrl() {
+  return new URLSearchParams(location.search).get("catalog_access")?.trim() || "";
+}
+
+function readGuestAccessSnapshot() {
+  try {
+    const value = JSON.parse(localStorage.getItem("catalogGuestAccess") || "null");
+    if (!value?.sessionToken || !value?.expiresAt || !value?.client?.id) return null;
+    if (new Date(value.expiresAt).getTime() <= Date.now()) {
+      localStorage.removeItem("catalogGuestAccess");
+      return null;
+    }
+    return value;
+  } catch {
+    return null;
+  }
+}
+
+function rememberGuestAccess() {
+  if (!hasGuestAccess()) return;
+  localStorage.setItem("catalogGuestAccess", JSON.stringify(state.guestAccess));
+}
+
+function clearGuestAccess() {
+  state.guestAccess = null;
+  state.guestLinkToken = "";
+  localStorage.removeItem("catalogGuestAccess");
+  document.body.classList.remove("guest-access-pending", "guest-catalog-session");
+  els.guestAccessGate.hidden = true;
+}
+
+function showGuestAccessGate(message = "") {
+  document.body.classList.add("guest-access-pending");
+  els.guestAccessGate.hidden = false;
+  els.guestAccessMessage.textContent = message;
+  els.guestAccessCode.disabled = state.isRedeemingGuestAccess;
+  els.redeemGuestAccess.disabled = state.isRedeemingGuestAccess;
+  els.redeemGuestAccess.textContent = state.isRedeemingGuestAccess ? "Verificando..." : "Abrir catálogo";
+  if (!state.isRedeemingGuestAccess) requestAnimationFrame(() => els.guestAccessCode.focus());
+}
+
+function hideGuestAccessGate() {
+  document.body.classList.remove("guest-access-pending");
+  els.guestAccessGate.hidden = true;
+  els.guestAccessMessage.textContent = "";
+  els.guestAccessCode.value = "";
+}
+
+function activateGuestAccess(result) {
+  state.guestAccess = {
+    sessionToken: result.session_token,
+    expiresAt: result.expires_at,
+    client: result.client,
+  };
+  state.user = null;
+  state.profile = null;
+  state.connectionLost = false;
+  rememberGuestAccess();
+  hideGuestAccessGate();
+  removeGuestLinkFromUrl();
+  applyAuthGate();
+  renderAccount();
+  renderAll();
+}
+
+function removeGuestLinkFromUrl() {
+  const url = new URL(location.href);
+  url.searchParams.delete("catalog_access");
+  history.replaceState(null, "", url.pathname + url.search + url.hash);
+  state.guestLinkToken = "";
+}
+
+async function redeemGuestAccess() {
+  if (state.isRedeemingGuestAccess) return;
+  const password = els.guestAccessCode.value.trim();
+  if (!/^\d{6}$/.test(password)) {
+    els.guestAccessMessage.textContent = "Ingresá la clave de seis dígitos.";
+    return;
+  }
+  if (!isOnline()) {
+    els.guestAccessMessage.textContent = "Conectate a internet para usar este acceso.";
+    return;
+  }
+  state.isRedeemingGuestAccess = true;
+  showGuestAccessGate();
+  try {
+    const result = await CATALOG_SUPABASE.redeemCatalogGuestLink(state.guestLinkToken, password);
+    activateGuestAccess(result);
+    showToast(`Catálogo habilitado para ${result.client.name}`);
+  } catch (error) {
+    els.guestAccessMessage.textContent = friendlyGuestAccessError(error);
+  } finally {
+    state.isRedeemingGuestAccess = false;
+    if (!hasGuestAccess()) showGuestAccessGate(els.guestAccessMessage.textContent);
+  }
+}
+
+async function cancelGuestAccess() {
+  clearGuestAccess();
+  removeGuestLinkFromUrl();
+  state.isCheckingAuth = true;
+  await initAccount();
+  renderAll();
+}
+
+function friendlyGuestAccessError(error) {
+  const message = String(error?.message || "No se pudo abrir el catálogo.");
+  if (message.includes("not found")) return "El enlace no es válido. Pedile uno nuevo a tu vendedor.";
+  if (message.includes("already been used")) return "Este enlace ya fue utilizado. Pedile uno nuevo a tu vendedor.";
+  if (message.includes("expired") || message.includes("replaced")) return "Este enlace venció o fue reemplazado. Pedile uno nuevo a tu vendedor.";
+  if (message.includes("Incorrect")) return "La clave ingresada no es correcta.";
+  if (message.includes("blocked")) return "El enlace fue bloqueado. Pedile uno nuevo a tu vendedor.";
+  return message;
+}
+
 async function initAccount() {
   els.authEmail.value = localStorage.getItem("catalogLastEmail") || "";
   els.createEmail.value = els.authEmail.value;
@@ -2520,6 +2760,27 @@ async function initAccount() {
   state.isCheckingAuth = true;
   els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
   applyAuthGate();
+
+  state.guestLinkToken = guestLinkTokenFromUrl();
+  if (state.guestLinkToken) {
+    state.isCheckingAuth = false;
+    showGuestAccessGate();
+    applyAuthGate();
+    return;
+  }
+
+  const guestSnapshot = readGuestAccessSnapshot();
+  if (guestSnapshot && CATALOG_SUPABASE.isAvailable() && isOnline()) {
+    try {
+      const result = await CATALOG_SUPABASE.validateCatalogGuestSession(guestSnapshot.sessionToken);
+      state.isCheckingAuth = false;
+      activateGuestAccess(result);
+      closeAccount();
+      return;
+    } catch {
+      clearGuestAccess();
+    }
+  }
 
   if (!CATALOG_SUPABASE.isAvailable()) {
     state.isCheckingAuth = false;
@@ -2734,6 +2995,16 @@ async function updatePassword() {
 }
 
 async function signOut() {
+  if (hasGuestAccess()) {
+    clearGuestAccess();
+    els.cartTransport.value = "";
+    els.cartObservations.value = "";
+    state.isCheckingAuth = true;
+    await initAccount();
+    renderAll();
+    showToast("Acceso temporal cerrado");
+    return;
+  }
   try {
     await CATALOG_SUPABASE.signOut();
     state.user = null;
@@ -2779,7 +3050,8 @@ function applyProfileToAuthFields() {
 }
 
 function renderAccount() {
-  const signedIn = Boolean(state.user);
+  const guest = hasGuestAccess();
+  const signedIn = Boolean(state.user || guest);
   const resettingPassword = els.authFields.dataset.mode === "new-password";
   if (state.isCheckingAuth) {
     els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
@@ -2789,15 +3061,288 @@ function renderAccount() {
     applyAuthGate();
     return;
   }
-  els.accountStatus.textContent = signedIn
-    ? (isPriceAccessPending()
+  els.accountStatus.textContent = guest
+    ? `Acceso temporal para ${state.guestAccess.client.clientCode} - ${state.guestAccess.client.legalName || state.guestAccess.client.name}`
+    : signedIn
+      ? (isPriceAccessPending()
       ? `Sesión iniciada como ${state.user.email}. Precios pendientes de aprobación.`
       : `Sesión iniciada como ${state.user.email}`)
-    : "Sesión no iniciada";
+      : "Sesión no iniciada";
   els.authFields.classList.toggle("is-hidden", signedIn && !resettingPassword);
   els.signOut.classList.toggle("is-hidden", !signedIn || resettingPassword);
   els.openAccount.classList.toggle("is-signed-in", signedIn);
+  renderSalesmanCatalogTools();
   applyAuthGate();
+}
+
+function renderSalesmanCatalogTools() {
+  const visible = Boolean(state.user && canSelectSalesClient());
+  els.salesmanCatalogTools.hidden = !visible;
+  if (!visible) return;
+
+  els.guestLinkClientOptions.innerHTML = state.salesClients
+    .map((client) => `<option value="${escapeHtml(guestClientOptionLabel(client))}"></option>`)
+    .join("");
+  els.createGuestLink.disabled = state.isCreatingGuestLink || state.isLoadingSalesClients || !state.salesClients.length;
+  els.createGuestLink.textContent = state.isCreatingGuestLink ? "Creando..." : "Crear enlace de 7 días";
+}
+
+function guestClientOptionLabel(client) {
+  return `${client.clientCode} - ${client.legalName || client.name}`;
+}
+
+function selectedGuestLinkClient() {
+  const raw = els.guestLinkClientInput.value.trim();
+  const normalized = normalizeProductSearch(raw);
+  const code = normalizeClientCode(raw.split(" - ")[0]);
+  return state.salesClients.find((client) => guestClientOptionLabel(client) === raw)
+    || state.salesClients.find((client) => normalizeClientCode(client.clientCode) === code)
+    || state.salesClients.find((client) => [client.name, client.legalName].some((name) => normalizeProductSearch(name) === normalized))
+    || null;
+}
+
+async function createGuestLink() {
+  if (state.isCreatingGuestLink) return;
+  const client = selectedGuestLinkClient();
+  els.guestLinkMessage.textContent = "";
+  els.guestLinkResult.hidden = true;
+  if (!client) {
+    els.guestLinkMessage.textContent = "Elegí un cliente válido de la lista.";
+    els.guestLinkClientInput.focus();
+    return;
+  }
+  if (!isOnline()) {
+    els.guestLinkMessage.textContent = "Conectate a internet para crear el enlace.";
+    return;
+  }
+
+  state.isCreatingGuestLink = true;
+  renderSalesmanCatalogTools();
+  try {
+    const baseUrl = `${location.origin}${location.pathname}`;
+    const result = await CATALOG_SUPABASE.createCatalogGuestLink(client.id, baseUrl);
+    els.guestLinkUrl.value = result.access_url;
+    els.guestLinkPassword.value = result.one_time_password;
+    els.guestLinkExpiry.textContent = `Vence el ${new Date(result.expires_at).toLocaleString("es-AR")}. La clave funciona una sola vez.`;
+    els.guestLinkResult.hidden = false;
+    els.guestLinkMessage.textContent = `Enlace creado para ${guestClientOptionLabel(client)}.`;
+  } catch (error) {
+    els.guestLinkMessage.textContent = error.message || "No se pudo crear el enlace.";
+  } finally {
+    state.isCreatingGuestLink = false;
+    renderSalesmanCatalogTools();
+  }
+}
+
+async function copyGuestValue(value, confirmation) {
+  if (!value) return;
+  try {
+    await navigator.clipboard.writeText(value);
+    showToast(confirmation);
+  } catch {
+    showToast("No se pudo copiar automáticamente");
+  }
+}
+
+function renderPdfBrandOptions() {
+  if (!els.pdfBrandSelect || !state.catalog) return;
+  const selected = els.pdfBrandSelect.value;
+  const brands = [...new Set(state.catalog.pages.map((page) => page.section).filter(Boolean))];
+  els.pdfBrandSelect.innerHTML = [
+    '<option value="all">Catálogo completo</option>',
+    ...brands.map((brand) => `<option value="${escapeHtml(brand)}">${escapeHtml(brand)}</option>`),
+  ].join("");
+  els.pdfBrandSelect.value = brands.includes(selected) || selected === "all" ? selected : (state.brandFilter !== "all" ? state.brandFilter : "all");
+}
+
+async function exportCatalogPdf() {
+  if (state.isExportingCatalogPdf) return;
+  if (!state.user || !canSelectSalesClient()) {
+    els.pdfExportStatus.textContent = "Esta herramienta está disponible para vendedores y administradores.";
+    return;
+  }
+  const brand = els.pdfBrandSelect.value || "all";
+  const pages = state.catalog.pages.filter((page) => brand === "all" || page.section === brand);
+  if (!pages.length) {
+    els.pdfExportStatus.textContent = "No hay páginas para exportar.";
+    return;
+  }
+  const JsPdf = window.jspdf?.jsPDF;
+  if (!JsPdf) {
+    els.pdfExportStatus.textContent = "No se pudo cargar el generador de PDF. Revisá tu conexión e intentá nuevamente.";
+    return;
+  }
+
+  state.isExportingCatalogPdf = true;
+  els.exportCatalogPdf.disabled = true;
+  els.exportCatalogPdf.textContent = "Preparando...";
+  const title = brand === "all" ? "Catálogo Lexo" : `Catálogo Lexo - ${brand}`;
+  try {
+    const pdf = new JsPdf({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
+    for (let index = 0; index < pages.length; index += 1) {
+      if (index > 0) pdf.addPage("a4", "portrait");
+      els.pdfExportStatus.textContent = `Preparando página ${index + 1} de ${pages.length}...`;
+      await addCatalogPageToPdf(pdf, pages[index]);
+      if (index % 5 === 4) await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+    const safeTitle = title.replace(/[\\/:*?"<>|]+/g, "-");
+    downloadBlob(pdf.output("blob"), `${safeTitle}.pdf`);
+    els.pdfExportStatus.textContent = `PDF descargado con ${pages.length} páginas y precios actuales.`;
+  } catch (error) {
+    console.error("Catalog PDF export failed", error);
+    els.pdfExportStatus.textContent = `No se pudo crear el PDF: ${error.message || "error inesperado"}.`;
+  } finally {
+    state.isExportingCatalogPdf = false;
+    els.exportCatalogPdf.disabled = false;
+    els.exportCatalogPdf.textContent = "Descargar PDF con precios actuales";
+  }
+}
+
+async function addCatalogPageToPdf(pdf, page) {
+  const pageWidth = 210;
+  const pageHeight = 297;
+  const imageUrl = new URL(page.image.src, location.href);
+  const response = await fetch(imageUrl.href);
+  if (!response.ok) throw new Error(`no se pudo cargar la página ${page.number}`);
+  const imageBytes = new Uint8Array(await response.arrayBuffer());
+  const imageType = imageUrl.pathname.toLowerCase().endsWith(".png") ? "PNG" : "JPEG";
+  pdf.addImage(imageBytes, imageType, 0, 0, pageWidth, pageHeight, undefined, "FAST");
+
+  const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  products.forEach((product) => drawPdfSkuHotspot(pdf, product, pageWidth, pageHeight));
+  (page.priceGroups || []).forEach((group) => drawPdfPriceOverlay(pdf, group, pageWidth, pageHeight));
+}
+
+function drawPdfSkuHotspot(pdf, product, pageWidth, pageHeight) {
+  const spot = product.hotspot;
+  if (!spot) return;
+  const x = spot.x * pageWidth;
+  const y = spot.y * pageHeight;
+  const width = spot.w * pageWidth;
+  const height = spot.h * pageHeight;
+  const border = parsePdfColor(product.hotspotStyle?.borderColor || (product.section === "Lexo" ? "rgba(0,0,0,.3)" : "rgba(215,25,32,.3)"));
+  withPdfOpacity(pdf, border.a, () => {
+    pdf.setDrawColor(border.r, border.g, border.b);
+    pdf.setLineWidth(cssPxToMm(1));
+    pdf.roundedRect(x, y, width, height, cssPxToMm(4), cssPxToMm(4), "S");
+  });
+  if (!product.outOfStock) return;
+
+  const angle = -10 * Math.PI / 180;
+  const halfLength = (width + cssPxToMm(4)) / 2;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+  pdf.setDrawColor(101, 113, 132);
+  pdf.setLineWidth(cssPxToMm(2));
+  pdf.line(
+    centerX - halfLength * Math.cos(angle),
+    centerY - halfLength * Math.sin(angle),
+    centerX + halfLength * Math.cos(angle),
+    centerY + halfLength * Math.sin(angle),
+  );
+}
+
+function drawPdfPriceOverlay(pdf, group, pageWidth, pageHeight) {
+  if (!group.price || !group.position) return;
+  const products = group.productIds.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  if (!products.length) return;
+
+  const allOutOfStock = products.every((product) => product.outOfStock);
+  const prices = [...new Set(products.map((product) => product.price).filter(Boolean))];
+  const price = allOutOfStock ? "Sin stock" : (prices.length === 1 ? prices[0] : group.price);
+  const cover = group.cover || {};
+  const style = group.style || {};
+  const boxWidth = Math.max(
+    (cover.w ? cover.w * pageWidth : cssPxToMm(58)) + cssPxToMm(4),
+    cssPxToMm((style.minWidth ?? 58) + 4),
+  );
+  const boxHeight = Math.max(
+    (cover.h ? cover.h * pageHeight : cssPxToMm(21)) + cssPxToMm(3),
+    cssPxToMm((style.minHeight ?? 21) + 3),
+  );
+  const x = group.position.x * pageWidth - boxWidth / 2;
+  const y = group.position.y * pageHeight;
+  const radius = cssPxToMm(style.radius ?? 3);
+  const background = parsePdfColor(style.background || "#ffffff");
+  const border = parsePdfColor(style.borderColor || "rgba(215,25,32,.16)");
+  const color = parsePdfColor(allOutOfStock ? "#657184" : (style.color || "#ad1018"));
+
+  if (background.a > 0) {
+    withPdfOpacity(pdf, background.a, () => {
+      pdf.setFillColor(background.r, background.g, background.b);
+      pdf.roundedRect(x, y, boxWidth, boxHeight, radius, radius, "F");
+    });
+  }
+  withPdfOpacity(pdf, border.a, () => {
+    pdf.setDrawColor(border.r, border.g, border.b);
+    pdf.setLineWidth(cssPxToMm(1));
+    pdf.roundedRect(x, y, boxWidth, boxHeight, radius, radius, "S");
+  });
+
+  let fontSize = style.fontSizeUnit === "cqw"
+    ? mmToPoints((Number(style.fontSize) || 1.75) * pageWidth / 100)
+    : (Number(style.fontSize) || 14) * 0.75;
+  if (allOutOfStock) fontSize = Math.min(fontSize, 9);
+  pdf.setTextColor(color.r, color.g, color.b);
+  pdf.setFont("helvetica", Number(style.fontWeight || 950) >= 600 ? "bold" : "normal");
+  pdf.setFontSize(fontSize);
+  pdf.text(price, group.position.x * pageWidth, y + boxHeight / 2, { align: "center", baseline: "middle" });
+}
+
+function parsePdfColor(value) {
+  const color = String(value || "").trim();
+  const hex = color.match(/^#([0-9a-f]{6})$/i);
+  if (hex) {
+    return {
+      r: Number.parseInt(hex[1].slice(0, 2), 16),
+      g: Number.parseInt(hex[1].slice(2, 4), 16),
+      b: Number.parseInt(hex[1].slice(4, 6), 16),
+      a: 1,
+    };
+  }
+  const rgba = color.match(/^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)$/i);
+  if (rgba) {
+    return { r: Number(rgba[1]), g: Number(rgba[2]), b: Number(rgba[3]), a: rgba[4] === undefined ? 1 : Number(rgba[4]) };
+  }
+  return { r: 255, g: 255, b: 255, a: color === "transparent" ? 0 : 1 };
+}
+
+function withPdfOpacity(pdf, opacity, draw) {
+  const value = Number.isFinite(opacity) ? Math.max(0, Math.min(1, opacity)) : 1;
+  let opacityApplied = false;
+  try {
+    pdf.setGState(new pdf.GState({ opacity: value, "stroke-opacity": value }));
+    opacityApplied = true;
+  } catch {
+    // Alpha is a visual refinement; drawing still works on older jsPDF builds.
+  }
+  draw();
+  if (opacityApplied) {
+    try {
+      pdf.setGState(new pdf.GState({ opacity: 1, "stroke-opacity": 1 }));
+    } catch {
+      // The next opaque drawing operation will reset the visible result.
+    }
+  }
+}
+
+function cssPxToMm(value) {
+  return Number(value || 0) * 25.4 / 96;
+}
+
+function mmToPoints(value) {
+  return Number(value || 0) * 72 / 25.4;
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
 function clearAuthMessage() {

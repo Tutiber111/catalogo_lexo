@@ -221,6 +221,92 @@
     return data;
   }
 
+  async function createCatalogGuestLink(salesClientId, baseUrl) {
+    return callCatalogGuestAccess({
+      action: "create",
+      sales_client_id: salesClientId,
+      base_url: baseUrl,
+    }, { authenticated: true });
+  }
+
+  async function redeemCatalogGuestLink(linkToken, oneTimePassword) {
+    return callCatalogGuestAccess({
+      action: "redeem",
+      link_token: linkToken,
+      one_time_password: oneTimePassword,
+    });
+  }
+
+  async function validateCatalogGuestSession(sessionToken) {
+    return callCatalogGuestAccess({ action: "validate", session_token: sessionToken });
+  }
+
+  async function saveGuestOrder(order, sessionToken) {
+    return callCatalogGuestAccess({
+      action: "submit_order",
+      session_token: sessionToken,
+      transport: order.customer.transport || "",
+      notes: order.customer.notes || "",
+      items: order.items.map((item) => ({
+        productId: item.productId,
+        quantity: item.qty,
+        page: item.page,
+      })),
+    });
+  }
+
+  async function callCatalogGuestAccess(body, options = {}) {
+    if (!client) throw new Error("Supabase no está disponible.");
+    let authorization = config.anonKey;
+    if (options.authenticated) {
+      const { data, error } = await client.auth.getSession();
+      if (error) throw error;
+      authorization = data.session?.access_token || "";
+      if (!authorization) throw new Error("Iniciá sesión antes de crear un acceso para clientes.");
+    }
+    const response = await fetch(`${config.url}/functions/v1/catalog-guest-access`, {
+      method: "POST",
+      headers: {
+        apikey: config.anonKey,
+        Authorization: `Bearer ${authorization}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "No se pudo procesar el acceso temporal.");
+    return result;
+  }
+
+  async function searchCustomerAccounts(query) {
+    const result = await callAdminCustomerPassword({ action: "search", query });
+    return result.customers || [];
+  }
+
+  async function setCustomerTemporaryPassword(userId, password) {
+    return callAdminCustomerPassword({ action: "reset", user_id: userId, password });
+  }
+
+  async function callAdminCustomerPassword(body) {
+    if (!client) throw new Error("Supabase no está disponible.");
+    const { data, error } = await client.auth.getSession();
+    if (error) throw error;
+    const authorization = data.session?.access_token || "";
+    if (!authorization) throw new Error("Iniciá sesión con una cuenta administradora.");
+    const response = await fetch(`${config.url}/functions/v1/admin-customer-password`, {
+      method: "POST",
+      headers: {
+        apikey: config.anonKey,
+        Authorization: `Bearer ${authorization}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || "No se pudo cambiar la contraseña del cliente.");
+    return result;
+  }
+
   async function saveOrder(order, userId) {
     if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
@@ -539,6 +625,12 @@
     createSalesClient,
     loadPendingPriceApprovals,
     approveProfilePriceAccess,
+    createCatalogGuestLink,
+    redeemCatalogGuestLink,
+    validateCatalogGuestSession,
+    saveGuestOrder,
+    searchCustomerAccounts,
+    setCustomerTemporaryPassword,
     saveOrder,
     requestOrderNotification,
     resendOrderNotification,

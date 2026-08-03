@@ -1,16 +1,17 @@
-const CACHE_NAME = "lexo-catalog-v20260731-estia-refresh";
+const CACHE_NAME = "lexo-catalog-v20260803-direct-pdf-download";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260723-price-approval",
-  "./app.js?v=20260723-price-approval",
-  "./admin.js?v=20260723-price-approval",
+  "./styles.css?v=20260803-admin-password",
+  "./app.js?v=20260803-direct-pdf-download",
+  "./admin.js?v=20260803-admin-password",
   "./catalog-store.js?v=20260714-no-related-skus",
-  "./supabase-client.js?v=20260723-price-approval",
+  "./supabase-client.js?v=20260803-admin-password",
   "./data/catalog-data.js?v=20260730-estia-refresh",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+  "./assets/vendor/jspdf.umd.min.js?v=2.5.2",
 ];
 
 self.addEventListener("install", (event) => {

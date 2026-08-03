@@ -71,7 +71,7 @@ const ORDER_TEMPLATE_LAST_INPUT_ROW = 262;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-order-notification-secret",
 };
 
 Deno.serve(async (req) => {
@@ -303,6 +303,12 @@ async function loadSalesmanEmail(salesmanCode: string) {
 }
 
 async function loadRequestContext(req: Request): Promise<RequestContext> {
+  const internalSecret = req.headers.get("x-order-notification-secret") || "";
+  const expectedInternalSecret = Deno.env.get("ORDER_NOTIFICATION_INTERNAL_SECRET") || "";
+  if (internalSecret && expectedInternalSecret && internalSecret === expectedInternalSecret) {
+    return { userId: "internal", isAdmin: true };
+  }
+
   const authorization = req.headers.get("authorization") || "";
   if (!authorization.toLowerCase().startsWith("bearer ")) {
     throw new Error("Missing authenticated user.");
