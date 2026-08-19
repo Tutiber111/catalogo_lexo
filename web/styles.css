@@ -2473,6 +2473,18 @@ dialog[data-dialog-fallback-open] {
   color: #657184;
 }
 
+.barcode-product-choice {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  width: 100%;
+}
+
+.barcode-choice-message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .product-dialog > form:first-child,
 .video-dialog > form:first-child,
 .quick-order-dialog > form:first-child,

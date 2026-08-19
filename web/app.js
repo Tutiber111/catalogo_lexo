@@ -24,6 +24,7 @@ const state = {
   barcodeScanBuffer: "",
   barcodeScanStartedAt: 0,
   barcodeScanLastAt: 0,
+  barcodeScanGaps: [],
   barcodeScanTimer: null,
   barcodeScanLikely: false,
   barcodeScanTarget: null,
@@ -50,9 +51,10 @@ const state = {
 };
 
 const BARCODE_SCAN_MIN_LENGTH = 8;
-const BARCODE_SCAN_SETTLE_MS = 260;
-const BARCODE_SCAN_MAX_GAP_MS = 85;
-const BARCODE_SCAN_MAX_TOTAL_MS = 1600;
+const BARCODE_SCAN_SETTLE_MS = 480;
+const BARCODE_SCAN_RESET_GAP_MS = 500;
+const BARCODE_SCAN_MAX_AVERAGE_GAP_MS = 90;
+const BARCODE_SCAN_MAX_TOTAL_MS = 3500;
 const VIEWER_HYDRATE_RADIUS = 3;
 const VIEWER_RETAIN_RADIUS = 5;
 const PENDING_PRICE_COVERS = new Map([
@@ -1020,10 +1022,10 @@ function clearCatalogSelectionFocus() {
 }
 
 function handleBarcodeScannerKeydown(event) {
-  if (!barcodeScannerCanListen() || event.ctrlKey || event.altKey || event.metaKey) return;
+  if (!barcodeScannerCanListen() || event.ctrlKey || event.altKey || event.metaKey || event.isComposing || event.repeat) return;
 
   const now = performance.now();
-  if (event.key === "Enter") {
+  if (event.key === "Enter" || event.key === "Tab") {
     if (!state.barcodeScanBuffer) return;
     if (state.barcodeScanLikely) {
       event.preventDefault();
@@ -1036,10 +1038,11 @@ function handleBarcodeScannerKeydown(event) {
   if (!isBarcodeScannerCharacter(event.key)) return;
 
   const gap = state.barcodeScanLastAt ? now - state.barcodeScanLastAt : 0;
-  if (!state.barcodeScanBuffer || gap > BARCODE_SCAN_MAX_GAP_MS) {
+  if (!state.barcodeScanBuffer || gap > BARCODE_SCAN_RESET_GAP_MS) {
     startBarcodeScan(event.key, now, event.target);
   } else {
     state.barcodeScanBuffer += event.key;
+    state.barcodeScanGaps.push(gap);
     state.barcodeScanLastAt = now;
   }
 
@@ -1066,6 +1069,7 @@ function startBarcodeScan(character, now, target) {
   state.barcodeScanBuffer = character;
   state.barcodeScanStartedAt = now;
   state.barcodeScanLastAt = now;
+  state.barcodeScanGaps = [];
   state.barcodeScanLikely = false;
   state.barcodeScanTarget = editableBarcodeTarget(target) ? target : null;
   state.barcodeScanInitialValue = state.barcodeScanTarget?.value || "";
@@ -1075,9 +1079,15 @@ function startBarcodeScan(character, now, target) {
 
 function updateBarcodeScanLikelihood() {
   if (state.barcodeScanBuffer.length < 3) return;
-  const elapsed = Math.max(1, state.barcodeScanLastAt - state.barcodeScanStartedAt);
-  const averageGap = elapsed / Math.max(1, state.barcodeScanBuffer.length - 1);
-  state.barcodeScanLikely = averageGap <= BARCODE_SCAN_MAX_GAP_MS;
+  state.barcodeScanLikely = barcodeTimingLooksLikeScanner();
+}
+
+function barcodeTimingLooksLikeScanner() {
+  if (state.barcodeScanBuffer.length < 3 || !state.barcodeScanGaps.length) return false;
+  const sortedGaps = [...state.barcodeScanGaps].sort((first, second) => first - second);
+  if (sortedGaps.length >= 5) sortedGaps.pop();
+  const averageGap = sortedGaps.reduce((sum, gap) => sum + gap, 0) / sortedGaps.length;
+  return averageGap <= BARCODE_SCAN_MAX_AVERAGE_GAP_MS;
 }
 
 function finishBarcodeScan() {
@@ -1085,7 +1095,7 @@ function finishBarcodeScan() {
   const rawCode = state.barcodeScanBuffer;
   const elapsed = state.barcodeScanLastAt - state.barcodeScanStartedAt;
   const shouldHandle = rawCode.length >= BARCODE_SCAN_MIN_LENGTH
-    && state.barcodeScanLikely
+    && barcodeTimingLooksLikeScanner()
     && elapsed <= BARCODE_SCAN_MAX_TOTAL_MS;
   const target = state.barcodeScanTarget;
   const initialValue = state.barcodeScanInitialValue;
@@ -1096,12 +1106,20 @@ function finishBarcodeScan() {
   if (!shouldHandle) return;
 
   restoreBarcodeTarget(target, initialValue, initialStart, initialEnd);
-  const product = findProductByBarcode(rawCode);
-  if (!product) {
-    showToast(`Codigo ${rawCode} no encontrado`);
+  const products = findProductsByBarcode(rawCode);
+  if (!products.length) {
+    showToast(`Código de barras ${normalizeBarcode(rawCode) || rawCode} no encontrado`);
     return;
   }
 
+  const productsBySku = uniqueProductsBySku(products);
+  if (productsBySku.length > 1) {
+    openBarcodeProductChoice(productsBySku, rawCode);
+    showToast("Este código está asignado a más de un producto");
+    return;
+  }
+
+  const product = productsBySku[0];
   openProduct(product);
   showToast(`Producto encontrado: ${product.sku}`);
 }
@@ -1111,6 +1129,7 @@ function resetBarcodeScan() {
   state.barcodeScanBuffer = "";
   state.barcodeScanStartedAt = 0;
   state.barcodeScanLastAt = 0;
+  state.barcodeScanGaps = [];
   state.barcodeScanTimer = null;
   state.barcodeScanLikely = false;
   state.barcodeScanTarget = null;
@@ -1138,24 +1157,57 @@ function restoreBarcodeTarget(target, value, selectionStart, selectionEnd) {
   target.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
-function findProductByBarcode(code) {
-  const barcode = normalizeBarcode(code);
-  if (barcode.length < BARCODE_SCAN_MIN_LENGTH) return null;
+function findProductsByBarcode(code) {
+  const aliases = new Set(barcodeAliases(code));
+  if (![...aliases].some((barcode) => barcode.length >= BARCODE_SCAN_MIN_LENGTH)) return [];
 
-  const byEan = state.catalog.products.find((product) => (
+  const byEan = state.catalog.products.filter((product) => (
     isVisibleProduct(product)
-    && barcodeFields(product).some((item) => normalizeBarcode(item) === barcode)
+    && barcodeFields(product).some((item) => barcodeAliases(item).some((alias) => aliases.has(alias)))
   ));
-  if (byEan) return byEan;
+  if (byEan.length) return byEan;
 
   const skuCode = normalizeSkuQuery(code);
-  return state.catalog.products.find((product) => (
+  return state.catalog.products.filter((product) => (
     isVisibleProduct(product)
     && skuFields(product).some((item) => {
       const sku = normalizeSkuQuery(item);
       return sku.length >= BARCODE_SCAN_MIN_LENGTH && sku === skuCode;
     })
-  )) || null;
+  ));
+}
+
+function uniqueProductsBySku(products) {
+  const bySku = new Map();
+  products.forEach((product) => {
+    const sku = normalizeSkuQuery(product.sku || product.id);
+    if (!bySku.has(sku)) bySku.set(sku, product);
+  });
+  return [...bySku.values()];
+}
+
+function openBarcodeProductChoice(products, rawCode) {
+  els.dialogContent.innerHTML = `
+    <div class="dialog-body">
+      <div>
+        <span class="eyebrow">Código duplicado</span>
+        <h2>Elegí el producto correcto</h2>
+      </div>
+      <p class="barcode-choice-message">El código ${escapeHtml(normalizeBarcode(rawCode) || rawCode)} figura en más de un producto.</p>
+      <div class="group-list">
+        ${products.map((product) => `
+          <button class="group-product barcode-product-choice" type="button" data-barcode-product="${escapeHtml(product.id)}">
+            <span>${escapeHtml(product.name)}</span>
+            <strong>SKU ${escapeHtml(product.sku)} · Página ${escapeHtml(product.page)}</strong>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+  `;
+  els.dialogContent.querySelectorAll("[data-barcode-product]").forEach((button) => {
+    button.addEventListener("click", () => openProduct(state.productsById.get(button.dataset.barcodeProduct)));
+  });
+  showCatalogDialog(els.productDialog);
 }
 
 function addToCart(productId, quantity = 1, options = {}) {
@@ -4129,7 +4181,17 @@ function normalizeSkuQuery(value) {
 }
 
 function normalizeBarcode(value) {
-  return String(value || "").replace(/[^\d]/g, "");
+  const text = String(value || "").trim().replace(/^\]?[a-z]\d(?=\d{8,}$)/i, "");
+  return text.replace(/[^\d]/g, "");
+}
+
+function barcodeAliases(value) {
+  const barcode = normalizeBarcode(value);
+  if (!barcode) return [];
+  const aliases = new Set([barcode]);
+  if (barcode.length === 11 || barcode.length === 12) aliases.add(`0${barcode}`);
+  if ((barcode.length === 12 || barcode.length === 13) && barcode.startsWith("0")) aliases.add(barcode.slice(1));
+  return [...aliases];
 }
 
 function normalizeProductSearch(value) {

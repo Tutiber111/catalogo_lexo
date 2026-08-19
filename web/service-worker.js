@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20260819-ipad-offline-scroll";
+const CACHE_NAME = "lexo-catalog-v20260819-barcode-reliability";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260819-ipad-offline-scroll",
+  "./styles.css?v=20260819-barcode-reliability",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260819-ipad-offline-scroll",
+  "./app.js?v=20260819-barcode-reliability",
   "./admin.js?v=20260819-ipad-dialogs",
   "./catalog-store.js?v=20260714-no-related-skus",
   "./supabase-client.js?v=20260812-recovery-redirect",
