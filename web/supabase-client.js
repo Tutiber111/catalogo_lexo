@@ -3,6 +3,7 @@
     url: "https://iexpvwmtxauvzkcncqoc.supabase.co",
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleHB2d210eGF1dnprY25jcW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4ODUxNjAsImV4cCI6MjA5MzQ2MTE2MH0.H29L5eOaaLjKnSv6_ro2ECRfaD5wjo5y7dBsyDBRt-E",
   };
+  const productionCatalogUrl = "https://catalogolexo.com.ar/";
 
   let recoveryMode = hasRecoveryMarkers();
 
@@ -90,7 +91,7 @@
 
   async function sendPasswordReset(email) {
     const { error } = await client.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + window.location.pathname,
+      redirectTo: productionCatalogUrl,
     });
     if (error) throw error;
   }
@@ -134,6 +135,19 @@
     if (!client || !userId) return null;
     const { data, error } = await client.from("profiles").select("*").eq("id", userId).maybeSingle();
     if (error) throw error;
+    if (data?.role === "customer" && data.price_access_approved === false) {
+      await requestPriceAccessNotification().catch((notificationError) => {
+        console.warn("No se pudo enviar el aviso de solicitud de precios.", notificationError);
+      });
+    }
+    return data;
+  }
+
+  async function requestPriceAccessNotification() {
+    if (!client) return null;
+    const { data, error } = await client.functions.invoke("send-price-access-request", { body: {} });
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
     return data;
   }
 
@@ -221,11 +235,24 @@
     return data;
   }
 
-  async function createCatalogGuestLink(salesClientId, baseUrl) {
+  async function createCatalogGuestLink(baseUrl) {
     return callCatalogGuestAccess({
       action: "create",
-      sales_client_id: salesClientId,
       base_url: baseUrl,
+    }, { authenticated: true });
+  }
+
+  async function listCatalogGuestLinks(baseUrl) {
+    return callCatalogGuestAccess({
+      action: "list",
+      base_url: baseUrl,
+    }, { authenticated: true });
+  }
+
+  async function revokeCatalogGuestLink(linkId) {
+    return callCatalogGuestAccess({
+      action: "revoke",
+      link_id: linkId,
     }, { authenticated: true });
   }
 
@@ -245,6 +272,8 @@
     return callCatalogGuestAccess({
       action: "submit_order",
       session_token: sessionToken,
+      customer_name: order.customer.name || "",
+      client_code: order.customer.clientCode || "",
       transport: order.customer.transport || "",
       notes: order.customer.notes || "",
       items: order.items.map((item) => ({
@@ -303,7 +332,7 @@
       body: JSON.stringify(body),
     });
     const result = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(result.error || "No se pudo cambiar la contraseña del cliente.");
+    if (!response.ok) throw new Error(result.error || "No se pudo cambiar la contraseña de la cuenta.");
     return result;
   }
 
@@ -379,6 +408,16 @@
     return data;
   }
 
+  async function syncOrderDeliveryStatuses() {
+    if (!client) throw new Error("Supabase no está disponible.");
+    const { data, error } = await client.functions.invoke("send-order-notifications", {
+      body: { action: "sync_delivery" },
+    });
+    if (error) throw error;
+    if (data?.error) throw new Error(data.error);
+    return data;
+  }
+
   async function loadMyOrders(userId) {
     if (!client || !userId) return [];
     const { data, error } = await client
@@ -417,7 +456,7 @@
       const ids = orders.map((order) => order.id);
       const { data, error } = await client
         .from("order_notifications")
-        .select("order_id,status,attempts,last_error,resend_email_id,resend_to,sent_at,updated_at")
+        .select("order_id,status,attempts,last_error,resend_email_id,resend_to,resend_last_event,delivery_checked_at,delivery_error,sent_at,updated_at")
         .in("order_id", ids);
       if (error) throw error;
       const byOrderId = new Map((data || []).map((row) => [row.order_id, normalizeOrderNotification(row)]));
@@ -543,6 +582,7 @@
       updatedAt: order.updated_at,
       archivedAt: order.archived_at,
       status: order.status,
+      customerId: order.customer_id || "",
       customer: {
         name: order.customer_name || "",
         phone: order.customer_phone || "",
@@ -581,6 +621,9 @@
       lastError: row.last_error || "",
       resendEmailId: row.resend_email_id || "",
       resendTo: row.resend_to || "",
+      resendLastEvent: row.resend_last_event || "",
+      deliveryCheckedAt: row.delivery_checked_at || "",
+      deliveryError: row.delivery_error || "",
       sentAt: row.sent_at || "",
       updatedAt: row.updated_at || "",
     };
@@ -626,6 +669,8 @@
     loadPendingPriceApprovals,
     approveProfilePriceAccess,
     createCatalogGuestLink,
+    listCatalogGuestLinks,
+    revokeCatalogGuestLink,
     redeemCatalogGuestLink,
     validateCatalogGuestSession,
     saveGuestOrder,
@@ -634,6 +679,7 @@
     saveOrder,
     requestOrderNotification,
     resendOrderNotification,
+    syncOrderDeliveryStatuses,
     loadMyOrders,
     loadAllOrders,
     loadActiveOrders,

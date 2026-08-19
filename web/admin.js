@@ -2,8 +2,12 @@
   const adminState = {
     settings: CATALOG_STORE.loadSettings(),
     orders: [],
+    loadedOrders: [],
     source: "local",
-    orderView: "active",
+    orderView: "all",
+    orderClientSearch: "",
+    selectedOrderClientKey: "",
+    selectedOrderClientLabel: "",
     isAdmin: false,
     lastStockChange: null,
     pendingPriceApprovals: [],
@@ -12,6 +16,11 @@
     selectedPasswordCustomer: null,
     isSearchingPasswordCustomer: false,
     isResettingCustomerPassword: false,
+    catalogHealthIssues: [],
+    isCheckingCatalogHealth: false,
+    isLoadingOrderHealth: false,
+    orderHealthConfigurationWarning: "",
+    priceImportPreview: null,
   };
 
   const adminEls = {
@@ -24,8 +33,13 @@
     settingWhatsapp: document.querySelector("#settingWhatsapp"),
     saveSettings: document.querySelector("#saveSettings"),
     adminDataStatus: document.querySelector("#adminDataStatus"),
+    allOrdersTab: document.querySelector("#allOrdersTab"),
     activeOrdersTab: document.querySelector("#activeOrdersTab"),
     archivedOrdersTab: document.querySelector("#archivedOrdersTab"),
+    orderClientSearch: document.querySelector("#orderClientSearch"),
+    clearOrderClientSearch: document.querySelector("#clearOrderClientSearch"),
+    orderClientSuggestions: document.querySelector("#orderClientSuggestions"),
+    orderClientSearchStatus: document.querySelector("#orderClientSearchStatus"),
     orderSummary: document.querySelector("#orderSummary"),
     ordersList: document.querySelector("#ordersList"),
     exportOrders: document.querySelector("#exportOrders"),
@@ -33,8 +47,10 @@
     priceListFile: document.querySelector("#priceListFile"),
     downloadPriceTemplate: document.querySelector("#downloadPriceTemplate"),
     importPriceList: document.querySelector("#importPriceList"),
+    applyPriceListImport: document.querySelector("#applyPriceListImport"),
     clearProductOverrides: document.querySelector("#clearProductOverrides"),
     priceListImportStatus: document.querySelector("#priceListImportStatus"),
+    priceListImportPreview: document.querySelector("#priceListImportPreview"),
     stockUpdateForm: document.querySelector("#stockUpdateForm"),
     stockSkuInput: document.querySelector("#stockSkuInput"),
     markOutOfStock: document.querySelector("#markOutOfStock"),
@@ -54,6 +70,15 @@
     showCustomerTemporaryPassword: document.querySelector("#showCustomerTemporaryPassword"),
     setCustomerTemporaryPassword: document.querySelector("#setCustomerTemporaryPassword"),
     customerPasswordStatus: document.querySelector("#customerPasswordStatus"),
+    runCatalogHealth: document.querySelector("#runCatalogHealth"),
+    exportCatalogHealth: document.querySelector("#exportCatalogHealth"),
+    catalogHealthStatus: document.querySelector("#catalogHealthStatus"),
+    catalogHealthSummary: document.querySelector("#catalogHealthSummary"),
+    catalogHealthList: document.querySelector("#catalogHealthList"),
+    refreshOrderHealth: document.querySelector("#refreshOrderHealth"),
+    orderHealthStatus: document.querySelector("#orderHealthStatus"),
+    orderHealthSummary: document.querySelector("#orderHealthSummary"),
+    orderHealthList: document.querySelector("#orderHealthList"),
     adminOrderDialog: document.querySelector("#adminOrderDialog"),
     adminOrderDialogContent: document.querySelector("#adminOrderDialogContent"),
     toast: document.querySelector("#toast"),
@@ -68,12 +93,21 @@
     adminEls.openAdmin.addEventListener("click", openAdmin);
     adminEls.closeAdmin.addEventListener("click", closeAdmin);
     adminEls.saveSettings.addEventListener("click", saveSettings);
+    adminEls.allOrdersTab.addEventListener("click", () => setOrderView("all"));
     adminEls.activeOrdersTab.addEventListener("click", () => setOrderView("active"));
     adminEls.archivedOrdersTab.addEventListener("click", () => setOrderView("archived"));
+    adminEls.orderClientSearch.addEventListener("input", handleOrderClientSearch);
+    adminEls.orderClientSearch.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") adminEls.orderClientSuggestions.hidden = true;
+    });
+    adminEls.clearOrderClientSearch.addEventListener("click", clearOrderClientSearch);
+    adminEls.orderClientSuggestions.addEventListener("click", selectOrderClientSuggestion);
     adminEls.exportOrders.addEventListener("click", exportOrdersCsv);
     adminEls.clearOrders.addEventListener("click", clearLocalOrders);
     adminEls.downloadPriceTemplate.addEventListener("click", downloadPriceTemplate);
-    adminEls.importPriceList.addEventListener("click", importPriceList);
+    adminEls.importPriceList.addEventListener("click", previewPriceListImport);
+    adminEls.applyPriceListImport.addEventListener("click", applyPriceListImport);
+    adminEls.priceListFile.addEventListener("change", clearPriceListImportPreview);
     adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
     adminEls.stockUpdateForm.addEventListener("submit", markSkuOutOfStock);
     adminEls.undoStockChange.addEventListener("click", undoLastStockChange);
@@ -83,10 +117,21 @@
     adminEls.customerPasswordResults.addEventListener("click", handlePasswordCustomerSelection);
     adminEls.customerPasswordForm.addEventListener("submit", resetSelectedCustomerPassword);
     adminEls.showCustomerTemporaryPassword.addEventListener("change", toggleCustomerPasswordVisibility);
+    adminEls.runCatalogHealth.addEventListener("click", runCatalogHealthCheck);
+    adminEls.exportCatalogHealth.addEventListener("click", exportCatalogHealthReport);
+    adminEls.refreshOrderHealth.addEventListener("click", () => renderOrderHealth({ sync: true }));
+    adminEls.orderHealthList.addEventListener("click", handleOrderHealthAction);
     adminEls.adminOrderDialog.addEventListener("close", () => {
       adminEls.adminOrderDialogContent.innerHTML = "";
     });
-    window.addEventListener("catalog:orders-changed", () => renderOrders());
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".order-client-search")) adminEls.orderClientSuggestions.hidden = true;
+    });
+    window.addEventListener("catalog:orders-changed", () => {
+      renderOrders();
+      renderOrderHealth();
+    });
+    window.addEventListener("catalog:products-updated", runCatalogHealthCheck);
     window.addEventListener("catalog:auth-changed", (event) => refreshAdminAccess(event.detail));
   }
 
@@ -129,6 +174,337 @@
     fillSettings();
     renderOrders();
     renderPendingPriceApprovals();
+    runCatalogHealthCheck();
+    renderOrderHealth();
+  }
+
+  async function runCatalogHealthCheck() {
+    if (!adminState.isAdmin || adminState.isCheckingCatalogHealth) return;
+    adminState.isCheckingCatalogHealth = true;
+    adminEls.runCatalogHealth.disabled = true;
+    adminEls.runCatalogHealth.textContent = "Revisando...";
+    adminEls.catalogHealthStatus.textContent = "Revisando páginas, productos, códigos y posiciones...";
+
+    try {
+      const overrides = await loadCurrentProductOverrides();
+      const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { pages: [], products: [] }), overrides);
+      adminState.catalogHealthIssues = analyzeCatalogHealth(catalog);
+      renderCatalogHealth();
+    } catch (error) {
+      adminState.catalogHealthIssues = [];
+      adminEls.catalogHealthSummary.innerHTML = "";
+      adminEls.catalogHealthList.innerHTML = "";
+      adminEls.catalogHealthStatus.textContent = error.message || "No se pudo revisar el catálogo.";
+    } finally {
+      adminState.isCheckingCatalogHealth = false;
+      adminEls.runCatalogHealth.disabled = false;
+      adminEls.runCatalogHealth.textContent = "Revisar catálogo";
+    }
+  }
+
+  function analyzeCatalogHealth(catalog) {
+    const pages = Array.isArray(catalog.pages) ? catalog.pages : [];
+    const products = Array.isArray(catalog.products) ? catalog.products : [];
+    const issues = [];
+    const productById = new Map();
+    const pageByNumber = new Map();
+    const skuGroups = new Map();
+    const priceGroupIds = new Set();
+    const add = (severity, code, message, detail = {}) => issues.push({ severity, code, message, ...detail });
+
+    pages.forEach((page) => {
+      const pageNumber = Number(page.number);
+      if (!Number.isFinite(pageNumber)) add("error", "PAGE_NUMBER", "Hay una página sin número válido.");
+      else if (pageByNumber.has(pageNumber)) add("error", "DUPLICATE_PAGE", `La página ${pageNumber} aparece más de una vez.`, { page: pageNumber });
+      else pageByNumber.set(pageNumber, page);
+    });
+
+    products.forEach((product) => {
+      const id = String(product.id || "").trim();
+      const sku = normalizeSku(product.sku);
+      if (!id) add("error", "MISSING_PRODUCT_ID", "Hay un producto sin ID de catálogo.", { sku, page: product.page });
+      else if (productById.has(id)) add("error", "DUPLICATE_PRODUCT_ID", `El ID ${id} está repetido.`, { productId: id, sku, page: product.page });
+      else productById.set(id, product);
+
+      if (!sku) add("error", "MISSING_SKU", `El producto ${id || "sin ID"} no tiene SKU.`, { productId: id, page: product.page });
+      else {
+        if (!skuGroups.has(sku)) skuGroups.set(sku, []);
+        skuGroups.get(sku).push(product);
+      }
+      if (!String(product.name || "").trim()) add("error", "MISSING_NAME", `El producto ${sku || id} no tiene nombre.`, { productId: id, sku, page: product.page });
+      if (!String(product.price || "").trim()) add("error", "MISSING_PRICE", `El producto ${sku || id} no tiene precio.`, { productId: id, sku, page: product.page });
+      if (sku && /^\d+$/.test(sku) && !String(product.ean || "").trim()) add("warning", "MISSING_EAN", `El producto ${sku} no tiene EAN.`, { productId: id, sku, page: product.page });
+      if (!pageByNumber.has(Number(product.page))) {
+        add("error", "UNKNOWN_PRODUCT_PAGE", `El producto ${sku || id} apunta a una página inexistente (${product.page || "sin página"}).`, { productId: id, sku, page: product.page });
+      }
+      if (!validRect(product.hotspot)) add("error", "INVALID_HOTSPOT", `El área clickeable de ${sku || id} falta o sale de la página.`, { productId: id, sku, page: product.page });
+    });
+
+    skuGroups.forEach((group, sku) => {
+      if (group.length < 2) return;
+      const identities = new Set(group.map((product) => `${normalizedText(product.section)}|${normalizedText(product.name)}`));
+      const pages = group.map((product) => Number(product.page));
+      const pageSet = new Set(pages);
+      const pagesLabel = [...pageSet].join(", ");
+      if (identities.size > 1) {
+        add("error", "SKU_COLLISION", `El SKU ${sku} corresponde a productos distintos.`, { sku, page: pagesLabel, productId: group.map((product) => product.id).join(" | ") });
+        return;
+      }
+      if (pageSet.size < group.length) {
+        const repeatedPage = pages.find((page, index) => pages.indexOf(page) !== index);
+        add("error", "DUPLICATE_SKU_ON_PAGE", `El SKU ${sku} fue detectado más de una vez en la página ${repeatedPage}.`, { sku, page: repeatedPage, productId: group.map((product) => product.id).join(" | ") });
+        return;
+      }
+      const isPopSummary = group.every((product) => normalizedText(product.section) === "oxo" && normalizedText(product.name).includes("contenedor pop")) && pageSet.has(253);
+      add(
+        "info",
+        isPopSummary ? "INTENTIONAL_POP_REPEAT" : "REPEATED_SOURCE_LISTING",
+        isPopSummary
+          ? `El SKU ${sku} se repite intencionalmente en la página resumen de POP.`
+          : `El SKU ${sku} está publicado en más de una página del catálogo fuente.`,
+        { sku, page: pagesLabel, productId: group.map((product) => product.id).join(" | ") },
+      );
+    });
+
+    pages.forEach((page) => {
+      const pageProductIds = Array.isArray(page.products) ? page.products : [];
+      const pageProducts = [];
+      pageProductIds.forEach((id) => {
+        const product = productById.get(id);
+        if (!product) {
+          add("error", "UNKNOWN_PAGE_PRODUCT", `La página ${page.number} referencia el producto inexistente ${id}.`, { page: page.number, productId: id });
+          return;
+        }
+        pageProducts.push(product);
+        if (Number(product.page) !== Number(page.number)) {
+          add("error", "PAGE_MISMATCH", `${product.sku} figura en la página ${page.number}, pero el producto apunta a la ${product.page}.`, { page: page.number, sku: product.sku, productId: id });
+        }
+      });
+
+      products.filter((product) => Number(product.page) === Number(page.number)).forEach((product) => {
+        if (!pageProductIds.includes(product.id)) {
+          add("error", "PRODUCT_NOT_ON_PAGE", `${product.sku || product.id} apunta a la página ${page.number}, pero no está en su lista de productos.`, { page: page.number, sku: product.sku, productId: product.id });
+        }
+      });
+
+      for (let first = 0; first < pageProducts.length; first += 1) {
+        for (let second = first + 1; second < pageProducts.length; second += 1) {
+          const a = pageProducts[first];
+          const b = pageProducts[second];
+          if (normalizeSku(a.sku) === normalizeSku(b.sku)) continue;
+          if (rectOverlapRatio(a.hotspot, b.hotspot) >= 0.75) {
+            add("warning", "OVERLAPPING_HOTSPOTS", `Las áreas de ${a.sku} y ${b.sku} se superponen en la página ${page.number}.`, { page: page.number, sku: `${a.sku} | ${b.sku}`, productId: `${a.id} | ${b.id}` });
+          }
+        }
+      }
+
+      (page.priceGroups || []).forEach((group, index) => {
+        const groupId = String(group.id || `${page.number}-${index}`);
+        if (priceGroupIds.has(groupId)) add("error", "DUPLICATE_PRICE_GROUP", `El grupo de precio ${groupId} está repetido.`, { page: page.number });
+        priceGroupIds.add(groupId);
+        if (!validPoint(group.position) || (group.cover && !validSize(group.cover))) {
+          add("error", "INVALID_PRICE_POSITION", `El precio ${groupId} tiene una posición o cobertura inválida.`, { page: page.number });
+        }
+        const groupedProducts = (group.productIds || []).map((id) => productById.get(id)).filter(Boolean);
+        (group.productIds || []).filter((id) => !productById.has(id)).forEach((id) => {
+          add("error", "UNKNOWN_PRICE_PRODUCT", `El precio ${groupId} referencia el producto inexistente ${id}.`, { page: page.number, productId: id });
+        });
+        const prices = new Set(groupedProducts.filter((product) => !product.outOfStock).map((product) => normalizedPrice(product.price)).filter(Boolean));
+        if (prices.size > 1) {
+          add("error", "MIXED_GROUP_PRICES", `El grupo ${groupId} reúne productos con precios diferentes.`, { page: page.number, sku: groupedProducts.map((product) => product.sku).join(" | ") });
+        }
+      });
+    });
+
+    return issues.sort((a, b) => severityRank(a.severity) - severityRank(b.severity) || Number(a.page || 0) - Number(b.page || 0));
+  }
+
+  function renderCatalogHealth() {
+    const issues = adminState.catalogHealthIssues;
+    const errors = issues.filter((issue) => issue.severity === "error").length;
+    const warnings = issues.filter((issue) => issue.severity === "warning").length;
+    const information = issues.filter((issue) => issue.severity === "info").length;
+    adminEls.catalogHealthStatus.textContent = errors
+      ? `Se encontraron ${issues.length} observaciones. Corregí primero los errores.`
+      : warnings
+        ? `Se encontraron ${warnings} advertencias para revisar, sin errores estructurales.`
+      : "No se encontraron problemas estructurales en el catálogo.";
+    adminEls.catalogHealthSummary.innerHTML = `
+      <span><strong>${errors}</strong> errores</span>
+      <span><strong>${warnings}</strong> advertencias</span>
+      <span><strong>${information}</strong> repeticiones informativas</span>
+    `;
+    adminEls.catalogHealthList.innerHTML = issues.slice(0, 150).map((issue) => `
+      <article class="health-issue is-${issue.severity}">
+        <span class="health-severity">${issue.severity === "error" ? "Error" : issue.severity === "warning" ? "Revisar" : "Informativo"}</span>
+        <div class="health-issue-detail">
+          <strong>${escapeHtml(issue.message)}</strong>
+          <p>${escapeHtml([issue.sku ? `SKU ${issue.sku}` : "", issue.page ? `Página ${issue.page}` : "", issue.productId ? `ID ${issue.productId}` : "", issue.code].filter(Boolean).join(" · "))}</p>
+        </div>
+      </article>
+    `).join("") || '<p class="empty-state">Todo en orden.</p>';
+    if (issues.length > 150) adminEls.catalogHealthList.insertAdjacentHTML("beforeend", `<p class="empty-state">Hay ${issues.length - 150} observaciones adicionales en el informe descargable.</p>`);
+    adminEls.exportCatalogHealth.disabled = !issues.length;
+  }
+
+  function exportCatalogHealthReport() {
+    if (!adminState.catalogHealthIssues.length) return;
+    const rows = [["Severidad", "Tipo", "Mensaje", "SKU", "Página", "ID de catálogo"]];
+    adminState.catalogHealthIssues.forEach((issue) => rows.push([
+      issue.severity === "error" ? "Error" : issue.severity === "warning" ? "Advertencia" : "Informativo",
+      issue.code,
+      issue.message,
+      issue.sku || "",
+      issue.page || "",
+      issue.productId || "",
+    ]));
+    downloadCsv(`estado-catalogo-${new Date().toISOString().slice(0, 10)}.csv`, rows.map((row) => row.map(csvCell).join(",")).join("\r\n"));
+  }
+
+  async function renderOrderHealth(options = {}) {
+    if (!adminState.isAdmin || adminState.isLoadingOrderHealth || !CATALOG_SUPABASE.isAvailable()) return;
+    adminState.isLoadingOrderHealth = true;
+    adminEls.refreshOrderHealth.disabled = true;
+    adminEls.refreshOrderHealth.textContent = options.sync ? "Consultando..." : "Cargando...";
+    adminEls.orderHealthStatus.textContent = options.sync ? "Consultando los últimos eventos en Resend..." : "Cargando notificaciones...";
+    try {
+      if (options.sync) {
+        const syncResult = await CATALOG_SUPABASE.syncOrderDeliveryStatuses();
+        adminState.orderHealthConfigurationWarning = syncResult.configuration_error || "";
+      }
+      const orders = await CATALOG_SUPABASE.loadAllOrders();
+      renderOrderHealthRows(orders);
+    } catch (error) {
+      adminEls.orderHealthSummary.innerHTML = "";
+      adminEls.orderHealthList.innerHTML = "";
+      adminEls.orderHealthStatus.textContent = error.message || "No se pudo consultar el estado de los emails.";
+    } finally {
+      adminState.isLoadingOrderHealth = false;
+      adminEls.refreshOrderHealth.disabled = false;
+      adminEls.refreshOrderHealth.textContent = "Actualizar estado";
+    }
+  }
+
+  function renderOrderHealthRows(orders) {
+    const entries = orders.map((order) => ({ order, health: orderEmailHealth(order) }));
+    const attention = entries.filter((entry) => entry.health.level === "attention");
+    const delayed = entries.filter((entry) => entry.health.level === "delayed");
+    const healthy = entries.filter((entry) => entry.health.level === "healthy");
+    const awaiting = entries.filter((entry) => entry.health.level === "awaiting");
+    const storedConfigurationWarning = entries.find((entry) => entry.order.notification?.deliveryError?.includes("API key de Resend"))?.order.notification.deliveryError || "";
+    const configurationWarning = adminState.orderHealthConfigurationWarning || storedConfigurationWarning;
+    adminEls.orderHealthStatus.textContent = configurationWarning
+      ? "Los envíos siguen funcionando, pero la API key actual de Resend no permite confirmar la entrega."
+      : attention.length || delayed.length
+      ? `${attention.length + delayed.length} pedido${attention.length + delayed.length === 1 ? " requiere" : "s requieren"} revisión.`
+      : "No hay fallas de email detectadas.";
+    adminEls.orderHealthSummary.innerHTML = `
+      <span><strong>${healthy.length}</strong> entregados</span>
+      <span><strong>${awaiting.length}</strong> en curso</span>
+      <span><strong>${delayed.length}</strong> demorados</span>
+      <span><strong>${attention.length}</strong> con error</span>
+    `;
+    const visible = [...attention, ...delayed, ...awaiting, ...healthy].slice(0, 40);
+    adminEls.orderHealthList.innerHTML = visible.map(({ order, health }) => `
+      <article class="order-health-row is-${health.level}">
+        <div class="order-health-main">
+          <div class="order-health-heading">
+            <strong>${escapeHtml(order.displayId || order.id)} · ${escapeHtml(orderBuyerLabel(order))}</strong>
+            <span class="delivery-event-badge">${escapeHtml(health.label)}</span>
+          </div>
+          <p>${escapeHtml(formatDate(order.createdAt))}${order.notification?.resendTo ? ` · ${escapeHtml(order.notification.resendTo)}` : ""}</p>
+          ${health.detail ? `<p>${escapeHtml(health.detail)}</p>` : ""}
+        </div>
+        ${order.remote && ["attention", "delayed"].includes(health.level) ? `<button class="secondary-button compact-button" type="button" data-health-resend="${escapeHtml(order.id)}">Reintentar</button>` : ""}
+      </article>
+    `).join("") || '<p class="empty-state">Todavía no hay pedidos.</p>';
+  }
+
+  function orderEmailHealth(order) {
+    const notification = order.notification;
+    if (!notification) return { level: "attention", label: "Sin registro", detail: "No existe una notificación asociada al pedido." };
+    const event = String(notification.resendLastEvent || "").toLowerCase();
+    if (["delivered", "opened", "clicked"].includes(event)) return { level: "healthy", label: deliveryEventLabel(event), detail: deliveryCheckDetail(notification) };
+    if (event === "delivery_delayed") return { level: "delayed", label: "Demorado", detail: notification.deliveryError || notification.lastError || deliveryCheckDetail(notification) };
+    if (["bounced", "failed", "suppressed", "canceled", "complained"].includes(event)) return { level: "attention", label: deliveryEventLabel(event), detail: notification.deliveryError || notification.lastError };
+    if (notification.status === "failed") return { level: "attention", label: "Falló el envío", detail: notification.lastError };
+    const updatedAt = Date.parse(notification.updatedAt || order.createdAt || "");
+    const stuck = ["pending", "processing"].includes(notification.status) && Number.isFinite(updatedAt) && Date.now() - updatedAt > 15 * 60 * 1000;
+    if (stuck) return { level: "delayed", label: "Sin completar", detail: notification.lastError || "La notificación lleva más de 15 minutos sin completarse." };
+    return { level: "awaiting", label: event ? deliveryEventLabel(event) : notificationStatusLabel(notification.status), detail: notification.deliveryError || notification.lastError || deliveryCheckDetail(notification) };
+  }
+
+  async function handleOrderHealthAction(event) {
+    const button = event.target.closest("[data-health-resend]");
+    if (!button) return;
+    try {
+      button.disabled = true;
+      button.textContent = "Reintentando...";
+      await CATALOG_SUPABASE.resendOrderNotification(button.dataset.healthResend);
+      await Promise.all([renderOrders(), renderOrderHealth({ sync: true })]);
+      showToast("Email reenviado");
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = "Reintentar";
+      showToast(error.message || "No se pudo reenviar el email");
+    }
+  }
+
+  function deliveryCheckDetail(notification) {
+    return notification.deliveryCheckedAt ? `Última consulta: ${formatDate(notification.deliveryCheckedAt)}` : "";
+  }
+
+  function deliveryEventLabel(event) {
+    return {
+      delivered: "Entregado",
+      opened: "Abierto",
+      clicked: "Abierto",
+      delivery_delayed: "Demorado",
+      bounced: "Rebotado",
+      failed: "Falló",
+      suppressed: "Suprimido",
+      canceled: "Cancelado",
+      complained: "Marcado como spam",
+      queued: "En cola",
+      scheduled: "Programado",
+      sent: "Enviado",
+    }[event] || event || "En curso";
+  }
+
+  function validPoint(value) {
+    return value && finiteUnit(value.x) && finiteUnit(value.y);
+  }
+
+  function validSize(value) {
+    return value && Number(value.w) > 0 && Number(value.h) > 0 && Number(value.w) <= 1 && Number(value.h) <= 1;
+  }
+
+  function validRect(value) {
+    return validPoint(value) && validSize(value) && Number(value.x) + Number(value.w) <= 1.001 && Number(value.y) + Number(value.h) <= 1.001;
+  }
+
+  function finiteUnit(value) {
+    return Number.isFinite(Number(value)) && Number(value) >= 0 && Number(value) <= 1;
+  }
+
+  function rectOverlapRatio(a, b) {
+    if (!validRect(a) || !validRect(b)) return 0;
+    const overlapWidth = Math.max(0, Math.min(Number(a.x) + Number(a.w), Number(b.x) + Number(b.w)) - Math.max(Number(a.x), Number(b.x)));
+    const overlapHeight = Math.max(0, Math.min(Number(a.y) + Number(a.h), Number(b.y) + Number(b.h)) - Math.max(Number(a.y), Number(b.y)));
+    const intersection = overlapWidth * overlapHeight;
+    return intersection / Math.min(Number(a.w) * Number(a.h), Number(b.w) * Number(b.h));
+  }
+
+  function normalizedText(value) {
+    return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function normalizedPrice(value) {
+    return String(value || "").replace(/[^0-9]/g, "");
+  }
+
+  function severityRank(value) {
+    return value === "error" ? 0 : value === "warning" ? 1 : 2;
   }
 
   async function renderPendingPriceApprovals() {
@@ -240,16 +616,18 @@
     const customers = adminState.passwordCustomers;
     adminEls.customerPasswordResults.hidden = false;
     if (!customers.length) {
-      adminEls.customerPasswordResults.innerHTML = `<p>No se encontraron cuentas de clientes.</p>`;
+      adminEls.customerPasswordResults.innerHTML = `<p>No se encontraron cuentas.</p>`;
       setCustomerPasswordStatus("Revisá el email, nombre, empresa o código ingresado.");
       return;
     }
 
     adminEls.customerPasswordResults.innerHTML = customers.map((customer) => `
       <button class="customer-password-result" type="button" data-password-customer="${escapeHtml(customer.id)}">
-        <strong>${escapeHtml(customer.company || customer.name || customer.email || "Cliente sin nombre")}</strong>
+        <strong>${escapeHtml(customer.role === "salesman"
+          ? (customer.name || customer.company || customer.email || "Vendedor sin nombre")
+          : (customer.company || customer.name || customer.email || "Cliente sin nombre"))}</strong>
         <span>${escapeHtml(customer.email || "Sin email")}</span>
-        ${customer.clientCode ? `<small>Código ${escapeHtml(customer.clientCode)}</small>` : ""}
+        <small>${customer.role === "salesman" ? "Vendedor" : "Cliente"}${customer.clientCode ? ` · Código ${escapeHtml(customer.clientCode)}` : ""}</small>
       </button>
     `).join("");
     setCustomerPasswordStatus(`${customers.length} cuenta${customers.length === 1 ? " encontrada" : "s encontradas"}. Elegí la correcta.`);
@@ -265,8 +643,10 @@
     adminEls.selectedPasswordCustomer.hidden = false;
     adminEls.selectedPasswordCustomer.innerHTML = `
       <span>Cuenta seleccionada</span>
-      <strong>${escapeHtml(customer.company || customer.name || "Cliente")}</strong>
-      <small>${escapeHtml(customer.email || "Sin email")}${customer.clientCode ? ` · Código ${escapeHtml(customer.clientCode)}` : ""}</small>
+      <strong>${escapeHtml(customer.role === "salesman"
+        ? (customer.name || customer.company || "Vendedor")
+        : (customer.company || customer.name || "Cliente"))}</strong>
+      <small>${customer.role === "salesman" ? "Vendedor" : "Cliente"} · ${escapeHtml(customer.email || "Sin email")}${customer.clientCode ? ` · Código ${escapeHtml(customer.clientCode)}` : ""}</small>
       <button class="secondary-button compact-button" type="button" data-change-password-customer>Elegir otra</button>
     `;
     adminEls.selectedPasswordCustomer.querySelector("[data-change-password-customer]").addEventListener("click", clearSelectedPasswordCustomer);
@@ -302,7 +682,7 @@
     const password = adminEls.customerTemporaryPassword.value;
     const confirmation = adminEls.confirmCustomerTemporaryPassword.value;
     if (!customer) {
-      setCustomerPasswordStatus("Elegí una cuenta de cliente primero.");
+      setCustomerPasswordStatus("Elegí una cuenta primero.");
       return;
     }
     if (password.length < 8) {
@@ -316,7 +696,7 @@
       return;
     }
 
-    const label = customer.company || customer.name || customer.email || "este cliente";
+    const label = customer.company || customer.name || customer.email || "esta cuenta";
     if (!confirm(`¿Reemplazar la contraseña de ${label}? La contraseña anterior dejará de funcionar.`)) return;
 
     adminState.isResettingCustomerPassword = true;
@@ -328,7 +708,7 @@
       adminEls.customerTemporaryPassword.value = "";
       adminEls.confirmCustomerTemporaryPassword.value = "";
       setCustomerPasswordStatus(`Contraseña actualizada correctamente para ${customer.email || label}.`);
-      showToast("Contraseña del cliente actualizada");
+      showToast("Contraseña actualizada");
     } catch (error) {
       setCustomerPasswordStatus(friendlyCustomerPasswordError(error));
     } finally {
@@ -343,10 +723,10 @@
   }
 
   function friendlyCustomerPasswordError(error) {
-    const message = String(error?.message || "No se pudo cambiar la contraseña del cliente.");
+    const message = String(error?.message || "No se pudo cambiar la contraseña de la cuenta.");
     if (message.includes("Only administrators")) return "Solo una cuenta administradora puede cambiar contraseñas.";
     if (message.includes("at least eight")) return "La contraseña temporal debe tener al menos 8 caracteres.";
-    if (message.includes("Customer account not found")) return "No se encontró esa cuenta de cliente.";
+    if (message.includes("Account not found") || message.includes("Customer account not found")) return "No se encontró esa cuenta.";
     if (message.includes("Invalid session") || message.includes("Sign in first")) return "La sesión administradora venció. Volvé a iniciar sesión.";
     return message;
   }
@@ -371,7 +751,7 @@
     showToast("Configuración guardada");
   }
 
-  async function importPriceList() {
+  async function previewPriceListImport() {
     const file = adminEls.priceListFile.files?.[0];
     if (!file) {
       setImportStatus("Elegí un archivo Excel primero.");
@@ -384,15 +764,55 @@
 
     try {
       adminEls.importPriceList.disabled = true;
-      setImportStatus("Leyendo archivo Excel...");
+      adminEls.applyPriceListImport.disabled = true;
+      setImportStatus("Analizando archivo Excel...");
 
       const workbook = XLSX.read(await file.arrayBuffer(), { type: "array" });
       const importedRows = readPriceListRows(workbook);
-      const result = buildProductOverrides(importedRows);
-      if (!result.updatedProducts) {
-        setImportStatus(`Ningún SKU de este archivo Excel coincide con el catálogo. ${result.unmatched} filas no se encontraron.`);
+      const currentOverrides = await loadCurrentProductOverrides();
+      const currentCatalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), currentOverrides);
+      const result = buildProductOverrides(importedRows, currentCatalog.products || []);
+      adminState.priceImportPreview = { ...result, fileName: file.name, applied: false };
+      renderPriceListImportPreview();
+
+      if (!result.matchedRows) {
+        setImportStatus(`Ningún SKU de ${file.name} coincide con el catálogo. No se aplicó ningún cambio.`);
         return;
       }
+      if (result.conflictingDuplicates.length || result.ambiguousCatalogSkus.length) {
+        setImportStatus("La vista previa encontró conflictos. Corregí esos códigos en el archivo antes de aplicar cambios.");
+        return;
+      }
+      if (!result.updatedProducts) {
+        setImportStatus("El archivo coincide con el catálogo, pero no contiene cambios nuevos.");
+        return;
+      }
+
+      adminEls.applyPriceListImport.disabled = false;
+      setImportStatus(`Vista previa lista: ${result.updatedProducts} producto${result.updatedProducts === 1 ? "" : "s"} cambiar${result.updatedProducts === 1 ? "á" : "án"}. Revisá el detalle antes de aplicar.`);
+    } catch (error) {
+      adminState.priceImportPreview = null;
+      renderPriceListImportPreview();
+      setImportStatus(error.message || "No se pudo analizar el archivo Excel.");
+    } finally {
+      adminEls.importPriceList.disabled = false;
+    }
+  }
+
+  async function applyPriceListImport() {
+    const result = adminState.priceImportPreview;
+    if (!result || result.applied || !result.updatedProducts) return;
+    if (result.conflictingDuplicates.length || result.ambiguousCatalogSkus.length) {
+      setImportStatus("No se puede aplicar una importación con conflictos de códigos.");
+      return;
+    }
+    const accepted = confirm(`Se actualizar${result.updatedProducts === 1 ? "á" : "án"} ${result.updatedProducts} producto${result.updatedProducts === 1 ? "" : "s"} desde ${result.fileName}. ¿Aplicar estos cambios al catálogo?`);
+    if (!accepted) return;
+
+    try {
+      adminEls.importPriceList.disabled = true;
+      adminEls.applyPriceListImport.disabled = true;
+      setImportStatus("Aplicando cambios revisados...");
 
       const mergedLocal = CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), result.overrides);
       CATALOG_STORE.saveProductOverrides(mergedLocal);
@@ -416,13 +836,63 @@
       }
 
       window.dispatchEvent(new CustomEvent("catalog:products-updated"));
-      setImportStatus(`Se actualizaron ${result.updatedProducts} productos del catálogo desde ${result.matchedRows} filas coincidentes del Excel. ${result.unmatched} filas del Excel no se encontraron en el catálogo. ${remoteMessage}`);
+      result.applied = true;
+      renderPriceListImportPreview();
+      setImportStatus(`Se actualizaron ${result.updatedProducts} productos del catálogo. ${result.unmatchedSkus.length} códigos del Excel no se encontraron. ${remoteMessage}`);
       showToast("Importación de Excel completa");
     } catch (error) {
       setImportStatus(error.message || "No se pudo importar el archivo Excel.");
     } finally {
       adminEls.importPriceList.disabled = false;
+      adminEls.applyPriceListImport.disabled = Boolean(result.applied);
     }
+  }
+
+  function clearPriceListImportPreview() {
+    adminState.priceImportPreview = null;
+    adminEls.applyPriceListImport.disabled = true;
+    adminEls.priceListImportPreview.innerHTML = "";
+    if (adminEls.priceListFile.files?.[0]) setImportStatus("Archivo seleccionado. Revisalo antes de aplicar cambios.");
+  }
+
+  function renderPriceListImportPreview() {
+    const preview = adminState.priceImportPreview;
+    if (!preview) {
+      adminEls.priceListImportPreview.innerHTML = "";
+      return;
+    }
+    const conflictCount = preview.conflictingDuplicates.length + preview.ambiguousCatalogSkus.length;
+    const changeRows = preview.changes.slice(0, 80).map((change) => `
+      <div class="import-preview-change">
+        <strong>${escapeHtml(change.sku)}</strong>
+        <span>${escapeHtml(change.name)}</span>
+        <small>${change.fields.map((field) => `${escapeHtml(importFieldLabel(field.field))}: ${escapeHtml(field.before || "vacío")} → ${escapeHtml(field.after || "vacío")}`).join(" · ")}</small>
+      </div>
+    `).join("");
+    const conflictRows = [
+      ...preview.conflictingDuplicates.map((item) => `<li><strong>${escapeHtml(item.sku)}</strong>: el Excel contiene ${item.count} filas con datos diferentes.</li>`),
+      ...preview.ambiguousCatalogSkus.map((item) => `<li><strong>${escapeHtml(item.sku)}</strong>: corresponde a productos distintos en el catálogo (${escapeHtml(item.names.join(", "))}).</li>`),
+    ].join("");
+
+    adminEls.priceListImportPreview.innerHTML = `
+      <div class="import-preview-summary">
+        <span><strong>${preview.updatedProducts}</strong> productos cambian</span>
+        <span><strong>${preview.unchangedRows}</strong> sin cambios</span>
+        <span><strong>${preview.unmatchedSkus.length}</strong> códigos nuevos o no encontrados</span>
+        <span><strong>${preview.missingCatalogSkus.length}</strong> códigos del catálogo ausentes</span>
+        <span><strong>${preview.duplicateRows.length}</strong> códigos repetidos en el Excel</span>
+        <span class="${conflictCount ? "is-alert" : ""}"><strong>${conflictCount}</strong> conflictos</span>
+      </div>
+      ${conflictRows ? `<div class="import-preview-conflicts"><strong>Conflictos que bloquean la importación</strong><ul>${conflictRows}</ul></div>` : ""}
+      ${preview.unmatchedSkus.length ? `<details class="import-preview-details"><summary>Códigos del Excel que no existen en el catálogo</summary><p>${escapeHtml(preview.unmatchedSkus.slice(0, 60).join(", "))}${preview.unmatchedSkus.length > 60 ? "…" : ""}</p></details>` : ""}
+      ${preview.missingCatalogSkus.length ? `<details class="import-preview-details"><summary>Códigos del catálogo que no aparecen en el archivo</summary><p>${escapeHtml(preview.missingCatalogSkus.slice(0, 60).join(", "))}${preview.missingCatalogSkus.length > 60 ? "…" : ""}</p></details>` : ""}
+      ${changeRows ? `<div class="import-preview-changes">${changeRows}${preview.changes.length > 80 ? `<p>Hay ${preview.changes.length - 80} cambios adicionales.</p>` : ""}</div>` : `<p class="empty-state">No hay valores distintos para aplicar.</p>`}
+      ${preview.applied ? `<p class="import-preview-applied">Cambios aplicados.</p>` : ""}
+    `;
+  }
+
+  function importFieldLabel(field) {
+    return ({ name: "Nombre", price: "Precio", outOfStock: "Sin stock", videoUrl: "Video" })[field] || field;
   }
 
   async function downloadPriceTemplate() {
@@ -636,36 +1106,102 @@
     return null;
   }
 
-  function buildProductOverrides(importedRows) {
-    const productIndex = buildProductSkuIndex();
+  function buildProductOverrides(importedRows, products = window.CATALOG_DATA?.products || []) {
+    const productIndex = buildProductSkuIndex(products);
     const overrides = {};
     const updatedProductIds = new Set();
+    const changes = [];
+    const unmatchedSkus = [];
+    const duplicateRows = [];
+    const conflictingDuplicates = [];
+    const ambiguousCatalogSkus = [];
+    const rowsBySku = new Map();
     let matchedRows = 0;
-    let unmatched = 0;
+    let unchangedRows = 0;
 
     importedRows.forEach((row) => {
-      const products = productIndex.primary.get(row.sku);
-      if (!products?.length) {
-        unmatched += 1;
-        return;
-      }
-      matchedRows += 1;
-
-      products.forEach((product) => {
-        if (overrides[product.id]) return;
-        const override = {
-          sku: product.sku,
-          name: row.name || product.name,
-          price: row.price || product.price,
-        };
-        if (row.outOfStock !== null) override.outOfStock = row.outOfStock;
-        if (row.videoUrl) override.videoUrl = normalizeYouTubeUrl(row.videoUrl);
-        overrides[product.id] = override;
-        updatedProductIds.add(product.id);
-      });
+      const rows = rowsBySku.get(row.sku) || [];
+      rows.push(row);
+      rowsBySku.set(row.sku, rows);
     });
 
-    return { overrides, updatedProducts: updatedProductIds.size, matchedRows, unmatched };
+    rowsBySku.forEach((rows, sku) => {
+      const signatures = new Set(rows.map((row) => JSON.stringify({
+        name: row.name,
+        price: row.price,
+        outOfStock: row.outOfStock,
+        videoUrl: row.videoUrl === null ? null : normalizeYouTubeUrl(row.videoUrl),
+      })));
+      if (rows.length > 1) duplicateRows.push({ sku, count: rows.length, conflicting: signatures.size > 1 });
+      if (signatures.size > 1) {
+        conflictingDuplicates.push({ sku, count: rows.length });
+        return;
+      }
+
+      const matchedProducts = productIndex.primary.get(sku) || [];
+      if (!matchedProducts.length) {
+        unmatchedSkus.push(sku);
+        return;
+      }
+      const identities = new Map();
+      matchedProducts.forEach((product) => {
+        const key = [normalizeHeaderCell(product.section), normalizeHeaderCell(product.name)].join("|");
+        if (!identities.has(key)) identities.set(key, product.name || product.sku);
+      });
+      if (identities.size > 1) {
+        ambiguousCatalogSkus.push({ sku, names: [...identities.values()] });
+        return;
+      }
+
+      matchedRows += rows.length;
+      const row = rows[rows.length - 1];
+      let changedForSku = false;
+      matchedProducts.forEach((product) => {
+        const fields = [];
+        const nextName = row.name || product.name;
+        const nextPrice = row.price || product.price;
+        const nextStock = row.outOfStock === null ? Boolean(product.outOfStock) : Boolean(row.outOfStock);
+        const nextVideo = row.videoUrl === null ? String(product.videoUrl || "") : normalizeYouTubeUrl(row.videoUrl);
+
+        if (nextName !== String(product.name || "")) fields.push({ field: "name", before: product.name || "", after: nextName });
+        if (nextPrice !== String(product.price || "")) fields.push({ field: "price", before: product.price || "", after: nextPrice });
+        if (nextStock !== Boolean(product.outOfStock)) fields.push({ field: "outOfStock", before: product.outOfStock ? "Sí" : "No", after: nextStock ? "Sí" : "No" });
+        if (nextVideo !== String(product.videoUrl || "")) fields.push({ field: "videoUrl", before: product.videoUrl || "", after: nextVideo });
+        if (!fields.length) return;
+
+        changedForSku = true;
+        overrides[product.id] = {
+          sku: product.sku,
+          name: nextName,
+          category: product.category || "",
+          price: nextPrice,
+          videoUrl: nextVideo,
+          hidden: Boolean(product.hidden),
+          outOfStock: nextStock,
+        };
+        updatedProductIds.add(product.id);
+        changes.push({ sku, name: product.name || product.sku, productId: product.id, fields });
+      });
+      if (!changedForSku) unchangedRows += 1;
+    });
+
+    const importedSkuSet = new Set(rowsBySku.keys());
+    const catalogSkus = [...new Set(products.map((product) => normalizeSku(product.sku)).filter(Boolean))];
+    const missingCatalogSkus = catalogSkus.filter((sku) => !importedSkuSet.has(sku)).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    unmatchedSkus.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+    return {
+      overrides,
+      changes,
+      updatedProducts: updatedProductIds.size,
+      matchedRows,
+      unchangedRows,
+      unmatchedSkus,
+      missingCatalogSkus,
+      duplicateRows,
+      conflictingDuplicates,
+      ambiguousCatalogSkus,
+    };
   }
 
   function buildProductSkuIndex(products = window.CATALOG_DATA?.products || []) {
@@ -761,15 +1297,15 @@
   }
 
   function setOrderView(view) {
-    if (!["active", "archived"].includes(view)) return;
+    if (!["all", "active", "archived"].includes(view)) return;
     adminState.orderView = view;
     renderOrders();
   }
 
   function renderOrderViewTabs() {
-    const archived = adminState.orderView === "archived";
-    adminEls.activeOrdersTab.classList.toggle("is-active", !archived);
-    adminEls.archivedOrdersTab.classList.toggle("is-active", archived);
+    adminEls.allOrdersTab.classList.toggle("is-active", adminState.orderView === "all");
+    adminEls.activeOrdersTab.classList.toggle("is-active", adminState.orderView === "active");
+    adminEls.archivedOrdersTab.classList.toggle("is-active", adminState.orderView === "archived");
   }
 
   async function renderOrders() {
@@ -777,9 +1313,15 @@
 
     const result = await loadAdminOrders();
     renderOrderViewTabs();
-    adminState.orders = result.orders;
+    adminState.loadedOrders = result.orders;
     adminState.source = result.source;
     adminEls.adminDataStatus.textContent = result.message;
+    renderOrderClientSuggestions();
+    renderOrderResults();
+  }
+
+  function renderOrderResults() {
+    adminState.orders = filterOrdersByClient(adminState.loadedOrders);
 
     const totalValue = adminState.orders.reduce((sum, order) => sum + Number(order.totalValue || 0), 0);
     const totalItems = adminState.orders.reduce((sum, order) => sum + Number(order.totalItems || 0), 0);
@@ -791,7 +1333,7 @@
     `;
 
     adminEls.ordersList.innerHTML =
-      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos ${adminState.orderView === "archived" ? "archivados" : "activos"}.</p>`;
+      adminState.orders.map(renderOrderCard).join("") || `<p class="empty-state">No se encontraron pedidos${adminState.orderClientSearch ? " para este cliente" : orderViewEmptySuffix()}.</p>`;
 
     adminEls.ordersList.querySelectorAll("[data-order-card]").forEach((card) => {
       card.addEventListener("click", () => openOrderDialog(card.dataset.orderCard));
@@ -803,10 +1345,150 @@
     });
 
     bindOrderArchiveButtons(adminEls.ordersList);
+    renderOrderClientSearchStatus();
+  }
+
+  function handleOrderClientSearch() {
+    adminState.orderClientSearch = adminEls.orderClientSearch.value.trim();
+    adminState.selectedOrderClientKey = "";
+    adminState.selectedOrderClientLabel = "";
+    adminEls.clearOrderClientSearch.hidden = !adminState.orderClientSearch;
+    renderOrderClientSuggestions();
+    renderOrderResults();
+  }
+
+  function clearOrderClientSearch() {
+    adminState.orderClientSearch = "";
+    adminState.selectedOrderClientKey = "";
+    adminState.selectedOrderClientLabel = "";
+    adminEls.orderClientSearch.value = "";
+    adminEls.clearOrderClientSearch.hidden = true;
+    adminEls.orderClientSuggestions.hidden = true;
+    renderOrderResults();
+    adminEls.orderClientSearch.focus();
+  }
+
+  function selectOrderClientSuggestion(event) {
+    const button = event.target.closest("[data-order-client-key]");
+    if (!button) return;
+    const candidate = orderClientCandidates(adminState.loadedOrders)
+      .find((item) => item.key === button.dataset.orderClientKey);
+    if (!candidate) return;
+    adminState.selectedOrderClientKey = candidate.key;
+    adminState.selectedOrderClientLabel = candidate.label;
+    adminState.orderClientSearch = candidate.label;
+    adminEls.orderClientSearch.value = candidate.label;
+    adminEls.clearOrderClientSearch.hidden = false;
+    adminEls.orderClientSuggestions.hidden = true;
+    renderOrderResults();
+  }
+
+  function renderOrderClientSuggestions() {
+    const query = normalizeOrderSearch(adminState.orderClientSearch);
+    if (query.length < 2 || adminState.selectedOrderClientKey) {
+      adminEls.orderClientSuggestions.hidden = true;
+      adminEls.orderClientSuggestions.innerHTML = "";
+      return;
+    }
+
+    const candidates = orderClientCandidates(adminState.loadedOrders)
+      .filter((item) => item.searchText.includes(query))
+      .slice(0, 8);
+    adminEls.orderClientSuggestions.hidden = false;
+    adminEls.orderClientSuggestions.innerHTML = candidates.length
+      ? candidates.map((item) => `
+          <button type="button" role="option" data-order-client-key="${escapeHtml(item.key)}">
+            <span><strong>${escapeHtml(item.label)}</strong>${item.code ? `<small>Código ${escapeHtml(item.code)}</small>` : ""}</span>
+            <em>${item.count} pedido${item.count === 1 ? "" : "s"}</em>
+          </button>
+        `).join("")
+      : `<p>No hay clientes que coincidan.</p>`;
+  }
+
+  function renderOrderClientSearchStatus() {
+    const filtered = Boolean(adminState.orderClientSearch);
+    adminEls.orderClientSearchStatus.hidden = !filtered;
+    if (!filtered) return;
+    const subject = adminState.selectedOrderClientLabel
+      ? `de ${adminState.selectedOrderClientLabel}`
+      : `que coinciden con “${adminState.orderClientSearch}”`;
+    adminEls.orderClientSearchStatus.textContent = `${adminState.orders.length} pedido${adminState.orders.length === 1 ? "" : "s"} ${subject}.`;
+  }
+
+  function filterOrdersByClient(orders) {
+    if (adminState.selectedOrderClientKey) {
+      return orders.filter((order) => orderClientIdentity(order).key === adminState.selectedOrderClientKey);
+    }
+    const query = normalizeOrderSearch(adminState.orderClientSearch);
+    if (!query) return orders;
+    return orders.filter((order) => orderClientSearchText(order).includes(query));
+  }
+
+  function orderClientCandidates(orders) {
+    const candidates = new Map();
+    orders.forEach((order) => {
+      const identity = orderClientIdentity(order);
+      const existing = candidates.get(identity.key) || { ...identity, count: 0, totalValue: 0 };
+      existing.count += 1;
+      existing.totalValue += Number(order.totalValue || 0);
+      candidates.set(identity.key, existing);
+    });
+    return [...candidates.values()].sort((first, second) => first.label.localeCompare(second.label, "es"));
+  }
+
+  function orderClientIdentity(order) {
+    const customer = order.customer || {};
+    const salesClient = customer.salesClient || {};
+    const label = salesClient.name || salesClient.legalName || customer.name || "Cliente sin nombre";
+    const code = salesClient.clientCode || customer.clientCode || "";
+    const key = salesClient.id
+      ? `sales-client:${salesClient.id}`
+      : code
+        ? `client-code:${normalizeOrderSearch(code)}`
+        : order.customerId
+          ? `account:${order.customerId}`
+          : `name:${normalizeOrderSearch(label)}`;
+    return {
+      key,
+      label,
+      code,
+      searchText: normalizeOrderSearch([
+        label,
+        code,
+        customer.name,
+        customer.phone,
+        salesClient.name,
+        salesClient.legalName,
+        salesClient.address,
+        salesClient.locality,
+        customer.salesmanCode,
+      ].filter(Boolean).join(" ")),
+    };
+  }
+
+  function orderClientSearchText(order) {
+    const identity = orderClientIdentity(order);
+    return `${identity.searchText} ${normalizeOrderSearch(order.displayId || order.id)}`;
+  }
+
+  function normalizeOrderSearch(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  }
+
+  function orderViewEmptySuffix() {
+    if (adminState.orderView === "archived") return " archivados";
+    if (adminState.orderView === "active") return " activos";
+    return "";
   }
 
   function renderOrderCard(order) {
     const buyer = orderBuyerLabel(order);
+    const clientCode = order.customer?.salesClient?.clientCode || order.customer?.clientCode || "";
     const archived = isArchivedOrder(order);
     return `
       <article class="order-card order-card-compact" role="button" tabindex="0" data-order-card="${escapeHtml(order.id)}">
@@ -818,7 +1500,7 @@
           <button class="secondary-button compact-button ${archived ? "" : "danger-button"}" type="button" data-archive-order="${escapeHtml(order.id)}" data-action="${archived ? "restore" : "archive"}">
             ${archived ? "Restaurar" : "Archivar"}
           </button>
-          <p class="order-compact-meta">${formatDate(order.createdAt)} · ${order.totalItems} unidad${order.totalItems === 1 ? "" : "es"}</p>
+          <p class="order-compact-meta">${formatDate(order.createdAt)} · ${order.totalItems} unidad${order.totalItems === 1 ? "" : "es"}${clientCode ? ` · Cliente ${escapeHtml(clientCode)}` : ""}</p>
         </div>
       </article>
     `;
@@ -984,9 +1666,13 @@
       notification.sentAt ? `enviado ${formatDate(notification.sentAt)}` : "",
       notification.resendEmailId ? `Resend ID ${notification.resendEmailId}` : "",
       notification.resendTo ? `para ${notification.resendTo}` : "",
+      notification.resendLastEvent ? `entrega: ${deliveryEventLabel(notification.resendLastEvent)}` : "",
+      notification.deliveryCheckedAt ? `consultado ${formatDate(notification.deliveryCheckedAt)}` : "",
     ].filter(Boolean);
-    const error = notification.lastError ? `<span>${escapeHtml(notification.lastError)}</span>` : "";
-    return `<p class="order-notification-status${notification.status === "failed" ? " is-warning" : ""}">${escapeHtml(parts.join(" - "))}${error}</p>`;
+    const errors = [notification.lastError, notification.deliveryError].filter(Boolean);
+    const error = errors.map((message) => `<span>${escapeHtml(message)}</span>`).join("");
+    const warning = notification.status === "failed" || ["delivery_delayed", "bounced", "failed", "suppressed", "canceled", "complained"].includes(notification.resendLastEvent);
+    return `<p class="order-notification-status${warning ? " is-warning" : ""}">${escapeHtml(parts.join(" - "))}${error}</p>`;
   }
 
 
@@ -994,20 +1680,21 @@
     return loadAdminOrderSet(adminState.orderView);
   }
 
-  async function loadAdminOrderSet(view = "active") {
+  async function loadAdminOrderSet(view = "all") {
     const archived = view === "archived";
+    const all = view === "all";
     if (!CATALOG_SUPABASE.isAvailable()) {
       return {
-        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
+        orders: all ? mergeLocalOrderHistory() : archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
-        message: archived ? "Supabase no está disponible; se muestran pedidos archivados locales." : "Supabase no está disponible; se muestran pedidos activos locales.",
+        message: all ? "Supabase no está disponible; se muestra el historial local." : archived ? "Supabase no está disponible; se muestran pedidos archivados locales." : "Supabase no está disponible; se muestran pedidos activos locales.",
       };
     }
 
     const user = await CATALOG_SUPABASE.getUser();
     if (!user) {
       return {
-        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
+        orders: all ? mergeLocalOrderHistory() : archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: "Iniciá sesión desde el panel de perfil con tu cuenta administradora de Supabase para ver pedidos.",
       };
@@ -1016,7 +1703,7 @@
     const profile = await CATALOG_SUPABASE.getProfile(user.id);
     if (profile?.role !== "admin") {
       return {
-        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
+        orders: all ? mergeLocalOrderHistory() : archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: `Sesión iniciada como ${user.email}, pero este perfil tiene rol "${profile?.role || "faltante"}". Definí role = 'admin' en Supabase para ver pedidos.`,
       };
@@ -1024,13 +1711,13 @@
 
     try {
       return {
-        orders: archived ? await CATALOG_SUPABASE.loadArchivedOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
+        orders: all ? await CATALOG_SUPABASE.loadAllOrders() : archived ? await CATALOG_SUPABASE.loadArchivedOrders() : await CATALOG_SUPABASE.loadActiveOrders(),
         source: "supabase",
-        message: archived ? `Mostrando pedidos archivados de Supabase como ${user.email}.` : `Mostrando pedidos activos de Supabase como ${user.email}.`,
+        message: all ? `Mostrando todo el historial de Supabase como ${user.email}.` : archived ? `Mostrando pedidos archivados de Supabase como ${user.email}.` : `Mostrando pedidos activos de Supabase como ${user.email}.`,
       };
     } catch (error) {
       return {
-        orders: archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
+        orders: all ? mergeLocalOrderHistory() : archived ? CATALOG_STORE.loadArchivedOrders() : CATALOG_STORE.loadOrders(),
         source: "local",
         message: `No se pudieron cargar los pedidos de Supabase: ${error.message}. Se muestran solo los pedidos locales del navegador.`,
       };
@@ -1040,9 +1727,11 @@
   async function exportOrdersCsv() {
     try {
       const result = await loadAdminOrderSet(adminState.orderView);
-      const filename = `lexo-pedidos-${adminState.orderView === "archived" ? "archivados" : "activos"}-${new Date().toISOString().slice(0, 10)}.csv`;
-      downloadCsv(filename, ordersToCsv(result.orders));
-      showToast(`Se exportaron ${result.orders.length} pedidos`);
+      const orders = filterOrdersByClient(result.orders);
+      const viewLabel = adminState.orderView === "all" ? "todos" : adminState.orderView === "archived" ? "archivados" : "activos";
+      const filename = `lexo-pedidos-${viewLabel}-${new Date().toISOString().slice(0, 10)}.csv`;
+      downloadCsv(filename, ordersToCsv(orders));
+      showToast(`Se exportaron ${orders.length} pedidos`);
     } catch (error) {
       showToast(error.message || "No se pudieron exportar los pedidos");
     }
@@ -1054,11 +1743,18 @@
       return;
     }
     const archived = adminState.orderView === "archived";
-    if (!confirm(`¿Borrar todos los pedidos locales ${archived ? "archivados" : "activos"} guardados en este dispositivo?`)) return;
-    if (archived) CATALOG_STORE.clearArchivedOrders();
-    else CATALOG_STORE.saveOrders([]);
+    const all = adminState.orderView === "all";
+    if (!confirm(`¿Borrar todos los pedidos locales ${all ? "activos y archivados" : archived ? "archivados" : "activos"} guardados en este dispositivo?`)) return;
+    if (all || archived) CATALOG_STORE.clearArchivedOrders();
+    if (all || !archived) CATALOG_STORE.saveOrders([]);
     renderOrders();
     showToast("Pedidos locales borrados");
+  }
+
+  function mergeLocalOrderHistory() {
+    const byId = new Map();
+    [...CATALOG_STORE.loadOrders(), ...CATALOG_STORE.loadArchivedOrders()].forEach((order) => byId.set(order.id, order));
+    return [...byId.values()].sort((first, second) => new Date(second.createdAt) - new Date(first.createdAt));
   }
 
   function ordersToCsv(orders) {

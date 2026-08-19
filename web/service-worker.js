@@ -1,13 +1,14 @@
-const CACHE_NAME = "lexo-catalog-v20260803-direct-pdf-download";
+const CACHE_NAME = "lexo-catalog-v20260812-remove-duplicate-page-175";
+const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260803-admin-password",
-  "./app.js?v=20260803-direct-pdf-download",
-  "./admin.js?v=20260803-admin-password",
+  "./styles.css?v=20260812-order-history",
+  "./app.js?v=20260812-password-recovery-form",
+  "./admin.js?v=20260812-order-history",
   "./catalog-store.js?v=20260714-no-related-skus",
-  "./supabase-client.js?v=20260803-admin-password",
-  "./data/catalog-data.js?v=20260730-estia-refresh",
+  "./supabase-client.js?v=20260812-recovery-redirect",
+  "./data/catalog-data.js?v=20260812-remove-duplicate-page-175",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
@@ -25,7 +26,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.filter((key) => ![CACHE_NAME, PAGE_CACHE_NAME].includes(key)).map((key) => caches.delete(key))))
       .then(() => self.clients.claim()),
   );
 });
@@ -33,13 +34,15 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
+  const url = new URL(request.url);
+  const isCatalogPage = url.origin === self.location.origin && url.pathname.includes("/assets/pages/");
 
   event.respondWith(
     fetch(request)
       .then((response) => {
         if (response && (response.ok || response.type === "opaque")) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          caches.open(isCatalogPage ? PAGE_CACHE_NAME : CACHE_NAME).then((cache) => cache.put(request, copy));
         }
         return response;
       })

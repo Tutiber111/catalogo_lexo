@@ -16,15 +16,17 @@ type SalesClient = {
 
 type GuestLink = {
   id: string;
-  sales_client_id: string;
-  salesman_code: string;
+  sales_client_id: string | null;
+  salesman_code: string | null;
   created_by: string;
   otp_hash: string;
   session_token_hash: string;
+  link_token_ciphertext: string;
   failed_attempts: number;
   expires_at: string;
   redeemed_at: string | null;
   revoked_at: string | null;
+  created_at: string;
 };
 
 type OrderLineInput = {
@@ -59,6 +61,8 @@ Deno.serve(async (req) => {
     const body = await readJson(req);
     const action = String(body.action || "");
     if (action === "create") return jsonResponse(await createGuestLink(req, body));
+    if (action === "list") return jsonResponse(await listGuestLinks(req, body));
+    if (action === "revoke") return jsonResponse(await revokeGuestLink(req, body));
     if (action === "redeem") return jsonResponse(await redeemGuestLink(body));
     if (action === "validate") return jsonResponse(await validateGuestSession(body));
     if (action === "submit_order") return jsonResponse(await submitGuestOrder(body));
@@ -75,12 +79,9 @@ async function createGuestLink(req: Request, body: Record<string, unknown>) {
     throw new HttpError(403, "Only admins and salesmen can create client access links.");
   }
 
-  const salesClientId = String(body.sales_client_id || "").trim();
-  if (!salesClientId) throw new HttpError(400, "Choose a client first.");
-  const client = await loadSalesClient(salesClientId);
-  if (!client) throw new HttpError(404, "Client not found.");
-  if (profile.role === "salesman" && client.salesman_code !== profile.salesman_code) {
-    throw new HttpError(403, "You can only create links for your own clients.");
+  const salesmanCode = profile.salesman_code || null;
+  if (profile.role === "salesman" && !salesmanCode) {
+    throw new HttpError(409, "Your salesman account does not have a salesman code.");
   }
 
   const now = new Date();
@@ -89,26 +90,17 @@ async function createGuestLink(req: Request, body: Record<string, unknown>) {
   const password = randomOtp();
   const linkTokenHash = await sha256(linkToken);
   const otpHash = await sha256(`${linkToken}:${password}`);
-
-  const revokeParams = new URLSearchParams({
-    sales_client_id: `eq.${client.id}`,
-    salesman_code: `eq.${client.salesman_code}`,
-    revoked_at: "is.null",
-    expires_at: `gt.${now.toISOString()}`,
-  });
-  await serviceFetch(`/rest/v1/catalog_guest_links?${revokeParams}`, {
-    method: "PATCH",
-    body: JSON.stringify({ revoked_at: now.toISOString(), updated_at: now.toISOString() }),
-  });
+  const linkTokenCiphertext = await encryptLinkToken(linkToken);
 
   const response = await serviceFetch("/rest/v1/catalog_guest_links", {
     method: "POST",
     headers: { Prefer: "return=representation" },
     body: JSON.stringify({
-      sales_client_id: client.id,
-      salesman_code: client.salesman_code,
+      sales_client_id: null,
+      salesman_code: salesmanCode,
       created_by: profile.id,
       link_token_hash: linkTokenHash,
+      link_token_ciphertext: linkTokenCiphertext,
       otp_hash: otpHash,
       expires_at: expiresAt,
       updated_at: now.toISOString(),
@@ -119,11 +111,69 @@ async function createGuestLink(req: Request, body: Record<string, unknown>) {
 
   const accessUrl = buildAccessUrl(String(body.base_url || ""), linkToken);
   return {
+    id: rows[0].id,
     access_url: accessUrl,
     one_time_password: password,
     expires_at: expiresAt,
-    client: publicClient(client),
+    client: null,
+    salesman_code: salesmanCode,
   };
+}
+
+async function listGuestLinks(req: Request, body: Record<string, unknown>) {
+  const profile = await loadAuthenticatedProfile(req);
+  if (!profile || !["admin", "salesman"].includes(profile.role)) {
+    throw new HttpError(403, "Only admins and salesmen can view access links.");
+  }
+
+  const params = new URLSearchParams({
+    select: "id,sales_client_id,salesman_code,created_by,link_token_ciphertext,expires_at,redeemed_at,revoked_at,created_at",
+    order: "created_at.desc",
+    limit: "100",
+  });
+  if (profile.role !== "admin") params.set("created_by", `eq.${profile.id}`);
+  const response = await serviceFetch(`/rest/v1/catalog_guest_links?${params}`);
+  const rows = await response.json();
+  const links = await Promise.all(rows.map(async (link: GuestLink) => {
+    let accessUrl = "";
+    if (link.link_token_ciphertext) {
+      try {
+        accessUrl = buildAccessUrl(String(body.base_url || ""), await decryptLinkToken(link.link_token_ciphertext));
+      } catch (error) {
+        console.error("Could not recover guest link URL", link.id, error);
+      }
+    }
+    return {
+      id: link.id,
+      salesman_code: link.salesman_code,
+      expires_at: link.expires_at,
+      redeemed_at: link.redeemed_at,
+      revoked_at: link.revoked_at,
+      created_at: link.created_at,
+      access_url: accessUrl,
+    };
+  }));
+  return { links };
+}
+
+async function revokeGuestLink(req: Request, body: Record<string, unknown>) {
+  const profile = await loadAuthenticatedProfile(req);
+  if (!profile || !["admin", "salesman"].includes(profile.role)) {
+    throw new HttpError(403, "Only admins and salesmen can revoke access links.");
+  }
+  const linkId = String(body.link_id || "").trim();
+  if (!linkId) throw new HttpError(400, "Choose an access link.");
+  const params = new URLSearchParams({ id: `eq.${linkId}`, select: "id,created_by", limit: "1" });
+  const response = await serviceFetch(`/rest/v1/catalog_guest_links?${params}`);
+  const rows = await response.json();
+  const link = rows[0];
+  if (!link) throw new HttpError(404, "Access link not found.");
+  if (profile.role !== "admin" && link.created_by !== profile.id) {
+    throw new HttpError(403, "You can only revoke links you created.");
+  }
+  const revokedAt = new Date().toISOString();
+  await patchLink(linkId, { revoked_at: revokedAt });
+  return { id: linkId, revoked_at: revokedAt };
 }
 
 async function redeemGuestLink(body: Record<string, unknown>) {
@@ -174,8 +224,8 @@ async function redeemGuestLink(body: Record<string, unknown>) {
   const rows = await response.json();
   if (!rows.length) throw new HttpError(409, "This one-time link has already been used.");
 
-  const client = await loadSalesClient(link.sales_client_id);
-  if (!client) throw new HttpError(404, "The client linked to this access no longer exists.");
+  const client = link.sales_client_id ? await loadSalesClient(link.sales_client_id) : null;
+  if (link.sales_client_id && !client) throw new HttpError(404, "The client linked to this access no longer exists.");
   return guestSessionResponse(sessionToken, link, client);
 }
 
@@ -191,22 +241,31 @@ async function submitGuestOrder(body: Record<string, unknown>) {
 
   const totalItems = lines.reduce((sum, line) => sum + line.quantity, 0);
   const totalValue = lines.reduce((sum, line) => sum + line.line_total, 0);
-  const client = session.client;
+  const submittedName = cleanText(body.customer_name, 300);
+  const submittedClientCode = cleanText(body.client_code, 100);
+  let client = session.client;
+  if (!client && submittedClientCode) {
+    client = await loadSalesClientByCode(submittedClientCode, session.link.salesman_code);
+  }
+  const customerName = client?.legal_name || client?.name || submittedName;
+  if (!customerName) throw new HttpError(400, "Enter the client name before sending the order.");
+  const clientCode = client?.client_code || submittedClientCode;
+  const salesmanCode = client?.salesman_code || session.link.salesman_code || null;
   const orderResponse = await serviceFetch("/rest/v1/orders", {
     method: "POST",
     headers: { Prefer: "return=representation" },
     body: JSON.stringify({
       customer_id: session.link.created_by,
       status: "placed",
-      customer_name: client.legal_name || client.name,
+      customer_name: customerName,
       customer_phone: "",
-      customer_client_code: client.client_code,
-      sales_client_id: client.id,
-      sales_client_code: client.client_code,
-      sales_client_name: client.legal_name || client.name,
-      sales_client_address: client.address,
-      sales_client_locality: client.locality,
-      salesman_code: client.salesman_code,
+      customer_client_code: clientCode,
+      sales_client_id: client?.id || null,
+      sales_client_code: clientCode,
+      sales_client_name: customerName,
+      sales_client_address: client?.address || "",
+      sales_client_locality: client?.locality || "",
+      salesman_code: salesmanCode,
       order_transport: cleanText(body.transport, 200),
       notes: cleanText(body.notes, 2000),
       total_items: totalItems,
@@ -329,15 +388,15 @@ async function loadGuestSession(sessionToken: string) {
   if (!link || !link.redeemed_at || link.revoked_at || new Date(link.expires_at).getTime() <= Date.now()) {
     throw new HttpError(401, "This client access has expired. Ask your salesman for a new link.");
   }
-  const client = await loadSalesClient(link.sales_client_id);
-  if (!client) throw new HttpError(404, "The linked client no longer exists.");
+  const client = link.sales_client_id ? await loadSalesClient(link.sales_client_id) : null;
+  if (link.sales_client_id && !client) throw new HttpError(404, "The linked client no longer exists.");
   return { link, client };
 }
 
 async function loadLink(column: "link_token_hash" | "session_token_hash", hash: string): Promise<GuestLink | null> {
   const params = new URLSearchParams({
     [column]: `eq.${hash}`,
-    select: "id,sales_client_id,salesman_code,created_by,otp_hash,session_token_hash,failed_attempts,expires_at,redeemed_at,revoked_at",
+    select: "id,sales_client_id,salesman_code,created_by,otp_hash,session_token_hash,link_token_ciphertext,failed_attempts,expires_at,redeemed_at,revoked_at,created_at",
     limit: "1",
   });
   const response = await serviceFetch(`/rest/v1/catalog_guest_links?${params}`);
@@ -351,6 +410,18 @@ async function loadSalesClient(id: string): Promise<SalesClient | null> {
     select: "id,client_code,name,legal_name,address,locality,salesman_code",
     limit: "1",
   });
+  const response = await serviceFetch(`/rest/v1/sales_clients?${params}`);
+  const rows = await response.json();
+  return rows[0] || null;
+}
+
+async function loadSalesClientByCode(clientCode: string, salesmanCode: string | null): Promise<SalesClient | null> {
+  const params = new URLSearchParams({
+    client_code: `eq.${clientCode}`,
+    select: "id,client_code,name,legal_name,address,locality,salesman_code",
+    limit: "1",
+  });
+  if (salesmanCode) params.set("salesman_code", `eq.${salesmanCode}`);
   const response = await serviceFetch(`/rest/v1/sales_clients?${params}`);
   const rows = await response.json();
   return rows[0] || null;
@@ -371,11 +442,12 @@ async function patchLink(id: string, patch: Record<string, unknown>) {
   });
 }
 
-function guestSessionResponse(sessionToken: string, link: GuestLink, client: SalesClient) {
+function guestSessionResponse(sessionToken: string, link: GuestLink, client: SalesClient | null) {
   return {
     session_token: sessionToken,
     expires_at: link.expires_at,
-    client: publicClient(client),
+    client: client ? publicClient(client) : null,
+    salesman_code: link.salesman_code,
   };
 }
 
@@ -455,6 +527,42 @@ function randomToken(size: number) {
 function randomOtp() {
   const value = crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000;
   return String(value).padStart(6, "0");
+}
+
+async function guestLinkEncryptionKey() {
+  const secret = new TextEncoder().encode(requiredEnv("CATALOG_GUEST_LINK_SECRET"));
+  const digest = await crypto.subtle.digest("SHA-256", secret);
+  return crypto.subtle.importKey("raw", digest, "AES-GCM", false, ["encrypt", "decrypt"]);
+}
+
+async function encryptLinkToken(value: string) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, await guestLinkEncryptionKey(), new TextEncoder().encode(value));
+  const combined = new Uint8Array(iv.length + encrypted.byteLength);
+  combined.set(iv);
+  combined.set(new Uint8Array(encrypted), iv.length);
+  return bytesToBase64Url(combined);
+}
+
+async function decryptLinkToken(value: string) {
+  const combined = base64UrlToBytes(value);
+  if (combined.length < 13) throw new Error("Invalid encrypted link token.");
+  const iv = combined.slice(0, 12);
+  const encrypted = combined.slice(12);
+  const decrypted = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, await guestLinkEncryptionKey(), encrypted);
+  return new TextDecoder().decode(decrypted);
+}
+
+function bytesToBase64Url(bytes: Uint8Array) {
+  let binary = "";
+  bytes.forEach((byte) => binary += String.fromCharCode(byte));
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+function base64UrlToBytes(value: string) {
+  const base64 = value.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
+  const binary = atob(base64);
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0));
 }
 
 function catalogPriceNumber(value: unknown) {

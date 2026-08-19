@@ -55,7 +55,7 @@ async function requireAdmin(req: Request) {
   const params = new URLSearchParams({ id: `eq.${user.id}`, select: "id,role", limit: "1" });
   const profileResponse = await serviceFetch(`/rest/v1/profiles?${params}`);
   const profiles = await profileResponse.json();
-  if (profiles[0]?.role !== "admin") throw new HttpError(403, "Only administrators can change customer passwords.");
+  if (profiles[0]?.role !== "admin") throw new HttpError(403, "Only administrators can change account passwords.");
 }
 
 async function searchCustomers(value: unknown) {
@@ -63,7 +63,7 @@ async function searchCustomers(value: unknown) {
   if (query.length < 2) throw new HttpError(400, "Enter at least two characters.");
 
   const params = new URLSearchParams({
-    role: "eq.customer",
+    role: "in.(customer,salesman)",
     or: `(email.ilike.*${query}*,name.ilike.*${query}*,company.ilike.*${query}*,client_code.ilike.*${query}*)`,
     select: "id,email,name,company,client_code,role",
     order: "company.asc.nullslast,email.asc",
@@ -78,13 +78,13 @@ async function resetCustomerPassword(body: Record<string, unknown>) {
   const userId = String(body.user_id || "").trim();
   const password = String(body.password || "");
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(userId)) {
-    throw new HttpError(400, "Choose a valid customer account.");
+    throw new HttpError(400, "Choose a valid account.");
   }
   if (password.length < 8) throw new HttpError(400, "The temporary password must have at least eight characters.");
   if (password.length > 72) throw new HttpError(400, "The temporary password is too long.");
 
-  const profile = await loadCustomerProfile(userId);
-  if (!profile) throw new HttpError(404, "Customer account not found.");
+  const profile = await loadManagedProfile(userId);
+  if (!profile) throw new HttpError(404, "Account not found.");
 
   const response = await fetch(`${requiredEnv("SUPABASE_URL")}/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
     method: "PUT",
@@ -106,10 +106,10 @@ async function resetCustomerPassword(body: Record<string, unknown>) {
   };
 }
 
-async function loadCustomerProfile(userId: string): Promise<Profile | null> {
+async function loadManagedProfile(userId: string): Promise<Profile | null> {
   const params = new URLSearchParams({
     id: `eq.${userId}`,
-    role: "eq.customer",
+    role: "in.(customer,salesman)",
     select: "id,email,name,company,client_code,role",
     limit: "1",
   });
@@ -123,8 +123,10 @@ function publicProfile(profile: Profile) {
     id: profile.id,
     email: profile.email || "",
     name: profile.name || "",
-    company: profile.company || "",
+    company: profile.role === "salesman" ? (profile.name || profile.company || "") : (profile.company || ""),
+    organization: profile.company || "",
     clientCode: profile.client_code || "",
+    role: profile.role,
   };
 }
 

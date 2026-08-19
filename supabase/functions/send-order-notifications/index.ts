@@ -7,6 +7,13 @@ type OrderNotification = {
   attempts: number;
 };
 
+type DeliveryNotification = OrderNotification & {
+  status: string;
+  resend_email_id: string;
+  resend_to: string;
+  resend_last_event: string;
+};
+
 type RequestContext = {
   userId: string;
   isAdmin: boolean;
@@ -82,6 +89,10 @@ Deno.serve(async (req) => {
   try {
     const body = await readJson(req);
     const context = await loadRequestContext(req);
+    if (body.action === "sync_delivery") {
+      if (!context.isAdmin) throw new Error("Only admins can check delivery status.");
+      return jsonResponse(await syncRecentDeliveryStatuses());
+    }
     const result = await sendPendingOrderNotifications(body.order_id, {
       context,
       force: Boolean(body.force),
@@ -117,6 +128,9 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
         sent_at: new Date().toISOString(),
         resend_email_id: sentEmail.id,
         resend_to: sentEmail.to.join(", "),
+        resend_last_event: "sent",
+        delivery_checked_at: new Date().toISOString(),
+        delivery_error: "",
         last_error: sentEmail.warning,
       });
       results.push({
@@ -130,6 +144,9 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
       await updateNotification(notification.id, {
         status: "failed",
         resend_email_id: "",
+        resend_last_event: "failed",
+        delivery_checked_at: new Date().toISOString(),
+        delivery_error: message,
         last_error: message,
       });
       results.push({ order_id: notification.order_id, status: "failed", error: message });
@@ -165,6 +182,9 @@ async function ensureNotification(orderId: string, force = false) {
         status: "pending",
         last_error: "",
         resend_email_id: "",
+        resend_last_event: "",
+        delivery_checked_at: null,
+        delivery_error: "",
         updated_at: new Date().toISOString(),
       }),
     });
@@ -180,6 +200,9 @@ async function ensureNotification(orderId: string, force = false) {
       status: "pending",
       last_error: "",
       resend_email_id: "",
+      resend_last_event: "",
+      delivery_checked_at: null,
+      delivery_error: "",
       updated_at: new Date().toISOString(),
     }),
   });
@@ -232,6 +255,89 @@ async function loadOrder(orderId: string): Promise<Order> {
   if (!order.customer_client_code) order.customer_client_code = customerProfile.client_code;
   order.salesman_code = await resolveOrderSalesmanCode(order, customerProfile);
   return order;
+}
+
+async function syncRecentDeliveryStatuses() {
+  const params = new URLSearchParams({
+    select: "id,order_id,attempts,status,resend_email_id,resend_to,resend_last_event",
+    resend_email_id: "neq.",
+    order: "updated_at.desc",
+    limit: "50",
+  });
+  const response = await supabaseFetch(`/rest/v1/order_notifications?${params}`);
+  const notifications: DeliveryNotification[] = await response.json();
+  const results = [];
+  let configurationError = "";
+
+  for (const notification of notifications) {
+    const ids = splitValues(notification.resend_email_id);
+    const recipients = splitValues(notification.resend_to);
+    const events: Array<{ id: string; recipient: string; event: string }> = [];
+    const errors: string[] = [];
+    for (let index = 0; index < ids.length; index += 1) {
+      try {
+        const message = await loadResendEmail(ids[index]);
+        events.push({
+          id: ids[index],
+          recipient: recipients[index] || emailList(message.to).join(", ") || "destinatario",
+          event: String(message.last_event || "sent").toLowerCase(),
+        });
+      } catch (error) {
+        const message = errorMessage(error);
+        if (message.includes("restricted_api_key")) {
+          configurationError = "La API key de Resend solo permite enviar emails; necesita acceso completo para consultar la entrega.";
+          errors.push(`${recipients[index] || ids[index]}: ${configurationError}`);
+        } else {
+          errors.push(`${recipients[index] || ids[index]}: ${message}`);
+        }
+      }
+    }
+    const lastEvent = aggregateDeliveryEvent(events.map((entry) => entry.event))
+      || notification.resend_last_event
+      || (notification.status === "sent" ? "sent" : "");
+    const eventDetails = events
+      .filter((entry) => !["delivered", "opened", "clicked"].includes(entry.event))
+      .map((entry) => `${entry.recipient}: ${entry.event}`);
+    const deliveryError = [...eventDetails, ...errors].join(" | ");
+    await updateNotification(notification.id, {
+      resend_last_event: lastEvent,
+      delivery_checked_at: new Date().toISOString(),
+      delivery_error: deliveryError,
+    });
+    results.push({ order_id: notification.order_id, last_event: lastEvent, error: deliveryError });
+  }
+
+  return { checked: results.length, results, configuration_error: configurationError };
+}
+
+async function loadResendEmail(emailId: string) {
+  const response = await fetch(`https://api.resend.com/emails/${encodeURIComponent(emailId)}`, {
+    headers: { Authorization: `Bearer ${requiredEnv("RESEND_API_KEY")}` },
+  });
+  if (!response.ok) throw new Error(`Resend failed: ${response.status} ${await response.text()}`);
+  return response.json();
+}
+
+function aggregateDeliveryEvent(events: string[]) {
+  const priority: Record<string, number> = {
+    complained: 90,
+    bounced: 80,
+    failed: 80,
+    suppressed: 80,
+    canceled: 80,
+    delivery_delayed: 60,
+    queued: 30,
+    scheduled: 30,
+    sent: 30,
+    delivered: 10,
+    opened: 5,
+    clicked: 5,
+  };
+  return [...events].sort((first, second) => (priority[second] || 40) - (priority[first] || 40))[0] || "";
+}
+
+function splitValues(value: string) {
+  return String(value || "").split(",").map((item) => item.trim()).filter(Boolean);
 }
 
 async function loadCustomerProfile(customerId: string): Promise<CustomerProfile> {

@@ -2,11 +2,11 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260803-admin-password">
+    <link rel="stylesheet" href="styles.css?v=20260812-order-history">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -109,7 +109,10 @@
             <span class="eyebrow">Borrador de pedido</span>
             <h2>Carrito</h2>
           </div>
-          <button id="closeCart" class="icon-button" type="button" aria-label="Cerrar carrito">×</button>
+          <div class="cart-header-actions">
+            <button id="openLastReceipt" class="secondary-button compact-button" type="button" hidden>Último pedido</button>
+            <button id="closeCart" class="icon-button" type="button" aria-label="Cerrar carrito">×</button>
+          </div>
         </div>
         <div class="cart-view-tabs" role="tablist" aria-label="Secciones del carrito">
           <button id="cartProductsTab" class="cart-view-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="cartProductsView">1. Productos</button>
@@ -287,7 +290,7 @@
             <section id="newPasswordForm" class="auth-mode-panel">
               <label>
                 <span>Nueva contraseña</span>
-                <input id="newPassword" type="password" autocomplete="new-password">
+                <input id="newPassword" type="password" minlength="8" maxlength="72" autocomplete="new-password" required>
               </label>
               <button id="updatePassword" class="primary-button" type="button">Guardar nueva contraseña</button>
               <button id="showSignInFromNewPassword" class="secondary-button" type="button">Volver al inicio de sesión</button>
@@ -300,11 +303,6 @@
                 <span class="eyebrow">Acceso de clientes</span>
                 <h3>Compartir catálogo</h3>
               </div>
-              <label>
-                <span>Cliente</span>
-                <input id="guestLinkClientInput" type="text" list="guestLinkClientOptions" autocomplete="off" placeholder="Código o nombre del cliente">
-                <datalist id="guestLinkClientOptions"></datalist>
-              </label>
               <button id="createGuestLink" class="primary-button" type="button">Crear enlace de 7 días</button>
               <div id="guestLinkResult" class="guest-link-result" hidden>
                 <label>
@@ -322,6 +320,12 @@
                 <small id="guestLinkExpiry"></small>
               </div>
               <p id="guestLinkMessage" class="auth-message" role="status"></p>
+              <div class="guest-link-history-heading">
+                <strong>Enlaces creados</strong>
+                <button id="refreshGuestLinks" class="secondary-button compact-button" type="button">Actualizar</button>
+              </div>
+              <p id="guestLinksStatus" class="account-tool-status">Todavía no se cargaron los enlaces.</p>
+              <div id="guestLinksList" class="guest-links-list"></div>
             </div>
             <div class="account-tool-section">
               <div>
@@ -354,6 +358,22 @@
           </header>
 
           <div class="admin-grid">
+            <section class="admin-panel catalog-health-admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Control de calidad</span>
+                  <h2>Estado del catálogo</h2>
+                </div>
+                <div class="admin-actions">
+                  <button id="runCatalogHealth" class="primary-button" type="button">Revisar catálogo</button>
+                  <button id="exportCatalogHealth" class="secondary-button" type="button" disabled>Descargar informe</button>
+                </div>
+              </div>
+              <p id="catalogHealthStatus" class="admin-data-status">La revisión detecta códigos repetidos, referencias rotas y posiciones inválidas.</p>
+              <div id="catalogHealthSummary" class="admin-summary"></div>
+              <div id="catalogHealthList" class="health-issue-list"></div>
+            </section>
+
             <section class="admin-panel approval-admin-panel">
               <div class="admin-panel-header">
                 <div>
@@ -369,7 +389,7 @@
             <section class="admin-panel customer-password-admin-panel">
               <div class="admin-panel-header">
                 <div>
-                  <span class="eyebrow">Acceso de clientes</span>
+                  <span class="eyebrow">Acceso de cuentas</span>
                   <h2>Cambiar contraseña</h2>
                 </div>
               </div>
@@ -403,11 +423,24 @@
               <p id="customerPasswordStatus" class="admin-message" role="status"></p>
             </section>
 
-            <section class="admin-panel">
+            <section class="admin-panel order-health-admin-panel">
+              <div class="admin-panel-header">
+                <div>
+                  <span class="eyebrow">Notificaciones</span>
+                  <h2>Estado de emails</h2>
+                </div>
+                <button id="refreshOrderHealth" class="primary-button" type="button">Actualizar estado</button>
+              </div>
+              <p id="orderHealthStatus" class="admin-data-status">Consulta el último estado informado por Resend y señala pedidos que requieren atención.</p>
+              <div id="orderHealthSummary" class="admin-summary"></div>
+              <div id="orderHealthList" class="order-health-list"></div>
+            </section>
+
+            <section class="admin-panel orders-admin-panel">
               <div class="admin-panel-header">
                 <div>
                   <span class="eyebrow">Pedidos</span>
-                  <h2>Todos los pedidos</h2>
+                  <h2>Historial de pedidos</h2>
                 </div>
                 <div class="admin-actions">
                   <button id="exportOrders" class="secondary-button" type="button">Exportar</button>
@@ -416,9 +449,19 @@
               </div>
               <p id="adminDataStatus" class="admin-data-status"></p>
               <div class="order-view-tabs" role="tablist" aria-label="Vista de pedidos">
-                <button id="activeOrdersTab" class="order-view-tab is-active" type="button">Activos</button>
+                <button id="allOrdersTab" class="order-view-tab is-active" type="button">Todos</button>
+                <button id="activeOrdersTab" class="order-view-tab" type="button">Activos</button>
                 <button id="archivedOrdersTab" class="order-view-tab" type="button">Archivados</button>
               </div>
+              <div class="order-client-search">
+                <label>
+                  <span>Buscar pedidos de un cliente</span>
+                  <input id="orderClientSearch" type="search" autocomplete="off" placeholder="Nombre, empresa, código o teléfono">
+                </label>
+                <button id="clearOrderClientSearch" class="secondary-button" type="button" hidden>Limpiar</button>
+                <div id="orderClientSuggestions" class="order-client-suggestions" role="listbox" aria-label="Clientes encontrados" hidden></div>
+              </div>
+              <p id="orderClientSearchStatus" class="admin-data-status" hidden></p>
               <div id="orderSummary" class="admin-summary"></div>
               <div id="ordersList" class="orders-list"></div>
             </section>
@@ -458,10 +501,12 @@
               </div>
               <div class="admin-actions">
                 <button id="downloadPriceTemplate" class="secondary-button" type="button">Descargar plantilla</button>
-                <button id="importPriceList" class="primary-button" type="button">Actualizar productos</button>
+                <button id="importPriceList" class="secondary-button" type="button">Revisar cambios</button>
+                <button id="applyPriceListImport" class="primary-button" type="button" disabled>Aplicar cambios</button>
                 <button id="clearProductOverrides" class="secondary-button danger-button" type="button">Borrar vista previa local</button>
               </div>
               <p id="priceListImportStatus" class="admin-message" role="status"></p>
+              <div id="priceListImportPreview" class="import-preview" aria-live="polite"></div>
             </section>
 
             <section class="admin-panel">
@@ -539,6 +584,21 @@
       </div>
     </dialog>
 
+    <dialog id="orderReceiptDialog" class="order-receipt-dialog">
+      <form method="dialog">
+        <button class="dialog-close" value="cancel" aria-label="Cerrar comprobante">×</button>
+      </form>
+      <div class="order-receipt-dialog-body">
+        <div id="orderReceiptContent"></div>
+        <div class="order-receipt-actions">
+          <button id="downloadOrderReceipt" class="primary-button" type="button">Descargar comprobante</button>
+          <form method="dialog">
+            <button class="secondary-button" value="cancel">Cerrar</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
     <dialog id="adminOrderDialog" class="admin-order-dialog">
       <form method="dialog">
         <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
@@ -548,13 +608,13 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data/catalog-data.js?v=20260730-estia-refresh"></script>
+  <script src="data/catalog-data.js?v=20260812-remove-duplicate-page-175"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20260714-no-related-skus"></script>
-    <script src="supabase-client.js?v=20260803-admin-password"></script>
-    <script src="app.js?v=20260803-direct-pdf-download"></script>
-    <script src="admin.js?v=20260803-admin-password"></script>
+    <script src="supabase-client.js?v=20260812-recovery-redirect"></script>
+    <script src="app.js?v=20260812-password-recovery-form"></script>
+    <script src="admin.js?v=20260812-order-history"></script>
   </body>
 </html>

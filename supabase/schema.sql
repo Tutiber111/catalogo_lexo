@@ -106,6 +106,21 @@ create table if not exists public.order_notifications (
   last_error text not null default '',
   resend_email_id text not null default '',
   resend_to text not null default '',
+  resend_last_event text not null default '',
+  delivery_checked_at timestamptz,
+  delivery_error text not null default '',
+  sent_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.price_access_notifications (
+  profile_id uuid primary key references public.profiles(id) on delete cascade,
+  status text not null default 'pending' check (status in ('pending', 'processing', 'sent', 'failed')),
+  attempts integer not null default 0,
+  recipients text[] not null default '{}',
+  resend_email_id text not null default '',
+  last_error text not null default '',
   sent_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -113,10 +128,11 @@ create table if not exists public.order_notifications (
 
 create table if not exists public.catalog_guest_links (
   id uuid primary key default gen_random_uuid(),
-  sales_client_id uuid not null references public.sales_clients(id) on delete cascade,
-  salesman_code text not null references public.salesmen(code),
+  sales_client_id uuid references public.sales_clients(id) on delete cascade,
+  salesman_code text references public.salesmen(code),
   created_by uuid not null references public.profiles(id) on delete cascade,
   link_token_hash text not null unique,
+  link_token_ciphertext text not null default '',
   otp_hash text not null,
   session_token_hash text not null default '',
   failed_attempts integer not null default 0 check (failed_attempts >= 0),
@@ -163,6 +179,10 @@ alter table public.orders add column if not exists salesman_code text not null d
 alter table public.orders add column if not exists order_transport text not null default '';
 alter table public.order_notifications add column if not exists resend_email_id text not null default '';
 alter table public.order_notifications add column if not exists resend_to text not null default '';
+alter table public.order_notifications add column if not exists resend_last_event text not null default '';
+alter table public.order_notifications add column if not exists delivery_checked_at timestamptz;
+alter table public.order_notifications add column if not exists delivery_error text not null default '';
+alter table public.catalog_guest_links add column if not exists link_token_ciphertext text not null default '';
 
 do $$
 begin
@@ -209,8 +229,8 @@ where session_token_hash <> '';
 create unique index if not exists catalog_guest_links_session_token_unique_idx
 on public.catalog_guest_links (session_token_hash)
 where session_token_hash <> '';
-create index if not exists catalog_guest_links_client_idx
-on public.catalog_guest_links (sales_client_id, salesman_code, expires_at desc);
+create index if not exists catalog_guest_links_creator_idx
+on public.catalog_guest_links (created_by, expires_at desc);
 
 update public.orders
 set archived_at = coalesce(archived_at, updated_at, now())
@@ -224,6 +244,7 @@ alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.product_overrides enable row level security;
 alter table public.order_notifications enable row level security;
+alter table public.price_access_notifications enable row level security;
 alter table public.catalog_guest_links enable row level security;
 
 create or replace function public.is_admin()
@@ -522,6 +543,51 @@ create policy "order notifications admin delete"
 on public.order_notifications for delete
 to authenticated
 using (public.is_admin());
+
+drop policy if exists "price access notifications admin select" on public.price_access_notifications;
+create policy "price access notifications admin select"
+on public.price_access_notifications for select
+to authenticated
+using (public.is_admin());
+
+create extension if not exists pg_net with schema extensions;
+
+create or replace function public.notify_new_price_access_request()
+returns trigger
+language plpgsql
+security definer
+set search_path = public, extensions, vault
+as $$
+declare
+  internal_secret text;
+begin
+  select decrypted_secret
+  into internal_secret
+  from vault.decrypted_secrets
+  where name = 'price_access_notification_secret'
+  order by created_at desc
+  limit 1;
+
+  if coalesce(internal_secret, '') <> '' then
+    perform net.http_post(
+      url := 'https://iexpvwmtxauvzkcncqoc.supabase.co/functions/v1/send-price-access-request',
+      headers := jsonb_build_object(
+        'Content-Type', 'application/json',
+        'x-price-access-secret', internal_secret
+      ),
+      body := jsonb_build_object('profile_id', new.id)
+    );
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists notify_new_price_access_request on public.profiles;
+create trigger notify_new_price_access_request
+after insert on public.profiles
+for each row
+when (new.role::text = 'customer' and new.price_access_approved = false)
+execute function public.notify_new_price_access_request();
 
 -- After you create your own user account from the catalog, make yourself admin:
 -- update public.profiles set role = 'admin' where email = 'your-email@example.com';

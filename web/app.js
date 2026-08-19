@@ -37,13 +37,24 @@ const state = {
   guestLinkToken: "",
   isRedeemingGuestAccess: false,
   isCreatingGuestLink: false,
+  isLoadingGuestLinks: false,
+  guestLinksLoaded: false,
+  guestLinks: [],
+  isPasswordRecovery: false,
   isExportingCatalogPdf: false,
+  lastOrderReceipt: loadLastOrderReceipt(),
+  pageObserver: null,
+  catalogCachePromise: null,
+  catalogCacheQueue: [],
+  catalogCachedSections: new Set(),
 };
 
 const BARCODE_SCAN_MIN_LENGTH = 8;
 const BARCODE_SCAN_SETTLE_MS = 260;
 const BARCODE_SCAN_MAX_GAP_MS = 85;
 const BARCODE_SCAN_MAX_TOTAL_MS = 1600;
+const VIEWER_HYDRATE_RADIUS = 3;
+const VIEWER_RETAIN_RADIUS = 5;
 const PENDING_PRICE_COVERS = new Map([
   [348, [{ x: 0.5, y: 0.217, w: 0.31, h: 0.065, background: "#f7f7f7" }]],
 ]);
@@ -162,8 +173,6 @@ const els = {
   customerOrders: document.querySelector("#customerOrders"),
   customerOrderDetail: document.querySelector("#customerOrderDetail"),
   salesmanCatalogTools: document.querySelector("#salesmanCatalogTools"),
-  guestLinkClientInput: document.querySelector("#guestLinkClientInput"),
-  guestLinkClientOptions: document.querySelector("#guestLinkClientOptions"),
   createGuestLink: document.querySelector("#createGuestLink"),
   guestLinkResult: document.querySelector("#guestLinkResult"),
   guestLinkUrl: document.querySelector("#guestLinkUrl"),
@@ -172,10 +181,17 @@ const els = {
   guestLinkMessage: document.querySelector("#guestLinkMessage"),
   copyGuestLink: document.querySelector("#copyGuestLink"),
   copyGuestPassword: document.querySelector("#copyGuestPassword"),
+  refreshGuestLinks: document.querySelector("#refreshGuestLinks"),
+  guestLinksStatus: document.querySelector("#guestLinksStatus"),
+  guestLinksList: document.querySelector("#guestLinksList"),
   pdfBrandSelect: document.querySelector("#pdfBrandSelect"),
   exportCatalogPdf: document.querySelector("#exportCatalogPdf"),
   pdfExportStatus: document.querySelector("#pdfExportStatus"),
   saveOrder: document.querySelector("#saveOrder"),
+  openLastReceipt: document.querySelector("#openLastReceipt"),
+  orderReceiptDialog: document.querySelector("#orderReceiptDialog"),
+  orderReceiptContent: document.querySelector("#orderReceiptContent"),
+  downloadOrderReceipt: document.querySelector("#downloadOrderReceipt"),
   productDialog: document.querySelector("#productDialog"),
   dialogContent: document.querySelector("#dialogContent"),
   videoDialog: document.querySelector("#videoDialog"),
@@ -198,6 +214,7 @@ async function init() {
   renderQuickOrderTable();
   renderBrandTabs();
   renderPdfBrandOptions();
+  renderLastOrderReceiptAvailability();
   ensureCurrentPageMatchesBrand();
   await initAccount();
   renderTabs();
@@ -231,7 +248,7 @@ async function loadCatalogData() {
   state.catalog = CATALOG_STORE.applyProductOverrides(baseCatalog, state.productOverrides);
   state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
   updateCatalogMeta();
-  precacheCatalogAssets();
+  scheduleCatalogAssetCache();
 }
 
 function cloneCatalog(catalog) {
@@ -296,6 +313,8 @@ function bindEvents() {
   els.updatePassword.addEventListener("click", updatePassword);
   els.signOut.addEventListener("click", signOut);
   els.saveOrder.addEventListener("click", saveOrder);
+  els.openLastReceipt.addEventListener("click", openLastOrderReceipt);
+  els.downloadOrderReceipt.addEventListener("click", downloadLastOrderReceipt);
   els.syncOfflineOrders.addEventListener("click", handleOfflineBannerAction);
   els.checkPriceAccess.addEventListener("click", refreshCurrentPriceAccess);
   els.redeemGuestAccess.addEventListener("click", redeemGuestAccess);
@@ -311,6 +330,8 @@ function bindEvents() {
   els.createGuestLink.addEventListener("click", createGuestLink);
   els.copyGuestLink.addEventListener("click", () => copyGuestValue(els.guestLinkUrl.value, "Enlace copiado"));
   els.copyGuestPassword.addEventListener("click", () => copyGuestValue(els.guestLinkPassword.value, "Clave copiada"));
+  els.refreshGuestLinks.addEventListener("click", loadGuestLinks);
+  els.guestLinksList.addEventListener("click", handleGuestLinkAction);
   els.exportCatalogPdf.addEventListener("click", exportCatalogPdf);
   els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
   els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
@@ -335,6 +356,7 @@ function bindEvents() {
     renderCart();
   });
   window.addEventListener("catalog:password-recovery", () => {
+    state.isPasswordRecovery = true;
     openAccount();
     showNewPassword();
   });
@@ -410,6 +432,7 @@ function renderBrandTabs() {
       state.brandFilter = button.dataset.brand;
       renderBrandTabs();
       goToFirstVisiblePage();
+      prioritizeCatalogSectionCache(currentPage()?.section);
     });
   });
 }
@@ -554,26 +577,102 @@ function renderPage() {
 }
 
 function renderViewerPages() {
-  els.pageStrip.innerHTML = visiblePageIndexes()
-    .map((index) => renderPageFrame(state.catalog.pages[index], index))
+  if (state.pageObserver) state.pageObserver.disconnect();
+  const visibleIndexes = visiblePageIndexes();
+  const currentPosition = visibleIndexes.indexOf(state.currentIndex);
+  els.pageStrip.innerHTML = visibleIndexes
+    .map((index, position) => renderPageFrame(
+      state.catalog.pages[index],
+      index,
+      Math.abs(position - currentPosition) <= VIEWER_HYDRATE_RADIUS,
+    ))
     .join("");
+  observeViewerPages();
 }
 
-function renderPageFrame(page, index) {
-  const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+function renderPageFrame(page, index, hydrated = false) {
   const imageWidth = Number(page.image.width) || 1013;
   const imageHeight = Number(page.image.height) || 1432;
 
   return `
-    <article class="page-frame" data-page-index="${index}" aria-label="Página ${page.number} del catálogo">
-      <img src="${escapeHtml(page.image.src)}" width="${imageWidth}" height="${imageHeight}" alt="Página ${page.number} del catálogo" loading="lazy" decoding="async">
-      <div class="hotspot-layer">
-        ${products.map(renderHotspot).join("")}
-        ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
-        ${renderPendingPriceCovers(page)}
-      </div>
+    <article class="page-frame${hydrated ? " is-hydrated" : ""}" data-page-index="${index}" data-hydrated="${hydrated ? "true" : "false"}" aria-label="Página ${page.number} del catálogo" style="aspect-ratio:${imageWidth}/${imageHeight}">
+      ${hydrated ? renderPageFrameContent(page, index) : renderPagePlaceholder()}
     </article>
   `;
+}
+
+function renderPageFrameContent(page, index) {
+  const products = page.products.map((id) => state.productsById.get(id)).filter(isVisibleProduct);
+  const imageWidth = Number(page.image.width) || 1013;
+  const imageHeight = Number(page.image.height) || 1432;
+  return `
+    <img src="${escapeHtml(page.image.src)}" width="${imageWidth}" height="${imageHeight}" alt="Página ${page.number} del catálogo" loading="${index === state.currentIndex ? "eager" : "lazy"}" decoding="async">
+    <div class="hotspot-layer">
+      ${products.map(renderHotspot).join("")}
+      ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
+      ${renderPendingPriceCovers(page)}
+    </div>
+  `;
+}
+
+function renderPagePlaceholder() {
+  return '<span class="page-frame-placeholder" aria-hidden="true"></span>';
+}
+
+function observeViewerPages() {
+  if (!("IntersectionObserver" in window)) return;
+  state.pageObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.dataset.inView = entry.isIntersecting ? "true" : "false";
+      if (entry.isIntersecting) hydratePageFrame(Number(entry.target.dataset.pageIndex));
+    });
+    trimHydratedViewerPages();
+  }, {
+    root: els.pageStage,
+    rootMargin: "120% 0px",
+    threshold: 0.01,
+  });
+  els.pageStrip.querySelectorAll("[data-page-index]").forEach((frame) => state.pageObserver.observe(frame));
+}
+
+function hydratePageFrame(index) {
+  const frame = els.pageStrip.querySelector(`[data-page-index="${index}"]`);
+  const page = state.catalog.pages[index];
+  if (!frame || !page || frame.dataset.hydrated === "true") return frame;
+  frame.innerHTML = renderPageFrameContent(page, index);
+  frame.dataset.hydrated = "true";
+  frame.classList.add("is-hydrated");
+  return frame;
+}
+
+function dehydratePageFrame(frame) {
+  if (!frame || frame.dataset.hydrated !== "true") return;
+  frame.innerHTML = renderPagePlaceholder();
+  frame.dataset.hydrated = "false";
+  frame.classList.remove("is-hydrated");
+}
+
+function hydrateViewerWindow() {
+  const visibleIndexes = visiblePageIndexes();
+  const currentPosition = visibleIndexes.indexOf(state.currentIndex);
+  if (currentPosition < 0) return;
+  visibleIndexes.slice(
+    Math.max(0, currentPosition - VIEWER_HYDRATE_RADIUS),
+    currentPosition + VIEWER_HYDRATE_RADIUS + 1,
+  ).forEach(hydratePageFrame);
+  trimHydratedViewerPages();
+}
+
+function trimHydratedViewerPages() {
+  const visibleIndexes = visiblePageIndexes();
+  const currentPosition = visibleIndexes.indexOf(state.currentIndex);
+  if (currentPosition < 0) return;
+  const positions = new Map(visibleIndexes.map((index, position) => [index, position]));
+  els.pageStrip.querySelectorAll('[data-hydrated="true"]').forEach((frame) => {
+    const index = Number(frame.dataset.pageIndex);
+    const distance = Math.abs((positions.get(index) ?? currentPosition) - currentPosition);
+    if (distance > VIEWER_RETAIN_RADIUS && frame.dataset.inView !== "true") dehydratePageFrame(frame);
+  });
 }
 
 function renderCurrentPageDetails() {
@@ -1656,48 +1755,65 @@ async function saveOrder() {
     els.cartSalesClientSearch.focus();
     return;
   }
+  if (hasGuestAccess() && !state.guestAccess.client && !els.cartClientName.value.trim()) {
+    showToast("Ingresá el nombre del cliente antes de enviar el pedido");
+    openCart();
+    setCartView("details");
+    els.cartClientName.focus();
+    return;
+  }
 
   let customer = readOrderCustomer();
+  let submittedOrder = CATALOG_STORE.buildOrderFromLines(lines, customer);
+  let savedOrder = null;
   let notificationResult = { ok: true };
   state.isSavingOrder = true;
   renderCart();
 
   try {
-    const order = CATALOG_STORE.buildOrderFromLines(lines, customer);
     if (!isOnline()) {
       if (hasGuestAccess()) {
         throw new Error("El acceso temporal necesita conexión para enviar pedidos.");
       }
-      queueOfflineOrder(order, "Sin conexión");
+      const queued = queueOfflineOrder(submittedOrder, "Sin conexión");
+      rememberOrderReceipt(createOrderReceipt(submittedOrder, {
+        queueId: queued.id,
+        deliveryStatus: "pending",
+      }));
       clearSubmittedCart();
       state.isSavingOrder = false;
       renderCart();
-      showToast("Pedido guardado sin conexión");
+      openLastOrderReceipt();
       return;
     }
 
     if (CATALOG_SUPABASE.isAvailable() && hasGuestAccess()) {
-      const savedOrder = await CATALOG_SUPABASE.saveGuestOrder(order, state.guestAccess.sessionToken);
+      savedOrder = await CATALOG_SUPABASE.saveGuestOrder(submittedOrder, state.guestAccess.sessionToken);
       notificationResult = savedOrder.notification || notificationResult;
     } else if (CATALOG_SUPABASE.isAvailable() && state.user) {
       await saveCustomerProfile();
       customer = readOrderCustomer();
-      const updatedOrder = CATALOG_STORE.buildOrderFromLines(lines, customer);
-      const savedOrder = await CATALOG_SUPABASE.saveOrder(updatedOrder, state.user.id);
+      submittedOrder = CATALOG_STORE.buildOrderFromLines(lines, customer);
+      savedOrder = await CATALOG_SUPABASE.saveOrder(submittedOrder, state.user.id);
       notificationResult = savedOrder.notification || notificationResult;
       await renderCustomerOrders();
     } else {
-      CATALOG_STORE.addOrder(order);
+      CATALOG_STORE.addOrder(submittedOrder);
+      savedOrder = submittedOrder;
     }
   } catch (error) {
     if (isNetworkError(error) && !hasGuestAccess()) {
       markConnectionLost(error);
-      const order = CATALOG_STORE.buildOrderFromLines(lines, readOrderCustomer());
-      queueOfflineOrder(order, error.message || "Error de conexión");
+      submittedOrder = CATALOG_STORE.buildOrderFromLines(lines, readOrderCustomer());
+      const queued = queueOfflineOrder(submittedOrder, error.message || "Error de conexión");
+      rememberOrderReceipt(createOrderReceipt(submittedOrder, {
+        queueId: queued.id,
+        deliveryStatus: "pending",
+      }));
       clearSubmittedCart();
       state.isSavingOrder = false;
       renderCart();
-      showToast("No había conexión. Pedido guardado pendiente.");
+      openLastOrderReceipt();
       return;
     }
     showToast(error.message || "No se pudo enviar el pedido");
@@ -1706,10 +1822,148 @@ async function saveOrder() {
     return;
   }
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
+  rememberOrderReceipt(createOrderReceipt(savedOrder || submittedOrder, {
+    fallbackOrder: submittedOrder,
+    notification: notificationResult,
+    deliveryStatus: notificationResult.ok ? "sent" : "warning",
+  }));
   clearSubmittedCart();
   state.isSavingOrder = false;
   renderCart();
-  showToast(notificationResult.ok ? "Pedido enviado" : "Pedido enviado, pero no se pudo enviar el email");
+  openLastOrderReceipt();
+}
+
+function loadLastOrderReceipt() {
+  try {
+    const receipt = JSON.parse(localStorage.getItem("catalogLastOrderReceipt") || "null");
+    return receipt && typeof receipt === "object" ? receipt : null;
+  } catch {
+    return null;
+  }
+}
+
+function createOrderReceipt(order, options = {}) {
+  const fallback = options.fallbackOrder || order || {};
+  const customer = order?.customer?.name || order?.customer?.clientCode ? order.customer : (fallback.customer || {});
+  const items = Array.isArray(order?.items) && order.items.length ? order.items : (fallback.items || []);
+  const deliveryStatus = options.deliveryStatus || "sent";
+  const notificationError = options.notification?.error || "";
+  return {
+    id: order?.displayId || (order?.order_number ? `#${order.order_number}` : "") || order?.id || order?.order_id || fallback.displayId || fallback.id || "Pedido",
+    createdAt: order?.createdAt || fallback.createdAt || new Date().toISOString(),
+    customerName: customer.salesClient?.legalName || customer.salesClient?.name || customer.name || "Sin especificar",
+    clientCode: customer.salesClient?.clientCode || customer.clientCode || "",
+    totalItems: Number(order?.totalItems ?? order?.total_items ?? fallback.totalItems ?? items.reduce((sum, item) => sum + Number(item.qty || 0), 0)),
+    totalValue: Number(order?.totalValue ?? order?.total_value ?? fallback.totalValue ?? items.reduce((sum, item) => sum + Number(item.lineTotal || 0), 0)),
+    items: items.map((item) => ({
+      sku: String(item.sku || ""),
+      name: String(item.name || ""),
+      qty: Number(item.qty || 0),
+      lineTotal: Number(item.lineTotal || 0),
+    })),
+    deliveryStatus,
+    notificationError,
+    queueId: options.queueId || "",
+  };
+}
+
+function rememberOrderReceipt(receipt) {
+  state.lastOrderReceipt = receipt;
+  localStorage.setItem("catalogLastOrderReceipt", JSON.stringify(receipt));
+  renderLastOrderReceiptAvailability();
+}
+
+function renderLastOrderReceiptAvailability() {
+  if (!els.openLastReceipt) return;
+  els.openLastReceipt.hidden = !state.lastOrderReceipt;
+}
+
+function openLastOrderReceipt() {
+  const receipt = state.lastOrderReceipt;
+  if (!receipt) return;
+  closeCart();
+  const status = receipt.deliveryStatus === "pending"
+    ? { label: "Pendiente de envío", detail: "El pedido está guardado en este dispositivo y se enviará cuando vuelva la conexión.", className: "is-pending" }
+    : receipt.deliveryStatus === "warning"
+      ? { label: "Pedido recibido", detail: receipt.notificationError || "El pedido quedó registrado, pero el email de aviso está pendiente.", className: "is-warning" }
+      : { label: "Pedido recibido", detail: "El pedido quedó registrado y la notificación por email fue solicitada.", className: "is-sent" };
+
+  els.orderReceiptContent.innerHTML = `
+    <div class="order-receipt-heading">
+      <span class="eyebrow">Comprobante de pedido</span>
+      <h2>${escapeHtml(String(receipt.id))}</h2>
+      <p>${escapeHtml(formatReceiptDate(receipt.createdAt))}</p>
+    </div>
+    <div class="order-receipt-status ${status.className}">
+      <strong>${escapeHtml(status.label)}</strong>
+      <span>${escapeHtml(status.detail)}</span>
+    </div>
+    <dl class="order-receipt-summary">
+      <div><dt>Cliente</dt><dd>${escapeHtml(receipt.customerName)}</dd></div>
+      ${receipt.clientCode ? `<div><dt>Código</dt><dd>${escapeHtml(receipt.clientCode)}</dd></div>` : ""}
+      <div><dt>Unidades</dt><dd>${receipt.totalItems}</dd></div>
+      <div><dt>Total</dt><dd>${formatMoney(receipt.totalValue)}</dd></div>
+    </dl>
+    <div class="order-receipt-lines">
+      ${receipt.items.map((item) => `
+        <div>
+          <span><strong>${escapeHtml(item.sku)}</strong>${escapeHtml(item.name)}</span>
+          <b>${item.qty} × ${formatMoney(item.lineTotal)}</b>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  els.orderReceiptDialog.showModal();
+}
+
+function formatReceiptDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("es-AR", { dateStyle: "long", timeStyle: "short" }).format(date);
+}
+
+function downloadLastOrderReceipt() {
+  const receipt = state.lastOrderReceipt;
+  const JsPdf = window.jspdf?.jsPDF;
+  if (!receipt || !JsPdf) {
+    showToast("No se pudo preparar el comprobante");
+    return;
+  }
+
+  const pdf = new JsPdf({ orientation: "portrait", unit: "mm", format: "a4" });
+  const margin = 18;
+  const maxWidth = 174;
+  let y = 20;
+  const write = (text, size = 11, weight = "normal", gap = 6) => {
+    pdf.setFont("helvetica", weight);
+    pdf.setFontSize(size);
+    const lines = pdf.splitTextToSize(String(text || ""), maxWidth);
+    if (y + lines.length * gap > 282) {
+      pdf.addPage();
+      y = 20;
+    }
+    pdf.text(lines, margin, y);
+    y += lines.length * gap;
+  };
+
+  pdf.setTextColor(215, 25, 32);
+  write("LEXO", 18, "bold", 8);
+  pdf.setTextColor(22, 22, 26);
+  write(`Comprobante ${receipt.id}`, 16, "bold", 8);
+  write(formatReceiptDate(receipt.createdAt), 10, "normal", 6);
+  y += 3;
+  write(`Cliente: ${receipt.customerName}`, 11, "bold");
+  if (receipt.clientCode) write(`Código: ${receipt.clientCode}`, 10);
+  write(`Unidades: ${receipt.totalItems}`, 10);
+  write(`Total: ${formatMoney(receipt.totalValue)}`, 13, "bold", 8);
+  y += 2;
+  receipt.items.forEach((item) => {
+    write(`${item.sku} - ${item.name}`, 10, "bold", 5);
+    write(`${item.qty} unidad${item.qty === 1 ? "" : "es"} - ${formatMoney(item.lineTotal)}`, 9, "normal", 6);
+  });
+  const safeId = String(receipt.id).replace(/[^a-z0-9_-]+/gi, "-");
+  downloadBlob(pdf.output("blob"), `comprobante-${safeId}.pdf`);
+  showToast("Comprobante descargado");
 }
 
 function currentPage() {
@@ -1749,6 +2003,8 @@ function goToAdjacentVisiblePage(delta) {
 function setCurrentPageIndex(index) {
   if (index < 0 || index >= state.catalog.pages.length || index === state.currentIndex) return;
   state.currentIndex = index;
+  hydrateViewerWindow();
+  prioritizeCatalogSectionCache(state.catalog.pages[index]?.section);
   renderCurrentPageDetails();
   renderLists();
 }
@@ -1774,7 +2030,7 @@ function updateCurrentPageFromScroll() {
 }
 
 function scrollPageIntoView(index, behavior = "smooth") {
-  const frame = els.pageStrip.querySelector(`[data-page-index="${index}"]`);
+  const frame = hydratePageFrame(index) || els.pageStrip.querySelector(`[data-page-index="${index}"]`);
   if (!frame) return;
   const scrollToFrame = (scrollBehavior = behavior) => frame.scrollIntoView({ behavior: scrollBehavior, block: "start", inline: "center" });
   scrollToFrame();
@@ -1834,6 +2090,8 @@ function openCart() {
   closeAccount();
   els.cartDrawer.classList.add("is-open");
   els.cartDrawer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-drawer-open");
+  document.body.classList.remove("account-drawer-open");
 }
 
 function setCartView(view, options = {}) {
@@ -1864,6 +2122,7 @@ function openQuickOrder() {
 function closeCart() {
   els.cartDrawer.classList.remove("is-open");
   els.cartDrawer.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("cart-drawer-open");
   setCartView("products");
 }
 
@@ -1871,17 +2130,20 @@ function openAccount() {
   closeCart();
   els.accountDrawer.classList.add("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "false");
+  document.body.classList.add("account-drawer-open");
+  document.body.classList.remove("cart-drawer-open");
   if (!state.user && !hasGuestAccess()) els.authEmail.focus();
 }
 
 function closeAccount() {
-  if (!state.user && !hasGuestAccess()) {
+  if (document.body.classList.contains("auth-required")) {
     openAccount();
     return;
   }
 
   els.accountDrawer.classList.remove("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("account-drawer-open");
 }
 
 function applyAuthGate() {
@@ -2156,6 +2418,13 @@ async function syncPendingOfflineOrders() {
     try {
       const savedOrder = await CATALOG_SUPABASE.saveOrder(queued.order, state.user.id);
       if (savedOrder.notification && !savedOrder.notification.ok) emailWarnings += 1;
+      if (state.lastOrderReceipt?.queueId === queued.id) {
+        rememberOrderReceipt(createOrderReceipt(savedOrder, {
+          fallbackOrder: queued.order,
+          notification: savedOrder.notification,
+          deliveryStatus: savedOrder.notification?.ok === false ? "warning" : "sent",
+        }));
+      }
       removePendingOfflineOrder(queued.id);
       sent += 1;
       await delay(800);
@@ -2244,41 +2513,96 @@ async function registerServiceWorker() {
   }
 }
 
-async function precacheCatalogAssets() {
+function scheduleCatalogAssetCache() {
   if (!isOnline() || !("caches" in window) || !state.catalog?.pages?.length) return;
-  const imageUrls = [...new Set(state.catalog.pages.map((page) => page.image?.src).filter(Boolean))];
-  if (!imageUrls.length) return;
+  const currentSection = currentPage()?.section;
+  const sections = [...new Set(state.catalog.pages.map((page) => page.section).filter(Boolean))];
+  if (currentSection) queueCatalogSectionCache(currentSection, true);
+  if (!navigator.connection?.saveData) sections.forEach((section) => queueCatalogSectionCache(section));
+  startCatalogAssetCache();
+}
 
+function prioritizeCatalogSectionCache(section) {
+  if (!section || state.catalogCachedSections.has(section) || navigator.connection?.saveData) return;
+  queueCatalogSectionCache(section, true);
+  startCatalogAssetCache();
+}
+
+function queueCatalogSectionCache(section, first = false) {
+  if (!section || state.catalogCachedSections.has(section)) return;
+  state.catalogCacheQueue = state.catalogCacheQueue.filter((item) => item !== section);
+  if (first) state.catalogCacheQueue.unshift(section);
+  else state.catalogCacheQueue.push(section);
+}
+
+function startCatalogAssetCache() {
+  if (state.catalogCachePromise || !state.catalogCacheQueue.length) return;
+  state.catalogCachePromise = runCatalogAssetCache().finally(() => {
+    state.catalogCachePromise = null;
+    if (state.catalogCacheQueue.length && isOnline()) startCatalogAssetCache();
+  });
+}
+
+async function runCatalogAssetCache() {
   try {
-    const cache = await caches.open("lexo-catalog-pages-v20260612");
-    const cachedRequests = await cache.keys();
-    const cachedUrls = new Set(cachedRequests.map((request) => new URL(request.url).pathname + new URL(request.url).search));
-    const pendingUrls = imageUrls.filter((url) => {
-      const absolute = new URL(url, location.href);
-      return !cachedUrls.has(absolute.pathname + absolute.search);
-    });
+    const nearbyIndexes = visiblePageIndexes();
+    const currentPosition = nearbyIndexes.indexOf(state.currentIndex);
+    const nearbyPages = nearbyIndexes
+      .slice(Math.max(0, currentPosition - 2), currentPosition + 3)
+      .map((index) => state.catalog.pages[index]);
+    await cacheCatalogPages(nearbyPages, { idle: false });
 
-    for (let index = 0; index < pendingUrls.length; index += 4) {
-      if (!isOnline()) break;
-      const chunk = pendingUrls.slice(index, index + 4);
-      await Promise.allSettled(chunk.map(async (url) => {
-        const response = await fetch(url, { cache: "reload" });
-        if (response.ok) await cache.put(url, response);
-      }));
-      await delay(150);
+    while (state.catalogCacheQueue.length && isOnline()) {
+      const section = state.catalogCacheQueue.shift();
+      if (!section || state.catalogCachedSections.has(section)) continue;
+      await waitForCatalogIdle();
+      const pages = state.catalog.pages.filter((page) => page.section === section);
+      const completed = await cacheCatalogPages(pages, { idle: true });
+      if (completed) state.catalogCachedSections.add(section);
     }
   } catch (error) {
-    console.warn("No se pudieron guardar todas las páginas para modo offline", error);
+    console.warn("No se pudieron guardar las páginas para modo offline", error);
   }
+}
+
+async function cacheCatalogPages(pages, options = {}) {
+  const imageUrls = [...new Set((pages || []).map((page) => page?.image?.src).filter(Boolean))];
+  if (!imageUrls.length || !isOnline()) return false;
+  const cache = await caches.open("lexo-catalog-pages-v20260805");
+  const cachedRequests = await cache.keys();
+  const cachedUrls = new Set(cachedRequests.map((request) => {
+    const url = new URL(request.url);
+    return url.pathname + url.search;
+  }));
+  const pendingUrls = imageUrls.filter((url) => {
+    const absolute = new URL(url, location.href);
+    return !cachedUrls.has(absolute.pathname + absolute.search);
+  });
+
+  for (let index = 0; index < pendingUrls.length; index += 2) {
+    if (!isOnline()) return false;
+    if (options.idle) await waitForCatalogIdle();
+    const chunk = pendingUrls.slice(index, index + 2);
+    await Promise.allSettled(chunk.map(async (url) => {
+      const response = await fetch(url, { cache: "reload" });
+      if (response.ok) await cache.put(url, response);
+    }));
+  }
+  return true;
+}
+
+function waitForCatalogIdle() {
+  if (!("requestIdleCallback" in window)) return delay(220);
+  return new Promise((resolve) => requestIdleCallback(resolve, { timeout: 1400 }));
 }
 
 function readAccountCustomer() {
   if (hasGuestAccess()) {
     const client = state.guestAccess.client;
     return {
-      name: client.legalName || client.name || "",
+      name: client?.legalName || client?.name || els.cartClientName.value.trim(),
       phone: "",
-      clientCode: client.clientCode || "",
+      clientCode: client?.clientCode || els.cartClientCode.value.trim(),
       notes: "",
     };
   }
@@ -2300,8 +2624,8 @@ function readOrderCustomer() {
     const client = state.guestAccess.client;
     return {
       ...accountCustomer,
-      salesClient: client,
-      salesmanCode: client.salesmanCode || "",
+      salesClient: client || null,
+      salesmanCode: client?.salesmanCode || state.guestAccess.salesmanCode || "",
       transport: orderTransportValue(),
       notes: observations,
     };
@@ -2645,7 +2969,7 @@ function guestLinkTokenFromUrl() {
 function readGuestAccessSnapshot() {
   try {
     const value = JSON.parse(localStorage.getItem("catalogGuestAccess") || "null");
-    if (!value?.sessionToken || !value?.expiresAt || !value?.client?.id) return null;
+    if (!value?.sessionToken || !value?.expiresAt) return null;
     if (new Date(value.expiresAt).getTime() <= Date.now()) {
       localStorage.removeItem("catalogGuestAccess");
       return null;
@@ -2690,7 +3014,8 @@ function activateGuestAccess(result) {
   state.guestAccess = {
     sessionToken: result.session_token,
     expiresAt: result.expires_at,
-    client: result.client,
+    client: result.client || null,
+    salesmanCode: result.salesman_code || result.client?.salesmanCode || "",
   };
   state.user = null;
   state.profile = null;
@@ -2726,7 +3051,7 @@ async function redeemGuestAccess() {
   try {
     const result = await CATALOG_SUPABASE.redeemCatalogGuestLink(state.guestLinkToken, password);
     activateGuestAccess(result);
-    showToast(`Catálogo habilitado para ${result.client.name}`);
+    showToast(result.client?.name ? `Catálogo habilitado para ${result.client.name}` : "Catálogo habilitado");
   } catch (error) {
     els.guestAccessMessage.textContent = friendlyGuestAccessError(error);
   } finally {
@@ -2757,6 +3082,8 @@ async function initAccount() {
   els.authEmail.value = localStorage.getItem("catalogLastEmail") || "";
   els.createEmail.value = els.authEmail.value;
   els.resetEmail.value = els.authEmail.value;
+  const initialAuthHash = readAuthHash();
+  state.isPasswordRecovery = isPasswordRecoveryRequest(initialAuthHash);
   state.isCheckingAuth = true;
   els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
   applyAuthGate();
@@ -2838,21 +3165,16 @@ async function initAccount() {
   } else {
     renderAccount();
     await renderCustomerOrders();
-    if (state.user) closeAccount();
+    if (state.user && !state.isPasswordRecovery) closeAccount();
   }
 
   const authHash = readAuthHash();
   if (authHash.error) {
+    state.isPasswordRecovery = false;
     openAccount();
     showForgotPassword();
     els.authMessage.textContent = friendlyRecoveryError(authHash);
-  } else if (
-    CATALOG_SUPABASE.isRecoveryMode() ||
-    location.hash === "#reset-password" ||
-    authHash.type === "recovery" ||
-    authHash.access_token ||
-    authHash.code
-  ) {
+  } else if (state.isPasswordRecovery || isPasswordRecoveryRequest(authHash)) {
     openAccount();
     showNewPassword();
   }
@@ -2936,9 +3258,12 @@ function showSignIn() {
   els.authPassword.value = "";
   els.createPassword.value = "";
   els.newPassword.value = "";
+  state.isPasswordRecovery = false;
   CATALOG_SUPABASE.clearRecoveryMode();
   history.replaceState(null, "", location.pathname);
   setAuthMode("signin");
+  renderAccount();
+  renderCustomerOrders();
   els.authEmail.focus();
 }
 
@@ -2951,9 +3276,13 @@ function showForgotPassword() {
 
 function showNewPassword() {
   clearAuthMessage();
+  state.isPasswordRecovery = true;
   setAuthMode("new-password");
   els.authFields.classList.remove("is-hidden");
   els.signOut.classList.add("is-hidden");
+  els.salesmanCatalogTools.hidden = true;
+  els.customerOrders.hidden = true;
+  els.customerOrderDetail.hidden = true;
   els.accountStatus.textContent = "Restablecé tu contraseña";
   els.authMessage.textContent = "Ingresá una nueva contraseña para terminar la recuperación.";
   els.newPassword.focus();
@@ -2978,11 +3307,17 @@ async function sendPasswordReset() {
 async function updatePassword() {
   try {
     clearAuthMessage();
+    if (els.newPassword.value.length < 8) {
+      els.authMessage.textContent = "La nueva contraseña debe tener al menos 8 caracteres.";
+      els.newPassword.focus();
+      return;
+    }
     state.user = await CATALOG_SUPABASE.updatePassword(els.newPassword.value);
     state.profile = state.user ? await CATALOG_SUPABASE.getProfile(state.user.id) : null;
     rememberAccountSnapshot();
     await loadSalesClients();
     els.newPassword.value = "";
+    state.isPasswordRecovery = false;
     CATALOG_SUPABASE.clearRecoveryMode();
     setAuthMode("signin");
     renderAccount();
@@ -3052,7 +3387,7 @@ function applyProfileToAuthFields() {
 function renderAccount() {
   const guest = hasGuestAccess();
   const signedIn = Boolean(state.user || guest);
-  const resettingPassword = els.authFields.dataset.mode === "new-password";
+  const resettingPassword = state.isPasswordRecovery || els.authFields.dataset.mode === "new-password";
   if (state.isCheckingAuth) {
     els.accountStatus.textContent = "Iniciando sesi\u00f3n autom\u00e1ticamente";
     els.authFields.classList.add("is-hidden");
@@ -3062,7 +3397,9 @@ function renderAccount() {
     return;
   }
   els.accountStatus.textContent = guest
-    ? `Acceso temporal para ${state.guestAccess.client.clientCode} - ${state.guestAccess.client.legalName || state.guestAccess.client.name}`
+    ? (state.guestAccess.client
+      ? `Acceso temporal para ${state.guestAccess.client.clientCode} - ${state.guestAccess.client.legalName || state.guestAccess.client.name}`
+      : "Acceso temporal al catálogo")
     : signedIn
       ? (isPriceAccessPending()
       ? `Sesión iniciada como ${state.user.email}. Precios pendientes de aprobación.`
@@ -3076,41 +3413,25 @@ function renderAccount() {
 }
 
 function renderSalesmanCatalogTools() {
-  const visible = Boolean(state.user && canSelectSalesClient());
+  const visible = Boolean(state.user && canSelectSalesClient() && !state.isPasswordRecovery);
   els.salesmanCatalogTools.hidden = !visible;
-  if (!visible) return;
+  if (!visible) {
+    state.guestLinksLoaded = false;
+    state.guestLinks = [];
+    if (els.guestLinksList) els.guestLinksList.innerHTML = "";
+    return;
+  }
 
-  els.guestLinkClientOptions.innerHTML = state.salesClients
-    .map((client) => `<option value="${escapeHtml(guestClientOptionLabel(client))}"></option>`)
-    .join("");
-  els.createGuestLink.disabled = state.isCreatingGuestLink || state.isLoadingSalesClients || !state.salesClients.length;
+  els.createGuestLink.disabled = state.isCreatingGuestLink;
   els.createGuestLink.textContent = state.isCreatingGuestLink ? "Creando..." : "Crear enlace de 7 días";
-}
-
-function guestClientOptionLabel(client) {
-  return `${client.clientCode} - ${client.legalName || client.name}`;
-}
-
-function selectedGuestLinkClient() {
-  const raw = els.guestLinkClientInput.value.trim();
-  const normalized = normalizeProductSearch(raw);
-  const code = normalizeClientCode(raw.split(" - ")[0]);
-  return state.salesClients.find((client) => guestClientOptionLabel(client) === raw)
-    || state.salesClients.find((client) => normalizeClientCode(client.clientCode) === code)
-    || state.salesClients.find((client) => [client.name, client.legalName].some((name) => normalizeProductSearch(name) === normalized))
-    || null;
+  els.refreshGuestLinks.disabled = state.isLoadingGuestLinks;
+  if (!state.guestLinksLoaded && !state.isLoadingGuestLinks && isOnline()) loadGuestLinks();
 }
 
 async function createGuestLink() {
   if (state.isCreatingGuestLink) return;
-  const client = selectedGuestLinkClient();
   els.guestLinkMessage.textContent = "";
   els.guestLinkResult.hidden = true;
-  if (!client) {
-    els.guestLinkMessage.textContent = "Elegí un cliente válido de la lista.";
-    els.guestLinkClientInput.focus();
-    return;
-  }
   if (!isOnline()) {
     els.guestLinkMessage.textContent = "Conectate a internet para crear el enlace.";
     return;
@@ -3120,17 +3441,104 @@ async function createGuestLink() {
   renderSalesmanCatalogTools();
   try {
     const baseUrl = `${location.origin}${location.pathname}`;
-    const result = await CATALOG_SUPABASE.createCatalogGuestLink(client.id, baseUrl);
+    const result = await CATALOG_SUPABASE.createCatalogGuestLink(baseUrl);
     els.guestLinkUrl.value = result.access_url;
     els.guestLinkPassword.value = result.one_time_password;
     els.guestLinkExpiry.textContent = `Vence el ${new Date(result.expires_at).toLocaleString("es-AR")}. La clave funciona una sola vez.`;
     els.guestLinkResult.hidden = false;
-    els.guestLinkMessage.textContent = `Enlace creado para ${guestClientOptionLabel(client)}.`;
+    els.guestLinkMessage.textContent = "Enlace creado.";
+    state.guestLinksLoaded = false;
+    await loadGuestLinks();
   } catch (error) {
     els.guestLinkMessage.textContent = error.message || "No se pudo crear el enlace.";
   } finally {
     state.isCreatingGuestLink = false;
     renderSalesmanCatalogTools();
+  }
+}
+
+async function loadGuestLinks() {
+  if (state.isLoadingGuestLinks || !state.user || !canSelectSalesClient()) return;
+  if (!isOnline()) {
+    els.guestLinksStatus.textContent = "Conectate a internet para consultar los enlaces.";
+    return;
+  }
+  state.isLoadingGuestLinks = true;
+  els.refreshGuestLinks.disabled = true;
+  els.guestLinksStatus.textContent = "Cargando enlaces...";
+  try {
+    const baseUrl = `${location.origin}${location.pathname}`;
+    const result = await CATALOG_SUPABASE.listCatalogGuestLinks(baseUrl);
+    state.guestLinks = Array.isArray(result.links) ? result.links : [];
+    state.guestLinksLoaded = true;
+    renderGuestLinks();
+  } catch (error) {
+    els.guestLinksStatus.textContent = error.message || "No se pudieron cargar los enlaces.";
+  } finally {
+    state.isLoadingGuestLinks = false;
+    els.refreshGuestLinks.disabled = false;
+  }
+}
+
+function renderGuestLinks() {
+  const links = state.guestLinks;
+  const activeCount = links.filter((link) => guestLinkStatus(link).key === "active").length;
+  els.guestLinksStatus.textContent = links.length
+    ? `${links.length} enlace${links.length === 1 ? "" : "s"}; ${activeCount} activo${activeCount === 1 ? "" : "s"}.`
+    : "Todavía no creaste enlaces temporales.";
+  els.guestLinksList.innerHTML = links.map((link) => {
+    const status = guestLinkStatus(link);
+    return `
+      <article class="guest-link-row">
+        <div class="guest-link-main">
+          <div class="guest-link-heading">
+            <strong>Creado ${escapeHtml(formatGuestLinkDate(link.created_at))}</strong>
+            <span class="guest-link-status is-${status.key}">${escapeHtml(status.label)}</span>
+          </div>
+          <p>Vence ${escapeHtml(formatGuestLinkDate(link.expires_at))}${link.salesman_code ? ` · Vendedor ${escapeHtml(link.salesman_code)}` : ""}</p>
+        </div>
+        <div class="guest-link-actions">
+          ${link.access_url ? `<button class="secondary-button compact-button" type="button" data-copy-managed-link="${escapeAttribute(link.id)}">Copiar</button>` : ""}
+          ${status.key === "active" ? `<button class="secondary-button compact-button danger-button" type="button" data-revoke-guest-link="${escapeAttribute(link.id)}">Revocar</button>` : ""}
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function guestLinkStatus(link) {
+  if (link.revoked_at) return { key: "revoked", label: "Revocado" };
+  if (link.redeemed_at) return { key: "used", label: "Usado" };
+  if (Date.parse(link.expires_at || "") <= Date.now()) return { key: "expired", label: "Vencido" };
+  return { key: "active", label: "Activo" };
+}
+
+function formatGuestLinkDate(value) {
+  if (!value) return "sin fecha";
+  return new Intl.DateTimeFormat("es-AR", { dateStyle: "short", timeStyle: "short" }).format(new Date(value));
+}
+
+async function handleGuestLinkAction(event) {
+  const copyButton = event.target.closest("[data-copy-managed-link]");
+  if (copyButton) {
+    const link = state.guestLinks.find((item) => item.id === copyButton.dataset.copyManagedLink);
+    if (link?.access_url) await copyGuestValue(link.access_url, "Enlace copiado");
+    return;
+  }
+  const revokeButton = event.target.closest("[data-revoke-guest-link]");
+  if (!revokeButton) return;
+  if (!confirm("¿Revocar este enlace? Ya no podrá usarse para entrar al catálogo.")) return;
+  try {
+    revokeButton.disabled = true;
+    revokeButton.textContent = "Revocando...";
+    await CATALOG_SUPABASE.revokeCatalogGuestLink(revokeButton.dataset.revokeGuestLink);
+    state.guestLinksLoaded = false;
+    await loadGuestLinks();
+    showToast("Enlace revocado");
+  } catch (error) {
+    revokeButton.disabled = false;
+    revokeButton.textContent = "Revocar";
+    showToast(error.message || "No se pudo revocar el enlace");
   }
 }
 
@@ -3385,6 +3793,16 @@ function readAuthHash() {
   };
 }
 
+function isPasswordRecoveryRequest(authHash = readAuthHash()) {
+  return Boolean(
+    CATALOG_SUPABASE.isRecoveryMode() ||
+    location.hash === "#reset-password" ||
+    authHash.type === "recovery" ||
+    authHash.access_token ||
+    authHash.code
+  );
+}
+
 function friendlyRecoveryError(authHash) {
   if (authHash.error_code === "otp_expired") {
     return "Ese enlace de recuperación no es válido o expiró. Enviá un nuevo email de recuperación y usá solo el enlace más reciente.";
@@ -3393,6 +3811,12 @@ function friendlyRecoveryError(authHash) {
 }
 
 async function renderCustomerOrders() {
+  if (state.isPasswordRecovery) {
+    els.customerOrders.hidden = true;
+    els.customerOrderDetail.hidden = true;
+    return;
+  }
+  els.customerOrders.hidden = false;
   if (!state.user || !CATALOG_SUPABASE.isAvailable()) {
     els.customerOrders.innerHTML = "";
     collapseCustomerOrderDetail();
@@ -3532,7 +3956,7 @@ function restoreOrderContext(order) {
 function collapseCustomerOrderDetail() {
   els.customerOrderDetail.hidden = true;
   els.customerOrderDetail.innerHTML = "";
-  els.customerOrders.hidden = false;
+  els.customerOrders.hidden = state.isPasswordRecovery;
 }
 
 function isVisibleProduct(product) {

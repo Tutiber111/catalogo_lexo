@@ -1,12 +1,12 @@
 window.CATALOG_DATA = {
   "source": "C:\\Users\\Lenovo\\Downloads\\Catálogo Lexo.pdf",
   "pricedReference": "C:\\Users\\Lenovo\\Dropbox\\ACCESO A CLIENTES\\Catálogos de productos\\Catálogo Completo.pdf",
-  "totalPagesInPdf": 392,
+  "totalPagesInPdf": 391,
   "priceList": {
     "source": "C:\\Users\\Lenovo\\Downloads\\Lista Lexo - Julio 2026.xlsx",
     "productCount": 867
   },
-  "samplePageCount": 392,
+  "samplePageCount": 391,
   "pages": [
     {
       "number": 1,
@@ -3354,7 +3354,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-019.jpg?v=20260730-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-019.jpg?v=20260806-page-replacements",
         "width": 1013,
         "height": 1432
       },
@@ -3723,7 +3723,7 @@ window.CATALOG_DATA = {
       "section": "Estia",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/estia-20260707-page-026.jpg?v=20260730-estia-refresh",
+        "src": "assets/pages/estia-20260707-page-026.jpg?v=20260806-page-replacements",
         "width": 1013,
         "height": 1432
       },
@@ -3741,7 +3741,7 @@ window.CATALOG_DATA = {
           ],
           "position": {
             "x": 0.4999865,
-            "y": 0.3332308
+            "y": 0.3660142
           },
           "cover": {
             "w": 0.1535963,
@@ -10596,12 +10596,13 @@ window.CATALOG_DATA = {
       "section": "Leifheit",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-117.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/page-117.jpg?v=20260812-leifheit-55386",
         "width": 1013,
         "height": 1432
       },
       "products": [
-        "p115-1"
+        "p115-1",
+        "p115-2"
       ],
       "priceGroups": [
         {
@@ -10634,6 +10635,38 @@ window.CATALOG_DATA = {
             "background": "#ffffff"
           },
           "pdfPriceHeight": 27.091,
+          "pdfPriceColor": "#000000"
+        },
+        {
+          "id": "pg115-2",
+          "page": 135,
+          "label": "Repuesto para Superduster Floor",
+          "price": "$21.950",
+          "productIds": [
+            "p115-2"
+          ],
+          "position": {
+            "x": 0.82332,
+            "y": 0.61758
+          },
+          "cover": {
+            "w": 0.075,
+            "h": 0.0197
+          },
+          "positionSource": "leifheit-printed-price",
+          "variant": "pdf-small",
+          "style": {
+            "fontSize": 11,
+            "minWidth": 36,
+            "minHeight": 14,
+            "padX": 1,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#000000",
+            "background": "#ffffff"
+          },
+          "pdfPriceHeight": 12.575,
           "pdfPriceColor": "#000000"
         }
       ]
@@ -13836,55 +13869,6 @@ window.CATALOG_DATA = {
     },
     {
       "number": 175,
-      "sourcePage": 51,
-      "title": "Tender",
-      "section": "Leifheit",
-      "showPriceOverlays": true,
-      "image": {
-        "src": "assets/pages/page-157.jpg?v=20260512-leifheit-pdf-order",
-        "width": 1013,
-        "height": 1432
-      },
-      "products": [
-        "p155-1"
-      ],
-      "priceGroups": [
-        {
-          "id": "pg155-1",
-          "page": 175,
-          "label": "Tender ROLLFIX 210 (21mts de secado y hasta 4,20m de largo)",
-          "price": "$24.145",
-          "productIds": [
-            "p155-1"
-          ],
-          "position": {
-            "x": 0.499985855833,
-            "y": 0.219095720952
-          },
-          "cover": {
-            "w": 0.137649087722,
-            "h": 0.034539883694
-          },
-          "positionSource": "leifheit-printed-price",
-          "variant": "pdf-large",
-          "style": {
-            "fontSize": 17,
-            "minWidth": 50,
-            "minHeight": 20,
-            "padX": 1,
-            "padY": 0,
-            "radius": 1,
-            "shadow": "none",
-            "color": "#000000",
-            "background": "#ffffff"
-          },
-          "pdfPriceHeight": 27.091,
-          "pdfPriceColor": "#000000"
-        }
-      ]
-    },
-    {
-      "number": 176,
       "sourcePage": 52,
       "title": "Tender",
       "section": "Leifheit",
@@ -13903,7 +13887,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg156-1",
-          "page": 176,
+          "page": 175,
           "label": "Set de Tres Redes para lavado de ropa",
           "price": "$15.140",
           "productIds": [
@@ -13935,7 +13919,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg156-2",
-          "page": 176,
+          "page": 175,
           "label": "Bolsa para guardar broches",
           "price": "$19.566",
           "productIds": [
@@ -13967,7 +13951,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg156-3",
-          "page": 176,
+          "page": 175,
           "label": "Pack de ruedas para Tender Pegasus",
           "price": "$12.524",
           "productIds": [
@@ -13999,7 +13983,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg156-4",
-          "page": 176,
+          "page": 175,
           "label": "Cuerda para colgar ropa 30m",
           "price": "$7.576",
           "productIds": [
@@ -14032,7 +14016,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 177,
+      "number": 176,
       "sourcePage": 53,
       "title": "Catalog",
       "section": "Leifheit",
@@ -14046,7 +14030,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 178,
+      "number": 177,
       "sourcePage": 54,
       "title": "Tablas",
       "section": "Leifheit",
@@ -14066,7 +14050,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg158-1",
-          "page": 178,
+          "page": 177,
           "label": "Tabla de planchar de mesa 73x30 Air Board",
           "price": "$40.226",
           "productIds": [
@@ -14098,7 +14082,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg158-2",
-          "page": 178,
+          "page": 177,
           "label": "Tabla de planchar AirBoard Compact 110x30",
           "price": "$100.164",
           "productIds": [
@@ -14130,7 +14114,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg158-3",
-          "page": 178,
+          "page": 177,
           "label": "Funda universal Thermo Reflect para Air Board M",
           "price": "$27.831",
           "productIds": [
@@ -14162,7 +14146,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg158-4",
-          "page": 178,
+          "page": 177,
           "label": "Tabla de planchar AirBoard Compact 120x38",
           "price": "$105.704",
           "productIds": [
@@ -14194,7 +14178,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg158-5",
-          "page": 178,
+          "page": 177,
           "label": "Funda universal Thermo Reflect para Air Board XL",
           "price": "$31.928",
           "productIds": [
@@ -14227,7 +14211,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 179,
+      "number": 178,
       "sourcePage": 55,
       "title": "Tablas",
       "section": "Leifheit",
@@ -14246,14 +14230,14 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg159-1",
-          "page": 179,
-          "label": "Funda tabla planchar S/M con perforaciones especiales para mejor distribución de vapor",
-          "price": "$29.807",
+          "page": 178,
+          "label": "Tabla de planchar Air Board Express M Solid (120x38)",
+          "price": "$156.266",
           "productIds": [
             "p159-1"
           ],
           "position": {
-            "x": 0.83670541041,
+            "x": 0.295509818819,
             "y": 0.197428077433
           },
           "cover": {
@@ -14278,7 +14262,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg159-2",
-          "page": 179,
+          "page": 178,
           "label": "Tabla planchar Air Board Large solid (130x38)",
           "price": "$163.124",
           "productIds": [
@@ -14310,7 +14294,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg159-3",
-          "page": 179,
+          "page": 178,
           "label": "Funda tabla planchar S/M con perforaciones especiales para mejor distribución de vapor",
           "price": "$29.807",
           "productIds": [
@@ -14342,7 +14326,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg159-4",
-          "page": 179,
+          "page": 178,
           "label": "Funda tabla planchar L/Universal con perforaciones especiales para mejor distribución de vapor",
           "price": "$33.596",
           "productIds": [
@@ -14375,7 +14359,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 180,
+      "number": 179,
       "sourcePage": 56,
       "title": "Tablas",
       "section": "Leifheit",
@@ -14393,7 +14377,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg160-1",
-          "page": 180,
+          "page": 179,
           "label": "Tabla de planchar Classic M Black (120x38)",
           "price": "$102.395",
           "productIds": [
@@ -14425,7 +14409,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg160-2",
-          "page": 180,
+          "page": 179,
           "label": "Tabla de planchar 110x30",
           "price": "$69.086",
           "productIds": [
@@ -14457,7 +14441,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg160-3",
-          "page": 180,
+          "page": 179,
           "label": "Tabla de planchar 120x38",
           "price": "$79.362",
           "productIds": [
@@ -14490,7 +14474,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 181,
+      "number": 180,
       "sourcePage": 57,
       "title": "Fundas",
       "section": "Leifheit",
@@ -14510,7 +14494,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg161-1",
-          "page": 181,
+          "page": 180,
           "label": "Funda para tabla de planchar small",
           "price": "$11.414",
           "productIds": [
@@ -14542,7 +14526,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg161-2",
-          "page": 181,
+          "page": 180,
           "label": "Funda tabla de planchar medium",
           "price": "$12.901",
           "productIds": [
@@ -14574,7 +14558,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg161-3",
-          "page": 181,
+          "page": 180,
           "label": "Funda p/ tablas de planchar Cotton Classic L/Universal",
           "price": "$19.172",
           "productIds": [
@@ -14606,7 +14590,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg161-4",
-          "page": 181,
+          "page": 180,
           "label": "Funda tabla planchar metalizada, hasta 125x40cm",
           "price": "$19.724",
           "productIds": [
@@ -14638,7 +14622,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg161-5",
-          "page": 181,
+          "page": 180,
           "label": "Funda tabla planchar metalizada, hasta 140x45cm",
           "price": "$20.851",
           "productIds": [
@@ -14671,7 +14655,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 182,
+      "number": 181,
       "sourcePage": 58,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -14688,7 +14672,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg162-1",
-          "page": 182,
+          "page": 181,
           "label": "Manta para planchar 60x40cm",
           "price": "$3.784",
           "productIds": [
@@ -14720,7 +14704,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg162-2",
-          "page": 182,
+          "page": 181,
           "label": "Manopla para planchar",
           "price": "$3.705",
           "productIds": [
@@ -14753,7 +14737,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 183,
+      "number": 182,
       "sourcePage": 59,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -14771,7 +14755,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg163-1",
-          "page": 183,
+          "page": 182,
           "label": "Manguero tabla de planchar",
           "price": "$33.368",
           "productIds": [
@@ -14803,7 +14787,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg163-2",
-          "page": 183,
+          "page": 182,
           "label": "Quitapelusas",
           "price": "$10.899",
           "productIds": [
@@ -14835,7 +14819,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg163-3",
-          "page": 183,
+          "page": 182,
           "label": "Corbatero",
           "price": "$20.866",
           "productIds": [
@@ -14868,7 +14852,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 184,
+      "number": 183,
       "sourcePage": 60,
       "title": "Pulverizador",
       "section": "Leifheit",
@@ -14884,7 +14868,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg164-1",
-          "page": 184,
+          "page": 183,
           "label": "Rociador 600ml",
           "price": "$4.502",
           "productIds": [
@@ -14917,7 +14901,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 185,
+      "number": 184,
       "sourcePage": 61,
       "title": "Catalog",
       "section": "Leifheit",
@@ -14931,7 +14915,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 186,
+      "number": 185,
       "sourcePage": 62,
       "title": "Portarollos",
       "section": "Leifheit",
@@ -14950,7 +14934,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg166-1",
-          "page": 186,
+          "page": 185,
           "label": "Portarrollos Parat Plus",
           "price": "$37.313",
           "productIds": [
@@ -14982,7 +14966,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg166-2",
-          "page": 186,
+          "page": 185,
           "label": "Portarrollos de acero Parat Royal",
           "price": "$77.801",
           "productIds": [
@@ -15014,7 +14998,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg166-3",
-          "page": 186,
+          "page": 185,
           "label": "Portarrollos Rolly Mobil",
           "price": "$32.996",
           "productIds": [
@@ -15046,7 +15030,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg166-4",
-          "page": 186,
+          "page": 185,
           "label": "Portarrollos Parat",
           "price": "$32.409",
           "productIds": [
@@ -15079,7 +15063,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 187,
+      "number": 186,
       "sourcePage": 63,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -15097,7 +15081,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg167-1",
-          "page": 187,
+          "page": 186,
           "label": "Timer analógico blanco",
           "price": "$5.503",
           "productIds": [
@@ -15129,7 +15113,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg167-2",
-          "page": 187,
+          "page": 186,
           "label": "Flambeador",
           "price": "$29.895",
           "productIds": [
@@ -15161,7 +15145,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg167-3",
-          "page": 187,
+          "page": 186,
           "label": "Pica ajos",
           "price": "$18.006",
           "productIds": [
@@ -15194,7 +15178,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 188,
+      "number": 187,
       "sourcePage": 64,
       "title": "Cortahuevos",
       "section": "Leifheit",
@@ -15211,7 +15195,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg168-1",
-          "page": 188,
+          "page": 187,
           "label": "Corta huevos doble",
           "price": "$11.450",
           "productIds": [
@@ -15243,7 +15227,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg168-2",
-          "page": 188,
+          "page": 187,
           "label": "Cortahuevos de acero inoxidable 3 en 1: corta en redondo, ovalado o en porciones",
           "price": "$21.030",
           "productIds": [
@@ -15276,7 +15260,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 189,
+      "number": 188,
       "sourcePage": 65,
       "title": "Mandolinas",
       "section": "Leifheit",
@@ -15292,7 +15276,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg169-1",
-          "page": 189,
+          "page": 188,
           "label": "Mandolina 5 en 1",
           "price": "$25.239",
           "productIds": [
@@ -15325,7 +15309,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 190,
+      "number": 189,
       "sourcePage": 66,
       "title": "Centrifugador",
       "section": "Leifheit",
@@ -15341,7 +15325,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg170-1",
-          "page": 190,
+          "page": 189,
           "label": "Centrifugador de verduras",
           "price": "$30.023",
           "productIds": [
@@ -15374,7 +15358,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 191,
+      "number": 190,
       "sourcePage": 67,
       "title": "Cortadores",
       "section": "Leifheit",
@@ -15392,7 +15376,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg171-1",
-          "page": 191,
+          "page": 190,
           "label": "Rallador Comfort amarillo",
           "price": "$19.600",
           "productIds": [
@@ -15424,7 +15408,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg171-2",
-          "page": 191,
+          "page": 190,
           "label": "Corta papas fritas",
           "price": "$31.114",
           "productIds": [
@@ -15456,7 +15440,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg171-3",
-          "page": 191,
+          "page": 190,
           "label": "Picador rotativo",
           "price": "$24.124",
           "productIds": [
@@ -15489,7 +15473,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 192,
+      "number": 191,
       "sourcePage": 68,
       "title": "Spiralizers",
       "section": "Leifheit",
@@ -15506,7 +15490,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg172-1",
-          "page": 192,
+          "page": 191,
           "label": "Spiralizer",
           "price": "$24.446",
           "productIds": [
@@ -15538,7 +15522,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg172-2",
-          "page": 192,
+          "page": 191,
           "label": "Spiralizer de mesa 3 en 1",
           "price": "$50.669",
           "productIds": [
@@ -15571,7 +15555,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 193,
+      "number": 192,
       "sourcePage": 69,
       "title": "Zesters",
       "section": "Leifheit",
@@ -15588,7 +15572,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg173-1",
-          "page": 193,
+          "page": 192,
           "label": "Rallador largo MicroCut filo grueso",
           "price": "$20.347",
           "productIds": [
@@ -15620,7 +15604,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg173-2",
-          "page": 193,
+          "page": 192,
           "label": "Rallador largo MicroCut filo fino",
           "price": "$20.347",
           "productIds": [
@@ -15653,7 +15637,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 194,
+      "number": 193,
       "sourcePage": 70,
       "title": "Rallador",
       "section": "Leifheit",
@@ -15669,7 +15653,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg174-1",
-          "page": 194,
+          "page": 193,
           "label": "Rallador de queso a manija",
           "price": "$18.525",
           "productIds": [
@@ -15702,7 +15686,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 195,
+      "number": 194,
       "sourcePage": 71,
       "title": "Ralladores",
       "section": "Leifheit",
@@ -15720,7 +15704,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg175-1",
-          "page": 195,
+          "page": 194,
           "label": "Rallador de nuez moscada, chocolate, parmesano o jengibre.",
           "price": "$10.347",
           "productIds": [
@@ -15752,7 +15736,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg175-2",
-          "page": 195,
+          "page": 194,
           "label": "Rallador de queso con contenedor",
           "price": "$13.417",
           "productIds": [
@@ -15784,7 +15768,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg175-3",
-          "page": 195,
+          "page": 194,
           "label": "Rallador 4 caras acero inoxidable",
           "price": "$20.503",
           "productIds": [
@@ -15817,7 +15801,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 196,
+      "number": 195,
       "sourcePage": 72,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -15835,7 +15819,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg176-1",
-          "page": 196,
+          "page": 195,
           "label": "Abrejarras",
           "price": "$16.750",
           "productIds": [
@@ -15867,7 +15851,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg176-2",
-          "page": 196,
+          "page": 195,
           "label": "Pelapapas Y",
           "price": "$7.326",
           "productIds": [
@@ -15899,7 +15883,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg176-3",
-          "page": 196,
+          "page": 195,
           "label": "Exprimidor de jugos",
           "price": "$15.575",
           "productIds": [
@@ -15932,7 +15916,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 197,
+      "number": 196,
       "sourcePage": 73,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -15950,7 +15934,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg177-1",
-          "page": 197,
+          "page": 196,
           "label": "Jarra medidora 1 litro",
           "price": "$13.573",
           "productIds": [
@@ -15982,7 +15966,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg177-2",
-          "page": 197,
+          "page": 196,
           "label": "Abrelatas",
           "price": "$15.023",
           "productIds": [
@@ -16014,7 +15998,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg177-3",
-          "page": 197,
+          "page": 196,
           "label": "Picador de hierbas",
           "price": "$17.537",
           "productIds": [
@@ -16047,7 +16031,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 198,
+      "number": 197,
       "sourcePage": 74,
       "title": "Jarra",
       "section": "Leifheit",
@@ -16063,7 +16047,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg178-1",
-          "page": 198,
+          "page": 197,
           "label": "Jarra medidora 3 en 1, capacidad 2,2 litros",
           "price": "$14.880",
           "productIds": [
@@ -16096,7 +16080,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 199,
+      "number": 198,
       "sourcePage": 75,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -16118,7 +16102,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg179-1",
-          "page": 199,
+          "page": 198,
           "label": "Espátula acero inoxidable",
           "price": "$14.188",
           "productIds": [
@@ -16150,7 +16134,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-2",
-          "page": 199,
+          "page": 198,
           "label": "Cuchara acero inoxidable",
           "price": "$13.950",
           "productIds": [
@@ -16182,7 +16166,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-3",
-          "page": 199,
+          "page": 198,
           "label": "Cucharón acero inoxidable",
           "price": "$17.965",
           "productIds": [
@@ -16214,7 +16198,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-4",
-          "page": 199,
+          "page": 198,
           "label": "Espumadera acero inoxidable",
           "price": "$15.509",
           "productIds": [
@@ -16246,7 +16230,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-5",
-          "page": 199,
+          "page": 198,
           "label": "Cuchara Spaghetti acero inoxidable",
           "price": "$17.009",
           "productIds": [
@@ -16278,7 +16262,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-6",
-          "page": 199,
+          "page": 198,
           "label": "Tenedor acero inoxidable",
           "price": "$17.390",
           "productIds": [
@@ -16310,7 +16294,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg179-7",
-          "page": 199,
+          "page": 198,
           "label": "Pisapapas acero inoxidable",
           "price": "$14.971",
           "productIds": [
@@ -16343,7 +16327,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 200,
+      "number": 199,
       "sourcePage": 76,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -16361,7 +16345,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg180-1",
-          "page": 200,
+          "page": 199,
           "label": "Prensa ajos acero inoxidable",
           "price": "$20.831",
           "productIds": [
@@ -16393,7 +16377,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg180-2",
-          "page": 200,
+          "page": 199,
           "label": "Abrelatas acero inoxidable",
           "price": "$23.889",
           "productIds": [
@@ -16425,7 +16409,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg180-3",
-          "page": 200,
+          "page": 199,
           "label": "Corta pizzas nylon para teflón",
           "price": "$11.510",
           "productIds": [
@@ -16458,7 +16442,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 201,
+      "number": 200,
       "sourcePage": 77,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -16478,7 +16462,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg181-1",
-          "page": 201,
+          "page": 200,
           "label": "Pelapapas en Y acero inoxidable",
           "price": "$10.664",
           "productIds": [
@@ -16510,7 +16494,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg181-2",
-          "page": 201,
+          "page": 200,
           "label": "Pelapapas acero inoxidable",
           "price": "$8.122",
           "productIds": [
@@ -16542,7 +16526,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg181-3",
-          "page": 201,
+          "page": 200,
           "label": "Batidor de 31cm. acero inoxidable",
           "price": "$9.539",
           "productIds": [
@@ -16574,7 +16558,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg181-4",
-          "page": 201,
+          "page": 200,
           "label": "Batidor de 21cm. acero inoxidable",
           "price": "$8.218",
           "productIds": [
@@ -16606,18 +16590,18 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg181-5",
-          "page": 201,
-          "label": "Batidor de 31cm. acero inoxidable",
-          "price": "$9.539",
+          "page": 200,
+          "label": "Cuchara helados acero inoxidable",
+          "price": "$12.154",
           "productIds": [
             "p181-5"
           ],
           "position": {
-            "x": 0.7820091728,
+            "x": 0.24826184328,
             "y": 0.619455565682
           },
           "cover": {
-            "w": 0.097566670274,
+            "w": 0.109509113353,
             "h": 0.028248570375
           },
           "positionSource": "leifheit-printed-price",
@@ -16639,7 +16623,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 202,
+      "number": 201,
       "sourcePage": 78,
       "title": "Batidor",
       "section": "Leifheit",
@@ -16656,7 +16640,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg182-1",
-          "page": 202,
+          "page": 201,
           "label": "Batidor speed de acero small",
           "price": "$13.411",
           "productIds": [
@@ -16688,7 +16672,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg182-2",
-          "page": 202,
+          "page": 201,
           "label": "Batidor speed de acero medium",
           "price": "$16.646",
           "productIds": [
@@ -16721,7 +16705,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 203,
+      "number": 202,
       "sourcePage": 79,
       "title": "Colador",
       "section": "Leifheit",
@@ -16739,7 +16723,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg183-1",
-          "page": 203,
+          "page": 202,
           "label": "Colador 8cm",
           "price": "$8.585",
           "productIds": [
@@ -16771,7 +16755,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg183-2",
-          "page": 203,
+          "page": 202,
           "label": "Colador 16cm",
           "price": "$19.124",
           "productIds": [
@@ -16803,7 +16787,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg183-3",
-          "page": 203,
+          "page": 202,
           "label": "Colador 20cm",
           "price": "$27.337",
           "productIds": [
@@ -16836,7 +16820,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 204,
+      "number": 203,
       "sourcePage": 80,
       "title": "Colgador",
       "section": "Leifheit",
@@ -16852,7 +16836,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg184-1",
-          "page": 204,
+          "page": 203,
           "label": "Barral de cocina",
           "price": "$18.932",
           "productIds": [
@@ -16885,7 +16869,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 205,
+      "number": 204,
       "sourcePage": 81,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -16903,7 +16887,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg185-1",
-          "page": 205,
+          "page": 204,
           "label": "Tenedor para trinchar de acero",
           "price": "$9.331",
           "productIds": [
@@ -16935,7 +16919,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg185-2",
-          "page": 205,
+          "page": 204,
           "label": "Cuchara para servir fideos de acero",
           "price": "$9.331",
           "productIds": [
@@ -16967,7 +16951,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg185-3",
-          "page": 205,
+          "page": 204,
           "label": "Batidor 32cm de acero",
           "price": "$7.456",
           "productIds": [
@@ -17000,7 +16984,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 206,
+      "number": 205,
       "sourcePage": 82,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -17019,7 +17003,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg186-1",
-          "page": 206,
+          "page": 205,
           "label": "Rallador de nuez moscada de acero",
           "price": "$6.096",
           "productIds": [
@@ -17051,7 +17035,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg186-2",
-          "page": 206,
+          "page": 205,
           "label": "Corta pizzas de acero",
           "price": "$7.456",
           "productIds": [
@@ -17083,7 +17067,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg186-3",
-          "page": 206,
+          "page": 205,
           "label": "Cuchara de helados de acero",
           "price": "$6.568",
           "productIds": [
@@ -17115,7 +17099,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg186-4",
-          "page": 206,
+          "page": 205,
           "label": "Tijera de cocina",
           "price": "$11.139",
           "productIds": [
@@ -17148,7 +17132,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 207,
+      "number": 206,
       "sourcePage": 83,
       "title": "Cortador",
       "section": "Leifheit",
@@ -17164,7 +17148,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg187-1",
-          "page": 207,
+          "page": 206,
           "label": "Corta quesos Special",
           "price": "$9.472",
           "productIds": [
@@ -17197,7 +17181,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 208,
+      "number": 207,
       "sourcePage": 84,
       "title": "Colador",
       "section": "Leifheit",
@@ -17214,7 +17198,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg188-1",
-          "page": 208,
+          "page": 207,
           "label": "Colador acero 7,5cm",
           "price": "$7.971",
           "productIds": [
@@ -17246,9 +17230,9 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg188-2",
-          "page": 208,
-          "label": "Colador acero 7,5cm",
-          "price": "$7.971",
+          "page": 207,
+          "label": "Colador acero 11cm",
+          "price": "$9.034",
           "productIds": [
             "p188-2"
           ],
@@ -17279,7 +17263,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 209,
+      "number": 208,
       "sourcePage": 85,
       "title": "Utensilios",
       "section": "Leifheit",
@@ -17300,7 +17284,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg189-1",
-          "page": 209,
+          "page": 208,
           "label": "Espumadera para teflón",
           "price": "$7.086",
           "productIds": [
@@ -17332,7 +17316,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg189-2",
-          "page": 209,
+          "page": 208,
           "label": "Cuchara para servir fideos para teflón",
           "price": "$7.086",
           "productIds": [
@@ -17364,7 +17348,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg189-3",
-          "page": 209,
+          "page": 208,
           "label": "Espátula para teflón",
           "price": "$7.086",
           "productIds": [
@@ -17396,7 +17380,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg189-4",
-          "page": 209,
+          "page": 208,
           "label": "Cucharón para teflón",
           "price": "$7.086",
           "productIds": [
@@ -17428,7 +17412,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg189-5",
-          "page": 209,
+          "page": 208,
           "label": "Cuchara para teflón",
           "price": "$7.086",
           "productIds": [
@@ -17460,7 +17444,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg189-6",
-          "page": 209,
+          "page": 208,
           "label": "Batidor 32cm para teflón",
           "price": "$9.331",
           "productIds": [
@@ -17493,7 +17477,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 210,
+      "number": 209,
       "sourcePage": 86,
       "title": "Pinzas",
       "section": "Leifheit",
@@ -17510,7 +17494,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg190-1",
-          "page": 210,
+          "page": 209,
           "label": "Pinza para asados 23cm.",
           "price": "$13.741",
           "productIds": [
@@ -17542,7 +17526,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg190-2",
-          "page": 210,
+          "page": 209,
           "label": "Pinza para asados 30cm.",
           "price": "$14.911",
           "productIds": [
@@ -17575,7 +17559,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 211,
+      "number": 210,
       "sourcePage": 87,
       "title": "Jeringa",
       "section": "Leifheit",
@@ -17591,7 +17575,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg191-1",
-          "page": 211,
+          "page": 210,
           "label": "Jeringa decoradora",
           "price": "$10.785",
           "productIds": [
@@ -17624,7 +17608,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 212,
+      "number": 211,
       "sourcePage": 88,
       "title": "Descorazonador",
       "section": "Leifheit",
@@ -17640,7 +17624,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg192-1",
-          "page": 212,
+          "page": 211,
           "label": "Descorazonador de manzanas",
           "price": "$9.220",
           "productIds": [
@@ -17673,7 +17657,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 213,
+      "number": 212,
       "sourcePage": 89,
       "title": "Descarozadores",
       "section": "Leifheit",
@@ -17691,7 +17675,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg193-1",
-          "page": 213,
+          "page": 212,
           "label": "Descarozador de cerezas",
           "price": "$6.559",
           "productIds": [
@@ -17723,7 +17707,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg193-2",
-          "page": 213,
+          "page": 212,
           "label": "Descarozador de cerezas (reemplaza al 37200)",
           "price": "$45.040",
           "productIds": [
@@ -17755,7 +17739,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg193-3",
-          "page": 213,
+          "page": 212,
           "label": "Descarozador de ciruelas",
           "price": "$34.950",
           "productIds": [
@@ -17788,7 +17772,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 214,
+      "number": 213,
       "sourcePage": 90,
       "title": "Embudo",
       "section": "Leifheit",
@@ -17804,7 +17788,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg194-1",
-          "page": 214,
+          "page": 213,
           "label": "Embudo para frascos",
           "price": "$4.267",
           "productIds": [
@@ -17837,7 +17821,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 215,
+      "number": 214,
       "sourcePage": 91,
       "title": "Catalog",
       "section": "Leifheit",
@@ -17851,7 +17835,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 216,
+      "number": 215,
       "sourcePage": 92,
       "title": "Repostería",
       "section": "Leifheit",
@@ -17868,7 +17852,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg196-1",
-          "page": 216,
+          "page": 215,
           "label": "Botella de vidrio 500ml",
           "price": "$5.964",
           "productIds": [
@@ -17900,7 +17884,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg196-2",
-          "page": 216,
+          "page": 215,
           "label": "Frasco de vidrio de 500ml para conservar mermeladas",
           "price": "$3.201",
           "productIds": [
@@ -17933,7 +17917,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 217,
+      "number": 216,
       "sourcePage": 93,
       "title": "Tarros",
       "section": "Leifheit",
@@ -17953,7 +17937,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg197-1",
-          "page": 217,
+          "page": 216,
           "label": "Jarra de vidrio clip top 175ml",
           "price": "$6.431",
           "productIds": [
@@ -17985,7 +17969,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg197-2",
-          "page": 217,
+          "page": 216,
           "label": "Jarra de vidrio Clip top 370ml",
           "price": "$7.383",
           "productIds": [
@@ -18017,7 +18001,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg197-3",
-          "page": 217,
+          "page": 216,
           "label": "Jarra de vidrio Clip top 800ml",
           "price": "$9.976",
           "productIds": [
@@ -18049,7 +18033,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg197-4",
-          "page": 217,
+          "page": 216,
           "label": "Repuestos para jarra Clip Top para 3191/3192",
           "price": "$5.952",
           "productIds": [
@@ -18081,7 +18065,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg197-5",
-          "page": 217,
+          "page": 216,
           "label": "Repuestos para jarra Clip Top para 3284",
           "price": "$7.005",
           "productIds": [
@@ -18114,7 +18098,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 218,
+      "number": 217,
       "sourcePage": 94,
       "title": "Herméticos",
       "section": "Leifheit",
@@ -18133,7 +18117,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg198-1",
-          "page": 218,
+          "page": 217,
           "label": "Recipiente hermético 400ml",
           "price": "$11.244",
           "productIds": [
@@ -18165,7 +18149,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg198-2",
-          "page": 218,
+          "page": 217,
           "label": "Recipiente hermético 750ml",
           "price": "$12.852",
           "productIds": [
@@ -18197,7 +18181,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg198-3",
-          "page": 218,
+          "page": 217,
           "label": "Recipiente hermético 900ml",
           "price": "$12.895",
           "productIds": [
@@ -18229,7 +18213,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg198-4",
-          "page": 218,
+          "page": 217,
           "label": "Recipiente hermético 1100ml",
           "price": "$13.364",
           "productIds": [
@@ -18262,7 +18246,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 219,
+      "number": 218,
       "sourcePage": 95,
       "title": "Herméticos",
       "section": "Leifheit",
@@ -18281,7 +18265,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg199-1",
-          "page": 219,
+          "page": 218,
           "label": "Recipiente hermético 1400ml. para café",
           "price": "$14.254",
           "productIds": [
@@ -18313,7 +18297,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg199-2",
-          "page": 219,
+          "page": 218,
           "label": "Recipiente hermético 1700ml p/fideos",
           "price": "$15.005",
           "productIds": [
@@ -18345,7 +18329,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg199-3",
-          "page": 219,
+          "page": 218,
           "label": "Recipiente hermético 1400ml",
           "price": "$14.020",
           "productIds": [
@@ -18377,7 +18361,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg199-4",
-          "page": 219,
+          "page": 218,
           "label": "Recipiente hermético 2000ml",
           "price": "$15.286",
           "productIds": [
@@ -18410,7 +18394,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 220,
+      "number": 219,
       "sourcePage": 96,
       "title": "Herméticos",
       "section": "Leifheit",
@@ -18429,7 +18413,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg200-1",
-          "page": 220,
+          "page": 219,
           "label": "Recipiente hermético cuadrado 400ml",
           "price": "$10.440",
           "productIds": [
@@ -18461,7 +18445,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg200-2",
-          "page": 220,
+          "page": 219,
           "label": "Recipiente hermético cuadrado 1000ml",
           "price": "$13.129",
           "productIds": [
@@ -18493,7 +18477,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg200-3",
-          "page": 220,
+          "page": 219,
           "label": "Recipiente hermético cuadrado 1600ml",
           "price": "$14.771",
           "productIds": [
@@ -18525,7 +18509,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg200-4",
-          "page": 220,
+          "page": 219,
           "label": "Recipiente hermético cuadrado 800ml",
           "price": "$12.852",
           "productIds": [
@@ -18558,7 +18542,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 221,
+      "number": 220,
       "sourcePage": 98,
       "title": "Accesorios",
       "section": "Leifheit",
@@ -18575,7 +18559,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg202-1",
-          "page": 221,
+          "page": 220,
           "label": "Termómetro Universal digital",
           "price": "$23.211",
           "productIds": [
@@ -18607,7 +18591,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg202-2",
-          "page": 221,
+          "page": 220,
           "label": "Preparador de Spatzles",
           "price": "$64.522",
           "productIds": [
@@ -18640,7 +18624,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 222,
+      "number": 221,
       "sourcePage": 99,
       "title": "Catalog",
       "section": "Leifheit",
@@ -18654,7 +18638,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 223,
+      "number": 222,
       "sourcePage": 100,
       "title": "Termos",
       "section": "Leifheit",
@@ -18675,7 +18659,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg204-1",
-          "page": 223,
+          "page": 222,
           "label": "Termo blanco Columbus 2 litros",
           "price": "$23.730",
           "productIds": [
@@ -18707,7 +18691,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg204-2",
-          "page": 223,
+          "page": 222,
           "label": "Termo negro Columbus 2 litros",
           "price": "$23.729",
           "productIds": [
@@ -18739,7 +18723,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg204-3",
-          "page": 223,
+          "page": 222,
           "label": "Termo rojo Columbus 2 litros",
           "price": "$23.729",
           "productIds": [
@@ -18771,7 +18755,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg204-4",
-          "page": 223,
+          "page": 222,
           "label": "Termo azul Columbus 2 litros",
           "price": "$23.730",
           "productIds": [
@@ -18803,7 +18787,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg204-5",
-          "page": 223,
+          "page": 222,
           "label": "Termo púrpura Columbus 2 litros",
           "price": "$23.730",
           "productIds": [
@@ -18835,7 +18819,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg204-6",
-          "page": 223,
+          "page": 222,
           "label": "Termo celeste Columbus 2 litros",
           "price": "$23.730",
           "productIds": [
@@ -18868,7 +18852,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 224,
+      "number": 223,
       "sourcePage": 101,
       "title": "Termos",
       "section": "Leifheit",
@@ -18887,7 +18871,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg205-1",
-          "page": 224,
+          "page": 223,
           "label": "Termo azul HARMONIC 1 litro",
           "price": "$45.003",
           "productIds": [
@@ -18919,7 +18903,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg205-2",
-          "page": 224,
+          "page": 223,
           "label": "Termo rojo HARMONIC 1 litro",
           "price": "$45.003",
           "productIds": [
@@ -18951,7 +18935,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg205-3",
-          "page": 224,
+          "page": 223,
           "label": "Termo blanco HARMONIC 1 litro",
           "price": "$45.003",
           "productIds": [
@@ -18983,7 +18967,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg205-4",
-          "page": 224,
+          "page": 223,
           "label": "Termo negro HARMONIC 1 litro",
           "price": "$45.003",
           "productIds": [
@@ -19016,7 +19000,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 225,
+      "number": 224,
       "sourcePage": 102,
       "title": "Termos",
       "section": "Leifheit",
@@ -19034,7 +19018,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg206-1",
-          "page": 225,
+          "page": 224,
           "label": "Termo negro BOLERO",
           "price": "$20.869",
           "productIds": [
@@ -19066,7 +19050,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg206-2",
-          "page": 225,
+          "page": 224,
           "label": "Termo lila BOLERO",
           "price": "$20.869",
           "productIds": [
@@ -19098,7 +19082,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg206-3",
-          "page": 225,
+          "page": 224,
           "label": "Termo azul BOLERO",
           "price": "$20.869",
           "productIds": [
@@ -19131,7 +19115,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 226,
+      "number": 225,
       "sourcePage": 103,
       "title": "Termos",
       "section": "Leifheit",
@@ -19149,7 +19133,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg207-1",
-          "page": 226,
+          "page": 225,
           "label": "Termo acero COCO 0,5lts.",
           "price": "$18.756",
           "productIds": [
@@ -19181,7 +19165,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg207-2",
-          "page": 226,
+          "page": 225,
           "label": "Termo acero COCO 1,0lts.",
           "price": "$24.852",
           "productIds": [
@@ -19213,7 +19197,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg207-3",
-          "page": 226,
+          "page": 225,
           "label": "Termo acero COCO 0,75lts.",
           "price": "$23.190",
           "productIds": [
@@ -19246,7 +19230,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 227,
+      "number": 226,
       "sourcePage": 104,
       "title": "Botellas",
       "section": "Leifheit",
@@ -19264,7 +19248,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg208-1",
-          "page": 227,
+          "page": 226,
           "label": "Botella Térmica de 350ml azul. 100% hermética, doble pared, con filtro, tapa bloqueable",
           "price": "$22.661",
           "productIds": [
@@ -19296,7 +19280,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg208-2",
-          "page": 227,
+          "page": 226,
           "label": "Botella Térmica de 600ml verde kiwi. 100% hermética, doble pared, con filtro, tapa bloqueable",
           "price": "$28.656",
           "productIds": [
@@ -19328,7 +19312,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg208-3",
-          "page": 227,
+          "page": 226,
           "label": "Botella Térmica de 350ml verde kiwi. 100% hermética, doble pared, con filtro, tapa bloqueable",
           "price": "$22.661",
           "productIds": [
@@ -19361,7 +19345,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 228,
+      "number": 227,
       "sourcePage": 105,
       "title": "Catalog",
       "section": "Leifheit",
@@ -19375,7 +19359,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 229,
+      "number": 228,
       "sourcePage": 106,
       "title": "Balanzas",
       "section": "Leifheit",
@@ -19394,7 +19378,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg210-1",
-          "page": 229,
+          "page": 228,
           "label": "Balanza de cocina FIESTA",
           "price": "$40.795",
           "productIds": [
@@ -19426,7 +19410,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg210-2",
-          "page": 229,
+          "page": 228,
           "label": "Balanza de cocina ROMA blanca",
           "price": "$30.714",
           "productIds": [
@@ -19458,7 +19442,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg210-3",
-          "page": 229,
+          "page": 228,
           "label": "Balanza de cocina digital 5kgs",
           "price": "$28.200",
           "productIds": [
@@ -19490,7 +19474,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg210-4",
-          "page": 229,
+          "page": 228,
           "label": "Balanza de cocina ROMA plateada",
           "price": "$30.714",
           "productIds": [
@@ -19523,7 +19507,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 230,
+      "number": 229,
       "sourcePage": 107,
       "title": "Balanzas",
       "section": "Leifheit",
@@ -19541,7 +19525,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg211-1",
-          "page": 230,
+          "page": 229,
           "label": "Balanza de cocina FOOD CONTROL",
           "price": "$61.896",
           "productIds": [
@@ -19573,7 +19557,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg211-2",
-          "page": 230,
+          "page": 229,
           "label": "Balanza de cocina analógica 5kgs Con bols de 2,5 litros (reemplaza a la balanza 3172)",
           "price": "$24.531",
           "productIds": [
@@ -19605,7 +19589,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg211-3",
-          "page": 230,
+          "page": 229,
           "label": "Balanza de cocina COOKING STAR",
           "price": "$27.801",
           "productIds": [
@@ -19638,7 +19622,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 231,
+      "number": 230,
       "sourcePage": 108,
       "title": "Balanza",
       "section": "Leifheit",
@@ -19657,7 +19641,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg212-1",
-          "page": 231,
+          "page": 230,
           "label": "Balanza Page Compact 300, hasta 5 kgs, graduación 1g.",
           "price": "$33.932",
           "productIds": [
@@ -19689,7 +19673,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg212-2",
-          "page": 231,
+          "page": 230,
           "label": "Balanza Page Compact 300 Rosa",
           "price": "$33.190",
           "productIds": [
@@ -19721,7 +19705,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg212-3",
-          "page": 231,
+          "page": 230,
           "label": "Balanza Page Compact",
           "price": "$32.135",
           "productIds": [
@@ -19753,7 +19737,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg212-4",
-          "page": 231,
+          "page": 230,
           "label": "Balanza Page compact 300 mármol",
           "price": "$32.136",
           "productIds": [
@@ -19786,7 +19770,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 232,
+      "number": 231,
       "sourcePage": 109,
       "title": "Balanza",
       "section": "Leifheit",
@@ -19804,7 +19788,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg213-1",
-          "page": 232,
+          "page": 231,
           "label": "Balanza Page Comfort 300 Slim, hasta 10kgs.",
           "price": "$40.579",
           "productIds": [
@@ -19836,7 +19820,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg213-2",
-          "page": 232,
+          "page": 231,
           "label": "Balanza Page Comfort 400,hasta 10 kg, grad. 1g.",
           "price": "$41.605",
           "productIds": [
@@ -19868,7 +19852,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg213-3",
-          "page": 232,
+          "page": 231,
           "label": "Balanza Page Comfort Mosaic hasta 10kg.s",
           "price": "$44.145",
           "productIds": [
@@ -19901,7 +19885,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 233,
+      "number": 232,
       "sourcePage": 110,
       "title": "Balanza",
       "section": "Leifheit",
@@ -19919,14 +19903,14 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg214-1",
-          "page": 233,
-          "label": "Balanza de cocina digital Page Profi 200 de acero inoxidable",
-          "price": "$64.179",
+          "page": 232,
+          "label": "Balanza de cocina digital Page Profi 100 de cristal",
+          "price": "$59.503",
           "productIds": [
             "p214-1"
           ],
           "position": {
-            "x": 0.756055522826,
+            "x": 0.20767075469,
             "y": 0.447803872104
           },
           "cover": {
@@ -19951,7 +19935,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg214-2",
-          "page": 233,
+          "page": 232,
           "label": "Balanza de cocina digital Page Profi 200 de acero inoxidable",
           "price": "$64.179",
           "productIds": [
@@ -19983,7 +19967,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg214-3",
-          "page": 233,
+          "page": 232,
           "label": "Balanza para valijas",
           "price": "$39.581",
           "productIds": [
@@ -20016,7 +20000,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 234,
+      "number": 233,
       "sourcePage": 111,
       "title": "Catalog",
       "section": "Leifheit",
@@ -20030,7 +20014,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 235,
+      "number": 234,
       "sourcePage": 112,
       "title": "Balanza",
       "section": "Leifheit",
@@ -20049,7 +20033,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg216-1",
-          "page": 235,
+          "page": 234,
           "label": "Balanza Style Sense Compact 100",
           "price": "$25.531",
           "productIds": [
@@ -20081,7 +20065,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg216-2",
-          "page": 235,
+          "page": 234,
           "label": "Balanza Style Sense Compact 300",
           "price": "$29.481",
           "productIds": [
@@ -20113,7 +20097,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg216-3",
-          "page": 235,
+          "page": 234,
           "label": "Balanza Style Sense Compact 300 color pizarrón",
           "price": "$33.458",
           "productIds": [
@@ -20145,7 +20129,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg216-4",
-          "page": 235,
+          "page": 234,
           "label": "Balanza personal Style Sense Compact 300 color cemento",
           "price": "$33.458",
           "productIds": [
@@ -20178,7 +20162,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 236,
+      "number": 235,
       "sourcePage": 113,
       "title": "Balanza",
       "section": "Leifheit",
@@ -20196,7 +20180,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg217-1",
-          "page": 236,
+          "page": 235,
           "label": "Balanza Style Sense Comfort 100",
           "price": "$36.652",
           "productIds": [
@@ -20228,7 +20212,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg217-2",
-          "page": 236,
+          "page": 235,
           "label": "Balanza personal digital Style Sense Safe 300 fabricada en acero inoxidable",
           "price": "$76.180",
           "productIds": [
@@ -20260,7 +20244,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg217-3",
-          "page": 236,
+          "page": 235,
           "label": "Balanza Style Sense Safe 100",
           "price": "$39.839",
           "productIds": [
@@ -20293,7 +20277,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 237,
+      "number": 236,
       "sourcePage": 114,
       "title": "Balanza",
       "section": "Leifheit",
@@ -20310,7 +20294,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg218-1",
-          "page": 237,
+          "page": 236,
           "label": "Balanza Shape Sense Control 100",
           "price": "$38.732",
           "productIds": [
@@ -20342,7 +20326,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg218-2",
-          "page": 237,
+          "page": 236,
           "label": "Balanza personal Shape Sense Control 200",
           "price": "$48.414",
           "productIds": [
@@ -20375,7 +20359,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 238,
+      "number": 237,
       "sourcePage": 115,
       "title": "Balanza",
       "section": "Leifheit",
@@ -20392,7 +20376,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg219-1",
-          "page": 238,
+          "page": 237,
           "label": "Balanza Shape Sense Connect 100",
           "price": "$91.575",
           "productIds": [
@@ -20424,7 +20408,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg219-2",
-          "page": 238,
+          "page": 237,
           "label": "Balanza personal Shape Sense Conect 200 con Bluetooth",
           "price": "$130.778",
           "productIds": [
@@ -20457,7 +20441,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 239,
+      "number": 238,
       "sourcePage": 116,
       "title": "Tempo",
       "section": "Leifheit",
@@ -20473,7 +20457,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg220-1",
-          "page": 239,
+          "page": 238,
           "label": "Balanza analógica Tempo White",
           "price": "$34.330",
           "productIds": [
@@ -20506,7 +20490,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 240,
+      "number": 239,
       "sourcePage": 155,
       "title": "Quitapelusas eléctrico",
       "section": "Leifheit",
@@ -20522,7 +20506,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg364-1",
-          "page": 240,
+          "page": 239,
           "label": "Quitapelusas eléctrico",
           "price": "$127.652",
           "productIds": [
@@ -20555,7 +20539,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 241,
+      "number": 240,
       "sourcePage": 217,
       "title": "Frascos de vidrio",
       "section": "Leifheit",
@@ -20574,7 +20558,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "pg201-4",
-          "page": 241,
+          "page": 240,
           "label": "Frasco de vidrio hexagonal 47ml para conservar mermeladas y dulces",
           "price": "$2.180",
           "productIds": [
@@ -20606,7 +20590,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg201-1",
-          "page": 241,
+          "page": 240,
           "label": "Frasco de vidrio hexagonal 106ml para conservar mermeladas y dulces",
           "price": "$2.878",
           "productIds": [
@@ -20638,7 +20622,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg201-3",
-          "page": 241,
+          "page": 240,
           "label": "Frasco de vidrio hexagonal 770ml para conservar mermeladas y dulces",
           "price": "$4.850",
           "productIds": [
@@ -20670,7 +20654,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "pg201-2",
-          "page": 241,
+          "page": 240,
           "label": "Frasco de vidrio hexagonal 1,7L para conservar mermeladas y dulces",
           "price": "$8.666",
           "productIds": [
@@ -20703,7 +20687,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 242,
+      "number": 241,
       "title": "Catálogo",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -20717,7 +20701,7 @@ window.CATALOG_DATA = {
       "sourcePage": 1
     },
     {
-      "number": 243,
+      "number": 242,
       "title": "Cafeteras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -20733,7 +20717,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg002-1",
-          "page": 243,
+          "page": 242,
           "label": "Cafeteras",
           "price": "$27.239",
           "productIds": [
@@ -20768,7 +20752,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg002-2",
-          "page": 243,
+          "page": 242,
           "label": "Cafeteras",
           "price": "$56.453",
           "productIds": [
@@ -20805,7 +20789,7 @@ window.CATALOG_DATA = {
       "sourcePage": 2
     },
     {
-      "number": 244,
+      "number": 243,
       "title": "Cafetera french press 1 litro",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -20820,7 +20804,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg003-1",
-          "page": 244,
+          "page": 243,
           "label": "Cafetera french press 1 litro",
           "price": "$29.190",
           "productIds": [
@@ -20857,7 +20841,7 @@ window.CATALOG_DATA = {
       "sourcePage": 3
     },
     {
-      "number": 245,
+      "number": 244,
       "title": "Cafetera de infusión rápida",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -20872,7 +20856,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg004-1",
-          "page": 245,
+          "page": 244,
           "label": "Cafetera de infusión rápida",
           "price": "$61.799",
           "productIds": [
@@ -20909,7 +20893,7 @@ window.CATALOG_DATA = {
       "sourcePage": 4
     },
     {
-      "number": 246,
+      "number": 245,
       "title": "Cafetera Cold Brew",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -20925,7 +20909,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg005-1",
-          "page": 246,
+          "page": 245,
           "label": "Cafetera Cold Brew",
           "price": "$44.777",
           "productIds": [
@@ -20960,7 +20944,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg005-2",
-          "page": 246,
+          "page": 245,
           "label": "Cafetera Cold Brew",
           "price": "$81.739",
           "productIds": [
@@ -20997,7 +20981,7 @@ window.CATALOG_DATA = {
       "sourcePage": 5
     },
     {
-      "number": 247,
+      "number": 246,
       "title": "Molinillo de café",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21012,7 +20996,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg006-1",
-          "page": 247,
+          "page": 246,
           "label": "Molinillo de café",
           "price": "$67.237",
           "productIds": [
@@ -21049,7 +21033,7 @@ window.CATALOG_DATA = {
       "sourcePage": 6
     },
     {
-      "number": 248,
+      "number": 247,
       "title": "Infusor de té",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21064,7 +21048,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg007-1",
-          "page": 248,
+          "page": 247,
           "label": "Infusor de té",
           "price": "$17.790",
           "productIds": [
@@ -21101,7 +21085,7 @@ window.CATALOG_DATA = {
       "sourcePage": 7
     },
     {
-      "number": 249,
+      "number": 248,
       "title": "Frascos POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21121,7 +21105,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg008-1",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$13.607",
           "productIds": [
@@ -21156,7 +21140,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg008-2",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$12.766",
           "productIds": [
@@ -21191,7 +21175,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg008-3",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$16.028",
           "productIds": [
@@ -21226,7 +21210,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg008-4",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$16.369",
           "productIds": [
@@ -21261,7 +21245,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg008-5",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$17.563",
           "productIds": [
@@ -21296,7 +21280,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg008-6",
-          "page": 249,
+          "page": 248,
           "label": "Frascos POP",
           "price": "$21.843",
           "productIds": [
@@ -21333,7 +21317,7 @@ window.CATALOG_DATA = {
       "sourcePage": 8
     },
     {
-      "number": 250,
+      "number": 249,
       "title": "Frascos POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21355,7 +21339,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg009-1",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$15.005",
           "productIds": [
@@ -21390,7 +21374,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-2",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$16.881",
           "productIds": [
@@ -21425,7 +21409,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-3",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$19.829",
           "productIds": [
@@ -21460,7 +21444,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-4",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$11.936",
           "productIds": [
@@ -21495,7 +21479,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-5",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$12.277",
           "productIds": [
@@ -21530,7 +21514,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-6",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$13.982",
           "productIds": [
@@ -21565,7 +21549,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-7",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$10.197",
           "productIds": [
@@ -21600,7 +21584,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg009-8",
-          "page": 250,
+          "page": 249,
           "label": "Frascos POP",
           "price": "$10.071",
           "productIds": [
@@ -21637,7 +21621,7 @@ window.CATALOG_DATA = {
       "sourcePage": 9
     },
     {
-      "number": 251,
+      "number": 250,
       "title": "POP - Sets",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21653,7 +21637,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg010-1",
-          "page": 251,
+          "page": 250,
           "label": "POP - Sets",
           "price": "$34.466",
           "productIds": [
@@ -21688,7 +21672,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg010-2",
-          "page": 251,
+          "page": 250,
           "label": "POP - Sets",
           "price": "$28.068",
           "productIds": [
@@ -21725,7 +21709,7 @@ window.CATALOG_DATA = {
       "sourcePage": 10
     },
     {
-      "number": 252,
+      "number": 251,
       "title": "POP - Tapa de acero",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21743,7 +21727,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg011-1",
-          "page": 252,
+          "page": 251,
           "label": "POP - Tapa de acero",
           "price": "$27.795",
           "productIds": [
@@ -21778,7 +21762,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg011-2",
-          "page": 252,
+          "page": 251,
           "label": "POP - Tapa de acero",
           "price": "$19.293",
           "productIds": [
@@ -21813,7 +21797,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg011-3",
-          "page": 252,
+          "page": 251,
           "label": "POP - Tapa de acero",
           "price": "$29.975",
           "productIds": [
@@ -21848,7 +21832,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg011-4",
-          "page": 252,
+          "page": 251,
           "label": "POP - Tapa de acero",
           "price": "$27.795",
           "productIds": [
@@ -21885,7 +21869,7 @@ window.CATALOG_DATA = {
       "sourcePage": 11
     },
     {
-      "number": 253,
+      "number": 252,
       "title": "Línea completa frascos POP",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -21914,7 +21898,7 @@ window.CATALOG_DATA = {
       "sourcePage": 12
     },
     {
-      "number": 254,
+      "number": 253,
       "title": "Cerealeros POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -21932,7 +21916,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg013-1",
-          "page": 254,
+          "page": 253,
           "label": "Cerealeros POP",
           "price": "$21.751",
           "productIds": [
@@ -21967,7 +21951,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg013-2",
-          "page": 254,
+          "page": 253,
           "label": "Cerealeros POP",
           "price": "$23.931",
           "productIds": [
@@ -22002,7 +21986,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg013-3",
-          "page": 254,
+          "page": 253,
           "label": "Cerealeros POP",
           "price": "$26.816",
           "productIds": [
@@ -22037,7 +22021,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg013-4",
-          "page": 254,
+          "page": 253,
           "label": "Cerealeros POP",
           "price": "$29.367",
           "productIds": [
@@ -22074,7 +22058,7 @@ window.CATALOG_DATA = {
       "sourcePage": 13
     },
     {
-      "number": 255,
+      "number": 254,
       "title": "POP redondos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22090,7 +22074,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg014-1",
-          "page": 255,
+          "page": 254,
           "label": "POP redondos",
           "price": "$21.007",
           "productIds": [
@@ -22125,7 +22109,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg014-2",
-          "page": 255,
+          "page": 254,
           "label": "POP redondos",
           "price": "$19.029",
           "productIds": [
@@ -22162,7 +22146,7 @@ window.CATALOG_DATA = {
       "sourcePage": 14
     },
     {
-      "number": 256,
+      "number": 255,
       "title": "Accesorios para POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22178,7 +22162,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg015-1",
-          "page": 256,
+          "page": 255,
           "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
@@ -22213,7 +22197,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg015-2",
-          "page": 256,
+          "page": 255,
           "label": "Accesorios para POP",
           "price": "$3.755",
           "productIds": [
@@ -22250,7 +22234,7 @@ window.CATALOG_DATA = {
       "sourcePage": 15
     },
     {
-      "number": 257,
+      "number": 256,
       "title": "Accesorios para POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22267,7 +22251,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg016-1",
-          "page": 257,
+          "page": 256,
           "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
@@ -22302,7 +22286,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg016-2",
-          "page": 257,
+          "page": 256,
           "label": "Accesorios para POP",
           "price": "$6.342",
           "productIds": [
@@ -22337,7 +22321,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg016-3",
-          "page": 257,
+          "page": 256,
           "label": "Accesorios para POP",
           "price": "$7.617",
           "productIds": [
@@ -22374,7 +22358,7 @@ window.CATALOG_DATA = {
       "sourcePage": 16
     },
     {
-      "number": 258,
+      "number": 257,
       "title": "Accesorios para POP",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22390,7 +22374,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg017-1",
-          "page": 258,
+          "page": 257,
           "label": "Accesorios para POP",
           "price": "$13.718",
           "productIds": [
@@ -22425,7 +22409,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg017-2",
-          "page": 258,
+          "page": 257,
           "label": "Accesorios para POP",
           "price": "$8.231",
           "productIds": [
@@ -22462,7 +22446,7 @@ window.CATALOG_DATA = {
       "sourcePage": 17
     },
     {
-      "number": 259,
+      "number": 258,
       "title": "Bolsas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22480,7 +22464,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg018-1",
-          "page": 259,
+          "page": 258,
           "label": "Bolsas de silicona",
           "price": "$16.579",
           "productIds": [
@@ -22515,7 +22499,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg018-2",
-          "page": 259,
+          "page": 258,
           "label": "Bolsas de silicona",
           "price": "$31.883",
           "productIds": [
@@ -22550,7 +22534,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg018-3",
-          "page": 259,
+          "page": 258,
           "label": "Bolsas de silicona",
           "price": "$24.302",
           "productIds": [
@@ -22585,7 +22569,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg018-4",
-          "page": 259,
+          "page": 258,
           "label": "Bolsas de silicona",
           "price": "$21.751",
           "productIds": [
@@ -22622,7 +22606,7 @@ window.CATALOG_DATA = {
       "sourcePage": 18
     },
     {
-      "number": 260,
+      "number": 259,
       "title": "Bolsas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22641,7 +22625,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg019-1",
-          "page": 260,
+          "page": 259,
           "label": "Bolsas de silicona",
           "price": "$38.330",
           "productIds": [
@@ -22676,7 +22660,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg019-2",
-          "page": 260,
+          "page": 259,
           "label": "Bolsas de silicona",
           "price": "$51.119",
           "productIds": [
@@ -22711,7 +22695,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg019-3",
-          "page": 260,
+          "page": 259,
           "label": "Bolsas de silicona",
           "price": "$63.907",
           "productIds": [
@@ -22746,7 +22730,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg019-4",
-          "page": 260,
+          "page": 259,
           "label": "Bolsas de silicona",
           "price": "$12.788",
           "productIds": [
@@ -22781,7 +22765,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg019-5",
-          "page": 260,
+          "page": 259,
           "label": "Bolsas de silicona",
           "price": "$28.091",
           "productIds": [
@@ -22818,7 +22802,7 @@ window.CATALOG_DATA = {
       "sourcePage": 19
     },
     {
-      "number": 261,
+      "number": 260,
       "title": "Bolsas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22836,7 +22820,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg020-1",
-          "page": 261,
+          "page": 260,
           "label": "Bolsas de silicona",
           "price": "$22.180",
           "productIds": [
@@ -22871,7 +22855,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg020-2",
-          "page": 261,
+          "page": 260,
           "label": "Bolsas de silicona",
           "price": "$22.180",
           "productIds": [
@@ -22906,7 +22890,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg020-3",
-          "page": 261,
+          "page": 260,
           "label": "Bolsas de silicona",
           "price": "$30.225",
           "productIds": [
@@ -22941,7 +22925,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg020-4",
-          "page": 261,
+          "page": 260,
           "label": "Bolsas de silicona",
           "price": "$35.712",
           "productIds": [
@@ -22978,7 +22962,7 @@ window.CATALOG_DATA = {
       "sourcePage": 20
     },
     {
-      "number": 262,
+      "number": 261,
       "title": "Utensilios de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -22995,7 +22979,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg021-1",
-          "page": 262,
+          "page": 261,
           "label": "Utensilios de acero inoxidable",
           "price": "$16.579",
           "productIds": [
@@ -23030,7 +23014,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg021-2",
-          "page": 262,
+          "page": 261,
           "label": "Utensilios de acero inoxidable",
           "price": "$15.304",
           "productIds": [
@@ -23065,7 +23049,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg021-3",
-          "page": 262,
+          "page": 261,
           "label": "Utensilios de acero inoxidable",
           "price": "$15.304",
           "productIds": [
@@ -23102,7 +23086,7 @@ window.CATALOG_DATA = {
       "sourcePage": 21
     },
     {
-      "number": 263,
+      "number": 262,
       "title": "Utensilios de nylon",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23122,7 +23106,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg022-1",
-          "page": 263,
+          "page": 262,
           "label": "Utensilios de nylon - 6 productos",
           "price": "$10.002",
           "productIds": [
@@ -23164,7 +23148,7 @@ window.CATALOG_DATA = {
       "sourcePage": 22
     },
     {
-      "number": 264,
+      "number": 263,
       "title": "Espátulas de silicona flexibles",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23179,7 +23163,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg023-1",
-          "page": 264,
+          "page": 263,
           "label": "Espátulas de silicona flexibles",
           "price": "$18.838",
           "productIds": [
@@ -23216,7 +23200,7 @@ window.CATALOG_DATA = {
       "sourcePage": 23
     },
     {
-      "number": 265,
+      "number": 264,
       "title": "Espátulas de nylon",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23231,7 +23215,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg024-1",
-          "page": 265,
+          "page": 264,
           "label": "Espátulas de nylon",
           "price": "$12.788",
           "productIds": [
@@ -23268,7 +23252,7 @@ window.CATALOG_DATA = {
       "sourcePage": 24
     },
     {
-      "number": 266,
+      "number": 265,
       "title": "Abrelatas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23284,7 +23268,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg025-1",
-          "page": 266,
+          "page": 265,
           "label": "Abrelatas",
           "price": "$21.751",
           "productIds": [
@@ -23319,7 +23303,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg025-2",
-          "page": 266,
+          "page": 265,
           "label": "Abrelatas",
           "price": "$27.632",
           "productIds": [
@@ -23356,12 +23340,12 @@ window.CATALOG_DATA = {
       "sourcePage": 25
     },
     {
-      "number": 267,
+      "number": 266,
       "title": "abrelatas con borde liso",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/oxo-20260722-page-026.jpg?v=20260722-oxo-r2",
+        "src": "assets/pages/oxo-20260722-page-026.jpg?v=20260806-page-replacements",
         "width": 1013,
         "height": 1432
       },
@@ -23372,14 +23356,14 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg026-1",
-          "page": 267,
+          "page": 266,
           "label": "abrelatas con borde liso",
           "price": "$27.482",
           "productIds": [
             "oxo-p026-1"
           ],
           "position": {
-            "x": 0.2650149,
+            "x": 0.2607654,
             "y": 0.2081881
           },
           "positionSource": "oxo-20260722-pdf",
@@ -23407,7 +23391,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg026-2",
-          "page": 267,
+          "page": 266,
           "label": "abrelatas con borde liso",
           "price": "$34.317",
           "productIds": [
@@ -23444,7 +23428,7 @@ window.CATALOG_DATA = {
       "sourcePage": 26
     },
     {
-      "number": 268,
+      "number": 267,
       "title": "Cucharas de helado",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23460,7 +23444,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg027-1",
-          "page": 268,
+          "page": 267,
           "label": "Cucharas de helado",
           "price": "$19.634",
           "productIds": [
@@ -23495,7 +23479,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg027-2",
-          "page": 268,
+          "page": 267,
           "label": "Cucharas de helado",
           "price": "$23.679",
           "productIds": [
@@ -23532,7 +23516,7 @@ window.CATALOG_DATA = {
       "sourcePage": 27
     },
     {
-      "number": 269,
+      "number": 268,
       "title": "Corta pizzas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23548,7 +23532,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg028-1",
-          "page": 269,
+          "page": 268,
           "label": "Corta pizzas",
           "price": "$15.304",
           "productIds": [
@@ -23583,7 +23567,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg028-2",
-          "page": 269,
+          "page": 268,
           "label": "Corta pizzas",
           "price": "$15.304",
           "productIds": [
@@ -23620,7 +23604,7 @@ window.CATALOG_DATA = {
       "sourcePage": 28
     },
     {
-      "number": 270,
+      "number": 269,
       "title": "Pincel de repostería",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23635,7 +23619,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg029-1",
-          "page": 270,
+          "page": 269,
           "label": "Pincel de repostería",
           "price": "$12.471",
           "productIds": [
@@ -23672,7 +23656,7 @@ window.CATALOG_DATA = {
       "sourcePage": 29
     },
     {
-      "number": 271,
+      "number": 270,
       "title": "Batidor de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23687,7 +23671,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg030-1",
-          "page": 271,
+          "page": 270,
           "label": "Batidor de acero inoxidable",
           "price": "$15.742",
           "productIds": [
@@ -23724,7 +23708,7 @@ window.CATALOG_DATA = {
       "sourcePage": 30
     },
     {
-      "number": 272,
+      "number": 271,
       "title": "Colador",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23741,7 +23725,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg031-1",
-          "page": 272,
+          "page": 271,
           "label": "Colador",
           "price": "$14.433",
           "productIds": [
@@ -23776,7 +23760,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg031-2",
-          "page": 272,
+          "page": 271,
           "label": "Colador",
           "price": "$26.459",
           "productIds": [
@@ -23811,7 +23795,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg031-3",
-          "page": 272,
+          "page": 271,
           "label": "Colador",
           "price": "$31.269",
           "productIds": [
@@ -23848,7 +23832,7 @@ window.CATALOG_DATA = {
       "sourcePage": 31
     },
     {
-      "number": 273,
+      "number": 272,
       "title": "Set x3 coladores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23863,7 +23847,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg032-1",
-          "page": 273,
+          "page": 272,
           "label": "Set x3 coladores",
           "price": "$31.448",
           "productIds": [
@@ -23900,7 +23884,7 @@ window.CATALOG_DATA = {
       "sourcePage": 32
     },
     {
-      "number": 274,
+      "number": 273,
       "title": "Vaporiera de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23915,7 +23899,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg033-1",
-          "page": 274,
+          "page": 273,
           "label": "Vaporiera de silicona",
           "price": "$21.751",
           "productIds": [
@@ -23952,7 +23936,7 @@ window.CATALOG_DATA = {
       "sourcePage": 33
     },
     {
-      "number": 275,
+      "number": 274,
       "title": "Tijeras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -23968,7 +23952,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg034-1",
-          "page": 275,
+          "page": 274,
           "label": "Tijeras",
           "price": "$41.199",
           "productIds": [
@@ -24003,7 +23987,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg034-2",
-          "page": 275,
+          "page": 274,
           "label": "Tijeras",
           "price": "$23.500",
           "productIds": [
@@ -24040,7 +24024,7 @@ window.CATALOG_DATA = {
       "sourcePage": 34
     },
     {
-      "number": 276,
+      "number": 275,
       "title": "Batidor doble",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24055,7 +24039,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg035-1",
-          "page": 276,
+          "page": 275,
           "label": "Batidor doble",
           "price": "$23.539",
           "productIds": [
@@ -24092,7 +24076,7 @@ window.CATALOG_DATA = {
       "sourcePage": 35
     },
     {
-      "number": 277,
+      "number": 276,
       "title": "Peladores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24109,7 +24093,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg036-1",
-          "page": 277,
+          "page": 276,
           "label": "Peladores",
           "price": "$10.889",
           "productIds": [
@@ -24144,7 +24128,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg036-2",
-          "page": 277,
+          "page": 276,
           "label": "Peladores",
           "price": "$9.565",
           "productIds": [
@@ -24179,7 +24163,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg036-3",
-          "page": 277,
+          "page": 276,
           "label": "Peladores",
           "price": "$10.889",
           "productIds": [
@@ -24216,7 +24200,7 @@ window.CATALOG_DATA = {
       "sourcePage": 36
     },
     {
-      "number": 278,
+      "number": 277,
       "title": "Peladores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24232,7 +24216,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg037-1",
-          "page": 278,
+          "page": 277,
           "label": "Peladores",
           "price": "$10.889",
           "productIds": [
@@ -24267,7 +24251,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg037-2",
-          "page": 278,
+          "page": 277,
           "label": "Peladores",
           "price": "$10.889",
           "productIds": [
@@ -24304,7 +24288,7 @@ window.CATALOG_DATA = {
       "sourcePage": 37
     },
     {
-      "number": 279,
+      "number": 278,
       "title": "Set de 3 pelapapas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24319,7 +24303,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg038-1",
-          "page": 279,
+          "page": 278,
           "label": "Set de 3 pelapapas",
           "price": "$21.715",
           "productIds": [
@@ -24356,7 +24340,7 @@ window.CATALOG_DATA = {
       "sourcePage": 38
     },
     {
-      "number": 280,
+      "number": 279,
       "title": "Citrus Zester",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24371,7 +24355,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg039-1",
-          "page": 280,
+          "page": 279,
           "label": "Citrus Zester",
           "price": "$11.227",
           "productIds": [
@@ -24408,7 +24392,7 @@ window.CATALOG_DATA = {
       "sourcePage": 39
     },
     {
-      "number": 281,
+      "number": 280,
       "title": "Cortador de manzanas pop-out",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24423,7 +24407,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg040-1",
-          "page": 281,
+          "page": 280,
           "label": "Cortador de manzanas pop-out",
           "price": "$23.164",
           "productIds": [
@@ -24460,7 +24444,7 @@ window.CATALOG_DATA = {
       "sourcePage": 40
     },
     {
-      "number": 282,
+      "number": 281,
       "title": "Exprimidores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24476,7 +24460,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg041-1",
-          "page": 282,
+          "page": 281,
           "label": "Exprimidores",
           "price": "$15.304",
           "productIds": [
@@ -24511,7 +24495,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg041-2",
-          "page": 282,
+          "page": 281,
           "label": "Exprimidores",
           "price": "$21.751",
           "productIds": [
@@ -24548,7 +24532,7 @@ window.CATALOG_DATA = {
       "sourcePage": 41
     },
     {
-      "number": 283,
+      "number": 282,
       "title": "Cortador de palta",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24564,7 +24548,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg042-1",
-          "page": 283,
+          "page": 282,
           "label": "Cortador de palta - 2 productos",
           "price": "$10.202",
           "productIds": [
@@ -24602,7 +24586,7 @@ window.CATALOG_DATA = {
       "sourcePage": 42
     },
     {
-      "number": 284,
+      "number": 283,
       "title": "Ahuecador doble",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24617,7 +24601,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg043-1",
-          "page": 284,
+          "page": 283,
           "label": "Ahuecador doble",
           "price": "$9.941",
           "productIds": [
@@ -24654,7 +24638,7 @@ window.CATALOG_DATA = {
       "sourcePage": 43
     },
     {
-      "number": 285,
+      "number": 284,
       "title": "4 sets de pinches para choclos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24669,7 +24653,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg045-1",
-          "page": 285,
+          "page": 284,
           "label": "4 sets de pinches para choclos",
           "price": "$14.063",
           "productIds": [
@@ -24706,7 +24690,7 @@ window.CATALOG_DATA = {
       "sourcePage": 45
     },
     {
-      "number": 286,
+      "number": 285,
       "title": "Mandolina de verduras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24721,7 +24705,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg046-1",
-          "page": 286,
+          "page": 285,
           "label": "Mandolina de verduras",
           "price": "$24.302",
           "productIds": [
@@ -24758,7 +24742,7 @@ window.CATALOG_DATA = {
       "sourcePage": 46
     },
     {
-      "number": 287,
+      "number": 286,
       "title": "Rebanador de huevos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24773,7 +24757,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg047-1",
-          "page": 287,
+          "page": 286,
           "label": "Rebanador de huevos",
           "price": "$15.304",
           "productIds": [
@@ -24810,7 +24794,7 @@ window.CATALOG_DATA = {
       "sourcePage": 47
     },
     {
-      "number": 288,
+      "number": 287,
       "title": "Separador de yemas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24825,7 +24809,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg048-1",
-          "page": 288,
+          "page": 287,
           "label": "Separador de yemas",
           "price": "$4.689",
           "productIds": [
@@ -24862,7 +24846,7 @@ window.CATALOG_DATA = {
       "sourcePage": 48
     },
     {
-      "number": 289,
+      "number": 288,
       "title": "Picador rotativo / chopper",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24877,7 +24861,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg049-1",
-          "page": 289,
+          "page": 288,
           "label": "Picador rotativo / chopper",
           "price": "$31.186",
           "productIds": [
@@ -24914,7 +24898,7 @@ window.CATALOG_DATA = {
       "sourcePage": 49
     },
     {
-      "number": 290,
+      "number": 289,
       "title": "Cortador con recipiente",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24929,7 +24913,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg050-1",
-          "page": 290,
+          "page": 289,
           "label": "Cortador con recipiente",
           "price": "$32.753",
           "productIds": [
@@ -24966,7 +24950,7 @@ window.CATALOG_DATA = {
       "sourcePage": 50
     },
     {
-      "number": 291,
+      "number": 290,
       "title": "Rallador de dos caras desmontable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -24981,7 +24965,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg051-1",
-          "page": 291,
+          "page": 290,
           "label": "Rallador de dos caras desmontable",
           "price": "$23.083",
           "productIds": [
@@ -25018,7 +25002,7 @@ window.CATALOG_DATA = {
       "sourcePage": 51
     },
     {
-      "number": 292,
+      "number": 291,
       "title": "Rallador de queso manual",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25033,7 +25017,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg052-1",
-          "page": 292,
+          "page": 291,
           "label": "Rallador de queso manual",
           "price": "$25.059",
           "productIds": [
@@ -25070,7 +25054,7 @@ window.CATALOG_DATA = {
       "sourcePage": 52
     },
     {
-      "number": 293,
+      "number": 292,
       "title": "Set mini de rallador con 3 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25085,7 +25069,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg053-1",
-          "page": 293,
+          "page": 292,
           "label": "Set mini de rallador con 3 cortes",
           "price": "$35.241",
           "productIds": [
@@ -25122,7 +25106,7 @@ window.CATALOG_DATA = {
       "sourcePage": 53
     },
     {
-      "number": 294,
+      "number": 293,
       "title": "Set de rallador con 4 cortes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25137,7 +25121,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg054-1",
-          "page": 294,
+          "page": 293,
           "label": "Set de rallador con 4 cortes",
           "price": "$56.793",
           "productIds": [
@@ -25174,7 +25158,7 @@ window.CATALOG_DATA = {
       "sourcePage": 54
     },
     {
-      "number": 295,
+      "number": 294,
       "title": "Spiralizers",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25190,7 +25174,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg055-1",
-          "page": 295,
+          "page": 294,
           "label": "Spiralizers",
           "price": "$23.026",
           "productIds": [
@@ -25225,7 +25209,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg055-2",
-          "page": 295,
+          "page": 294,
           "label": "Spiralizers",
           "price": "$36.052",
           "productIds": [
@@ -25262,7 +25246,7 @@ window.CATALOG_DATA = {
       "sourcePage": 55
     },
     {
-      "number": 296,
+      "number": 295,
       "title": "Espiralizador de vegetales de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25277,7 +25261,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg056-1",
-          "page": 296,
+          "page": 295,
           "label": "Espiralizador de vegetales de mesa",
           "price": "$61.249",
           "productIds": [
@@ -25314,7 +25298,7 @@ window.CATALOG_DATA = {
       "sourcePage": 56
     },
     {
-      "number": 297,
+      "number": 296,
       "title": "Rallador grueso",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25329,7 +25313,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg057-1",
-          "page": 297,
+          "page": 296,
           "label": "Rallador grueso",
           "price": "$19.895",
           "productIds": [
@@ -25366,7 +25350,7 @@ window.CATALOG_DATA = {
       "sourcePage": 57
     },
     {
-      "number": 298,
+      "number": 297,
       "title": "Zesters",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25383,7 +25367,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg058-1",
-          "page": 298,
+          "page": 297,
           "label": "Zesters",
           "price": "$16.876",
           "productIds": [
@@ -25418,7 +25402,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg058-2",
-          "page": 298,
+          "page": 297,
           "label": "Zesters",
           "price": "$19.895",
           "productIds": [
@@ -25453,7 +25437,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg058-3",
-          "page": 298,
+          "page": 297,
           "label": "Zesters",
           "price": "$17.856",
           "productIds": [
@@ -25490,7 +25474,7 @@ window.CATALOG_DATA = {
       "sourcePage": 58
     },
     {
-      "number": 299,
+      "number": 298,
       "title": "Catálogo",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -25504,7 +25488,7 @@ window.CATALOG_DATA = {
       "sourcePage": 59
     },
     {
-      "number": 300,
+      "number": 299,
       "title": "Pasa todo",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25519,7 +25503,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg061-1",
-          "page": 300,
+          "page": 299,
           "label": "Pasa todo",
           "price": "$76.219",
           "productIds": [
@@ -25556,7 +25540,7 @@ window.CATALOG_DATA = {
       "sourcePage": 61
     },
     {
-      "number": 301,
+      "number": 300,
       "title": "Cortador de ajos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25572,7 +25556,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg062-1",
-          "page": 301,
+          "page": 300,
           "label": "Cortador de ajos",
           "price": "$18.364",
           "productIds": [
@@ -25607,7 +25591,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg062-2",
-          "page": 301,
+          "page": 300,
           "label": "Cortador de ajos",
           "price": "$23.026",
           "productIds": [
@@ -25644,7 +25628,7 @@ window.CATALOG_DATA = {
       "sourcePage": 62
     },
     {
-      "number": 302,
+      "number": 301,
       "title": "Para mariscos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25661,7 +25645,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg063-1",
-          "page": 302,
+          "page": 301,
           "label": "Para mariscos",
           "price": "$15.304",
           "productIds": [
@@ -25696,7 +25680,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg063-2",
-          "page": 302,
+          "page": 301,
           "label": "Para mariscos",
           "price": "$16.579",
           "productIds": [
@@ -25731,7 +25715,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg063-3",
-          "page": 302,
+          "page": 301,
           "label": "Para mariscos",
           "price": "$20.370",
           "productIds": [
@@ -25768,7 +25752,7 @@ window.CATALOG_DATA = {
       "sourcePage": 63
     },
     {
-      "number": 303,
+      "number": 302,
       "title": "Set x2 embudos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25783,7 +25767,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg064-1",
-          "page": 303,
+          "page": 302,
           "label": "Set x2 embudos",
           "price": "$18.364",
           "productIds": [
@@ -25820,7 +25804,7 @@ window.CATALOG_DATA = {
       "sourcePage": 64
     },
     {
-      "number": 304,
+      "number": 303,
       "title": "Set de 3 espátulas de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25835,7 +25819,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg065-1",
-          "page": 304,
+          "page": 303,
           "label": "Set de 3 espátulas de silicona",
           "price": "$24.104",
           "productIds": [
@@ -25872,7 +25856,7 @@ window.CATALOG_DATA = {
       "sourcePage": 65
     },
     {
-      "number": 305,
+      "number": 304,
       "title": "Set x12 moldes de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25887,7 +25871,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg066-1",
-          "page": 305,
+          "page": 304,
           "label": "Set x12 moldes de silicona",
           "price": "$17.672",
           "productIds": [
@@ -25924,7 +25908,7 @@ window.CATALOG_DATA = {
       "sourcePage": 66
     },
     {
-      "number": 306,
+      "number": 305,
       "title": "Vaso medidor de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25939,7 +25923,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg067-1",
-          "page": 306,
+          "page": 305,
           "label": "Vaso medidor de silicona",
           "price": "$15.304",
           "productIds": [
@@ -25976,7 +25960,7 @@ window.CATALOG_DATA = {
       "sourcePage": 67
     },
     {
-      "number": 307,
+      "number": 306,
       "title": "Set x3 vasos medidores de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -25991,7 +25975,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg068-1",
-          "page": 307,
+          "page": 306,
           "label": "Set x3 vasos medidores de silicona",
           "price": "$31.528",
           "productIds": [
@@ -26028,7 +26012,7 @@ window.CATALOG_DATA = {
       "sourcePage": 68
     },
     {
-      "number": 308,
+      "number": 307,
       "title": "Batidores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26045,7 +26029,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg069-1",
-          "page": 308,
+          "page": 307,
           "label": "Batidores",
           "price": "$18.364",
           "productIds": [
@@ -26080,7 +26064,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg069-2",
-          "page": 308,
+          "page": 307,
           "label": "Batidores",
           "price": "$13.816",
           "productIds": [
@@ -26115,7 +26099,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg069-3",
-          "page": 308,
+          "page": 307,
           "label": "Batidores",
           "price": "$24.443",
           "productIds": [
@@ -26152,7 +26136,7 @@ window.CATALOG_DATA = {
       "sourcePage": 69
     },
     {
-      "number": 309,
+      "number": 308,
       "title": "Bolsa para amasar",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26167,7 +26151,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg070-1",
-          "page": 309,
+          "page": 308,
           "label": "Bolsa para amasar",
           "price": "$26.101",
           "productIds": [
@@ -26204,7 +26188,7 @@ window.CATALOG_DATA = {
       "sourcePage": 70
     },
     {
-      "number": 310,
+      "number": 309,
       "title": "Prensa para cookies",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26219,7 +26203,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg071-1",
-          "page": 310,
+          "page": 309,
           "label": "Prensa para cookies",
           "price": "$52.075",
           "productIds": [
@@ -26256,7 +26240,7 @@ window.CATALOG_DATA = {
       "sourcePage": 71
     },
     {
-      "number": 311,
+      "number": 310,
       "title": "Vasos medidores",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26272,7 +26256,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg072-1",
-          "page": 311,
+          "page": 310,
           "label": "Vasos medidores",
           "price": "$18.364",
           "productIds": [
@@ -26307,7 +26291,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg072-2",
-          "page": 311,
+          "page": 310,
           "label": "Vasos medidores",
           "price": "$35.241",
           "productIds": [
@@ -26344,7 +26328,7 @@ window.CATALOG_DATA = {
       "sourcePage": 72
     },
     {
-      "number": 312,
+      "number": 311,
       "title": "Jarras medidoras",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26360,7 +26344,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg073-1",
-          "page": 312,
+          "page": 311,
           "label": "Jarras medidoras",
           "price": "$14.063",
           "productIds": [
@@ -26395,7 +26379,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg073-2",
-          "page": 312,
+          "page": 311,
           "label": "Jarras medidoras",
           "price": "$12.788",
           "productIds": [
@@ -26432,7 +26416,7 @@ window.CATALOG_DATA = {
       "sourcePage": 73
     },
     {
-      "number": 313,
+      "number": 312,
       "title": "Set x3 bowls de plástico",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26448,7 +26432,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg074-1",
-          "page": 313,
+          "page": 312,
           "label": "Set x3 bowls de plástico",
           "price": "$42.978",
           "productIds": [
@@ -26483,7 +26467,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg074-2",
-          "page": 313,
+          "page": 312,
           "label": "Set x3 bowls de plástico",
           "price": "$42.978",
           "productIds": [
@@ -26520,7 +26504,7 @@ window.CATALOG_DATA = {
       "sourcePage": 74
     },
     {
-      "number": 314,
+      "number": 313,
       "title": "Set x2 garras para desmenuzar carnes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26535,7 +26519,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg075-1",
-          "page": 314,
+          "page": 313,
           "label": "Set x2 garras para desmenuzar carnes",
           "price": "$21.751",
           "productIds": [
@@ -26572,7 +26556,7 @@ window.CATALOG_DATA = {
       "sourcePage": 75
     },
     {
-      "number": 315,
+      "number": 314,
       "title": "Cuchillo Santoku 10cm",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26587,7 +26571,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg076-1",
-          "page": 315,
+          "page": 314,
           "label": "Cuchillo Santoku 10cm",
           "price": "$14.063",
           "productIds": [
@@ -26624,7 +26608,7 @@ window.CATALOG_DATA = {
       "sourcePage": 76
     },
     {
-      "number": 316,
+      "number": 315,
       "title": "Tablas de cortar",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26641,7 +26625,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg077-1",
-          "page": 316,
+          "page": 315,
           "label": "Tablas de cortar",
           "price": "$20.600",
           "productIds": [
@@ -26676,7 +26660,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg077-2",
-          "page": 316,
+          "page": 315,
           "label": "Tablas de cortar",
           "price": "$24.738",
           "productIds": [
@@ -26711,7 +26695,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg077-3",
-          "page": 316,
+          "page": 315,
           "label": "Tablas de cortar",
           "price": "$28.830",
           "productIds": [
@@ -26748,7 +26732,7 @@ window.CATALOG_DATA = {
       "sourcePage": 77
     },
     {
-      "number": 317,
+      "number": 316,
       "title": "Afilador de cuchillos compacto",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26763,7 +26747,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg078-1",
-          "page": 317,
+          "page": 316,
           "label": "Afilador de cuchillos compacto",
           "price": "$27.632",
           "productIds": [
@@ -26800,7 +26784,7 @@ window.CATALOG_DATA = {
       "sourcePage": 78
     },
     {
-      "number": 318,
+      "number": 317,
       "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26816,7 +26800,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg079-1",
-          "page": 318,
+          "page": 317,
           "label": "Pinzas de acero inoxidable",
           "price": "$19.235",
           "productIds": [
@@ -26851,7 +26835,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg079-2",
-          "page": 318,
+          "page": 317,
           "label": "Pinzas de acero inoxidable",
           "price": "$20.369",
           "productIds": [
@@ -26888,7 +26872,7 @@ window.CATALOG_DATA = {
       "sourcePage": 79
     },
     {
-      "number": 319,
+      "number": 318,
       "title": "Pinzas de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -26905,7 +26889,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg080-1",
-          "page": 319,
+          "page": 318,
           "label": "Pinzas de acero inoxidable",
           "price": "$20.369",
           "productIds": [
@@ -26940,7 +26924,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg080-2",
-          "page": 319,
+          "page": 318,
           "label": "Pinzas de acero inoxidable",
           "price": "$21.751",
           "productIds": [
@@ -26975,7 +26959,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg080-3",
-          "page": 319,
+          "page": 318,
           "label": "Pinzas de acero inoxidable",
           "price": "$39.851",
           "productIds": [
@@ -27012,7 +26996,7 @@ window.CATALOG_DATA = {
       "sourcePage": 80
     },
     {
-      "number": 320,
+      "number": 319,
       "title": "Sets de parrilla",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27028,7 +27012,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg081-1",
-          "page": 320,
+          "page": 319,
           "label": "Sets de parrilla",
           "price": "$35.241",
           "productIds": [
@@ -27063,7 +27047,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg081-2",
-          "page": 320,
+          "page": 319,
           "label": "Sets de parrilla",
           "price": "$42.261",
           "productIds": [
@@ -27100,7 +27084,7 @@ window.CATALOG_DATA = {
       "sourcePage": 81
     },
     {
-      "number": 321,
+      "number": 320,
       "title": "Set x6 pinches de brochette de acero",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27115,7 +27099,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg082-1",
-          "page": 321,
+          "page": 320,
           "label": "Set x6 pinches de brochette de acero",
           "price": "$23.083",
           "productIds": [
@@ -27152,7 +27136,7 @@ window.CATALOG_DATA = {
       "sourcePage": 82
     },
     {
-      "number": 322,
+      "number": 321,
       "title": "Pala para carbón",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27167,7 +27151,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg083-1",
-          "page": 322,
+          "page": 321,
           "label": "Pala para carbón",
           "price": "$35.241",
           "productIds": [
@@ -27204,7 +27188,7 @@ window.CATALOG_DATA = {
       "sourcePage": 83
     },
     {
-      "number": 323,
+      "number": 322,
       "title": "Pincel de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27219,7 +27203,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg084-1",
-          "page": 323,
+          "page": 322,
           "label": "Pincel de silicona",
           "price": "$23.640",
           "productIds": [
@@ -27256,7 +27240,7 @@ window.CATALOG_DATA = {
       "sourcePage": 84
     },
     {
-      "number": 324,
+      "number": 323,
       "title": "Jeringa gastronómica",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27271,7 +27255,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg085-1",
-          "page": 324,
+          "page": 323,
           "label": "Jeringa gastronómica",
           "price": "$23.026",
           "productIds": [
@@ -27308,7 +27292,7 @@ window.CATALOG_DATA = {
       "sourcePage": 85
     },
     {
-      "number": 325,
+      "number": 324,
       "title": "Limpieza de parrilla",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27325,7 +27309,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg086-1",
-          "page": 325,
+          "page": 324,
           "label": "Limpieza de parrilla",
           "price": "$16.005",
           "productIds": [
@@ -27360,7 +27344,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg086-2",
-          "page": 325,
+          "page": 324,
           "label": "Limpieza de parrilla",
           "price": "$24.443",
           "productIds": [
@@ -27395,7 +27379,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg086-3",
-          "page": 325,
+          "page": 324,
           "label": "Limpieza de parrilla",
           "price": "$33.710",
           "productIds": [
@@ -27432,7 +27416,7 @@ window.CATALOG_DATA = {
       "sourcePage": 86
     },
     {
-      "number": 326,
+      "number": 325,
       "title": "Set desgrasadores de alimentos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27447,7 +27431,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg087-1",
-          "page": 326,
+          "page": 325,
           "label": "Set desgrasadores de alimentos",
           "price": "$25.063",
           "productIds": [
@@ -27484,7 +27468,7 @@ window.CATALOG_DATA = {
       "sourcePage": 87
     },
     {
-      "number": 327,
+      "number": 326,
       "title": "355ml",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27501,7 +27485,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg088-1",
-          "page": 327,
+          "page": 326,
           "label": "355ml",
           "price": "$26.101",
           "productIds": [
@@ -27536,7 +27520,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg088-2",
-          "page": 327,
+          "page": 326,
           "label": "355ml",
           "price": "$35.241",
           "productIds": [
@@ -27571,7 +27555,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg088-3",
-          "page": 327,
+          "page": 326,
           "label": "355ml",
           "price": "$18.364",
           "productIds": [
@@ -27608,7 +27592,7 @@ window.CATALOG_DATA = {
       "sourcePage": 88
     },
     {
-      "number": 328,
+      "number": 327,
       "title": "Manoplas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27625,7 +27609,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg089-1",
-          "page": 328,
+          "page": 327,
           "label": "Manoplas - 3 productos",
           "price": "$24.941",
           "productIds": [
@@ -27664,7 +27648,7 @@ window.CATALOG_DATA = {
       "sourcePage": 89
     },
     {
-      "number": 329,
+      "number": 328,
       "title": "Agarradera negra",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27679,7 +27663,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg090-1",
-          "page": 329,
+          "page": 328,
           "label": "Agarradera negra",
           "price": "$16.579",
           "productIds": [
@@ -27716,7 +27700,7 @@ window.CATALOG_DATA = {
       "sourcePage": 90
     },
     {
-      "number": 330,
+      "number": 329,
       "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27732,7 +27716,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg091-1",
-          "page": 330,
+          "page": 329,
           "label": "Sacacorchos",
           "price": "$26.101",
           "productIds": [
@@ -27767,7 +27751,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg091-2",
-          "page": 330,
+          "page": 329,
           "label": "Sacacorchos",
           "price": "$36.856",
           "productIds": [
@@ -27804,7 +27788,7 @@ window.CATALOG_DATA = {
       "sourcePage": 91
     },
     {
-      "number": 331,
+      "number": 330,
       "title": "Sacacorchos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27820,7 +27804,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg092-1",
-          "page": 331,
+          "page": 330,
           "label": "Sacacorchos",
           "price": "$27.482",
           "productIds": [
@@ -27855,7 +27839,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg092-2",
-          "page": 331,
+          "page": 330,
           "label": "Sacacorchos",
           "price": "$69.079",
           "productIds": [
@@ -27892,7 +27876,7 @@ window.CATALOG_DATA = {
       "sourcePage": 92
     },
     {
-      "number": 332,
+      "number": 331,
       "title": "Coctelera 590ml",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27907,7 +27891,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg093-1",
-          "page": 332,
+          "page": 331,
           "label": "Coctelera 590ml",
           "price": "$15.304",
           "productIds": [
@@ -27944,7 +27928,7 @@ window.CATALOG_DATA = {
       "sourcePage": 93
     },
     {
-      "number": 333,
+      "number": 332,
       "title": "Tapón antigoteo de vino",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -27959,7 +27943,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg094-1",
-          "page": 333,
+          "page": 332,
           "label": "Tapón antigoteo de vino",
           "price": "$15.304",
           "productIds": [
@@ -27996,7 +27980,7 @@ window.CATALOG_DATA = {
       "sourcePage": 94
     },
     {
-      "number": 334,
+      "number": 333,
       "title": "Hielera de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28011,7 +27995,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg095-1",
-          "page": 334,
+          "page": 333,
           "label": "Hielera de acero inoxidable",
           "price": "$49.799",
           "productIds": [
@@ -28048,7 +28032,7 @@ window.CATALOG_DATA = {
       "sourcePage": 95
     },
     {
-      "number": 335,
+      "number": 334,
       "title": "Cubetera con tapa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28063,7 +28047,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg096-1",
-          "page": 335,
+          "page": 334,
           "label": "Cubetera con tapa",
           "price": "$8.856",
           "productIds": [
@@ -28100,7 +28084,7 @@ window.CATALOG_DATA = {
       "sourcePage": 96
     },
     {
-      "number": 336,
+      "number": 335,
       "title": "Cubetera con tapa involcable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28115,7 +28099,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg097-1",
-          "page": 336,
+          "page": 335,
           "label": "Cubetera con tapa involcable",
           "price": "$14.063",
           "productIds": [
@@ -28152,7 +28136,7 @@ window.CATALOG_DATA = {
       "sourcePage": 97
     },
     {
-      "number": 337,
+      "number": 336,
       "title": "Tapa de silicona",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28169,7 +28153,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg098-1",
-          "page": 337,
+          "page": 336,
           "label": "Tapa de silicona",
           "price": "$14.156",
           "productIds": [
@@ -28204,7 +28188,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg098-2",
-          "page": 337,
+          "page": 336,
           "label": "Tapa de silicona",
           "price": "$24.822",
           "productIds": [
@@ -28239,7 +28223,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg098-3",
-          "page": 337,
+          "page": 336,
           "label": "Tapa de silicona",
           "price": "$11.319",
           "productIds": [
@@ -28276,7 +28260,7 @@ window.CATALOG_DATA = {
       "sourcePage": 98
     },
     {
-      "number": 338,
+      "number": 337,
       "title": "Centrifugador de verduras 5.9L",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28291,7 +28275,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg099-1",
-          "page": 338,
+          "page": 337,
           "label": "Centrifugador de verduras 5.9L",
           "price": "$48.149",
           "productIds": [
@@ -28328,7 +28312,7 @@ window.CATALOG_DATA = {
       "sourcePage": 99
     },
     {
-      "number": 339,
+      "number": 338,
       "title": "Termómetro de precisión para carnes",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28343,7 +28327,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg100-1",
-          "page": 339,
+          "page": 338,
           "label": "Termómetro de precisión para carnes",
           "price": "$16.579",
           "productIds": [
@@ -28380,7 +28364,7 @@ window.CATALOG_DATA = {
       "sourcePage": 100
     },
     {
-      "number": 340,
+      "number": 339,
       "title": "Termómetro digital",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28395,7 +28379,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg101-1",
-          "page": 340,
+          "page": 339,
           "label": "Termómetro digital",
           "price": "$29.367",
           "productIds": [
@@ -28432,7 +28416,7 @@ window.CATALOG_DATA = {
       "sourcePage": 101
     },
     {
-      "number": 341,
+      "number": 340,
       "title": "Colador",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28447,7 +28431,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg102-1",
-          "page": 341,
+          "page": 340,
           "label": "Colador",
           "price": "$19.236",
           "productIds": [
@@ -28484,7 +28468,7 @@ window.CATALOG_DATA = {
       "sourcePage": 102
     },
     {
-      "number": 342,
+      "number": 341,
       "title": "Colador 2.8L de acero inoxidable",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28499,7 +28483,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg103-1",
-          "page": 342,
+          "page": 341,
           "label": "Colador 2.8L de acero inoxidable",
           "price": "$41.199",
           "productIds": [
@@ -28536,7 +28520,7 @@ window.CATALOG_DATA = {
       "sourcePage": 103
     },
     {
-      "number": 343,
+      "number": 342,
       "title": "Organizador de cajón extensible",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28551,7 +28535,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg104-1",
-          "page": 343,
+          "page": 342,
           "label": "Organizador de cajón extensible",
           "price": "$28.762",
           "productIds": [
@@ -28588,7 +28572,7 @@ window.CATALOG_DATA = {
       "sourcePage": 104
     },
     {
-      "number": 344,
+      "number": 343,
       "title": "Portarollos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28604,7 +28588,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg105-1",
-          "page": 344,
+          "page": 343,
           "label": "Portarollos",
           "price": "$23.251",
           "productIds": [
@@ -28639,7 +28623,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg105-2",
-          "page": 344,
+          "page": 343,
           "label": "Portarollos",
           "price": "$33.710",
           "productIds": [
@@ -28676,7 +28660,7 @@ window.CATALOG_DATA = {
       "sourcePage": 105
     },
     {
-      "number": 345,
+      "number": 344,
       "title": "Cesto para compost de 2,83 L",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28692,7 +28676,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg106-1",
-          "page": 345,
+          "page": 344,
           "label": "Cesto para compost de 2,83 L - 2 productos",
           "price": "$31.506",
           "productIds": [
@@ -28730,7 +28714,7 @@ window.CATALOG_DATA = {
       "sourcePage": 106
     },
     {
-      "number": 346,
+      "number": 345,
       "title": "Molinillo de pimienta",
       "section": "OXO",
       "showPriceOverlays": false,
@@ -28746,12 +28730,12 @@ window.CATALOG_DATA = {
       "sourcePage": 107
     },
     {
-      "number": 347,
+      "number": 346,
       "title": "Pimentero y salero doble",
       "section": "OXO",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/oxo-20260722-page-108.jpg?v=20260722-oxo-r2",
+        "src": "assets/pages/oxo-20260722-page-108.jpg?v=20260806-page-replacements",
         "width": 1013,
         "height": 1432
       },
@@ -28761,7 +28745,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg108-1",
-          "page": 347,
+          "page": 346,
           "label": "Pimentero y salero doble",
           "price": "$35.712",
           "productIds": [
@@ -28769,7 +28753,7 @@ window.CATALOG_DATA = {
           ],
           "position": {
             "x": 0.4999929,
-            "y": 0.239395
+            "y": 0.2166257
           },
           "positionSource": "oxo-20260722-pdf",
           "cover": {
@@ -28798,7 +28782,7 @@ window.CATALOG_DATA = {
       "sourcePage": 108
     },
     {
-      "number": 348,
+      "number": 347,
       "title": "Recipientes para condimentos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28814,7 +28798,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg109-1",
-          "page": 348,
+          "page": 347,
           "label": "Recipientes para condimentos",
           "price": "$15.742",
           "productIds": [
@@ -28849,7 +28833,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg109-2",
-          "page": 348,
+          "page": 347,
           "label": "Recipientes para condimentos",
           "price": "$15.742",
           "productIds": [
@@ -28886,7 +28870,7 @@ window.CATALOG_DATA = {
       "sourcePage": 109
     },
     {
-      "number": 349,
+      "number": 348,
       "title": "Clips",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28901,7 +28885,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg110-1",
-          "page": 349,
+          "page": 348,
           "label": "Clips",
           "price": "$12.788",
           "productIds": [
@@ -28938,7 +28922,7 @@ window.CATALOG_DATA = {
       "sourcePage": 110
     },
     {
-      "number": 350,
+      "number": 349,
       "title": "Organizadores de bacha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -28954,7 +28938,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg112-1",
-          "page": 350,
+          "page": 349,
           "label": "Organizadores de bacha",
           "price": "$29.367",
           "productIds": [
@@ -28989,7 +28973,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg112-2",
-          "page": 350,
+          "page": 349,
           "label": "Organizadores de bacha",
           "price": "$37.061",
           "productIds": [
@@ -29026,7 +29010,7 @@ window.CATALOG_DATA = {
       "sourcePage": 112
     },
     {
-      "number": 351,
+      "number": 350,
       "title": "Secaplatos",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29042,7 +29026,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg113-1",
-          "page": 351,
+          "page": 350,
           "label": "Secaplatos",
           "price": "$69.079",
           "productIds": [
@@ -29077,7 +29061,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg113-2",
-          "page": 351,
+          "page": 350,
           "label": "Secaplatos",
           "price": "$84.425",
           "productIds": [
@@ -29114,7 +29098,7 @@ window.CATALOG_DATA = {
       "sourcePage": 113
     },
     {
-      "number": 352,
+      "number": 351,
       "title": "Secaplatos de aluminio",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29129,7 +29113,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg114-1",
-          "page": 352,
+          "page": 351,
           "label": "Secaplatos de aluminio",
           "price": "$64.142",
           "productIds": [
@@ -29166,7 +29150,7 @@ window.CATALOG_DATA = {
       "sourcePage": 114
     },
     {
-      "number": 353,
+      "number": 352,
       "title": "Escurridor de botellas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29181,7 +29165,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg115-1",
-          "page": 353,
+          "page": 352,
           "label": "Escurridor de botellas",
           "price": "$28.091",
           "productIds": [
@@ -29218,7 +29202,7 @@ window.CATALOG_DATA = {
       "sourcePage": 115
     },
     {
-      "number": 354,
+      "number": 353,
       "title": "Filtro y tapón de silicona para bacha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29233,7 +29217,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg116-1",
-          "page": 354,
+          "page": 353,
           "label": "Filtro y tapón de silicona para bacha",
           "price": "$15.304",
           "productIds": [
@@ -29270,7 +29254,7 @@ window.CATALOG_DATA = {
       "sourcePage": 116
     },
     {
-      "number": 355,
+      "number": 354,
       "title": "Protector de desagüe para bañera",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29285,7 +29269,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg117-1",
-          "page": 355,
+          "page": 354,
           "label": "Protector de desagüe para bañera",
           "price": "$10.159",
           "productIds": [
@@ -29322,7 +29306,7 @@ window.CATALOG_DATA = {
       "sourcePage": 117
     },
     {
-      "number": 356,
+      "number": 355,
       "title": "Dispensers de jabón",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29339,7 +29323,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg118-1",
-          "page": 356,
+          "page": 355,
           "label": "Dispensers de jabón",
           "price": "$30.024",
           "productIds": [
@@ -29374,7 +29358,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg118-2",
-          "page": 356,
+          "page": 355,
           "label": "Dispensers de jabón",
           "price": "$30.024",
           "productIds": [
@@ -29409,7 +29393,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg118-3",
-          "page": 356,
+          "page": 355,
           "label": "Dispensers de jabón",
           "price": "$38.456",
           "productIds": [
@@ -29446,7 +29430,7 @@ window.CATALOG_DATA = {
       "sourcePage": 118
     },
     {
-      "number": 357,
+      "number": 356,
       "title": "Esponjas con dispensers",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29464,7 +29448,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg119-1",
-          "page": 357,
+          "page": 356,
           "label": "Esponjas con dispensers",
           "price": "$12.788",
           "productIds": [
@@ -29499,7 +29483,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg119-2",
-          "page": 357,
+          "page": 356,
           "label": "Esponjas con dispensers",
           "price": "$14.063",
           "productIds": [
@@ -29534,7 +29518,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg119-3",
-          "page": 357,
+          "page": 356,
           "label": "Esponjas con dispensers",
           "price": "$8.856",
           "productIds": [
@@ -29569,7 +29553,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg119-4",
-          "page": 357,
+          "page": 356,
           "label": "Esponjas con dispensers",
           "price": "$8.856",
           "productIds": [
@@ -29606,7 +29590,7 @@ window.CATALOG_DATA = {
       "sourcePage": 119
     },
     {
-      "number": 358,
+      "number": 357,
       "title": "Cepillo con dispenser",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29622,7 +29606,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg120-1",
-          "page": 358,
+          "page": 357,
           "label": "Cepillo con dispenser",
           "price": "$8.856",
           "productIds": [
@@ -29657,7 +29641,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg120-2",
-          "page": 358,
+          "page": 357,
           "label": "Cepillo con dispenser",
           "price": "$15.304",
           "productIds": [
@@ -29694,7 +29678,7 @@ window.CATALOG_DATA = {
       "sourcePage": 120
     },
     {
-      "number": 359,
+      "number": 358,
       "title": "Cepillo de palma",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29710,7 +29694,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg121-1",
-          "page": 359,
+          "page": 358,
           "label": "Cepillo de palma",
           "price": "$8.856",
           "productIds": [
@@ -29745,7 +29729,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg121-2",
-          "page": 359,
+          "page": 358,
           "label": "Cepillo de palma",
           "price": "$11.513",
           "productIds": [
@@ -29782,7 +29766,7 @@ window.CATALOG_DATA = {
       "sourcePage": 121
     },
     {
-      "number": 360,
+      "number": 359,
       "title": "Set compacto de cepillo de mesa con",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29797,7 +29781,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg122-1",
-          "page": 360,
+          "page": 359,
           "label": "Set compacto de cepillo de mesa con",
           "price": "$12.788",
           "productIds": [
@@ -29834,7 +29818,7 @@ window.CATALOG_DATA = {
       "sourcePage": 122
     },
     {
-      "number": 361,
+      "number": 360,
       "title": "Pala y cepillo de mesa",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29849,7 +29833,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg123-1",
-          "page": 361,
+          "page": 360,
           "label": "Pala y cepillo de mesa",
           "price": "$15.304",
           "productIds": [
@@ -29886,7 +29870,7 @@ window.CATALOG_DATA = {
       "sourcePage": 123
     },
     {
-      "number": 362,
+      "number": 361,
       "title": "Plumeros de microfibra",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -29903,7 +29887,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg124-1",
-          "page": 362,
+          "page": 361,
           "label": "Plumeros de microfibra",
           "price": "$15.304",
           "productIds": [
@@ -29938,7 +29922,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg124-2",
-          "page": 362,
+          "page": 361,
           "label": "Plumeros de microfibra",
           "price": "$23.026",
           "productIds": [
@@ -29973,7 +29957,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg124-3",
-          "page": 362,
+          "page": 361,
           "label": "Plumeros de microfibra",
           "price": "$10.132",
           "productIds": [
@@ -30010,7 +29994,7 @@ window.CATALOG_DATA = {
       "sourcePage": 124
     },
     {
-      "number": 363,
+      "number": 362,
       "title": "Limpia notebooks",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30025,7 +30009,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg126-1",
-          "page": 363,
+          "page": 362,
           "label": "Limpia notebooks",
           "price": "$15.304",
           "productIds": [
@@ -30062,7 +30046,7 @@ window.CATALOG_DATA = {
       "sourcePage": 126
     },
     {
-      "number": 364,
+      "number": 363,
       "title": "Cepillo quita pelusas",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30079,7 +30063,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg127-1",
-          "page": 364,
+          "page": 363,
           "label": "Cepillo quita pelusas",
           "price": "$9.941",
           "productIds": [
@@ -30114,7 +30098,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg127-2",
-          "page": 364,
+          "page": 363,
           "label": "Cepillo quita pelusas",
           "price": "$23.026",
           "productIds": [
@@ -30149,7 +30133,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg127-3",
-          "page": 364,
+          "page": 363,
           "label": "Cepillo quita pelusas",
           "price": "$17.856",
           "productIds": [
@@ -30186,7 +30170,7 @@ window.CATALOG_DATA = {
       "sourcePage": 127
     },
     {
-      "number": 365,
+      "number": 364,
       "title": "Set x2 cepillos de limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30201,7 +30185,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg128-1",
-          "page": 365,
+          "page": 364,
           "label": "Set x2 cepillos de limpieza",
           "price": "$11.513",
           "productIds": [
@@ -30238,7 +30222,7 @@ window.CATALOG_DATA = {
       "sourcePage": 128
     },
     {
-      "number": 366,
+      "number": 365,
       "title": "Limpieza",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30254,7 +30238,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg129-1",
-          "page": 366,
+          "page": 365,
           "label": "Limpieza",
           "price": "$13.718",
           "productIds": [
@@ -30289,7 +30273,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg129-2",
-          "page": 366,
+          "page": 365,
           "label": "Limpieza",
           "price": "$17.856",
           "productIds": [
@@ -30326,7 +30310,7 @@ window.CATALOG_DATA = {
       "sourcePage": 129
     },
     {
-      "number": 367,
+      "number": 366,
       "title": "Limpiavidrios",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30341,7 +30325,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg130-1",
-          "page": 367,
+          "page": 366,
           "label": "Limpiavidrios",
           "price": "$13.718",
           "productIds": [
@@ -30378,7 +30362,7 @@ window.CATALOG_DATA = {
       "sourcePage": 130
     },
     {
-      "number": 368,
+      "number": 367,
       "title": "Organizadores de ducha",
       "section": "OXO",
       "showPriceOverlays": true,
@@ -30395,7 +30379,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "oxo-pg131-1",
-          "page": 368,
+          "page": 367,
           "label": "Organizadores de ducha",
           "price": "$58.750",
           "productIds": [
@@ -30430,7 +30414,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg131-2",
-          "page": 368,
+          "page": 367,
           "label": "Organizadores de ducha",
           "price": "$79.706",
           "productIds": [
@@ -30465,7 +30449,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "oxo-pg131-3",
-          "page": 368,
+          "page": 367,
           "label": "Organizadores de ducha",
           "price": "$204.473",
           "productIds": [
@@ -30502,7 +30486,7 @@ window.CATALOG_DATA = {
       "sourcePage": 131
     },
     {
-      "number": 369,
+      "number": 368,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30515,7 +30499,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 370,
+      "number": 369,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30528,7 +30512,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 371,
+      "number": 370,
       "title": "Salad Pod",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30543,7 +30527,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg384-1",
-          "page": 371,
+          "page": 370,
           "label": "Salad pod con tapa removible y contenedor de salsa",
           "price": "$22.785",
           "productIds": [
@@ -30576,7 +30560,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 372,
+      "number": 371,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30589,7 +30573,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 373,
+      "number": 372,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30608,7 +30592,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg386-1",
-          "page": 373,
+          "page": 372,
           "label": "Frasco EVAK 9,6 x 10,3 cm",
           "price": "$7.394",
           "productIds": [
@@ -30640,7 +30624,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-2",
-          "page": 373,
+          "page": 372,
           "label": "Frasco EVAK 11,8 x 26,6 cm",
           "price": "$13.067",
           "productIds": [
@@ -30672,7 +30656,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-3",
-          "page": 373,
+          "page": 372,
           "label": "Frasco EVAK 11,8 x 13 cm",
           "price": "$10.277",
           "productIds": [
@@ -30704,7 +30688,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-4",
-          "page": 373,
+          "page": 372,
           "label": "Frasco EVAK 9,6 x 20 cm",
           "price": "$9.161",
           "productIds": [
@@ -30736,7 +30720,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg386-5",
-          "page": 373,
+          "page": 372,
           "label": "Frasco EVAK 14,4 x 29,1 cm",
           "price": "$7.394",
           "productIds": [
@@ -30769,7 +30753,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 374,
+      "number": 373,
       "title": "Frascos EVAK",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30782,7 +30766,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 375,
+      "number": 374,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30795,7 +30779,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 376,
+      "number": 375,
       "title": "Conservador",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30811,7 +30795,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg389-1",
-          "page": 376,
+          "page": 375,
           "label": "Conservador de hierbas - individual",
           "price": "$9.161",
           "productIds": [
@@ -30843,7 +30827,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg389-2",
-          "page": 376,
+          "page": 375,
           "label": "Conservador de hierbas - set x3",
           "price": "$23.111",
           "productIds": [
@@ -30876,7 +30860,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 377,
+      "number": 376,
       "title": "Hierbas",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30891,7 +30875,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg390-1",
-          "page": 377,
+          "page": 376,
           "label": "Hierbas \"cool tool\" para preparar hierbas",
           "price": "$1.721",
           "productIds": [
@@ -30924,7 +30908,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 378,
+      "number": 377,
       "title": "Porta-tacos",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -30937,7 +30921,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 379,
+      "number": 378,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -30954,7 +30938,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg392-1",
-          "page": 379,
+          "page": 378,
           "label": "Porta tacos amarillo",
           "price": "$7.301",
           "productIds": [
@@ -30986,7 +30970,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg392-2",
-          "page": 379,
+          "page": 378,
           "label": "Porta tacos azul",
           "price": "$7.301",
           "productIds": [
@@ -31018,7 +31002,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg392-3",
-          "page": 379,
+          "page": 378,
           "label": "Porta tacos rojo",
           "price": "$7.301",
           "productIds": [
@@ -31051,7 +31035,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 380,
+      "number": 379,
       "title": "Porta tacos",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31067,7 +31051,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg393-1",
-          "page": 380,
+          "page": 379,
           "label": "Porta tacos oruga - set x4",
           "price": "$13.392",
           "productIds": [
@@ -31099,7 +31083,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg393-2",
-          "page": 380,
+          "page": 379,
           "label": "Porta tacos sombrero - set x4",
           "price": "$9.300",
           "productIds": [
@@ -31132,7 +31116,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 381,
+      "number": 380,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31145,7 +31129,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 382,
+      "number": 381,
       "title": "Organizadores",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31161,7 +31145,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg395-1",
-          "page": 382,
+          "page": 381,
           "label": "Organizador de cajón single extensible",
           "price": "$15.996",
           "productIds": [
@@ -31193,7 +31177,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg395-2",
-          "page": 382,
+          "page": 381,
           "label": "Organizador de cajón doble extensible",
           "price": "$31.899",
           "productIds": [
@@ -31226,7 +31210,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 383,
+      "number": 382,
       "title": "Catalog",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31239,7 +31223,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 384,
+      "number": 383,
       "title": "Sprays para aceite",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31252,7 +31236,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 385,
+      "number": 384,
       "title": "Sprays",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31269,7 +31253,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg398-1",
-          "page": 385,
+          "page": 384,
           "label": "Spray de aceite Simple",
           "price": "$25.250",
           "productIds": [
@@ -31301,7 +31285,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg398-2",
-          "page": 385,
+          "page": 384,
           "label": "Spray de aceite Deluxe",
           "price": "$20.693",
           "productIds": [
@@ -31333,7 +31317,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg398-3",
-          "page": 385,
+          "page": 384,
           "label": "Spray gourmet de aluminio",
           "price": "$13.020",
           "productIds": [
@@ -31366,7 +31350,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 386,
+      "number": 385,
       "title": "aceite",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31381,7 +31365,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg399-1",
-          "page": 386,
+          "page": 385,
           "label": "Vertedor de aceite",
           "price": "$8.556",
           "productIds": [
@@ -31414,7 +31398,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 387,
+      "number": 386,
       "title": "Otros accesorios",
       "section": "Prepara",
       "showPriceOverlays": false,
@@ -31427,7 +31411,7 @@ window.CATALOG_DATA = {
       "priceGroups": []
     },
     {
-      "number": 388,
+      "number": 387,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31444,7 +31428,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg401-1",
-          "page": 388,
+          "page": 387,
           "label": "Cortador de cebolla",
           "price": "$13.718",
           "productIds": [
@@ -31476,7 +31460,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg401-2",
-          "page": 388,
+          "page": 387,
           "label": "Guante resistente a cortes",
           "price": "$10.928",
           "productIds": [
@@ -31508,7 +31492,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg401-3",
-          "page": 388,
+          "page": 387,
           "label": "Cortador de manzana cuchillas de acero inoxidable",
           "price": "$13.020",
           "productIds": [
@@ -31541,7 +31525,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 389,
+      "number": 388,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31558,7 +31542,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg402-1",
-          "page": 389,
+          "page": 388,
           "label": "Exprimidor convertible",
           "price": "$12.323",
           "productIds": [
@@ -31590,7 +31574,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg402-2",
-          "page": 389,
+          "page": 388,
           "label": "Pisapapas flip de acero inoxidable",
           "price": "$15.950",
           "productIds": [
@@ -31622,7 +31606,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg402-3",
-          "page": 389,
+          "page": 388,
           "label": "Exprimidor de mano",
           "price": "$5.162",
           "productIds": [
@@ -31655,7 +31639,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 390,
+      "number": 389,
       "title": "Accesorios para palta",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31671,7 +31655,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg403-1",
-          "page": 390,
+          "page": 389,
           "label": "Cortador de palta cactus",
           "price": "$7.487",
           "productIds": [
@@ -31703,7 +31687,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg403-2",
-          "page": 390,
+          "page": 389,
           "label": "Avocado \"Cool Tool\" 3 en 1",
           "price": "$1.535",
           "productIds": [
@@ -31736,7 +31720,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 391,
+      "number": 390,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31752,7 +31736,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg404-1",
-          "page": 391,
+          "page": 390,
           "label": "Colador para latas",
           "price": "$4.836",
           "productIds": [
@@ -31784,7 +31768,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg404-2",
-          "page": 391,
+          "page": 390,
           "label": "Rallador de queso Cactus",
           "price": "$4.743",
           "productIds": [
@@ -31817,7 +31801,7 @@ window.CATALOG_DATA = {
       ]
     },
     {
-      "number": 392,
+      "number": 391,
       "title": "Accesorios",
       "section": "Prepara",
       "showPriceOverlays": true,
@@ -31834,7 +31818,7 @@ window.CATALOG_DATA = {
       "priceGroups": [
         {
           "id": "prepara-pg405-1",
-          "page": 392,
+          "page": 391,
           "label": "Cucharas para helado - set x4",
           "price": "$7.673",
           "productIds": [
@@ -31866,7 +31850,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg405-2",
-          "page": 392,
+          "page": 391,
           "label": "Bolas de hielo - set x2",
           "price": "$4.929",
           "productIds": [
@@ -31898,7 +31882,7 @@ window.CATALOG_DATA = {
         },
         {
           "id": "prepara-pg405-3",
-          "page": 392,
+          "page": 391,
           "label": "Bolas de hielo - set x4",
           "price": "$6.092",
           "productIds": [
@@ -34213,8 +34197,7 @@ window.CATALOG_DATA = {
         "x": 0.5694191113527236,
         "y": 0.44518945138579696
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
+      "section": "Magefesa"
     },
     {
       "id": "p054-2",
@@ -34241,8 +34224,7 @@ window.CATALOG_DATA = {
         "x": 0.5694139610309745,
         "y": 0.4832314015425571
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
+      "section": "Magefesa"
     },
     {
       "id": "p054-3",
@@ -34269,8 +34251,7 @@ window.CATALOG_DATA = {
         "x": 0.5694139610309745,
         "y": 0.5212733154659209
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
+      "section": "Magefesa"
     },
     {
       "id": "p054-4",
@@ -34297,8 +34278,7 @@ window.CATALOG_DATA = {
         "x": 0.5694287970324308,
         "y": 0.5593152656226811
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=tgG0ZWWHgTU"
+      "section": "Magefesa"
     },
     {
       "id": "p055-1",
@@ -34845,8 +34825,7 @@ window.CATALOG_DATA = {
         "x": 0.5540310517766713,
         "y": 0.15347415044280108
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p060-2",
@@ -34873,8 +34852,7 @@ window.CATALOG_DATA = {
         "x": 0.5684565905259499,
         "y": 0.22806453733141324
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p060-3",
@@ -34901,8 +34879,7 @@ window.CATALOG_DATA = {
         "x": 0.5464878034231344,
         "y": 0.30089973320625557
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p060-4",
@@ -34929,8 +34906,7 @@ window.CATALOG_DATA = {
         "x": 0.5233521481505169,
         "y": 0.4091034886673531
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p060-5",
@@ -34957,8 +34933,7 @@ window.CATALOG_DATA = {
         "x": 0.5432431263447208,
         "y": 0.5170340080861346
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p060-6",
@@ -34985,8 +34960,7 @@ window.CATALOG_DATA = {
         "x": 0.5540923431678343,
         "y": 0.611444071868507
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p061-1",
@@ -35013,8 +34987,7 @@ window.CATALOG_DATA = {
         "x": 0.6190401296671652,
         "y": 0.15347415044280108
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p061-2",
@@ -35041,8 +35014,7 @@ window.CATALOG_DATA = {
         "x": 0.6246315854422492,
         "y": 0.29614187157377003
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p061-3",
@@ -35069,8 +35041,7 @@ window.CATALOG_DATA = {
         "x": 0.612655729330657,
         "y": 0.5814773138357079
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p061-4",
@@ -35097,8 +35068,7 @@ window.CATALOG_DATA = {
         "x": 0.6327640459779729,
         "y": 0.4388095474129935
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-1",
@@ -35125,8 +35095,7 @@ window.CATALOG_DATA = {
         "x": 0.5382115694777891,
         "y": 0.23320649108252633
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-2",
@@ -35153,8 +35122,7 @@ window.CATALOG_DATA = {
         "x": 0.5575100300594301,
         "y": 0.4691200516775193
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-3",
@@ -35181,8 +35149,7 @@ window.CATALOG_DATA = {
         "x": 0.5463235055969905,
         "y": 0.13970126579196349
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-4",
@@ -35209,8 +35176,7 @@ window.CATALOG_DATA = {
         "x": 0.5647943530334933,
         "y": 0.3604783069206367
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-5",
@@ -35237,8 +35203,7 @@ window.CATALOG_DATA = {
         "x": 0.5701764905082388,
         "y": 0.5698841487876596
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p062-6",
@@ -35265,8 +35230,7 @@ window.CATALOG_DATA = {
         "x": 0.5527320176388014,
         "y": 0.6635617544616355
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p063-1",
@@ -35293,8 +35257,7 @@ window.CATALOG_DATA = {
         "x": 0.6748132201225991,
         "y": 0.14661435325126615
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p063-2",
@@ -35321,8 +35284,7 @@ window.CATALOG_DATA = {
         "x": 0.7543530724410946,
         "y": 0.17957423440282724
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p064-1",
@@ -35376,8 +35338,7 @@ window.CATALOG_DATA = {
         "x": 0.4244381306453676,
         "y": 0.14663323990914404
       },
-      "section": "Magefesa",
-      "videoUrl": "https://www.youtube.com/watch?v=Xlj33neTh0Y"
+      "section": "Magefesa"
     },
     {
       "id": "p066-1",
@@ -38143,6 +38104,35 @@ window.CATALOG_DATA = {
       "hotspotSource": "leifheit-sku-text"
     },
     {
+      "id": "p115-2",
+      "page": 135,
+      "sku": "55386",
+      "skus": [
+        "55386"
+      ],
+      "name": "Repuesto para Superduster Floor",
+      "category": "cabo",
+      "price": "$21.950",
+      "pdfPrice": "$21.950",
+      "priceSource": "pdf",
+      "ean": "4006501553867",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.7822,
+        "y": 0.5945,
+        "w": 0.0822,
+        "h": 0.0292
+      },
+      "pricePosition": {
+        "x": 0.82332,
+        "y": 0.61758
+      },
+      "section": "Leifheit",
+      "sourcePage": 11,
+      "hotspotSource": "leifheit-sku-text"
+    },
+    {
       "id": "p116-1",
       "page": 136,
       "sku": "52000",
@@ -38285,8 +38275,7 @@ window.CATALOG_DATA = {
       },
       "section": "Leifheit",
       "sourcePage": 14,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=2M1HWHnZrx4"
+      "hotspotSource": "leifheit-sku-text"
     },
     {
       "id": "p118-2",
@@ -38374,7 +38363,7 @@ window.CATALOG_DATA = {
       "section": "Leifheit",
       "sourcePage": 15,
       "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=2M1HWHnZrx4"
+      "videoUrl": "https://www.youtube.com/watch?v=iCx7piWnGIk"
     },
     {
       "id": "p119-2",
@@ -40418,38 +40407,8 @@ window.CATALOG_DATA = {
       "hotspotSource": "leifheit-sku-text"
     },
     {
-      "id": "p155-1",
-      "page": 175,
-      "sku": "83040",
-      "skus": [
-        "83040"
-      ],
-      "name": "Tender ROLLFIX 210 (21mts de secado y hasta 4,20m de largo)",
-      "category": "Tender",
-      "price": "$24.145",
-      "pdfPrice": "$24.145",
-      "priceSource": "excel",
-      "ean": "4006501830401",
-      "unitsPerCase": 6,
-      "sizeLabel": "",
-      "hotspot": {
-        "x": 0.4305483980603222,
-        "y": 0.18227746317527457,
-        "w": 0.13889731047635914,
-        "h": 0.044038251161787625
-      },
-      "pricePosition": {
-        "x": 0.4999858558328086,
-        "y": 0.22028301688534246
-      },
-      "section": "Leifheit",
-      "sourcePage": 51,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=010ctBdTvtQ"
-    },
-    {
       "id": "p156-1",
-      "page": 176,
+      "page": 175,
       "sku": "81726",
       "skus": [
         "81726"
@@ -40478,7 +40437,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p156-2",
-      "page": 176,
+      "page": 175,
       "sku": "80031",
       "skus": [
         "80031"
@@ -40507,7 +40466,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p156-3",
-      "page": 176,
+      "page": 175,
       "sku": "81715",
       "skus": [
         "81715"
@@ -40536,7 +40495,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p156-4",
-      "page": 176,
+      "page": 175,
       "sku": "81708",
       "skus": [
         "81708"
@@ -40565,7 +40524,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p158-1",
-      "page": 178,
+      "page": 177,
       "sku": "72583",
       "skus": [
         "72583"
@@ -40594,7 +40553,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p158-2",
-      "page": 178,
+      "page": 177,
       "sku": "72584",
       "skus": [
         "72584"
@@ -40619,12 +40578,11 @@ window.CATALOG_DATA = {
       },
       "section": "Leifheit",
       "sourcePage": 54,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=JvGUeK74tLI"
+      "hotspotSource": "leifheit-sku-text"
     },
     {
       "id": "p158-3",
-      "page": 178,
+      "page": 177,
       "sku": "71606",
       "skus": [
         "71606"
@@ -40653,7 +40611,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p158-4",
-      "page": 178,
+      "page": 177,
       "sku": "72585",
       "skus": [
         "72585"
@@ -40678,12 +40636,11 @@ window.CATALOG_DATA = {
       },
       "section": "Leifheit",
       "sourcePage": 54,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=JvGUeK74tLI"
+      "hotspotSource": "leifheit-sku-text"
     },
     {
       "id": "p158-5",
-      "page": 178,
+      "page": 177,
       "sku": "71608",
       "skus": [
         "71608"
@@ -40712,23 +40669,23 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p159-1",
-      "page": 179,
-      "sku": "71613",
+      "page": 178,
+      "sku": "72565",
       "skus": [
-        "71613"
+        "72565"
       ],
-      "name": "Funda tabla planchar S/M con perforaciones especiales para mejor distribución de vapor",
+      "name": "Tabla de planchar Air Board Express M Solid (120x38)",
       "category": "Tablas",
-      "price": "$29.807",
+      "price": "$156.266",
       "pdfPrice": "$156.266",
       "priceSource": "excel",
-      "ean": "4006501716132",
-      "unitsPerCase": 4,
+      "ean": "4006501725653",
+      "unitsPerCase": 1,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.6566066277517579,
+        "x": 0.10170766988989688,
         "y": 0.19238206971537364,
-        "w": 0.10586263430809194,
+        "w": 0.11447044904246038,
         "h": 0.039762366168327026
       },
       "pricePosition": {
@@ -40741,7 +40698,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p159-2",
-      "page": 179,
+      "page": 178,
       "sku": "72567",
       "skus": [
         "72567"
@@ -40770,7 +40727,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p159-3",
-      "page": 179,
+      "page": 178,
       "sku": "71613",
       "skus": [
         "71613"
@@ -40799,7 +40756,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p159-4",
-      "page": 179,
+      "page": 178,
       "sku": "71615",
       "skus": [
         "71615"
@@ -40828,7 +40785,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p160-1",
-      "page": 180,
+      "page": 179,
       "sku": "72486",
       "skus": [
         "72486"
@@ -40857,7 +40814,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p160-2",
-      "page": 180,
+      "page": 179,
       "sku": "72576",
       "skus": [
         "72576"
@@ -40886,7 +40843,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p160-3",
-      "page": 180,
+      "page": 179,
       "sku": "72577",
       "skus": [
         "72577"
@@ -40915,7 +40872,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p161-1",
-      "page": 181,
+      "page": 180,
       "sku": "71597",
       "skus": [
         "71597"
@@ -40944,7 +40901,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p161-2",
-      "page": 181,
+      "page": 180,
       "sku": "71598",
       "skus": [
         "71598"
@@ -40973,7 +40930,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p161-3",
-      "page": 181,
+      "page": 180,
       "sku": "71600",
       "skus": [
         "71600"
@@ -41002,7 +40959,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p161-4",
-      "page": 181,
+      "page": 180,
       "sku": "71603",
       "skus": [
         "71603"
@@ -41031,7 +40988,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p161-5",
-      "page": 181,
+      "page": 180,
       "sku": "71604",
       "skus": [
         "71604"
@@ -41060,7 +41017,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p162-1",
-      "page": 182,
+      "page": 181,
       "sku": "72415",
       "skus": [
         "72415"
@@ -41089,7 +41046,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p162-2",
-      "page": 182,
+      "page": 181,
       "sku": "72418",
       "skus": [
         "72418"
@@ -41118,7 +41075,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p163-1",
-      "page": 183,
+      "page": 182,
       "sku": "71820",
       "skus": [
         "71820"
@@ -41147,7 +41104,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p163-2",
-      "page": 183,
+      "page": 182,
       "sku": "41000",
       "skus": [
         "41000"
@@ -41176,7 +41133,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p163-3",
-      "page": 183,
+      "page": 182,
       "sku": "45310",
       "skus": [
         "45310"
@@ -41205,7 +41162,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p164-1",
-      "page": 184,
+      "page": 183,
       "sku": "72416",
       "skus": [
         "72416"
@@ -41234,7 +41191,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p166-1",
-      "page": 186,
+      "page": 185,
       "sku": "25723",
       "skus": [
         "25723"
@@ -41264,7 +41221,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p166-2",
-      "page": 186,
+      "page": 185,
       "sku": "25793",
       "skus": [
         "25793"
@@ -41293,7 +41250,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p166-3",
-      "page": 186,
+      "page": 185,
       "sku": "25795",
       "skus": [
         "25795"
@@ -41323,7 +41280,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p166-4",
-      "page": 186,
+      "page": 185,
       "sku": "25703",
       "skus": [
         "25703"
@@ -41353,7 +41310,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p167-1",
-      "page": 187,
+      "page": 186,
       "sku": "22600",
       "skus": [
         "22600"
@@ -41382,7 +41339,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p167-2",
-      "page": 187,
+      "page": 186,
       "sku": "3084",
       "skus": [
         "3084"
@@ -41411,7 +41368,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p167-3",
-      "page": 187,
+      "page": 186,
       "sku": "3146",
       "skus": [
         "3146"
@@ -41440,7 +41397,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p168-1",
-      "page": 188,
+      "page": 187,
       "sku": "3121",
       "skus": [
         "3121"
@@ -41469,7 +41426,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p168-2",
-      "page": 188,
+      "page": 187,
       "sku": "3122",
       "skus": [
         "3122"
@@ -41498,7 +41455,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p169-1",
-      "page": 189,
+      "page": 188,
       "sku": "23170",
       "skus": [
         "23170"
@@ -41528,7 +41485,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p170-1",
-      "page": 190,
+      "page": 189,
       "sku": "23069",
       "skus": [
         "23069"
@@ -41557,7 +41514,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p171-1",
-      "page": 191,
+      "page": 190,
       "sku": "3107",
       "skus": [
         "3107"
@@ -41586,7 +41543,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p171-2",
-      "page": 191,
+      "page": 190,
       "sku": "3206",
       "skus": [
         "3206"
@@ -41615,7 +41572,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p171-3",
-      "page": 191,
+      "page": 190,
       "sku": "23030",
       "skus": [
         "23030"
@@ -41644,7 +41601,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p172-1",
-      "page": 192,
+      "page": 191,
       "sku": "3221",
       "skus": [
         "3221"
@@ -41674,7 +41631,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p172-2",
-      "page": 192,
+      "page": 191,
       "sku": "3222",
       "skus": [
         "3222"
@@ -41700,11 +41657,11 @@ window.CATALOG_DATA = {
       "section": "Leifheit",
       "sourcePage": 68,
       "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=rrwD9VYr4eQ"
+      "videoUrl": "https://www.youtube.com/watch?v=oQZWZXMEEb0"
     },
     {
       "id": "p173-1",
-      "page": 193,
+      "page": 192,
       "sku": "3080",
       "skus": [
         "3080"
@@ -41733,7 +41690,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p173-2",
-      "page": 193,
+      "page": 192,
       "sku": "3082",
       "skus": [
         "3082"
@@ -41762,7 +41719,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p174-1",
-      "page": 194,
+      "page": 193,
       "sku": "3148",
       "skus": [
         "3148"
@@ -41791,7 +41748,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p175-1",
-      "page": 195,
+      "page": 194,
       "sku": "3147",
       "skus": [
         "3147"
@@ -41820,7 +41777,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p175-2",
-      "page": 195,
+      "page": 194,
       "sku": "3150",
       "skus": [
         "3150"
@@ -41849,7 +41806,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p175-3",
-      "page": 195,
+      "page": 194,
       "sku": "23120",
       "skus": [
         "23120"
@@ -41878,7 +41835,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p176-1",
-      "page": 196,
+      "page": 195,
       "sku": "3135",
       "skus": [
         "3135"
@@ -41907,7 +41864,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p176-2",
-      "page": 196,
+      "page": 195,
       "sku": "3151",
       "skus": [
         "3151"
@@ -41936,7 +41893,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p176-3",
-      "page": 196,
+      "page": 195,
       "sku": "21301",
       "skus": [
         "21301"
@@ -41965,7 +41922,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p177-1",
-      "page": 197,
+      "page": 196,
       "sku": "3048",
       "skus": [
         "3048"
@@ -41994,7 +41951,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p177-2",
-      "page": 197,
+      "page": 196,
       "sku": "3141",
       "skus": [
         "3141"
@@ -42023,7 +41980,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p177-3",
-      "page": 197,
+      "page": 196,
       "sku": "3144",
       "skus": [
         "3144"
@@ -42052,7 +42009,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p178-1",
-      "page": 198,
+      "page": 197,
       "sku": "3169",
       "skus": [
         "3169"
@@ -42081,7 +42038,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-1",
-      "page": 199,
+      "page": 198,
       "sku": "3023",
       "skus": [
         "3023"
@@ -42110,7 +42067,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-2",
-      "page": 199,
+      "page": 198,
       "sku": "3024",
       "skus": [
         "3024"
@@ -42139,7 +42096,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-3",
-      "page": 199,
+      "page": 198,
       "sku": "3025",
       "skus": [
         "3025"
@@ -42168,7 +42125,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-4",
-      "page": 199,
+      "page": 198,
       "sku": "3052",
       "skus": [
         "3052"
@@ -42197,7 +42154,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-5",
-      "page": 199,
+      "page": 198,
       "sku": "3026",
       "skus": [
         "3026"
@@ -42226,7 +42183,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-6",
-      "page": 199,
+      "page": 198,
       "sku": "3029",
       "skus": [
         "3029"
@@ -42255,7 +42212,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p179-7",
-      "page": 199,
+      "page": 198,
       "sku": "3032",
       "skus": [
         "3032"
@@ -42284,7 +42241,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p180-1",
-      "page": 200,
+      "page": 199,
       "sku": "3124",
       "skus": [
         "3124"
@@ -42313,7 +42270,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p180-2",
-      "page": 200,
+      "page": 199,
       "sku": "3125",
       "skus": [
         "3125"
@@ -42342,7 +42299,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p180-3",
-      "page": 200,
+      "page": 199,
       "sku": "3128",
       "skus": [
         "3128"
@@ -42371,7 +42328,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p181-1",
-      "page": 201,
+      "page": 200,
       "sku": "3158",
       "skus": [
         "3158"
@@ -42400,7 +42357,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p181-2",
-      "page": 201,
+      "page": 200,
       "sku": "3127",
       "skus": [
         "3127"
@@ -42429,7 +42386,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p181-3",
-      "page": 201,
+      "page": 200,
       "sku": "3031",
       "skus": [
         "3031"
@@ -42458,7 +42415,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p181-4",
-      "page": 201,
+      "page": 200,
       "sku": "3030",
       "skus": [
         "3030"
@@ -42487,27 +42444,27 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p181-5",
-      "page": 201,
-      "sku": "3031",
+      "page": 200,
+      "sku": "3062",
       "skus": [
-        "3031"
+        "3062"
       ],
-      "name": "Batidor de 31cm. acero inoxidable",
+      "name": "Cuchara helados acero inoxidable",
       "category": "Utensilios",
-      "price": "$9.539",
-      "pdfPrice": "$9.539",
+      "price": "$12.154",
+      "pdfPrice": "$12.154",
       "priceSource": "excel",
-      "ean": "4006501030313",
+      "ean": "4006501030627",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.6297146711501627,
-        "y": 0.6144095579641585,
-        "w": 0.09201411095914673,
+        "x": 0.2035345402612694,
+        "y": 0.5885761608600475,
+        "w": 0.08945857767894626,
         "h": 0.038340585809958444
       },
       "pricePosition": {
-        "x": 0.7820091727999056,
+        "x": 0.24826184328,
         "y": 0.6203460376317157
       },
       "section": "Leifheit",
@@ -42516,7 +42473,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p182-1",
-      "page": 202,
+      "page": 201,
       "sku": "3097",
       "skus": [
         "3097"
@@ -42545,7 +42502,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p182-2",
-      "page": 202,
+      "page": 201,
       "sku": "3098",
       "skus": [
         "3098"
@@ -42574,7 +42531,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p183-1",
-      "page": 203,
+      "page": 202,
       "sku": "21434",
       "skus": [
         "21434"
@@ -42603,7 +42560,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p183-2",
-      "page": 203,
+      "page": 202,
       "sku": "21435",
       "skus": [
         "21435"
@@ -42632,7 +42589,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p183-3",
-      "page": 203,
+      "page": 202,
       "sku": "21436",
       "skus": [
         "21436"
@@ -42661,7 +42618,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p184-1",
-      "page": 204,
+      "page": 203,
       "sku": "21335",
       "skus": [
         "21335"
@@ -42690,7 +42647,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p185-1",
-      "page": 205,
+      "page": 204,
       "sku": "24053",
       "skus": [
         "24053"
@@ -42719,7 +42676,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p185-2",
-      "page": 205,
+      "page": 204,
       "sku": "24054",
       "skus": [
         "24054"
@@ -42748,7 +42705,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p185-3",
-      "page": 205,
+      "page": 204,
       "sku": "24077",
       "skus": [
         "24077"
@@ -42777,7 +42734,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p186-1",
-      "page": 206,
+      "page": 205,
       "sku": "24063",
       "skus": [
         "24063"
@@ -42806,7 +42763,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p186-2",
-      "page": 206,
+      "page": 205,
       "sku": "24067",
       "skus": [
         "24067"
@@ -42835,7 +42792,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p186-3",
-      "page": 206,
+      "page": 205,
       "sku": "24071",
       "skus": [
         "24071"
@@ -42864,7 +42821,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p186-4",
-      "page": 206,
+      "page": 205,
       "sku": "3152",
       "skus": [
         "3152"
@@ -42893,7 +42850,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p187-1",
-      "page": 207,
+      "page": 206,
       "sku": "3130",
       "skus": [
         "3130"
@@ -42922,7 +42879,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p188-1",
-      "page": 208,
+      "page": 207,
       "sku": "24064",
       "skus": [
         "24064"
@@ -42951,21 +42908,21 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p188-2",
-      "page": 208,
-      "sku": "24064",
+      "page": 207,
+      "sku": "24065",
       "skus": [
-        "24064"
+        "24065"
       ],
-      "name": "Colador acero 7,5cm",
+      "name": "Colador acero 11cm",
       "category": "Colador",
-      "price": "$7.971",
+      "price": "$9.034",
       "pdfPrice": "$9.034",
-      "priceSource": "excel",
-      "ean": "4006501240644",
+      "priceSource": "pdf",
+      "ean": "4006501240651",
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.23267070472390586,
+        "x": 0.6077699564092202,
         "y": 0.18132793078899526,
         "w": 0.12298158634419605,
         "h": 0.039762366168327026
@@ -42980,7 +42937,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-1",
-      "page": 209,
+      "page": 208,
       "sku": "24058",
       "skus": [
         "24058"
@@ -43009,7 +42966,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-2",
-      "page": 209,
+      "page": 208,
       "sku": "24060",
       "skus": [
         "24060"
@@ -43038,7 +42995,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-3",
-      "page": 209,
+      "page": 208,
       "sku": "24059",
       "skus": [
         "24059"
@@ -43067,7 +43024,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-4",
-      "page": 209,
+      "page": 208,
       "sku": "24057",
       "skus": [
         "24057"
@@ -43096,7 +43053,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-5",
-      "page": 209,
+      "page": 208,
       "sku": "24061",
       "skus": [
         "24061"
@@ -43125,7 +43082,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p189-6",
-      "page": 209,
+      "page": 208,
       "sku": "24062",
       "skus": [
         "24062"
@@ -43154,7 +43111,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p190-1",
-      "page": 210,
+      "page": 209,
       "sku": "3041",
       "skus": [
         "3041"
@@ -43183,7 +43140,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p190-2",
-      "page": 210,
+      "page": 209,
       "sku": "3083",
       "skus": [
         "3083"
@@ -43212,7 +43169,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p191-1",
-      "page": 211,
+      "page": 210,
       "sku": "3162",
       "skus": [
         "3162"
@@ -43241,7 +43198,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p192-1",
-      "page": 212,
+      "page": 211,
       "sku": "3142",
       "skus": [
         "3142"
@@ -43270,7 +43227,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p193-1",
-      "page": 213,
+      "page": 212,
       "sku": "3155",
       "skus": [
         "3155"
@@ -43299,7 +43256,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p193-2",
-      "page": 213,
+      "page": 212,
       "sku": "37211",
       "skus": [
         "37211"
@@ -43328,7 +43285,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p193-3",
-      "page": 213,
+      "page": 212,
       "sku": "37300",
       "skus": [
         "37300"
@@ -43357,7 +43314,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p194-1",
-      "page": 214,
+      "page": 213,
       "sku": "36500",
       "skus": [
         "36500"
@@ -43386,7 +43343,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p196-1",
-      "page": 216,
+      "page": 215,
       "sku": "3180",
       "skus": [
         "3180"
@@ -43415,7 +43372,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p196-2",
-      "page": 216,
+      "page": 215,
       "sku": "36003",
       "skus": [
         "36003"
@@ -43444,7 +43401,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p197-1",
-      "page": 217,
+      "page": 216,
       "sku": "3190",
       "skus": [
         "3190"
@@ -43473,7 +43430,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p197-2",
-      "page": 217,
+      "page": 216,
       "sku": "3192",
       "skus": [
         "3192"
@@ -43502,7 +43459,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p197-3",
-      "page": 217,
+      "page": 216,
       "sku": "3284",
       "skus": [
         "3284"
@@ -43531,7 +43488,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p197-4",
-      "page": 217,
+      "page": 216,
       "sku": "3215",
       "skus": [
         "3215"
@@ -43560,7 +43517,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p197-5",
-      "page": 217,
+      "page": 216,
       "sku": "3216",
       "skus": [
         "3216"
@@ -43589,7 +43546,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p198-1",
-      "page": 218,
+      "page": 217,
       "sku": "31198",
       "skus": [
         "31198"
@@ -43618,7 +43575,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p198-2",
-      "page": 218,
+      "page": 217,
       "sku": "31199",
       "skus": [
         "31199"
@@ -43647,7 +43604,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p198-3",
-      "page": 218,
+      "page": 217,
       "sku": "31200",
       "skus": [
         "31200"
@@ -43676,7 +43633,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p198-4",
-      "page": 218,
+      "page": 217,
       "sku": "31201",
       "skus": [
         "31201"
@@ -43705,7 +43662,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p199-1",
-      "page": 219,
+      "page": 218,
       "sku": "31205",
       "skus": [
         "31205"
@@ -43734,7 +43691,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p199-2",
-      "page": 219,
+      "page": 218,
       "sku": "31203",
       "skus": [
         "31203"
@@ -43763,7 +43720,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p199-3",
-      "page": 219,
+      "page": 218,
       "sku": "31202",
       "skus": [
         "31202"
@@ -43792,7 +43749,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p199-4",
-      "page": 219,
+      "page": 218,
       "sku": "31204",
       "skus": [
         "31204"
@@ -43821,7 +43778,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p200-1",
-      "page": 220,
+      "page": 219,
       "sku": "31207",
       "skus": [
         "31207"
@@ -43850,7 +43807,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p200-2",
-      "page": 220,
+      "page": 219,
       "sku": "31209",
       "skus": [
         "31209"
@@ -43879,7 +43836,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p200-3",
-      "page": 220,
+      "page": 219,
       "sku": "31211",
       "skus": [
         "31211"
@@ -43908,7 +43865,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p200-4",
-      "page": 220,
+      "page": 219,
       "sku": "31208",
       "skus": [
         "31208"
@@ -43937,7 +43894,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p201-1",
-      "page": 241,
+      "page": 240,
       "sku": "3209",
       "skus": [
         "3209"
@@ -43966,7 +43923,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p201-2",
-      "page": 241,
+      "page": 240,
       "sku": "3212",
       "skus": [
         "3212"
@@ -43995,7 +43952,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p201-3",
-      "page": 241,
+      "page": 240,
       "sku": "3211",
       "skus": [
         "3211"
@@ -44024,7 +43981,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p201-4",
-      "page": 241,
+      "page": 240,
       "sku": "3208",
       "skus": [
         "3208"
@@ -44034,7 +43991,7 @@ window.CATALOG_DATA = {
       "price": "$2.180",
       "pdfPrice": "$2.180",
       "priceSource": "manual",
-      "ean": "",
+      "ean": "4006501032089",
       "unitsPerCase": null,
       "sizeLabel": "47ML",
       "hotspot": {
@@ -44053,7 +44010,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p202-1",
-      "page": 221,
+      "page": 220,
       "sku": "3095",
       "skus": [
         "3095"
@@ -44082,7 +44039,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p202-2",
-      "page": 221,
+      "page": 220,
       "sku": "3224",
       "skus": [
         "3224"
@@ -44111,7 +44068,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-1",
-      "page": 223,
+      "page": 222,
       "sku": "28300",
       "skus": [
         "28300"
@@ -44140,7 +44097,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-2",
-      "page": 223,
+      "page": 222,
       "sku": "28301",
       "skus": [
         "28301"
@@ -44169,7 +44126,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-3",
-      "page": 223,
+      "page": 222,
       "sku": "28336",
       "skus": [
         "28336"
@@ -44198,7 +44155,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-4",
-      "page": 223,
+      "page": 222,
       "sku": "28346",
       "skus": [
         "28346"
@@ -44227,7 +44184,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-5",
-      "page": 223,
+      "page": 222,
       "sku": "28404",
       "skus": [
         "28404"
@@ -44256,7 +44213,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p204-6",
-      "page": 223,
+      "page": 222,
       "sku": "28440",
       "skus": [
         "28440"
@@ -44285,7 +44242,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p205-1",
-      "page": 224,
+      "page": 223,
       "sku": "28544",
       "skus": [
         "28544"
@@ -44315,7 +44272,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p205-2",
-      "page": 224,
+      "page": 223,
       "sku": "28543",
       "skus": [
         "28543"
@@ -44345,7 +44302,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p205-3",
-      "page": 224,
+      "page": 223,
       "sku": "28542",
       "skus": [
         "28542"
@@ -44375,7 +44332,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p205-4",
-      "page": 224,
+      "page": 223,
       "sku": "28541",
       "skus": [
         "28541"
@@ -44405,7 +44362,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p206-1",
-      "page": 225,
+      "page": 224,
       "sku": "28338",
       "skus": [
         "28338"
@@ -44434,7 +44391,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p206-2",
-      "page": 225,
+      "page": 224,
       "sku": "28344",
       "skus": [
         "28344"
@@ -44463,7 +44420,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p206-3",
-      "page": 225,
+      "page": 224,
       "sku": "28343",
       "skus": [
         "28343"
@@ -44492,7 +44449,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p207-1",
-      "page": 226,
+      "page": 225,
       "sku": "28519",
       "skus": [
         "28519"
@@ -44522,7 +44479,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p207-2",
-      "page": 226,
+      "page": 225,
       "sku": "28521",
       "skus": [
         "28521"
@@ -44552,7 +44509,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p207-3",
-      "page": 226,
+      "page": 225,
       "sku": "28520",
       "skus": [
         "28520"
@@ -44582,7 +44539,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p208-1",
-      "page": 227,
+      "page": 226,
       "sku": "3248",
       "skus": [
         "3248"
@@ -44611,7 +44568,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p208-2",
-      "page": 227,
+      "page": 226,
       "sku": "3277",
       "skus": [
         "3277"
@@ -44640,7 +44597,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p208-3",
-      "page": 227,
+      "page": 226,
       "sku": "3249",
       "skus": [
         "3249"
@@ -44669,7 +44626,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p210-1",
-      "page": 229,
+      "page": 228,
       "sku": "65106",
       "skus": [
         "65106"
@@ -44698,7 +44655,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p210-2",
-      "page": 229,
+      "page": 228,
       "sku": "65847",
       "skus": [
         "65847"
@@ -44727,7 +44684,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p210-3",
-      "page": 229,
+      "page": 228,
       "sku": "3173",
       "skus": [
         "3173"
@@ -44756,7 +44713,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p210-4",
-      "page": 229,
+      "page": 228,
       "sku": "65856",
       "skus": [
         "65856"
@@ -44785,7 +44742,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p211-1",
-      "page": 230,
+      "page": 229,
       "sku": "66130",
       "skus": [
         "66130"
@@ -44814,7 +44771,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p211-2",
-      "page": 230,
+      "page": 229,
       "sku": "65054",
       "skus": [
         "65054"
@@ -44843,7 +44800,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p211-3",
-      "page": 230,
+      "page": 229,
       "sku": "66220",
       "skus": [
         "66220"
@@ -44872,7 +44829,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p212-1",
-      "page": 231,
+      "page": 230,
       "sku": "61501",
       "skus": [
         "61501"
@@ -44901,7 +44858,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p212-2",
-      "page": 231,
+      "page": 230,
       "sku": "61512",
       "skus": [
         "61512"
@@ -44930,7 +44887,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p212-3",
-      "page": 231,
+      "page": 230,
       "sku": "61515",
       "skus": [
         "61515"
@@ -44959,7 +44916,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p212-4",
-      "page": 231,
+      "page": 230,
       "sku": "61516",
       "skus": [
         "61516"
@@ -44988,7 +44945,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p213-1",
-      "page": 232,
+      "page": 231,
       "sku": "61504",
       "skus": [
         "61504"
@@ -45017,7 +44974,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p213-2",
-      "page": 232,
+      "page": 231,
       "sku": "61505",
       "skus": [
         "61505"
@@ -45046,7 +45003,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p213-3",
-      "page": 232,
+      "page": 231,
       "sku": "61521",
       "skus": [
         "61521"
@@ -45075,21 +45032,21 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p214-1",
-      "page": 233,
-      "sku": "61509",
+      "page": 232,
+      "sku": "61506",
       "skus": [
-        "61509"
+        "61506"
       ],
-      "name": "Balanza de cocina digital Page Profi 200 de acero inoxidable",
+      "name": "Balanza de cocina digital Page Profi 100 de cristal",
       "category": "Balanza",
-      "price": "$64.179",
+      "price": "$59.503",
       "pdfPrice": "$59.503",
       "priceSource": "excel",
-      "ean": "4006501615091",
+      "ean": "4006501615060",
       "unitsPerCase": 4,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.7013248984899769,
+        "x": 0.15357229684410859,
         "y": 0.41692446728211263,
         "w": 0.10947862139877204,
         "h": 0.03834062204335485
@@ -45104,7 +45061,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p214-2",
-      "page": 233,
+      "page": 232,
       "sku": "61509",
       "skus": [
         "61509"
@@ -45133,7 +45090,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p214-3",
-      "page": 233,
+      "page": 232,
       "sku": "66172",
       "skus": [
         "66172"
@@ -45162,7 +45119,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p216-1",
-      "page": 235,
+      "page": 234,
       "sku": "63850",
       "skus": [
         "63850"
@@ -45191,7 +45148,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p216-2",
-      "page": 235,
+      "page": 234,
       "sku": "63852",
       "skus": [
         "63852"
@@ -45220,7 +45177,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p216-3",
-      "page": 235,
+      "page": 234,
       "sku": "63881",
       "skus": [
         "63881"
@@ -45249,7 +45206,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p216-4",
-      "page": 235,
+      "page": 234,
       "sku": "63882",
       "skus": [
         "63882"
@@ -45278,7 +45235,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p217-1",
-      "page": 236,
+      "page": 235,
       "sku": "63853",
       "skus": [
         "63853"
@@ -45307,7 +45264,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p217-2",
-      "page": 236,
+      "page": 235,
       "sku": "63867",
       "skus": [
         "63867"
@@ -45336,7 +45293,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p217-3",
-      "page": 236,
+      "page": 235,
       "sku": "63856",
       "skus": [
         "63856"
@@ -45365,7 +45322,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p218-1",
-      "page": 237,
+      "page": 236,
       "sku": "63857",
       "skus": [
         "63857"
@@ -45394,7 +45351,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p218-2",
-      "page": 237,
+      "page": 236,
       "sku": "63858",
       "skus": [
         "63858"
@@ -45423,7 +45380,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p219-1",
-      "page": 238,
+      "page": 237,
       "sku": "63872",
       "skus": [
         "63872"
@@ -45453,7 +45410,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "p219-2",
-      "page": 238,
+      "page": 237,
       "sku": "63873",
       "skus": [
         "63873"
@@ -45478,12 +45435,11 @@ window.CATALOG_DATA = {
       },
       "section": "Leifheit",
       "sourcePage": 115,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=84UBLs1RCc0"
+      "hotspotSource": "leifheit-sku-text"
     },
     {
       "id": "p220-1",
-      "page": 239,
+      "page": 238,
       "sku": "61098",
       "skus": [
         "61098"
@@ -45522,7 +45478,7 @@ window.CATALOG_DATA = {
       "price": "$9.460",
       "pdfPrice": "$9.460",
       "priceSource": "pdf",
-      "ean": "",
+      "ean": "4006501510006",
       "unitsPerCase": null,
       "sizeLabel": "",
       "hotspot": {
@@ -45552,7 +45508,7 @@ window.CATALOG_DATA = {
       "price": "$9.460",
       "pdfPrice": "$9.460",
       "priceSource": "pdf",
-      "ean": "",
+      "ean": "4006501510358",
       "unitsPerCase": null,
       "sizeLabel": "",
       "hotspot": {
@@ -45567,12 +45523,11 @@ window.CATALOG_DATA = {
       },
       "section": "Leifheit",
       "sourcePage": 4,
-      "hotspotSource": "leifheit-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=MFnNHOY0AEs"
+      "hotspotSource": "leifheit-sku-text"
     },
     {
       "id": "p364-1",
-      "page": 240,
+      "page": 239,
       "sku": "80029",
       "skus": [
         "80029"
@@ -45582,7 +45537,7 @@ window.CATALOG_DATA = {
       "price": "$127.652",
       "pdfPrice": "$127.652",
       "priceSource": "pdf",
-      "ean": "",
+      "ean": "4006501800299",
       "unitsPerCase": null,
       "sizeLabel": "",
       "hotspot": {
@@ -47264,7 +47219,7 @@ window.CATALOG_DATA = {
       "sizeLabel": "",
       "hotspot": {
         "x": 0.4340032,
-        "y": 0.2836117,
+        "y": 0.316395,
         "w": 0.1319578,
         "h": 0.041997
       },
@@ -47273,7 +47228,7 @@ window.CATALOG_DATA = {
       },
       "pricePosition": {
         "x": 0.4999865,
-        "y": 0.3332308
+        "y": 0.3660142
       },
       "section": "Estia"
     },
@@ -49229,7 +49184,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p002-1",
-      "page": 243,
+      "page": 242,
       "sku": "11181100",
       "skus": [
         "11181100"
@@ -49261,7 +49216,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p002-2",
-      "page": 243,
+      "page": 242,
       "sku": "11294500",
       "skus": [
         "11294500"
@@ -49294,7 +49249,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p003-1",
-      "page": 244,
+      "page": 243,
       "sku": "11344700",
       "skus": [
         "11344700"
@@ -49326,7 +49281,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p004-1",
-      "page": 245,
+      "page": 244,
       "sku": "8722500",
       "skus": [
         "8722500"
@@ -49358,7 +49313,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p005-1",
-      "page": 246,
+      "page": 245,
       "sku": "11237500",
       "skus": [
         "11237500"
@@ -49391,7 +49346,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p005-2",
-      "page": 246,
+      "page": 245,
       "sku": "11212400",
       "skus": [
         "11212400"
@@ -49423,7 +49378,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p006-1",
-      "page": 247,
+      "page": 246,
       "sku": "11303600",
       "skus": [
         "11303600"
@@ -49455,7 +49410,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p007-1",
-      "page": 248,
+      "page": 247,
       "sku": "1410280",
       "skus": [
         "1410280"
@@ -49487,7 +49442,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-1",
-      "page": 249,
+      "page": 248,
       "sku": "11233900",
       "skus": [
         "11233900"
@@ -49520,7 +49475,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-2",
-      "page": 249,
+      "page": 248,
       "sku": "11234000",
       "skus": [
         "11234000"
@@ -49553,7 +49508,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-3",
-      "page": 249,
+      "page": 248,
       "sku": "11233800",
       "skus": [
         "11233800"
@@ -49586,7 +49541,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-4",
-      "page": 249,
+      "page": 248,
       "sku": "11233700",
       "skus": [
         "11233700"
@@ -49619,7 +49574,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-5",
-      "page": 249,
+      "page": 248,
       "sku": "11233600",
       "skus": [
         "11233600"
@@ -49652,7 +49607,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p008-6",
-      "page": 249,
+      "page": 248,
       "sku": "11233500",
       "skus": [
         "11233500"
@@ -49685,7 +49640,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-1",
-      "page": 250,
+      "page": 249,
       "sku": "11234600",
       "skus": [
         "11234600"
@@ -49718,7 +49673,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-2",
-      "page": 250,
+      "page": 249,
       "sku": "11234500",
       "skus": [
         "11234500"
@@ -49751,7 +49706,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-3",
-      "page": 250,
+      "page": 249,
       "sku": "11234400",
       "skus": [
         "11234400"
@@ -49784,7 +49739,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-4",
-      "page": 250,
+      "page": 249,
       "sku": "11234700",
       "skus": [
         "11234700"
@@ -49817,7 +49772,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-5",
-      "page": 250,
+      "page": 249,
       "sku": "11234900",
       "skus": [
         "11234900"
@@ -49850,7 +49805,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-6",
-      "page": 250,
+      "page": 249,
       "sku": "11234800",
       "skus": [
         "11234800"
@@ -49883,7 +49838,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-7",
-      "page": 250,
+      "page": 249,
       "sku": "11235000",
       "skus": [
         "11235000"
@@ -49916,7 +49871,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p009-8",
-      "page": 250,
+      "page": 249,
       "sku": "11234100",
       "skus": [
         "11234100"
@@ -49949,7 +49904,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p010-1",
-      "page": 251,
+      "page": 250,
       "sku": "11236200",
       "skus": [
         "11236200"
@@ -49982,7 +49937,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p010-2",
-      "page": 251,
+      "page": 250,
       "sku": "11236100",
       "skus": [
         "11236100"
@@ -50015,7 +49970,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p011-1",
-      "page": 252,
+      "page": 251,
       "sku": "3118700",
       "skus": [
         "3118700"
@@ -50047,7 +50002,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p011-2",
-      "page": 252,
+      "page": 251,
       "sku": "3118400",
       "skus": [
         "3118400"
@@ -50079,7 +50034,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p011-3",
-      "page": 252,
+      "page": 251,
       "sku": "3118200",
       "skus": [
         "3118200"
@@ -50111,7 +50066,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p011-4",
-      "page": 252,
+      "page": 251,
       "sku": "3118300",
       "skus": [
         "3118300"
@@ -50143,7 +50098,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-1",
-      "page": 253,
+      "page": 252,
       "sku": "11233500",
       "skus": [
         "11233500"
@@ -50176,7 +50131,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-2",
-      "page": 253,
+      "page": 252,
       "sku": "11233600",
       "skus": [
         "11233600"
@@ -50209,7 +50164,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-3",
-      "page": 253,
+      "page": 252,
       "sku": "11233700",
       "skus": [
         "11233700"
@@ -50242,7 +50197,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-4",
-      "page": 253,
+      "page": 252,
       "sku": "11234500",
       "skus": [
         "11234500"
@@ -50275,7 +50230,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-5",
-      "page": 253,
+      "page": 252,
       "sku": "11234600",
       "skus": [
         "11234600"
@@ -50308,7 +50263,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-6",
-      "page": 253,
+      "page": 252,
       "sku": "11234700",
       "skus": [
         "11234700"
@@ -50341,7 +50296,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-7",
-      "page": 253,
+      "page": 252,
       "sku": "11234400",
       "skus": [
         "11234400"
@@ -50374,7 +50329,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-8",
-      "page": 253,
+      "page": 252,
       "sku": "11233900",
       "skus": [
         "11233900"
@@ -50407,7 +50362,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-9",
-      "page": 253,
+      "page": 252,
       "sku": "11234000",
       "skus": [
         "11234000"
@@ -50440,7 +50395,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-10",
-      "page": 253,
+      "page": 252,
       "sku": "11233800",
       "skus": [
         "11233800"
@@ -50473,7 +50428,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-11",
-      "page": 253,
+      "page": 252,
       "sku": "11234800",
       "skus": [
         "11234800"
@@ -50506,7 +50461,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-12",
-      "page": 253,
+      "page": 252,
       "sku": "11234900",
       "skus": [
         "11234900"
@@ -50539,7 +50494,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-13",
-      "page": 253,
+      "page": 252,
       "sku": "11235000",
       "skus": [
         "11235000"
@@ -50572,7 +50527,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p012-14",
-      "page": 253,
+      "page": 252,
       "sku": "11234100",
       "skus": [
         "11234100"
@@ -50605,7 +50560,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p013-1",
-      "page": 254,
+      "page": 253,
       "sku": "11247400",
       "skus": [
         "11247400"
@@ -50638,7 +50593,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p013-2",
-      "page": 254,
+      "page": 253,
       "sku": "11247600",
       "skus": [
         "11247600"
@@ -50671,7 +50626,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p013-3",
-      "page": 254,
+      "page": 253,
       "sku": "11113900",
       "skus": [
         "11113900"
@@ -50704,7 +50659,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p013-4",
-      "page": 254,
+      "page": 253,
       "sku": "11114000",
       "skus": [
         "11114000"
@@ -50737,7 +50692,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p014-1",
-      "page": 255,
+      "page": 254,
       "sku": "1128580",
       "skus": [
         "1128580"
@@ -50770,7 +50725,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p014-2",
-      "page": 255,
+      "page": 254,
       "sku": "1128680",
       "skus": [
         "1128680"
@@ -50803,7 +50758,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p015-1",
-      "page": 256,
+      "page": 255,
       "sku": "11235300",
       "skus": [
         "11235300"
@@ -50835,7 +50790,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p015-2",
-      "page": 256,
+      "page": 255,
       "sku": "11235600",
       "skus": [
         "11235600"
@@ -50867,7 +50822,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p016-1",
-      "page": 257,
+      "page": 256,
       "sku": "11235200",
       "skus": [
         "11235200"
@@ -50899,7 +50854,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p016-2",
-      "page": 257,
+      "page": 256,
       "sku": "11235500",
       "skus": [
         "11235500"
@@ -50931,7 +50886,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p016-3",
-      "page": 257,
+      "page": 256,
       "sku": "11235400",
       "skus": [
         "11235400"
@@ -50963,7 +50918,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p017-1",
-      "page": 258,
+      "page": 257,
       "sku": "13382400",
       "skus": [
         "13382400"
@@ -50995,7 +50950,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p017-2",
-      "page": 258,
+      "page": 257,
       "sku": "11241000",
       "skus": [
         "11241000"
@@ -51027,7 +50982,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p018-1",
-      "page": 259,
+      "page": 258,
       "sku": "11386000",
       "skus": [
         "11386000"
@@ -51059,7 +51014,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p018-2",
-      "page": 259,
+      "page": 258,
       "sku": "11386200",
       "skus": [
         "11386200"
@@ -51091,7 +51046,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p018-3",
-      "page": 259,
+      "page": 258,
       "sku": "11386100",
       "skus": [
         "11386100"
@@ -51123,7 +51078,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p018-4",
-      "page": 259,
+      "page": 258,
       "sku": "11386400",
       "skus": [
         "11386400"
@@ -51155,7 +51110,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p019-1",
-      "page": 260,
+      "page": 259,
       "sku": "11386700",
       "skus": [
         "11386700"
@@ -51187,7 +51142,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p019-2",
-      "page": 260,
+      "page": 259,
       "sku": "11391100",
       "skus": [
         "11391100"
@@ -51219,7 +51174,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p019-3",
-      "page": 260,
+      "page": 259,
       "sku": "11391000",
       "skus": [
         "11391000"
@@ -51251,7 +51206,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p019-4",
-      "page": 260,
+      "page": 259,
       "sku": "11386300",
       "skus": [
         "11386300"
@@ -51283,7 +51238,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p019-5",
-      "page": 260,
+      "page": 259,
       "sku": "11386600",
       "skus": [
         "11386600"
@@ -51315,7 +51270,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p020-1",
-      "page": 261,
+      "page": 260,
       "sku": "11388100",
       "skus": [
         "11388100"
@@ -51347,7 +51302,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p020-2",
-      "page": 261,
+      "page": 260,
       "sku": "11388200",
       "skus": [
         "11388200"
@@ -51379,7 +51334,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p020-3",
-      "page": 261,
+      "page": 260,
       "sku": "11388300",
       "skus": [
         "11388300"
@@ -51411,7 +51366,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p020-4",
-      "page": 261,
+      "page": 260,
       "sku": "11388500",
       "skus": [
         "11388500"
@@ -51443,7 +51398,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p021-1",
-      "page": 262,
+      "page": 261,
       "sku": "11283400",
       "skus": [
         "11283400"
@@ -51475,7 +51430,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p021-2",
-      "page": 262,
+      "page": 261,
       "sku": "11283300",
       "skus": [
         "11283300"
@@ -51507,7 +51462,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p021-3",
-      "page": 262,
+      "page": 261,
       "sku": "11283100",
       "skus": [
         "11283100"
@@ -51539,7 +51494,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-1",
-      "page": 263,
+      "page": 262,
       "sku": "1190300",
       "skus": [
         "1190300"
@@ -51571,7 +51526,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-2",
-      "page": 263,
+      "page": 262,
       "sku": "1190200",
       "skus": [
         "1190200"
@@ -51603,7 +51558,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-3",
-      "page": 263,
+      "page": 262,
       "sku": "1190900",
       "skus": [
         "1190900"
@@ -51635,7 +51590,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-4",
-      "page": 263,
+      "page": 262,
       "sku": "1191300",
       "skus": [
         "1191300"
@@ -51667,7 +51622,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-5",
-      "page": 263,
+      "page": 262,
       "sku": "1190800",
       "skus": [
         "1190800"
@@ -51699,7 +51654,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p022-6",
-      "page": 263,
+      "page": 262,
       "sku": "1190700",
       "skus": [
         "1190700"
@@ -51731,7 +51686,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p023-1",
-      "page": 264,
+      "page": 263,
       "sku": "1071534",
       "skus": [
         "1071534"
@@ -51763,7 +51718,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p024-1",
-      "page": 265,
+      "page": 264,
       "sku": "65191",
       "skus": [
         "65191"
@@ -51795,7 +51750,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p025-1",
-      "page": 266,
+      "page": 265,
       "sku": "28081",
       "skus": [
         "28081"
@@ -51827,7 +51782,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p025-2",
-      "page": 266,
+      "page": 265,
       "sku": "11314700",
       "skus": [
         "11314700"
@@ -51860,7 +51815,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p026-1",
-      "page": 267,
+      "page": 266,
       "sku": "11332200",
       "skus": [
         "11332200"
@@ -51874,7 +51829,7 @@ window.CATALOG_DATA = {
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.1616439,
+        "x": 0.1573944,
         "y": 0.138649,
         "w": 0.2068858,
         "h": 0.0358384
@@ -51883,7 +51838,7 @@ window.CATALOG_DATA = {
         "borderColor": "rgba(215, 25, 32, 0.42)"
       },
       "pricePosition": {
-        "x": 0.2650149,
+        "x": 0.2607654,
         "y": 0.2081881
       },
       "section": "OXO",
@@ -51892,7 +51847,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p026-2",
-      "page": 267,
+      "page": 266,
       "sku": "1049953",
       "skus": [
         "1049953"
@@ -51924,7 +51879,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p027-1",
-      "page": 268,
+      "page": 267,
       "sku": "11295100",
       "skus": [
         "11295100"
@@ -51957,7 +51912,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p027-2",
-      "page": 268,
+      "page": 267,
       "sku": "11295000",
       "skus": [
         "11295000"
@@ -51989,7 +51944,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p028-1",
-      "page": 269,
+      "page": 268,
       "sku": "11300900",
       "skus": [
         "11300900"
@@ -52021,7 +51976,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p028-2",
-      "page": 269,
+      "page": 268,
       "sku": "11301100",
       "skus": [
         "11301100"
@@ -52053,7 +52008,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p029-1",
-      "page": 270,
+      "page": 269,
       "sku": "11295300",
       "skus": [
         "11295300"
@@ -52085,7 +52040,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p030-1",
-      "page": 271,
+      "page": 270,
       "sku": "11278500",
       "skus": [
         "11278500"
@@ -52117,7 +52072,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p031-1",
-      "page": 272,
+      "page": 271,
       "sku": "1136000",
       "skus": [
         "1136000"
@@ -52150,7 +52105,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p031-2",
-      "page": 272,
+      "page": 271,
       "sku": "38891",
       "skus": [
         "38891"
@@ -52183,7 +52138,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p031-3",
-      "page": 272,
+      "page": 271,
       "sku": "38991",
       "skus": [
         "38991"
@@ -52216,7 +52171,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p032-1",
-      "page": 273,
+      "page": 272,
       "sku": "11344300",
       "skus": [
         "11344300"
@@ -52248,7 +52203,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p033-1",
-      "page": 274,
+      "page": 273,
       "sku": "1142380",
       "skus": [
         "1142380"
@@ -52281,7 +52236,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p034-1",
-      "page": 275,
+      "page": 274,
       "sku": "1072292",
       "skus": [
         "1072292"
@@ -52313,7 +52268,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p034-2",
-      "page": 275,
+      "page": 274,
       "sku": "1072121",
       "skus": [
         "1072121"
@@ -52345,7 +52300,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p035-1",
-      "page": 276,
+      "page": 275,
       "sku": "1126980",
       "skus": [
         "1126980"
@@ -52377,7 +52332,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p036-1",
-      "page": 277,
+      "page": 276,
       "sku": "21081",
       "skus": [
         "21081"
@@ -52405,12 +52360,11 @@ window.CATALOG_DATA = {
       },
       "section": "OXO",
       "sourcePage": 36,
-      "hotspotSource": "oxo-20260722-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
+      "hotspotSource": "oxo-20260722-sku-text"
     },
     {
       "id": "oxo-p036-2",
-      "page": 277,
+      "page": 276,
       "sku": "20081",
       "skus": [
         "20081"
@@ -52439,11 +52393,11 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "sourcePage": 36,
       "hotspotSource": "oxo-20260722-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
+      "videoUrl": "https://www.youtube.com/watch?v=PMnQMeWBVoA"
     },
     {
       "id": "oxo-p036-3",
-      "page": 277,
+      "page": 276,
       "sku": "1054751",
       "skus": [
         "1054751"
@@ -52475,7 +52429,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p037-1",
-      "page": 278,
+      "page": 277,
       "sku": "11259100",
       "skus": [
         "11259100"
@@ -52507,7 +52461,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p037-2",
-      "page": 278,
+      "page": 277,
       "sku": "11258900",
       "skus": [
         "11258900"
@@ -52540,7 +52494,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p038-1",
-      "page": 279,
+      "page": 278,
       "sku": "11244100",
       "skus": [
         "11244100"
@@ -52569,11 +52523,11 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "sourcePage": 38,
       "hotspotSource": "oxo-20260722-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=-CozjpgMgMk"
+      "videoUrl": "https://www.youtube.com/watch?v=dEwmxEgOf9Y"
     },
     {
       "id": "oxo-p039-1",
-      "page": 280,
+      "page": 279,
       "sku": "11261400",
       "skus": [
         "11261400"
@@ -52602,11 +52556,11 @@ window.CATALOG_DATA = {
       "section": "OXO",
       "sourcePage": 39,
       "hotspotSource": "oxo-20260722-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=HDIkZASxlNs"
+      "videoUrl": "https://www.youtube.com/watch?v=6gnkH1Nacj4"
     },
     {
       "id": "oxo-p040-1",
-      "page": 281,
+      "page": 280,
       "sku": "11154000",
       "skus": [
         "11154000"
@@ -52638,7 +52592,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p041-1",
-      "page": 282,
+      "page": 281,
       "sku": "11155800",
       "skus": [
         "11155800"
@@ -52671,7 +52625,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p041-2",
-      "page": 282,
+      "page": 281,
       "sku": "11263400",
       "skus": [
         "11263400"
@@ -52703,7 +52657,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p042-1",
-      "page": 283,
+      "page": 282,
       "sku": "1252180",
       "skus": [
         "1252180"
@@ -52735,7 +52689,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p042-2",
-      "page": 283,
+      "page": 282,
       "sku": "1143380",
       "skus": [
         "1143380"
@@ -52767,7 +52721,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p043-1",
-      "page": 284,
+      "page": 283,
       "sku": "39781",
       "skus": [
         "39781"
@@ -52799,7 +52753,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p045-1",
-      "page": 285,
+      "page": 284,
       "sku": "11263300",
       "skus": [
         "11263300"
@@ -52831,7 +52785,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p046-1",
-      "page": 286,
+      "page": 285,
       "sku": "1119100",
       "skus": [
         "1119100"
@@ -52864,7 +52818,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p047-1",
-      "page": 287,
+      "page": 286,
       "sku": "1271080",
       "skus": [
         "1271080"
@@ -52897,7 +52851,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p048-1",
-      "page": 288,
+      "page": 287,
       "sku": "1147780",
       "skus": [
         "1147780"
@@ -52929,7 +52883,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p049-1",
-      "page": 289,
+      "page": 288,
       "sku": "11339900",
       "skus": [
         "11339900"
@@ -52962,7 +52916,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p050-1",
-      "page": 290,
+      "page": 289,
       "sku": "11122600",
       "skus": [
         "11122600"
@@ -52994,7 +52948,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p051-1",
-      "page": 291,
+      "page": 290,
       "sku": "32780",
       "skus": [
         "32780"
@@ -53026,7 +52980,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p052-1",
-      "page": 292,
+      "page": 291,
       "sku": "11316100",
       "skus": [
         "11316100"
@@ -53058,7 +53012,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p053-1",
-      "page": 293,
+      "page": 292,
       "sku": "11223200",
       "skus": [
         "11223200"
@@ -53090,7 +53044,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p054-1",
-      "page": 294,
+      "page": 293,
       "sku": "11243900",
       "skus": [
         "11243900"
@@ -53122,7 +53076,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p055-1",
-      "page": 295,
+      "page": 294,
       "sku": "11151300",
       "skus": [
         "11151300"
@@ -53155,7 +53109,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p055-2",
-      "page": 295,
+      "page": 294,
       "sku": "11194200",
       "skus": [
         "11194200"
@@ -53188,7 +53142,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p056-1",
-      "page": 296,
+      "page": 295,
       "sku": "11151400",
       "skus": [
         "11151400"
@@ -53220,7 +53174,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p057-1",
-      "page": 297,
+      "page": 296,
       "sku": "11216100",
       "skus": [
         "11216100"
@@ -53253,7 +53207,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p058-1",
-      "page": 298,
+      "page": 297,
       "sku": "11215400",
       "skus": [
         "11215400"
@@ -53286,7 +53240,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p058-2",
-      "page": 298,
+      "page": 297,
       "sku": "11215900",
       "skus": [
         "11215900"
@@ -53318,7 +53272,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p058-3",
-      "page": 298,
+      "page": 297,
       "sku": "11273000",
       "skus": [
         "11273000"
@@ -53350,7 +53304,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p061-1",
-      "page": 300,
+      "page": 299,
       "sku": "1071478",
       "skus": [
         "1071478"
@@ -53383,7 +53337,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p062-1",
-      "page": 301,
+      "page": 300,
       "sku": "11178600",
       "skus": [
         "11178600"
@@ -53416,7 +53370,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p062-2",
-      "page": 301,
+      "page": 300,
       "sku": "11327300",
       "skus": [
         "11327300"
@@ -53448,7 +53402,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p063-1",
-      "page": 302,
+      "page": 301,
       "sku": "35681",
       "skus": [
         "35681"
@@ -53480,7 +53434,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p063-2",
-      "page": 302,
+      "page": 301,
       "sku": "11350300",
       "skus": [
         "11350300"
@@ -53512,7 +53466,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p063-3",
-      "page": 302,
+      "page": 301,
       "sku": "11350600",
       "skus": [
         "11350600"
@@ -53544,7 +53498,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p064-1",
-      "page": 303,
+      "page": 302,
       "sku": "1047091",
       "skus": [
         "1047091"
@@ -53576,7 +53530,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p065-1",
-      "page": 304,
+      "page": 303,
       "sku": "1238580",
       "skus": [
         "1238580"
@@ -53609,7 +53563,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p066-1",
-      "page": 305,
+      "page": 304,
       "sku": "11211000",
       "skus": [
         "11211000"
@@ -53641,7 +53595,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p067-1",
-      "page": 306,
+      "page": 305,
       "sku": "11161000",
       "skus": [
         "11161000"
@@ -53674,7 +53628,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p068-1",
-      "page": 307,
+      "page": 306,
       "sku": "11172700",
       "skus": [
         "11172700"
@@ -53707,7 +53661,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p069-1",
-      "page": 308,
+      "page": 307,
       "sku": "74291",
       "skus": [
         "74291"
@@ -53739,7 +53693,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p069-2",
-      "page": 308,
+      "page": 307,
       "sku": "11362100",
       "skus": [
         "11362100"
@@ -53771,7 +53725,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p069-3",
-      "page": 308,
+      "page": 307,
       "sku": "1244780",
       "skus": [
         "1244780"
@@ -53803,7 +53757,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p070-1",
-      "page": 309,
+      "page": 308,
       "sku": "11211100",
       "skus": [
         "11211100"
@@ -53811,7 +53765,7 @@ window.CATALOG_DATA = {
       "name": "Placa redonda de silicona con medidas para amasar 36 cm",
       "category": "Bolsa para amasar",
       "price": "$26.101",
-      "pdfPrice": "$26.101",
+      "pdfPrice": "$35.712",
       "priceSource": "excel-july-2026",
       "ean": "719812682662",
       "unitsPerCase": 6,
@@ -53835,7 +53789,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p071-1",
-      "page": 310,
+      "page": 309,
       "sku": "1257580",
       "skus": [
         "1257580"
@@ -53868,7 +53822,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p072-1",
-      "page": 311,
+      "page": 310,
       "sku": "1263680",
       "skus": [
         "1263680"
@@ -53900,7 +53854,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p072-2",
-      "page": 311,
+      "page": 310,
       "sku": "11124400",
       "skus": [
         "11124400"
@@ -53932,7 +53886,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p073-1",
-      "page": 312,
+      "page": 311,
       "sku": "70981",
       "skus": [
         "70981"
@@ -53964,7 +53918,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p073-2",
-      "page": 312,
+      "page": 311,
       "sku": "70881",
       "skus": [
         "70881"
@@ -53996,7 +53950,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p074-1",
-      "page": 313,
+      "page": 312,
       "sku": "11323100",
       "skus": [
         "11323100"
@@ -54028,7 +53982,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p074-2",
-      "page": 313,
+      "page": 312,
       "sku": "1066421",
       "skus": [
         "1066421"
@@ -54060,7 +54014,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p075-1",
-      "page": 314,
+      "page": 313,
       "sku": "11164700",
       "skus": [
         "11164700"
@@ -54093,7 +54047,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p076-1",
-      "page": 315,
+      "page": 314,
       "sku": "23081",
       "skus": [
         "23081"
@@ -54125,7 +54079,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p077-1",
-      "page": 316,
+      "page": 315,
       "sku": "11272600",
       "skus": [
         "11272600"
@@ -54157,7 +54111,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p077-2",
-      "page": 316,
+      "page": 315,
       "sku": "11272700",
       "skus": [
         "11272700"
@@ -54189,7 +54143,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p077-3",
-      "page": 316,
+      "page": 315,
       "sku": "11272800",
       "skus": [
         "11272800"
@@ -54221,7 +54175,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p078-1",
-      "page": 317,
+      "page": 316,
       "sku": "11382200",
       "skus": [
         "11382200"
@@ -54253,7 +54207,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p079-1",
-      "page": 318,
+      "page": 317,
       "sku": "28481",
       "skus": [
         "28481"
@@ -54285,7 +54239,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p079-2",
-      "page": 318,
+      "page": 317,
       "sku": "28581",
       "skus": [
         "28581"
@@ -54317,7 +54271,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p080-1",
-      "page": 319,
+      "page": 318,
       "sku": "1101880",
       "skus": [
         "1101880"
@@ -54350,7 +54304,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p080-2",
-      "page": 319,
+      "page": 318,
       "sku": "1101980",
       "skus": [
         "1101980"
@@ -54383,7 +54337,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p080-3",
-      "page": 319,
+      "page": 318,
       "sku": "11387100",
       "skus": [
         "11387100"
@@ -54415,7 +54369,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p081-1",
-      "page": 320,
+      "page": 319,
       "sku": "11320200",
       "skus": [
         "11320200"
@@ -54447,7 +54401,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p081-2",
-      "page": 320,
+      "page": 319,
       "sku": "11324100",
       "skus": [
         "11324100"
@@ -54479,7 +54433,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p082-1",
-      "page": 321,
+      "page": 320,
       "sku": "11308000",
       "skus": [
         "11308000"
@@ -54511,7 +54465,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p083-1",
-      "page": 322,
+      "page": 321,
       "sku": "11329200",
       "skus": [
         "11329200"
@@ -54543,7 +54497,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p084-1",
-      "page": 323,
+      "page": 322,
       "sku": "11309300",
       "skus": [
         "11309300"
@@ -54575,7 +54529,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p085-1",
-      "page": 324,
+      "page": 323,
       "sku": "11197700",
       "skus": [
         "11197700"
@@ -54607,7 +54561,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p086-1",
-      "page": 325,
+      "page": 324,
       "sku": "1312480",
       "skus": [
         "1312480"
@@ -54639,7 +54593,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p086-2",
-      "page": 325,
+      "page": 324,
       "sku": "11343200",
       "skus": [
         "11343200"
@@ -54671,7 +54625,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p086-3",
-      "page": 325,
+      "page": 324,
       "sku": "11329400",
       "skus": [
         "11329400"
@@ -54703,7 +54657,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p087-1",
-      "page": 326,
+      "page": 325,
       "sku": "11210100",
       "skus": [
         "11210100"
@@ -54735,7 +54689,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p088-1",
-      "page": 327,
+      "page": 326,
       "sku": "1188500",
       "skus": [
         "1188500"
@@ -54768,7 +54722,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p088-2",
-      "page": 327,
+      "page": 326,
       "sku": "11159500",
       "skus": [
         "11159500"
@@ -54801,7 +54755,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p088-3",
-      "page": 327,
+      "page": 326,
       "sku": "1268980",
       "skus": [
         "1268980"
@@ -54834,7 +54788,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p089-1",
-      "page": 328,
+      "page": 327,
       "sku": "11318200",
       "skus": [
         "11318200"
@@ -54866,7 +54820,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p089-2",
-      "page": 328,
+      "page": 327,
       "sku": "11219800",
       "skus": [
         "11219800"
@@ -54898,7 +54852,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p089-3",
-      "page": 328,
+      "page": 327,
       "sku": "11318400",
       "skus": [
         "11318400"
@@ -54930,7 +54884,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p090-1",
-      "page": 329,
+      "page": 328,
       "sku": "11220500",
       "skus": [
         "11220500"
@@ -54962,7 +54916,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p091-1",
-      "page": 330,
+      "page": 329,
       "sku": "11245400",
       "skus": [
         "11245400"
@@ -54994,7 +54948,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p091-2",
-      "page": 330,
+      "page": 329,
       "sku": "3113400",
       "skus": [
         "3113400"
@@ -55026,7 +54980,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p092-1",
-      "page": 331,
+      "page": 330,
       "sku": "3110200",
       "skus": [
         "3110200"
@@ -55058,7 +55012,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p092-2",
-      "page": 331,
+      "page": 330,
       "sku": "11147600",
       "skus": [
         "11147600"
@@ -55091,7 +55045,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p093-1",
-      "page": 332,
+      "page": 331,
       "sku": "11327200",
       "skus": [
         "11327200"
@@ -55123,7 +55077,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p094-1",
-      "page": 333,
+      "page": 332,
       "sku": "11136400",
       "skus": [
         "11136400"
@@ -55155,7 +55109,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p095-1",
-      "page": 334,
+      "page": 333,
       "sku": "11169200",
       "skus": [
         "11169200"
@@ -55188,7 +55142,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p096-1",
-      "page": 335,
+      "page": 334,
       "sku": "11284400",
       "skus": [
         "11284400"
@@ -55220,7 +55174,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p097-1",
-      "page": 336,
+      "page": 335,
       "sku": "1132080",
       "skus": [
         "1132080"
@@ -55252,7 +55206,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p098-1",
-      "page": 337,
+      "page": 336,
       "sku": "11242400",
       "skus": [
         "11242400"
@@ -55284,7 +55238,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p098-2",
-      "page": 337,
+      "page": 336,
       "sku": "11242500",
       "skus": [
         "11242500"
@@ -55316,7 +55270,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p098-3",
-      "page": 337,
+      "page": 336,
       "sku": "11242300",
       "skus": [
         "11242300"
@@ -55348,7 +55302,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p099-1",
-      "page": 338,
+      "page": 337,
       "sku": "32480",
       "skus": [
         "32480"
@@ -55380,7 +55334,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p100-1",
-      "page": 339,
+      "page": 338,
       "sku": "11133300",
       "skus": [
         "11133300"
@@ -55413,7 +55367,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p101-1",
-      "page": 340,
+      "page": 339,
       "sku": "11181400",
       "skus": [
         "11181400"
@@ -55446,7 +55400,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p102-1",
-      "page": 341,
+      "page": 340,
       "sku": "11166900",
       "skus": [
         "11166900"
@@ -55479,7 +55433,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p103-1",
-      "page": 342,
+      "page": 341,
       "sku": "11330800",
       "skus": [
         "11330800"
@@ -55511,7 +55465,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p104-1",
-      "page": 343,
+      "page": 342,
       "sku": "13322100",
       "skus": [
         "13322100"
@@ -55543,7 +55497,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p105-1",
-      "page": 344,
+      "page": 343,
       "sku": "13245100",
       "skus": [
         "13245100"
@@ -55575,7 +55529,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p105-2",
-      "page": 344,
+      "page": 343,
       "sku": "13245000",
       "skus": [
         "13245000"
@@ -55608,7 +55562,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p106-1",
-      "page": 345,
+      "page": 344,
       "sku": "13295800",
       "skus": [
         "13295800"
@@ -55641,7 +55595,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p106-2",
-      "page": 345,
+      "page": 344,
       "sku": "13295900",
       "skus": [
         "13295900"
@@ -55674,7 +55628,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p107-1",
-      "page": 346,
+      "page": 345,
       "sku": "1140700",
       "skus": [
         "1140700"
@@ -55707,7 +55661,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p108-1",
-      "page": 347,
+      "page": 346,
       "sku": "11187100",
       "skus": [
         "11187100"
@@ -55722,7 +55676,7 @@ window.CATALOG_DATA = {
       "sizeLabel": "",
       "hotspot": {
         "x": 0.3657592,
-        "y": 0.1709532,
+        "y": 0.1589341,
         "w": 0.268454,
         "h": 0.0429651
       },
@@ -55731,7 +55685,7 @@ window.CATALOG_DATA = {
       },
       "pricePosition": {
         "x": 0.4999929,
-        "y": 0.239395
+        "y": 0.2166257
       },
       "section": "OXO",
       "sourcePage": 108,
@@ -55739,7 +55693,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p109-1",
-      "page": 348,
+      "page": 347,
       "sku": "11247200",
       "skus": [
         "11247200"
@@ -55771,7 +55725,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p109-2",
-      "page": 348,
+      "page": 347,
       "sku": "1272380",
       "skus": [
         "1272380"
@@ -55803,7 +55757,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p110-1",
-      "page": 349,
+      "page": 348,
       "sku": "13328400",
       "skus": [
         "13328400"
@@ -55835,7 +55789,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p112-1",
-      "page": 350,
+      "page": 349,
       "sku": "13192100",
       "skus": [
         "13192100"
@@ -55867,7 +55821,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p112-2",
-      "page": 350,
+      "page": 349,
       "sku": "12426900",
       "skus": [
         "12426900"
@@ -55899,7 +55853,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p113-1",
-      "page": 351,
+      "page": 350,
       "sku": "1473480",
       "skus": [
         "1473480"
@@ -55931,7 +55885,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p113-2",
-      "page": 351,
+      "page": 350,
       "sku": "13229100",
       "skus": [
         "13229100"
@@ -55963,7 +55917,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p114-1",
-      "page": 352,
+      "page": 351,
       "sku": "13322800",
       "skus": [
         "13322800"
@@ -55996,7 +55950,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p115-1",
-      "page": 353,
+      "page": 352,
       "sku": "13314400",
       "skus": [
         "13314400"
@@ -56029,7 +55983,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p116-1",
-      "page": 354,
+      "page": 353,
       "sku": "13259500",
       "skus": [
         "13259500"
@@ -56061,7 +56015,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p117-1",
-      "page": 355,
+      "page": 354,
       "sku": "1395500",
       "skus": [
         "1395500"
@@ -56094,7 +56048,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p118-1",
-      "page": 356,
+      "page": 355,
       "sku": "13144000",
       "skus": [
         "13144000"
@@ -56126,7 +56080,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p118-2",
-      "page": 356,
+      "page": 355,
       "sku": "13273700",
       "skus": [
         "13273700"
@@ -56158,7 +56112,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p118-3",
-      "page": 356,
+      "page": 355,
       "sku": "12427000",
       "skus": [
         "12427000"
@@ -56190,7 +56144,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p119-1",
-      "page": 357,
+      "page": 356,
       "sku": "12361300",
       "skus": [
         "12361300"
@@ -56223,7 +56177,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p119-2",
-      "page": 357,
+      "page": 356,
       "sku": "12361600",
       "skus": [
         "12361600"
@@ -56255,7 +56209,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p119-3",
-      "page": 357,
+      "page": 356,
       "sku": "12361400",
       "skus": [
         "12361400"
@@ -56287,7 +56241,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p119-4",
-      "page": 357,
+      "page": 356,
       "sku": "12361500",
       "skus": [
         "12361500"
@@ -56319,7 +56273,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p120-1",
-      "page": 358,
+      "page": 357,
       "sku": "12361200",
       "skus": [
         "12361200"
@@ -56351,7 +56305,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p120-2",
-      "page": 358,
+      "page": 357,
       "sku": "12361700",
       "skus": [
         "12361700"
@@ -56383,7 +56337,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p121-1",
-      "page": 359,
+      "page": 358,
       "sku": "1256500",
       "skus": [
         "1256500"
@@ -56415,7 +56369,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p121-2",
-      "page": 359,
+      "page": 358,
       "sku": "36481",
       "skus": [
         "36481"
@@ -56448,7 +56402,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p122-1",
-      "page": 360,
+      "page": 359,
       "sku": "1334280",
       "skus": [
         "1334280"
@@ -56480,7 +56434,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p123-1",
-      "page": 361,
+      "page": 360,
       "sku": "1334480",
       "skus": [
         "1334480"
@@ -56512,7 +56466,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p124-1",
-      "page": 362,
+      "page": 361,
       "sku": "1335180",
       "skus": [
         "1335180"
@@ -56544,7 +56498,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p124-2",
-      "page": 362,
+      "page": 361,
       "sku": "1334580",
       "skus": [
         "1334580"
@@ -56576,7 +56530,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p124-3",
-      "page": 362,
+      "page": 361,
       "sku": "1334680",
       "skus": [
         "1334680"
@@ -56608,7 +56562,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p126-1",
-      "page": 363,
+      "page": 362,
       "sku": "12246100",
       "skus": [
         "12246100"
@@ -56640,7 +56594,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p127-1",
-      "page": 364,
+      "page": 363,
       "sku": "12168900",
       "skus": [
         "12168900"
@@ -56672,7 +56626,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p127-2",
-      "page": 364,
+      "page": 363,
       "sku": "12168800",
       "skus": [
         "12168800"
@@ -56704,7 +56658,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p127-3",
-      "page": 364,
+      "page": 363,
       "sku": "12331200",
       "skus": [
         "12331200"
@@ -56736,7 +56690,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p128-1",
-      "page": 365,
+      "page": 364,
       "sku": "1285700",
       "skus": [
         "1285700"
@@ -56764,12 +56718,11 @@ window.CATALOG_DATA = {
       },
       "section": "OXO",
       "sourcePage": 128,
-      "hotspotSource": "oxo-20260722-sku-text",
-      "videoUrl": "https://www.youtube.com/watch?v=0nbSCzSEJZ8"
+      "hotspotSource": "oxo-20260722-sku-text"
     },
     {
       "id": "oxo-p129-1",
-      "page": 366,
+      "page": 365,
       "sku": "12237300",
       "skus": [
         "12237300"
@@ -56801,7 +56754,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p129-2",
-      "page": 366,
+      "page": 365,
       "sku": "12155000",
       "skus": [
         "12155000"
@@ -56833,7 +56786,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p130-1",
-      "page": 367,
+      "page": 366,
       "sku": "1062122",
       "skus": [
         "1062122"
@@ -56865,7 +56818,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p131-1",
-      "page": 368,
+      "page": 367,
       "sku": "13248000",
       "skus": [
         "13248000"
@@ -56897,7 +56850,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p131-2",
-      "page": 368,
+      "page": 367,
       "sku": "13208800",
       "skus": [
         "13208800"
@@ -56929,7 +56882,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "oxo-p131-3",
-      "page": 368,
+      "page": 367,
       "sku": "13241500",
       "skus": [
         "13241500"
@@ -56961,7 +56914,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p384-1",
-      "page": 371,
+      "page": 370,
       "sku": "29401",
       "skus": [
         "29401"
@@ -56992,7 +56945,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-1",
-      "page": 373,
+      "page": 372,
       "sku": "3039",
       "skus": [
         "3039"
@@ -57023,7 +56976,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-2",
-      "page": 373,
+      "page": 372,
       "sku": "3042",
       "skus": [
         "3042"
@@ -57054,7 +57007,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-3",
-      "page": 373,
+      "page": 372,
       "sku": "P3041",
       "skus": [
         "P3041"
@@ -57086,7 +57039,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-4",
-      "page": 373,
+      "page": 372,
       "sku": "3040",
       "skus": [
         "3040"
@@ -57117,7 +57070,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p386-5",
-      "page": 373,
+      "page": 372,
       "sku": "3044",
       "skus": [
         "3044"
@@ -57148,7 +57101,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p389-1",
-      "page": 376,
+      "page": 375,
       "sku": "20101",
       "skus": [
         "20101"
@@ -57179,7 +57132,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p389-2",
-      "page": 376,
+      "page": 375,
       "sku": "20118",
       "skus": [
         "20118"
@@ -57210,7 +57163,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p390-1",
-      "page": 377,
+      "page": 376,
       "sku": "1028",
       "skus": [
         "1028"
@@ -57241,7 +57194,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-1",
-      "page": 379,
+      "page": 378,
       "sku": "4025",
       "skus": [
         "4025"
@@ -57271,7 +57224,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-2",
-      "page": 379,
+      "page": 378,
       "sku": "4019",
       "skus": [
         "4019"
@@ -57301,7 +57254,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p392-3",
-      "page": 379,
+      "page": 378,
       "sku": "4022",
       "skus": [
         "4022"
@@ -57331,7 +57284,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p393-1",
-      "page": 380,
+      "page": 379,
       "sku": "29852",
       "skus": [
         "29852"
@@ -57361,7 +57314,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p393-2",
-      "page": 380,
+      "page": 379,
       "sku": "29340",
       "skus": [
         "29340"
@@ -57391,7 +57344,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p395-1",
-      "page": 382,
+      "page": 381,
       "sku": "27575",
       "skus": [
         "27575"
@@ -57421,7 +57374,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p395-2",
-      "page": 382,
+      "page": 381,
       "sku": "27583",
       "skus": [
         "27583"
@@ -57451,7 +57404,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-1",
-      "page": 385,
+      "page": 384,
       "sku": "2016",
       "skus": [
         "2016"
@@ -57482,7 +57435,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-2",
-      "page": 385,
+      "page": 384,
       "sku": "2018",
       "skus": [
         "2018"
@@ -57513,7 +57466,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p398-3",
-      "page": 385,
+      "page": 384,
       "sku": "3715",
       "skus": [
         "3715"
@@ -57544,7 +57497,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p399-1",
-      "page": 386,
+      "page": 385,
       "sku": "2017",
       "skus": [
         "2017"
@@ -57575,7 +57528,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-1",
-      "page": 388,
+      "page": 387,
       "sku": "1038",
       "skus": [
         "1038"
@@ -57605,7 +57558,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-2",
-      "page": 388,
+      "page": 387,
       "sku": "3119",
       "skus": [
         "3119"
@@ -57635,7 +57588,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p401-3",
-      "page": 388,
+      "page": 387,
       "sku": "1029",
       "skus": [
         "1029"
@@ -57666,7 +57619,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-1",
-      "page": 389,
+      "page": 388,
       "sku": "3784",
       "skus": [
         "3784"
@@ -57696,7 +57649,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-2",
-      "page": 389,
+      "page": 388,
       "sku": "1720",
       "skus": [
         "1720"
@@ -57727,7 +57680,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p402-3",
-      "page": 389,
+      "page": 388,
       "sku": "3785",
       "skus": [
         "3785"
@@ -57757,7 +57710,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p403-1",
-      "page": 390,
+      "page": 389,
       "sku": "25571",
       "skus": [
         "25571"
@@ -57787,7 +57740,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p403-2",
-      "page": 390,
+      "page": 389,
       "sku": "1026",
       "skus": [
         "1026"
@@ -57818,7 +57771,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p404-1",
-      "page": 391,
+      "page": 390,
       "sku": "28831",
       "skus": [
         "28831"
@@ -57848,7 +57801,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p404-2",
-      "page": 391,
+      "page": 390,
       "sku": "4789",
       "skus": [
         "4789"
@@ -57878,7 +57831,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-1",
-      "page": 392,
+      "page": 391,
       "sku": "3050",
       "skus": [
         "3050"
@@ -57908,7 +57861,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-2",
-      "page": 392,
+      "page": 391,
       "sku": "3937",
       "skus": [
         "3937"
@@ -57939,7 +57892,7 @@ window.CATALOG_DATA = {
     },
     {
       "id": "prepara-p405-3",
-      "page": 392,
+      "page": 391,
       "sku": "3890",
       "skus": [
         "3890"
@@ -57981,5 +57934,5 @@ window.CATALOG_DATA = {
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260730-estia-refresh"
+  "assetVersion": "20260812-remove-duplicate-page-175"
 };
