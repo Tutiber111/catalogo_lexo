@@ -1511,7 +1511,8 @@
     if (!order) return;
     adminEls.adminOrderDialogContent.innerHTML = renderOrderDialog(order);
     bindOrderDialogActions(order);
-    if (typeof adminEls.adminOrderDialog.showModal === "function") adminEls.adminOrderDialog.showModal();
+    if (window.CATALOG_DIALOG) window.CATALOG_DIALOG.open(adminEls.adminOrderDialog);
+    else if (typeof adminEls.adminOrderDialog.showModal === "function") adminEls.adminOrderDialog.showModal();
     else adminEls.adminOrderDialog.setAttribute("open", "");
   }
 
@@ -1644,7 +1645,8 @@
   }
 
   function closeOrderDialog() {
-    if (adminEls.adminOrderDialog.open && typeof adminEls.adminOrderDialog.close === "function") adminEls.adminOrderDialog.close();
+    if (window.CATALOG_DIALOG) window.CATALOG_DIALOG.close(adminEls.adminOrderDialog);
+    else if (adminEls.adminOrderDialog.open && typeof adminEls.adminOrderDialog.close === "function") adminEls.adminOrderDialog.close();
     else adminEls.adminOrderDialog.removeAttribute("open");
   }
 

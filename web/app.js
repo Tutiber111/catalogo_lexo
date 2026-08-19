@@ -94,6 +94,10 @@ const els = {
   nextPage: document.querySelector("#nextPage"),
   openCart: document.querySelector("#openCart"),
   openQuickOrderToolbar: document.querySelector("#openQuickOrderToolbar"),
+  mobileOpenCatalog: document.querySelector("#mobileOpenCatalog"),
+  mobileOpenQuickOrder: document.querySelector("#mobileOpenQuickOrder"),
+  mobileOpenCart: document.querySelector("#mobileOpenCart"),
+  mobileCartCount: document.querySelector("#mobileCartCount"),
   closeCart: document.querySelector("#closeCart"),
   openAccount: document.querySelector("#openAccount"),
   closeAccount: document.querySelector("#closeAccount"),
@@ -280,6 +284,9 @@ function bindEvents() {
   els.pageStrip.addEventListener("click", handlePageStripClick);
   els.openCart.addEventListener("click", openCart);
   els.openQuickOrderToolbar.addEventListener("click", openQuickOrder);
+  els.mobileOpenCatalog.addEventListener("click", () => scrollFiltersIntoView({ focusSearch: false }));
+  els.mobileOpenQuickOrder.addEventListener("click", openQuickOrder);
+  els.mobileOpenCart.addEventListener("click", openCart);
   els.closeCart.addEventListener("click", closeCart);
   els.cartProductsTab.addEventListener("click", () => setCartView("products"));
   els.cartDetailsTab.addEventListener("click", () => setCartView("details"));
@@ -377,7 +384,10 @@ function bindEvents() {
     if (event.key === "ArrowLeft") goToAdjacentVisiblePage(-1);
     if (event.key === "ArrowRight") goToAdjacentVisiblePage(1);
   });
-  window.addEventListener("resize", renderZoom);
+  window.addEventListener("resize", () => {
+    renderZoom();
+    updateOfflineBannerHeight();
+  });
   window.addEventListener("online", handleNetworkStatusChange);
   window.addEventListener("offline", handleNetworkStatusChange);
   window.addEventListener("keydown", handleBarcodeScannerKeydown, true);
@@ -824,7 +834,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
     });
   });
   bindProductVideoButtons();
-  els.productDialog.showModal();
+  showCatalogDialog(els.productDialog);
 }
 
 function renderReadOnlyProductGroup(page, group, products) {
@@ -849,7 +859,7 @@ function renderReadOnlyProductGroup(page, group, products) {
     </div>
   `;
   bindProductVideoButtons();
-  els.productDialog.showModal();
+  showCatalogDialog(els.productDialog);
 }
 
 function markGroupProductAdded(productId, quantity) {
@@ -893,7 +903,7 @@ function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
 
 function openProduct(product) {
   if (!product) return;
-  if (els.productDialog.open) els.productDialog.close();
+  if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
   const outOfStock = Boolean(product.outOfStock);
   const pricesVisible = hasPriceAccess();
   els.dialogContent.innerHTML = `
@@ -932,10 +942,10 @@ function openProduct(product) {
   if (!outOfStock && pricesVisible) {
     els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
       addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
-      els.productDialog.close();
+      closeCatalogDialog(els.productDialog);
     });
   }
-  els.productDialog.showModal();
+  showCatalogDialog(els.productDialog);
 }
 
 function bindProductVideoButtons() {
@@ -954,7 +964,27 @@ function openProductVideo(product) {
   els.videoDialogTitle.textContent = product.name;
   els.videoFrame.title = `Video de ${product.name}`;
   els.videoFrame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
-  if (!els.videoDialog.open) els.videoDialog.showModal();
+  showCatalogDialog(els.videoDialog);
+}
+
+function showCatalogDialog(dialog) {
+  if (window.CATALOG_DIALOG) {
+    window.CATALOG_DIALOG.open(dialog);
+    return;
+  }
+  if (!dialog.open) dialog.showModal();
+}
+
+function closeCatalogDialog(dialog) {
+  if (window.CATALOG_DIALOG) {
+    window.CATALOG_DIALOG.close(dialog);
+    return;
+  }
+  if (dialog.open) dialog.close();
+}
+
+function isCatalogDialogOpen(dialog) {
+  return window.CATALOG_DIALOG ? window.CATALOG_DIALOG.isOpen(dialog) : Boolean(dialog?.open);
 }
 
 function closeProductVideo() {
@@ -1661,6 +1691,7 @@ function renderCart() {
   renderCartClientControls();
   if (!hasPriceAccess()) {
     els.cartCount.textContent = "0";
+    els.mobileCartCount.textContent = "0";
     els.cartTotalItems.textContent = "0";
     els.cartTotalValue.textContent = "—";
     els.cartDetailsTotalItems.textContent = "0";
@@ -1679,6 +1710,7 @@ function renderCart() {
   const totalValue = lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0);
 
   els.cartCount.textContent = total;
+  els.mobileCartCount.textContent = total;
   els.cartTotalItems.textContent = total;
   els.cartTotalValue.textContent = formatMoney(totalValue);
   els.cartDetailsTotalItems.textContent = total;
@@ -1913,7 +1945,7 @@ function openLastOrderReceipt() {
       `).join("")}
     </div>
   `;
-  els.orderReceiptDialog.showModal();
+  showCatalogDialog(els.orderReceiptDialog);
 }
 
 function formatReceiptDate(value) {
@@ -2061,9 +2093,11 @@ function scrollPageCardIntoView(pageNumber) {
   });
 }
 
-function scrollFiltersIntoView() {
+function scrollFiltersIntoView(options = {}) {
   document.querySelector(".sidebar")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  requestAnimationFrame(() => els.searchInput.focus({ preventScroll: true }));
+  if (options.focusSearch !== false) {
+    requestAnimationFrame(() => els.searchInput.focus({ preventScroll: true }));
+  }
 }
 
 function scrollCatalogIntoView() {
@@ -2115,7 +2149,7 @@ function openQuickOrder() {
     return;
   }
   renderQuickOrderTable();
-  els.quickOrderDialog.showModal();
+  showCatalogDialog(els.quickOrderDialog);
   focusQuickOrderCell(0, "sku");
 }
 
@@ -2180,12 +2214,14 @@ function applyPriceAccessState() {
   els.priceAccessNotice.hidden = !pending;
   els.openCart.hidden = !access;
   els.openQuickOrderToolbar.hidden = !access;
+  els.mobileOpenCart.hidden = !access;
+  els.mobileOpenQuickOrder.hidden = !access;
   els.quickOrderPanel.hidden = !access;
 
   if (!access) {
     closeCart();
-    if (els.quickOrderDialog.open) els.quickOrderDialog.close();
-    if (els.productDialog.open) els.productDialog.close();
+    if (isCatalogDialogOpen(els.quickOrderDialog)) closeCatalogDialog(els.quickOrderDialog);
+    if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
   }
 
   if (changed && state.catalog && !state.isCheckingAuth) {
@@ -2287,7 +2323,10 @@ function renderOfflineStatus() {
   document.body.classList.toggle("has-offline-banner", showBanner);
   document.body.classList.toggle("has-pending-offline-orders", hasPending);
 
-  if (!showBanner) return;
+  if (!showBanner) {
+    updateOfflineBannerHeight();
+    return;
+  }
 
   if (!online) {
     els.offlineBannerTitle.textContent = "Modo sin conexión";
@@ -2307,6 +2346,7 @@ function renderOfflineStatus() {
   els.syncOfflineOrders.textContent = state.isSyncingOfflineOrders
     ? "Enviando..."
     : (online ? `Enviar pendientes (${count})` : "Reintentar conexión");
+  updateOfflineBannerHeight();
 }
 
 function handleNetworkStatusChange() {
@@ -2349,6 +2389,15 @@ function clearSubmittedCart() {
   localStorage.removeItem("catalogCartClientCode");
   saveCart();
   setCartView("products");
+}
+
+function updateOfflineBannerHeight() {
+  if (els.offlineBanner.hidden) {
+    document.body.style.removeProperty("--offline-banner-height");
+    return;
+  }
+  const height = Math.ceil(els.offlineBanner.getBoundingClientRect().height);
+  if (height > 0) document.body.style.setProperty("--offline-banner-height", `${height}px`);
 }
 
 function isNetworkError(error) {

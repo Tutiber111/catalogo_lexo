@@ -75,7 +75,7 @@ body.is-offline .offline-banner span {
 
 body.has-offline-banner .app-shell {
   position: fixed;
-  inset: 58px 0 0 0;
+  inset: var(--offline-banner-height, 58px) 0 0 0;
   height: auto;
   margin-top: 0;
 }
@@ -87,13 +87,13 @@ body.has-offline-banner .viewer {
 
 body.has-offline-banner .cart-drawer,
 body.has-offline-banner .account-drawer {
-  inset: 58px 0 0 auto;
-  height: calc(100vh - 58px);
+  inset: var(--offline-banner-height, 58px) 0 0 auto;
+  height: calc(100vh - var(--offline-banner-height, 58px));
 }
 
 body.has-offline-banner .admin-drawer {
-  inset: 58px 0 0 0;
-  height: calc(100vh - 58px);
+  inset: var(--offline-banner-height, 58px) 0 0 0;
+  height: calc(100vh - var(--offline-banner-height, 58px));
 }
 
 button,
@@ -188,6 +188,10 @@ body.auth-required #closeAccount {
 
 .mobile-filter-button,
 .mobile-catalog-button {
+  display: none;
+}
+
+.mobile-action-bar {
   display: none;
 }
 
@@ -2148,6 +2152,32 @@ body.auth-checking .auth-fields {
   box-shadow: var(--shadow);
 }
 
+dialog:not([open]) {
+  display: none !important;
+}
+
+body.dialog-fallback-active {
+  overflow: hidden;
+}
+
+body.dialog-fallback-active::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(22, 22, 26, 0.72);
+}
+
+dialog[data-dialog-fallback-open] {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  z-index: var(--dialog-fallback-z, 81) !important;
+  display: block !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%);
+}
+
 .video-dialog::backdrop {
   background: rgba(22, 22, 26, 0.72);
 }
@@ -2169,16 +2199,28 @@ body.auth-checking .auth-fields {
 }
 
 .video-frame-wrap {
+  position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  height: 0;
+  padding-top: 56.25%;
   border-radius: 8px;
   background: #000;
 }
 
 .video-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+@supports (aspect-ratio: 16 / 9) {
+  .video-frame-wrap {
+    height: auto;
+    padding-top: 0;
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .dialog-close {
@@ -3483,13 +3525,18 @@ body.auth-checking .auth-fields {
   }
 
   body.has-offline-banner .app-shell {
-    position: static;
-    height: calc(100vh - 92px);
-    margin-top: 92px;
+    position: relative;
+    inset: auto;
+    height: auto;
+    min-height: 0;
+    margin-top: var(--offline-banner-height, 92px);
+    overflow: visible;
   }
 
   body.has-offline-banner .viewer {
-    height: auto;
+    height: calc(100vh - var(--offline-banner-height, 92px) - 62px);
+    min-height: 520px;
+    overflow: hidden;
   }
 
   body.has-offline-banner .sidebar {
@@ -3498,17 +3545,65 @@ body.auth-checking .auth-fields {
 
   body.has-offline-banner .cart-drawer,
   body.has-offline-banner .account-drawer {
-    inset: 92px 0 0 auto;
-    height: calc(100vh - 92px);
+    inset: var(--offline-banner-height, 92px) 0 0 auto;
+    height: calc(100vh - var(--offline-banner-height, 92px));
   }
 
   body.has-offline-banner .admin-drawer {
-    inset: 92px 0 0 0;
-    height: calc(100vh - 92px);
+    inset: var(--offline-banner-height, 92px) 0 0 0;
+    height: calc(100vh - var(--offline-banner-height, 92px));
   }
 
   body {
     overflow: auto;
+  }
+
+  .app-shell {
+    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-action-bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 35;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 -8px 24px rgba(30, 34, 43, 0.14);
+  }
+
+  .mobile-action-bar button {
+    min-width: 0;
+    min-height: 42px;
+    padding: 6px 8px;
+    border: 0;
+    border-right: 1px solid var(--line);
+    color: var(--ink);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .mobile-action-bar button:last-child {
+    border-right: 0;
+    color: #fff;
+    background: var(--brand);
+    border-radius: 8px;
+  }
+
+  .mobile-action-bar button[hidden],
+  body.auth-required .mobile-action-bar,
+  body.auth-checking .mobile-action-bar,
+  body.cart-drawer-open .mobile-action-bar,
+  body.account-drawer-open .mobile-action-bar,
+  body.admin-drawer-open .mobile-action-bar,
+  body.dialog-fallback-active .mobile-action-bar {
+    display: none;
   }
 
   body.cart-drawer-open,
@@ -3591,6 +3686,16 @@ body.auth-checking .auth-fields {
     margin: auto;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  dialog[data-dialog-fallback-open] {
+    top: max(8px, env(safe-area-inset-top, 0px)) !important;
+    right: 8px !important;
+    bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
+    left: 8px !important;
+    width: auto !important;
+    max-height: none !important;
+    transform: none;
   }
 
   .app-shell {

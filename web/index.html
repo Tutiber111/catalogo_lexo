@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260812-order-history">
+    <link rel="stylesheet" href="styles.css?v=20260819-ipad-offline-scroll">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -537,16 +537,22 @@
       </aside>
     </div>
 
+    <nav class="mobile-action-bar" aria-label="Accesos del cat&aacute;logo">
+      <button id="mobileOpenCatalog" type="button">Men&uacute;</button>
+      <button id="mobileOpenQuickOrder" type="button">Carga r&aacute;pida</button>
+      <button id="mobileOpenCart" type="button">Carrito <span id="mobileCartCount">0</span></button>
+    </nav>
+
     <dialog id="productDialog" class="product-dialog">
       <form method="dialog">
-        <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar">×</button>
       </form>
       <div id="dialogContent"></div>
     </dialog>
 
     <dialog id="videoDialog" class="video-dialog">
       <form method="dialog">
-        <button class="dialog-close" value="cancel" aria-label="Cerrar video">&times;</button>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar video">&times;</button>
       </form>
       <div class="video-dialog-body">
         <div class="video-dialog-heading">
@@ -567,7 +573,7 @@
 
     <dialog id="quickOrderDialog" class="quick-order-dialog">
       <form method="dialog">
-        <button id="closeQuickOrder" class="dialog-close" value="cancel" aria-label="Cerrar">&times;</button>
+        <button id="closeQuickOrder" class="dialog-close" type="button" data-dialog-close aria-label="Cerrar">&times;</button>
       </form>
       <div class="quick-order-dialog-body">
         <div class="quick-order-dialog-header">
@@ -586,22 +592,20 @@
 
     <dialog id="orderReceiptDialog" class="order-receipt-dialog">
       <form method="dialog">
-        <button class="dialog-close" value="cancel" aria-label="Cerrar comprobante">×</button>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar comprobante">×</button>
       </form>
       <div class="order-receipt-dialog-body">
         <div id="orderReceiptContent"></div>
         <div class="order-receipt-actions">
           <button id="downloadOrderReceipt" class="primary-button" type="button">Descargar comprobante</button>
-          <form method="dialog">
-            <button class="secondary-button" value="cancel">Cerrar</button>
-          </form>
+          <button class="secondary-button" type="button" data-dialog-close>Cerrar</button>
         </div>
       </div>
     </dialog>
 
     <dialog id="adminOrderDialog" class="admin-order-dialog">
       <form method="dialog">
-        <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar">×</button>
       </form>
       <div id="adminOrderDialogContent"></div>
     </dialog>
@@ -614,7 +618,8 @@
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20260714-no-related-skus"></script>
     <script src="supabase-client.js?v=20260812-recovery-redirect"></script>
-    <script src="app.js?v=20260812-password-recovery-form"></script>
-    <script src="admin.js?v=20260812-order-history"></script>
+    <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
+    <script src="app.js?v=20260819-ipad-offline-scroll"></script>
+    <script src="admin.js?v=20260819-ipad-dialogs"></script>
   </body>
 </html>
