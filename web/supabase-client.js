@@ -272,6 +272,7 @@
     return callCatalogGuestAccess({
       action: "submit_order",
       session_token: sessionToken,
+      client_request_id: order.clientRequestId,
       customer_name: order.customer.name || "",
       client_code: order.customer.clientCode || "",
       transport: order.customer.transport || "",
@@ -339,8 +340,14 @@
   async function saveOrder(order, userId) {
     if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
+    const clientRequestId = String(order.clientRequestId || "").trim();
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(clientRequestId)) {
+      throw new Error("El pedido no tiene un identificador seguro para evitar duplicados.");
+    }
+
     const orderPayload = {
       customer_id: userId,
+      client_request_id: clientRequestId,
       status: "placed",
       customer_name: order.customer.name,
       customer_phone: order.customer.phone,
@@ -356,11 +363,42 @@
       total_items: order.totalItems,
       total_value: order.totalValue,
     };
-    const { data: savedOrder, error: orderError } = await client.from("orders").insert(orderPayload).select().single();
-    if (orderError) throw orderError;
+    const requestHash = await CATALOG_STORE.hashString(JSON.stringify({
+      order: orderPayload,
+      items: order.items.map((item, index) => ({
+        line: index + 1,
+        productId: item.productId,
+        sku: item.sku,
+        unitPrice: CATALOG_STORE.priceNumber(item.price),
+        quantity: item.qty,
+        lineTotal: item.lineTotal,
+        page: item.page ?? null,
+      })),
+    }));
+    orderPayload.client_request_hash = requestHash;
 
-    const items = order.items.map((item) => ({
+    let savedOrder;
+    const inserted = await client.from("orders").insert(orderPayload).select().single();
+    if (inserted.error?.code === "23505") {
+      const replay = await client
+        .from("orders")
+        .select("*")
+        .eq("client_request_id", clientRequestId)
+        .maybeSingle();
+      if (replay.error) throw replay.error;
+      if (!replay.data || replay.data.client_request_hash !== requestHash) {
+        throw new Error("El identificador del pedido ya fue usado con otros datos.");
+      }
+      savedOrder = replay.data;
+    } else if (inserted.error) {
+      throw inserted.error;
+    } else {
+      savedOrder = inserted.data;
+    }
+
+    const items = order.items.map((item, index) => ({
       order_id: savedOrder.id,
+      client_line_number: index + 1,
       product_id: item.productId,
       sku: item.sku,
       name: item.name,
@@ -369,7 +407,12 @@
       line_total: item.lineTotal,
       page: item.page,
     }));
-    const { error: itemsError } = await client.from("order_items").insert(items);
+    const { error: itemsError } = await client
+      .from("order_items")
+      .upsert(items, {
+        onConflict: "order_id,client_line_number",
+        ignoreDuplicates: true,
+      });
     if (itemsError) throw itemsError;
 
     const notification = await requestOrderNotification(savedOrder.id);
@@ -576,6 +619,7 @@
   function normalizeOrder(order) {
     return {
       id: order.id,
+      clientRequestId: order.client_request_id || "",
       displayId: order.order_number ? `#${order.order_number}` : order.id,
       remote: true,
       createdAt: order.created_at,

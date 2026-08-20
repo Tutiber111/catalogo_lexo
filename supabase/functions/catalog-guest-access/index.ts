@@ -236,7 +236,38 @@ async function validateGuestSession(body: Record<string, unknown>) {
 
 async function submitGuestOrder(body: Record<string, unknown>) {
   const session = await loadGuestSession(String(body.session_token || ""));
-  const lines = await validatedOrderLines(Array.isArray(body.items) ? body.items as OrderLineInput[] : []);
+  const clientRequestId = requiredUuid(body.client_request_id, "client_request_id");
+  const submittedItems = Array.isArray(body.items) ? body.items as OrderLineInput[] : [];
+  const requestHash = await sha256(JSON.stringify({
+    guestLinkId: session.link.id,
+    customerName: cleanText(body.customer_name, 300),
+    clientCode: cleanText(body.client_code, 100),
+    transport: cleanText(body.transport, 200),
+    notes: cleanText(body.notes, 2000),
+    items: submittedItems.slice(0, 250).map((item) => ({
+      productId: String(item.productId || "").trim(),
+      quantity: Math.trunc(Number(item.quantity || 0)),
+      page: Number.isFinite(Number(item.page)) ? Math.trunc(Number(item.page)) : null,
+    })),
+  }));
+  const existingOrder = await loadOrderByClientRequestId(
+    clientRequestId,
+    session.link.created_by,
+  );
+  if (existingOrder) {
+    if (existingOrder.client_request_hash !== requestHash) {
+      throw new HttpError(409, "This order identifier was already used with different data.");
+    }
+    const notification = await requestOrderNotification(String(existingOrder.id));
+    return {
+      order_id: existingOrder.id,
+      order_number: existingOrder.order_number,
+      total_items: existingOrder.total_items,
+      total_value: existingOrder.total_value,
+      notification,
+    };
+  }
+  const lines = await validatedOrderLines(submittedItems);
   if (!lines.length) throw new HttpError(400, "Add products before sending the order.");
 
   const totalItems = lines.reduce((sum, line) => sum + line.quantity, 0);
@@ -251,40 +282,54 @@ async function submitGuestOrder(body: Record<string, unknown>) {
   if (!customerName) throw new HttpError(400, "Enter the client name before sending the order.");
   const clientCode = client?.client_code || submittedClientCode;
   const salesmanCode = client?.salesman_code || session.link.salesman_code || null;
-  const orderResponse = await serviceFetch("/rest/v1/orders", {
-    method: "POST",
-    headers: { Prefer: "return=representation" },
-    body: JSON.stringify({
-      customer_id: session.link.created_by,
-      status: "placed",
-      customer_name: customerName,
-      customer_phone: "",
-      customer_client_code: clientCode,
-      sales_client_id: client?.id || null,
-      sales_client_code: clientCode,
-      sales_client_name: customerName,
-      sales_client_address: client?.address || "",
-      sales_client_locality: client?.locality || "",
-      salesman_code: salesmanCode,
-      order_transport: cleanText(body.transport, 200),
-      notes: cleanText(body.notes, 2000),
-      total_items: totalItems,
-      total_value: totalValue,
-    }),
-  });
-  const orderRows = await orderResponse.json();
-  const order = orderRows[0];
+  const orderPayload = {
+    customer_id: session.link.created_by,
+    client_request_id: clientRequestId,
+    status: "placed",
+    customer_name: customerName,
+    customer_phone: "",
+    customer_client_code: clientCode,
+    sales_client_id: client?.id || null,
+    sales_client_code: clientCode,
+    sales_client_name: customerName,
+    sales_client_address: client?.address || "",
+    sales_client_locality: client?.locality || "",
+    salesman_code: salesmanCode,
+    order_transport: cleanText(body.transport, 200),
+    notes: cleanText(body.notes, 2000),
+    total_items: totalItems,
+    total_value: totalValue,
+  };
+  let order: Record<string, unknown> | null = null;
+  try {
+    const orderResponse = await serviceFetch("/rest/v1/orders", {
+      method: "POST",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify({ ...orderPayload, client_request_hash: requestHash }),
+    });
+    const orderRows = await orderResponse.json();
+    order = orderRows[0] || null;
+  } catch (error) {
+    order = await loadOrderByClientRequestId(
+      clientRequestId,
+      session.link.created_by,
+    );
+    if (!order) throw error;
+    if (order.client_request_hash !== requestHash) {
+      throw new HttpError(409, "This order identifier was already used with different data.");
+    }
+  }
   if (!order?.id) throw new Error("The guest order could not be saved.");
 
-  try {
-    await serviceFetch("/rest/v1/order_items", {
-      method: "POST",
-      body: JSON.stringify(lines.map((line) => ({ ...line, order_id: order.id }))),
-    });
-  } catch (error) {
-    await serviceFetch(`/rest/v1/orders?id=eq.${order.id}`, { method: "DELETE" });
-    throw error;
-  }
+  await serviceFetch("/rest/v1/order_items?on_conflict=order_id,client_line_number", {
+    method: "POST",
+    headers: { Prefer: "resolution=ignore-duplicates" },
+    body: JSON.stringify(lines.map((line, index) => ({
+      ...line,
+      order_id: order!.id,
+      client_line_number: index + 1,
+    }))),
+  });
 
   await serviceFetch("/rest/v1/order_notifications?on_conflict=order_id", {
     method: "POST",
@@ -299,6 +344,21 @@ async function submitGuestOrder(body: Record<string, unknown>) {
     total_value: totalValue,
     notification,
   };
+}
+
+async function loadOrderByClientRequestId(
+  clientRequestId: string,
+  customerId: string,
+) {
+  const params = new URLSearchParams({
+    client_request_id: `eq.${clientRequestId}`,
+    customer_id: `eq.${customerId}`,
+    select: "id,order_number,client_request_hash,total_items,total_value",
+    limit: "1",
+  });
+  const response = await serviceFetch(`/rest/v1/orders?${params}`);
+  const rows = await response.json();
+  return rows[0] || null;
 }
 
 async function validatedOrderLines(inputs: OrderLineInput[]) {
@@ -511,6 +571,14 @@ function requiredEnv(name: string) {
   const value = Deno.env.get(name);
   if (!value) throw new Error(`Missing ${name}`);
   return value;
+}
+
+function requiredUuid(value: unknown, field: string) {
+  const text = String(value || "").trim();
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(text)) {
+    throw new HttpError(400, `${field} must be a UUID.`);
+  }
+  return text;
 }
 
 async function sha256(value: string) {

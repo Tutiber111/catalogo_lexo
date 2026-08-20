@@ -62,6 +62,7 @@ const PENDING_PRICE_COVERS = new Map([
 ]);
 
 let pageScrollFrame = 0;
+let viewportUpdateFrame = 0;
 
 const els = {
   offlineBanner: document.querySelector("#offlineBanner"),
@@ -207,6 +208,7 @@ const els = {
 };
 
 async function init() {
+  updateViewportMetrics();
   await loadCatalogData();
 
   localStorage.removeItem("catalogBrandFilter");
@@ -386,9 +388,12 @@ function bindEvents() {
     if (event.key === "ArrowLeft") goToAdjacentVisiblePage(-1);
     if (event.key === "ArrowRight") goToAdjacentVisiblePage(1);
   });
-  window.addEventListener("resize", () => {
-    renderZoom();
-    updateOfflineBannerHeight();
+  window.addEventListener("resize", scheduleViewportLayoutRefresh);
+  window.visualViewport?.addEventListener("resize", scheduleViewportLayoutRefresh);
+  window.addEventListener("orientationchange", () => {
+    scheduleViewportLayoutRefresh();
+    window.setTimeout(scheduleViewportLayoutRefresh, 120);
+    window.setTimeout(scheduleViewportLayoutRefresh, 420);
   });
   window.addEventListener("online", handleNetworkStatusChange);
   window.addEventListener("offline", handleNetworkStatusChange);
@@ -1888,7 +1893,6 @@ async function saveOrder() {
   } catch (error) {
     if (isNetworkError(error) && !hasGuestAccess()) {
       markConnectionLost(error);
-      submittedOrder = CATALOG_STORE.buildOrderFromLines(lines, readOrderCustomer());
       const queued = queueOfflineOrder(submittedOrder, error.message || "Error de conexión");
       rememberOrderReceipt(createOrderReceipt(submittedOrder, {
         queueId: queued.id,
@@ -2450,6 +2454,22 @@ function updateOfflineBannerHeight() {
   }
   const height = Math.ceil(els.offlineBanner.getBoundingClientRect().height);
   if (height > 0) document.body.style.setProperty("--offline-banner-height", `${height}px`);
+}
+
+function updateViewportMetrics() {
+  const measuredHeight = window.visualViewport?.height || window.innerHeight || document.documentElement.clientHeight;
+  const height = Math.max(320, Math.round(measuredHeight));
+  document.documentElement.style.setProperty("--app-height", `${height}px`);
+}
+
+function scheduleViewportLayoutRefresh() {
+  if (viewportUpdateFrame) cancelAnimationFrame(viewportUpdateFrame);
+  viewportUpdateFrame = requestAnimationFrame(() => {
+    viewportUpdateFrame = 0;
+    updateViewportMetrics();
+    if (state.catalog) renderZoom();
+    updateOfflineBannerHeight();
+  });
 }
 
 function isNetworkError(error) {

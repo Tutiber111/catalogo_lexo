@@ -1,14 +1,14 @@
-const CACHE_NAME = "lexo-catalog-v20260819-dreamfarm-new-products";
+const CACHE_NAME = "lexo-catalog-v20260820-erp-sync";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260819-barcode-reliability",
+  "./styles.css?v=20260820-tablet-orientation",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260819-barcode-reliability",
+  "./app.js?v=20260820-erp-sync",
   "./admin.js?v=20260819-ipad-dialogs",
-  "./catalog-store.js?v=20260714-no-related-skus",
-  "./supabase-client.js?v=20260812-recovery-redirect",
+  "./catalog-store.js?v=20260820-erp-sync",
+  "./supabase-client.js?v=20260820-erp-sync",
   "./data/catalog-data.js?v=20260819-dreamfarm-new-products",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",

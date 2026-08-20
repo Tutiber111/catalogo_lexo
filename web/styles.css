@@ -9,6 +9,13 @@
   --brand-dark: #a80f17;
   --accent: #11737a;
   --shadow: 0 18px 50px rgba(22, 22, 26, 0.16);
+  --app-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --app-height: 100dvh;
+  }
 }
 
 * {
@@ -21,7 +28,7 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: var(--app-height);
   overflow: hidden;
   color: var(--ink);
   background: #e9ecef;
@@ -88,12 +95,12 @@ body.has-offline-banner .viewer {
 body.has-offline-banner .cart-drawer,
 body.has-offline-banner .account-drawer {
   inset: var(--offline-banner-height, 58px) 0 0 auto;
-  height: calc(100vh - var(--offline-banner-height, 58px));
+  height: calc(var(--app-height) - var(--offline-banner-height, 58px));
 }
 
 body.has-offline-banner .admin-drawer {
   inset: var(--offline-banner-height, 58px) 0 0 0;
-  height: calc(100vh - var(--offline-banner-height, 58px));
+  height: calc(var(--app-height) - var(--offline-banner-height, 58px));
 }
 
 button,
@@ -118,7 +125,7 @@ button:disabled {
 .app-shell {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
-  height: 100vh;
+  height: var(--app-height);
   min-height: 0;
   overflow: hidden;
 }
@@ -154,7 +161,7 @@ body.auth-required #closeAccount {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  height: 100vh;
+  height: var(--app-height);
   min-height: 0;
   padding: 22px;
   overflow: hidden;
@@ -192,6 +199,46 @@ body.auth-required #closeAccount {
 }
 
 .mobile-action-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 35;
+  display: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 -8px 24px rgba(30, 34, 43, 0.14);
+}
+
+.mobile-action-bar button {
+  min-width: 0;
+  min-height: 42px;
+  padding: 6px 8px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  color: var(--ink);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mobile-action-bar button:last-child {
+  border-right: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--brand);
+}
+
+.mobile-action-bar button[hidden],
+body.auth-required .mobile-action-bar,
+body.auth-checking .mobile-action-bar,
+body.cart-drawer-open .mobile-action-bar,
+body.account-drawer-open .mobile-action-bar,
+body.admin-drawer-open .mobile-action-bar,
+body.dialog-fallback-active .mobile-action-bar {
   display: none;
 }
 
@@ -409,7 +456,7 @@ body.auth-required #closeAccount {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
-  height: 100vh;
+  height: var(--app-height);
   min-height: 0;
   overflow: hidden;
 }
@@ -899,11 +946,13 @@ body.guest-access-pending .account-drawer {
 
 .cart-drawer {
   position: fixed;
-  inset: 0 0 0 auto;
+  inset: 0 0 auto auto;
   z-index: 8;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
   width: min(420px, 100vw);
+  height: var(--app-height);
+  max-height: var(--app-height);
   background: var(--panel);
   border-left: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -915,11 +964,13 @@ body.guest-access-pending .account-drawer {
 
 .account-drawer {
   position: fixed;
-  inset: 0 0 0 auto;
+  inset: 0 0 auto auto;
   z-index: 8;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   width: min(380px, 100vw);
+  height: var(--app-height);
+  max-height: var(--app-height);
   background: var(--panel);
   border-left: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -1090,7 +1141,10 @@ body.cart-drawer-open .account-drawer {
   gap: 12px;
   min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 16px 18px;
+  scroll-padding-bottom: 18px;
 }
 
 .cart-details-heading h3 {
@@ -2055,6 +2109,13 @@ body.auth-checking .auth-fields {
   border: 1px solid var(--line);
   color: var(--ink);
   background: var(--panel);
+}
+
+.cart-submit-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
 }
 
 .danger-button {
@@ -3523,6 +3584,23 @@ dialog[data-dialog-fallback-open] {
   cursor: pointer;
 }
 
+@media (min-width: 921px) and (max-width: 1180px),
+  (min-width: 921px) and (hover: none) and (pointer: coarse) {
+  .mobile-action-bar {
+    display: grid;
+  }
+
+  .app-shell {
+    height: var(--app-height);
+    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sidebar,
+  .viewer {
+    height: calc(var(--app-height) - 62px - env(safe-area-inset-bottom, 0px));
+  }
+}
+
 @media (max-width: 920px) {
   .offline-banner {
     align-items: stretch;
@@ -3546,7 +3624,7 @@ dialog[data-dialog-fallback-open] {
   }
 
   body.has-offline-banner .viewer {
-    height: calc(100vh - var(--offline-banner-height, 92px) - 62px);
+    height: calc(var(--app-height) - var(--offline-banner-height, 92px) - 62px);
     min-height: 520px;
     overflow: hidden;
   }
@@ -3558,12 +3636,12 @@ dialog[data-dialog-fallback-open] {
   body.has-offline-banner .cart-drawer,
   body.has-offline-banner .account-drawer {
     inset: var(--offline-banner-height, 92px) 0 0 auto;
-    height: calc(100vh - var(--offline-banner-height, 92px));
+    height: calc(var(--app-height) - var(--offline-banner-height, 92px));
   }
 
   body.has-offline-banner .admin-drawer {
     inset: var(--offline-banner-height, 92px) 0 0 0;
-    height: calc(100vh - var(--offline-banner-height, 92px));
+    height: calc(var(--app-height) - var(--offline-banner-height, 92px));
   }
 
   body {
@@ -3575,47 +3653,7 @@ dialog[data-dialog-fallback-open] {
   }
 
   .mobile-action-bar {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 35;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
-    border-top: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.97);
-    box-shadow: 0 -8px 24px rgba(30, 34, 43, 0.14);
-  }
-
-  .mobile-action-bar button {
-    min-width: 0;
-    min-height: 42px;
-    padding: 6px 8px;
-    border: 0;
-    border-right: 1px solid var(--line);
-    color: var(--ink);
-    background: transparent;
-    font-size: 12px;
-    font-weight: 900;
-  }
-
-  .mobile-action-bar button:last-child {
-    border-right: 0;
-    color: #fff;
-    background: var(--brand);
-    border-radius: 8px;
-  }
-
-  .mobile-action-bar button[hidden],
-  body.auth-required .mobile-action-bar,
-  body.auth-checking .mobile-action-bar,
-  body.cart-drawer-open .mobile-action-bar,
-  body.account-drawer-open .mobile-action-bar,
-  body.admin-drawer-open .mobile-action-bar,
-  body.dialog-fallback-active .mobile-action-bar {
-    display: none;
   }
 
   body.cart-drawer-open,
@@ -3631,8 +3669,8 @@ dialog[data-dialog-fallback-open] {
     inset: 0;
     z-index: 40;
     width: 100%;
-    height: auto;
-    max-height: none;
+    height: var(--app-height);
+    max-height: var(--app-height);
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     border-left: 0;
@@ -3713,7 +3751,7 @@ dialog[data-dialog-fallback-open] {
   .app-shell {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: 100vh;
+    min-height: var(--app-height);
     overflow: visible;
   }
 

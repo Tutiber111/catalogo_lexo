@@ -102,6 +102,21 @@ set status = 'pending', last_error = '', updated_at = now()
 where status = 'failed';
 ```
 
+## ERP Order Synchronization
+
+The catalog now has a durable outbound queue for the Lexo ERP. Apply
+`supabase/migrations/20260820000000_add_erp_order_sync.sql`, configure the
+private Edge Function secret `ERP_ORDER_SYNC_TOKEN`, and deploy
+`supabase/functions/erp-order-sync` before enabling the ERP poller.
+
+The ERP pulls from Supabase, so the ERP server does not need a public internet
+address or an inbound Cloudflare tunnel. New orders are leased, validated by
+the ERP, acknowledged after import, and retried safely after an interruption.
+The Supabase order UUID prevents duplicate ERP orders.
+
+The migration does not enqueue historical orders. It starts with new order
+notification rows created after installation.
+
 ## Regenerate Sample Data
 
 The sample page images and `web/data/catalog.json` are generated from the PDF:
