@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260820-tablet-orientation">
+  <link rel="stylesheet" href="styles.css?v=20260820-page208-stock-controls">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -470,16 +470,17 @@
               <div class="admin-panel-header">
                 <div>
                   <span class="eyebrow">Stock</span>
-                  <h2>Marcar producto sin stock</h2>
+                  <h2>Actualizar stock de producto</h2>
                 </div>
               </div>
-              <p class="admin-data-status">Ingresá un código de producto para marcarlo como sin stock en Supabase.</p>
-              <form id="stockUpdateForm" class="admin-inline-form">
+              <p class="admin-data-status">Ingresá un código para marcar el producto como sin stock o volver a dejarlo disponible.</p>
+              <form id="stockUpdateForm" class="admin-inline-form stock-update-form">
                 <label>
                   <span>Código de producto</span>
                   <input id="stockSkuInput" type="text" autocomplete="off" inputmode="numeric" placeholder="Ej: 41000">
                 </label>
                 <button id="markOutOfStock" class="primary-button" type="submit">Pasar a 0 stock</button>
+                <button id="markInStock" class="secondary-button" type="button">Marcar con stock</button>
                 <button id="undoStockChange" class="secondary-button" type="button" disabled>Deshacer</button>
               </form>
               <p id="stockUpdateStatus" class="admin-message" role="status"></p>
@@ -612,7 +613,7 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data/catalog-data.js?v=20260819-dreamfarm-new-products"></script>
+  <script src="data/catalog-data.js?v=20260820-page208-stock"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
@@ -620,6 +621,6 @@
     <script src="supabase-client.js?v=20260820-erp-sync"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
     <script src="app.js?v=20260820-erp-sync"></script>
-    <script src="admin.js?v=20260819-ipad-dialogs"></script>
+    <script src="admin.js?v=20260820-page208-stock"></script>
   </body>
 </html>

@@ -54,6 +54,7 @@
     stockUpdateForm: document.querySelector("#stockUpdateForm"),
     stockSkuInput: document.querySelector("#stockSkuInput"),
     markOutOfStock: document.querySelector("#markOutOfStock"),
+    markInStock: document.querySelector("#markInStock"),
     undoStockChange: document.querySelector("#undoStockChange"),
     stockUpdateStatus: document.querySelector("#stockUpdateStatus"),
     refreshPriceApprovals: document.querySelector("#refreshPriceApprovals"),
@@ -110,6 +111,7 @@
     adminEls.priceListFile.addEventListener("change", clearPriceListImportPreview);
     adminEls.clearProductOverrides.addEventListener("click", clearLocalProductOverrides);
     adminEls.stockUpdateForm.addEventListener("submit", markSkuOutOfStock);
+    adminEls.markInStock.addEventListener("click", markSkuInStock);
     adminEls.undoStockChange.addEventListener("click", undoLastStockChange);
     adminEls.refreshPriceApprovals.addEventListener("click", renderPendingPriceApprovals);
     adminEls.priceApprovalsList.addEventListener("click", handlePriceApprovalClick);
@@ -954,6 +956,14 @@
   }
 
   async function markSkuOutOfStock(event) {
+    return updateSkuStockStatus(event, true);
+  }
+
+  async function markSkuInStock(event) {
+    return updateSkuStockStatus(event, false);
+  }
+
+  async function updateSkuStockStatus(event, outOfStock) {
     event.preventDefault();
     const sku = normalizeSku(adminEls.stockSkuInput.value);
     if (!sku) {
@@ -970,7 +980,7 @@
     }
 
     try {
-      setStockBusy(true, "Actualizando...");
+      setStockBusy(true, outOfStock ? "out" : "in");
       setStockStatus("");
       const currentOverrides = await loadCurrentProductOverrides();
       const products = findProductsBySku(sku, currentOverrides);
@@ -987,14 +997,19 @@
         return;
       }
 
+      if (products.every((product) => Boolean(product.outOfStock) === outOfStock)) {
+        setStockStatus(`${sku} ya está marcado como ${outOfStock ? "sin stock" : "disponible"}.`);
+        return;
+      }
+
       const nextOverrides = {};
       const previousOverrides = {};
       products.forEach((product) => {
         previousOverrides[product.id] = buildStockOverride(product, currentOverrides, Boolean(product.outOfStock));
-        nextOverrides[product.id] = buildStockOverride(product, currentOverrides, true);
+        nextOverrides[product.id] = buildStockOverride(product, currentOverrides, outOfStock);
       });
 
-      await CATALOG_SUPABASE.setProductStockStatus(nextOverrides, true);
+      await CATALOG_SUPABASE.setProductStockStatus(nextOverrides, outOfStock);
       CATALOG_STORE.saveProductOverrides(CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), nextOverrides));
       adminState.lastStockChange = {
         sku,
@@ -1003,8 +1018,9 @@
       };
       adminEls.undoStockChange.disabled = false;
       window.dispatchEvent(new CustomEvent("catalog:products-updated"));
-      setStockStatus(`${sku} marcado como 0 stock en ${products.length} producto${products.length === 1 ? "" : "s"}.`);
-      showToast("Producto actualizado a 0 stock");
+      const statusLabel = outOfStock ? "0 stock" : "disponible";
+      setStockStatus(`${sku} marcado como ${statusLabel} en ${products.length} producto${products.length === 1 ? "" : "s"}.`);
+      showToast(outOfStock ? "Producto actualizado a 0 stock" : "Producto marcado con stock");
     } catch (error) {
       setStockStatus(error.message || "No se pudo actualizar el stock.");
       showToast("No se pudo actualizar el stock");
@@ -1017,7 +1033,7 @@
     const change = adminState.lastStockChange;
     if (!change) return;
     try {
-      setStockBusy(true, "Deshaciendo...");
+      setStockBusy(true, "undo");
       await CATALOG_SUPABASE.upsertProductOverrides(change.overrides);
       CATALOG_STORE.saveProductOverrides(CATALOG_STORE.mergeProductOverrides(CATALOG_STORE.loadProductOverrides(), change.overrides));
       adminState.lastStockChange = null;
@@ -1060,11 +1076,14 @@
     };
   }
 
-  function setStockBusy(isBusy, label = "Pasar a 0 stock") {
+  function setStockBusy(isBusy, activeAction = "") {
     adminEls.markOutOfStock.disabled = isBusy;
-    adminEls.markOutOfStock.textContent = label;
+    adminEls.markInStock.disabled = isBusy;
+    adminEls.markOutOfStock.textContent = isBusy && activeAction === "out" ? "Actualizando..." : "Pasar a 0 stock";
+    adminEls.markInStock.textContent = isBusy && activeAction === "in" ? "Actualizando..." : "Marcar con stock";
     adminEls.stockSkuInput.disabled = isBusy;
     adminEls.undoStockChange.disabled = isBusy || !adminState.lastStockChange;
+    adminEls.undoStockChange.textContent = isBusy && activeAction === "undo" ? "Deshaciendo..." : "Deshacer";
   }
 
   function setStockStatus(message) {

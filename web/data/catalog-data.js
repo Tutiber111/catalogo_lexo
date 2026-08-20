@@ -17298,18 +17298,51 @@ window.CATALOG_DATA = {
     {
       "number": 208,
       "sourcePage": 83,
-      "title": "Cortador",
+      "title": "Cortador de queso",
       "section": "Leifheit",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/page-189.jpg?v=20260512-leifheit-pdf-order",
+        "src": "assets/pages/page-189.jpg?v=20260820-page208-stock",
         "width": 1013,
         "height": 1432
       },
       "products": [
+        "p187-2",
         "p187-1"
       ],
       "priceGroups": [
+        {
+          "id": "pg187-2",
+          "page": 208,
+          "label": "Corta quesos de acero",
+          "price": "$10.539",
+          "productIds": [
+            "p187-2"
+          ],
+          "position": {
+            "x": 0.2978966,
+            "y": 0.2306139
+          },
+          "cover": {
+            "w": 0.1019201,
+            "h": 0.0296704
+          },
+          "positionSource": "leifheit-printed-price",
+          "variant": "pdf-regular",
+          "style": {
+            "fontSize": 15,
+            "minWidth": 44,
+            "minHeight": 18,
+            "padX": 1,
+            "padY": 0,
+            "radius": 1,
+            "shadow": "none",
+            "color": "#000000",
+            "background": "#ffffff"
+          },
+          "pdfPriceHeight": 23.49,
+          "pdfPriceColor": "#000000"
+        },
         {
           "id": "pg187-1",
           "page": 208,
@@ -17319,12 +17352,12 @@ window.CATALOG_DATA = {
             "p187-1"
           ],
           "position": {
-            "x": 0.499993927233,
-            "y": 0.213988967945
+            "x": 0.6644846,
+            "y": 0.2306139
           },
           "cover": {
-            "w": 0.101920050197,
-            "h": 0.029670350733
+            "w": 0.1019201,
+            "h": 0.0296704
           },
           "positionSource": "leifheit-printed-price",
           "variant": "pdf-regular",
@@ -43178,6 +43211,35 @@ window.CATALOG_DATA = {
       "hotspotSource": "leifheit-sku-text"
     },
     {
+      "id": "p187-2",
+      "page": 208,
+      "sku": "3129",
+      "skus": [
+        "3129"
+      ],
+      "name": "Corta quesos de acero",
+      "category": "Cortador",
+      "price": "$10.539",
+      "pdfPrice": "$9.472",
+      "priceSource": "excel-august-2026",
+      "ean": "4006501031297",
+      "unitsPerCase": 6,
+      "sizeLabel": "",
+      "hotspot": {
+        "x": 0.2500904,
+        "y": 0.1947157,
+        "w": 0.0956124,
+        "h": 0.0397624
+      },
+      "pricePosition": {
+        "x": 0.2978966,
+        "y": 0.2315044
+      },
+      "section": "Leifheit",
+      "sourcePage": 83,
+      "hotspotSource": "leifheit-sku-text"
+    },
+    {
       "id": "p187-1",
       "page": 208,
       "sku": "3130",
@@ -43193,14 +43255,14 @@ window.CATALOG_DATA = {
       "unitsPerCase": 6,
       "sizeLabel": "",
       "hotspot": {
-        "x": 0.4521879489235674,
-        "y": 0.18132793078899526,
-        "w": 0.09561236659385496,
-        "h": 0.039762366168327026
+        "x": 0.6166784,
+        "y": 0.1947157,
+        "w": 0.0956124,
+        "h": 0.0397624
       },
       "pricePosition": {
-        "x": 0.49999392723256453,
-        "y": 0.2148794398954623
+        "x": 0.6644846,
+        "y": 0.2315044
       },
       "section": "Leifheit",
       "sourcePage": 83,
@@ -58235,5 +58297,5 @@ window.CATALOG_DATA = {
     "Estia": 44,
     "Prepara": 24
   },
-  "assetVersion": "20260819-dreamfarm-new-products"
+  "assetVersion": "20260820-page208-stock"
 };

@@ -3243,6 +3243,14 @@ dialog[data-dialog-fallback-open] {
   background: var(--brand);
 }
 
+.stock-update-form {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stock-update-form label {
+  grid-column: 1 / -1;
+}
+
 .orders-admin-panel {
   grid-column: 1 / -1;
   width: 100%;
