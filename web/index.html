@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-  <link rel="stylesheet" href="styles.css?v=20260820-page208-stock-controls">
+  <link rel="stylesheet" href="styles.css?v=20260821-mobile-stability-r3">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -14,7 +14,10 @@
         <strong id="offlineBannerTitle">Modo sin conexi&oacute;n</strong>
         <span id="offlineBannerText">Est&aacute;s trabajando con datos guardados. Conectate a internet para enviar pedidos.</span>
       </div>
-      <button id="syncOfflineOrders" class="secondary-button compact-button" type="button" hidden>Enviar pendientes</button>
+      <div class="offline-banner-actions">
+        <button id="viewOfflineOrders" class="secondary-button compact-button" type="button" hidden>Ver pendientes</button>
+        <button id="syncOfflineOrders" class="secondary-button compact-button" type="button" hidden>Reintentar conexi&oacute;n</button>
+      </div>
     </div>
     <section id="guestAccessGate" class="guest-access-gate" aria-label="Acceso temporal al catálogo" hidden>
       <div class="guest-access-panel">
@@ -31,8 +34,9 @@
       </div>
     </section>
     <div class="app-shell">
-      <aside class="sidebar" aria-label="Navegación del catálogo">
+      <aside class="sidebar" aria-label="Navegación del catálogo" tabindex="-1">
         <div class="brand-block">
+          <button id="closeMobileCatalog" class="sidebar-close-button" type="button" aria-label="Cerrar menú">&times;</button>
           <span id="catalogLabel" class="eyebrow">Catálogo interactivo</span>
           <h1 id="brandName">LEXO</h1>
           <p id="catalogMeta">Cargando catálogo...</p>
@@ -536,12 +540,28 @@
           </div>
         </section>
       </aside>
+      <button id="mobileCatalogBackdrop" class="mobile-catalog-backdrop" type="button" aria-label="Cerrar menú del catálogo" hidden></button>
     </div>
 
     <nav class="mobile-action-bar" aria-label="Accesos del cat&aacute;logo">
-      <button id="mobileOpenCatalog" type="button">Men&uacute;</button>
-      <button id="mobileOpenQuickOrder" type="button">Carga r&aacute;pida</button>
-      <button id="mobileOpenCart" type="button">Carrito <span id="mobileCartCount">0</span></button>
+      <button id="mobilePrevPage" class="mobile-page-action" type="button" aria-label="Página anterior" title="Página anterior">
+        <span class="mobile-action-icon" aria-hidden="true">&lsaquo;</span><small>Anterior</small>
+      </button>
+      <button id="mobileOpenCatalog" type="button" aria-expanded="false">
+        <span class="mobile-action-icon mobile-menu-symbol" aria-hidden="true">&#9776;</span><small>Men&uacute;</small>
+      </button>
+      <button id="mobileOpenQuickOrder" type="button">
+        <span class="mobile-action-icon" aria-hidden="true">+</span><small>Carga</small>
+      </button>
+      <button id="mobileOpenCart" class="mobile-cart-action" type="button">
+        <span class="mobile-action-icon" aria-hidden="true">Carrito</span><small><span id="mobileCartCount">0</span> uds.</small>
+      </button>
+      <button id="mobileOpenAccount" type="button">
+        <span class="mobile-profile-symbol" aria-hidden="true"></span><small>Cuenta</small>
+      </button>
+      <button id="mobileNextPage" class="mobile-page-action" type="button" aria-label="Página siguiente" title="Página siguiente">
+        <span class="mobile-action-icon" aria-hidden="true">&rsaquo;</span><small>Siguiente</small>
+      </button>
     </nav>
 
     <dialog id="productDialog" class="product-dialog">
@@ -604,6 +624,25 @@
       </div>
     </dialog>
 
+    <dialog id="pendingOfflineOrdersDialog" class="pending-orders-dialog">
+      <form method="dialog">
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar pedidos pendientes">&times;</button>
+      </form>
+      <div class="pending-orders-dialog-body">
+        <header class="pending-orders-dialog-header">
+          <span class="eyebrow">Modo sin conexi&oacute;n</span>
+          <h2>Pedidos pendientes</h2>
+          <p id="pendingOrdersSummary">Revis&aacute; los pedidos guardados antes de enviarlos.</p>
+        </header>
+        <div id="pendingOrdersList" class="pending-orders-list"></div>
+        <p id="pendingOrdersMessage" class="pending-orders-message" role="status" aria-live="polite"></p>
+        <div class="pending-orders-actions">
+          <button class="secondary-button" type="button" data-dialog-close>Cerrar</button>
+          <button id="sendPendingOfflineOrders" class="primary-button" type="button">Enviar todos</button>
+        </div>
+      </div>
+    </dialog>
+
     <dialog id="adminOrderDialog" class="admin-order-dialog">
       <form method="dialog">
         <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar">×</button>
@@ -620,7 +659,7 @@
     <script src="catalog-store.js?v=20260820-erp-sync"></script>
     <script src="supabase-client.js?v=20260820-erp-sync"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260820-erp-sync"></script>
+    <script src="app.js?v=20260821-mobile-stability-r3"></script>
     <script src="admin.js?v=20260820-page208-stock"></script>
   </body>
 </html>

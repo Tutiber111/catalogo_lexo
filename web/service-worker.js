@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20260820-page208-stock-controls";
+const CACHE_NAME = "lexo-catalog-v20260821-mobile-stability-r3";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260820-page208-stock-controls",
+  "./styles.css?v=20260821-mobile-stability-r3",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260820-erp-sync",
+  "./app.js?v=20260821-mobile-stability-r3",
   "./admin.js?v=20260820-page208-stock",
   "./catalog-store.js?v=20260820-erp-sync",
   "./supabase-client.js?v=20260820-erp-sync",

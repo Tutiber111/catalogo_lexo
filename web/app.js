@@ -15,6 +15,7 @@ const state = {
   isLoadingSalesClients: false,
   isSavingOrder: false,
   isSyncingOfflineOrders: false,
+  offlineQueueMessage: "",
   connectionLost: false,
   pendingOfflineOrders: loadPendingOfflineOrders(),
   quickOrderRows: [{ sku: "", quantity: "" }],
@@ -68,6 +69,7 @@ const els = {
   offlineBanner: document.querySelector("#offlineBanner"),
   offlineBannerTitle: document.querySelector("#offlineBannerTitle"),
   offlineBannerText: document.querySelector("#offlineBannerText"),
+  viewOfflineOrders: document.querySelector("#viewOfflineOrders"),
   syncOfflineOrders: document.querySelector("#syncOfflineOrders"),
   priceAccessNotice: document.querySelector("#priceAccessNotice"),
   checkPriceAccess: document.querySelector("#checkPriceAccess"),
@@ -77,6 +79,7 @@ const els = {
   redeemGuestAccess: document.querySelector("#redeemGuestAccess"),
   cancelGuestAccess: document.querySelector("#cancelGuestAccess"),
   guestAccessMessage: document.querySelector("#guestAccessMessage"),
+  sidebar: document.querySelector(".sidebar"),
   brandName: document.querySelector("#brandName"),
   catalogLabel: document.querySelector("#catalogLabel"),
   catalogMeta: document.querySelector("#catalogMeta"),
@@ -97,10 +100,15 @@ const els = {
   nextPage: document.querySelector("#nextPage"),
   openCart: document.querySelector("#openCart"),
   openQuickOrderToolbar: document.querySelector("#openQuickOrderToolbar"),
+  mobilePrevPage: document.querySelector("#mobilePrevPage"),
   mobileOpenCatalog: document.querySelector("#mobileOpenCatalog"),
   mobileOpenQuickOrder: document.querySelector("#mobileOpenQuickOrder"),
   mobileOpenCart: document.querySelector("#mobileOpenCart"),
+  mobileOpenAccount: document.querySelector("#mobileOpenAccount"),
+  mobileNextPage: document.querySelector("#mobileNextPage"),
   mobileCartCount: document.querySelector("#mobileCartCount"),
+  closeMobileCatalog: document.querySelector("#closeMobileCatalog"),
+  mobileCatalogBackdrop: document.querySelector("#mobileCatalogBackdrop"),
   closeCart: document.querySelector("#closeCart"),
   openAccount: document.querySelector("#openAccount"),
   closeAccount: document.querySelector("#closeAccount"),
@@ -199,6 +207,11 @@ const els = {
   orderReceiptDialog: document.querySelector("#orderReceiptDialog"),
   orderReceiptContent: document.querySelector("#orderReceiptContent"),
   downloadOrderReceipt: document.querySelector("#downloadOrderReceipt"),
+  pendingOfflineOrdersDialog: document.querySelector("#pendingOfflineOrdersDialog"),
+  pendingOrdersSummary: document.querySelector("#pendingOrdersSummary"),
+  pendingOrdersList: document.querySelector("#pendingOrdersList"),
+  pendingOrdersMessage: document.querySelector("#pendingOrdersMessage"),
+  sendPendingOfflineOrders: document.querySelector("#sendPendingOfflineOrders"),
   productDialog: document.querySelector("#productDialog"),
   dialogContent: document.querySelector("#dialogContent"),
   videoDialog: document.querySelector("#videoDialog"),
@@ -209,7 +222,7 @@ const els = {
 
 async function init() {
   updateViewportMetrics();
-  await loadCatalogData();
+  await loadCatalogData({ deferRemote: true, renderOnRemoteComplete: true });
 
   localStorage.removeItem("catalogBrandFilter");
   els.brandName.textContent = state.settings.brandName;
@@ -234,29 +247,46 @@ async function fetchCatalog() {
   return response.json();
 }
 
-async function loadCatalogData() {
+async function loadCatalogData(options = {}) {
   const rawCatalog = window.CATALOG_DATA || (await fetchCatalog());
   const baseCatalog = cloneCatalog(rawCatalog);
   const localOverrides = CATALOG_STORE.loadProductOverrides();
-  let remoteOverrides = {};
-  let loadedRemoteOverrides = false;
+  applyCatalogData(baseCatalog, localOverrides);
 
-  if (CATALOG_SUPABASE.isAvailable()) {
-    try {
-      remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
-      loadedRemoteOverrides = true;
-    } catch (error) {
-      console.warn("Could not load remote product overrides", error);
-      markConnectionLost(error);
-    }
+  if (!CATALOG_SUPABASE.isAvailable()) return;
+  const remoteRefresh = refreshRemoteCatalogData(baseCatalog, localOverrides, options);
+  if (options.deferRemote) {
+    void remoteRefresh;
+    return;
   }
+  await remoteRefresh;
+}
 
-  state.productOverrides = CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
-  if (loadedRemoteOverrides) CATALOG_STORE.saveProductOverrides(state.productOverrides);
+function applyCatalogData(baseCatalog, overrides) {
+  state.productOverrides = overrides;
   state.catalog = CATALOG_STORE.applyProductOverrides(baseCatalog, state.productOverrides);
   state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
   updateCatalogMeta();
   scheduleCatalogAssetCache();
+}
+
+async function refreshRemoteCatalogData(baseCatalog, localOverrides, options = {}) {
+  try {
+    const remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
+    const mergedOverrides = CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
+    CATALOG_STORE.saveProductOverrides(mergedOverrides);
+    applyCatalogData(baseCatalog, mergedOverrides);
+    if (options.renderOnRemoteComplete) {
+      renderBrandTabs();
+      renderPdfBrandOptions();
+      ensureCurrentPageMatchesBrand();
+      renderTabs();
+      renderAll();
+    }
+  } catch (error) {
+    console.warn("Could not load remote product overrides", error);
+    markConnectionLost(error);
+  }
 }
 
 function cloneCatalog(catalog) {
@@ -288,9 +318,14 @@ function bindEvents() {
   els.pageStrip.addEventListener("click", handlePageStripClick);
   els.openCart.addEventListener("click", openCart);
   els.openQuickOrderToolbar.addEventListener("click", openQuickOrder);
-  els.mobileOpenCatalog.addEventListener("click", () => scrollFiltersIntoView({ focusSearch: false }));
+  els.mobilePrevPage.addEventListener("click", () => goToAdjacentVisiblePage(-1));
+  els.mobileOpenCatalog.addEventListener("click", () => openCatalogMenu({ focusSearch: false }));
   els.mobileOpenQuickOrder.addEventListener("click", openQuickOrder);
   els.mobileOpenCart.addEventListener("click", openCart);
+  els.mobileOpenAccount.addEventListener("click", openAccount);
+  els.mobileNextPage.addEventListener("click", () => goToAdjacentVisiblePage(1));
+  els.closeMobileCatalog.addEventListener("click", closeCatalogMenu);
+  els.mobileCatalogBackdrop.addEventListener("click", closeCatalogMenu);
   els.closeCart.addEventListener("click", closeCart);
   els.cartProductsTab.addEventListener("click", () => setCartView("products"));
   els.cartDetailsTab.addEventListener("click", () => setCartView("details"));
@@ -326,7 +361,9 @@ function bindEvents() {
   els.saveOrder.addEventListener("click", saveOrder);
   els.openLastReceipt.addEventListener("click", openLastOrderReceipt);
   els.downloadOrderReceipt.addEventListener("click", downloadLastOrderReceipt);
+  els.viewOfflineOrders.addEventListener("click", openPendingOfflineOrders);
   els.syncOfflineOrders.addEventListener("click", handleOfflineBannerAction);
+  els.sendPendingOfflineOrders.addEventListener("click", syncPendingOfflineOrders);
   els.checkPriceAccess.addEventListener("click", refreshCurrentPriceAccess);
   els.redeemGuestAccess.addEventListener("click", redeemGuestAccess);
   els.cancelGuestAccess.addEventListener("click", cancelGuestAccess);
@@ -702,6 +739,8 @@ function renderCurrentPageDetails() {
   const visiblePosition = visibleIndexes.indexOf(state.currentIndex);
   els.prevPage.disabled = visiblePosition <= 0;
   els.nextPage.disabled = visiblePosition < 0 || visiblePosition === visibleIndexes.length - 1;
+  els.mobilePrevPage.disabled = els.prevPage.disabled;
+  els.mobileNextPage.disabled = els.nextPage.disabled;
 }
 
 function renderHotspot(product) {
@@ -2060,6 +2099,7 @@ function currentPage() {
 
 function goToPage(index) {
   if (index < 0 || index >= state.catalog.pages.length) return;
+  closeCatalogMenu();
   const needsRender = !els.pageStrip.querySelector(`[data-page-index="${index}"]`);
   setCurrentPageIndex(index);
 
@@ -2149,14 +2189,39 @@ function scrollPageCardIntoView(pageNumber) {
   });
 }
 
-function scrollFiltersIntoView(options = {}) {
-  document.querySelector(".sidebar")?.scrollIntoView({ behavior: "smooth", block: "start" });
+function usesBottomNavigation() {
+  return window.matchMedia("(max-width: 1180px), (hover: none) and (pointer: coarse)").matches;
+}
+
+function openCatalogMenu(options = {}) {
+  if (!usesBottomNavigation()) {
+    els.sidebar?.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    closeCart();
+    closeAccount();
+    document.body.classList.add("catalog-menu-open");
+    els.mobileCatalogBackdrop.hidden = false;
+    els.mobileOpenCatalog.setAttribute("aria-expanded", "true");
+    requestAnimationFrame(() => els.sidebar?.focus({ preventScroll: true }));
+  }
+
   if (options.focusSearch !== false) {
     requestAnimationFrame(() => els.searchInput.focus({ preventScroll: true }));
   }
 }
 
+function closeCatalogMenu() {
+  document.body.classList.remove("catalog-menu-open");
+  els.mobileCatalogBackdrop.hidden = true;
+  els.mobileOpenCatalog.setAttribute("aria-expanded", "false");
+}
+
+function scrollFiltersIntoView(options = {}) {
+  openCatalogMenu(options);
+}
+
 function scrollCatalogIntoView() {
+  closeCatalogMenu();
   document.querySelector(".viewer")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -2173,6 +2238,7 @@ function brandMatches(brand) {
 }
 
 function openCart() {
+  closeCatalogMenu();
   if (!hasPriceAccess()) {
     showToast("El carrito se habilitará cuando aprueben tu cuenta");
     return;
@@ -2200,6 +2266,7 @@ function setCartView(view, options = {}) {
 }
 
 function openQuickOrder() {
+  closeCatalogMenu();
   if (!hasPriceAccess()) {
     showToast("La carga rápida se habilitará cuando aprueben tu cuenta");
     return;
@@ -2217,6 +2284,7 @@ function closeCart() {
 }
 
 function openAccount() {
+  closeCatalogMenu();
   closeCart();
   els.accountDrawer.classList.add("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "false");
@@ -2238,6 +2306,7 @@ function closeAccount() {
 
 function applyAuthGate() {
   const requiresAuth = !state.user && !hasGuestAccess();
+  if (requiresAuth) closeCatalogMenu();
   document.body.classList.toggle("auth-required", requiresAuth);
   document.body.classList.toggle("auth-checking", state.isCheckingAuth);
   document.body.classList.toggle("guest-catalog-session", hasGuestAccess());
@@ -2353,6 +2422,7 @@ function queueOfflineOrder(order, reason = "") {
     order,
   };
   state.pendingOfflineOrders.push(queuedOrder);
+  state.offlineQueueMessage = "";
   savePendingOfflineOrders();
   renderOfflineStatus();
   return queuedOrder;
@@ -2381,6 +2451,7 @@ function renderOfflineStatus() {
 
   if (!showBanner) {
     updateOfflineBannerHeight();
+    renderPendingOfflineOrdersDialog();
     return;
   }
 
@@ -2397,12 +2468,16 @@ function renderOfflineStatus() {
     els.offlineBannerText.textContent = `${count} pedido${count === 1 ? "" : "s"} guardado${count === 1 ? "" : "s"} sin conexión. Enviá la cola cuando tengas internet estable.`;
   }
 
-  els.syncOfflineOrders.hidden = online && !hasPending;
+  els.viewOfflineOrders.hidden = !hasPending;
+  els.viewOfflineOrders.disabled = state.isSyncingOfflineOrders;
+  els.viewOfflineOrders.textContent = `${online ? "Revisar" : "Ver"} pendientes (${count})`;
+  els.syncOfflineOrders.hidden = online;
   els.syncOfflineOrders.disabled = state.isSyncingOfflineOrders;
   els.syncOfflineOrders.textContent = state.isSyncingOfflineOrders
     ? "Enviando..."
-    : (online ? `Enviar pendientes (${count})` : "Reintentar conexión");
+    : "Reintentar conexión";
   updateOfflineBannerHeight();
+  renderPendingOfflineOrdersDialog();
 }
 
 function handleNetworkStatusChange() {
@@ -2416,7 +2491,7 @@ function handleNetworkStatusChange() {
 
 async function handleOfflineBannerAction() {
   if (isOnline()) {
-    await syncPendingOfflineOrders();
+    openPendingOfflineOrders();
     return;
   }
 
@@ -2432,6 +2507,93 @@ async function handleOfflineBannerAction() {
   }
   renderOfflineStatus();
   showToast("Todavía no hay conexión");
+}
+
+function openPendingOfflineOrders() {
+  if (!pendingOfflineCount()) {
+    showToast("No hay pedidos pendientes");
+    return;
+  }
+  state.offlineQueueMessage = "";
+  renderPendingOfflineOrdersDialog();
+  showCatalogDialog(els.pendingOfflineOrdersDialog);
+}
+
+function renderPendingOfflineOrdersDialog() {
+  if (!els.pendingOrdersList) return;
+  const count = pendingOfflineCount();
+  const online = isOnline();
+  const belongsToAnotherUser = pendingOrdersBelongToAnotherUser();
+
+  els.pendingOrdersSummary.textContent = count
+    ? `${count} pedido${count === 1 ? "" : "s"} guardado${count === 1 ? "" : "s"}. Abrí cada pedido para revisar sus productos.`
+    : "No quedan pedidos pendientes de envío.";
+  els.pendingOrdersList.innerHTML = count
+    ? state.pendingOfflineOrders.map(renderPendingOfflineOrder).join("")
+    : '<div class="pending-orders-empty"><strong>Todo enviado</strong><span>No hay pedidos guardados en este dispositivo.</span></div>';
+
+  const connectionMessage = online ? "" : "Conectate a internet para poder enviar estos pedidos.";
+  const accountMessage = belongsToAnotherUser
+    ? "Hay pedidos guardados por otra cuenta. Iniciá sesión con esa cuenta para enviarlos."
+    : "";
+  els.pendingOrdersMessage.textContent = state.offlineQueueMessage || accountMessage || connectionMessage;
+  els.pendingOrdersMessage.hidden = !els.pendingOrdersMessage.textContent;
+  els.sendPendingOfflineOrders.disabled = !count || !online || belongsToAnotherUser || state.isSyncingOfflineOrders;
+  els.sendPendingOfflineOrders.textContent = state.isSyncingOfflineOrders
+    ? "Enviando..."
+    : (online ? `Enviar todos (${count})` : "Sin conexión");
+}
+
+function renderPendingOfflineOrder(queued, index) {
+  const receipt = createOrderReceipt(queued.order, { deliveryStatus: "pending" });
+  const customer = queued.order?.customer || {};
+  const salesClient = customer.salesClient || {};
+  const clientCode = salesClient.clientCode || customer.clientCode || "";
+  const transport = customer.transport || "";
+  const notes = customer.notes || "";
+  const metadata = [
+    clientCode ? `<span><strong>Código</strong>${escapeHtml(clientCode)}</span>` : "",
+    queued.userEmail ? `<span><strong>Cuenta</strong>${escapeHtml(queued.userEmail)}</span>` : "",
+    transport ? `<span><strong>Transporte</strong>${escapeHtml(transport)}</span>` : "",
+    queued.reason ? `<span><strong>Guardado por</strong>${escapeHtml(queued.reason)}</span>` : "",
+  ].filter(Boolean).join("");
+
+  return `
+    <details class="pending-order-card"${index === 0 ? " open" : ""}>
+      <summary>
+        <span class="pending-order-client">
+          <strong>${escapeHtml(receipt.customerName)}</strong>
+          <small>${escapeHtml(formatPendingOrderDate(queued.createdAt || receipt.createdAt))}</small>
+        </span>
+        <span class="pending-order-total">
+          <strong>${formatMoney(receipt.totalValue)}</strong>
+          <small>${receipt.totalItems} unidad${receipt.totalItems === 1 ? "" : "es"}</small>
+        </span>
+      </summary>
+      <div class="pending-order-detail">
+        ${metadata ? `<div class="pending-order-meta">${metadata}</div>` : ""}
+        <div class="pending-order-lines">
+          ${receipt.items.map((item) => `
+            <div>
+              <span><b>${item.qty} &times; ${escapeHtml(item.sku)}</b><em>${escapeHtml(item.name)}</em></span>
+              <strong>${formatMoney(item.lineTotal)}</strong>
+            </div>
+          `).join("") || "<p>Este pedido no tiene productos guardados.</p>"}
+        </div>
+        ${notes ? `<p class="pending-order-notes"><strong>Observaciones</strong>${escapeHtml(notes)}</p>` : ""}
+      </div>
+    </details>
+  `;
+}
+
+function formatPendingOrderDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Fecha no disponible";
+  return date.toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" });
+}
+
+function pendingOrdersBelongToAnotherUser() {
+  return Boolean(state.user && state.pendingOfflineOrders.some((queued) => queued.userId && queued.userId !== state.user.id));
 }
 
 function clearSubmittedCart() {
@@ -2469,6 +2631,7 @@ function scheduleViewportLayoutRefresh() {
     updateViewportMetrics();
     if (state.catalog) renderZoom();
     updateOfflineBannerHeight();
+    if (!usesBottomNavigation()) closeCatalogMenu();
   });
 }
 
@@ -2510,24 +2673,33 @@ function delay(ms) {
 
 async function syncPendingOfflineOrders() {
   if (state.isSyncingOfflineOrders) return;
-  if (!pendingOfflineCount()) return;
+  if (!pendingOfflineCount()) {
+    if (isCatalogDialogOpen(els.pendingOfflineOrdersDialog)) closeCatalogDialog(els.pendingOfflineOrdersDialog);
+    return;
+  }
   if (!isOnline()) {
+    state.offlineQueueMessage = "Conectate a internet para enviar los pedidos pendientes.";
     showToast("Conectate a internet para enviar pendientes");
     renderOfflineStatus();
     return;
   }
   if (!CATALOG_SUPABASE.isAvailable() || !state.user) {
+    state.offlineQueueMessage = "Iniciá sesión para enviar los pedidos pendientes.";
     showToast("Iniciá sesión para enviar pedidos pendientes");
+    renderPendingOfflineOrdersDialog();
     openAccount();
     return;
   }
-  const belongsToAnotherUser = state.pendingOfflineOrders.some((queued) => queued.userId && queued.userId !== state.user.id);
+  const belongsToAnotherUser = pendingOrdersBelongToAnotherUser();
   if (belongsToAnotherUser) {
+    state.offlineQueueMessage = "Estos pedidos pertenecen a otra cuenta. Iniciá sesión con esa cuenta para enviarlos.";
     showToast("Hay pedidos pendientes de otra cuenta. Iniciá sesión con esa cuenta para enviarlos.");
+    renderPendingOfflineOrdersDialog();
     openAccount();
     return;
   }
 
+  state.offlineQueueMessage = "";
   state.isSyncingOfflineOrders = true;
   renderOfflineStatus();
 
@@ -2557,6 +2729,7 @@ async function syncPendingOfflineOrders() {
   }
 
   state.isSyncingOfflineOrders = false;
+  state.offlineQueueMessage = failedMessage ? `No se pudo completar el envío: ${failedMessage}` : "";
   renderOfflineStatus();
   await renderCustomerOrders();
   window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
@@ -2564,6 +2737,10 @@ async function syncPendingOfflineOrders() {
   if (failedMessage) {
     showToast(`${sent} enviado${sent === 1 ? "" : "s"}. Quedaron pendientes: ${failedMessage}`);
     return;
+  }
+
+  if (!pendingOfflineCount() && isCatalogDialogOpen(els.pendingOfflineOrdersDialog)) {
+    closeCatalogDialog(els.pendingOfflineOrdersDialog);
   }
 
   if (emailWarnings) {
@@ -2628,7 +2805,8 @@ function enterOfflineCatalog(message = "Catálogo abierto sin conexión") {
 async function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
   try {
-    await navigator.serviceWorker.register("service-worker.js");
+    const registration = await navigator.serviceWorker.register("service-worker.js", { updateViaCache: "none" });
+    await registration.update();
   } catch (error) {
     console.warn("No se pudo registrar el modo offline", error);
   }
@@ -2636,15 +2814,28 @@ async function registerServiceWorker() {
 
 function scheduleCatalogAssetCache() {
   if (!isOnline() || !("caches" in window) || !state.catalog?.pages?.length) return;
-  const currentSection = currentPage()?.section;
+  const visibleIndexes = visiblePageIndexes();
+  const currentPosition = visibleIndexes.indexOf(state.currentIndex);
+  const nearbyPages = visibleIndexes
+    .slice(Math.max(0, currentPosition - 2), currentPosition + 3)
+    .map((index) => state.catalog.pages[index]);
+  void cacheCatalogPages(nearbyPages, { idle: false }).catch((error) => {
+    console.warn("No se pudieron guardar las páginas cercanas", error);
+  });
+
+  const connection = navigator.connection;
+  const slowConnection = ["slow-2g", "2g", "3g"].includes(connection?.effectiveType);
+  if (usesBottomNavigation() || connection?.saveData || slowConnection) return;
+
   const sections = [...new Set(state.catalog.pages.map((page) => page.section).filter(Boolean))];
+  const currentSection = currentPage()?.section;
   if (currentSection) queueCatalogSectionCache(currentSection, true);
-  if (!navigator.connection?.saveData) sections.forEach((section) => queueCatalogSectionCache(section));
+  sections.forEach((section) => queueCatalogSectionCache(section));
   startCatalogAssetCache();
 }
 
 function prioritizeCatalogSectionCache(section) {
-  if (!section || state.catalogCachedSections.has(section) || navigator.connection?.saveData) return;
+  if (!section || state.catalogCachedSections.has(section) || navigator.connection?.saveData || usesBottomNavigation()) return;
   queueCatalogSectionCache(section, true);
   startCatalogAssetCache();
 }
@@ -3514,6 +3705,7 @@ function renderAccount() {
     els.authFields.classList.add("is-hidden");
     els.signOut.classList.add("is-hidden");
     els.openAccount.classList.remove("is-signed-in");
+    els.mobileOpenAccount.classList.remove("is-signed-in");
     applyAuthGate();
     return;
   }
@@ -3529,6 +3721,7 @@ function renderAccount() {
   els.authFields.classList.toggle("is-hidden", signedIn && !resettingPassword);
   els.signOut.classList.toggle("is-hidden", !signedIn || resettingPassword);
   els.openAccount.classList.toggle("is-signed-in", signedIn);
+  els.mobileOpenAccount.classList.toggle("is-signed-in", signedIn);
   renderSalesmanCatalogTools();
   applyAuthGate();
 }
