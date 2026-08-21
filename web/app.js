@@ -322,7 +322,7 @@ function bindEvents() {
   els.mobileOpenCatalog.addEventListener("click", () => openCatalogMenu({ focusSearch: false }));
   els.mobileOpenQuickOrder.addEventListener("click", openQuickOrder);
   els.mobileOpenCart.addEventListener("click", openCart);
-  els.mobileOpenAccount.addEventListener("click", openAccount);
+  els.mobileOpenAccount.addEventListener("click", toggleAccount);
   els.mobileNextPage.addEventListener("click", () => goToAdjacentVisiblePage(1));
   els.closeMobileCatalog.addEventListener("click", closeCatalogMenu);
   els.mobileCatalogBackdrop.addEventListener("click", closeCatalogMenu);
@@ -2271,6 +2271,7 @@ function openQuickOrder() {
     showToast("La carga rápida se habilitará cuando aprueben tu cuenta");
     return;
   }
+  closeAccount();
   renderQuickOrderTable();
   showCatalogDialog(els.quickOrderDialog);
   focusQuickOrderCell(0, "sku");
@@ -2288,9 +2289,18 @@ function openAccount() {
   closeCart();
   els.accountDrawer.classList.add("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "false");
+  els.mobileOpenAccount.setAttribute("aria-expanded", "true");
   document.body.classList.add("account-drawer-open");
   document.body.classList.remove("cart-drawer-open");
   if (!state.user && !hasGuestAccess()) els.authEmail.focus();
+}
+
+function toggleAccount() {
+  if (els.accountDrawer.classList.contains("is-open") && !document.body.classList.contains("auth-required")) {
+    closeAccount();
+    return;
+  }
+  openAccount();
 }
 
 function closeAccount() {
@@ -2301,6 +2311,7 @@ function closeAccount() {
 
   els.accountDrawer.classList.remove("is-open");
   els.accountDrawer.setAttribute("aria-hidden", "true");
+  els.mobileOpenAccount.setAttribute("aria-expanded", "false");
   document.body.classList.remove("account-drawer-open");
 }
 
@@ -2402,7 +2413,20 @@ function isOnline() {
 function loadPendingOfflineOrders() {
   try {
     const orders = JSON.parse(localStorage.getItem("catalogPendingOfflineOrders") || "[]");
-    return Array.isArray(orders) ? orders : [];
+    if (!Array.isArray(orders)) return [];
+
+    let repaired = false;
+    const normalizedOrders = orders.map((queued) => {
+      if (!queued?.order) return queued;
+      const order = CATALOG_STORE.ensureClientRequestId(queued.order);
+      if (order === queued.order) return queued;
+      repaired = true;
+      return { ...queued, order };
+    });
+    if (repaired) {
+      localStorage.setItem("catalogPendingOfflineOrders", JSON.stringify(normalizedOrders));
+    }
+    return normalizedOrders;
   } catch {
     return [];
   }
@@ -2413,13 +2437,14 @@ function savePendingOfflineOrders() {
 }
 
 function queueOfflineOrder(order, reason = "") {
+  const safeOrder = CATALOG_STORE.ensureClientRequestId(order);
   const queuedOrder = {
     id: `offline-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     createdAt: new Date().toISOString(),
     userId: state.user?.id || "",
     userEmail: state.user?.email || "",
     reason,
-    order,
+    order: safeOrder,
   };
   state.pendingOfflineOrders.push(queuedOrder);
   state.offlineQueueMessage = "";
@@ -2709,6 +2734,11 @@ async function syncPendingOfflineOrders() {
 
   for (const queued of [...state.pendingOfflineOrders]) {
     try {
+      const safeOrder = CATALOG_STORE.ensureClientRequestId(queued.order);
+      if (safeOrder !== queued.order) {
+        queued.order = safeOrder;
+        savePendingOfflineOrders();
+      }
       const savedOrder = await CATALOG_SUPABASE.saveOrder(queued.order, state.user.id);
       if (savedOrder.notification && !savedOrder.notification.ok) emailWarnings += 1;
       if (state.lastOrderReceipt?.queueId === queued.id) {

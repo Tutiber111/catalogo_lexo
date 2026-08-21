@@ -326,7 +326,6 @@ body.auth-required #closeAccount {
 body.auth-required .mobile-action-bar,
 body.auth-checking .mobile-action-bar,
 body.cart-drawer-open .mobile-action-bar,
-body.account-drawer-open .mobile-action-bar,
 body.admin-drawer-open .mobile-action-bar,
 body.dialog-fallback-active .mobile-action-bar {
   display: none;
@@ -4032,6 +4031,19 @@ dialog[data-dialog-fallback-open] {
     transform: translateY(0);
   }
 
+  body:not(.auth-required) .account-drawer,
+  body.has-offline-banner:not(.auth-required) .account-drawer {
+    inset: 0 0 calc(var(--mobile-action-height) + env(safe-area-inset-bottom, 0px)) 0;
+    z-index: 49;
+    height: auto;
+    max-height: none;
+    padding-bottom: 0;
+  }
+
+  body.has-offline-banner:not(.auth-required) .account-drawer {
+    top: var(--offline-banner-height, 58px);
+  }
+
   body.account-drawer-open .cart-drawer,
   body.cart-drawer-open .account-drawer {
     transform: translateY(105%);
@@ -4499,6 +4511,19 @@ dialog[data-dialog-fallback-open] {
   .cart-drawer.is-open,
   .account-drawer.is-open {
     transform: translateY(0);
+  }
+
+  body:not(.auth-required) .account-drawer,
+  body.has-offline-banner:not(.auth-required) .account-drawer {
+    inset: 0 0 calc(var(--mobile-action-height) + env(safe-area-inset-bottom, 0px)) 0;
+    z-index: 49;
+    height: auto;
+    max-height: none;
+    padding-bottom: 0;
+  }
+
+  body.has-offline-banner:not(.auth-required) .account-drawer {
+    top: var(--offline-banner-height, 58px);
   }
 
   body.account-drawer-open .cart-drawer,
