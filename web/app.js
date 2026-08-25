@@ -22,6 +22,16 @@ const state = {
   quickOrderSuggestionIndex: -1,
   quickOrderSuggestionTarget: null,
   quickOrderSuggestionItems: [],
+  clientBranches: [],
+  branchOrderQuantities: {},
+  branchOrderScopeKey: "",
+  branchOrderLoading: false,
+  branchOrderSaving: false,
+  branchOrderPendingDelete: "",
+  branchOrderSubmission: null,
+  branchClientPickerReturnToBranch: false,
+  branchProductSuggestionIndex: -1,
+  branchProductSuggestions: [],
   barcodeScanBuffer: "",
   barcodeScanStartedAt: 0,
   barcodeScanLastAt: 0,
@@ -100,9 +110,11 @@ const els = {
   nextPage: document.querySelector("#nextPage"),
   openCart: document.querySelector("#openCart"),
   openQuickOrderToolbar: document.querySelector("#openQuickOrderToolbar"),
+  openBranchOrderToolbar: document.querySelector("#openBranchOrderToolbar"),
   mobilePrevPage: document.querySelector("#mobilePrevPage"),
   mobileOpenCatalog: document.querySelector("#mobileOpenCatalog"),
   mobileOpenQuickOrder: document.querySelector("#mobileOpenQuickOrder"),
+  mobileOpenBranchOrder: document.querySelector("#mobileOpenBranchOrder"),
   mobileOpenCart: document.querySelector("#mobileOpenCart"),
   mobileOpenAccount: document.querySelector("#mobileOpenAccount"),
   mobileNextPage: document.querySelector("#mobileNextPage"),
@@ -117,6 +129,7 @@ const els = {
   cartCount: document.querySelector("#cartCount"),
   quickOrderPanel: document.querySelector("#quickOrderPanel"),
   openQuickOrder: document.querySelector("#openQuickOrder"),
+  openBranchOrder: document.querySelector("#openBranchOrder"),
   quickOrderDialog: document.querySelector("#quickOrderDialog"),
   closeQuickOrder: document.querySelector("#closeQuickOrder"),
   quickOrderTable: document.querySelector("#quickOrderTable"),
@@ -124,6 +137,25 @@ const els = {
   quickOrderPreview: document.querySelector("#quickOrderPreview"),
   addQuickOrder: document.querySelector("#addQuickOrder"),
   clearQuickOrder: document.querySelector("#clearQuickOrder"),
+  branchClientDialog: document.querySelector("#branchClientDialog"),
+  branchClientSearch: document.querySelector("#branchClientSearch"),
+  branchClientResults: document.querySelector("#branchClientResults"),
+  branchOrderDialog: document.querySelector("#branchOrderDialog"),
+  closeBranchOrder: document.querySelector("#closeBranchOrder"),
+  branchOrderCustomer: document.querySelector("#branchOrderCustomer"),
+  changeBranchOrderClient: document.querySelector("#changeBranchOrderClient"),
+  branchOrderBatchSummary: document.querySelector("#branchOrderBatchSummary"),
+  branchOrderStatus: document.querySelector("#branchOrderStatus"),
+  branchOrderNewName: document.querySelector("#branchOrderNewName"),
+  branchOrderNewAddress: document.querySelector("#branchOrderNewAddress"),
+  branchOrderNewLocality: document.querySelector("#branchOrderNewLocality"),
+  addClientBranch: document.querySelector("#addClientBranch"),
+  branchProductSku: document.querySelector("#branchProductSku"),
+  addBranchProduct: document.querySelector("#addBranchProduct"),
+  branchProductSuggestions: document.querySelector("#branchProductSuggestions"),
+  branchProductFeedback: document.querySelector("#branchProductFeedback"),
+  branchOrderMatrix: document.querySelector("#branchOrderMatrix"),
+  submitBranchOrders: document.querySelector("#submitBranchOrders"),
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
   cartTotalValue: document.querySelector("#cartTotalValue"),
@@ -318,9 +350,11 @@ function bindEvents() {
   els.pageStrip.addEventListener("click", handlePageStripClick);
   els.openCart.addEventListener("click", openCart);
   els.openQuickOrderToolbar.addEventListener("click", openQuickOrder);
+  els.openBranchOrderToolbar.addEventListener("click", openBranchOrderMode);
   els.mobilePrevPage.addEventListener("click", () => goToAdjacentVisiblePage(-1));
   els.mobileOpenCatalog.addEventListener("click", () => openCatalogMenu({ focusSearch: false }));
   els.mobileOpenQuickOrder.addEventListener("click", openQuickOrder);
+  els.mobileOpenBranchOrder.addEventListener("click", openBranchOrderMode);
   els.mobileOpenCart.addEventListener("click", openCart);
   els.mobileOpenAccount.addEventListener("click", toggleAccount);
   els.mobileNextPage.addEventListener("click", () => goToAdjacentVisiblePage(1));
@@ -332,6 +366,13 @@ function bindEvents() {
   els.continueCart.addEventListener("click", () => setCartView("details", { focus: true }));
   els.backToCartProducts.addEventListener("click", () => setCartView("products", { focus: true }));
   els.openQuickOrder.addEventListener("click", openQuickOrder);
+  els.openBranchOrder.addEventListener("click", openBranchOrderMode);
+  els.branchClientSearch.addEventListener("input", renderBranchClientResults);
+  els.branchClientSearch.addEventListener("focus", renderBranchClientResults);
+  els.branchClientSearch.addEventListener("keydown", handleBranchClientSearchKeydown);
+  els.branchClientResults.addEventListener("click", handleBranchClientResultClick);
+  els.branchClientDialog.addEventListener("close", handleBranchClientPickerClose);
+  els.changeBranchOrderClient.addEventListener("click", openBranchClientPicker);
   els.quickOrderTable.addEventListener("input", handleQuickOrderInput);
   els.quickOrderTable.addEventListener("keydown", handleQuickOrderKeydown);
   els.quickOrderTable.addEventListener("paste", handleQuickOrderPaste);
@@ -341,6 +382,18 @@ function bindEvents() {
   els.quickOrderSuggestions.addEventListener("click", handleQuickOrderSuggestionClick);
   els.addQuickOrder.addEventListener("click", addQuickOrderToCart);
   els.clearQuickOrder.addEventListener("click", clearQuickOrder);
+  els.addClientBranch.addEventListener("click", addClientBranch);
+  els.branchProductSku.addEventListener("input", handleBranchProductInput);
+  els.branchProductSku.addEventListener("keydown", handleBranchProductKeydown);
+  els.branchProductSku.addEventListener("focus", renderBranchProductSuggestions);
+  els.branchProductSku.addEventListener("blur", handleBranchProductBlur);
+  els.branchProductSuggestions.addEventListener("pointerdown", handleBranchProductSuggestionPointer);
+  els.branchProductSuggestions.addEventListener("click", handleBranchProductSuggestionClick);
+  els.addBranchProduct.addEventListener("click", () => addProductToBranchMatrix());
+  els.submitBranchOrders.addEventListener("click", submitBranchOrders);
+  els.branchOrderMatrix.addEventListener("input", handleBranchOrderMatrixInput);
+  els.branchOrderMatrix.addEventListener("click", handleBranchOrderMatrixClick);
+  els.branchOrderDialog.addEventListener("close", resetBranchDeleteConfirmation);
   els.openAccount.addEventListener("click", openAccount);
   els.closeAccount.addEventListener("click", closeAccount);
   els.signIn.addEventListener("click", signIn);
@@ -1850,6 +1903,648 @@ function renderCart() {
   els.saveOrder.textContent = state.isSavingOrder ? "Enviando..." : (isOnline() ? "Enviar pedido" : "Guardar pendiente");
 }
 
+function branchOrderScope() {
+  if (hasGuestAccess()) return null;
+  if (canSelectSalesClient()) {
+    if (!state.selectedSalesClient) return null;
+    return {
+      key: `sales-client:${state.selectedSalesClient.id}`,
+      salesClientId: state.selectedSalesClient.id,
+      ownerProfileId: "",
+      label: `${state.selectedSalesClient.clientCode} - ${state.selectedSalesClient.legalName || state.selectedSalesClient.name}`,
+    };
+  }
+  if (state.user && state.profile?.role === "customer") {
+    return {
+      key: `profile:${state.user.id}`,
+      salesClientId: "",
+      ownerProfileId: state.user.id,
+      label: state.profile.company || state.profile.name || state.user.email || "Cliente",
+    };
+  }
+  return null;
+}
+
+function branchOrderCartLines() {
+  return [...state.cart.entries()]
+    .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
+    .filter((line) => isOrderableProduct(line.product));
+}
+
+function openBranchClientPicker() {
+  if (!canSelectSalesClient()) return;
+  closeCatalogMenu();
+  closeCart();
+  closeAccount();
+  state.branchClientPickerReturnToBranch = isCatalogDialogOpen(els.branchOrderDialog);
+  if (state.branchClientPickerReturnToBranch) closeCatalogDialog(els.branchOrderDialog);
+  els.branchClientSearch.value = "";
+  renderBranchClientResults();
+  showCatalogDialog(els.branchClientDialog);
+  requestAnimationFrame(() => els.branchClientSearch.focus());
+}
+
+function handleBranchClientPickerClose() {
+  if (!state.branchClientPickerReturnToBranch) return;
+  state.branchClientPickerReturnToBranch = false;
+  openBranchOrderMode();
+}
+
+function renderBranchClientResults() {
+  if (!canSelectSalesClient()) return;
+  if (state.isLoadingSalesClients) {
+    els.branchClientResults.innerHTML = `<p class="branch-client-empty">Cargando clientes...</p>`;
+    return;
+  }
+
+  const matches = salesClientMatches(els.branchClientSearch.value, 30);
+  if (!matches.length) {
+    els.branchClientResults.innerHTML = `<p class="branch-client-empty">No hay clientes coincidentes.</p>`;
+    return;
+  }
+
+  els.branchClientResults.innerHTML = matches.map(({ client }) => {
+    const selected = state.selectedSalesClient?.id === client.id;
+    return `
+      <button class="branch-client-result${selected ? " is-selected" : ""}" type="button" role="option" data-branch-client="${escapeAttribute(client.id)}" aria-selected="${selected}">
+        <strong>${escapeHtml(client.clientCode)} - ${escapeHtml(client.name)}</strong>
+        <span>${escapeHtml(client.legalName && client.legalName !== client.name ? client.legalName : salesClientAddress(client))}</span>
+        ${selected ? `<small>Cliente actual</small>` : ""}
+      </button>
+    `;
+  }).join("");
+}
+
+function handleBranchClientSearchKeydown(event) {
+  if (event.key !== "Enter") return;
+  const firstResult = els.branchClientResults.querySelector("[data-branch-client]");
+  if (!firstResult) return;
+  event.preventDefault();
+  selectBranchOrderClient(firstResult.dataset.branchClient);
+}
+
+function handleBranchClientResultClick(event) {
+  const button = event.target.closest("[data-branch-client]");
+  if (button) selectBranchOrderClient(button.dataset.branchClient);
+}
+
+function selectBranchOrderClient(clientId) {
+  const client = state.salesClients.find((item) => item.id === clientId);
+  if (!client) return;
+  const changed = state.selectedSalesClient?.id !== client.id;
+  selectSalesClient(client, { silent: true });
+  state.branchClientPickerReturnToBranch = false;
+  closeCatalogDialog(els.branchClientDialog);
+  if (changed) showToast("Cliente seleccionado");
+  openBranchOrderMode();
+}
+
+async function openBranchOrderMode() {
+  closeCatalogMenu();
+  if (!hasPriceAccess()) {
+    showToast("El modo sucursales se habilitará cuando aprueben tu cuenta");
+    return;
+  }
+  if (hasGuestAccess()) {
+    showToast("El modo sucursales está disponible para cuentas registradas");
+    return;
+  }
+  mergeDuplicateCartSkus();
+  if (canSelectSalesClient() && !state.selectedSalesClient) {
+    openBranchClientPicker();
+    return;
+  }
+  const scope = branchOrderScope();
+  if (!scope) {
+    showToast("No se pudo identificar el cliente de las sucursales");
+    return;
+  }
+
+  closeCart();
+  closeAccount();
+  if (state.branchOrderScopeKey !== scope.key) {
+    state.branchOrderScopeKey = scope.key;
+    state.branchOrderQuantities = {};
+    state.branchOrderSubmission = null;
+  }
+  els.branchOrderCustomer.textContent = scope.label;
+  els.changeBranchOrderClient.hidden = !canSelectSalesClient();
+  resetBranchProductEntry();
+  state.branchOrderLoading = true;
+  renderBranchOrder();
+  showCatalogDialog(els.branchOrderDialog);
+
+  const cached = readCachedClientBranches(scope.key);
+  state.clientBranches = cached;
+  try {
+    if (CATALOG_SUPABASE.isAvailable() && state.user && isOnline()) {
+      state.clientBranches = await CATALOG_SUPABASE.loadClientBranches(scope);
+      cacheClientBranches(scope.key, state.clientBranches);
+    }
+  } catch (error) {
+    markConnectionLost(error);
+    if (!cached.length) showToast("No se pudieron cargar las sucursales guardadas");
+  } finally {
+    state.branchOrderLoading = false;
+    if (els.branchOrderStatus.textContent === "Cargando...") els.branchOrderStatus.textContent = "";
+    renderBranchOrder();
+  }
+}
+
+function branchCacheStore() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("catalogClientBranches") || "{}");
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function readCachedClientBranches(scopeKey) {
+  const branches = branchCacheStore()[scopeKey];
+  return Array.isArray(branches) ? branches : [];
+}
+
+function cacheClientBranches(scopeKey, branches) {
+  const store = branchCacheStore();
+  store[scopeKey] = branches;
+  localStorage.setItem("catalogClientBranches", JSON.stringify(store));
+}
+
+async function addClientBranch() {
+  if (state.branchOrderLoading || state.branchOrderSaving) return;
+  const scope = branchOrderScope();
+  const name = els.branchOrderNewName.value.trim();
+  if (!scope || !name) {
+    els.branchOrderNewName.focus();
+    showToast("Ingresá el nombre de la sucursal");
+    return;
+  }
+  if (state.clientBranches.some((branch) => branch.name.trim().toLowerCase() === name.toLowerCase())) {
+    showToast("Ya existe una sucursal con ese nombre");
+    return;
+  }
+  if (!isOnline() || !CATALOG_SUPABASE.isAvailable() || !state.user) {
+    showToast("Conectate a internet para guardar una sucursal nueva");
+    return;
+  }
+
+  els.addClientBranch.disabled = true;
+  els.branchOrderStatus.textContent = "Guardando...";
+  try {
+    const branch = await CATALOG_SUPABASE.createClientBranch({
+      ownerProfileId: scope.ownerProfileId,
+      salesClientId: scope.salesClientId,
+      name,
+      address: els.branchOrderNewAddress.value.trim(),
+      locality: els.branchOrderNewLocality.value.trim(),
+      sortOrder: state.clientBranches.length,
+    });
+    state.clientBranches.push(branch);
+    cacheClientBranches(scope.key, state.clientBranches);
+    els.branchOrderNewName.value = "";
+    els.branchOrderNewAddress.value = "";
+    els.branchOrderNewLocality.value = "";
+    els.branchOrderStatus.textContent = "Sucursal guardada";
+    state.branchOrderSubmission = null;
+    renderBranchOrder();
+    els.branchOrderNewName.focus();
+  } catch (error) {
+    els.branchOrderStatus.textContent = "";
+    showToast(error.code === "23505" ? "Ya existe una sucursal con ese nombre" : (error.message || "No se pudo guardar la sucursal"));
+  } finally {
+    els.addClientBranch.disabled = false;
+  }
+}
+
+function resetBranchProductEntry(options = {}) {
+  els.branchProductSku.value = "";
+  els.branchProductFeedback.textContent = "";
+  hideBranchProductSuggestions();
+  updateBranchProductEntryState();
+  if (options.focus) requestAnimationFrame(() => els.branchProductSku.focus());
+}
+
+function handleBranchProductInput() {
+  els.branchProductFeedback.textContent = "";
+  renderBranchProductSuggestions();
+  updateBranchProductEntryState();
+}
+
+function handleBranchProductKeydown(event) {
+  const suggestions = state.branchProductSuggestions;
+  const isOpen = !els.branchProductSuggestions.hidden && suggestions.length;
+  if (event.key === "Escape" && isOpen) {
+    event.preventDefault();
+    hideBranchProductSuggestions();
+    return;
+  }
+  if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+    if (!isOpen) renderBranchProductSuggestions();
+    if (!state.branchProductSuggestions.length) return;
+    event.preventDefault();
+    const direction = event.key === "ArrowDown" ? 1 : -1;
+    const count = state.branchProductSuggestions.length;
+    const nextIndex = state.branchProductSuggestionIndex < 0
+      ? (direction > 0 ? 0 : count - 1)
+      : (state.branchProductSuggestionIndex + direction + count) % count;
+    setBranchProductSuggestionIndex(nextIndex);
+    return;
+  }
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  if (isOpen && state.branchProductSuggestionIndex >= 0) {
+    addProductToBranchMatrix(suggestions[state.branchProductSuggestionIndex]?.product);
+    return;
+  }
+  const exactProduct = branchProductExactMatch();
+  if (exactProduct) {
+    addProductToBranchMatrix(exactProduct);
+    return;
+  }
+  if (isOpen && suggestions.length === 1) {
+    addProductToBranchMatrix(suggestions[0].product);
+    return;
+  }
+  els.branchProductFeedback.textContent = "Elegí un producto sugerido o ingresá el SKU completo.";
+}
+
+function handleBranchProductBlur() {
+  requestAnimationFrame(() => {
+    const active = document.activeElement;
+    if (active !== els.addBranchProduct && !els.branchProductSuggestions.contains(active)) {
+      hideBranchProductSuggestions();
+    }
+  });
+}
+
+function handleBranchProductSuggestionPointer(event) {
+  if (event.target.closest("[data-branch-product-suggestion]")) event.preventDefault();
+}
+
+function handleBranchProductSuggestionClick(event) {
+  const button = event.target.closest("[data-branch-product-suggestion]");
+  if (!button) return;
+  addProductToBranchMatrix(state.branchProductSuggestions[Number(button.dataset.index)]?.product);
+}
+
+function renderBranchProductSuggestions() {
+  const query = els.branchProductSku.value.trim();
+  const suggestions = quickOrderSuggestions(query);
+  state.branchProductSuggestions = suggestions;
+  state.branchProductSuggestionIndex = -1;
+  els.branchProductSku.removeAttribute("aria-activedescendant");
+  if (!suggestions.length) {
+    hideBranchProductSuggestions();
+    return;
+  }
+  els.branchProductSuggestions.innerHTML = suggestions.map(({ product, sku }, index) => {
+    const inMatrix = branchProductIsInMatrix(product);
+    const availability = product.outOfStock ? "Sin stock" : (inMatrix ? "Ya agregado" : product.price || "");
+    return `
+      <button
+        id="branchProductSuggestion${index}"
+        class="branch-product-suggestion${product.outOfStock || inMatrix ? " is-unavailable" : ""}"
+        type="button"
+        role="option"
+        data-branch-product-suggestion
+        data-index="${index}"
+        aria-disabled="${product.outOfStock || inMatrix ? "true" : "false"}"
+      >
+        <strong>${escapeHtml(sku)}</strong>
+        <span>${escapeHtml(product.name)}</span>
+        <small>${escapeHtml(availability)}</small>
+      </button>
+    `;
+  }).join("");
+  els.branchProductSuggestions.hidden = false;
+  els.branchProductSku.setAttribute("aria-expanded", "true");
+}
+
+function hideBranchProductSuggestions() {
+  state.branchProductSuggestions = [];
+  state.branchProductSuggestionIndex = -1;
+  els.branchProductSuggestions.hidden = true;
+  els.branchProductSuggestions.innerHTML = "";
+  els.branchProductSku.setAttribute("aria-expanded", "false");
+  els.branchProductSku.removeAttribute("aria-activedescendant");
+}
+
+function setBranchProductSuggestionIndex(index) {
+  state.branchProductSuggestionIndex = index;
+  els.branchProductSuggestions.querySelectorAll("[data-branch-product-suggestion]").forEach((button) => {
+    const active = Number(button.dataset.index) === index;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
+    if (active) {
+      els.branchProductSku.setAttribute("aria-activedescendant", button.id);
+      button.scrollIntoView({ block: "nearest" });
+    }
+  });
+}
+
+function branchProductExactMatch() {
+  return findProductByQuickSku(els.branchProductSku.value);
+}
+
+function branchProductIsInMatrix(product) {
+  if (!product) return false;
+  const sku = normalizeSkuQuery(product.sku || product.id);
+  return branchOrderCartLines().some(({ product: existing }) => (
+    existing.id === product.id
+    || (sku && normalizeSkuQuery(existing.sku || existing.id) === sku)
+  ));
+}
+
+function updateBranchProductEntryState() {
+  const product = branchProductExactMatch();
+  els.addBranchProduct.disabled = !product || product.outOfStock || branchProductIsInMatrix(product);
+}
+
+function addProductToBranchMatrix(product = branchProductExactMatch()) {
+  if (!product) {
+    els.branchProductFeedback.textContent = "No encontramos un producto con ese SKU.";
+    return;
+  }
+  if (product.outOfStock) {
+    els.branchProductFeedback.textContent = `${product.sku} está sin stock y no se puede agregar.`;
+    return;
+  }
+  if (branchProductIsInMatrix(product)) {
+    els.branchProductFeedback.textContent = `${product.sku} ya está en la planilla.`;
+    hideBranchProductSuggestions();
+    return;
+  }
+
+  state.cart.set(product.id, Math.max(1, state.cart.get(product.id) || 0));
+  mergeDuplicateCartSkus();
+  saveCart();
+  state.branchOrderSubmission = null;
+  renderCart();
+  renderBranchOrder();
+  els.branchProductSku.value = "";
+  hideBranchProductSuggestions();
+  updateBranchProductEntryState();
+  els.branchProductFeedback.textContent = `${product.sku} - ${product.name} agregado a la planilla.`;
+  requestAnimationFrame(() => els.branchProductSku.focus());
+}
+
+function renderBranchOrder() {
+  const lines = branchOrderCartLines();
+  const branches = state.clientBranches;
+  els.branchOrderStatus.textContent = state.branchOrderLoading ? "Cargando..." : els.branchOrderStatus.textContent;
+  if (state.branchOrderLoading && !branches.length) {
+    els.branchOrderMatrix.innerHTML = `<div class="branch-order-empty">Cargando sucursales...</div>`;
+    renderBranchOrderSummary();
+    return;
+  }
+  if (!branches.length) {
+    els.branchOrderMatrix.innerHTML = `<div class="branch-order-empty"><strong>No hay sucursales guardadas</strong></div>`;
+    renderBranchOrderSummary();
+    return;
+  }
+
+  els.branchOrderMatrix.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th class="branch-product-column" scope="col">Producto</th>
+          <th class="branch-price-column" scope="col">Precio</th>
+          ${branches.map((branch) => `
+            <th class="branch-quantity-column" scope="col">
+              <span class="branch-column-name">${escapeHtml(branch.name)}</span>
+              <small>${escapeHtml([branch.address, branch.locality].filter(Boolean).join(" - "))}</small>
+              <button class="branch-delete-button${state.branchOrderPendingDelete === branch.id ? " is-confirming" : ""}" type="button" data-delete-branch="${escapeAttribute(branch.id)}">
+                ${state.branchOrderPendingDelete === branch.id ? "Confirmar" : "Quitar"}
+              </button>
+            </th>
+          `).join("")}
+        </tr>
+      </thead>
+      <tbody>
+        ${lines.length ? lines.map(({ product }) => `
+          <tr>
+            <th class="branch-product-column" scope="row">
+              <strong>${escapeHtml(product.sku)}</strong>
+              <span>${escapeHtml(product.name)}</span>
+            </th>
+            <td class="branch-price-column">${escapeHtml(product.price)}</td>
+            ${branches.map((branch) => `
+              <td class="branch-quantity-column">
+                <input
+                  type="number"
+                  min="0"
+                  max="9999"
+                  step="1"
+                  inputmode="numeric"
+                  aria-label="${escapeAttribute(`${product.name}, ${branch.name}`)}"
+                  data-branch-quantity
+                  data-product-id="${escapeAttribute(product.id)}"
+                  data-branch-id="${escapeAttribute(branch.id)}"
+                  value="${branchOrderQuantity(product.id, branch.id) || ""}"
+                  placeholder="0"
+                >
+              </td>
+            `).join("")}
+          </tr>
+        `).join("") : `
+          <tr>
+            <td class="branch-order-table-empty" colspan="${branches.length + 2}">
+              Ingresá un SKU arriba para agregar el primer producto.
+            </td>
+          </tr>
+        `}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="branch-product-column" scope="row">Total por sucursal</th>
+          <td class="branch-price-column"></td>
+          ${branches.map((branch) => `
+            <td class="branch-quantity-column branch-column-total" data-branch-total="${escapeAttribute(branch.id)}"></td>
+          `).join("")}
+        </tr>
+      </tfoot>
+    </table>
+  `;
+  renderBranchOrderSummary();
+}
+
+function branchOrderQuantity(productId, branchId) {
+  return Number(state.branchOrderQuantities[productId]?.[branchId] || 0);
+}
+
+function setBranchOrderQuantity(productId, branchId, quantity) {
+  if (!state.branchOrderQuantities[productId]) state.branchOrderQuantities[productId] = {};
+  state.branchOrderQuantities[productId][branchId] = Math.max(0, Math.min(9999, Math.floor(Number(quantity) || 0)));
+  state.branchOrderSubmission = null;
+}
+
+function handleBranchOrderMatrixInput(event) {
+  const input = event.target.closest("[data-branch-quantity]");
+  if (!input) return;
+  const cleanValue = input.value.replace(/[^0-9]/g, "").slice(0, 4);
+  input.value = cleanValue;
+  setBranchOrderQuantity(input.dataset.productId, input.dataset.branchId, cleanValue);
+  renderBranchOrderSummary();
+}
+
+function branchOrderGroups() {
+  const lines = branchOrderCartLines();
+  return state.clientBranches.map((branch) => ({
+    branch,
+    lines: lines
+      .map(({ product }) => ({ product, qty: branchOrderQuantity(product.id, branch.id) }))
+      .filter((line) => line.qty > 0),
+  })).filter((group) => group.lines.length);
+}
+
+function renderBranchOrderSummary() {
+  const groups = branchOrderGroups();
+  const totalItems = groups.reduce((sum, group) => sum + group.lines.reduce((branchSum, line) => branchSum + line.qty, 0), 0);
+  const totalValue = groups.reduce((sum, group) => sum + group.lines.reduce((branchSum, line) => branchSum + priceNumber(line.product.price) * line.qty, 0), 0);
+  els.branchOrderBatchSummary.innerHTML = `<strong>${groups.length} pedido${groups.length === 1 ? "" : "s"}</strong><span>${totalItems} unidades · ${formatMoney(totalValue)}</span>`;
+  els.submitBranchOrders.disabled = state.branchOrderSaving || !groups.length;
+  els.submitBranchOrders.textContent = state.branchOrderSaving
+    ? "Enviando..."
+    : groups.length
+      ? `${isOnline() ? "Enviar" : "Guardar"} ${groups.length} pedido${groups.length === 1 ? "" : "s"}`
+      : "Enviar pedidos";
+  state.clientBranches.forEach((branch) => {
+    const group = groups.find((item) => item.branch.id === branch.id);
+    const target = els.branchOrderMatrix.querySelector(`[data-branch-total="${cssEscape(branch.id)}"]`);
+    if (!target) return;
+    const items = group?.lines.reduce((sum, line) => sum + line.qty, 0) || 0;
+    const value = group?.lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0) || 0;
+    target.innerHTML = `<strong>${items} uds.</strong><span>${formatMoney(value)}</span>`;
+  });
+}
+
+async function handleBranchOrderMatrixClick(event) {
+  const button = event.target.closest("[data-delete-branch]");
+  if (!button || state.branchOrderSaving) return;
+  const branchId = button.dataset.deleteBranch;
+  if (state.branchOrderPendingDelete !== branchId) {
+    state.branchOrderPendingDelete = branchId;
+    renderBranchOrder();
+    return;
+  }
+  if (!isOnline()) {
+    showToast("Conectate a internet para eliminar una sucursal");
+    return;
+  }
+  try {
+    await CATALOG_SUPABASE.deleteClientBranch(branchId);
+    state.clientBranches = state.clientBranches.filter((branch) => branch.id !== branchId);
+    const scope = branchOrderScope();
+    if (scope) cacheClientBranches(scope.key, state.clientBranches);
+    Object.values(state.branchOrderQuantities).forEach((quantities) => delete quantities[branchId]);
+    state.branchOrderPendingDelete = "";
+    state.branchOrderSubmission = null;
+    renderBranchOrder();
+    showToast("Sucursal eliminada");
+  } catch (error) {
+    showToast(error.message || "No se pudo eliminar la sucursal");
+  }
+}
+
+function resetBranchDeleteConfirmation() {
+  state.branchOrderPendingDelete = "";
+}
+
+function branchOrderSignature(groups, customer) {
+  return JSON.stringify({
+    scope: state.branchOrderScopeKey,
+    customer,
+    groups: groups.map((group) => ({
+      branch: group.branch,
+      lines: group.lines.map((line) => [line.product.id, line.qty]),
+    })),
+  });
+}
+
+function createBranchOrderSubmission(groups, customer) {
+  const signature = branchOrderSignature(groups, customer);
+  if (state.branchOrderSubmission?.signature === signature) return state.branchOrderSubmission;
+  const orderGroupId = window.crypto?.randomUUID?.() || CATALOG_STORE.ensureClientRequestId({}).clientRequestId;
+  const orders = groups.map((group) => CATALOG_STORE.buildOrderFromLines(group.lines, {
+    ...customer,
+    orderGroupId,
+    branch: group.branch,
+  }));
+  state.branchOrderSubmission = { signature, orderGroupId, orders, completed: new Set() };
+  return state.branchOrderSubmission;
+}
+
+async function submitBranchOrders() {
+  if (state.branchOrderSaving) return;
+  const groups = branchOrderGroups();
+  if (!groups.length) {
+    showToast("Ingresá al menos una cantidad para una sucursal");
+    return;
+  }
+  if (!state.user) {
+    showToast("Iniciá sesión antes de enviar los pedidos");
+    return;
+  }
+
+  state.branchOrderSaving = true;
+  renderBranchOrderSummary();
+  let sent = 0;
+  let queued = 0;
+  let emailWarnings = 0;
+  try {
+    if (isOnline() && CATALOG_SUPABASE.isAvailable()) await saveCustomerProfile();
+    const customer = readOrderCustomer();
+    const submission = createBranchOrderSubmission(groups, customer);
+    if (!isOnline()) {
+      submission.orders.forEach((order) => {
+        queueOfflineOrder(order, "Sin conexión");
+        queued += 1;
+      });
+    } else {
+      for (let index = 0; index < submission.orders.length; index += 1) {
+        if (submission.completed.has(index)) continue;
+        const order = submission.orders[index];
+        try {
+          const savedOrder = await CATALOG_SUPABASE.saveOrder(order, state.user.id, { notify: false });
+          sent += 1;
+          submission.completed.add(index);
+          rememberOrderReceipt(createOrderReceipt(savedOrder, { fallbackOrder: order, notification: savedOrder.notification }));
+          if (index < submission.orders.length - 1) await delay(700);
+        } catch (error) {
+          if (!isNetworkError(error)) throw error;
+          markConnectionLost(error);
+          submission.orders.slice(index).forEach((pendingOrder) => {
+            queueOfflineOrder(pendingOrder, error.message || "Error de conexión");
+            queued += 1;
+          });
+          break;
+        }
+      }
+      if (!queued && submission.completed.size === submission.orders.length) {
+        const batchNotification = await CATALOG_SUPABASE.requestOrderBatchNotification(submission.orderGroupId);
+        if (!batchNotification.ok) emailWarnings += 1;
+      }
+    }
+
+    window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
+    await renderCustomerOrders();
+    closeCatalogDialog(els.branchOrderDialog);
+    clearSubmittedCart();
+    state.branchOrderQuantities = {};
+    state.branchOrderSubmission = null;
+    if (queued) showToast(`${sent} enviado${sent === 1 ? "" : "s"}; ${queued} pendiente${queued === 1 ? "" : "s"}`);
+    else if (emailWarnings) showToast(`${sent} pedidos enviados; ${emailWarnings} email${emailWarnings === 1 ? "" : "s"} pendiente${emailWarnings === 1 ? "" : "s"}`);
+    else showToast(`${sent} pedido${sent === 1 ? "" : "s"} enviado${sent === 1 ? "" : "s"}`);
+  } catch (error) {
+    showToast(error.message || "No se pudieron enviar los pedidos por sucursal");
+  } finally {
+    state.branchOrderSaving = false;
+    renderBranchOrderSummary();
+    renderCart();
+  }
+}
+
 async function saveOrder() {
   if (state.isSavingOrder) return;
   if (state.guestAccess && !hasGuestAccess()) {
@@ -1980,6 +2675,8 @@ function createOrderReceipt(order, options = {}) {
     createdAt: order?.createdAt || fallback.createdAt || new Date().toISOString(),
     customerName: customer.salesClient?.legalName || customer.salesClient?.name || customer.name || "Sin especificar",
     clientCode: customer.salesClient?.clientCode || customer.clientCode || "",
+    branchName: order?.branch?.name || fallback.branch?.name || "",
+    branchAddress: [order?.branch?.address || fallback.branch?.address, order?.branch?.locality || fallback.branch?.locality].filter(Boolean).join(" - "),
     totalItems: Number(order?.totalItems ?? order?.total_items ?? fallback.totalItems ?? items.reduce((sum, item) => sum + Number(item.qty || 0), 0)),
     totalValue: Number(order?.totalValue ?? order?.total_value ?? fallback.totalValue ?? items.reduce((sum, item) => sum + Number(item.lineTotal || 0), 0)),
     items: items.map((item) => ({
@@ -2028,6 +2725,8 @@ function openLastOrderReceipt() {
     <dl class="order-receipt-summary">
       <div><dt>Cliente</dt><dd>${escapeHtml(receipt.customerName)}</dd></div>
       ${receipt.clientCode ? `<div><dt>Código</dt><dd>${escapeHtml(receipt.clientCode)}</dd></div>` : ""}
+      ${receipt.branchName ? `<div><dt>Sucursal</dt><dd>${escapeHtml(receipt.branchName)}</dd></div>` : ""}
+      ${receipt.branchAddress ? `<div><dt>Destino</dt><dd>${escapeHtml(receipt.branchAddress)}</dd></div>` : ""}
       <div><dt>Unidades</dt><dd>${receipt.totalItems}</dd></div>
       <div><dt>Total</dt><dd>${formatMoney(receipt.totalValue)}</dd></div>
     </dl>
@@ -2350,8 +3049,10 @@ function applyPriceAccessState() {
   els.priceAccessNotice.hidden = !pending;
   els.openCart.hidden = !access;
   els.openQuickOrderToolbar.hidden = !access;
+  els.openBranchOrderToolbar.hidden = !access;
   els.mobileOpenCart.hidden = !access;
   els.mobileOpenQuickOrder.hidden = !access;
+  els.mobileOpenBranchOrder.hidden = !access;
   els.quickOrderPanel.hidden = !access;
 
   if (!access) {
@@ -2438,6 +3139,8 @@ function savePendingOfflineOrders() {
 
 function queueOfflineOrder(order, reason = "") {
   const safeOrder = CATALOG_STORE.ensureClientRequestId(order);
+  const existing = state.pendingOfflineOrders.find((queued) => queued.order?.clientRequestId === safeOrder.clientRequestId);
+  if (existing) return existing;
   const queuedOrder = {
     id: `offline-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     createdAt: new Date().toISOString(),
@@ -2578,6 +3281,8 @@ function renderPendingOfflineOrder(queued, index) {
   const notes = customer.notes || "";
   const metadata = [
     clientCode ? `<span><strong>Código</strong>${escapeHtml(clientCode)}</span>` : "",
+    receipt.branchName ? `<span><strong>Sucursal</strong>${escapeHtml(receipt.branchName)}</span>` : "",
+    receipt.branchAddress ? `<span><strong>Destino</strong>${escapeHtml(receipt.branchAddress)}</span>` : "",
     queued.userEmail ? `<span><strong>Cuenta</strong>${escapeHtml(queued.userEmail)}</span>` : "",
     transport ? `<span><strong>Transporte</strong>${escapeHtml(transport)}</span>` : "",
     queued.reason ? `<span><strong>Guardado por</strong>${escapeHtml(queued.reason)}</span>` : "",
@@ -2587,7 +3292,7 @@ function renderPendingOfflineOrder(queued, index) {
     <details class="pending-order-card"${index === 0 ? " open" : ""}>
       <summary>
         <span class="pending-order-client">
-          <strong>${escapeHtml(receipt.customerName)}</strong>
+          <strong>${escapeHtml(receipt.customerName)}${receipt.branchName ? ` · ${escapeHtml(receipt.branchName)}` : ""}</strong>
           <small>${escapeHtml(formatPendingOrderDate(queued.createdAt || receipt.createdAt))}</small>
         </span>
         <span class="pending-order-total">
@@ -2732,25 +3437,50 @@ async function syncPendingOfflineOrders() {
   let emailWarnings = 0;
   let failedMessage = "";
 
-  for (const queued of [...state.pendingOfflineOrders]) {
+  const pendingSnapshot = [...state.pendingOfflineOrders];
+  const handledOrderGroups = new Set();
+  for (const queued of pendingSnapshot) {
+    const orderGroupId = String(queued.order?.orderGroupId || "").trim();
+    if (orderGroupId && handledOrderGroups.has(orderGroupId)) continue;
+    if (orderGroupId) handledOrderGroups.add(orderGroupId);
+    const queuedGroup = orderGroupId
+      ? pendingSnapshot.filter((item) => String(item.order?.orderGroupId || "").trim() === orderGroupId)
+      : [queued];
     try {
-      const safeOrder = CATALOG_STORE.ensureClientRequestId(queued.order);
-      if (safeOrder !== queued.order) {
-        queued.order = safeOrder;
-        savePendingOfflineOrders();
+      const savedGroup = [];
+      for (const groupEntry of queuedGroup) {
+        const safeOrder = CATALOG_STORE.ensureClientRequestId(groupEntry.order);
+        if (safeOrder !== groupEntry.order) {
+          groupEntry.order = safeOrder;
+          savePendingOfflineOrders();
+        }
+        const savedOrder = await CATALOG_SUPABASE.saveOrder(groupEntry.order, state.user.id, {
+          notify: !orderGroupId,
+        });
+        savedGroup.push({ queued: groupEntry, savedOrder });
       }
-      const savedOrder = await CATALOG_SUPABASE.saveOrder(queued.order, state.user.id);
-      if (savedOrder.notification && !savedOrder.notification.ok) emailWarnings += 1;
-      if (state.lastOrderReceipt?.queueId === queued.id) {
-        rememberOrderReceipt(createOrderReceipt(savedOrder, {
-          fallbackOrder: queued.order,
-          notification: savedOrder.notification,
-          deliveryStatus: savedOrder.notification?.ok === false ? "warning" : "sent",
-        }));
+
+      const groupNotification = orderGroupId
+        ? await CATALOG_SUPABASE.requestOrderBatchNotification(orderGroupId)
+        : null;
+      if (groupNotification?.ok === false) emailWarnings += 1;
+
+      savedGroup.forEach(({ queued: groupEntry, savedOrder }) => {
+        const notification = groupNotification || savedOrder.notification;
+        if (!orderGroupId && notification?.ok === false) emailWarnings += 1;
+        if (state.lastOrderReceipt?.queueId === groupEntry.id) {
+          rememberOrderReceipt(createOrderReceipt(savedOrder, {
+            fallbackOrder: groupEntry.order,
+            notification,
+            deliveryStatus: notification?.ok === false ? "warning" : "sent",
+          }));
+        }
+        removePendingOfflineOrder(groupEntry.id);
+      });
+      sent += savedGroup.length;
+      if (state.pendingOfflineOrders.length) {
+        await delay(800);
       }
-      removePendingOfflineOrder(queued.id);
-      sent += 1;
-      await delay(800);
     } catch (error) {
       failedMessage = error.message || "No se pudo enviar un pedido pendiente";
       if (isNetworkError(error)) break;
@@ -3083,6 +3813,7 @@ async function loadSalesClients() {
   } finally {
     state.isLoadingSalesClients = false;
     renderCart();
+    if (isCatalogDialogOpen(els.branchClientDialog)) renderBranchClientResults();
     renderSalesmanCatalogTools();
   }
 }
@@ -3097,13 +3828,7 @@ function restoreSelectedSalesClient() {
 
 function renderSalesClientResults() {
   if (!canSelectSalesClient()) return;
-  const query = normalizeProductSearch(els.cartSalesClientSearch.value);
-  const compactQuery = compactProductSearch(query);
-  const matches = state.salesClients
-    .map((client) => matchingSalesClient(client, query, compactQuery))
-    .filter(Boolean)
-    .sort((first, second) => first.score - second.score || first.client.clientCode.localeCompare(second.client.clientCode, "es"))
-    .slice(0, 10);
+  const matches = salesClientMatches(els.cartSalesClientSearch.value, 10);
 
   if (!matches.length) {
     els.cartSalesClientResults.hidden = false;
@@ -3130,6 +3855,16 @@ function renderSalesClientResults() {
   });
 }
 
+function salesClientMatches(value, limit = 10) {
+  const query = normalizeProductSearch(value);
+  const compactQuery = compactProductSearch(query);
+  return state.salesClients
+    .map((client) => matchingSalesClient(client, query, compactQuery))
+    .filter(Boolean)
+    .sort((first, second) => first.score - second.score || first.client.clientCode.localeCompare(second.client.clientCode, "es"))
+    .slice(0, limit);
+}
+
 function matchingSalesClient(client, query, compactQuery) {
   if (!query) return { client, score: 5 };
   const code = normalizeSkuQuery(client.clientCode);
@@ -3150,6 +3885,7 @@ function matchingSalesClient(client, query, compactQuery) {
 }
 
 function selectSalesClient(client, options = {}) {
+  if (state.selectedSalesClient?.id !== client.id) resetBranchOrderForClientChange();
   state.selectedSalesClient = client;
   localStorage.setItem("catalogSelectedSalesClientId", client.id);
   els.cartSalesClientSearch.value = `${client.clientCode} - ${client.name}`;
@@ -3160,12 +3896,21 @@ function selectSalesClient(client, options = {}) {
 }
 
 function clearSelectedSalesClient(options = {}) {
+  if (state.selectedSalesClient) resetBranchOrderForClientChange();
   state.selectedSalesClient = null;
   localStorage.removeItem("catalogSelectedSalesClientId");
   if (!options.keepInput) els.cartSalesClientSearch.value = "";
   els.cartSalesClientResults.hidden = true;
   renderSelectedSalesClient();
   renderCart();
+}
+
+function resetBranchOrderForClientChange() {
+  state.clientBranches = [];
+  state.branchOrderQuantities = {};
+  state.branchOrderScopeKey = "";
+  state.branchOrderSubmission = null;
+  state.branchOrderPendingDelete = "";
 }
 
 function renderSelectedSalesClient() {
@@ -4185,7 +4930,7 @@ async function renderCustomerOrders() {
           .map(
             (order) => `
               <button class="customer-order-line" type="button" data-order="${escapeHtml(order.id)}">
-                <strong>${escapeHtml(order.displayId || order.id)}</strong>
+                <strong>${escapeHtml(order.displayId || order.id)}${order.branch?.name ? ` · ${escapeHtml(order.branch.name)}` : ""}</strong>
                 <span>${new Date(order.createdAt).toLocaleDateString("es-AR")} - ${formatMoney(order.totalValue)}</span>
               </button>
             `,
@@ -4216,6 +4961,7 @@ function showCustomerOrderDetail(orderId) {
       <span class="eyebrow">Pedido</span>
       <h3>${escapeHtml(order.displayId || order.id)}</h3>
       <p>${new Date(order.createdAt).toLocaleString("es-AR")}</p>
+      ${order.branch?.name ? `<p><strong>Sucursal:</strong> ${escapeHtml(order.branch.name)}${order.branch.address || order.branch.locality ? ` · ${escapeHtml([order.branch.address, order.branch.locality].filter(Boolean).join(" - "))}` : ""}</p>` : ""}
     </div>
     <div class="customer-order-items">
       ${order.items

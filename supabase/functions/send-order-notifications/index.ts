@@ -43,6 +43,11 @@ type Order = {
   sales_client_name: string;
   sales_client_address: string;
   sales_client_locality: string;
+  branch_order_group_id: string | null;
+  client_branch_id: string | null;
+  branch_name: string;
+  branch_address: string;
+  branch_locality: string;
   salesman_code: string;
   order_transport: string;
   notes: string;
@@ -75,6 +80,7 @@ type SentEmail = {
 
 const ORDER_TEMPLATE_SHEET_PATH = "xl/worksheets/sheet3.xml";
 const ORDER_TEMPLATE_LAST_INPUT_ROW = 262;
+const ORDER_SELECT = "id,customer_id,order_number,status,customer_name,customer_phone,customer_client_code,sales_client_id,sales_client_code,sales_client_name,sales_client_address,sales_client_locality,salesman_code,order_transport,notes,branch_order_group_id,client_branch_id,branch_name,branch_address,branch_locality,total_items,total_value,created_at,order_items(sku,name,unit_price,quantity,line_total,page)";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -93,6 +99,12 @@ Deno.serve(async (req) => {
       if (!context.isAdmin) throw new Error("Only admins can check delivery status.");
       return jsonResponse(await syncRecentDeliveryStatuses());
     }
+    if (body.order_group_id) {
+      return jsonResponse(await sendOrderGroupNotification(requiredUuid(body.order_group_id, "order_group_id"), {
+        context,
+        force: Boolean(body.force),
+      }));
+    }
     const result = await sendPendingOrderNotifications(body.order_id, {
       context,
       force: Boolean(body.force),
@@ -109,7 +121,7 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
     if (options.force && !options.context.isAdmin) {
       throw new Error("Only admins can resend order emails.");
     }
-    await ensureCanSendOrderNotification(orderId, options.context);
+    orderId = await canonicalNotificationOrderId(requiredUuid(orderId, "order_id"), options.context);
     await ensureNotification(orderId, Boolean(options.force));
   }
 
@@ -122,7 +134,12 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
 
     try {
       const order = await loadOrder(notification.order_id);
-      const sentEmail = await sendOrderEmail(order);
+      const groupedOrders = order.branch_order_group_id
+        ? await loadOrderGroup(order.branch_order_group_id)
+        : [order];
+      const sentEmail = groupedOrders.length > 1
+        ? await sendOrderBatchEmail(groupedOrders)
+        : await sendOrderEmail(order);
       await updateNotification(notification.id, {
         status: "sent",
         sent_at: new Date().toISOString(),
@@ -154,6 +171,32 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
   }
 
   return { processed: results.length, results };
+}
+
+async function sendOrderGroupNotification(orderGroupId: string, options: { context: RequestContext; force?: boolean }) {
+  const orders = await loadOrderGroup(orderGroupId);
+  if (!orders.length) throw new Error(`Order group ${orderGroupId} not found`);
+  await ensureCanSendOrderGroupNotification(orders, options.context);
+  return sendPendingOrderNotifications(orders[0].id, options);
+}
+
+async function canonicalNotificationOrderId(orderId: string, context: RequestContext) {
+  const order = await loadOrder(orderId);
+  if (!order.branch_order_group_id) {
+    await ensureCanSendOrderNotification(orderId, context);
+    return orderId;
+  }
+  const orders = await loadOrderGroup(order.branch_order_group_id);
+  await ensureCanSendOrderGroupNotification(orders, context);
+  return orders[0].id;
+}
+
+async function ensureCanSendOrderGroupNotification(orders: Order[], context: RequestContext) {
+  if (!orders.length) throw new Error("The order group is empty.");
+  if (context.isAdmin) return;
+  if (orders.some((order) => order.customer_id !== context.userId)) {
+    throw new Error("You can only send notifications for your own order groups.");
+  }
 }
 
 async function ensureCanSendOrderNotification(orderId: string, context: RequestContext) {
@@ -243,12 +286,26 @@ async function lockNotification(notification: OrderNotification) {
 async function loadOrder(orderId: string): Promise<Order> {
   const params = new URLSearchParams({
     id: `eq.${orderId}`,
-    select: "id,customer_id,order_number,status,customer_name,customer_phone,customer_client_code,sales_client_id,sales_client_code,sales_client_name,sales_client_address,sales_client_locality,salesman_code,order_transport,notes,total_items,total_value,created_at,order_items(sku,name,unit_price,quantity,line_total,page)",
+    select: ORDER_SELECT,
   });
   const response = await supabaseFetch(`/rest/v1/orders?${params}`);
   const rows = await response.json();
   if (!rows.length) throw new Error(`Order ${orderId} not found`);
-  const order = rows[0];
+  return hydrateOrder(rows[0]);
+}
+
+async function loadOrderGroup(orderGroupId: string): Promise<Order[]> {
+  const params = new URLSearchParams({
+    branch_order_group_id: `eq.${orderGroupId}`,
+    select: ORDER_SELECT,
+    order: "created_at.asc,id.asc",
+  });
+  const response = await supabaseFetch(`/rest/v1/orders?${params}`);
+  const rows = await response.json();
+  return Promise.all(rows.map(hydrateOrder));
+}
+
+async function hydrateOrder(order: Order): Promise<Order> {
   const customerProfile = await loadCustomerProfile(order.customer_id);
   order.customer_email = customerProfile.email;
   order.customer_company = customerProfile.company;
@@ -456,6 +513,38 @@ async function updateNotification(id: string, patch: Record<string, unknown>) {
 }
 
 async function sendOrderEmail(order: Order): Promise<SentEmail> {
+  const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
+  const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
+  const emailSuffix = order.customer_email ? ` (${order.customer_email})` : "";
+  const branchSuffix = order.branch_name ? ` - Sucursal ${order.branch_name}` : "";
+  return deliverPreparedOrderEmail(order, {
+    subject: `Nuevo pedido ${orderLabel}${branchSuffix} - ${orderDisplayClientName(order) || "Cliente"}${emailSuffix}`,
+    text: buildOrderText(order, siteUrl),
+    html: buildOrderHtml(order, siteUrl),
+    attachments: [await buildOrderWorkbookAttachment(order)],
+  });
+}
+
+async function sendOrderBatchEmail(orders: Order[]): Promise<SentEmail> {
+  const primaryOrder = orders[0];
+  const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
+  const emailSuffix = primaryOrder.customer_email ? ` (${primaryOrder.customer_email})` : "";
+  const subject = `Nuevo pedido para ${orders.length} sucursales - ${orderDisplayClientName(primaryOrder) || "Cliente"}${emailSuffix}`;
+  const attachments = await Promise.all(orders.map(buildOrderWorkbookAttachment));
+  return deliverPreparedOrderEmail(primaryOrder, {
+    subject,
+    text: buildOrderBatchText(orders, siteUrl),
+    html: buildOrderBatchHtml(orders, siteUrl),
+    attachments,
+  });
+}
+
+async function deliverPreparedOrderEmail(order: Order, message: {
+  subject: string;
+  text: string;
+  html: string;
+  attachments: EmailAttachment[];
+}): Promise<SentEmail> {
   const apiKey = requiredEnv("RESEND_API_KEY");
   const primaryRecipients = uniqueEmails(emailList(requiredEnv("ORDER_NOTIFICATION_TO")));
   if (!primaryRecipients.length) throw new Error("ORDER_NOTIFICATION_TO has no valid recipients.");
@@ -466,13 +555,6 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
     && !primaryRecipients.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase());
   const usesTestingSender = /@resend\.dev\b/i.test(from);
   const optionalRecipients = salesmanNeedsCopy && !usesTestingSender ? [salesmanEmail] : [];
-  const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
-  const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
-  const emailSuffix = order.customer_email ? ` (${order.customer_email})` : "";
-  const subject = `Nuevo pedido ${orderLabel} - ${orderDisplayClientName(order) || "Cliente"}${emailSuffix}`;
-  const text = buildOrderText(order, siteUrl);
-  const html = buildOrderHtml(order, siteUrl);
-  const attachment = await buildOrderWorkbookAttachment(order);
 
   const deliveredTo: string[] = [];
   const emailIds: string[] = [];
@@ -482,10 +564,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
       const emailId = await sendResendEmail(apiKey, {
         from,
         to: [recipient],
-        subject,
-        text,
-        html,
-        attachments: [attachment],
+        ...message,
       });
       deliveredTo.push(recipient);
       emailIds.push(emailId);
@@ -504,10 +583,7 @@ async function sendOrderEmail(order: Order): Promise<SentEmail> {
       const emailId = await sendResendEmail(apiKey, {
         from,
         to: [recipient],
-        subject,
-        text,
-        html,
-        attachments: [attachment],
+        ...message,
       });
       deliveredTo.push(recipient);
       emailIds.push(emailId);
@@ -563,7 +639,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   const clientCode = orderClientCode(order);
   const clientCodeType = numericCellValue(clientCode) === null ? "string" : "number";
   sheetXml = upsertCell(sheetXml, "B1", orderDisplayClientName(order), "string");
-  sheetXml = upsertCell(sheetXml, "B2", orderSalesClientAddress(order), "string");
+  sheetXml = upsertCell(sheetXml, "B2", orderDeliveryAddress(order), "string");
   sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
   sheetXml = upsertCell(sheetXml, "B3", order.order_transport || "", "string");
   sheetXml = upsertCell(sheetXml, "K1", order.notes || "", "string");
@@ -581,7 +657,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   const orderLabel = order.order_number ? String(order.order_number) : order.id;
 
   return {
-    filename: `Nota de Pedido ${safeFilename(orderLabel)}.xlsx`,
+    filename: `Nota de Pedido ${safeFilename(orderLabel)}${order.branch_name ? ` - ${safeFilename(order.branch_name)}` : ""}.xlsx`,
     content: bytesToBase64(workbook),
     content_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   };
@@ -810,6 +886,15 @@ function orderSalesClientAddress(order: Order) {
   return [order.sales_client_address, order.sales_client_locality].filter(Boolean).join(" - ");
 }
 
+function orderBranchAddress(order: Order) {
+  return [order.branch_address, order.branch_locality].filter(Boolean).join(" - ");
+}
+
+function orderDeliveryAddress(order: Order) {
+  if (order.branch_name) return orderBranchAddress(order) || order.branch_name;
+  return orderSalesClientAddress(order);
+}
+
 function bytesToBase64(bytes: Uint8Array) {
   let binary = "";
   const chunkSize = 0x8000;
@@ -845,6 +930,69 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function buildOrderBatchText(orders: Order[], siteUrl: string) {
+  const primaryOrder = orders[0];
+  const totalItems = orders.reduce((sum, order) => sum + Number(order.total_items || 0), 0);
+  const totalValue = orders.reduce((sum, order) => sum + Number(order.total_value || 0), 0);
+  return [
+    `Nuevo pedido distribuido en ${orders.length} sucursales`,
+    "",
+    `Cliente: ${orderDisplayClientName(primaryOrder) || "-"}`,
+    orderClientCode(primaryOrder) ? `Código de cliente: ${orderClientCode(primaryOrder)}` : "",
+    primaryOrder.salesman_code ? `Código de vendedor: ${primaryOrder.salesman_code}` : "",
+    `Email de cuenta: ${primaryOrder.customer_email || "-"}`,
+    primaryOrder.customer_phone ? `Teléfono: ${primaryOrder.customer_phone}` : "",
+    primaryOrder.notes ? `Observaciones: ${primaryOrder.notes}` : "",
+    "",
+    ...orders.map((order) => {
+      const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
+      const destination = orderBranchAddress(order) || "Sin domicilio especificado";
+      return `${order.branch_name || "Sucursal"} · Pedido ${orderLabel} · ${destination} · ${order.total_items} unidades · ${formatMoney(Number(order.total_value))}`;
+    }),
+    "",
+    `Total general: ${totalItems} unidades · ${formatMoney(totalValue)}`,
+    `Se adjuntan ${orders.length} archivos Excel, uno por sucursal.`,
+    siteUrl ? `Catálogo: ${siteUrl}` : "",
+  ].filter(Boolean).join("\n");
+}
+
+function buildOrderBatchHtml(orders: Order[], siteUrl: string) {
+  const primaryOrder = orders[0];
+  const totalItems = orders.reduce((sum, order) => sum + Number(order.total_items || 0), 0);
+  const totalValue = orders.reduce((sum, order) => sum + Number(order.total_value || 0), 0);
+  const rows = orders.map((order) => {
+    const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
+    return `
+      <tr>
+        <td>${escapeHtml(order.branch_name || "Sucursal")}</td>
+        <td>${escapeHtml(orderLabel)}</td>
+        <td>${escapeHtml(orderBranchAddress(order) || "-")}</td>
+        <td>${escapeHtml(String(order.total_items))}</td>
+        <td>${escapeHtml(formatMoney(Number(order.total_value)))}</td>
+      </tr>
+    `;
+  }).join("");
+
+  return `
+    <div style="font-family:Arial,sans-serif;color:#16161a">
+      <h2>Nuevo pedido para ${escapeHtml(String(orders.length))} sucursales</h2>
+      <p><strong>Cliente:</strong> ${escapeHtml(orderDisplayClientName(primaryOrder) || "-")}</p>
+      ${orderClientCode(primaryOrder) ? `<p><strong>Código de cliente:</strong> ${escapeHtml(orderClientCode(primaryOrder))}</p>` : ""}
+      ${primaryOrder.salesman_code ? `<p><strong>Código de vendedor:</strong> ${escapeHtml(primaryOrder.salesman_code)}</p>` : ""}
+      <p><strong>Email de cuenta:</strong> ${escapeHtml(primaryOrder.customer_email || "-")}</p>
+      ${primaryOrder.customer_phone ? `<p><strong>Teléfono:</strong> ${escapeHtml(primaryOrder.customer_phone)}</p>` : ""}
+      ${primaryOrder.notes ? `<p><strong>Observaciones:</strong> ${escapeHtml(primaryOrder.notes)}</p>` : ""}
+      <table cellpadding="6" cellspacing="0" border="1" style="border-collapse:collapse;border-color:#dde1e7">
+        <thead><tr><th>Sucursal</th><th>Pedido</th><th>Destino</th><th>Unidades</th><th>Total</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p><strong>Total general:</strong> ${escapeHtml(String(totalItems))} unidades · ${escapeHtml(formatMoney(totalValue))}</p>
+      <p>Se adjuntan ${escapeHtml(String(orders.length))} archivos Excel, uno por sucursal.</p>
+      ${siteUrl ? `<p><a href="${escapeHtml(siteUrl)}">Abrir catálogo</a></p>` : ""}
+    </div>
+  `;
+}
+
 function buildOrderText(order: Order, siteUrl: string) {
   const orderLabel = order.order_number ? `#${order.order_number}` : order.id;
   const companyName = orderEmailCompanyLine(order);
@@ -852,6 +1000,8 @@ function buildOrderText(order: Order, siteUrl: string) {
     `Nuevo pedido ${orderLabel}`,
     "",
     `Cliente: ${orderDisplayClientName(order) || "-"}`,
+    order.branch_name ? `Sucursal: ${order.branch_name}` : "",
+    orderBranchAddress(order) ? `Destino: ${orderBranchAddress(order)}` : "",
     companyName ? `Empresa: ${companyName}` : "",
     orderClientCode(order) ? `Código de cliente: ${orderClientCode(order)}` : "",
     orderSalesClientAddress(order) ? `Dirección: ${orderSalesClientAddress(order)}` : "",
@@ -889,6 +1039,8 @@ function buildOrderHtml(order: Order, siteUrl: string) {
     <div style="font-family:Arial,sans-serif;color:#16161a">
       <h2>Nuevo pedido ${escapeHtml(orderLabel)}</h2>
       <p><strong>Cliente:</strong> ${escapeHtml(orderDisplayClientName(order) || "-")}</p>
+      ${order.branch_name ? `<p><strong>Sucursal:</strong> ${escapeHtml(order.branch_name)}</p>` : ""}
+      ${orderBranchAddress(order) ? `<p><strong>Destino:</strong> ${escapeHtml(orderBranchAddress(order))}</p>` : ""}
       ${companyName ? `<p><strong>Empresa:</strong> ${escapeHtml(companyName)}</p>` : ""}
       ${orderClientCode(order) ? `<p><strong>Código de cliente:</strong> ${escapeHtml(orderClientCode(order))}</p>` : ""}
       ${orderSalesClientAddress(order) ? `<p><strong>Dirección:</strong> ${escapeHtml(orderSalesClientAddress(order))}</p>` : ""}
@@ -966,6 +1118,14 @@ function requiredEnv(name: string) {
   const value = Deno.env.get(name);
   if (!value) throw new Error(`Missing ${name}`);
   return value;
+}
+
+function requiredUuid(value: unknown, field: string) {
+  const text = String(value || "").trim();
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(text)) {
+    throw new Error(`${field} must be a UUID.`);
+  }
+  return text;
 }
 
 function emailList(value: string) {

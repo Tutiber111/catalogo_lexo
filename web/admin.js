@@ -1513,7 +1513,7 @@
       <article class="order-card order-card-compact" role="button" tabindex="0" data-order-card="${escapeHtml(order.id)}">
         <div class="order-compact-main">
           <div class="order-compact-buyer">
-            <strong>${escapeHtml(buyer)}</strong>
+            <strong>${escapeHtml(buyer)}${order.branch?.name ? ` · ${escapeHtml(order.branch.name)}` : ""}</strong>
           </div>
           <strong class="order-compact-total">${CATALOG_STORE.formatMoney(order.totalValue)}</strong>
           <button class="secondary-button compact-button ${archived ? "" : "danger-button"}" type="button" data-archive-order="${escapeHtml(order.id)}" data-action="${archived ? "restore" : "archive"}">
@@ -1556,6 +1556,8 @@
           ${order.customer?.phone ? `<span><strong>Teléfono</strong>${escapeHtml(order.customer.phone)}</span>` : ""}
           ${salesClient?.clientCode ? `<span><strong>Código cliente</strong>${escapeHtml(salesClient.clientCode)}</span>` : ""}
           ${salesClientAddress(salesClient) ? `<span><strong>Dirección</strong>${escapeHtml(salesClientAddress(salesClient))}</span>` : ""}
+          ${order.branch?.name ? `<span><strong>Sucursal</strong>${escapeHtml(order.branch.name)}</span>` : ""}
+          ${order.branch && (order.branch.address || order.branch.locality) ? `<span><strong>Destino</strong>${escapeHtml([order.branch.address, order.branch.locality].filter(Boolean).join(" - "))}</span>` : ""}
         </div>
         <div class="order-lines order-lines-detail">
           ${order.items.map((item) => `
@@ -1788,6 +1790,9 @@
       "fecha_archivo",
       "cliente_nombre",
       "cliente_telefono",
+      "sucursal",
+      "sucursal_direccion",
+      "grupo_sucursales",
       "notas",
       "total_unidades",
       "valor_total",
@@ -1809,6 +1814,9 @@
         order.archivedAt || "",
         order.customer?.name || "",
         order.customer?.phone || "",
+        order.branch?.name || "",
+        order.branch ? [order.branch.address, order.branch.locality].filter(Boolean).join(" - ") : "",
+        order.orderGroupId || "",
         order.customer?.notes || "",
         order.totalItems || 0,
         order.totalValue || 0,

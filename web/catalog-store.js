@@ -249,6 +249,15 @@
         salesmanCode: String(customer.salesmanCode || "").trim(),
         transport: String(customer.transport || "").trim(),
       },
+      orderGroupId: String(customer.orderGroupId || "").trim(),
+      branch: customer.branch
+        ? {
+            id: String(customer.branch.id || "").trim(),
+            name: String(customer.branch.name || "").trim(),
+            address: String(customer.branch.address || "").trim(),
+            locality: String(customer.branch.locality || "").trim(),
+          }
+        : null,
       items: lines.map(({ product, qty }) => ({
         productId: product.id,
         sku: product.sku,

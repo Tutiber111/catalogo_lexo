@@ -17,7 +17,11 @@ type Notification = {
   updated_at: string;
 };
 
-const DEFAULT_RECIPIENTS = ["martinbertisch@gmail.com", "ventas@lexo.com.ar"];
+const DEFAULT_RECIPIENTS = [
+  "martinbertisch@gmail.com",
+  "ventas@lexo.com.ar",
+  "gabertisch@hotmail.com",
+];
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-price-access-secret",
@@ -191,7 +195,7 @@ function configuredRecipients() {
     .split(/[;,]/)
     .map((value) => value.trim().toLowerCase())
     .filter((value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
-  return [...new Set(configured.length ? configured : DEFAULT_RECIPIENTS)];
+  return [...new Set([...DEFAULT_RECIPIENTS, ...configured])];
 }
 
 function isInternalRequest(req: Request) {

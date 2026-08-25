@@ -67,6 +67,25 @@ where email = 'salesman@example.com';
 
 Salesmen can only search and select clients assigned to their `salesman_code`. Admins can search every imported client.
 
+### Orders by Branch
+
+The migration `supabase/migrations/20260825000000_add_branch_order_mode.sql`
+adds reusable branches for registered customers and imported sales clients.
+Customers, salesmen, and admins can distribute every cart product across those
+branches from the **Sucursales** matrix. Products can be added to that matrix
+from the visual catalog or directly by SKU with keyboard-friendly suggestions.
+The app creates one regular order per branch, skips zero quantities, and gives
+the related orders a shared group ID.
+
+Each order keeps a snapshot of the branch name and destination. That information
+is included in order history, admin exports, notification emails, the Excel order
+attachment, and the ERP payload. Offline branch orders remain separate pending
+orders and keep their duplicate-safe request IDs when synchronized.
+
+A sucursal batch sends one notification email after every branch order has been
+saved. The message summarizes all destinations and includes one Excel attachment
+per sucursal. Normal orders continue to send one email with one attachment.
+
 ## Supabase Order Notifications
 
 New Supabase orders can send an email notification through the `send-order-notifications` Edge Function.

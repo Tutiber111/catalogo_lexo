@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260821-tablet-account-r5">
+    <link rel="stylesheet" href="styles.css?v=20260825-branch-batch-r5">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -89,6 +89,7 @@
             <strong id="zoomValue">100%</strong>
           </label>
           <button id="openQuickOrderToolbar" class="secondary-button quick-order-toolbar-button" type="button">Carga r&aacute;pida</button>
+          <button id="openBranchOrderToolbar" class="secondary-button branch-order-toolbar-button" type="button">Sucursales</button>
           <button id="openCart" class="cart-button" type="button">
             Carrito <span id="cartCount">0</span>
           </button>
@@ -125,6 +126,7 @@
         <section id="cartProductsView" class="cart-view cart-products-view" role="tabpanel" aria-labelledby="cartProductsTab">
           <div id="quickOrderPanel" class="quick-order-panel">
             <button id="openQuickOrder" class="secondary-button quick-order-open" type="button">Carga r&aacute;pida por SKU</button>
+            <button id="openBranchOrder" class="secondary-button branch-order-open" type="button">Modo sucursales</button>
           </div>
           <div id="cartItems" class="cart-items"></div>
           <div class="cart-products-footer">
@@ -553,6 +555,9 @@
       <button id="mobileOpenQuickOrder" type="button">
         <span class="mobile-action-icon" aria-hidden="true">+</span><small>Carga</small>
       </button>
+      <button id="mobileOpenBranchOrder" type="button">
+        <span class="mobile-action-icon branch-action-icon" aria-hidden="true">S</span><small>Sucursales</small>
+      </button>
       <button id="mobileOpenCart" class="mobile-cart-action" type="button">
         <span class="mobile-action-icon" aria-hidden="true">Carrito</span><small><span id="mobileCartCount">0</span> uds.</small>
       </button>
@@ -611,6 +616,89 @@
       </div>
     </dialog>
 
+    <dialog id="branchClientDialog" class="branch-client-dialog">
+      <form method="dialog">
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar selector de cliente">&times;</button>
+      </form>
+      <div class="branch-client-dialog-body">
+        <header>
+          <span class="eyebrow">Modo sucursales</span>
+          <h2>Elegir cliente</h2>
+          <p>Buscá por código o nombre para cargar sus sucursales.</p>
+        </header>
+        <label class="branch-client-search-field" for="branchClientSearch">
+          <span>Cliente</span>
+          <input id="branchClientSearch" type="search" autocomplete="off" placeholder="Buscar por código o nombre">
+        </label>
+        <div id="branchClientResults" class="branch-client-results" role="listbox" aria-label="Clientes disponibles"></div>
+      </div>
+    </dialog>
+
+    <dialog id="branchOrderDialog" class="branch-order-dialog">
+      <form method="dialog">
+        <button id="closeBranchOrder" class="dialog-close" type="button" data-dialog-close aria-label="Cerrar modo sucursales">&times;</button>
+      </form>
+      <div class="branch-order-dialog-body">
+        <header class="branch-order-dialog-header">
+          <div>
+            <span class="eyebrow">Pedido por destino</span>
+            <h2>Modo sucursales</h2>
+            <div class="branch-order-customer-row">
+              <p id="branchOrderCustomer" class="branch-order-customer"></p>
+              <button id="changeBranchOrderClient" class="secondary-button compact-button" type="button" hidden>Cambiar cliente</button>
+            </div>
+          </div>
+          <div id="branchOrderBatchSummary" class="branch-order-batch-summary" aria-live="polite"></div>
+        </header>
+        <section class="branch-order-setup" aria-labelledby="branchOrderSetupTitle">
+          <div class="branch-order-section-heading">
+            <h3 id="branchOrderSetupTitle">Sucursales</h3>
+            <span id="branchOrderStatus" role="status" aria-live="polite"></span>
+          </div>
+          <div class="branch-order-new-fields">
+            <label>
+              <span>Nombre</span>
+              <input id="branchOrderNewName" type="text" autocomplete="organization" placeholder="Ej. Sucursal Centro">
+            </label>
+            <label>
+              <span>Domicilio <em>opcional</em></span>
+              <input id="branchOrderNewAddress" type="text" autocomplete="street-address">
+            </label>
+            <label>
+              <span>Localidad <em>opcional</em></span>
+              <input id="branchOrderNewLocality" type="text" autocomplete="address-level2">
+            </label>
+            <button id="addClientBranch" class="secondary-button" type="button">Agregar sucursal</button>
+          </div>
+          <div class="branch-product-entry">
+            <label for="branchProductSku">
+              <span>Agregar producto por SKU</span>
+              <div class="branch-product-entry-controls">
+                <input
+                  id="branchProductSku"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="off"
+                  aria-autocomplete="list"
+                  aria-controls="branchProductSuggestions"
+                  aria-expanded="false"
+                  placeholder="Escribí un SKU"
+                >
+                <button id="addBranchProduct" class="secondary-button" type="button" disabled>Agregar</button>
+              </div>
+            </label>
+            <div id="branchProductSuggestions" class="branch-product-suggestions" role="listbox" aria-label="Productos sugeridos" hidden></div>
+            <p id="branchProductFeedback" class="branch-product-feedback" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+        <div id="branchOrderMatrix" class="branch-order-matrix" aria-label="Cantidades por producto y sucursal"></div>
+        <footer class="branch-order-actions">
+          <button class="secondary-button" type="button" data-dialog-close>Cerrar</button>
+          <button id="submitBranchOrders" class="primary-button" type="button" disabled>Enviar pedidos</button>
+        </footer>
+      </div>
+    </dialog>
+
     <dialog id="orderReceiptDialog" class="order-receipt-dialog">
       <form method="dialog">
         <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar comprobante">×</button>
@@ -656,10 +744,10 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
-    <script src="catalog-store.js?v=20260821-offline-order-id-r4"></script>
-    <script src="supabase-client.js?v=20260820-erp-sync"></script>
+    <script src="catalog-store.js?v=20260825-branch-batch-r5"></script>
+    <script src="supabase-client.js?v=20260825-branch-batch-r5"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260821-tablet-account-r5"></script>
-    <script src="admin.js?v=20260820-page208-stock"></script>
+    <script src="app.js?v=20260825-branch-batch-r5"></script>
+    <script src="admin.js?v=20260825-branch-batch-r5"></script>
   </body>
 </html>

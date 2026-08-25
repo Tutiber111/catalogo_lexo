@@ -204,6 +204,46 @@
     return normalizeSalesClient(data);
   }
 
+  async function loadClientBranches(scope = {}) {
+    if (!client) return [];
+    let query = client
+      .from("client_branches")
+      .select("id,owner_profile_id,sales_client_id,name,address,locality,sort_order,created_at,updated_at")
+      .order("sort_order", { ascending: true })
+      .order("name", { ascending: true });
+    if (scope.salesClientId) query = query.eq("sales_client_id", scope.salesClientId);
+    else if (scope.ownerProfileId) query = query.eq("owner_profile_id", scope.ownerProfileId);
+    else return [];
+    const { data, error } = await query;
+    if (error) throw error;
+    return (data || []).map(normalizeClientBranch);
+  }
+
+  async function createClientBranch(branch) {
+    if (!client) throw new Error("Supabase no está disponible.");
+    const payload = {
+      owner_profile_id: branch.ownerProfileId || null,
+      sales_client_id: branch.salesClientId || null,
+      name: String(branch.name || "").trim(),
+      address: String(branch.address || "").trim(),
+      locality: String(branch.locality || "").trim(),
+      sort_order: Number(branch.sortOrder || 0),
+    };
+    const { data, error } = await client
+      .from("client_branches")
+      .insert(payload)
+      .select("id,owner_profile_id,sales_client_id,name,address,locality,sort_order,created_at,updated_at")
+      .single();
+    if (error) throw error;
+    return normalizeClientBranch(data);
+  }
+
+  async function deleteClientBranch(branchId) {
+    if (!client || !branchId) throw new Error("No se pudo identificar la sucursal.");
+    const { error } = await client.from("client_branches").delete().eq("id", branchId);
+    if (error) throw error;
+  }
+
   async function loadPendingPriceApprovals() {
     if (!client) return [];
     const { data, error } = await client
@@ -277,6 +317,11 @@
       client_code: order.customer.clientCode || "",
       transport: order.customer.transport || "",
       notes: order.customer.notes || "",
+      branch_order_group_id: order.orderGroupId || null,
+      client_branch_id: order.branch?.id && !String(order.branch.id).startsWith("local-") ? order.branch.id : null,
+      branch_name: order.branch?.name || "",
+      branch_address: order.branch?.address || "",
+      branch_locality: order.branch?.locality || "",
       items: order.items.map((item) => ({
         productId: item.productId,
         quantity: item.qty,
@@ -337,7 +382,7 @@
     return result;
   }
 
-  async function saveOrder(order, userId) {
+  async function saveOrder(order, userId, options = {}) {
     if (!client || !userId) throw new Error("Iniciá sesión antes de enviar el pedido.");
 
     const clientRequestId = String(order.clientRequestId || "").trim();
@@ -360,6 +405,11 @@
       salesman_code: order.customer.salesClient?.salesmanCode || order.customer.salesmanCode || "",
       order_transport: order.customer.transport || "",
       notes: order.customer.notes,
+      branch_order_group_id: order.orderGroupId || null,
+      client_branch_id: order.branch?.id && !String(order.branch.id).startsWith("local-") ? order.branch.id : null,
+      branch_name: order.branch?.name || "",
+      branch_address: order.branch?.address || "",
+      branch_locality: order.branch?.locality || "",
       total_items: order.totalItems,
       total_value: order.totalValue,
     };
@@ -415,7 +465,7 @@
       });
     if (itemsError) throw itemsError;
 
-    const notification = await requestOrderNotification(savedOrder.id);
+    const notification = options.notify === false ? null : await requestOrderNotification(savedOrder.id);
 
     return { ...normalizeOrder({ ...savedOrder, order_items: items }), notification };
   }
@@ -436,6 +486,38 @@
       return { ok: true, data };
     } catch (error) {
       console.warn("No se pudo enviar la notificacion del pedido", error);
+      return { ok: false, error: error.message || String(error) };
+    }
+  }
+
+  async function requestOrderBatchNotification(orderGroupId) {
+    try {
+      const groupId = String(orderGroupId || "").trim();
+      if (!groupId) throw new Error("No se pudo identificar el grupo de pedidos.");
+      const { data: firstOrder, error: orderError } = await client
+        .from("orders")
+        .select("id")
+        .eq("branch_order_group_id", groupId)
+        .order("created_at", { ascending: true })
+        .order("id", { ascending: true })
+        .limit(1)
+        .single();
+      if (orderError) throw orderError;
+
+      const { error: queueError } = await client.from("order_notifications").insert({ order_id: firstOrder.id });
+      if (queueError && queueError.code !== "23505") {
+        console.warn("No se pudo crear la cola de notificación del grupo", queueError);
+      }
+
+      const { data, error: functionError } = await client.functions.invoke("send-order-notifications", {
+        body: { order_group_id: groupId },
+      });
+      if (functionError) throw functionError;
+      const failed = data?.results?.find((result) => result.status === "failed");
+      if (failed) throw new Error(failed.error || "No se pudo enviar el email agrupado.");
+      return { ok: true, data };
+    } catch (error) {
+      console.warn("No se pudo enviar la notificación agrupada", error);
       return { ok: false, error: error.message || String(error) };
     }
   }
@@ -643,6 +725,15 @@
         salesmanCode: order.salesman_code || "",
         transport: order.order_transport || "",
       },
+      orderGroupId: order.branch_order_group_id || "",
+      branch: order.branch_name
+        ? {
+            id: order.client_branch_id || "",
+            name: order.branch_name || "",
+            address: order.branch_address || "",
+            locality: order.branch_locality || "",
+          }
+        : null,
       items: (order.order_items || []).map((item) => ({
         productId: item.product_id,
         sku: item.sku,
@@ -686,6 +777,20 @@
     };
   }
 
+  function normalizeClientBranch(row = {}) {
+    return {
+      id: row.id || "",
+      ownerProfileId: row.owner_profile_id || "",
+      salesClientId: row.sales_client_id || "",
+      name: row.name || "",
+      address: row.address || "",
+      locality: row.locality || "",
+      sortOrder: Number(row.sort_order || 0),
+      createdAt: row.created_at || "",
+      updatedAt: row.updated_at || "",
+    };
+  }
+
   function normalizeSalesmanCode(value) {
     const text = String(value || "").trim();
     const match = text.match(/^([^-]+)/);
@@ -710,6 +815,9 @@
     upsertProfile,
     loadSalesClients,
     createSalesClient,
+    loadClientBranches,
+    createClientBranch,
+    deleteClientBranch,
     loadPendingPriceApprovals,
     approveProfilePriceAccess,
     createCatalogGuestLink,
@@ -721,6 +829,7 @@
     searchCustomerAccounts,
     setCustomerTemporaryPassword,
     saveOrder,
+    requestOrderBatchNotification,
     requestOrderNotification,
     resendOrderNotification,
     syncOrderDeliveryStatuses,
