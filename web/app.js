@@ -30,6 +30,8 @@ const state = {
   branchOrderPendingDelete: "",
   branchOrderSubmission: null,
   branchClientPickerReturnToBranch: false,
+  branchCatalogModeActive: false,
+  branchCatalogFocusProductId: "",
   branchProductSuggestionIndex: -1,
   branchProductSuggestions: [],
   barcodeScanBuffer: "",
@@ -118,6 +120,10 @@ const els = {
   mobileOpenCart: document.querySelector("#mobileOpenCart"),
   mobileOpenAccount: document.querySelector("#mobileOpenAccount"),
   mobileNextPage: document.querySelector("#mobileNextPage"),
+  branchCatalogModeBar: document.querySelector("#branchCatalogModeBar"),
+  branchCatalogModeLabel: document.querySelector("#branchCatalogModeLabel"),
+  viewBranchCatalogOrder: document.querySelector("#viewBranchCatalogOrder"),
+  exitBranchCatalogMode: document.querySelector("#exitBranchCatalogMode"),
   mobileCartCount: document.querySelector("#mobileCartCount"),
   closeMobileCatalog: document.querySelector("#closeMobileCatalog"),
   mobileCatalogBackdrop: document.querySelector("#mobileCatalogBackdrop"),
@@ -155,6 +161,7 @@ const els = {
   branchProductSuggestions: document.querySelector("#branchProductSuggestions"),
   branchProductFeedback: document.querySelector("#branchProductFeedback"),
   branchOrderMatrix: document.querySelector("#branchOrderMatrix"),
+  activateBranchCatalogMode: document.querySelector("#activateBranchCatalogMode"),
   submitBranchOrders: document.querySelector("#submitBranchOrders"),
   cartItems: document.querySelector("#cartItems"),
   cartTotalItems: document.querySelector("#cartTotalItems"),
@@ -358,6 +365,8 @@ function bindEvents() {
   els.mobileOpenCart.addEventListener("click", openCart);
   els.mobileOpenAccount.addEventListener("click", toggleAccount);
   els.mobileNextPage.addEventListener("click", () => goToAdjacentVisiblePage(1));
+  els.viewBranchCatalogOrder.addEventListener("click", () => openBranchOrderMode());
+  els.exitBranchCatalogMode.addEventListener("click", () => disableBranchCatalogMode());
   els.closeMobileCatalog.addEventListener("click", closeCatalogMenu);
   els.mobileCatalogBackdrop.addEventListener("click", closeCatalogMenu);
   els.closeCart.addEventListener("click", closeCart);
@@ -390,6 +399,7 @@ function bindEvents() {
   els.branchProductSuggestions.addEventListener("pointerdown", handleBranchProductSuggestionPointer);
   els.branchProductSuggestions.addEventListener("click", handleBranchProductSuggestionClick);
   els.addBranchProduct.addEventListener("click", () => addProductToBranchMatrix());
+  els.activateBranchCatalogMode.addEventListener("click", activateBranchCatalogMode);
   els.submitBranchOrders.addEventListener("click", submitBranchOrders);
   els.branchOrderMatrix.addEventListener("input", handleBranchOrderMatrixInput);
   els.branchOrderMatrix.addEventListener("click", handleBranchOrderMatrixClick);
@@ -667,6 +677,7 @@ function renderAll() {
   renderZoom();
   renderPage();
   renderCart();
+  renderBranchCatalogMode();
 }
 
 function renderZoom() {
@@ -878,6 +889,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
     return;
   }
   const allOutOfStock = products.length > 0 && products.every((product) => product.outOfStock);
+  const branchMode = state.branchCatalogModeActive;
   if (products.length === 1) {
     openProduct(products[0]);
     return;
@@ -893,23 +905,25 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
         ${products
           .map(
             (product) => `
-              <div class="group-product${product.outOfStock ? " is-out-of-stock" : ""}" data-group-product="${product.id}">
+              <div class="group-product${product.outOfStock ? " is-out-of-stock" : ""}${branchMode ? " is-branch-mode" : ""}" data-group-product="${product.id}">
                 <div>
                   <span>${escapeHtml(product.name)}</span>
                   <strong>${escapeHtml(product.sku)}</strong>
                   <em class="group-product-status" data-added-status="${product.id}" aria-live="polite"></em>
                   ${product.videoUrl ? `<button class="group-video-button" type="button" data-video-product="${product.id}"><span aria-hidden="true">&#9654;</span> Ver video</button>` : ""}
                 </div>
-                <div class="dialog-qty">
-                  <span>Cant.</span>
-                  <div class="quantity-stepper quantity-stepper-compact">
-                    <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad"${product.outOfStock ? " disabled" : ""}>-</button>
-                    <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}"${product.outOfStock ? " disabled" : ""}>
-                    <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${product.outOfStock ? " disabled" : ""}>+</button>
+                ${branchMode ? "" : `
+                  <div class="dialog-qty">
+                    <span>Cant.</span>
+                    <div class="quantity-stepper quantity-stepper-compact">
+                      <button class="quantity-step-button" type="button" data-qty-step="-1" aria-label="Disminuir cantidad"${product.outOfStock ? " disabled" : ""}>-</button>
+                      <input type="number" min="1" step="1" value="1" inputmode="numeric" data-qty="${product.id}"${product.outOfStock ? " disabled" : ""}>
+                      <button class="quantity-step-button" type="button" data-qty-step="1" aria-label="Aumentar cantidad"${product.outOfStock ? " disabled" : ""}>+</button>
+                    </div>
+                    <strong class="dialog-line-total" data-total-for="${product.id}">${product.outOfStock ? "Sin stock" : `Total ${formatMoney(priceNumber(product.price))}`}</strong>
                   </div>
-                  <strong class="dialog-line-total" data-total-for="${product.id}">${product.outOfStock ? "Sin stock" : `Total ${formatMoney(priceNumber(product.price))}`}</strong>
-                </div>
-                <button class="small-add-button" type="button" data-add="${product.id}"${product.outOfStock ? " disabled" : ""}>${product.outOfStock ? "Sin stock" : "Agregar"}</button>
+                `}
+                <button class="small-add-button" type="button" data-add="${product.id}"${product.outOfStock ? " disabled" : ""}>${product.outOfStock ? "Sin stock" : (branchMode ? "Repartir" : "Agregar")}</button>
               </div>
             `,
           )
@@ -924,6 +938,10 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
       const product = state.productsById.get(button.dataset.add);
       if (product?.outOfStock) {
         showToast("Este producto está sin stock");
+        return;
+      }
+      if (state.branchCatalogModeActive) {
+        routeProductToBranchOrder(product);
         return;
       }
       const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
@@ -987,6 +1005,10 @@ function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
       status.textContent = "Sin stock";
       return;
     }
+    if (state.branchCatalogModeActive) {
+      status.textContent = branchProductIsInMatrix(product) ? "En planilla" : "";
+      return;
+    }
     const cartQuantity = state.cart.get(productId) || 0;
     if (!cartQuantity) {
       status.textContent = "0 en carrito";
@@ -1002,6 +1024,7 @@ function updateGroupCartStatuses(recentProductId = "", recentQuantity = 0) {
 
 function openProduct(product) {
   if (!product) return;
+  if (routeProductToBranchOrder(product)) return;
   if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
   const outOfStock = Boolean(product.outOfStock);
   const pricesVisible = hasPriceAccess();
@@ -1931,6 +1954,61 @@ function branchOrderCartLines() {
     .filter((line) => isOrderableProduct(line.product));
 }
 
+function activateBranchCatalogMode() {
+  if (state.branchOrderLoading || state.branchOrderSaving) return;
+  if (!branchOrderScope()) {
+    openBranchClientPicker();
+    return;
+  }
+  if (!state.clientBranches.length) {
+    showToast("Agregá al menos una sucursal antes de activar este modo");
+    els.branchOrderNewName.focus();
+    return;
+  }
+
+  state.branchCatalogModeActive = true;
+  renderBranchCatalogMode();
+  closeCatalogDialog(els.branchOrderDialog);
+  showToast("Modo sucursales activado");
+}
+
+function disableBranchCatalogMode(options = {}) {
+  const wasActive = state.branchCatalogModeActive;
+  state.branchCatalogModeActive = false;
+  state.branchCatalogFocusProductId = "";
+  renderBranchCatalogMode();
+  if (wasActive && !options.silent) showToast("Modo sucursales desactivado. El borrador quedó guardado.");
+}
+
+function renderBranchCatalogMode() {
+  const scope = branchOrderScope();
+  const active = Boolean(
+    state.branchCatalogModeActive
+    && scope
+    && state.clientBranches.length
+    && hasPriceAccess()
+    && !hasGuestAccess(),
+  );
+  if (!active && state.branchCatalogModeActive) state.branchCatalogModeActive = false;
+  document.body.classList.toggle("branch-catalog-mode-active", active);
+  els.branchCatalogModeBar.hidden = !active;
+  els.openBranchOrderToolbar.classList.toggle("is-active", active);
+  els.mobileOpenBranchOrder.classList.toggle("is-active", active);
+  els.activateBranchCatalogMode.disabled = state.branchOrderLoading || state.branchOrderSaving || !state.clientBranches.length;
+  els.activateBranchCatalogMode.title = state.clientBranches.length ? "" : "Agregá al menos una sucursal para activar este modo";
+  els.activateBranchCatalogMode.textContent = active ? "Seguir agregando desde el catálogo" : "Activar modo sucursales";
+  if (!active) {
+    els.branchCatalogModeLabel.textContent = "";
+    return;
+  }
+
+  const itemCount = branchOrderGroups().reduce(
+    (sum, group) => sum + group.lines.reduce((groupSum, line) => groupSum + line.qty, 0),
+    0,
+  );
+  els.branchCatalogModeLabel.textContent = `${scope.label}${itemCount ? ` · ${itemCount} unidades asignadas` : " · Elegí un producto"}`;
+}
+
 function openBranchClientPicker() {
   if (!canSelectSalesClient()) return;
   closeCatalogMenu();
@@ -1999,7 +2077,8 @@ function selectBranchOrderClient(clientId) {
   openBranchOrderMode();
 }
 
-async function openBranchOrderMode() {
+async function openBranchOrderMode(options = {}) {
+  const focusProductId = typeof options?.focusProductId === "string" ? options.focusProductId : "";
   closeCatalogMenu();
   if (!hasPriceAccess()) {
     showToast("El modo sucursales se habilitará cuando aprueben tu cuenta");
@@ -2029,10 +2108,12 @@ async function openBranchOrderMode() {
   }
   els.branchOrderCustomer.textContent = scope.label;
   els.changeBranchOrderClient.hidden = !canSelectSalesClient();
+  state.branchCatalogFocusProductId = focusProductId;
   resetBranchProductEntry();
   state.branchOrderLoading = true;
   renderBranchOrder();
   showCatalogDialog(els.branchOrderDialog);
+  focusBranchOrderProduct(focusProductId);
 
   const cached = readCachedClientBranches(scope.key);
   state.clientBranches = cached;
@@ -2048,6 +2129,7 @@ async function openBranchOrderMode() {
     state.branchOrderLoading = false;
     if (els.branchOrderStatus.textContent === "Cargando...") els.branchOrderStatus.textContent = "";
     renderBranchOrder();
+    focusBranchOrderProduct(focusProductId);
   }
 }
 
@@ -2289,6 +2371,37 @@ function addProductToBranchMatrix(product = branchProductExactMatch()) {
   requestAnimationFrame(() => els.branchProductSku.focus());
 }
 
+function routeProductToBranchOrder(product) {
+  if (!state.branchCatalogModeActive || !product) return false;
+  if (product.outOfStock) {
+    showToast("Este producto está sin stock");
+    return true;
+  }
+  if (!branchOrderScope()) {
+    disableBranchCatalogMode({ silent: true });
+    openBranchClientPicker();
+    return true;
+  }
+
+  if (!branchProductIsInMatrix(product)) addProductToBranchMatrix(product);
+  state.branchCatalogFocusProductId = product.id;
+  if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
+  openBranchOrderMode({ focusProductId: product.id });
+  return true;
+}
+
+function focusBranchOrderProduct(productId) {
+  if (!productId || !isCatalogDialogOpen(els.branchOrderDialog)) return;
+  requestAnimationFrame(() => {
+    const row = els.branchOrderMatrix.querySelector(`[data-branch-product-row="${cssEscape(productId)}"]`);
+    const input = row?.querySelector("[data-branch-quantity]");
+    if (!row || !input) return;
+    input.scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
+    input.focus({ preventScroll: true });
+    input.select();
+  });
+}
+
 function renderBranchOrder() {
   const lines = branchOrderCartLines();
   const branches = state.clientBranches;
@@ -2323,7 +2436,7 @@ function renderBranchOrder() {
       </thead>
       <tbody>
         ${lines.length ? lines.map(({ product }) => `
-          <tr>
+          <tr class="${state.branchCatalogFocusProductId === product.id ? "is-targeted" : ""}" data-branch-product-row="${escapeAttribute(product.id)}">
             <th class="branch-product-column" scope="row">
               <strong>${escapeHtml(product.sku)}</strong>
               <span>${escapeHtml(product.name)}</span>
@@ -2417,6 +2530,7 @@ function renderBranchOrderSummary() {
     const value = group?.lines.reduce((sum, line) => sum + priceNumber(line.product.price) * line.qty, 0) || 0;
     target.innerHTML = `<strong>${items} uds.</strong><span>${formatMoney(value)}</span>`;
   });
+  renderBranchCatalogMode();
 }
 
 async function handleBranchOrderMatrixClick(event) {
@@ -2530,6 +2644,7 @@ async function submitBranchOrders() {
     window.dispatchEvent(new CustomEvent("catalog:orders-changed"));
     await renderCustomerOrders();
     closeCatalogDialog(els.branchOrderDialog);
+    disableBranchCatalogMode({ silent: true });
     clearSubmittedCart();
     state.branchOrderQuantities = {};
     state.branchOrderSubmission = null;
@@ -3056,6 +3171,7 @@ function applyPriceAccessState() {
   els.quickOrderPanel.hidden = !access;
 
   if (!access) {
+    disableBranchCatalogMode({ silent: true });
     closeCart();
     if (isCatalogDialogOpen(els.quickOrderDialog)) closeCatalogDialog(els.quickOrderDialog);
     if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
@@ -3906,6 +4022,7 @@ function clearSelectedSalesClient(options = {}) {
 }
 
 function resetBranchOrderForClientChange() {
+  disableBranchCatalogMode({ silent: true });
   state.clientBranches = [];
   state.branchOrderQuantities = {};
   state.branchOrderScopeKey = "";
@@ -4417,6 +4534,7 @@ async function updatePassword() {
 }
 
 async function signOut() {
+  disableBranchCatalogMode({ silent: true });
   if (hasGuestAccess()) {
     clearGuestAccess();
     els.cartTransport.value = "";

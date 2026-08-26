@@ -1,14 +1,14 @@
-const CACHE_NAME = "lexo-catalog-v20260825-branch-batch-r5";
+const CACHE_NAME = "lexo-catalog-v20260826-branch-catalog-r2";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260825-branch-batch-r5",
+  "./styles.css?v=20260826-branch-catalog-r2",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260825-branch-batch-r5",
-  "./admin.js?v=20260825-branch-batch-r5",
-  "./catalog-store.js?v=20260825-branch-batch-r5",
-  "./supabase-client.js?v=20260825-branch-batch-r5",
+  "./app.js?v=20260826-branch-catalog-r2",
+  "./admin.js?v=20260826-branch-catalog-r2",
+  "./catalog-store.js?v=20260826-branch-catalog-r2",
+  "./supabase-client.js?v=20260826-branch-catalog-r2",
   "./data/catalog-data.js?v=20260820-page208-stock",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",

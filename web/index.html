@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260825-branch-batch-r5">
+    <link rel="stylesheet" href="styles.css?v=20260826-branch-catalog-r2">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -17,6 +17,16 @@
       <div class="offline-banner-actions">
         <button id="viewOfflineOrders" class="secondary-button compact-button" type="button" hidden>Ver pendientes</button>
         <button id="syncOfflineOrders" class="secondary-button compact-button" type="button" hidden>Reintentar conexi&oacute;n</button>
+      </div>
+    </div>
+    <div id="branchCatalogModeBar" class="branch-catalog-mode-bar" role="status" hidden>
+      <div>
+        <strong>Modo sucursales activo</strong>
+        <span id="branchCatalogModeLabel"></span>
+      </div>
+      <div class="branch-catalog-mode-actions">
+        <button id="viewBranchCatalogOrder" class="secondary-button compact-button" type="button">Ver pedido</button>
+        <button id="exitBranchCatalogMode" class="secondary-button compact-button" type="button">Salir</button>
       </div>
     </div>
     <section id="guestAccessGate" class="guest-access-gate" aria-label="Acceso temporal al catálogo" hidden>
@@ -693,6 +703,7 @@
         </section>
         <div id="branchOrderMatrix" class="branch-order-matrix" aria-label="Cantidades por producto y sucursal"></div>
         <footer class="branch-order-actions">
+          <button id="activateBranchCatalogMode" class="secondary-button branch-catalog-activate" type="button">Agregar desde el cat&aacute;logo</button>
           <button class="secondary-button" type="button" data-dialog-close>Cerrar</button>
           <button id="submitBranchOrders" class="primary-button" type="button" disabled>Enviar pedidos</button>
         </footer>
@@ -744,10 +755,10 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
-    <script src="catalog-store.js?v=20260825-branch-batch-r5"></script>
-    <script src="supabase-client.js?v=20260825-branch-batch-r5"></script>
+    <script src="catalog-store.js?v=20260826-branch-catalog-r2"></script>
+    <script src="supabase-client.js?v=20260826-branch-catalog-r2"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260825-branch-batch-r5"></script>
-    <script src="admin.js?v=20260825-branch-batch-r5"></script>
+    <script src="app.js?v=20260826-branch-catalog-r2"></script>
+    <script src="admin.js?v=20260826-branch-catalog-r2"></script>
   </body>
 </html>
