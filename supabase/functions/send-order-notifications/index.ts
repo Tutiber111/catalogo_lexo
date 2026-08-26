@@ -122,7 +122,17 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
       throw new Error("Only admins can resend order emails.");
     }
     orderId = await canonicalNotificationOrderId(requiredUuid(orderId, "order_id"), options.context);
-    await ensureNotification(orderId, Boolean(options.force));
+    const ready = await ensureNotification(orderId, Boolean(options.force));
+    if (!ready) {
+      return {
+        processed: 0,
+        results: [{
+          order_id: orderId,
+          status: "processing",
+          error: "This grouped email is already being prepared. Wait before retrying.",
+        }],
+      };
+    }
   }
 
   const notifications = await loadPendingNotifications(orderId);
@@ -212,8 +222,21 @@ async function ensureCanSendOrderNotification(orderId: string, context: RequestC
   if (!rows.length) throw new Error("You can only send notifications for your own orders.");
 }
 
-async function ensureNotification(orderId: string, force = false) {
+async function ensureNotification(orderId: string, force = false): Promise<boolean> {
   if (force) {
+    const existingParams = new URLSearchParams({
+      order_id: `eq.${orderId}`,
+      select: "id,status,updated_at",
+      limit: "1",
+    });
+    const existingResponse = await supabaseFetch(`/rest/v1/order_notifications?${existingParams}`);
+    const existingRows = await existingResponse.json();
+    const existing = existingRows[0];
+    if (existing?.status === "processing") {
+      const updatedAt = new Date(existing.updated_at || 0).getTime();
+      if (Number.isFinite(updatedAt) && Date.now() - updatedAt < 180_000) return false;
+    }
+
     const params = new URLSearchParams({
       order_id: `eq.${orderId}`,
       select: "id",
@@ -232,7 +255,7 @@ async function ensureNotification(orderId: string, force = false) {
       }),
     });
     const rows = await response.json();
-    if (rows.length) return;
+    if (rows.length) return true;
   }
 
   await supabaseFetch("/rest/v1/order_notifications?on_conflict=order_id", {
@@ -249,6 +272,7 @@ async function ensureNotification(orderId: string, force = false) {
       updated_at: new Date().toISOString(),
     }),
   });
+  return true;
 }
 
 async function loadPendingNotifications(orderId?: string): Promise<OrderNotification[]> {
@@ -530,7 +554,11 @@ async function sendOrderBatchEmail(orders: Order[]): Promise<SentEmail> {
   const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
   const emailSuffix = primaryOrder.customer_email ? ` (${primaryOrder.customer_email})` : "";
   const subject = `Nuevo pedido para ${orders.length} sucursales - ${orderDisplayClientName(primaryOrder) || "Cliente"}${emailSuffix}`;
-  const attachments = await Promise.all(orders.map(buildOrderWorkbookAttachment));
+  const templateFiles = prepareOrderTemplateFiles();
+  const attachments: EmailAttachment[] = [];
+  for (const order of orders) {
+    attachments.push(await buildOrderWorkbookAttachment(order, templateFiles));
+  }
   return deliverPreparedOrderEmail(primaryOrder, {
     subject,
     text: buildOrderBatchText(orders, siteUrl),
@@ -555,56 +583,26 @@ async function deliverPreparedOrderEmail(order: Order, message: {
     && !primaryRecipients.some((email) => email.toLowerCase() === salesmanEmail.toLowerCase());
   const usesTestingSender = /@resend\.dev\b/i.test(from);
   const optionalRecipients = salesmanNeedsCopy && !usesTestingSender ? [salesmanEmail] : [];
-
-  const deliveredTo: string[] = [];
-  const emailIds: string[] = [];
-  const primaryErrors: string[] = [];
-  for (const recipient of primaryRecipients) {
-    try {
-      const emailId = await sendResendEmail(apiKey, {
-        from,
-        to: [recipient],
-        ...message,
-      });
-      deliveredTo.push(recipient);
-      emailIds.push(emailId);
-    } catch (error) {
-      primaryErrors.push(`${recipient}: ${errorMessage(error)}`);
-    }
-  }
-
-  if (!deliveredTo.length) {
-    throw new Error(`No primary order email could be sent. ${primaryErrors.join(" | ")}`);
-  }
-
-  const optionalErrors: string[] = [];
-  for (const recipient of optionalRecipients) {
-    try {
-      const emailId = await sendResendEmail(apiKey, {
-        from,
-        to: [recipient],
-        ...message,
-      });
-      deliveredTo.push(recipient);
-      emailIds.push(emailId);
-    } catch (error) {
-      optionalErrors.push(`${recipient}: ${errorMessage(error)}`);
-    }
-  }
+  const recipients = uniqueEmails([...primaryRecipients, ...optionalRecipients]);
+  const [visibleRecipient, ...blindCopyRecipients] = recipients;
+  const emailId = await sendResendEmail(apiKey, {
+    from,
+    to: [visibleRecipient],
+    ...(blindCopyRecipients.length ? { bcc: blindCopyRecipients } : {}),
+    ...message,
+  });
 
   const warnings = [
-    ...primaryErrors.map((error) => `Primary recipient failed: ${error}`),
     ...(missingSalesmanEmail
       ? [`Salesman copy skipped: no notification email was found for salesman code ${order.salesman_code}.`]
       : []),
     ...(salesmanNeedsCopy && usesTestingSender
       ? ["Salesman copy skipped: verify a sending domain in Resend and update ORDER_NOTIFICATION_FROM."]
       : []),
-    ...optionalErrors.map((error) => `Salesman copy failed: ${error}`),
   ];
   return {
-    id: emailIds.join(", "),
-    to: deliveredTo,
+    id: emailId,
+    to: recipients,
     warning: warnings.join(" | "),
   };
 }
@@ -628,9 +626,11 @@ async function sendResendEmail(apiKey: string, payload: Record<string, unknown>)
   return String(result.id || "");
 }
 
-async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachment> {
-  const template = base64ToBytes(ORDER_TEMPLATE_BASE64);
-  const files = unzipSync(template);
+async function buildOrderWorkbookAttachment(
+  order: Order,
+  preparedTemplateFiles?: Record<string, Uint8Array>,
+): Promise<EmailAttachment> {
+  const files = { ...(preparedTemplateFiles || prepareOrderTemplateFiles()) };
   const sheet = files[ORDER_TEMPLATE_SHEET_PATH];
   if (!sheet) throw new Error(`Missing order template sheet ${ORDER_TEMPLATE_SHEET_PATH}`);
 
@@ -652,8 +652,7 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
   });
 
   files[ORDER_TEMPLATE_SHEET_PATH] = strToU8(sheetXml);
-  prepareWorkbookForRecalculation(files);
-  const workbook = zipSync(files);
+  const workbook = zipSync(files, { level: 1 });
   const orderLabel = order.order_number ? String(order.order_number) : order.id;
 
   return {
@@ -661,6 +660,12 @@ async function buildOrderWorkbookAttachment(order: Order): Promise<EmailAttachme
     content: bytesToBase64(workbook),
     content_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   };
+}
+
+function prepareOrderTemplateFiles() {
+  const files = unzipSync(base64ToBytes(ORDER_TEMPLATE_BASE64));
+  prepareWorkbookForRecalculation(files);
+  return files;
 }
 
 function prepareWorkbookForRecalculation(files: Record<string, Uint8Array>) {

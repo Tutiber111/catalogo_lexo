@@ -530,6 +530,8 @@
     if (error) throw error;
     const failed = data?.results?.find((result) => result.status === "failed");
     if (failed) throw new Error(failed.error || "No se pudo reenviar el email.");
+    const processing = data?.results?.find((result) => result.status === "processing");
+    if (processing) throw new Error("El email ya se está preparando. Esperá unos minutos antes de reintentar.");
     return data;
   }
 
