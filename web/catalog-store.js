@@ -247,6 +247,7 @@
         notes: String(customer.notes || "").trim(),
         salesClient: customer.salesClient || null,
         salesmanCode: String(customer.salesmanCode || "").trim(),
+        deliveryAddress: String(customer.deliveryAddress || "").trim(),
         transport: String(customer.transport || "").trim(),
       },
       orderGroupId: String(customer.orderGroupId || "").trim(),

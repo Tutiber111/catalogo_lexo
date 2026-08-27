@@ -11,6 +11,7 @@ const state = {
   profile: null,
   salesClients: [],
   selectedSalesClient: null,
+  cartAddressDirty: false,
   isCheckingAuth: true,
   isLoadingSalesClients: false,
   isSavingOrder: false,
@@ -179,6 +180,7 @@ const els = {
   cartSalesClientResults: document.querySelector("#cartSalesClientResults"),
   cartSelectedSalesClient: document.querySelector("#cartSelectedSalesClient"),
   clearSalesClient: document.querySelector("#clearSalesClient"),
+  cartAddress: document.querySelector("#cartAddress"),
   cartTransportPanel: document.querySelector("#cartTransportPanel"),
   cartTransport: document.querySelector("#cartTransport"),
   cartObservations: document.querySelector("#cartObservations"),
@@ -451,6 +453,9 @@ function bindEvents() {
   els.cartSalesClientSearch.addEventListener("input", renderSalesClientResults);
   els.cartSalesClientSearch.addEventListener("focus", renderSalesClientResults);
   els.clearSalesClient.addEventListener("click", clearSelectedSalesClient);
+  els.cartAddress.addEventListener("input", () => {
+    state.cartAddressDirty = true;
+  });
   els.otherSalesClientToggle.addEventListener("change", toggleOtherSalesClientForm);
   els.createSalesClient.addEventListener("click", createAndSelectSalesClient);
   els.otherSalesClientForm.addEventListener("keydown", (event) => {
@@ -3447,6 +3452,7 @@ function clearSubmittedCart() {
   clearSelectedSalesClient({ keepInput: false });
   els.cartClientName.value = "";
   els.cartClientCode.value = "";
+  syncOrderAddress({ force: true });
   els.cartTransport.value = "";
   els.cartObservations.value = "";
   localStorage.removeItem("catalogCartClientName");
@@ -3814,6 +3820,7 @@ function readOrderCustomer() {
       ...accountCustomer,
       salesClient: client || null,
       salesmanCode: client?.salesmanCode || state.guestAccess.salesmanCode || "",
+      deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
     };
@@ -3825,6 +3832,7 @@ function readOrderCustomer() {
       name: selectedClient.name || selectedClient.legalName || accountCustomer.name,
       salesClient: selectedClient,
       salesmanCode: selectedClient.salesmanCode || state.profile?.salesman_code || "",
+      deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
     };
@@ -3834,6 +3842,7 @@ function readOrderCustomer() {
     return {
       ...accountCustomer,
       salesmanCode: state.profile.assigned_salesman_code || "",
+      deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
     };
@@ -3845,6 +3854,7 @@ function readOrderCustomer() {
     name: els.cartClientName.value.trim() || accountCustomer.name,
     clientCode,
     salesmanCode: state.profile?.salesman_code || state.profile?.assigned_salesman_code || "",
+    deliveryAddress: orderAddressValue(),
     notes: observations,
   };
 }
@@ -3854,6 +3864,8 @@ function renderCartClientControls() {
   const guestClient = hasGuestAccess() ? state.guestAccess.client : null;
   const signedCustomer = Boolean((state.user && state.profile?.role === "customer") || guestClient);
   const canEnterTransport = canEnterOrderTransport();
+
+  syncOrderAddress();
 
   els.cartSalesClientPanel.hidden = !canSelect;
   els.cartTransportPanel.hidden = !canEnterTransport;
@@ -3934,6 +3946,22 @@ async function loadSalesClients() {
   }
 }
 
+function orderAddressValue() {
+  return els.cartAddress.value.trim();
+}
+
+function defaultOrderAddress() {
+  if (state.selectedSalesClient) return String(state.selectedSalesClient.address || "").trim();
+  if (hasGuestAccess()) return String(state.guestAccess.client?.address || "").trim();
+  return String(state.profile?.address || "").trim();
+}
+
+function syncOrderAddress(options = {}) {
+  if (!options.force && state.cartAddressDirty) return;
+  els.cartAddress.value = defaultOrderAddress();
+  state.cartAddressDirty = false;
+}
+
 function restoreSelectedSalesClient() {
   const selectedId = localStorage.getItem("catalogSelectedSalesClientId");
   if (!selectedId) return;
@@ -4006,6 +4034,7 @@ function selectSalesClient(client, options = {}) {
   localStorage.setItem("catalogSelectedSalesClientId", client.id);
   els.cartSalesClientSearch.value = `${client.clientCode} - ${client.name}`;
   els.cartSalesClientResults.hidden = true;
+  syncOrderAddress({ force: true });
   renderSelectedSalesClient();
   renderCart();
   if (!options.silent) showToast("Cliente seleccionado");
@@ -4017,6 +4046,7 @@ function clearSelectedSalesClient(options = {}) {
   localStorage.removeItem("catalogSelectedSalesClientId");
   if (!options.keepInput) els.cartSalesClientSearch.value = "";
   els.cartSalesClientResults.hidden = true;
+  syncOrderAddress({ force: true });
   renderSelectedSalesClient();
   renderCart();
 }
@@ -4537,6 +4567,8 @@ async function signOut() {
   disableBranchCatalogMode({ silent: true });
   if (hasGuestAccess()) {
     clearGuestAccess();
+    state.cartAddressDirty = false;
+    els.cartAddress.value = "";
     els.cartTransport.value = "";
     els.cartObservations.value = "";
     state.isCheckingAuth = true;
@@ -4551,10 +4583,12 @@ async function signOut() {
     state.profile = null;
     state.salesClients = [];
     state.selectedSalesClient = null;
+    state.cartAddressDirty = false;
     localStorage.removeItem("catalogLastUser");
     localStorage.removeItem("catalogLastProfile");
     localStorage.removeItem("catalogLastSalesClients");
     localStorage.removeItem("catalogSelectedSalesClientId");
+    els.cartAddress.value = "";
     els.cartTransport.value = "";
     els.cartObservations.value = "";
     renderAccount();
@@ -5154,6 +5188,10 @@ function restoreOrderContext(order) {
   if (canSelectSalesClient() && order.customer?.salesClient?.id) {
     const client = state.salesClients.find((item) => item.id === order.customer.salesClient.id || item.clientCode === order.customer.salesClient.clientCode);
     if (client) selectSalesClient(client);
+  }
+  if (Object.prototype.hasOwnProperty.call(order.customer || {}, "deliveryAddress")) {
+    els.cartAddress.value = order.customer.deliveryAddress || "";
+    state.cartAddressDirty = true;
   }
   if (canEnterOrderTransport()) {
     els.cartTransport.value = order.customer?.transport || "";

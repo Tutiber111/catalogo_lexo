@@ -208,6 +208,13 @@
                 <small>Este dato es opcional.</small>
               </label>
             </div>
+            <div class="cart-address-panel">
+              <label class="cart-client-field">
+                <span>Direcci&oacute;n <em>opcional</em></span>
+                <input id="cartAddress" type="text" autocomplete="street-address" placeholder="Direcci&oacute;n de entrega (opcional)">
+                <small>Se completa con la direcci&oacute;n del cliente. Pod&eacute;s cambiarla solo para este pedido.</small>
+              </label>
+            </div>
             <div id="cartTransportPanel" class="cart-transport-panel" hidden>
               <label class="cart-client-field">
                 <span>Transporte <em>opcional</em></span>
@@ -751,14 +758,14 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="data/catalog-data.js?v=20260820-page208-stock"></script>
+  <script src="data/catalog-data.js?v=20260826-dreamfarm-fledge-oileroo"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
-    <script src="catalog-store.js?v=20260826-branch-catalog-r3"></script>
-    <script src="supabase-client.js?v=20260826-branch-catalog-r3"></script>
+    <script src="catalog-store.js?v=20260826-cart-address-r1"></script>
+    <script src="supabase-client.js?v=20260826-cart-address-r1"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260826-branch-catalog-r3"></script>
+    <script src="app.js?v=20260826-cart-address-r1"></script>
     <script src="admin.js?v=20260826-branch-catalog-r3"></script>
   </body>
 </html>

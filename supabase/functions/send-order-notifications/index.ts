@@ -99,6 +99,10 @@ Deno.serve(async (req) => {
       if (!context.isAdmin) throw new Error("Only admins can check delivery status.");
       return jsonResponse(await syncRecentDeliveryStatuses());
     }
+    if (body.action === "prepare_attachment") {
+      if (!context.isAdmin) throw new Error("Only internal workers can prepare order attachments.");
+      return jsonResponse(await prepareOrderAttachment(requiredUuid(body.order_id, "order_id")));
+    }
     if (body.order_group_id) {
       return jsonResponse(await sendOrderGroupNotification(requiredUuid(body.order_group_id, "order_group_id"), {
         context,
@@ -142,24 +146,48 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
     const locked = await lockNotification(notification);
     if (!locked) continue;
 
+    let groupedOrders: Order[] = [];
     try {
       const order = await loadOrder(notification.order_id);
-      const groupedOrders = order.branch_order_group_id
+      groupedOrders = order.branch_order_group_id
         ? await loadOrderGroup(order.branch_order_group_id)
         : [order];
       const sentEmail = groupedOrders.length > 1
         ? await sendOrderBatchEmail(groupedOrders)
         : await sendOrderEmail(order);
+      const sentAt = new Date().toISOString();
       await updateNotification(notification.id, {
         status: "sent",
-        sent_at: new Date().toISOString(),
+        sent_at: sentAt,
         resend_email_id: sentEmail.id,
         resend_to: sentEmail.to.join(", "),
         resend_last_event: "sent",
-        delivery_checked_at: new Date().toISOString(),
+        delivery_checked_at: sentAt,
         delivery_error: "",
         last_error: sentEmail.warning,
       });
+      if (groupedOrders.length > 1) {
+        try {
+          await createGroupedNotificationCopies(groupedOrders, notification.order_id, {
+            status: "sent",
+            attempts: notification.attempts + 1,
+            sent_at: sentAt,
+            resend_email_id: sentEmail.id,
+            resend_to: sentEmail.to.join(", "),
+            resend_last_event: "sent",
+            delivery_checked_at: sentAt,
+            delivery_error: "",
+            last_error: sentEmail.warning,
+          });
+        } catch (copyError) {
+          const warning = `The grouped email was sent, but branch notification records could not be completed: ${errorMessage(copyError)}`;
+          console.warn(warning);
+          await updateNotification(notification.id, {
+            status: "sent",
+            last_error: [sentEmail.warning, warning].filter(Boolean).join(" | "),
+          });
+        }
+      }
       results.push({
         order_id: notification.order_id,
         status: "sent",
@@ -176,11 +204,48 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
         delivery_error: message,
         last_error: message,
       });
+      if (groupedOrders.length > 1) {
+        try {
+          await createGroupedNotificationCopies(groupedOrders, notification.order_id, {
+            status: "failed",
+            attempts: notification.attempts + 1,
+            resend_email_id: "",
+            resend_to: "",
+            resend_last_event: "failed",
+            delivery_checked_at: new Date().toISOString(),
+            delivery_error: message,
+            last_error: message,
+          });
+        } catch (copyError) {
+          console.warn("Branch notification failure records could not be completed.", copyError);
+        }
+      }
       results.push({ order_id: notification.order_id, status: "failed", error: message });
     }
   }
 
   return { processed: results.length, results };
+}
+
+async function createGroupedNotificationCopies(
+  orders: Order[],
+  primaryOrderId: string,
+  notification: Record<string, unknown>,
+) {
+  const now = new Date().toISOString();
+  const copies = orders
+    .filter((order) => order.id !== primaryOrderId)
+    .map((order) => ({
+      order_id: order.id,
+      ...notification,
+      updated_at: now,
+    }));
+  if (!copies.length) return;
+  await supabaseFetch("/rest/v1/order_notifications?on_conflict=order_id", {
+    method: "POST",
+    headers: { Prefer: "resolution=merge-duplicates" },
+    body: JSON.stringify(copies),
+  });
 }
 
 async function sendOrderGroupNotification(orderGroupId: string, options: { context: RequestContext; force?: boolean }) {
@@ -497,6 +562,9 @@ async function loadRequestContext(req: Request): Promise<RequestContext> {
   }
 
   const authorization = req.headers.get("authorization") || "";
+  if (authorization === `Bearer ${serviceRoleKey()}`) {
+    return { userId: "internal", isAdmin: true };
+  }
   if (!authorization.toLowerCase().startsWith("bearer ")) {
     throw new Error("Missing authenticated user.");
   }
@@ -554,17 +622,98 @@ async function sendOrderBatchEmail(orders: Order[]): Promise<SentEmail> {
   const siteUrl = Deno.env.get("ORDER_NOTIFICATION_SITE_URL") || "";
   const emailSuffix = primaryOrder.customer_email ? ` (${primaryOrder.customer_email})` : "";
   const subject = `Nuevo pedido para ${orders.length} sucursales - ${orderDisplayClientName(primaryOrder) || "Cliente"}${emailSuffix}`;
-  const templateFiles = prepareOrderTemplateFiles();
-  const attachments: EmailAttachment[] = [];
-  for (const order of orders) {
-    attachments.push(await buildOrderWorkbookAttachment(order, templateFiles));
-  }
-  return deliverPreparedOrderEmail(primaryOrder, {
+  const attachments = await prepareGroupedOrderAttachments(orders);
+  const sentEmail = await deliverPreparedOrderEmail(primaryOrder, {
     subject,
     text: buildOrderBatchText(orders, siteUrl),
     html: buildOrderBatchHtml(orders, siteUrl),
     attachments,
   });
+  try {
+    await deleteCachedOrderAttachments(orders.map((order) => order.id));
+  } catch (error) {
+    console.warn("The grouped email was sent, but its attachment cache could not be cleared.", error);
+  }
+  return sentEmail;
+}
+
+async function prepareGroupedOrderAttachments(orders: Order[]): Promise<EmailAttachment[]> {
+  let cachedByOrderId = await loadCachedOrderAttachments(orders.map((order) => order.id));
+  for (const order of orders) {
+    if (!cachedByOrderId.has(order.id)) {
+      await requestOrderAttachmentPreparation(order.id);
+    }
+  }
+
+  cachedByOrderId = await loadCachedOrderAttachments(orders.map((order) => order.id));
+  return orders.map((order) => {
+    const attachment = cachedByOrderId.get(order.id);
+    if (!attachment) throw new Error(`The Excel file for order ${order.order_number || order.id} could not be prepared.`);
+    return attachment;
+  });
+}
+
+async function requestOrderAttachmentPreparation(orderId: string) {
+  const serviceKey = serviceRoleKey();
+  const internalSecret = Deno.env.get("ORDER_NOTIFICATION_INTERNAL_SECRET") || "";
+  const response = await fetch(`${requiredEnv("SUPABASE_URL")}/functions/v1/send-order-notifications`, {
+    method: "POST",
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      "Content-Type": "application/json",
+      ...(internalSecret ? { "x-order-notification-secret": internalSecret } : {}),
+    },
+    body: JSON.stringify({ action: "prepare_attachment", order_id: orderId }),
+  });
+  if (!response.ok) {
+    throw new Error(`Excel preparation failed for order ${orderId}: ${response.status} ${await response.text()}`);
+  }
+}
+
+async function prepareOrderAttachment(orderId: string) {
+  const order = await loadOrder(orderId);
+  const attachment = await buildOrderWorkbookAttachment(order);
+  await supabaseFetch("/rest/v1/order_email_attachments?on_conflict=order_id", {
+    method: "POST",
+    headers: { Prefer: "resolution=merge-duplicates" },
+    body: JSON.stringify({
+      order_id: order.id,
+      filename: attachment.filename,
+      content_base64: attachment.content,
+      content_type: attachment.content_type,
+      updated_at: new Date().toISOString(),
+    }),
+  });
+  return { order_id: order.id, prepared: true };
+}
+
+async function loadCachedOrderAttachments(orderIds: string[]) {
+  const result = new Map<string, EmailAttachment>();
+  if (!orderIds.length) return result;
+  const params = new URLSearchParams({
+    order_id: `in.(${orderIds.join(",")})`,
+    select: "order_id,filename,content_base64,content_type",
+  });
+  const response = await supabaseFetch(`/rest/v1/order_email_attachments?${params}`);
+  const rows: Array<{
+    order_id: string;
+    filename: string;
+    content_base64: string;
+    content_type: string;
+  }> = await response.json();
+  rows.forEach((row) => result.set(row.order_id, {
+    filename: row.filename,
+    content: row.content_base64,
+    content_type: row.content_type,
+  }));
+  return result;
+}
+
+async function deleteCachedOrderAttachments(orderIds: string[]) {
+  if (!orderIds.length) return;
+  const params = new URLSearchParams({ order_id: `in.(${orderIds.join(",")})` });
+  await supabaseFetch(`/rest/v1/order_email_attachments?${params}`, { method: "DELETE" });
 }
 
 async function deliverPreparedOrderEmail(order: Order, message: {
@@ -628,9 +777,8 @@ async function sendResendEmail(apiKey: string, payload: Record<string, unknown>)
 
 async function buildOrderWorkbookAttachment(
   order: Order,
-  preparedTemplateFiles?: Record<string, Uint8Array>,
 ): Promise<EmailAttachment> {
-  const files = { ...(preparedTemplateFiles || prepareOrderTemplateFiles()) };
+  const files = prepareOrderTemplateFiles();
   const sheet = files[ORDER_TEMPLATE_SHEET_PATH];
   if (!sheet) throw new Error(`Missing order template sheet ${ORDER_TEMPLATE_SHEET_PATH}`);
 
@@ -649,6 +797,8 @@ async function buildOrderWorkbookAttachment(
     const skuType = numericCellValue(item.sku) === null ? "string" : "number";
     sheetXml = upsertCell(sheetXml, `A${row}`, item.sku, skuType);
     sheetXml = upsertCell(sheetXml, `B${row}`, item.quantity, "number");
+    sheetXml = upsertCell(sheetXml, `C${row}`, item.name, "string");
+    sheetXml = upsertCell(sheetXml, `D${row}`, item.unit_price, "number");
   });
 
   files[ORDER_TEMPLATE_SHEET_PATH] = strToU8(sheetXml);

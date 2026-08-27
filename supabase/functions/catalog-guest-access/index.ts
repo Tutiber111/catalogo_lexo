@@ -238,10 +238,14 @@ async function submitGuestOrder(body: Record<string, unknown>) {
   const session = await loadGuestSession(String(body.session_token || ""));
   const clientRequestId = requiredUuid(body.client_request_id, "client_request_id");
   const submittedItems = Array.isArray(body.items) ? body.items as OrderLineInput[] : [];
+  const deliveryAddress = Object.prototype.hasOwnProperty.call(body, "delivery_address")
+    ? cleanText(body.delivery_address, 500)
+    : null;
   const requestHash = await sha256(JSON.stringify({
     guestLinkId: session.link.id,
     customerName: cleanText(body.customer_name, 300),
     clientCode: cleanText(body.client_code, 100),
+    deliveryAddress,
     transport: cleanText(body.transport, 200),
     notes: cleanText(body.notes, 2000),
     items: submittedItems.slice(0, 250).map((item) => ({
@@ -292,7 +296,7 @@ async function submitGuestOrder(body: Record<string, unknown>) {
     sales_client_id: client?.id || null,
     sales_client_code: clientCode,
     sales_client_name: customerName,
-    sales_client_address: client?.address || "",
+    sales_client_address: deliveryAddress ?? client?.address ?? "",
     sales_client_locality: client?.locality || "",
     salesman_code: salesmanCode,
     order_transport: cleanText(body.transport, 200),

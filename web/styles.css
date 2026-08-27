@@ -2954,6 +2954,7 @@ body.auth-checking .auth-fields {
 
 .cart-manual-client-fields,
 .cart-client-selector,
+.cart-address-panel,
 .cart-transport-panel,
 .cart-observations-panel {
   display: grid;
