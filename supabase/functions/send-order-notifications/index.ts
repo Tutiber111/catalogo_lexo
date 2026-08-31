@@ -66,6 +66,12 @@ type CustomerProfile = {
   assigned_salesman_code: string;
 };
 
+type SalesClientProfile = {
+  name: string;
+  legal_name: string;
+  salesman_code: string;
+};
+
 type EmailAttachment = {
   filename: string;
   content: string;
@@ -395,11 +401,19 @@ async function loadOrderGroup(orderGroupId: string): Promise<Order[]> {
 }
 
 async function hydrateOrder(order: Order): Promise<Order> {
-  const customerProfile = await loadCustomerProfile(order.customer_id);
+  const [customerProfile, salesClientProfile] = await Promise.all([
+    loadCustomerProfile(order.customer_id),
+    loadOrderSalesClient(order.sales_client_id),
+  ]);
   order.customer_email = customerProfile.email;
-  order.customer_company = customerProfile.company;
+  if (salesClientProfile) {
+    order.sales_client_name = salesClientProfile.name || order.sales_client_name;
+    order.customer_company = salesClientProfile.legal_name || "";
+  } else {
+    order.customer_company = customerProfile.role === "customer" ? customerProfile.company : "";
+  }
   if (!order.customer_client_code) order.customer_client_code = customerProfile.client_code;
-  order.salesman_code = await resolveOrderSalesmanCode(order, customerProfile);
+  order.salesman_code = resolveOrderSalesmanCode(order, customerProfile, salesClientProfile);
   return order;
 }
 
@@ -514,18 +528,29 @@ async function loadCustomerProfile(customerId: string): Promise<CustomerProfile>
   };
 }
 
-async function resolveOrderSalesmanCode(order: Order, customerProfile: CustomerProfile) {
-  if (order.sales_client_id) {
-    const params = new URLSearchParams({
-      id: `eq.${order.sales_client_id}`,
-      select: "salesman_code",
-      limit: "1",
-    });
-    const response = await supabaseFetch(`/rest/v1/sales_clients?${params}`);
-    const rows = await response.json();
-    const linkedCode = String(rows[0]?.salesman_code || "").trim();
-    if (linkedCode) return linkedCode;
-  }
+async function loadOrderSalesClient(salesClientId: string | null): Promise<SalesClientProfile | null> {
+  if (!salesClientId) return null;
+  const params = new URLSearchParams({
+    id: `eq.${salesClientId}`,
+    select: "name,legal_name,salesman_code",
+    limit: "1",
+  });
+  const response = await supabaseFetch(`/rest/v1/sales_clients?${params}`);
+  const rows = await response.json();
+  if (!rows.length) return null;
+  return {
+    name: String(rows[0]?.name || "").trim(),
+    legal_name: String(rows[0]?.legal_name || "").trim(),
+    salesman_code: String(rows[0]?.salesman_code || "").trim(),
+  };
+}
+
+function resolveOrderSalesmanCode(
+  order: Order,
+  customerProfile: CustomerProfile,
+  salesClientProfile: SalesClientProfile | null,
+) {
+  if (salesClientProfile?.salesman_code) return salesClientProfile.salesman_code;
 
   if (customerProfile.role === "salesman") {
     return String(customerProfile.salesman_code || "").trim();
@@ -786,7 +811,7 @@ async function buildOrderWorkbookAttachment(
   sheetXml = clearOrderInputCells(sheetXml, order.order_items.length);
   const clientCode = orderClientCode(order);
   const clientCodeType = numericCellValue(clientCode) === null ? "string" : "number";
-  sheetXml = upsertCell(sheetXml, "B1", orderDisplayClientName(order), "string");
+  sheetXml = upsertCell(sheetXml, "B1", orderWorkbookClientName(order), "string");
   sheetXml = upsertCell(sheetXml, "B2", orderDeliveryAddress(order), "string");
   sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
   sheetXml = upsertCell(sheetXml, "B3", order.order_transport || "", "string");
@@ -1029,6 +1054,18 @@ function orderClientCode(order: Order) {
 
 function orderDisplayClientName(order: Order) {
   return order.sales_client_name || order.customer_company || order.customer_name || "";
+}
+
+function orderWorkbookClientName(order: Order) {
+  const buyerName = order.sales_client_name || order.customer_name || "";
+  const companyName = order.customer_company || "";
+  if (!buyerName) return companyName;
+  if (!companyName || normalizeComparisonText(companyName) === normalizeComparisonText(buyerName)) return buyerName;
+  return `${buyerName} - ${companyName}`;
+}
+
+function normalizeComparisonText(value: string) {
+  return String(value || "").trim().toLocaleLowerCase("es-AR").replace(/\s+/g, " ");
 }
 
 function orderEmailCompanyLine(order: Order) {
