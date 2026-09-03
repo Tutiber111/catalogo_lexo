@@ -8,6 +8,10 @@ const migration = fs.readFileSync(
   new URL("../supabase/migrations/20260903184725_add_salesman_price_access_approval.sql", import.meta.url),
   "utf8",
 );
+const translatedErrorsMigration = fs.readFileSync(
+  new URL("../supabase/migrations/20260903185621_translate_salesman_approval_errors.sql", import.meta.url),
+  "utf8",
+);
 
 assert.match(html, /id="salesmanPriceApprovalsSection"[^>]*hidden/);
 assert.match(app, /state\.profile\?\.role !== "salesman"/);
@@ -23,5 +27,9 @@ assert.match(migration, /profile\.price_access_approved = false/g);
 assert.match(migration, /price_access_approved_by = auth\.uid\(\)/);
 assert.match(migration, /revoke all on function public\.list_pending_assigned_price_access_requests\(\) from public, anon/);
 assert.match(migration, /revoke all on function public\.approve_assigned_price_access_request\(uuid\) from public, anon/);
+assert.match(translatedErrorsMigration, /Solo los vendedores con un código asignado pueden ver estas solicitudes\./);
+assert.match(translatedErrorsMigration, /Solo los vendedores con un código asignado pueden aprobar solicitudes\./);
+assert.match(translatedErrorsMigration, /Solicitud no encontrada o no asignada a este vendedor\./);
+assert.doesNotMatch(translatedErrorsMigration, /Only salesmen|Request not found/);
 
 console.log("Salesman price approval checks passed.");
