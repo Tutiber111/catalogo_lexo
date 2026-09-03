@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20260826-cart-address-r1";
+const CACHE_NAME = "lexo-catalog-v20260901-lexo-cafeteras-r1";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
@@ -9,7 +9,7 @@ const APP_SHELL = [
   "./admin.js?v=20260826-branch-catalog-r3",
   "./catalog-store.js?v=20260826-cart-address-r1",
   "./supabase-client.js?v=20260826-cart-address-r1",
-  "./data/catalog-data.js?v=20260826-dreamfarm-fledge-oileroo",
+  "./data/catalog-data.js?v=20260901-lexo-cafeteras",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",

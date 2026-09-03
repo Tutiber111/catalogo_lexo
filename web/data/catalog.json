@@ -893,7 +893,7 @@
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/lexo-20260706-page-016.png?v=20260706-page17-nav",
+        "src": "assets/pages/lexo-20260706-page-016.png?v=20260901-cafeteras",
         "width": 1414,
         "height": 2000
       },
@@ -907,7 +907,7 @@
         {
           "id": "lexo-20260706-pg016-1",
           "page": 16,
-          "label": "Cafetera Aluminio 3 Tazas Marca Lexo",
+          "label": "Cafetera Venezia 3 Tazas Marca Lexo",
           "price": "$11.935",
           "productIds": [
             "p018-1"
@@ -939,7 +939,7 @@
         {
           "id": "lexo-20260706-pg016-2",
           "page": 16,
-          "label": "Cafetera Aluminio 6 Tazas Marca Lexo",
+          "label": "Cafetera Venezia 6 Tazas Marca Lexo",
           "price": "$15.017",
           "productIds": [
             "p018-2"
@@ -971,7 +971,7 @@
         {
           "id": "lexo-20260706-pg016-3",
           "page": 16,
-          "label": "Cafetera Aluminio 9 Tazas Marca Lexo",
+          "label": "Cafetera Venezia 9 Tazas Marca Lexo",
           "price": "$20.429",
           "productIds": [
             "p018-3"
@@ -1003,7 +1003,7 @@
         {
           "id": "lexo-20260706-pg016-4",
           "page": 16,
-          "label": "Cafetera Aluminio 12 Tazas Marca Lexo",
+          "label": "Cafetera Venezia 12 Tazas Marca Lexo",
           "price": "$24.079",
           "productIds": [
             "p018-4"
@@ -1040,7 +1040,7 @@
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/lexo-20260706-page-017.png?v=20260706-page17-nav",
+        "src": "assets/pages/lexo-20260706-page-017.png?v=20260901-cafeteras",
         "width": 1414,
         "height": 2000
       },
@@ -1053,7 +1053,7 @@
         {
           "id": "lexo-20260706-pg017-1",
           "page": 17,
-          "label": "Cafetera Acero 4 Tazas Marca Lexo",
+          "label": "Cafetera Milano 4 Tazas Marca Lexo",
           "price": "$19.679",
           "productIds": [
             "p019-1"
@@ -1085,7 +1085,7 @@
         {
           "id": "lexo-20260706-pg017-2",
           "page": 17,
-          "label": "Cafetera Acero 6 Tazas Marca Lexo",
+          "label": "Cafetera Milano 6 Tazas Marca Lexo",
           "price": "$22.825",
           "productIds": [
             "p019-2"
@@ -1117,7 +1117,7 @@
         {
           "id": "lexo-20260706-pg017-3",
           "page": 17,
-          "label": "Cafetera Acero 9 Tazas Marca Lexo",
+          "label": "Cafetera Milano 9 Tazas Marca Lexo",
           "price": "$28.578",
           "productIds": [
             "p019-3"
@@ -33783,7 +33783,7 @@
       "skus": [
         "1250"
       ],
-      "name": "Cafetera Aluminio 3 Tazas Marca Lexo",
+      "name": "Cafetera Venezia 3 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$11.935",
       "pdfPrice": "",
@@ -33813,7 +33813,7 @@
       "skus": [
         "1300"
       ],
-      "name": "Cafetera Aluminio 6 Tazas Marca Lexo",
+      "name": "Cafetera Venezia 6 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$15.017",
       "pdfPrice": "",
@@ -33843,7 +33843,7 @@
       "skus": [
         "1430"
       ],
-      "name": "Cafetera Aluminio 9 Tazas Marca Lexo",
+      "name": "Cafetera Venezia 9 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$20.429",
       "pdfPrice": "",
@@ -33873,7 +33873,7 @@
       "skus": [
         "1450"
       ],
-      "name": "Cafetera Aluminio 12 Tazas Marca Lexo",
+      "name": "Cafetera Venezia 12 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$24.079",
       "pdfPrice": "",
@@ -33903,7 +33903,7 @@
       "skus": [
         "1454"
       ],
-      "name": "Cafetera Acero 4 Tazas Marca Lexo",
+      "name": "Cafetera Milano 4 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$19.679",
       "pdfPrice": "",
@@ -33933,7 +33933,7 @@
       "skus": [
         "1456"
       ],
-      "name": "Cafetera Acero 6 Tazas Marca Lexo",
+      "name": "Cafetera Milano 6 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$22.825",
       "pdfPrice": "",
@@ -33963,7 +33963,7 @@
       "skus": [
         "1459"
       ],
-      "name": "Cafetera Acero 9 Tazas Marca Lexo",
+      "name": "Cafetera Milano 9 Tazas Marca Lexo",
       "category": "Cafeteras",
       "price": "$28.578",
       "pdfPrice": "",

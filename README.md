@@ -121,6 +121,29 @@ set status = 'pending', last_error = '', updated_at = now()
 where status = 'failed';
 ```
 
+## Client Approval Emails
+
+Apply `supabase/migrations/20260903152243_add_price_access_approval_notifications.sql`
+and deploy `send-price-access-approved` with `--no-verify-jwt`. The endpoint
+authenticates database requests using `x-price-access-secret` and the existing
+`PRICE_ACCESS_INTERNAL_SECRET`; it does not accept browser requests or recipient
+addresses. It reuses `RESEND_API_KEY`, `ORDER_NOTIFICATION_FROM`, and the Vault
+secret `price_access_notification_secret` used by new-account alerts.
+
+The database queues one confirmation when a customer's `price_access_approved`
+changes from false to true, whether from the app or Supabase. Existing approved
+accounts are not backfilled. The email goes to the registered Auth email, links
+to `https://catalogolexo.com.ar/`, and uses the existing account credentials.
+
+`price_access_approval_notifications` records sent/failed/cancelled notifications.
+The internal cron job retries every five minutes, up to five attempts and within
+23 hours of the first attempt. Concurrent requests use an atomic lease, and
+retries reuse the saved payload and Resend idempotency key. A revoked approval
+is not emailed. Review Resend before manually retrying an expired or ambiguous
+delivery, as Resend retains idempotency keys for only 24 hours.
+
+Verify locally with `node --experimental-strip-types --test tools/test_price_access_approved.mjs`.
+
 ## ERP Order Synchronization
 
 The catalog now has a durable outbound queue for the Lexo ERP. Apply
