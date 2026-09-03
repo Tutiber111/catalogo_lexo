@@ -55,6 +55,11 @@ const state = {
   isLoadingGuestLinks: false,
   guestLinksLoaded: false,
   guestLinks: [],
+  salesmanPriceApprovals: [],
+  salesmanPriceApprovalsLoaded: false,
+  isLoadingSalesmanPriceApprovals: false,
+  approvingSalesmanPriceAccessId: "",
+  salesmanPriceApprovalsError: "",
   isPasswordRecovery: false,
   isExportingCatalogPdf: false,
   lastOrderReceipt: loadLastOrderReceipt(),
@@ -229,6 +234,10 @@ const els = {
   customerOrders: document.querySelector("#customerOrders"),
   customerOrderDetail: document.querySelector("#customerOrderDetail"),
   salesmanCatalogTools: document.querySelector("#salesmanCatalogTools"),
+  salesmanPriceApprovalsSection: document.querySelector("#salesmanPriceApprovalsSection"),
+  refreshSalesmanPriceApprovals: document.querySelector("#refreshSalesmanPriceApprovals"),
+  salesmanPriceApprovalsStatus: document.querySelector("#salesmanPriceApprovalsStatus"),
+  salesmanPriceApprovalsList: document.querySelector("#salesmanPriceApprovalsList"),
   createGuestLink: document.querySelector("#createGuestLink"),
   guestLinkResult: document.querySelector("#guestLinkResult"),
   guestLinkUrl: document.querySelector("#guestLinkUrl"),
@@ -445,6 +454,8 @@ function bindEvents() {
   els.copyGuestPassword.addEventListener("click", () => copyGuestValue(els.guestLinkPassword.value, "Clave copiada"));
   els.refreshGuestLinks.addEventListener("click", loadGuestLinks);
   els.guestLinksList.addEventListener("click", handleGuestLinkAction);
+  els.refreshSalesmanPriceApprovals.addEventListener("click", loadSalesmanPriceApprovals);
+  els.salesmanPriceApprovalsList.addEventListener("click", handleSalesmanPriceApprovalAction);
   els.exportCatalogPdf.addEventListener("click", exportCatalogPdf);
   els.productDialog.addEventListener("close", clearCatalogSelectionFocus);
   els.productDialog.addEventListener("cancel", clearCatalogSelectionFocus);
@@ -4583,6 +4594,10 @@ async function signOut() {
     state.profile = null;
     state.salesClients = [];
     state.selectedSalesClient = null;
+    state.salesmanPriceApprovals = [];
+    state.salesmanPriceApprovalsLoaded = false;
+    state.approvingSalesmanPriceAccessId = "";
+    state.salesmanPriceApprovalsError = "";
     state.cartAddressDirty = false;
     localStorage.removeItem("catalogLastUser");
     localStorage.removeItem("catalogLastProfile");
@@ -4660,13 +4675,101 @@ function renderSalesmanCatalogTools() {
     state.guestLinksLoaded = false;
     state.guestLinks = [];
     if (els.guestLinksList) els.guestLinksList.innerHTML = "";
+    state.salesmanPriceApprovals = [];
+    state.salesmanPriceApprovalsLoaded = false;
+    state.salesmanPriceApprovalsError = "";
+    els.salesmanPriceApprovalsSection.hidden = true;
+    els.salesmanPriceApprovalsList.innerHTML = "";
     return;
+  }
+
+  const isSalesman = state.profile?.role === "salesman";
+  els.salesmanPriceApprovalsSection.hidden = !isSalesman;
+  if (isSalesman) {
+    renderSalesmanPriceApprovals();
+    if (!state.salesmanPriceApprovalsLoaded && !state.isLoadingSalesmanPriceApprovals && isOnline()) {
+      loadSalesmanPriceApprovals();
+    }
   }
 
   els.createGuestLink.disabled = state.isCreatingGuestLink;
   els.createGuestLink.textContent = state.isCreatingGuestLink ? "Creando..." : "Crear enlace de 7 días";
   els.refreshGuestLinks.disabled = state.isLoadingGuestLinks;
   if (!state.guestLinksLoaded && !state.isLoadingGuestLinks && isOnline()) loadGuestLinks();
+}
+
+async function loadSalesmanPriceApprovals() {
+  if (state.isLoadingSalesmanPriceApprovals || state.profile?.role !== "salesman") return;
+  if (!isOnline()) {
+    els.salesmanPriceApprovalsStatus.textContent = "Conectate a internet para consultar las solicitudes.";
+    return;
+  }
+
+  state.isLoadingSalesmanPriceApprovals = true;
+  state.salesmanPriceApprovalsError = "";
+  renderSalesmanPriceApprovals();
+  try {
+    state.salesmanPriceApprovals = await CATALOG_SUPABASE.loadAssignedPendingPriceApprovals();
+    state.salesmanPriceApprovalsLoaded = true;
+  } catch (error) {
+    state.salesmanPriceApprovalsError = error.message || "No se pudieron cargar las solicitudes.";
+  } finally {
+    state.isLoadingSalesmanPriceApprovals = false;
+    renderSalesmanPriceApprovals();
+  }
+}
+
+function renderSalesmanPriceApprovals() {
+  const requests = state.salesmanPriceApprovals;
+  els.refreshSalesmanPriceApprovals.disabled = state.isLoadingSalesmanPriceApprovals || Boolean(state.approvingSalesmanPriceAccessId);
+  if (state.salesmanPriceApprovalsError) {
+    els.salesmanPriceApprovalsStatus.textContent = state.salesmanPriceApprovalsError;
+  } else if (state.isLoadingSalesmanPriceApprovals) {
+    els.salesmanPriceApprovalsStatus.textContent = "Cargando solicitudes...";
+  } else if (!state.salesmanPriceApprovalsLoaded) {
+    els.salesmanPriceApprovalsStatus.textContent = "Todavía no se cargaron las solicitudes.";
+  } else {
+    els.salesmanPriceApprovalsStatus.textContent = requests.length
+      ? `${requests.length} solicitud${requests.length === 1 ? "" : "es"} para tus clientes.`
+      : "No tenés solicitudes pendientes.";
+  }
+
+  els.salesmanPriceApprovalsList.innerHTML = requests.map((request) => {
+    const approving = state.approvingSalesmanPriceAccessId === request.id;
+    const identity = request.company || request.name || request.email || "Cliente sin nombre";
+    const secondary = [request.name && request.name !== identity ? request.name : "", request.email].filter(Boolean).join(" · ");
+    return `
+      <article class="salesman-price-approval-row">
+        <div class="salesman-price-approval-identity">
+          <strong>${escapeHtml(identity)}</strong>
+          ${secondary ? `<span>${escapeHtml(secondary)}</span>` : ""}
+          <small>Solicitado ${escapeHtml(formatGuestLinkDate(request.created_at))}</small>
+        </div>
+        <button class="primary-button compact-button" type="button" data-approve-salesman-price-access="${escapeAttribute(request.id)}" ${approving ? "disabled" : ""}>
+          ${approving ? "Aprobando..." : "Aprobar"}
+        </button>
+      </article>
+    `;
+  }).join("");
+}
+
+async function handleSalesmanPriceApprovalAction(event) {
+  const button = event.target.closest("[data-approve-salesman-price-access]");
+  if (!button || state.approvingSalesmanPriceAccessId) return;
+  const profileId = button.dataset.approveSalesmanPriceAccess;
+  state.approvingSalesmanPriceAccessId = profileId;
+  state.salesmanPriceApprovalsError = "";
+  renderSalesmanPriceApprovals();
+  try {
+    await CATALOG_SUPABASE.approveAssignedPriceAccess(profileId);
+    state.salesmanPriceApprovals = state.salesmanPriceApprovals.filter((request) => request.id !== profileId);
+    showToast("Acceso a precios aprobado");
+  } catch (error) {
+    state.salesmanPriceApprovalsError = error.message || "No se pudo aprobar la solicitud.";
+  } finally {
+    state.approvingSalesmanPriceAccessId = "";
+    renderSalesmanPriceApprovals();
+  }
 }
 
 async function createGuestLink() {

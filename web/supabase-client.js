@@ -275,6 +275,22 @@
     return data;
   }
 
+  async function loadAssignedPendingPriceApprovals() {
+    if (!client) return [];
+    const { data, error } = await client.rpc("list_pending_assigned_price_access_requests");
+    if (error) throw error;
+    return data || [];
+  }
+
+  async function approveAssignedPriceAccess(profileId) {
+    if (!client || !profileId) throw new Error("No se pudo identificar la solicitud.");
+    const { data, error } = await client.rpc("approve_assigned_price_access_request", {
+      p_profile_id: profileId,
+    });
+    if (error) throw error;
+    return Array.isArray(data) ? data[0] || null : data;
+  }
+
   async function createCatalogGuestLink(baseUrl) {
     return callCatalogGuestAccess({
       action: "create",
@@ -824,6 +840,8 @@
     deleteClientBranch,
     loadPendingPriceApprovals,
     approveProfilePriceAccess,
+    loadAssignedPendingPriceApprovals,
+    approveAssignedPriceAccess,
     createCatalogGuestLink,
     listCatalogGuestLinks,
     revokeCatalogGuestLink,

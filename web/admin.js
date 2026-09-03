@@ -21,6 +21,7 @@
     isLoadingOrderHealth: false,
     orderHealthConfigurationWarning: "",
     priceImportPreview: null,
+    returnFocusElement: null,
   };
 
   const adminEls = {
@@ -93,13 +94,18 @@
   function bindAdminEvents() {
     adminEls.openAdmin.addEventListener("click", openAdmin);
     adminEls.closeAdmin.addEventListener("click", closeAdmin);
+    adminEls.adminDrawer.addEventListener("click", handleAdminBackdropClick);
+    document.addEventListener("keydown", handleAdminKeydown);
     adminEls.saveSettings.addEventListener("click", saveSettings);
     adminEls.allOrdersTab.addEventListener("click", () => setOrderView("all"));
     adminEls.activeOrdersTab.addEventListener("click", () => setOrderView("active"));
     adminEls.archivedOrdersTab.addEventListener("click", () => setOrderView("archived"));
     adminEls.orderClientSearch.addEventListener("input", handleOrderClientSearch);
     adminEls.orderClientSearch.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") adminEls.orderClientSuggestions.hidden = true;
+      if (event.key === "Escape" && !adminEls.orderClientSuggestions.hidden) {
+        adminEls.orderClientSuggestions.hidden = true;
+        event.stopPropagation();
+      }
     });
     adminEls.clearOrderClientSearch.addEventListener("click", clearOrderClientSearch);
     adminEls.orderClientSuggestions.addEventListener("click", selectOrderClientSuggestion);
@@ -160,15 +166,44 @@
       showToast("Iniciá sesión con una cuenta administradora");
       return;
     }
+    if (!adminEls.adminDrawer.classList.contains("is-open")) {
+      adminState.returnFocusElement = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
     adminEls.adminDrawer.classList.add("is-open");
     adminEls.adminDrawer.setAttribute("aria-hidden", "false");
     showAdmin();
   }
 
   function closeAdmin() {
+    const wasOpen = adminEls.adminDrawer.classList.contains("is-open");
     adminEls.adminDrawer.classList.remove("is-open");
     adminEls.adminDrawer.setAttribute("aria-hidden", "true");
     if (location.hash === "#admin") history.replaceState(null, "", location.pathname + location.search);
+    if (wasOpen && adminState.returnFocusElement?.isConnected) {
+      try {
+        adminState.returnFocusElement.focus({ preventScroll: true });
+      } catch (error) {
+        adminState.returnFocusElement.focus();
+      }
+    }
+    adminState.returnFocusElement = null;
+  }
+
+  function handleAdminBackdropClick(event) {
+    if (event.target === adminEls.adminDrawer) closeAdmin();
+  }
+
+  function handleAdminKeydown(event) {
+    if (event.key !== "Escape" || !adminEls.adminDrawer.classList.contains("is-open")) return;
+    if (adminEls.adminOrderDialog?.open) return;
+    if (!adminEls.orderClientSuggestions.hidden) {
+      adminEls.orderClientSuggestions.hidden = true;
+      return;
+    }
+    event.preventDefault();
+    closeAdmin();
   }
 
   function showAdmin() {

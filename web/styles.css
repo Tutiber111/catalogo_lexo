@@ -3182,6 +3182,60 @@ body.auth-checking .auth-fields {
   line-height: 1.15;
 }
 
+.account-tool-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.salesman-price-approvals-list {
+  display: grid;
+  gap: 8px;
+  max-height: min(300px, 36vh);
+  overflow: auto;
+  padding-right: 3px;
+}
+
+.salesman-price-approval-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.salesman-price-approval-identity {
+  min-width: 0;
+}
+
+.salesman-price-approval-identity strong,
+.salesman-price-approval-identity span,
+.salesman-price-approval-identity small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.salesman-price-approval-identity span,
+.salesman-price-approval-identity small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 390px) {
+  .salesman-price-approval-row {
+    grid-template-columns: 1fr;
+  }
+
+  .salesman-price-approval-row .primary-button {
+    width: 100%;
+  }
+}
+
 .salesman-catalog-tools input,
 .salesman-catalog-tools select {
   width: 100%;

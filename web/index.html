@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260826-branch-catalog-r3">
+    <link rel="stylesheet" href="styles.css?v=20260903-salesman-approval-r1">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -321,6 +321,17 @@
             <p id="authMessage" class="auth-message" role="status"></p>
           </div>
           <section id="salesmanCatalogTools" class="salesman-catalog-tools" hidden>
+            <div id="salesmanPriceApprovalsSection" class="account-tool-section salesman-price-approvals" hidden>
+              <div class="account-tool-heading">
+                <div>
+                  <span class="eyebrow">Acceso a precios</span>
+                  <h3>Solicitudes pendientes</h3>
+                </div>
+                <button id="refreshSalesmanPriceApprovals" class="secondary-button compact-button" type="button">Actualizar</button>
+              </div>
+              <p id="salesmanPriceApprovalsStatus" class="account-tool-status" role="status">Cargando solicitudes...</p>
+              <div id="salesmanPriceApprovalsList" class="salesman-price-approvals-list"></div>
+            </div>
             <div class="account-tool-section">
               <div>
                 <span class="eyebrow">Acceso de clientes</span>
@@ -368,7 +379,7 @@
         </div>
       </aside>
 
-      <aside id="adminDrawer" class="admin-drawer" aria-label="Administración" aria-hidden="true">
+      <aside id="adminDrawer" class="admin-drawer" role="dialog" aria-modal="true" aria-label="Administración" aria-hidden="true">
         <section id="adminApp" class="admin-app-panel" hidden>
           <header class="admin-drawer-header">
             <div>
@@ -763,9 +774,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20260826-cart-address-r1"></script>
-    <script src="supabase-client.js?v=20260826-cart-address-r1"></script>
+    <script src="supabase-client.js?v=20260903-salesman-approval-r1"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260826-cart-address-r1"></script>
-    <script src="admin.js?v=20260826-branch-catalog-r3"></script>
+    <script src="app.js?v=20260903-salesman-approval-r1"></script>
+    <script src="admin.js?v=20260903-admin-dismiss-r1"></script>
   </body>
 </html>
