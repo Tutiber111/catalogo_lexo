@@ -77,7 +77,7 @@ const BARCODE_SCAN_MAX_TOTAL_MS = 3500;
 const VIEWER_HYDRATE_RADIUS = 3;
 const VIEWER_RETAIN_RADIUS = 5;
 const PENDING_PRICE_COVERS = new Map([
-  [348, [{ x: 0.5, y: 0.217, w: 0.31, h: 0.065, background: "#f7f7f7" }]],
+  [347, [{ x: 0.5, y: 0.217, w: 0.31, h: 0.065, background: "#f7f7f7" }]],
 ]);
 
 let pageScrollFrame = 0;
