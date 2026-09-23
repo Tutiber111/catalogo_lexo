@@ -1,11 +1,12 @@
-const CACHE_NAME = "lexo-catalog-v20260915-page33-remove-fledge";
+const CACHE_NAME = "lexo-catalog-v20260923-browse-cart-r12";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20260903-salesman-approval-r1",
+  "./styles.css?v=20260923-browse-cart-r12",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260915-page33-remove-fledge",
+  "./app.js?v=20260923-browse-cart-r12",
+  "./data/product-browse-data.js?v=20260923-browse-cart-r12",
   "./admin.js?v=20260903-admin-dismiss-r1",
   "./catalog-store.js?v=20260826-cart-address-r1",
   "./supabase-client.js?v=20260903-salesman-approval-r1",

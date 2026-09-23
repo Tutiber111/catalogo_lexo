@@ -3,6 +3,13 @@ const state = {
   currentIndex: 0,
   zoom: Number(localStorage.getItem("catalogZoom") || 100),
   brandFilter: "all",
+  browseCategoryGroup: "all",
+  browseCategoryPath: "",
+  browseCategoryExpanded: false,
+  browseMajorCategoryRoots: new Set(),
+  catalogView: ["pages", "grid", "list"].includes(localStorage.getItem("catalogView")) ? localStorage.getItem("catalogView") : "pages",
+  browseLimit: 60,
+  browseFilterKey: "",
   productsById: new Map(),
   productOverrides: {},
   cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
@@ -290,6 +297,8 @@ async function init() {
   await initAccount();
   renderTabs();
   renderAll();
+  browseTourReady = true;
+  maybeStartBrowseTour();
 }
 
 async function fetchCatalog() {
@@ -541,6 +550,376 @@ function handlePageStripClick(event) {
   if (button.dataset.group) openPriceGroup(button.dataset.group, pageIndex);
 }
 
+function setCatalogView(view) {
+  if (!["pages", "grid", "list"].includes(view)) return;
+  state.catalogView = view;
+  localStorage.setItem("catalogView", view);
+  renderProductBrowser();
+  if (view === "pages" && state.catalog) renderPage();
+  else if (state.catalog) renderSkuRecommendations(els.searchInput.value.trim().toLowerCase());
+}
+
+const browseTour = document.querySelector("#browseTour");
+const browseTourNext = document.querySelector("#browseTourNext");
+const browseTourSkip = document.querySelector("#browseTourSkip");
+const browseTourStorageKey = "catalogBrowseTourSeenV1";
+let browseTourReady = false;
+let browseTourStep = 0;
+let browseTourScheduled = false;
+let browseTourOpenedMenu = false;
+let browseTourPreviousFocus = null;
+
+function maybeStartBrowseTour() {
+  if (!browseTourReady || browseTourStep || browseTourScheduled || localStorage.getItem(browseTourStorageKey)) return;
+  if (!state.catalog || document.body.classList.contains("auth-required") || document.body.classList.contains("account-drawer-open")) return;
+  browseTourScheduled = true;
+  requestAnimationFrame(() => {
+    browseTourScheduled = false;
+    if (!browseTourReady || browseTourStep || document.body.classList.contains("auth-required")) return;
+    browseTourPreviousFocus = document.activeElement;
+    browseTour.hidden = false;
+    window.addEventListener("resize", positionBrowseTour);
+    window.addEventListener("scroll", positionBrowseTour, true);
+    document.addEventListener("keydown", handleBrowseTourKeydown, true);
+    showBrowseTourStep(1);
+  });
+}
+
+function showBrowseTourStep(step) {
+  browseTourStep = step;
+  browseTour.dataset.step = step === 1 ? "views" : "filters";
+  document.querySelector("#browseTourStep").textContent = `${step} de 2 · Nueva forma de explorar`;
+  document.querySelector("#browseTourTitle").textContent = step === 1 ? "Mirá los productos a tu manera" : "Encontrá lo que buscás";
+  document.querySelector("#browseTourText").textContent = step === 1
+    ? "Usá Cuadrícula para ver las fotos de un vistazo o Lista para comparar productos rápidamente. Podés volver al catálogo de páginas cuando quieras."
+    : "En el panel izquierdo podés buscar y combinar marca, categoría y subcategoría. Elegí una categoría para ver sus subcategorías; volvé a tocarla para cerrarlas.";
+  browseTourNext.textContent = step === 1 ? "Ver filtros" : "Entendido";
+  if (step === 2) {
+    if (state.catalogView === "pages") setCatalogView("grid");
+    if (window.matchMedia("(max-width: 920px)").matches) {
+      openCatalogMenu({ focusSearch: false });
+      browseTourOpenedMenu = true;
+    }
+  }
+  requestAnimationFrame(() => {
+    positionBrowseTour();
+    browseTourNext.focus({ preventScroll: true });
+  });
+  if (step === 2) setTimeout(positionBrowseTour, 300);
+}
+
+function positionBrowseTour() {
+  if (!browseTourStep || browseTour.hidden) return;
+  const targets = browseTourStep === 1
+    ? [document.querySelector('[data-catalog-view="grid"]'), document.querySelector('[data-catalog-view="list"]')]
+    : [document.querySelector(".brand-tabs-wrap"), document.querySelector(".browse-category-filter")];
+  const rectangles = targets.map((target) => target?.getBoundingClientRect()).filter((rect) => rect && rect.width && rect.height);
+  if (!rectangles.length) return;
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const margin = 8;
+  const left = Math.min(viewportWidth - margin - 1, Math.max(margin, Math.min(...rectangles.map((rect) => rect.left)) - margin));
+  const top = Math.min(viewportHeight - margin - 1, Math.max(margin, Math.min(...rectangles.map((rect) => rect.top)) - margin));
+  const right = Math.max(left + 1, Math.min(viewportWidth - margin, Math.max(...rectangles.map((rect) => rect.right)) + margin));
+  const bottom = Math.max(top + 1, Math.min(viewportHeight - margin, Math.max(...rectangles.map((rect) => rect.bottom)) + margin));
+  const ring = browseTour.querySelector(".browse-tour-ring");
+  Object.assign(ring.style, { left: `${left}px`, top: `${top}px`, width: `${right - left}px`, height: `${bottom - top}px` });
+  const shadeBoxes = {
+    top: [0, 0, viewportWidth, top],
+    left: [0, top, left, bottom - top],
+    right: [right, top, viewportWidth - right, bottom - top],
+    bottom: [0, bottom, viewportWidth, viewportHeight - bottom],
+  };
+  for (const [side, [x, y, width, height]] of Object.entries(shadeBoxes)) {
+    const shade = browseTour.querySelector(`[data-tour-shade="${side}"]`);
+    Object.assign(shade.style, { left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px` });
+  }
+  const popover = browseTour.querySelector(".browse-tour-popover");
+  const popoverWidth = popover.offsetWidth;
+  const popoverHeight = popover.offsetHeight;
+  let popoverLeft = Math.max(16, Math.min(viewportWidth - popoverWidth - 16, (left + right - popoverWidth) / 2));
+  let popoverTop = bottom + 20;
+  if (browseTourStep === 2 && right + popoverWidth + 20 < viewportWidth - 16) {
+    popoverLeft = right + 20;
+    popoverTop = (top + bottom - popoverHeight) / 2;
+  } else if (popoverTop + popoverHeight > viewportHeight - 16) {
+    popoverTop = top - popoverHeight - 20;
+  }
+  if (popoverTop < 16 || popoverTop + popoverHeight > viewportHeight - 16) {
+    popoverTop = viewportHeight - popoverHeight - 16;
+  }
+  Object.assign(popover.style, { left: `${popoverLeft}px`, top: `${Math.max(16, popoverTop)}px` });
+}
+
+function finishBrowseTour() {
+  if (!browseTourStep) return;
+  localStorage.setItem(browseTourStorageKey, "1");
+  browseTourStep = 0;
+  browseTour.hidden = true;
+  window.removeEventListener("resize", positionBrowseTour);
+  window.removeEventListener("scroll", positionBrowseTour, true);
+  document.removeEventListener("keydown", handleBrowseTourKeydown, true);
+  if (browseTourOpenedMenu) closeCatalogMenu();
+  browseTourOpenedMenu = false;
+  if (browseTourPreviousFocus?.isConnected) browseTourPreviousFocus.focus({ preventScroll: true });
+  browseTourPreviousFocus = null;
+}
+
+function handleBrowseTourKeydown(event) {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    finishBrowseTour();
+  } else if (event.key === "Tab") {
+    const focus = document.activeElement;
+    if (event.shiftKey && focus === browseTourSkip) {
+      event.preventDefault();
+      browseTourNext.focus();
+    } else if (!event.shiftKey && focus === browseTourNext) {
+      event.preventDefault();
+      browseTourSkip.focus();
+    }
+  }
+}
+
+browseTourNext.addEventListener("click", () => browseTourStep === 1 ? showBrowseTourStep(2) : finishBrowseTour());
+browseTourSkip.addEventListener("click", finishBrowseTour);
+
+const browseLoadSentinel = document.querySelector("#browseLoadSentinel");
+const browseMoreButton = document.querySelector("#browseMore");
+const browseCategoryGroups = document.querySelector("#browseCategoryGroups");
+const browseCategoryDetails = document.querySelector("#browseCategoryDetails");
+const clearBrowseCategory = document.querySelector("#clearBrowseCategory");
+const browseLoadObserver = typeof IntersectionObserver === "function"
+  ? new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting) || state.catalogView === "pages" || browseLoadSentinel.hidden) return;
+    state.browseLimit += 60;
+    renderProductBrowser();
+  }, { root: document.querySelector("#productBrowser"), rootMargin: "0px 0px 500px 0px" })
+  : null;
+if (browseLoadObserver) browseLoadObserver.observe(browseLoadSentinel);
+
+function browseCategoryPaths(product) {
+  const metadata = window.PRODUCT_BROWSE_DATA?.[product.id] || {};
+  const brands = new Set(["Lexo", "Estia", "Magefesa", "Dreamfarm", "Leifheit", "OXO", "Prepara", "Soehnle"]);
+  const paths = (metadata.categories || [])
+    .map((path) => String(path).trim())
+    .filter((path) => path && !brands.has(path));
+  return [...new Set(paths.length ? paths : [product.category].filter(Boolean))];
+}
+
+function browseCategoryRoot(path) {
+  return path.split(" > ", 1)[0].trim();
+}
+
+function browseCategoryGroupForPath(path) {
+  const root = browseCategoryRoot(path);
+  return state.browseMajorCategoryRoots.has(root) ? root : "__other__";
+}
+
+function browseMatchesCategory(product) {
+  if (state.browseCategoryGroup === "all") return true;
+  return browseCategoryPaths(product).some((path) =>
+    browseCategoryGroupForPath(path) === state.browseCategoryGroup
+    && (!state.browseCategoryPath || path === state.browseCategoryPath));
+}
+
+function renderBrowseCategoryFilters(candidates, allProducts) {
+  // Keep the reusable subcategory panel outside before replacing the category buttons.
+  browseCategoryGroups.after(browseCategoryDetails);
+  const rootTotals = new Map();
+  for (const product of allProducts) {
+    for (const root of new Set(browseCategoryPaths(product).map(browseCategoryRoot))) {
+      rootTotals.set(root, (rootTotals.get(root) || 0) + 1);
+    }
+  }
+  state.browseMajorCategoryRoots = new Set([...rootTotals].filter(([, count]) => count >= 8).map(([root]) => root));
+  const groupCounts = new Map();
+  const pathCounts = new Map();
+  for (const product of candidates) {
+    const paths = browseCategoryPaths(product);
+    for (const group of new Set(paths.map(browseCategoryGroupForPath))) {
+      groupCounts.set(group, (groupCounts.get(group) || 0) + 1);
+    }
+    for (const path of paths) pathCounts.set(path, (pathCounts.get(path) || 0) + 1);
+  }
+  const groups = [...state.browseMajorCategoryRoots].sort((a, b) => (rootTotals.get(b) || 0) - (rootTotals.get(a) || 0) || a.localeCompare(b));
+  if ([...rootTotals].some(([root]) => !state.browseMajorCategoryRoots.has(root))) groups.push("__other__");
+  browseCategoryGroups.innerHTML = [
+    `<button type="button" data-browse-category-group="all" aria-pressed="${state.browseCategoryGroup === "all"}"><span>Todas</span><small>${candidates.length}</small></button>`,
+    ...groups.map((group) => `<button type="button" data-browse-category-group="${escapeHtml(group)}" aria-pressed="${state.browseCategoryGroup === group}" aria-expanded="${state.browseCategoryGroup === group && state.browseCategoryExpanded}" aria-controls="browseCategoryDetails"><span>${escapeHtml(group === "__other__" ? "Otros" : group)}</span><small>${groupCounts.get(group) || 0}<span class="browse-expand-icon" aria-hidden="true">${state.browseCategoryGroup === group && state.browseCategoryExpanded ? "▴" : "▾"}</span></small></button>`),
+  ].join("");
+  clearBrowseCategory.hidden = state.browseCategoryGroup === "all";
+  const selectedPaths = state.browseCategoryGroup === "all" ? [] : [...new Set(allProducts.flatMap(browseCategoryPaths))]
+    .filter((path) => path.includes(" > "))
+    .filter((path) => browseCategoryGroupForPath(path) === state.browseCategoryGroup)
+    .sort((a, b) => (pathCounts.get(b) || 0) - (pathCounts.get(a) || 0) || a.localeCompare(b));
+  browseCategoryDetails.hidden = !state.browseCategoryExpanded || selectedPaths.length === 0;
+  const selectedGroupLabel = state.browseCategoryGroup === "__other__" ? "Otros" : state.browseCategoryGroup;
+  browseCategoryDetails.innerHTML = selectedPaths.length ? [
+    `<span class="browse-subcategory-title">Subcategorías de ${escapeHtml(selectedGroupLabel)}</span>`,
+    `<button type="button" data-browse-category-path="" aria-pressed="${!state.browseCategoryPath}"><span>Todas en ${escapeHtml(selectedGroupLabel)}</span><small>${groupCounts.get(state.browseCategoryGroup) || 0}</small></button>`,
+    ...selectedPaths.map((path) => `<button type="button" data-browse-category-path="${escapeHtml(path)}" aria-pressed="${state.browseCategoryPath === path}"><span>${escapeHtml(path.startsWith(state.browseCategoryGroup + " > ") ? path.slice(state.browseCategoryGroup.length + 3) : path)}</span><small>${pathCounts.get(path) || 0}</small></button>`),
+  ].join("") : "";
+  if (state.browseCategoryExpanded && selectedPaths.length) {
+    const selectedButton = [...browseCategoryGroups.querySelectorAll("[data-browse-category-group]")]
+      .find((button) => button.dataset.browseCategoryGroup === state.browseCategoryGroup);
+    selectedButton?.after(browseCategoryDetails);
+  }
+}
+
+function renderProductBrowser() {
+  const browser = document.querySelector("#productBrowser");
+  const browsing = state.catalogView !== "pages";
+  document.body.classList.toggle("is-product-browsing", browsing);
+  browser.hidden = !browsing;
+  els.pageStage.hidden = browsing;
+  document.querySelectorAll("[data-catalog-view]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.catalogView === state.catalogView));
+  });
+  if (!state.catalog || !browsing) return;
+  const query = normalizeProductSearch(els.searchInput.value.trim());
+  const key = JSON.stringify([query, state.brandFilter, state.browseCategoryGroup, state.browseCategoryPath]);
+  if (key !== state.browseFilterKey) {
+    state.browseFilterKey = key;
+    state.browseLimit = 60;
+    browser.scrollTop = 0;
+  }
+  const allProducts = uniqueProductsBySku(state.catalog.products.filter(isVisibleProduct));
+  const candidates = allProducts.filter((product) => brandMatches(product.section)
+    && normalizeProductSearch(searchFields(product).join(" ")).includes(query));
+  renderBrowseCategoryFilters(candidates, allProducts);
+  const products = candidates.filter(browseMatchesCategory);
+  const shown = products.slice(0, state.browseLimit);
+  document.querySelector("#browseCount").textContent = `${products.length} productos${state.brandFilter !== "all" ? ` · ${state.brandFilter}` : ""}${state.browseCategoryGroup !== "all" ? ` · ${state.browseCategoryPath || (state.browseCategoryGroup === "__other__" ? "Otros" : state.browseCategoryGroup)}` : ""} · Mostrando ${shown.length}`;
+  const container = document.querySelector("#browseProducts");
+  container.classList.toggle("is-list", state.catalogView === "list");
+  container.innerHTML = shown.map((product) => {
+    const metadata = window.PRODUCT_BROWSE_DATA?.[product.id] || {};
+    const categories = (metadata.categories || [product.category]).filter(Boolean);
+    const descriptionPreview = metadata.description?.length > 170
+      ? `${metadata.description.slice(0, 171).replace(/\s+\S*$/, "")}…`
+      : metadata.description;
+    const price = hasPriceAccess() ? (product.price || "Consultar precio") : "Precios pendientes de aprobación";
+    const quantity = browseCartQuantity(product);
+    const canOrder = hasPriceAccess() && !product.outOfStock;
+    return `<article class="browse-card${quantity ? " is-in-cart" : ""}" data-browse-card="${escapeHtml(product.id)}">
+      <button class="browse-card-main" type="button" data-browse-product="${escapeHtml(product.id)}" aria-label="Ver ${escapeHtml(product.name)}, SKU ${escapeHtml(product.sku)}">
+      <span class="browse-image"><span class="browse-image-fallback"${metadata.image ? ' hidden' : ''}>Imagen no disponible</span>${metadata.image ? `<img src="${escapeHtml(metadata.image)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">` : ""}</span>
+      <span class="browse-info"><span class="browse-brand">${escapeHtml(product.section)}</span><strong class="browse-name">${escapeHtml(product.name)}</strong><span class="browse-sku">SKU ${escapeHtml(product.sku)}</span><span class="browse-category">${escapeHtml(categories.join(" · "))}</span>${descriptionPreview ? `<span class="browse-description">${escapeHtml(descriptionPreview)}</span>` : ""}</span>
+      <span class="browse-buy"><strong class="browse-price">${escapeHtml(price)}</strong>${product.outOfStock ? '<span class="browse-stock">Sin stock</span>' : ''}<span class="browse-detail">Ver producto <span aria-hidden="true">↗</span></span></span>
+      </button>
+      <div class="browse-cart-row"><span class="browse-cart-status" aria-live="polite">${quantity ? `${quantity} en el carrito` : "Fuera del carrito"}</span><div class="browse-quantity" role="group" aria-label="Cantidad de ${escapeHtml(product.name)} en el carrito"><button type="button" data-browse-dec="${escapeHtml(product.id)}" aria-label="Quitar una unidad de ${escapeHtml(product.name)}" ${!quantity || !canOrder ? "disabled" : ""}>−</button><input type="number" min="0" step="1" inputmode="numeric" value="${quantity}" data-browse-quantity="${escapeHtml(product.id)}" aria-label="Cantidad de ${escapeHtml(product.name)} en el carrito" ${!canOrder ? "disabled" : ""}><button type="button" data-browse-inc="${escapeHtml(product.id)}" aria-label="Agregar una unidad de ${escapeHtml(product.name)}" ${!canOrder ? "disabled" : ""}>+</button></div></div>
+    </article>`;
+  }).join("") || '<div class="browse-empty"><h3>No encontramos productos</h3><p>Probá otro nombre, SKU o filtro.</p><button type="button" class="secondary-button" data-browse-reset>Limpiar filtros</button></div>';
+  container.querySelectorAll("img").forEach((img) => img.addEventListener("error", () => {
+    img.previousElementSibling.hidden = false;
+    img.remove();
+  }, { once: true }));
+  const hasMore = shown.length < products.length;
+  browseLoadSentinel.hidden = !hasMore;
+  browseMoreButton.hidden = !hasMore || Boolean(browseLoadObserver);
+}
+
+document.querySelectorAll("[data-catalog-view]").forEach((button) => button.addEventListener("click", () => setCatalogView(button.dataset.catalogView)));
+browseMoreButton.addEventListener("click", () => {
+  state.browseLimit += 60;
+  renderProductBrowser();
+});
+browseCategoryGroups.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-browse-category-group]");
+  if (!button) return;
+  const group = button.dataset.browseCategoryGroup;
+  state.browseCategoryExpanded = group !== "all" && (group !== state.browseCategoryGroup || !state.browseCategoryExpanded);
+  state.browseCategoryGroup = group;
+  state.browseCategoryPath = "";
+  renderProductBrowser();
+  renderSkuRecommendations(els.searchInput.value.trim().toLowerCase());
+});
+browseCategoryDetails.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-browse-category-path]");
+  if (!button) return;
+  state.browseCategoryPath = button.dataset.browseCategoryPath;
+  renderProductBrowser();
+  renderSkuRecommendations(els.searchInput.value.trim().toLowerCase());
+});
+clearBrowseCategory.addEventListener("click", () => {
+  state.browseCategoryGroup = "all";
+  state.browseCategoryPath = "";
+  state.browseCategoryExpanded = false;
+  renderProductBrowser();
+  renderSkuRecommendations(els.searchInput.value.trim().toLowerCase());
+});
+document.querySelector("#browseProducts").addEventListener("click", (event) => {
+  const increment = event.target.closest("[data-browse-inc]");
+  if (increment) { setBrowseCartQuantity(increment.dataset.browseInc, browseCartQuantity(state.productsById.get(increment.dataset.browseInc)) + 1); return; }
+  const decrement = event.target.closest("[data-browse-dec]");
+  if (decrement) { setBrowseCartQuantity(decrement.dataset.browseDec, browseCartQuantity(state.productsById.get(decrement.dataset.browseDec)) - 1); return; }
+  const button = event.target.closest("[data-browse-product]");
+  if (button) openProduct(state.productsById.get(button.dataset.browseProduct));
+  if (event.target.closest("[data-browse-reset]")) {
+    els.searchInput.value = "";
+    state.brandFilter = "all";
+    state.browseCategoryGroup = "all";
+    state.browseCategoryPath = "";
+    state.browseCategoryExpanded = false;
+    renderBrandTabs();
+    renderLists();
+  }
+});
+document.querySelector("#browseProducts").addEventListener("change", (event) => {
+  const input = event.target.closest("[data-browse-quantity]");
+  if (!input) return;
+  const quantity = Number(input.value);
+  if (!Number.isSafeInteger(quantity) || quantity < 0) { syncBrowseCartControls(); return; }
+  setBrowseCartQuantity(input.dataset.browseQuantity, quantity);
+});
+document.querySelector("#browseProducts").addEventListener("input", (event) => {
+  const input = event.target.closest("[data-browse-quantity]");
+  if (!input || input.value === "") return;
+  const quantity = Number(input.value);
+  if (Number.isSafeInteger(quantity) && quantity >= 0) setBrowseCartQuantity(input.dataset.browseQuantity, quantity);
+});
+
+function browseCartQuantity(product) {
+  if (!product) return 0;
+  const sku = normalizeSkuQuery(product.sku || product.id);
+  return [...state.cart.entries()].reduce((total, [id, quantity]) => {
+    const item = state.productsById?.get(id);
+    return total + (item && normalizeSkuQuery(item.sku || id) === sku ? quantity : 0);
+  }, 0);
+}
+
+function setBrowseCartQuantity(productId, quantity) {
+  const product = state.productsById.get(productId);
+  if (!product || !hasPriceAccess() || product.outOfStock) return;
+  const sku = normalizeSkuQuery(product.sku || product.id);
+  let cartId = productId;
+  for (const id of state.cart.keys()) {
+    const item = state.productsById.get(id);
+    if (item && normalizeSkuQuery(item.sku || id) === sku) {
+      cartId = id;
+      state.cart.delete(id);
+    }
+  }
+  if (quantity > 0) state.cart.set(cartId, quantity);
+  clearPendingCartRemoval({ render: false });
+  saveCart();
+  renderCart();
+}
+
+function syncBrowseCartControls() {
+  const container = document.querySelector("#browseProducts");
+  container.querySelectorAll("[data-browse-card]").forEach((card) => {
+    const product = state.productsById?.get(card.dataset.browseCard);
+    const quantity = browseCartQuantity(product);
+    card.classList.toggle("is-in-cart", quantity > 0);
+    card.querySelector(".browse-cart-status").textContent = quantity ? `${quantity} en el carrito` : "Fuera del carrito";
+    const input = card.querySelector("[data-browse-quantity]");
+    input.value = quantity;
+    card.querySelector("[data-browse-dec]").disabled = !quantity || !hasPriceAccess() || product?.outOfStock;
+  });
+}
+
 function renderTabs() {
   renderLists();
 }
@@ -571,6 +950,7 @@ function renderBrandTabs() {
 }
 
 function renderLists() {
+  renderProductBrowser();
   const query = els.searchInput.value.trim().toLowerCase();
   const hasQuery = Boolean(query);
   renderSkuRecommendations(query);
@@ -641,7 +1021,7 @@ function renderSkuRecommendations(query) {
   }
 
   const matches = state.catalog.products
-    .filter((product) => isVisibleProduct(product))
+    .filter((product) => isVisibleProduct(product) && (state.catalogView === "pages" || (brandMatches(product.section) && browseMatchesCategory(product))))
     .map((product) => matchingProductRecommendation(product, skuQuery, textQuery))
     .filter(Boolean)
     .sort((first, second) => {
@@ -673,6 +1053,11 @@ function renderSkuRecommendations(query) {
     button.addEventListener("click", () => {
       const product = state.productsById.get(button.dataset.product);
       if (!product) return;
+      if (state.catalogView !== "pages") {
+        closeCatalogMenu();
+        openProduct(product);
+        return;
+      }
       const index = state.catalog.pages.findIndex((page) => page.number === product.page);
       clearBrandFilter();
       els.searchInput.value = "";
@@ -1044,6 +1429,7 @@ function openProduct(product) {
   if (isCatalogDialogOpen(els.productDialog)) closeCatalogDialog(els.productDialog);
   const outOfStock = Boolean(product.outOfStock);
   const pricesVisible = hasPriceAccess();
+  const description = window.PRODUCT_BROWSE_DATA?.[product.id]?.description;
   els.dialogContent.innerHTML = `
     <div class="dialog-body">
       <div>
@@ -1055,6 +1441,7 @@ function openProduct(product) {
         <span>SKU: ${escapeHtml(product.sku)}</span>
         ${product.ean ? `<span>EAN: ${escapeHtml(product.ean)}</span>` : ""}
       </div>
+      ${description ? `<p class="product-description">${escapeHtml(description)}</p>` : ""}
       ${pricesVisible ? `<div class="price${outOfStock ? " is-out-of-stock" : ""}">${outOfStock ? "Sin stock" : escapeHtml(product.price)}</div>` : `
         <p class="price-access-dialog-message">Los precios y pedidos se habilitar&aacute;n cuando un administrador apruebe tu cuenta.</p>
       `}
@@ -1877,6 +2264,7 @@ function findProductByQuickSku(sku) {
 
 function renderCart() {
   renderCartClientControls();
+  syncBrowseCartControls();
   if (!hasPriceAccess()) {
     els.cartCount.textContent = "0";
     els.mobileCartCount.textContent = "0";
@@ -2929,6 +3317,7 @@ function currentPage() {
 
 function goToPage(index) {
   if (index < 0 || index >= state.catalog.pages.length) return;
+  if (state.catalogView !== "pages") setCatalogView("pages");
   closeCatalogMenu();
   const needsRender = !els.pageStrip.querySelector(`[data-page-index="${index}"]`);
   setCurrentPageIndex(index);
@@ -4666,6 +5055,7 @@ function renderAccount() {
   els.mobileOpenAccount.classList.toggle("is-signed-in", signedIn);
   renderSalesmanCatalogTools();
   applyAuthGate();
+  maybeStartBrowseTour();
 }
 
 function renderSalesmanCatalogTools() {
@@ -5377,7 +5767,7 @@ function cssEscape(value) {
 }
 
 function searchFields(product) {
-  return [product.name, product.sku, product.section, product.category, product.price, String(product.page)];
+  return [product.name, product.sku, product.section, product.category, ...(window.PRODUCT_BROWSE_DATA?.[product.id]?.categories || []), product.price, String(product.page)];
 }
 
 function skuFields(product) {

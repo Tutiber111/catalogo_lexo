@@ -161,6 +161,67 @@ notification rows created after installation.
 
 ## Regenerate Sample Data
 
+### Product grid and list
+
+The viewer includes **Catálogo**, **Cuadrícula**, and **Lista** modes. Grid/list
+cards show each visible SKU once and use the same current prices, stock flags, approval rules,
+and product/order dialog as the page catalog. Brand and text/SKU search combine
+in these views. Results load in batches of 60 as the viewer scrolls near the
+end; a button remains available only in browsers without scroll observation.
+The selected view is remembered.
+Each card shows its cart quantity and has minus, plus, and directly editable
+quantity controls. Products in the cart have a highlighted card and count;
+changes in the cart or product dialog update these cards too.
+
+`web/data/product-browse-data.js` contains supplemental categories and image
+sources keyed by catalog product ID. Categories use Lexo's published product
+breadcrumbs and the non-brand branches of its storefront menu. Products without
+usable breadcrumbs were reviewed and assigned to that same tree; the mapping
+and source counts are in `docs/product-browse-category-audit.json`. Prices are
+never imported from the Tiendanube export.
+
+Grid and list views also show category and subcategory filters in the left
+sidebar. They combine with brand and search. Source descriptions from Lexo
+product pages appear as short card previews and in full in the product dialog.
+New visitors see a two-step guide highlighting Cuadrícula/Lista and the sidebar
+filters; it can be dismissed and is shown only once per browser.
+The Tiendanube CSV has no populated description cells. Descriptions were recovered
+for 754 of 875 catalog placements from matching published product pages; the
+remaining 121 need source copy or editorial review. Their SKUs are listed in
+`docs/product-browse-description-gaps.json`.
+
+`tools/build_product_browse.py --csv <export.csv> --photos <photo-directory>`
+builds this metadata and local thumbnails. It preserves existing image mappings,
+caches public store responses under `tmp/`, requests missing pages sequentially,
+and stops network lookups if the store rate-limits requests. Run
+`tools/complete_product_images.py` to recover SKU-suffixed filenames, then
+`tools/localize_product_images.py` to save remote images locally. Image source
+references are retained in the metadata. Images use the existing service-worker
+cache behavior.
+
+`tools/build_product_descriptions.py --csv <export.csv> --fetch-missing`
+imports descriptions from the matching public product pages, caching responses
+under `tmp/product-pages` and recording source URLs in browse metadata. Omit
+`--fetch-missing` to rebuild from already cached pages.
+
+After updating the catalog export or cached product pages, run
+`tools/audit_category_sources.py --csv <export.csv>` and then
+`tools/rebuild_product_categories.py`
+to refresh the reviewed category mapping. The browse metadata builder preserves
+existing reviewed categories.
+
+`tools/extract_browse_photos.py` can supplement missing images from local source
+PDFs using exact SKU labels. It requires PyMuPDF in `tmp/pdf-deps` and visual
+review of the resulting matches before release. Source filenames and page
+numbers are retained with each extracted image.
+
+Validate browsing with `node --test tools/test_product_browse.mjs`.
+All 861 unique SKUs (875 catalog placements) now have local product images.
+The coverage report is `docs/product-browse-image-gaps.json`. Catalog crops
+retain their page and crop coordinates. The Estia source filename `26445-1.png`
+is mapped to catalog SKU `26455` as an apparent filename typo; its ivory
+Click & Seal photo was visually reviewed. Prices and catalog SKUs are unchanged.
+
 The sample page images and `web/data/catalog.json` are generated from the PDF:
 
 ```powershell

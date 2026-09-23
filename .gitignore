@@ -1,3 +1,5 @@
 catalog_review/
 supabase/.temp/
 *.log
+tmp/
+__pycache__/

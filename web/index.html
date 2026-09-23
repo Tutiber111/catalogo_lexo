@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260903-salesman-approval-r1">
+    <link rel="stylesheet" href="styles.css?v=20260923-browse-cart-r12">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -64,6 +64,12 @@
           <div id="brandTabs" class="brand-tabs" role="tablist" aria-label="Marcas del catálogo"></div>
         </div>
 
+        <div class="browse-category-filter" aria-label="Filtrar por categoría">
+          <div class="browse-filter-heading"><span>Categoría</span><button id="clearBrowseCategory" type="button" hidden>Limpiar</button></div>
+          <div id="browseCategoryGroups" class="browse-category-groups" role="group" aria-label="Categorías"></div>
+          <div id="browseCategoryDetails" class="browse-category-details" role="group" aria-label="Subcategorías" hidden></div>
+        </div>
+
         <div class="tabs" role="tablist" aria-label="Paneles del catálogo">
           <button class="tab-button is-active" data-panel="pagesPanel" type="button">Páginas</button>
           <button class="tab-button" data-panel="productsPanel" type="button">Productos</button>
@@ -74,7 +80,7 @@
         <button id="jumpToCatalog" class="mobile-catalog-button" type="button">Ver catálogo</button>
       </aside>
 
-      <main class="viewer" aria-label="Visor de páginas del catálogo">
+      <main class="viewer" aria-label="Visor del catálogo">
         <header class="viewer-toolbar">
           <div class="page-toolbar-primary">
             <nav class="page-navigation" aria-label="Cambiar página">
@@ -113,6 +119,17 @@
           </div>
         </header>
 
+        <nav class="catalog-view-switch" aria-label="Vista del catálogo">
+          <button type="button" data-catalog-view="pages" aria-pressed="true">Catálogo</button>
+          <button type="button" data-catalog-view="grid" aria-pressed="false">Cuadrícula</button>
+          <button type="button" data-catalog-view="list" aria-pressed="false">Lista</button>
+        </nav>
+        <section id="productBrowser" class="product-browser" aria-label="Todos los productos" hidden>
+          <div class="product-browser-heading"><div><span class="eyebrow">Explorá la colección</span><h2>Productos</h2><p id="browseCount" role="status" aria-live="polite"></p></div></div>
+          <div id="browseProducts" class="browse-products"></div>
+          <div id="browseLoadSentinel" class="browse-load-sentinel" aria-hidden="true" hidden></div>
+          <button id="browseMore" class="secondary-button browse-more" type="button" hidden>Ver más productos</button>
+        </section>
         <section class="page-stage">
           <div id="pageStrip" class="page-strip"></div>
         </section>
@@ -769,6 +786,23 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+    <div id="browseTour" class="browse-tour" role="dialog" aria-modal="true" aria-labelledby="browseTourTitle" aria-describedby="browseTourText" hidden>
+      <div class="browse-tour-shade" data-tour-shade="top" aria-hidden="true"></div>
+      <div class="browse-tour-shade" data-tour-shade="left" aria-hidden="true"></div>
+      <div class="browse-tour-shade" data-tour-shade="right" aria-hidden="true"></div>
+      <div class="browse-tour-shade" data-tour-shade="bottom" aria-hidden="true"></div>
+      <div class="browse-tour-ring" aria-hidden="true"></div>
+      <div class="browse-tour-popover">
+        <span id="browseTourStep" class="eyebrow"></span>
+        <h2 id="browseTourTitle"></h2>
+        <p id="browseTourText"></p>
+        <div class="browse-tour-actions">
+          <button id="browseTourSkip" type="button" class="secondary-button">Ahora no</button>
+          <button id="browseTourNext" type="button" class="primary-button">Ver filtros</button>
+        </div>
+      </div>
+    </div>
+
   <script src="data/catalog-data.js?v=20260915-page33-remove-fledge"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -776,7 +810,8 @@
     <script src="catalog-store.js?v=20260826-cart-address-r1"></script>
     <script src="supabase-client.js?v=20260903-salesman-approval-r1"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
-    <script src="app.js?v=20260915-page33-remove-fledge"></script>
+    <script src="data/product-browse-data.js?v=20260923-browse-cart-r12"></script>
+    <script src="app.js?v=20260923-browse-cart-r12"></script>
     <script src="admin.js?v=20260903-admin-dismiss-r1"></script>
   </body>
 </html>
