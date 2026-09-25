@@ -946,10 +946,11 @@
       CATALOG_STORE.saveProductOverrides(overrides);
       const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
       const rows = [
-        ["Código", "Descripción", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock", "Video YouTube"],
+        ["Código", "Descripción", "Marca", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock", "Video YouTube"],
         ...(catalog.products || []).map((product) => [
           product.sku || "",
           product.name || "",
+          product.section || "",
           product.price || "",
           product.category || "",
           product.page || "",
@@ -963,6 +964,7 @@
       sheet["!cols"] = [
         { wch: 16 },
         { wch: 52 },
+        { wch: 20 },
         { wch: 14 },
         { wch: 24 },
         { wch: 10 },
