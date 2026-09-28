@@ -33,6 +33,7 @@ type OrderLineInput = {
   productId?: string;
   quantity?: number;
   page?: number;
+  ean?: string;
 };
 
 const LINK_LIFETIME_MS = 7 * 24 * 60 * 60 * 1000;
@@ -366,7 +367,7 @@ async function loadOrderByClientRequestId(
 }
 
 async function validatedOrderLines(inputs: OrderLineInput[]) {
-  const quantities = new Map<string, { quantity: number; page: number | null }>();
+  const quantities = new Map<string, { quantity: number; page: number | null; ean: string }>();
   for (const input of inputs.slice(0, 250)) {
     const productId = String(input.productId || "").trim();
     const quantity = Math.trunc(Number(input.quantity || 0));
@@ -375,6 +376,7 @@ async function validatedOrderLines(inputs: OrderLineInput[]) {
     quantities.set(productId, {
       quantity: Math.min(9999, (existing?.quantity || 0) + quantity),
       page: Number.isFinite(Number(input.page)) ? Math.trunc(Number(input.page)) : existing?.page || null,
+      ean: cleanText(input.ean, 32) || existing?.ean || "",
     });
   }
   if (!quantities.size) return [];
@@ -401,6 +403,7 @@ async function validatedOrderLines(inputs: OrderLineInput[]) {
     return {
       product_id: productId,
       sku: cleanText(product.sku, 80),
+      ean: requested.ean,
       name: cleanText(product.name, 500),
       unit_price: unitPrice,
       quantity: requested.quantity,

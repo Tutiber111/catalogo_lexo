@@ -262,6 +262,7 @@
       items: lines.map(({ product, qty }) => ({
         productId: product.id,
         sku: product.sku,
+        ean: product.ean || "",
         name: product.name,
         price: product.price,
         qty,

@@ -21,6 +21,7 @@ type RequestContext = {
 
 type OrderItem = {
   sku: string;
+  ean: string;
   name: string;
   unit_price: number;
   quantity: number;
@@ -86,7 +87,7 @@ type SentEmail = {
 
 const ORDER_TEMPLATE_SHEET_PATH = "xl/worksheets/sheet3.xml";
 const ORDER_TEMPLATE_LAST_INPUT_ROW = 262;
-const ORDER_SELECT = "id,customer_id,order_number,status,customer_name,customer_phone,customer_client_code,sales_client_id,sales_client_code,sales_client_name,sales_client_address,sales_client_locality,salesman_code,order_transport,notes,branch_order_group_id,client_branch_id,branch_name,branch_address,branch_locality,total_items,total_value,created_at,order_items(sku,name,unit_price,quantity,line_total,page)";
+const ORDER_SELECT = "id,customer_id,order_number,status,customer_name,customer_phone,customer_client_code,sales_client_id,sales_client_code,sales_client_name,sales_client_address,sales_client_locality,salesman_code,order_transport,notes,branch_order_group_id,client_branch_id,branch_name,branch_address,branch_locality,total_items,total_value,created_at,order_items(sku,ean,name,unit_price,quantity,line_total,page)";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -1204,7 +1205,7 @@ function buildOrderText(order: Order, siteUrl: string) {
     order.notes ? `Observaciones: ${order.notes}` : "",
     "",
     ...order.order_items.map((item) =>
-      `${item.quantity} x ${item.sku} - ${item.name} - ${formatMoney(Number(item.unit_price))} c/u - ${formatMoney(Number(item.line_total))}${item.page ? ` - Página ${item.page}` : ""}`
+      `${item.quantity} x ${item.sku} - EAN: ${item.ean || "-"} - ${item.name} - ${formatMoney(Number(item.unit_price))} c/u - ${formatMoney(Number(item.line_total))}${item.page ? ` - Página ${item.page}` : ""}`
     ),
     "",
     `Unidades: ${order.total_items}`,
@@ -1220,6 +1221,7 @@ function buildOrderHtml(order: Order, siteUrl: string) {
     <tr>
       <td>${escapeHtml(String(item.quantity))}</td>
       <td>${escapeHtml(item.sku)}</td>
+      <td>${escapeHtml(item.ean || "-")}</td>
       <td>${escapeHtml(item.name)}</td>
       <td>${escapeHtml(formatMoney(Number(item.unit_price)))}</td>
       <td>${escapeHtml(formatMoney(Number(item.line_total)))}</td>
@@ -1246,6 +1248,7 @@ function buildOrderHtml(order: Order, siteUrl: string) {
           <tr>
             <th>Cant.</th>
             <th>SKU</th>
+            <th>EAN</th>
             <th>Producto</th>
             <th>Precio</th>
             <th>Total</th>

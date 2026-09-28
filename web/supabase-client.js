@@ -343,6 +343,7 @@
         productId: item.productId,
         quantity: item.qty,
         page: item.page,
+        ean: item.ean || "",
       })),
     });
   }
@@ -468,6 +469,7 @@
       client_line_number: index + 1,
       product_id: item.productId,
       sku: item.sku,
+      ean: item.ean || "",
       name: item.name,
       unit_price: CATALOG_STORE.priceNumber(item.price),
       quantity: item.qty,
@@ -757,6 +759,7 @@
       items: (order.order_items || []).map((item) => ({
         productId: item.product_id,
         sku: item.sku,
+        ean: item.ean || "",
         name: item.name,
         price: CATALOG_STORE.formatMoney(item.unit_price),
         qty: item.quantity,

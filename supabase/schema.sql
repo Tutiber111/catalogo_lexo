@@ -76,6 +76,7 @@ create table if not exists public.order_items (
   order_id uuid not null references public.orders(id) on delete cascade,
   product_id text not null,
   sku text not null,
+  ean text not null default '',
   name text not null,
   unit_price numeric(12, 2) not null,
   quantity integer not null check (quantity > 0),
