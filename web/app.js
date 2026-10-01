@@ -563,19 +563,32 @@ const browseTour = document.querySelector("#browseTour");
 const browseTourNext = document.querySelector("#browseTourNext");
 const browseTourSkip = document.querySelector("#browseTourSkip");
 const browseTourStorageKey = "catalogBrowseTourSeenV1";
+// Product browsing was introduced in the September 23 release (902919d).
+const browseTourIntroducedAt = Date.parse("2026-09-23T11:39:51-03:00");
 let browseTourReady = false;
 let browseTourStep = 0;
 let browseTourScheduled = false;
 let browseTourOpenedMenu = false;
 let browseTourPreviousFocus = null;
 
+function isBrowseTourEligible() {
+  const createdAt = Date.parse(state.user?.created_at);
+  return Boolean(state.user?.id)
+    && Number.isFinite(createdAt)
+    && createdAt < browseTourIntroducedAt
+    && !state.isCheckingAuth
+    && !state.isPasswordRecovery;
+}
+
 function maybeStartBrowseTour() {
+  if (!isBrowseTourEligible()) return;
   if (!browseTourReady || browseTourStep || browseTourScheduled || localStorage.getItem(browseTourStorageKey)) return;
   if (!state.catalog || document.body.classList.contains("auth-required") || document.body.classList.contains("account-drawer-open")) return;
   browseTourScheduled = true;
   requestAnimationFrame(() => {
     browseTourScheduled = false;
-    if (!browseTourReady || browseTourStep || document.body.classList.contains("auth-required")) return;
+    if (!isBrowseTourEligible() || !browseTourReady || browseTourStep || localStorage.getItem(browseTourStorageKey)) return;
+    if (document.body.classList.contains("auth-required") || document.body.classList.contains("account-drawer-open")) return;
     browseTourPreviousFocus = document.activeElement;
     browseTour.hidden = false;
     window.addEventListener("resize", positionBrowseTour);
@@ -4038,6 +4051,7 @@ function rememberAccountSnapshot() {
   localStorage.setItem("catalogLastUser", JSON.stringify({
     id: state.user.id,
     email: state.user.email,
+    created_at: state.user.created_at,
   }));
   if (state.profile) {
     localStorage.setItem("catalogLastProfile", JSON.stringify(state.profile));

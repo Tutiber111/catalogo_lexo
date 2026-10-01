@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20260928-order-ean-r1";
+const CACHE_NAME = "lexo-catalog-v20261001-existing-account-tour-r1";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css?v=20260923-browse-cart-r12",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20260923-browse-cart-r12",
+  "./app.js?v=20261001-existing-account-tour-r1",
   "./data/product-browse-data.js?v=20260923-browse-cart-r12",
   "./admin.js?v=20260903-admin-dismiss-r1",
   "./catalog-store.js?v=20260928-order-ean-r1",
