@@ -32,6 +32,7 @@ NEW_NAMES = {
 }
 REPLACEMENTS = {'11295000':'11295200','11211000':'11313700','70981':'1114980',
                 '70881':'1115080','32480':'11230400','11181400':'11168300'}
+PRICE_CORRECTIONS = {'1126980':'$23.539', '11261400':'$11.227'}
 INFORMATIONAL = {'11234200','11234300'}
 MANUAL_PRICES = {32:{'1136000':'$14.433','38891':'$26.459','38991':'$31.269'},
                  100:{'11154200':'$22.181','11154300':'$28.737'}}
@@ -123,6 +124,7 @@ def main():
                 price=next(v for v in prices if v.text==MANUAL_PRICES[n][sku])
             if not price and not candidates: raise ValueError(f'Missing price {sku}')
             value=price.text if price else candidates[0]['price']
+            value=PRICE_CORRECTIONS.get(sku,value)
             base.update(id=product_id,page=start+n-1,sku=sku,skus=[sku],
                         name=NEW_NAMES.get(sku,base.get('name','')),category=title,
                         price=value,pdfPrice=price.text if price else '',priceSource='oxo-pdf-2026-10-05',
@@ -144,7 +146,7 @@ def main():
                     photo_audit.append({'sku':sku,'page':n,'crop':crop,'image':rel})
         groups=[]
         for i,items in sorted(members.items()):
-            price=prices[i]; value=price.text
+            price=prices[i]; value=' / '.join(dict.fromkeys(p['price'] for p in items))
             groups.append({'id':f'oxo-20261005-pg{n:03d}-{i+1}','page':start+n-1,'label':title,
               'price':value,'productIds':[p['id'] for p in items],
               'position':helpers.price_position(page,price,words[0]),'positionSource':VERSION+'-pdf',
@@ -187,6 +189,7 @@ def main():
         'added':[{'sku':sku,'name':unique[sku]['name'],'price':unique[sku]['price'],'sourcePage':unique[sku]['sourcePage']} for sku in sorted(new_skus-old_skus)],
         'removed':[{'sku':sku,'name':by_sku[sku][0]['name']} for sku in sorted(old_skus-new_skus)],
         'apparentCodeReplacements':REPLACEMENTS,'priceChanges':price_changes,
+        'userPriceCorrections':[{'sku':sku,'price':price,'pdfPrice':next(p['pdfPrice'] for p in products if p['sku']==sku)} for sku,price in PRICE_CORRECTIONS.items()],
         'informationalOnly':sorted(INFORMATIONAL),'photos':photo_audit,
         'inventory':[{'sku':sku,'name':p['name'],'price':p['price'],'sourcePage':p['sourcePage'],'id':p['id']} for sku,p in sorted(unique.items())]}
     (ROOT/'tmp/oxo-oct-plan.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

@@ -267,12 +267,6 @@
       "after": "$30.225"
     },
     {
-      "sku": "1126980",
-      "name": "Batidor de huevos doble",
-      "before": "$23.539",
-      "after": ".539"
-    },
-    {
       "sku": "11259100",
       "name": "Cortador para juliana",
       "before": "$10.889",
@@ -283,12 +277,6 @@
       "name": "Pelapapas Y",
       "before": "$10.889",
       "after": "$15.980"
-    },
-    {
-      "sku": "11261400",
-      "name": "Citrus zester",
-      "before": "$11.227",
-      "after": ".227"
     },
     {
       "sku": "11155800",
@@ -1372,7 +1360,7 @@
     {
       "sku": "11261400",
       "name": "Citrus zester",
-      "price": ".227",
+      "price": "$11.227",
       "sourcePage": 40,
       "id": "oxo-p039-1"
     },
@@ -1393,7 +1381,7 @@
     {
       "sku": "1126980",
       "name": "Batidor de huevos doble",
-      "price": ".539",
+      "price": "$23.539",
       "sourcePage": 36,
       "id": "oxo-p035-1"
     },
@@ -4825,10 +4813,6 @@
           "before": 278,
           "after": 279
         },
-        "price": {
-          "before": "$23.539",
-          "after": ".539"
-        },
         "priceSource": {
           "before": "excel-july-2026",
           "after": "oxo-pdf-2026-10-05"
@@ -5078,10 +5062,6 @@
         "category": {
           "before": "Citrus Zester",
           "after": "Peladores"
-        },
-        "price": {
-          "before": "$11.227",
-          "after": ".227"
         },
         "pdfPrice": {
           "before": "$11.227",
@@ -8986,6 +8966,18 @@
           "after": "2026-10-05T15:00:00Z"
         }
       }
+    }
+  ],
+  "userPriceCorrections": [
+    {
+      "sku": "1126980",
+      "price": "$23.539",
+      "pdfPrice": "$25.539"
+    },
+    {
+      "sku": "11261400",
+      "price": "$11.227",
+      "pdfPrice": "$10.889"
     }
   ]
 }

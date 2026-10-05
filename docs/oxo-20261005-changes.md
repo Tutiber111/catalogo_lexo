@@ -8,7 +8,7 @@ Source: the user-supplied `Catálogo OXO nuevo 2026.pdf` (133 pages). Its catalo
 
 - Replace all 127 previous OXO page images with the 133 pages in the supplied PDF, in source order. OXO now occupies site pages 244-376. The following Prepara pages shift by six; their content is unchanged.
 - Replace the active OXO product set: 225 to 243 unique orderable SKUs; 239 to 257 placements, including repeated POP reference-chart placements.
-- Add the 24 codes below, remove the six absent codes below, and update the 43 retained-SKU prices below. The six apparent replacements are not automatic cart substitutions.
+- Add the 24 codes below, remove the six absent codes below, and update 41 retained-SKU prices. Keep the two user-corrected prices below. The six apparent replacements are not automatic cart substitutions.
 - Rebuild all OXO SKU hotspots, page/product references, price-group links, price positions, page titles and category labels from the supplied layout.
 - Preserve existing product IDs only for the same SKU. Preserve retained-SKU barcode, case quantity, thumbnail and browse metadata. Add 24 reviewed product thumbnails and browse categories; remove metadata for retired IDs.
 - Do not invent EAN barcodes or case quantities for the 24 new codes: the supplied PDF does not provide them. These fields are empty until verified data is supplied.
@@ -63,6 +63,15 @@ These pairings are inferred from matching product types. Retired codes are remov
 | 13362600 | Four-piece multipurpose clip set | $16.461 | 113 |
 | 3113600 | Wine stopper set | $20.600 | 94 |
 
+## User-corrected prices
+
+These final prices follow the user's instruction and differ from the PDF values.
+
+| Code | Final price | PDF price |
+|---|---|---|
+| 1126980 | $23.539 | $25.539 |
+| 11261400 | $11.227 | $10.889 |
+
 ## All retained-SKU price changes
 
 Prices retain the source catalog’s thousands separator. Product names below are catalog labels.
@@ -82,10 +91,8 @@ Prices retain the source catalog’s thousands separator. Product names below ar
 | 11314700 | Abrelatas con traba | $27.632 | $30.225 |
 | 11300900 | Corta pizza con rueda de acero | $15.304 | $20.600 |
 | 1072121 | Tijera de cocina y hierbas | $23.500 | $30.225 |
-| 1126980 | Batidor de huevos doble | $23.539 | $23.539 |
 | 11259100 | Cortador para juliana | $10.889 | $15.980 |
 | 11258900 | Pelapapas Y | $10.889 | $15.980 |
-| 11261400 | Citrus zester | $11.227 | $11.227 |
 | 11155800 | Exprimidor de cítricos | $15.304 | $20.600 |
 | 1119100 | Mandolina | $24.302 | $30.225 |
 | 11339900 | Picador rotativo | $31.186 | $34.317 |
