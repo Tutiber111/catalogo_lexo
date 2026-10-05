@@ -1105,6 +1105,7 @@
   function buildStockOverride(product, overrides, outOfStock) {
     return {
       ...(overrides[product.id] || {}),
+      updatedAt: new Date().toISOString(),
       sku: product.sku,
       name: product.name,
       category: product.category || "",
@@ -1227,6 +1228,7 @@
 
         changedForSku = true;
         overrides[product.id] = {
+          updatedAt: new Date().toISOString(),
           sku: product.sku,
           name: nextName,
           category: product.category || "",

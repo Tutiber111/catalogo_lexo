@@ -84,7 +84,14 @@
       const savedOverride = overrides[product.id] || {};
       const productSku = normalizeProductSku(product.sku);
       const overrideSku = normalizeProductSku(savedOverride.sku);
-      const matchingOverride = overrideSku && productSku && overrideSku !== productSku ? {} : savedOverride;
+      const matchingOverride = overrideSku && productSku && overrideSku !== productSku ? {} : { ...savedOverride };
+      // A revised source catalog supersedes older copy/prices while keeping
+      // stock, visibility and video decisions. Later admin edits still apply.
+      if (product.contentUpdatedAt && !(Date.parse(matchingOverride.updatedAt) >= Date.parse(product.contentUpdatedAt))) {
+        delete matchingOverride.name;
+        delete matchingOverride.category;
+        delete matchingOverride.price;
+      }
       return {
         ...product,
         originalName: product.originalName || product.name,

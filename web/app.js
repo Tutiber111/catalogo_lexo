@@ -83,9 +83,9 @@ const BARCODE_SCAN_MAX_AVERAGE_GAP_MS = 90;
 const BARCODE_SCAN_MAX_TOTAL_MS = 3500;
 const VIEWER_HYDRATE_RADIUS = 3;
 const VIEWER_RETAIN_RADIUS = 5;
-const PENDING_PRICE_COVERS = new Map([
-  [347, [{ x: 0.5, y: 0.217, w: 0.31, h: 0.065, background: "#f7f7f7" }]],
-]);
+// The revised OXO images have every printed price removed, including the
+// pepper mill's price without a currency symbol; no fixed-page mask is needed.
+const PENDING_PRICE_COVERS = new Map();
 
 let pageScrollFrame = 0;
 let viewportUpdateFrame = 0;
@@ -325,8 +325,19 @@ function applyCatalogData(baseCatalog, overrides) {
   state.productOverrides = overrides;
   state.catalog = CATALOG_STORE.applyProductOverrides(baseCatalog, state.productOverrides);
   state.productsById = new Map(state.catalog.products.map((product) => [product.id, product]));
+  removeRetiredCatalogSelections();
   updateCatalogMeta();
   scheduleCatalogAssetCache();
+}
+
+function removeRetiredCatalogSelections() {
+  const retiredIds = new Set(state.catalog.oxoRevision?.retiredProductIds || []);
+  let changed = false;
+  for (const id of retiredIds) {
+    if (state.cart.delete(id)) changed = true;
+    if (state.branchOrderQuantities) delete state.branchOrderQuantities[id];
+  }
+  if (changed) localStorage.setItem("catalogCart", JSON.stringify([...state.cart.entries()]));
 }
 
 async function refreshRemoteCatalogData(baseCatalog, localOverrides, options = {}) {

@@ -1,16 +1,16 @@
-const CACHE_NAME = "lexo-catalog-v20261001-existing-account-tour-r1";
-const PAGE_CACHE_NAME = "lexo-catalog-pages-v20260805";
+const CACHE_NAME = "lexo-catalog-v20261005-oxo-r1";
+const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261005-oxo-r1";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css?v=20260923-browse-cart-r12",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20261001-existing-account-tour-r1",
-  "./data/product-browse-data.js?v=20260923-browse-cart-r12",
-  "./admin.js?v=20260903-admin-dismiss-r1",
-  "./catalog-store.js?v=20260928-order-ean-r1",
+  "./app.js?v=20261005-oxo-r1",
+  "./data/product-browse-data.js?v=20261005-oxo-r1",
+  "./admin.js?v=20261005-oxo-r1",
+  "./catalog-store.js?v=20261005-oxo-r1",
   "./supabase-client.js?v=20260928-order-ean-r1",
-  "./data/catalog-data.js?v=20260915-page33-remove-fledge",
+  "./data/catalog-data.js?v=20261005-oxo-r1",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
