@@ -4936,6 +4936,7 @@ function showForgotPassword() {
 function showNewPassword() {
   clearAuthMessage();
   state.isPasswordRecovery = true;
+  window.SALES_DASHBOARD?.sync();
   setAuthMode("new-password");
   els.authFields.classList.remove("is-hidden");
   els.signOut.classList.add("is-hidden");
@@ -5084,6 +5085,7 @@ function renderAccount() {
 }
 
 function renderSalesmanCatalogTools() {
+  window.SALES_DASHBOARD?.sync();
   const visible = Boolean(state.user && canSelectSalesClient() && !state.isPasswordRecovery);
   els.salesmanCatalogTools.hidden = !visible;
   if (!visible) {
@@ -5570,6 +5572,7 @@ function friendlyRecoveryError(authHash) {
 }
 
 async function renderCustomerOrders() {
+  window.SALES_DASHBOARD?.sync();
   if (state.isPasswordRecovery) {
     els.customerOrders.hidden = true;
     els.customerOrderDetail.hidden = true;

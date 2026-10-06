@@ -564,6 +564,36 @@
     return data;
   }
 
+  async function loadDashboardClients(salesmanCode) {
+    if (!client || !salesmanCode) throw new Error("Falta el código de vendedor.");
+    return dashboardPages(() => client.from("sales_clients")
+      .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
+      .eq("salesman_code", salesmanCode).order("id"), normalizeSalesClient);
+  }
+
+  async function loadDashboardSalesmen() {
+    if (!client) throw new Error("Supabase no está disponible.");
+    return dashboardPages(() => client.from("salesmen")
+      .select("code,name").order("code"), row => ({ code: row.code, name: row.name }));
+  }
+
+  async function loadDashboardOrders(userId) {
+    if (!client || !userId) throw new Error("Iniciá sesión para ver tus pedidos.");
+    return dashboardPages(() => client.from("orders").select("*, order_items(*)")
+      .order("created_at", { ascending: false }).order("id"), normalizeOrder);
+  }
+
+  async function dashboardPages(query, normalize) {
+    const rows = [];
+    const size = 500;
+    for (let offset = 0; ; offset += size) {
+      const { data, error } = await query().range(offset, offset + size - 1);
+      if (error) throw error;
+      rows.push(...(data || []).map(normalize));
+      if (!data || data.length < size) return rows;
+    }
+  }
+
   async function loadMyOrders(userId) {
     if (!client || !userId) return [];
     const { data, error } = await client
@@ -859,6 +889,9 @@
     resendOrderNotification,
     syncOrderDeliveryStatuses,
     loadMyOrders,
+    loadDashboardClients,
+    loadDashboardSalesmen,
+    loadDashboardOrders,
     loadAllOrders,
     loadActiveOrders,
     loadArchivedOrders,

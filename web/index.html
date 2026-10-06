@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20260923-browse-cart-r12">
+    <link rel="stylesheet" href="styles.css?v=20261006-admin-sales">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -51,6 +51,7 @@
           <h1 id="brandName">LEXO</h1>
           <p id="catalogMeta">Cargando catálogo...</p>
           <button id="openAdmin" class="admin-entry-button" type="button" hidden>Admin</button>
+          <button id="openSalesDashboard" class="admin-entry-button" type="button" aria-haspopup="dialog" aria-controls="salesDashboardDialog" hidden>Mi gestión</button>
         </div>
 
         <div class="search-wrap">
@@ -404,6 +405,7 @@
               <h2>Administración</h2>
             </div>
             <div class="admin-actions">
+              <button id="openAdminSalesDashboard" class="secondary-button" type="button" aria-haspopup="dialog" aria-controls="salesDashboardDialog">Panel de vendedores</button>
               <button id="closeAdmin" class="icon-button" type="button" aria-label="Cerrar administración">×</button>
             </div>
           </header>
@@ -614,6 +616,14 @@
       </button>
     </nav>
 
+    <dialog id="salesDashboardDialog" class="sales-dashboard-dialog" aria-labelledby="salesDashboardTitle">
+      <header class="sales-dialog-header">
+        <div><span class="eyebrow">LEXO · Vendedores</span><h2 id="salesDashboardTitle">Mi gestión comercial</h2></div>
+        <button class="secondary-button" type="button" data-dialog-close aria-label="Cerrar panel de vendedor" autofocus>Cerrar ×</button>
+      </header>
+      <section id="salesDashboard" class="sales-dashboard" aria-label="Panel del vendedor" hidden></section>
+    </dialog>
+
     <dialog id="productDialog" class="product-dialog">
       <form method="dialog">
         <button class="dialog-close" type="button" data-dialog-close aria-label="Cerrar">×</button>
@@ -808,10 +818,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20261005-oxo-r1"></script>
-    <script src="supabase-client.js?v=20260928-order-ean-r1"></script>
+    <script src="supabase-client.js?v=20261006-client-history"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
     <script src="data/product-browse-data.js?v=20261005-oxo-r1"></script>
-    <script src="app.js?v=20261005-oxo-r1"></script>
+    <script src="app.js?v=20261006-client-history"></script>
+    <script src="sales-dashboard-model.js?v=20261006-client-history"></script>
+    <script src="sales-dashboard.js?v=20261006-admin-sales"></script>
     <script src="admin.js?v=20261005-oxo-r1"></script>
   </body>
 </html>
