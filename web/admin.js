@@ -929,7 +929,7 @@
   }
 
   function importFieldLabel(field) {
-    return ({ name: "Nombre", price: "Precio", outOfStock: "Sin stock", videoUrl: "Video" })[field] || field;
+    return ({ name: "Nombre", price: "Precio", ean: "EAN", outOfStock: "Sin stock", videoUrl: "Video" })[field] || field;
   }
 
   async function downloadPriceTemplate() {
@@ -946,7 +946,7 @@
       CATALOG_STORE.saveProductOverrides(overrides);
       const catalog = CATALOG_STORE.applyProductOverrides(cloneCatalog(window.CATALOG_DATA || { products: [] }), overrides);
       const rows = [
-        ["Código", "Descripción", "Marca", "Precio", "Categoría", "Página", "ID de catálogo", "Sin stock", "Video YouTube"],
+        ["Código", "Descripción", "Marca", "Precio", "Categoría", "Página", "ID de catálogo", "EAN", "Sin stock", "Video YouTube"],
         ...(catalog.products || []).map((product) => [
           product.sku || "",
           product.name || "",
@@ -955,12 +955,18 @@
           product.category || "",
           product.page || "",
           product.id || "",
+          product.ean || "",
           product.outOfStock ? "Sí" : "No",
           product.videoUrl || "",
         ]),
       ];
 
       const sheet = XLSX.utils.aoa_to_sheet(rows);
+      // Keep leading zeroes intact when the file is edited in Excel.
+      for (let row = 1; row < rows.length; row += 1) {
+        const cell = sheet[`H${row + 1}`];
+        if (cell) { cell.t = "s"; cell.z = "@"; cell.v = String(cell.v); }
+      }
       sheet["!cols"] = [
         { wch: 16 },
         { wch: 52 },
@@ -969,6 +975,7 @@
         { wch: 24 },
         { wch: 10 },
         { wch: 16 },
+        { wch: 18 },
         { wch: 12 },
         { wch: 48 },
       ];
@@ -976,7 +983,7 @@
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, sheet, "Actualización catálogo");
       XLSX.writeFile(workbook, `lexo-catalog-template-${new Date().toISOString().slice(0, 10)}.xlsx`);
-      setImportStatus("Plantilla descargada. Editá los datos y los enlaces de YouTube, y después subila acá.");
+      setImportStatus("Plantilla descargada. Editá los datos, los EAN y los enlaces de YouTube, y después subila acá.");
     } catch (error) {
       setImportStatus(error.message || "No se pudo preparar la plantilla.");
     } finally {
@@ -1110,6 +1117,7 @@
       name: product.name,
       category: product.category || "",
       price: product.price,
+      ean: product.ean || "",
       outOfStock,
     };
   }
@@ -1143,10 +1151,11 @@
         const sku = normalizeSku(row[header.sku]);
         const name = cleanCell(row[header.name]);
         const price = formatImportedPrice(row[header.price]);
+        const ean = header.ean >= 0 ? normalizeEan(row[header.ean]) : null;
         const outOfStock = header.outOfStock >= 0 ? parseStockValue(row[header.outOfStock]) : null;
         const videoUrl = header.videoUrl >= 0 ? cleanCell(row[header.videoUrl]) : null;
-        if (!sku || (!name && !price && outOfStock === null && videoUrl === null)) return;
-        rows.push({ sku, name, price, outOfStock, videoUrl });
+        if (!sku || (!name && !price && ean === null && outOfStock === null && videoUrl === null)) return;
+        rows.push({ sku, name, price, ean, outOfStock, videoUrl });
       });
     });
     return rows;
@@ -1154,12 +1163,13 @@
 
   function detectPriceListHeader(row) {
     const cells = row.map(normalizeHeaderCell);
-    const sku = cells.findIndex((cell) => ["sku", "cod", "codigo", "articulo", "item"].includes(cell) || cell.includes("codigo"));
+    const sku = cells.findIndex((cell) => ["sku", "cod", "codigo", "articulo", "item"].includes(cell) || (cell.includes("codigo") && !cell.includes("codigodebarras")));
     const name = cells.findIndex((cell) => cell.includes("descripcion") || cell.includes("producto") || cell.includes("nombre") || cell.includes("detalle"));
     const price = cells.findIndex((cell) => cell.includes("precio") || cell === "pvp" || cell.includes("lista"));
+    const ean = cells.findIndex((cell) => cell === "ean" || cell === "gtin" || cell === "upc" || cell.includes("codigodebarras") || cell.includes("barcode"));
     const outOfStock = cells.findIndex((cell) => cell.includes("sinstock") || cell.includes("agotado") || cell.includes("stock"));
     const videoUrl = cells.findIndex((cell) => cell.includes("video") || cell.includes("youtube"));
-    if (sku >= 0 && (name >= 0 || price >= 0 || outOfStock >= 0 || videoUrl >= 0)) return { sku, name, price, outOfStock, videoUrl };
+    if (sku >= 0 && (name >= 0 || price >= 0 || ean >= 0 || outOfStock >= 0 || videoUrl >= 0)) return { sku, name, price, ean, outOfStock, videoUrl };
     return null;
   }
 
@@ -1186,6 +1196,7 @@
       const signatures = new Set(rows.map((row) => JSON.stringify({
         name: row.name,
         price: row.price,
+        ean: row.ean,
         outOfStock: row.outOfStock,
         videoUrl: row.videoUrl === null ? null : normalizeYouTubeUrl(row.videoUrl),
       })));
@@ -1217,11 +1228,13 @@
         const fields = [];
         const nextName = row.name || product.name;
         const nextPrice = row.price || product.price;
+        const nextEan = row.ean === null ? String(product.ean || "") : row.ean;
         const nextStock = row.outOfStock === null ? Boolean(product.outOfStock) : Boolean(row.outOfStock);
         const nextVideo = row.videoUrl === null ? String(product.videoUrl || "") : normalizeYouTubeUrl(row.videoUrl);
 
         if (nextName !== String(product.name || "")) fields.push({ field: "name", before: product.name || "", after: nextName });
         if (nextPrice !== String(product.price || "")) fields.push({ field: "price", before: product.price || "", after: nextPrice });
+        if (nextEan !== String(product.ean || "")) fields.push({ field: "ean", before: product.ean || "", after: nextEan });
         if (nextStock !== Boolean(product.outOfStock)) fields.push({ field: "outOfStock", before: product.outOfStock ? "Sí" : "No", after: nextStock ? "Sí" : "No" });
         if (nextVideo !== String(product.videoUrl || "")) fields.push({ field: "videoUrl", before: product.videoUrl || "", after: nextVideo });
         if (!fields.length) return;
@@ -1233,6 +1246,7 @@
           name: nextName,
           category: product.category || "",
           price: nextPrice,
+          ean: nextEan,
           videoUrl: nextVideo,
           hidden: Boolean(product.hidden),
           outOfStock: nextStock,
@@ -1352,6 +1366,14 @@
 
   function setImportStatus(message) {
     adminEls.priceListImportStatus.textContent = message;
+  }
+
+  function normalizeEan(value) {
+    const ean = cleanCell(value).replace(/\.0$/, "").replace(/\s+/g, "");
+    if (ean && !/^\d{8,14}$/.test(ean)) {
+      throw new Error(`EAN inválido: ${ean}. Usá entre 8 y 14 dígitos, sin notación científica.`);
+    }
+    return ean;
   }
 
   function setOrderView(view) {

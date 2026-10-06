@@ -91,6 +91,7 @@ create table if not exists public.product_overrides (
   name text not null default '',
   category text not null default '',
   price text not null default '',
+  ean text,
   hidden boolean not null default false,
   out_of_stock boolean not null default false,
   video_url text not null default '',
@@ -147,6 +148,7 @@ create table if not exists public.catalog_guest_links (
 
 alter table public.orders add column if not exists archived_at timestamptz;
 alter table public.product_overrides add column if not exists out_of_stock boolean not null default false;
+alter table public.product_overrides add column if not exists ean text;
 alter table public.product_overrides add column if not exists video_url text not null default '';
 alter table public.profiles add column if not exists client_code text not null default '';
 alter table public.profiles add column if not exists salesman_code text;

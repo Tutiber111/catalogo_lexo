@@ -655,6 +655,7 @@
       if (row.name) override.name = row.name;
       if (row.category) override.category = row.category;
       if (row.price) override.price = row.price;
+      if (row.ean !== null && row.ean !== undefined) override.ean = row.ean;
       if (row.video_url) override.videoUrl = row.video_url;
       if (row.hidden) override.hidden = true;
       override.outOfStock = Boolean(row.out_of_stock);
@@ -675,6 +676,7 @@
         name: String(override.name || "").trim(),
         category: String(override.category || "").trim(),
         price: String(override.price || "").trim(),
+        ean: String(override.ean ?? "").trim(),
         video_url: String(override.videoUrl || "").trim(),
         hidden: Boolean(override.hidden),
         updated_by: user.id,
