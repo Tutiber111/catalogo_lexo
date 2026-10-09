@@ -1,17 +1,17 @@
-const CACHE_NAME = "lexo-catalog-v20261006-admin-sales";
+const CACHE_NAME = "lexo-catalog-v20261009-sales-analysis-r1";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261005-oxo-r1";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20261006-admin-sales",
+  "./styles.css?v=20261009-sales-analysis-r1",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
   "./app.js?v=20261006-client-history",
   "./data/product-browse-data.js?v=20261005-oxo-r1",
-  "./sales-dashboard-model.js?v=20261006-client-history",
-  "./sales-dashboard.js?v=20261006-admin-sales",
-  "./admin.js?v=20261005-oxo-r1",
+  "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
+  "./sales-dashboard.js?v=20261009-sales-analysis-r1",
+  "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261005-oxo-r1",
-  "./supabase-client.js?v=20261006-client-history",
+  "./supabase-client.js?v=20261006-ean-r1",
   "./data/catalog-data.js?v=20261005-oxo-r1",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",

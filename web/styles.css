@@ -50,6 +50,40 @@ dialog.sales-dashboard-dialog { position: fixed; inset: 0; width: 100vw; max-wid
 .sales-filter-buttons button[aria-pressed="true"] { color: white; border-color: var(--brand); background: var(--brand); }
 .sales-filter-buttons b { margin-left: 6px; }
 .sales-period { max-width: 280px; }
+.sales-period-controls { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 12px 20px; }
+.sales-period-controls > .sales-period { width: 240px; }
+.sales-date-range { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px; padding: 0; }
+.sales-date-range .sales-dashboard-field { width: 175px; }
+.sales-date-range > button { margin-bottom: 12px; min-height: 40px; }
+.sales-range-error { flex-basis: 100%; margin: 0; color: var(--brand-dark); font-size: 13px; }
+.sales-analysis { margin: 28px 0; }
+.sales-analysis-heading { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin: 24px 0 16px; }
+.sales-analysis-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--line); margin-bottom: 18px; }
+.sales-analysis-stats > div { background: white; padding: 20px; min-width: 0; }
+.sales-analysis-stats span, .sales-analysis-stats small { display: block; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.sales-analysis-stats strong { display: block; font-size: 24px; margin: 8px 0 4px; overflow-wrap: anywhere; }
+.sales-charts { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; }
+.sales-chart-card { padding: 24px; background: white; border: 1px solid var(--line); border-radius: 14px; min-width: 0; }
+.sales-chart-card h4 { margin: 0; font-size: 17px; }
+.sales-trend-chart { width: 100%; display: block; margin: 20px 0 12px; overflow: visible; }
+.sales-trend-chart text { fill: var(--muted); font-size: 12px; }
+.sales-chart-grid { stroke: var(--line); stroke-dasharray: 4 4; }
+.sales-chart-area { fill: #e4f2f2; }
+.sales-chart-line { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linejoin: round; }
+.sales-chart-point { fill: var(--accent); }
+.sales-chart-data summary, .sales-brand-details summary { cursor: pointer; color: var(--accent); font-size: 14px; font-weight: 650; }
+.sales-chart-empty { display: grid; place-items: center; min-height: 140px; text-align: center; color: var(--muted); font-size: 14px; }
+.sales-brand-bars { display: grid; gap: 18px; max-height: 330px; overflow-y: auto; padding-right: 4px; margin-top: 20px; }
+.sales-brand-bar > div:first-child { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+.sales-brand-bar > div:first-child span, .sales-brand-bar small { color: var(--muted); font-size: 12px; }
+.sales-bar-track { height: 9px; border-radius: 6px; background: var(--paper); margin: 8px 0 6px; overflow: hidden; }
+.sales-bar-track span { display: block; height: 100%; border-radius: inherit; background: var(--brand); }
+.sales-insights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 18px 0; }
+.sales-insights article { border: 1px solid #c7dedf; background: #eef7f7; padding: 18px 20px; border-radius: 12px; }
+.sales-insights strong { color: var(--accent); font-size: 14px; }
+.sales-insights p { margin: 8px 0 0; line-height: 1.6; font-size: 13px; }
+.sales-brand-details { padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+.sales-top-products { border: 1px solid var(--line); }
 .sales-seller-select { max-width: 480px; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: white; }
 .sales-client-link { display: inline; border: 0; padding: 0; background: none; color: var(--accent); font: inherit; font-weight: 750; text-align: left; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .sales-client-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; }
@@ -69,6 +103,10 @@ dialog.sales-dashboard-dialog { position: fixed; inset: 0; width: 100vw; max-wid
 .sales-dashboard-dialog .sales-client-card, .sales-dashboard-dialog .sales-order-row { font-size: 14px; padding: 18px 0; }
 .sales-dashboard-dialog .sales-activity { font-size: 12px; }
 @media (max-width: 850px) {
+  .sales-charts, .sales-insights { grid-template-columns: 1fr; }
+  .sales-analysis-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sales-chart-card { padding: 18px; }
+  .sales-analysis-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
   .sales-client-heading { align-items: flex-start; flex-direction: column; }
   .sales-workspace { grid-template-columns: 1fr; }
   .sales-dashboard-dialog .sales-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -78,6 +116,13 @@ dialog.sales-dashboard-dialog { position: fixed; inset: 0; width: 100vw; max-wid
   .sales-clients-section, .sales-orders-section { padding: 16px; }
   .sales-dashboard-dialog .sales-metrics > div { padding: 14px; }
   .sales-dashboard-dialog .sales-metrics strong { font-size: 23px; }
+}
+@media (max-width: 480px) {
+  .sales-trend-chart text { font-size: 20px; }
+  .sales-period-controls, .sales-date-range { display: grid; grid-template-columns: 1fr; width: 100%; gap: 0; }
+  .sales-period-controls > .sales-period, .sales-date-range .sales-dashboard-field { width: 100%; max-width: none; }
+  .sales-analysis-stats > div { padding: 14px; }
+  .sales-analysis-stats strong { font-size: 21px; }
 }
 
 @supports (height: 100dvh) {

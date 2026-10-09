@@ -1,7 +1,8 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const panel = { innerHTML: '', hidden: true, addEventListener() {}, querySelectorAll: () => [] };
+const events = {};
+const panel = { innerHTML: '', hidden: true, addEventListener(type, listener) { events[type] = listener; }, querySelectorAll: () => [] };
 const entry = { hidden: true, addEventListener() {} };
 const adminEntry = { addEventListener() {} };
 const title = { textContent: '' };
@@ -25,7 +26,8 @@ assert.equal(dashboard.summarize([], [], now).total, 0);
 
 async function test() {
   const nodes = {
-    '[data-search]': { value: '' }, '[data-filter]': { value: 'all' },
+    '[data-search]': { value: '', focus() {} }, '[data-filter]': { value: 'all' },
+    '[data-period]': { focus() {} }, '[data-date-range] button': { focus() {} },
     '[data-count]': {}, '[data-clients]': {},
   };
   panel.querySelector = selector => nodes[selector];
@@ -49,6 +51,24 @@ async function test() {
   await dashboard.refresh();
   assert.equal(nodes['[data-count]'].textContent, '2 clientes encontrados', 'inactive clients are the default view');
   assert.equal(entry.hidden, false, 'salesperson gets a dashboard entry');
+  assert.match(panel.innerHTML, /Fechas personalizadas/);
+  assert.match(panel.innerHTML, /Compras por marca/);
+  events.change({ target: { value: 'custom', matches: selector => selector === '[data-period]' } });
+  assert.match(panel.innerHTML, /type="date"/);
+  const rangeError = { textContent: '' };
+  const form = { elements: { from: { value: '2026-09-30' }, to: { value: '2026-09-01' } }, dataset: { dateRange: 'summary' }, querySelector: () => rangeError };
+  let prevented = false;
+  events.submit({ preventDefault() { prevented = true; }, target: { closest: () => form } });
+  assert.equal(prevented, true);
+  assert.match(rangeError.textContent, /Elegí fechas válidas/);
+  form.elements.from.value = '2026-01-01';
+  // Produce an ISO date independently of platform locale formatting.
+  const today = new Date();
+  form.elements.to.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  events.submit({ preventDefault() {}, target: { closest: () => form } });
+  assert.match(panel.innerHTML, /value="2026-01-01"/);
+  assert.match(panel.innerHTML, /Evolución de pedidos/);
+  events.change({ target: { value: '30', matches: selector => selector === '[data-period]' } });
   state.profile.role = 'admin';
   dashboard.sync();
   assert.equal(entry.hidden, true, 'admin retains the separate Admin entry');
