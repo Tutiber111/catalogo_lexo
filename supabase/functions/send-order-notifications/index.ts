@@ -1,10 +1,15 @@
 import { strFromU8, strToU8, unzipSync, zipSync } from "npm:fflate@0.8.2";
 import { ORDER_TEMPLATE_BASE64 } from "./order-template-base64.ts";
+import { replaceZipEntry } from "./workbook-zip.ts";
 
 type OrderNotification = {
   id: string;
   order_id: string;
   attempts: number;
+  status: string;
+  updated_at: string;
+  first_attempt_at: string | null;
+  delivery_key: string;
 };
 
 type DeliveryNotification = OrderNotification & {
@@ -30,6 +35,7 @@ type OrderItem = {
 };
 
 type Order = {
+  email_delivery_key?: string;
   id: string;
   customer_id: string;
   customer_email?: string;
@@ -128,6 +134,7 @@ Deno.serve(async (req) => {
 });
 
 async function sendPendingOrderNotifications(orderId: string | undefined, options: { context: RequestContext; force?: boolean }) {
+  if (!orderId && !options.context.isAdmin) throw new Error("Only internal workers can drain the email queue.");
   if (orderId) {
     if (options.force && !options.context.isAdmin) {
       throw new Error("Only admins can resend order emails.");
@@ -147,6 +154,16 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
   }
 
   const notifications = await loadPendingNotifications(orderId);
+  if (!notifications.length && orderId) {
+    const params = new URLSearchParams({ order_id: `eq.${orderId}`, select: "status,last_error", limit: "1" });
+    const response = await supabaseFetch(`/rest/v1/order_notifications?${params}`);
+    const rows = await response.json();
+    return { processed: 0, results: [{
+      order_id: orderId,
+      status: rows[0]?.status || "pending",
+      ...(rows[0]?.last_error ? { error: rows[0].last_error } : {}),
+    }] };
+  }
   const results = [];
 
   for (const notification of notifications) {
@@ -156,9 +173,11 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
     let groupedOrders: Order[] = [];
     try {
       const order = await loadOrder(notification.order_id);
+      order.email_delivery_key = notification.delivery_key;
       groupedOrders = order.branch_order_group_id
         ? await loadOrderGroup(order.branch_order_group_id)
         : [order];
+      groupedOrders[0].email_delivery_key = notification.delivery_key;
       const sentEmail = groupedOrders.length > 1
         ? await sendOrderBatchEmail(groupedOrders)
         : await sendOrderEmail(order);
@@ -177,6 +196,7 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
         try {
           await createGroupedNotificationCopies(groupedOrders, notification.order_id, {
             status: "sent",
+            delivery_key: notification.delivery_key,
             attempts: notification.attempts + 1,
             sent_at: sentAt,
             resend_email_id: sentEmail.id,
@@ -205,7 +225,6 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
       const message = errorMessage(error);
       await updateNotification(notification.id, {
         status: "failed",
-        resend_email_id: "",
         resend_last_event: "failed",
         delivery_checked_at: new Date().toISOString(),
         delivery_error: message,
@@ -215,6 +234,7 @@ async function sendPendingOrderNotifications(orderId: string | undefined, option
         try {
           await createGroupedNotificationCopies(groupedOrders, notification.order_id, {
             status: "failed",
+            delivery_key: notification.delivery_key,
             attempts: notification.attempts + 1,
             resend_email_id: "",
             resend_to: "",
@@ -298,7 +318,7 @@ async function ensureNotification(orderId: string, force = false): Promise<boole
   if (force) {
     const existingParams = new URLSearchParams({
       order_id: `eq.${orderId}`,
-      select: "id,status,updated_at",
+      select: "id,status,updated_at,first_attempt_at,delivery_key",
       limit: "1",
     });
     const existingResponse = await supabaseFetch(`/rest/v1/order_notifications?${existingParams}`);
@@ -306,13 +326,16 @@ async function ensureNotification(orderId: string, force = false): Promise<boole
     const existing = existingRows[0];
     if (existing?.status === "processing") {
       const updatedAt = new Date(existing.updated_at || 0).getTime();
-      if (Number.isFinite(updatedAt) && Date.now() - updatedAt < 180_000) return false;
+      if (Number.isFinite(updatedAt) && Date.now() - updatedAt < 300_000) return false;
     }
 
     const params = new URLSearchParams({
       order_id: `eq.${orderId}`,
       select: "id",
     });
+    if (existing) params.set("updated_at", `eq.${existing.updated_at}`);
+    const keepDeliveryKey = existing && existing.status !== "sent" && existing.first_attempt_at
+      && Date.now() - new Date(existing.first_attempt_at).getTime() < 23 * 60 * 60_000;
     const response = await supabaseFetch(`/rest/v1/order_notifications?${params}`, {
       method: "PATCH",
       headers: { Prefer: "return=representation" },
@@ -324,10 +347,14 @@ async function ensureNotification(orderId: string, force = false): Promise<boole
         delivery_checked_at: null,
         delivery_error: "",
         updated_at: new Date().toISOString(),
+        attempts: 0,
+        first_attempt_at: keepDeliveryKey ? existing.first_attempt_at : null,
+        delivery_key: keepDeliveryKey ? existing.delivery_key : crypto.randomUUID(),
       }),
     });
     const rows = await response.json();
     if (rows.length) return true;
+    if (existing) return false;
   }
 
   await supabaseFetch("/rest/v1/order_notifications?on_conflict=order_id", {
@@ -348,11 +375,16 @@ async function ensureNotification(orderId: string, force = false): Promise<boole
 }
 
 async function loadPendingNotifications(orderId?: string): Promise<OrderNotification[]> {
+  const now = Date.now();
+  const retryAfter = new Date(now - 60_000).toISOString();
+  const staleAfter = new Date(now - 300_000).toISOString();
+  const safeAfter = new Date(now - 23 * 60 * 60_000).toISOString();
   const params = new URLSearchParams({
-    select: "id,order_id,attempts",
-    status: "eq.pending",
+    select: "id,order_id,attempts,status,updated_at,first_attempt_at,delivery_key",
+    attempts: "lt.5",
+    or: `(and(status.eq.pending,attempts.eq.0),and(first_attempt_at.gte.${safeAfter},or(and(status.in.(pending,failed),updated_at.lt.${retryAfter}),and(status.eq.processing,updated_at.lt.${staleAfter}))))`,
     order: "created_at.asc",
-    limit: "10",
+    limit: "1",
   });
   if (orderId) params.set("order_id", `eq.${orderId}`);
 
@@ -363,7 +395,8 @@ async function loadPendingNotifications(orderId?: string): Promise<OrderNotifica
 async function lockNotification(notification: OrderNotification) {
   const params = new URLSearchParams({
     id: `eq.${notification.id}`,
-    status: "eq.pending",
+    status: `eq.${notification.status}`,
+    updated_at: `eq.${notification.updated_at}`,
     select: "id",
   });
   const response = await supabaseFetch(`/rest/v1/order_notifications?${params}`, {
@@ -372,6 +405,7 @@ async function lockNotification(notification: OrderNotification) {
     body: JSON.stringify({
       status: "processing",
       attempts: notification.attempts + 1,
+      first_attempt_at: notification.first_attempt_at || new Date().toISOString(),
       updated_at: new Date().toISOString(),
     }),
   });
@@ -582,7 +616,9 @@ async function loadSalesmanEmail(salesmanCode: string) {
 
 async function loadRequestContext(req: Request): Promise<RequestContext> {
   const internalSecret = req.headers.get("x-order-notification-secret") || "";
-  const expectedInternalSecret = Deno.env.get("ORDER_NOTIFICATION_INTERNAL_SECRET") || "";
+  // The existing approval-email scheduler uses the same trusted internal worker secret.
+  const expectedInternalSecret = Deno.env.get("ORDER_NOTIFICATION_INTERNAL_SECRET")
+    || Deno.env.get("PRICE_ACCESS_INTERNAL_SECRET") || "";
   if (internalSecret && expectedInternalSecret && internalSecret === expectedInternalSecret) {
     return { userId: "internal", isAdmin: true };
   }
@@ -765,7 +801,7 @@ async function deliverPreparedOrderEmail(order: Order, message: {
     to: [visibleRecipient],
     ...(blindCopyRecipients.length ? { bcc: blindCopyRecipients } : {}),
     ...message,
-  });
+  }, order.email_delivery_key);
 
   const warnings = [
     ...(missingSalesmanEmail
@@ -782,12 +818,14 @@ async function deliverPreparedOrderEmail(order: Order, message: {
   };
 }
 
-async function sendResendEmail(apiKey: string, payload: Record<string, unknown>) {
+async function sendResendEmail(apiKey: string, payload: Record<string, unknown>, deliveryKey?: string) {
+  if (!deliveryKey) throw new Error("Missing email delivery key; refusing an unsafe send.");
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
+      "Idempotency-Key": `order-email/${deliveryKey}`,
     },
     body: JSON.stringify(payload),
   });
@@ -798,37 +836,42 @@ async function sendResendEmail(apiKey: string, payload: Record<string, unknown>)
   }
 
   const result = await response.json();
-  return String(result.id || "");
+  if (!result.id) throw new Error("Resend did not confirm an email ID.");
+  return String(result.id);
 }
 
 async function buildOrderWorkbookAttachment(
   order: Order,
 ): Promise<EmailAttachment> {
-  const files = prepareOrderTemplateFiles();
+  const template = base64ToBytes(ORDER_TEMPLATE_BASE64);
+  const files = unzipSync(template, { filter: (entry) => entry.name === ORDER_TEMPLATE_SHEET_PATH });
   const sheet = files[ORDER_TEMPLATE_SHEET_PATH];
   if (!sheet) throw new Error(`Missing order template sheet ${ORDER_TEMPLATE_SHEET_PATH}`);
 
   let sheetXml = strFromU8(sheet);
-  sheetXml = clearOrderInputCells(sheetXml, order.order_items.length);
   const clientCode = orderClientCode(order);
   const clientCodeType = numericCellValue(clientCode) === null ? "string" : "number";
-  sheetXml = upsertCell(sheetXml, "B1", orderWorkbookClientName(order), "string");
-  sheetXml = upsertCell(sheetXml, "B2", orderDeliveryAddress(order), "string");
-  sheetXml = upsertCell(sheetXml, "F1", clientCode, clientCodeType);
-  sheetXml = upsertCell(sheetXml, "B3", order.order_transport || "", "string");
-  sheetXml = upsertCell(sheetXml, "K1", order.notes || "", "string");
-
+  const edits = new Map<string, { value: string | number; type: "string" | "number" }>([
+    ["B1", { value: orderWorkbookClientName(order), type: "string" }],
+    ["B2", { value: orderDeliveryAddress(order), type: "string" }],
+    ["F1", { value: clientCode, type: clientCodeType }],
+    ["B3", { value: order.order_transport || "", type: "string" }],
+    ["K1", { value: order.notes || "", type: "string" }],
+  ]);
   order.order_items.forEach((item, index) => {
     const row = 8 + index;
     const skuType = numericCellValue(item.sku) === null ? "string" : "number";
-    sheetXml = upsertCell(sheetXml, `A${row}`, item.sku, skuType);
-    sheetXml = upsertCell(sheetXml, `B${row}`, item.quantity, "number");
-    sheetXml = upsertCell(sheetXml, `C${row}`, item.name, "string");
-    sheetXml = upsertCell(sheetXml, `D${row}`, item.unit_price, "number");
+    edits.set(`A${row}`, { value: item.sku, type: skuType });
+    edits.set(`B${row}`, { value: item.quantity, type: "number" });
+    edits.set(`C${row}`, { value: item.name, type: "string" });
+    edits.set(`D${row}`, { value: item.unit_price, type: "number" });
   });
+  sheetXml = applyOrderCellEdits(sheetXml, edits, order.order_items.length);
 
   files[ORDER_TEMPLATE_SHEET_PATH] = strToU8(sheetXml);
-  const workbook = zipSync(files, { level: 1 });
+  // Retries must produce identical bytes for Resend's idempotency check.
+  const worksheetZip = zipSync(files, { level: 1, mtime: new Date("2000-01-01T00:00:00Z") });
+  const workbook = replaceZipEntry(template, worksheetZip, ORDER_TEMPLATE_SHEET_PATH);
   const orderLabel = order.order_number ? String(order.order_number) : order.id;
 
   return {
@@ -838,10 +881,39 @@ async function buildOrderWorkbookAttachment(
   };
 }
 
-function prepareOrderTemplateFiles() {
-  const files = unzipSync(base64ToBytes(ORDER_TEMPLATE_BASE64));
-  prepareWorkbookForRecalculation(files);
-  return files;
+// Scan the large worksheet once; all cell edits then operate on a single row.
+// The old path scanned the whole sheet over 500 times even for an empty order.
+function applyOrderCellEdits(
+  sheetXml: string,
+  edits: Map<string, { value: string | number; type: "string" | "number" }>,
+  itemCount: number,
+) {
+  const byRow = new Map<number, Array<[string, { value: string | number; type: "string" | "number" }]>>();
+  for (const [ref, edit] of edits) {
+    const row = Number(cellRow(ref));
+    const cells = byRow.get(row) || [];
+    cells.push([ref, edit]);
+    byRow.set(row, cells);
+  }
+  const lastRow = Math.max(ORDER_TEMPLATE_LAST_INPUT_ROW, 8 + itemCount - 1);
+  const edited = sheetXml.replace(/<row\b[^>]*\/>|<row\b[^>]*>[\s\S]*?<\/row>/g, (rowXml) => {
+    const row = Number(rowXml.match(/\br="(\d+)"/)?.[1]);
+    if (row >= 8 && row <= lastRow) {
+      rowXml = clearCell(rowXml, `A${row}`);
+      rowXml = clearCell(rowXml, `B${row}`);
+    }
+    for (const [ref, edit] of byRow.get(row) || []) {
+      rowXml = upsertCell(rowXml, ref, edit.value, edit.type);
+    }
+    byRow.delete(row);
+    return rowXml;
+  });
+  const missingRows = [...byRow].sort(([a], [b]) => a - b).map(([row, cells]) => {
+    const content = cells.sort(([a], [b]) => columnIndex(a) - columnIndex(b))
+      .map(([ref, edit]) => createCell(ref, edit.value, edit.type)).join("");
+    return `<row r="${row}">${content}</row>`;
+  }).join("");
+  return edited.replace("</sheetData>", `${missingRows}</sheetData>`);
 }
 
 function prepareWorkbookForRecalculation(files: Record<string, Uint8Array>) {
@@ -910,20 +982,6 @@ function setXmlAttribute(attributes: string, name: string, value: string) {
     return attributes.replace(pattern, ` ${name}="${value}"`);
   }
   return `${attributes} ${name}="${value}"`;
-}
-
-function clearOrderInputCells(sheetXml: string, itemCount: number) {
-  let nextXml = clearCell(sheetXml, "B1");
-  nextXml = clearCell(nextXml, "B2");
-  nextXml = clearCell(nextXml, "B3");
-  nextXml = clearCell(nextXml, "F1");
-  nextXml = clearCell(nextXml, "K1");
-  const lastRow = Math.max(ORDER_TEMPLATE_LAST_INPUT_ROW, 8 + itemCount - 1);
-  for (let row = 8; row <= lastRow; row += 1) {
-    nextXml = clearCell(nextXml, `A${row}`);
-    nextXml = clearCell(nextXml, `B${row}`);
-  }
-  return nextXml;
 }
 
 function upsertCell(sheetXml: string, ref: string, value: string | number, type: "string" | "number") {

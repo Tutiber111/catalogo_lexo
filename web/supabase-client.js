@@ -502,6 +502,10 @@
       if (functionError) throw functionError;
       const failed = data?.results?.find((result) => result.status === "failed");
       if (failed) throw new Error(failed.error || "No se pudo enviar el email del pedido.");
+      if (data?.error) throw new Error(data.error);
+      if (!data?.results?.some((result) => result.status === "sent")) {
+        throw new Error("El pedido fue guardado. El email está pendiente de confirmación.");
+      }
       return { ok: true, data };
     } catch (error) {
       console.warn("No se pudo enviar la notificacion del pedido", error);
@@ -534,6 +538,10 @@
       if (functionError) throw functionError;
       const failed = data?.results?.find((result) => result.status === "failed");
       if (failed) throw new Error(failed.error || "No se pudo enviar el email agrupado.");
+      if (data?.error) throw new Error(data.error);
+      if (!data?.results?.some((result) => result.status === "sent")) {
+        throw new Error("Los pedidos fueron guardados. El email está pendiente de confirmación.");
+      }
       return { ok: true, data };
     } catch (error) {
       console.warn("No se pudo enviar la notificación agrupada", error);
