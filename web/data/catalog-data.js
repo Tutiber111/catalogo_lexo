@@ -893,7 +893,7 @@ window.CATALOG_DATA = {
       "section": "Lexo",
       "showPriceOverlays": true,
       "image": {
-        "src": "assets/pages/lexo-20260706-page-016.png?v=20260901-cafeteras",
+        "src": "assets/pages/lexo-20260706-page-016.png?v=20261015-venezia-aluminio",
         "width": 1414,
         "height": 2000
       },
