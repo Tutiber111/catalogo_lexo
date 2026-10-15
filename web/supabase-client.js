@@ -431,6 +431,8 @@
       total_items: order.totalItems,
       total_value: order.totalValue,
     };
+    const deliveryHours = String(order.customer.deliveryHours || "").trim().slice(0, 120);
+    if (deliveryHours) orderPayload.delivery_hours = deliveryHours;
     const requestHash = await CATALOG_STORE.hashString(JSON.stringify({
       order: orderPayload,
       items: order.items.map((item, index) => ({
@@ -446,7 +448,14 @@
     orderPayload.client_request_hash = requestHash;
 
     let savedOrder;
-    const inserted = await client.from("orders").insert(orderPayload).select().single();
+    let inserted = await client.from("orders").insert(orderPayload).select().single();
+    if (inserted.error && orderPayload.delivery_hours && /delivery_hours/.test(inserted.error.message || "")) {
+      // Database not updated yet: keep the hours in the notes instead of losing the order.
+      const fallback = { ...orderPayload };
+      delete fallback.delivery_hours;
+      fallback.notes = [orderPayload.notes, `Horario de entrega: ${orderPayload.delivery_hours}`].filter(Boolean).join("\n");
+      inserted = await client.from("orders").insert(fallback).select().single();
+    }
     if (inserted.error?.code === "23505") {
       const replay = await client
         .from("orders")
@@ -785,6 +794,7 @@
         }),
         salesmanCode: order.salesman_code || "",
         deliveryAddress: order.sales_client_address || "",
+        deliveryHours: order.delivery_hours || "",
         transport: order.order_transport || "",
       },
       orderGroupId: order.branch_order_group_id || "",

@@ -6,7 +6,7 @@
     <title>Cat&aacute;logo Lexo</title>
     <link rel="icon" type="image/png" href="assets/lexo-favicon.png?v=20260728-r2">
     <link rel="apple-touch-icon" href="assets/lexo-favicon.png?v=20260728-r2">
-    <link rel="stylesheet" href="styles.css?v=20261009-sales-analysis-r1">
+    <link rel="stylesheet" href="styles.css?v=20261015-delivery-hours">
   </head>
   <body class="auth-required auth-checking">
     <div id="offlineBanner" class="offline-banner" hidden>
@@ -231,6 +231,13 @@
                 <span>Direcci&oacute;n <em>opcional</em></span>
                 <input id="cartAddress" type="text" autocomplete="street-address" placeholder="Direcci&oacute;n de entrega (opcional)">
                 <small>Se completa con la direcci&oacute;n del cliente. Pod&eacute;s cambiarla solo para este pedido.</small>
+              </label>
+            </div>
+            <div class="cart-hours-panel">
+              <label class="cart-client-field">
+                <span>Horario de entrega <em>opcional</em></span>
+                <input id="cartDeliveryHours" type="text" autocomplete="off" maxlength="120" placeholder="Ej.: lunes a viernes de 9 a 13 hs">
+                <small>Este dato es opcional. Lo ve el dep&oacute;sito al preparar el pedido.</small>
               </label>
             </div>
             <div id="cartTransportPanel" class="cart-transport-panel" hidden>
@@ -818,10 +825,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/vendor/jspdf.umd.min.js?v=2.5.2"></script>
     <script src="catalog-store.js?v=20261005-oxo-r1"></script>
-    <script src="supabase-client.js?v=20261006-ean-r1"></script>
+    <script src="supabase-client.js?v=20261015-delivery-hours"></script>
     <script src="dialog-compat.js?v=20260819-ipad-dialogs"></script>
     <script src="data/product-browse-data.js?v=20261005-oxo-r1"></script>
-    <script src="app.js?v=20261006-client-history"></script>
+    <script src="app.js?v=20261015-delivery-hours"></script>
     <script src="sales-dashboard-model.js?v=20261009-sales-analysis-r1"></script>
     <script src="sales-dashboard.js?v=20261009-sales-analysis-r1"></script>
     <script src="admin.js?v=20261006-ean-r1"></script>

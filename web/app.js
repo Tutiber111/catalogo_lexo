@@ -196,6 +196,7 @@ const els = {
   cartTransportPanel: document.querySelector("#cartTransportPanel"),
   cartTransport: document.querySelector("#cartTransport"),
   cartObservations: document.querySelector("#cartObservations"),
+  cartDeliveryHours: document.querySelector("#cartDeliveryHours"),
   otherSalesClientToggleWrap: document.querySelector("#otherSalesClientToggleWrap"),
   otherSalesClientToggle: document.querySelector("#otherSalesClientToggle"),
   otherSalesClientForm: document.querySelector("#otherSalesClientForm"),
@@ -3830,6 +3831,7 @@ function renderPendingOfflineOrder(queued, index) {
     receipt.branchAddress ? `<span><strong>Destino</strong>${escapeHtml(receipt.branchAddress)}</span>` : "",
     queued.userEmail ? `<span><strong>Cuenta</strong>${escapeHtml(queued.userEmail)}</span>` : "",
     transport ? `<span><strong>Transporte</strong>${escapeHtml(transport)}</span>` : "",
+    customer.deliveryHours ? `<span><strong>Horario</strong>${escapeHtml(customer.deliveryHours)}</span>` : "",
     queued.reason ? `<span><strong>Guardado por</strong>${escapeHtml(queued.reason)}</span>` : "",
   ].filter(Boolean).join("");
 
@@ -3879,6 +3881,7 @@ function clearSubmittedCart() {
   syncOrderAddress({ force: true });
   els.cartTransport.value = "";
   els.cartObservations.value = "";
+  if (els.cartDeliveryHours) els.cartDeliveryHours.value = "";
   localStorage.removeItem("catalogCartClientName");
   localStorage.removeItem("catalogCartClientCode");
   saveCart();
@@ -4248,6 +4251,7 @@ function readOrderCustomer() {
       deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
+      deliveryHours: orderDeliveryHoursValue(),
     };
   }
   const selectedClient = canSelectSalesClient() ? state.selectedSalesClient : null;
@@ -4260,6 +4264,7 @@ function readOrderCustomer() {
       deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
+      deliveryHours: orderDeliveryHoursValue(),
     };
   }
 
@@ -4270,6 +4275,7 @@ function readOrderCustomer() {
       deliveryAddress: orderAddressValue(),
       transport: orderTransportValue(),
       notes: observations,
+      deliveryHours: orderDeliveryHoursValue(),
     };
   }
 
@@ -4281,6 +4287,7 @@ function readOrderCustomer() {
     salesmanCode: state.profile?.salesman_code || state.profile?.assigned_salesman_code || "",
     deliveryAddress: orderAddressValue(),
     notes: observations,
+    deliveryHours: orderDeliveryHoursValue(),
   };
 }
 
@@ -4334,6 +4341,10 @@ function canEnterOrderTransport() {
 
 function orderTransportValue() {
   return canEnterOrderTransport() ? els.cartTransport.value.trim() : "";
+}
+
+function orderDeliveryHoursValue() {
+  return els.cartDeliveryHours ? els.cartDeliveryHours.value.trim().slice(0, 120) : "";
 }
 
 function orderObservationsValue() {
@@ -4997,6 +5008,7 @@ async function signOut() {
     els.cartAddress.value = "";
     els.cartTransport.value = "";
     els.cartObservations.value = "";
+    if (els.cartDeliveryHours) els.cartDeliveryHours.value = "";
     state.isCheckingAuth = true;
     await initAccount();
     renderAll();
@@ -5021,6 +5033,7 @@ async function signOut() {
     els.cartAddress.value = "";
     els.cartTransport.value = "";
     els.cartObservations.value = "";
+    if (els.cartDeliveryHours) els.cartDeliveryHours.value = "";
     renderAccount();
     await renderCustomerOrders();
     applyAuthGate();
@@ -5718,6 +5731,7 @@ function restoreOrderContext(order) {
     els.cartTransport.value = order.customer?.transport || "";
   }
   els.cartObservations.value = order.customer?.notes || "";
+  if (els.cartDeliveryHours) els.cartDeliveryHours.value = order.customer?.deliveryHours || "";
 }
 
 function collapseCustomerOrderDetail() {
