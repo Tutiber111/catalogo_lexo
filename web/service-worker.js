@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20261015-delivery-hours";
-const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261005-oxo-r1";
+const CACHE_NAME = "lexo-catalog-v20261021-page-performance";
+const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css?v=20261015-delivery-hours",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20261015-delivery-hours",
+  "./app.js?v=20261021-page-performance",
   "./data/product-browse-data.js?v=20261005-oxo-r1",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
   "./sales-dashboard.js?v=20261009-sales-analysis-r1",
@@ -39,7 +39,26 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
+  // Authenticated database responses must never enter the shared offline cache.
+  if (url.origin !== self.location.origin && !APP_SHELL.includes(url.href)) return;
   const isCatalogPage = url.origin === self.location.origin && url.pathname.includes("/assets/pages/");
+
+  // Page URLs are versioned. A saved page must not wait for another network trip.
+  if (isCatalogPage) {
+    event.respondWith((async () => {
+      let cache;
+      try {
+        cache = await caches.open(PAGE_CACHE_NAME);
+        const cached = await cache.match(request);
+        if (cached) return cached;
+      } catch { /* Storage restrictions must not block an online page. */ }
+      const response = await fetch(request);
+      if (response?.ok && cache) event.waitUntil(cache.put(request, response.clone()).catch(() => {}));
+      return response;
+    })());
+    return;
+  }
+
 
   event.respondWith(
     fetch(request)

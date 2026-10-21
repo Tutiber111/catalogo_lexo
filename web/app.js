@@ -71,9 +71,8 @@ const state = {
   isExportingCatalogPdf: false,
   lastOrderReceipt: loadLastOrderReceipt(),
   pageObserver: null,
-  catalogCachePromise: null,
-  catalogCacheQueue: [],
-  catalogCachedSections: new Set(),
+  catalogCacheTimer: null,
+  catalogCacheController: null,
 };
 
 const BARCODE_SCAN_MIN_LENGTH = 8;
@@ -83,6 +82,7 @@ const BARCODE_SCAN_MAX_AVERAGE_GAP_MS = 90;
 const BARCODE_SCAN_MAX_TOTAL_MS = 3500;
 const VIEWER_HYDRATE_RADIUS = 3;
 const VIEWER_RETAIN_RADIUS = 5;
+const CATALOG_PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 // The revised OXO images have every printed price removed, including the
 // pepper mill's price without a currency symbol; no fixed-page mask is needed.
 const PENDING_PRICE_COVERS = new Map();
@@ -1150,7 +1150,7 @@ function renderPageFrameContent(page, index) {
   const imageWidth = Number(page.image.width) || 1013;
   const imageHeight = Number(page.image.height) || 1432;
   return `
-    <img src="${escapeHtml(page.image.src)}" width="${imageWidth}" height="${imageHeight}" alt="Página ${page.number} del catálogo" loading="${index === state.currentIndex ? "eager" : "lazy"}" decoding="async">
+    <img src="${escapeHtml(page.image.src)}" width="${imageWidth}" height="${imageHeight}" alt="Página ${page.number} del catálogo" loading="${index === state.currentIndex ? "eager" : "lazy"}" fetchpriority="${index === state.currentIndex ? "high" : "low"}" decoding="async">
     <div class="hotspot-layer">
       ${products.map(renderHotspot).join("")}
       ${(page.priceGroups || []).map(renderPriceOverlay).join("")}
@@ -3376,6 +3376,11 @@ function setCurrentPageIndex(index) {
   if (index < 0 || index >= state.catalog.pages.length || index === state.currentIndex) return;
   state.currentIndex = index;
   hydrateViewerWindow();
+  const currentImage = hydratePageFrame(index)?.querySelector("img");
+  if (currentImage) {
+    currentImage.loading = "eager";
+    currentImage.fetchPriority = "high";
+  }
   prioritizeCatalogSectionCache(state.catalog.pages[index]?.section);
   renderCurrentPageDetails();
   renderLists();
@@ -4123,99 +4128,49 @@ async function registerServiceWorker() {
 }
 
 function scheduleCatalogAssetCache() {
-  if (!isOnline() || !("caches" in window) || !state.catalog?.pages?.length) return;
-  const visibleIndexes = visiblePageIndexes();
-  const currentPosition = visibleIndexes.indexOf(state.currentIndex);
-  const nearbyPages = visibleIndexes
-    .slice(Math.max(0, currentPosition - 2), currentPosition + 3)
-    .map((index) => state.catalog.pages[index]);
-  void cacheCatalogPages(nearbyPages, { idle: false }).catch((error) => {
-    console.warn("No se pudieron guardar las páginas cercanas", error);
-  });
-
+  clearTimeout(state.catalogCacheTimer);
+  state.catalogCacheController?.abort();
+  state.catalogCacheController = null;
   const connection = navigator.connection;
   const slowConnection = ["slow-2g", "2g", "3g"].includes(connection?.effectiveType);
-  if (usesBottomNavigation() || connection?.saveData || slowConnection) return;
+  if (!isOnline() || !("caches" in window) || state.catalogView !== "pages"
+      || !state.catalog?.pages?.length || connection?.saveData || slowConnection) return;
 
-  const sections = [...new Set(state.catalog.pages.map((page) => page.section).filter(Boolean))];
-  const currentSection = currentPage()?.section;
-  if (currentSection) queueCatalogSectionCache(currentSection, true);
-  sections.forEach((section) => queueCatalogSectionCache(section));
-  startCatalogAssetCache();
-}
-
-function prioritizeCatalogSectionCache(section) {
-  if (!section || state.catalogCachedSections.has(section) || navigator.connection?.saveData || usesBottomNavigation()) return;
-  queueCatalogSectionCache(section, true);
-  startCatalogAssetCache();
-}
-
-function queueCatalogSectionCache(section, first = false) {
-  if (!section || state.catalogCachedSections.has(section)) return;
-  state.catalogCacheQueue = state.catalogCacheQueue.filter((item) => item !== section);
-  if (first) state.catalogCacheQueue.unshift(section);
-  else state.catalogCacheQueue.push(section);
-}
-
-function startCatalogAssetCache() {
-  if (state.catalogCachePromise || !state.catalogCacheQueue.length) return;
-  state.catalogCachePromise = runCatalogAssetCache().finally(() => {
-    state.catalogCachePromise = null;
-    if (state.catalogCacheQueue.length && isOnline()) startCatalogAssetCache();
-  });
-}
-
-async function runCatalogAssetCache() {
-  try {
-    const nearbyIndexes = visiblePageIndexes();
-    const currentPosition = nearbyIndexes.indexOf(state.currentIndex);
-    const nearbyPages = nearbyIndexes
-      .slice(Math.max(0, currentPosition - 2), currentPosition + 3)
-      .map((index) => state.catalog.pages[index]);
-    await cacheCatalogPages(nearbyPages, { idle: false });
-
-    while (state.catalogCacheQueue.length && isOnline()) {
-      const section = state.catalogCacheQueue.shift();
-      if (!section || state.catalogCachedSections.has(section)) continue;
-      await waitForCatalogIdle();
-      const pages = state.catalog.pages.filter((page) => page.section === section);
-      const completed = await cacheCatalogPages(pages, { idle: true });
-      if (completed) state.catalogCachedSections.add(section);
+  // Let the visible image load first. Never download the entire catalog in the background.
+  state.catalogCacheTimer = setTimeout(async () => {
+    const controller = new AbortController();
+    state.catalogCacheController = controller;
+    try {
+      const indexes = visiblePageIndexes();
+      const position = indexes.indexOf(state.currentIndex);
+      if (position < 0) return;
+      const pages = [indexes[position + 1], indexes[position - 1]]
+        .filter((index) => index !== undefined).map((index) => state.catalog.pages[index]);
+      await cacheCatalogPages(pages, { signal: controller.signal });
+    } catch (error) {
+      if (error.name !== "AbortError") console.warn("No se pudieron guardar las páginas cercanas", error);
+    } finally {
+      if (state.catalogCacheController === controller) state.catalogCacheController = null;
     }
-  } catch (error) {
-    console.warn("No se pudieron guardar las páginas para modo offline", error);
-  }
+  }, 1200);
+}
+
+function prioritizeCatalogSectionCache() {
+  scheduleCatalogAssetCache();
 }
 
 async function cacheCatalogPages(pages, options = {}) {
   const imageUrls = [...new Set((pages || []).map((page) => page?.image?.src).filter(Boolean))];
   if (!imageUrls.length || !isOnline()) return false;
-  const cache = await caches.open("lexo-catalog-pages-v20260805");
-  const cachedRequests = await cache.keys();
-  const cachedUrls = new Set(cachedRequests.map((request) => {
-    const url = new URL(request.url);
-    return url.pathname + url.search;
-  }));
-  const pendingUrls = imageUrls.filter((url) => {
-    const absolute = new URL(url, location.href);
-    return !cachedUrls.has(absolute.pathname + absolute.search);
-  });
-
-  for (let index = 0; index < pendingUrls.length; index += 2) {
-    if (!isOnline()) return false;
-    if (options.idle) await waitForCatalogIdle();
-    const chunk = pendingUrls.slice(index, index + 2);
-    await Promise.allSettled(chunk.map(async (url) => {
-      const response = await fetch(url, { cache: "reload" });
-      if (response.ok) await cache.put(url, response);
-    }));
+  const cache = await caches.open(CATALOG_PAGE_CACHE_NAME);
+  for (const url of imageUrls) {
+    if (!isOnline() || options.signal?.aborted) return false;
+    if (await cache.match(url)) continue;
+    // One low-priority request at a time; reuse HTTP cache instead of forcing a reload.
+    const response = await fetch(url, { cache: "force-cache", priority: "low", signal: options.signal });
+    if (response.ok) await cache.put(url, response);
   }
   return true;
-}
-
-function waitForCatalogIdle() {
-  if (!("requestIdleCallback" in window)) return delay(220);
-  return new Promise((resolve) => requestIdleCallback(resolve, { timeout: 1400 }));
 }
 
 function readAccountCustomer() {
