@@ -6,8 +6,10 @@
   const productionCatalogUrl = "https://catalogolexo.com.ar/";
 
   let recoveryMode = hasRecoveryMarkers();
+  let activeSession = null;
 
   const client = window.supabase?.createClient(config.url, config.anonKey, {
+    global: { fetch: fetchWithCatalogSession },
     auth: {
       persistSession: true,
       autoRefreshToken: true,
@@ -16,12 +18,30 @@
   }) || null;
 
   if (client) {
-    client.auth.onAuthStateChange((event) => {
+    client.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") activeSession = null;
+      else if (session) activeSession = session;
       if (event === "PASSWORD_RECOVERY") {
         recoveryMode = true;
         window.dispatchEvent(new CustomEvent("catalog:password-recovery"));
       }
     });
+  }
+
+  function fetchWithCatalogSession(input, init = {}) {
+    const url = new URL(input instanceof Request ? input.url : String(input), config.url);
+    const headers = new Headers(init.headers || (input instanceof Request ? input.headers : undefined));
+    const isCatalogApi = url.origin === config.url && /^\/(rest|functions|storage)\/v1\//.test(url.pathname);
+    const authorization = headers.get("Authorization");
+    // Keep the token delivered by Auth available if the SDK's session lookup
+    // momentarily falls back to the public key immediately after sign-in.
+    if (isCatalogApi && activeSession?.access_token && (!authorization || authorization === `Bearer ${config.anonKey}`)) {
+      if (activeSession.expires_at * 1000 <= Date.now()) {
+        throw new Error("La sesión venció. Volvé a iniciar sesión para continuar.");
+      }
+      headers.set("Authorization", `Bearer ${activeSession.access_token}`);
+    }
+    return fetch(input, { ...init, headers });
   }
 
   function hasRecoveryMarkers() {
@@ -66,6 +86,7 @@
   async function signIn(email, password) {
     const { data, error } = await client.auth.signInWithPassword({ email, password });
     if (error) throw error;
+    activeSession = data.session || null;
     return data.user;
   }
 
@@ -78,6 +99,7 @@
       },
     });
     if (error) throw error;
+    activeSession = data.session || null;
     const user = data.session?.user || (await getUser());
     if (user) await upsertProfile(user, { name, phone, company, assignedSalesmanCode });
     return data.user;
@@ -87,6 +109,7 @@
     if (!client) return;
     const { error } = await client.auth.signOut();
     if (error) throw error;
+    activeSession = null;
   }
 
   async function sendPasswordReset(email) {
@@ -113,6 +136,7 @@
     if (code) {
       const { data, error } = await client.auth.exchangeCodeForSession(code);
       if (error) throw error;
+      activeSession = data.session || null;
       return data.session;
     }
 
@@ -122,13 +146,24 @@
         refresh_token: refreshToken,
       });
       if (error) throw error;
+      activeSession = data.session || null;
       return data.session;
     }
 
     const { data, error } = await client.auth.getSession();
     if (error) throw error;
-    if (!data.session) throw new Error("Falta la sesión de recuperación. Pedí un nuevo email de recuperación de contraseña y abrí el enlace más reciente en este mismo navegador.");
-    return data.session;
+    let session = data.session;
+    if (!session && activeSession) {
+      const restored = await client.auth.setSession({
+        access_token: activeSession.access_token,
+        refresh_token: activeSession.refresh_token,
+      });
+      if (restored.error) throw restored.error;
+      session = restored.data.session;
+    }
+    if (!session) throw new Error("Falta la sesión de recuperación. Pedí un nuevo email de recuperación de contraseña y abrí el enlace más reciente en este mismo navegador.");
+    activeSession = session;
+    return session;
   }
 
   async function getProfile(userId) {
