@@ -618,9 +618,37 @@
 
   async function loadDashboardClients(salesmanCode) {
     if (!client || !salesmanCode) throw new Error("Falta el código de vendedor.");
-    return dashboardPages(() => client.from("sales_clients")
-      .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
-      .eq("salesman_code", salesmanCode).order("id"), normalizeSalesClient);
+    return dashboardPages(() => {
+      let q = client.from("sales_clients").select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label");
+      if (salesmanCode !== '*') q = q.eq("salesman_code", salesmanCode);
+      return q.order("id");
+    }, normalizeSalesClient);
+  }
+
+  async function loadDashboardHistory() {
+    if (!client) throw new Error("Supabase no está disponible.");
+    if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-history');
+    try {
+      const batches = await dashboardPages(() => client.from('sales_history_batches')
+        .select('id,source_name,from_date,to_date,warehouse_from_date').order('id'), row => row);
+      const lines = await dashboardHistoryPages(() => client.from('sales_history_lines')
+        .select('line_key,order_key,order_date,client_code,client_name,sku,product_name,locality,province,ordered_qty,invoiced_qty,returned_qty,ordered_net,invoiced_net,batch_id,source_row')
+        .order('line_key'), row => row);
+      return { batches, lines, available:true };
+    } catch (error) {
+      // An older installation can keep catalog analytics until migration/import approval.
+      if (['42P01','PGRST205'].includes(error.code)) return { batches:[],lines:[],available:false };
+      throw error;
+    }
+  }
+
+  async function loadDashboardDeliveries() {
+    if (!client) throw new Error('Supabase no está disponible.');
+    if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-deliveries');
+    const {data,error}=await client.functions.invoke('sales-dashboard-deliveries',{body:{}});
+    if(error) return {available:false,lines:[],error:'WarehousePick no está disponible en este entorno.'};
+    if(!data?.available||!Array.isArray(data.lines))return {available:false,lines:[],error:'Respuesta de depósito no disponible.'};
+    return data;
   }
 
   async function loadDashboardSalesmen() {
@@ -644,6 +672,39 @@
       rows.push(...(data || []).map(normalize));
       if (!data || data.length < size) return rows;
     }
+  }
+
+  async function dashboardHistoryPages(query, normalize) {
+    const rows=[],size=500,parallel=4;
+    for(let offset=0;;offset+=size*parallel) {
+      const pages=await Promise.all(Array.from({length:parallel},async(_,i)=>{
+        const {data,error}=await query().range(offset+i*size,offset+(i+1)*size-1);
+        if(error)throw error;
+        return data||[];
+      }));
+      rows.push(...pages.flat().map(normalize));
+      if(pages.some(page=>page.length<size))return rows;
+    }
+  }
+
+  function isPrivateDashboardPreview() {
+    return ['127.0.0.1','localhost','[::1]'].includes(window.location?.hostname);
+  }
+
+  async function readPrivateDashboardPreview(path) {
+    // The local preview has private server routes; production uses protected database/Edge APIs.
+    if(typeof navigator!=='undefined'&&navigator.serviceWorker?.controller) {
+      await Promise.all((await navigator.serviceWorker.getRegistrations()).map(registration=>registration.unregister()));
+      window.location.reload();
+      throw new Error('Actualizando la conexión de la vista previa.');
+    }
+    const {data,error}=await client.auth.getSession();
+    if(error||!data.session)throw new Error('Iniciá sesión para cargar los datos privados.');
+    const response=await fetch(path,{headers:{Authorization:'Bearer '+data.session.access_token},cache:'no-store'});
+    const value=await response.json();
+    if(!response.ok)throw new Error(value.error||'No se pudieron cargar los datos privados.');
+    if(!value.available)throw new Error('La fuente de datos solicitada no está disponible.');
+    return value;
   }
 
   async function loadMyOrders(userId) {
@@ -842,6 +903,7 @@
           }
         : null,
       items: (order.order_items || []).map((item) => ({
+        id: item.id,
         productId: item.product_id,
         sku: item.sku,
         ean: item.ean || "",
@@ -922,6 +984,8 @@
     getProfile,
     upsertProfile,
     loadSalesClients,
+    loadDashboardHistory,
+    loadDashboardDeliveries,
     createSalesClient,
     loadClientBranches,
     createClientBranch,

@@ -16,9 +16,14 @@
   let productSearch = '';
   let generation = 0;
   let snapshot = null;
+  let historicalCache = null;
+  let liveTimer = null;
+  let lastLiveRefresh = 0;
+  let directLinkOpenedFor = '';
+  const hasDashboardAccess = () => Boolean(window.SALES_DASHBOARD_ACCESS?.canAccess(state.user,state.profile)) && !state.isPasswordRecovery;
   const isAdminView = () => state.profile?.role === 'admin';
   const salesmanCode = () => isAdminView() ? adminSelectedCode : state.profile?.salesman_code || '';
-  const key = () => state.user && !state.isPasswordRecovery && (
+  const key = () => hasDashboardAccess() && (
     state.profile?.role === 'salesman' || (isAdminView() && adminSelectedCode)
   ) ? `${state.user.id}:${state.profile.role}:${salesmanCode()}` : '';
   const safe = (value) => escapeHtml(String(value ?? ''));
@@ -74,6 +79,9 @@
   }
 
   function reset() {
+    if(liveTimer) { clearInterval(liveTimer); liveTimer=null; }
+    historicalCache=null;
+    window.SALES_BI?.reset();
     generation++;
     snapshot = null;
     panel.hidden = true;
@@ -91,6 +99,7 @@
   }
 
   function open() {
+    if(hasDashboardAccess() && isAdminView()) { void openAdminView(); return; }
     if (state.profile?.role !== 'salesman' || !key()) return;
     title.textContent = 'Mi gestión comercial';
     closeAccount();
@@ -101,20 +110,23 @@
   }
 
   async function openAdminView() {
-    if (!state.user || !isAdminView()) return;
+    if (!hasDashboardAccess() || !isAdminView()) return;
     const userId = state.user.id;
     currentFilter = 'all';
-    title.textContent = 'Panel de vendedores';
+    title.textContent = 'Dashboard de ventas';
     panel.hidden = false;
     panel.innerHTML = '<p role="status">Cargando vendedores…</p>';
     showCatalogDialog(dialog);
+    closeAccount(); closeCart(); closeCatalogMenu();
     try {
       adminSalesmen = await CATALOG_SUPABASE.loadDashboardSalesmen();
-      if (state.user?.id !== userId || !isAdminView()) { reset(); return; }
+      if(window.SALES_BI)adminSalesmen=[...adminSalesmen.filter(s=>!['90','900'].includes(s.code)),{code:'900',name:'Adrian'},{code:'unassigned',name:'Sin asignación'}];
+      if (state.user?.id !== userId || !hasDashboardAccess() || !isAdminView()) { reset(); return; }
       if (!adminSalesmen.length) {
         panel.innerHTML = '<p>No hay vendedores configurados.</p>';
         return;
       }
+      if (window.SALES_BI && !adminSalesmen.some(seller => seller.code === '*')) adminSalesmen.unshift({ code:'*', name:'Todos los vendedores' });
       if (!adminSalesmen.some(seller => seller.code === adminSelectedCode)) adminSelectedCode = adminSalesmen[0].code;
       await refresh();
     } catch (error) {
@@ -125,39 +137,81 @@
   }
 
   function sync() {
-    entry.hidden = state.profile?.role !== 'salesman' || !key();
-    if (!state.user || (!key() && !isAdminView())) { reset(); return; }
+    window.SALES_BI?.syncOwner(key());
+    entry.hidden = !hasDashboardAccess();
+    adminEntry.hidden = !hasDashboardAccess() || !isAdminView();
+    if (!hasDashboardAccess()) { directLinkOpenedFor=''; reset(); return; }
     if (snapshot && snapshot.owner !== key()) reset();
+    ensureLiveRefresh();
+    if(new URLSearchParams(window.location?.search||'').get('dashboard')==='ventas'&&directLinkOpenedFor!==state.user.id&&isAdminView()) {
+      directLinkOpenedFor=state.user.id;
+      void openAdminView();
+    }
   }
 
-  async function refresh() {
+  function ensureLiveRefresh() {
+    if(typeof CATALOG_SUPABASE==='undefined'||!CATALOG_SUPABASE.client || liveTimer || typeof setInterval==='undefined')return;
+    liveTimer=setInterval(()=>{
+      if(key()&&dialog.open&&document.visibilityState!=='hidden'&&Date.now()-lastLiveRefresh>=55000) refresh({background:true});
+    },60000);
+  }
+
+  async function refresh({background=false}={}) {
     const owner = key();
     if (!owner) { reset(); return; }
     const request = ++generation;
-    snapshot = null;
+    if(!background) { window.SALES_BI?.suspend(); snapshot = null; }
     panel.hidden = false;
-    panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
+    if(!background) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
     try {
-      const [clients, orders] = await Promise.all([
+      const [clients, orders, delivery, overrides] = await Promise.all([
         salesmanCode()
-          ? CATALOG_SUPABASE.loadDashboardClients(salesmanCode())
+          ? CATALOG_SUPABASE.loadDashboardClients(isAdminView()&&window.SALES_BI?'*':salesmanCode())
           : Promise.resolve([]),
         CATALOG_SUPABASE.loadDashboardOrders(state.user.id),
+        CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries() : Promise.resolve({available:false,lines:[]}),
+        CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
       ]);
       if (request !== generation || key() !== owner) return;
-      const selectedOrders = salesmanCode()
+      if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
+      const signature=clients.map(c=>c.id+':'+c.clientCode).sort().join('|');
+      const useHistoryCache=background&&historicalCache?.data?.available&&historicalCache?.owner===owner&&historicalCache.signature===signature&&Date.now()-historicalCache.at<300000;
+      const historical=useHistoryCache
+        ? historicalCache.data : CATALOG_SUPABASE.loadDashboardHistory ? await CATALOG_SUPABASE.loadDashboardHistory() : {batches:[],lines:[],available:false};
+      if (request !== generation || key() !== owner) return;
+      if(!useHistoryCache) historicalCache={owner,signature,at:Date.now(),data:historical};
+      const selectedOrders = salesmanCode() && !(isAdminView()&&window.SALES_BI)
         ? orders.filter(order => clients.some(client => model.matches(client, order)))
         : orders;
-      snapshot = { owner, clients, orders: selectedOrders, summary: summarize(clients, selectedOrders, Date.now(), period) };
+      // The server enforces access. Also constrain admin selection and late account responses here.
+      const codes = new Set(clients.map(c => String(c.clientCode)));
+      const lines = isAdminView() && window.SALES_BI ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
+      lastLiveRefresh=Date.now();
+      snapshot = { owner, clients,delivery, updatedAt:new Date().toISOString(), historical:{ ...historical,lines }, orders: selectedOrders, summary: summarize(clients, selectedOrders, Date.now(), period) };
       render();
+      ensureLiveRefresh();
     } catch (error) {
       if (request !== generation || key() !== owner) return;
       console.error('Sales dashboard could not load', error);
+      if(background&&snapshot?.owner===owner) { window.SALES_BI?.setLiveError('No se pudo actualizar. Se muestran los últimos datos recibidos.'); return; }
       panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="alert">No se pudo actualizar el panel. Revisá tu conexión e intentá nuevamente.</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>';
     }
   }
 
   function render() {
+    if (window.SALES_BI && !selectedClientId) {
+      window.SALES_BI.mount(panel, { owner:snapshot.owner, clients:snapshot.clients, orders:snapshot.orders,
+        ...snapshot.historical, catalog:state.catalog?.products || [], admin:isAdminView(),
+        salesmen:adminSalesmen, salesmanCode:salesmanCode(),
+        live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:isAdminView(),analysisSalesmanCode:isAdminView()?salesmanCode():'',
+        onSalesman:code => { adminSelectedCode=code; selectedClientId=''; window.SALES_BI.reset(); refresh(); },
+        onRefresh:refresh,
+        onClient:client => {
+          if (state.cart.size && state.selectedSalesClient?.id !== client.id) { showToast('Terminá o vaciá el carrito actual antes de cambiar de cliente.'); return; }
+          selectSalesClient(client); closeCatalogDialog(dialog); closeAccount(); openCart();
+        } });
+      return;
+    }
     if (selectedClientId && snapshot.clients.some(client => client.id === selectedClientId)) { renderClientDetail(); return; }
     const { summary } = snapshot;
     const assigned = Boolean(salesmanCode());
@@ -340,5 +394,6 @@
   });
   window.SALES_DASHBOARD = { refresh, summarize, sync, open, openAdminView };
   window.addEventListener('catalog:orders-changed', () => { if (key() && isCatalogDialogOpen(dialog)) refresh(); });
+  window.addEventListener('focus',()=>{ if(CATALOG_SUPABASE?.client&&key()&&dialog.open&&Date.now()-lastLiveRefresh>=60000)refresh({background:true}); });
   sync();
 })();

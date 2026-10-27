@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Guía del dashboard · LEXO</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f2f5f9;color:#19334d;font:15px/1.7 system-ui,sans-serif}main{max-width:800px;margin:40px auto;padding:32px;background:#fff;border:1px solid #dde5ed;border-radius:12px}a{color:#176fc1}h1{font-size:28px;line-height:1.3}h2{font-size:18px;margin-top:30px}p{color:#4e657b}.eyebrow{font-size:11px;color:#c62028;letter-spacing:.15em;font-weight:700}@media(max-width:600px){main{margin:0;border:0;border-radius:0;padding:24px}}
+  </style>
+</head>
+<body><main>
+  <span class="eyebrow">LEXO · GUÍA DE VENTAS</span>
+  <h1>Cómo leer el dashboard</h1>
+  <p>Los botones <b>i</b> explican cada indicador. Mostrá la ayuda con el cursor, el teclado o un toque.</p>
+  <h2>Fuentes y fechas</h2>
+  <p>Excel cubre hasta el 15/10/2026 inclusive. Desde el 16/10, los pedidos y sus precios vienen del catálogo; WarehousePick informa entregas y productos sin stock. La comparación de fuentes permite revisar diferencias sin sumar dos veces una venta.</p>
+  <h2>Pedido, entregado e importes</h2>
+  <p>Los importes son pesos nominales sin IVA, al precio original del pedido. Facturado equivale a entregado: en WarehousePick se confirma por factura o remito. El Excel histórico permite estimar el importe facturado a partir de sus cantidades; no informa el importe ni la fecha real de factura. Las entregas se atribuyen al mes del pedido.</p>
+  <p>«Parcial» indica que falta parte de la información. Un vínculo ausente con el depósito no significa cero entregado. El panel de WarehousePick compara únicamente los pedidos recientes, sin mezclar cantidades del Excel.</p>
+  <p>La relación entregado / pedido divide el importe entregado por el pedido; también se muestra por unidades. El indicador del mes incluye Excel y catálogo según el cambio de fuente. El del panel WarehousePick sigue las fechas seleccionadas y excluye Excel. Si faltan entregas, el porcentaje es parcial y no representa una tasa definitiva de cumplimiento ni de falta de stock.</p>
+  <h2>Comparaciones y agregados</h2>
+  <p>El encabezado muestra el mes actual hasta hoy, aunque cambies las fechas del detalle. Compara contra el mismo día del mes anterior y del mismo mes del año anterior; si el mes es más corto, usa su último día. Δ es la diferencia absoluta y % el cambio respecto de la base anterior.</p>
+  <p>Los pedidos de un cliente dentro de dos días del primero forman una compra, fechada en ese primer día. Los días 1, 3 y 5 forman dos compras: 1+3 y 5. Se conservan los pedidos originales.</p>
+  <h2>Gráfico y ticket</h2>
+  <p>El ticket promedio del mes se muestra para pedido y entregado. Se compara con el mismo mes del año anterior hasta el mismo día, y con el promedio del año en curso desde el 1 de enero hasta hoy. Cada promedio es importe total dividido por compras agrupadas; no es el promedio simple de los tickets mensuales. El ticket entregado cuenta compras con al menos una unidad entregada.</p>
+  <p>El gráfico tiene sus propios filtros de fecha y medida. Los demás filtros de cliente, vendedor, marca y producto siguen aplicándose. Recorré los meses con el cursor o las flechas del teclado. El ticket es importe dividido por compras agrupadas. La referencia anual usa el importe total de los 12 meses dividido por sus compras.</p>
+  <h2>Frecuencia y vendedores</h2>
+  <p>La sección Vendedores reúne totales, comparaciones, clientes nuevos y reactivados, situaciones y cartera. Para este análisis, los códigos 90 y 900 se agrupan como Adrian, junto con los clientes sin vendedor y las ventas sin cliente vinculado. Alejandro Daniel Martínez (81032) queda explícitamente sin asignación, fuera de las carteras de Diana y Adrian. Estas reglas no modifican las asignaciones operativas del catálogo.</p>
+  <p>La frecuencia es el promedio de días entre compras agrupadas en los últimos 12 meses. Con menos de dos compras no hay historial suficiente. «Acción necesaria» empieza 14 días antes de la próxima compra esperada; «fuera de frecuencia» empieza en cuanto esa fecha pasó.</p>
+  <p>Las ventas siguen al vendedor asignado hoy al cliente. «Nuevo» significa primera compra registrada en los últimos 12 meses, no necesariamente su primera compra real. «Reactivado» significa que volvió después de al menos 12 meses sin compras.</p>
+  <h2>Oportunidades y falta de stock</h2>
+  <p>Las oportunidades incluyen productos o marcas no comprados en 12 meses; productos comprados entre 3 y 12 meses atrás, pero ausentes en los últimos 3; y hasta 20 productos disponibles con más unidades vendidas que el cliente no compró.</p>
+  <p>La venta perdida por stock cuenta solo lo marcado explícitamente sin stock, al precio original. Los pedidos abiertos no cuentan como pérdida. El importe histórico no facturado y los faltantes en pedidos facturados son medidas separadas y pueden solaparse: no se suman al importe sin stock.</p>
+  <h2>Calidad de datos</h2>
+  <p>Las marcas históricas se clasifican por SKU exacto. Los productos excluidos por la revisión manual no participan de los totales; los registros originales se conservan. Los productos fuera del catálogo no se convierten en productos nuevos ni reciben precios actuales inventados.</p>
+  <a href="./index.html?dashboard=ventas">Volver al catálogo</a>
+</main></body>
+</html>

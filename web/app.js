@@ -4119,6 +4119,14 @@ function enterOfflineCatalog(message = "Catálogo abierto sin conexión") {
 
 async function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
+  if (['127.0.0.1','localhost','[::1]'].includes(location.hostname)) {
+    // A local preview must not retain a production HTML/data adapter in its offline cache.
+    const registrations=await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map(registration=>registration.unregister()));
+    if('caches' in window)await Promise.all((await caches.keys()).filter(key=>key.startsWith('lexo-catalog')).map(key=>caches.delete(key)));
+    if(navigator.serviceWorker.controller) location.reload();
+    return;
+  }
   try {
     const registration = await navigator.serviceWorker.register("service-worker.js", { updateViaCache: "none" });
     await registration.update();
