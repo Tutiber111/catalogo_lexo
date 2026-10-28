@@ -1,3 +1,4 @@
+import {persistDeliverySnapshot} from '../_shared/sales-delivery-cache.mjs';
 import { catalogContext, warehouseSnapshot, ReadError } from '../_shared/sales-delivery-reader.mjs';
 
 Deno.serve(async request => {
@@ -7,8 +8,10 @@ Deno.serve(async request => {
   try {
     const url=Deno.env.get('SUPABASE_URL'),key=Deno.env.get('SUPABASE_ANON_KEY');
     if(!url||!key)throw new ReadError('Catalog connection is unavailable.');
-    const context=await catalogContext({url,key,token:request.headers.get('authorization')});
+    const body=await request.json().catch(()=>({}));
+    const context=await catalogContext({url,key,token:request.headers.get('authorization'),salesmanCode:body.salesmanCode||null});
     const data=await warehouseSnapshot(context);
+    try{await persistDeliverySnapshot({url,key:Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),orders:context.orders,snapshot:data});}catch{console.warn('Company delivery ranking could not be updated.');}
     return new Response(JSON.stringify(data),{headers});
   }catch(error){
     return new Response(JSON.stringify({error:error instanceof ReadError?error.message:'Delivery refresh failed.'}),{status:error instanceof ReadError?error.status:502,headers});

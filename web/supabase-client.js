@@ -625,6 +625,33 @@
     }, normalizeSalesClient);
   }
 
+  async function loadCompanyBestsellers() {
+    if(!client)return {available:false,items:null};
+    let data,error;
+    if(isPrivateDashboardPreview()){try{data=await readPrivateDashboardPreview('/__live-ranking');}catch{return {available:false,items:null};}}
+    else ({data,error}=await client.rpc('sales_company_bestsellers'));
+    if(error)return {available:false,items:null};
+    return {available:true,items:data?.items||[],partial:Boolean(data?.partial)};
+  }
+  async function loadRestockInbox(salesmanCode) {
+    if(!client)return {available:false,items:[]};
+    const {data,error}=await client.rpc('sales_restock_inbox',{p_salesman_code:salesmanCode||null,p_include_done:false});
+    if(error){if(['PGRST202','42883'].includes(error.code))return {available:false,items:[]};throw error;}
+    return {available:true,items:data||[]};
+  }
+  async function acknowledgeRestock(batchId,done=false) {
+    if(!client)throw new Error('Iniciá sesión.');
+    const {error}=await client.rpc('sales_restock_ack',{p_batch_id:batchId,p_done:done});if(error)throw error;
+  }
+  async function loadDashboardScope(salesmanCode) {
+    if(!client)throw new Error('La conexión no está disponible.');
+    let data,error;
+    if(isPrivateDashboardPreview())data=await readPrivateDashboardPreview('/__live-scope'+(salesmanCode?'?salesman='+encodeURIComponent(salesmanCode):''));
+    else ({data,error}=await client.rpc('sales_dashboard_scope',{p_salesman_code:salesmanCode||null,p_include_history:true}));
+    if(error)throw error;
+    if(!data?.available||!Array.isArray(data.orders)||!Array.isArray(data.clients)||!Array.isArray(data.lines))throw new Error('No se pudo cargar tu cartera.');
+    return {...data,clients:data.clients.map(normalizeSalesClient),orders:data.orders.map(normalizeOrder)};
+  }
   async function loadDashboardHistory() {
     if (!client) throw new Error("Supabase no está disponible.");
     if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-history');
@@ -642,10 +669,10 @@
     }
   }
 
-  async function loadDashboardDeliveries() {
+  async function loadDashboardDeliveries(salesmanCode) {
     if (!client) throw new Error('Supabase no está disponible.');
-    if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-deliveries');
-    const {data,error}=await client.functions.invoke('sales-dashboard-deliveries',{body:{}});
+    if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-deliveries'+(salesmanCode?'?salesman='+encodeURIComponent(salesmanCode):''));
+    const {data,error}=await client.functions.invoke('sales-dashboard-deliveries',{body:{salesmanCode:salesmanCode||null}});
     if(error) return {available:false,lines:[],error:'WarehousePick no está disponible en este entorno.'};
     if(!data?.available||!Array.isArray(data.lines))return {available:false,lines:[],error:'Respuesta de depósito no disponible.'};
     return data;
@@ -985,6 +1012,10 @@
     upsertProfile,
     loadSalesClients,
     loadDashboardHistory,
+    loadDashboardScope,
+    loadCompanyBestsellers,
+    loadRestockInbox,
+    acknowledgeRestock,
     loadDashboardDeliveries,
     createSalesClient,
     loadClientBranches,

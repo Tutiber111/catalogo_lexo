@@ -15,19 +15,28 @@ export async function readPages(base,path,headers,fetcher=fetch) {
     rows.push(...page); if(page.length<500) return rows;
   }
 }
-export async function catalogContext({url,key,token,fetcher=fetch,includeOrders=true}) {
+export async function catalogContext({url,key,token,fetcher=fetch,includeOrders=true,salesmanCode=null,includeDetails=false,includeHistory=false}) {
   if(!/^Bearer [A-Za-z0-9._-]+$/.test(token||'')) throw new ReadError('Sign in with your catalog account.',401);
   const headers={apikey:key,Authorization:token};
   const user=await readJson(`${url}/auth/v1/user`,headers,fetcher);
   if(!user?.id) throw new ReadError('Sign in with your catalog account.',401);
   const profiles=await readJson(`${url}/rest/v1/profiles?select=id,role,salesman_code&id=eq.${encodeURIComponent(user.id)}`,headers,fetcher);
   const profile=profiles[0];
-  if(!profile||profile.id!==user.id||profile.role!=='admin') throw new ReadError('An administrator account is required.',403);
-  const clients=await readPages(url,'sales_clients?select=id,client_code,salesman_code&order=id',headers,fetcher);
+  if(!profile||profile.id!==user.id||!['admin','salesman'].includes(profile.role)) throw new ReadError('Dashboard access denied.',403);
+  if(profile.role==='salesman'&&!text(profile.salesman_code))throw new ReadError('Salesperson code required.',403);
+  if(profile.role==='salesman'||salesmanCode){
+    const response=await fetcher(`${url}/rest/v1/rpc/sales_dashboard_scope`,{method:'POST',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify({p_salesman_code:salesmanCode||null,p_include_history:includeHistory})});
+    if(!response.ok)throw new ReadError('Portfolio access denied.',403);
+    const scope=await response.json();
+    if(!Array.isArray(scope.clients)||!Array.isArray(scope.orders))throw new ReadError('Invalid portfolio response.');
+    return {profile:{...profile,role:'salesman'},clients:scope.clients,orders:includeOrders?scope.orders:[],scope};
+  }
+  const clientFields=includeDetails?'id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label':'id,client_code,salesman_code';
+  const clients=await readPages(url,'sales_clients?select='+clientFields+'&order=id',headers,fetcher);
   const scoped=profile.role==='admin'?clients:clients.filter(c=>profile.salesman_code&&c.salesman_code===profile.salesman_code);
   let orders=[];
   if(includeOrders) {
-    const visible=await readPages(url,'orders?select=id,created_at,sales_client_id,sales_client_code,customer_client_code,status,order_items(id,sku,quantity,line_total,unit_price)&order=id',headers,fetcher);
+    const visible=await readPages(url,'orders?select='+(includeDetails?'order_number,customer_id,customer_name,':'')+'id,created_at,sales_client_id,sales_client_code,customer_client_code,status,order_items(id,sku,name,quantity,line_total,unit_price)&order=id',headers,fetcher);
     const ids=new Set(scoped.map(c=>c.id)),codes=new Set(scoped.map(c=>text(c.client_code)));
     orders=visible.filter(o=>!['draft','cancelled'].includes(o.status)&&(profile.role==='admin'||(o.sales_client_id?ids.has(o.sales_client_id):codes.has(text(o.sales_client_code)||text(o.customer_client_code)))));
   }

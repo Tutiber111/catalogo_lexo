@@ -7,9 +7,11 @@ const entry = { hidden: true, addEventListener() {} };
 const adminEntry = { addEventListener() {} };
 const title = { textContent: '' };
 const dialog = { open: false };
-const state = { user: { id: 'seller-a' }, profile: { role: 'salesman', salesman_code: '845' } };
-const context = { window: { addEventListener() {} }, document: { querySelector: selector => ({ '#salesDashboard': panel, '#openSalesDashboard': entry, '#openAdminSalesDashboard': adminEntry, '#salesDashboardTitle': title, '#salesDashboardDialog': dialog })[selector] }, state, closeCatalogDialog() { dialog.open = false; }, showCatalogDialog() { dialog.open = true; } };
+const state = { user: { id: '094aa67d-7768-4277-85c9-1d1b1831e7fe' }, profile: { role: 'salesman', salesman_code: '845' } };
+const context = { window: { addEventListener() {} }, URLSearchParams, document: { querySelector: selector => ({ '#salesDashboard': panel, '#openSalesDashboard': entry, '#openAdminSalesDashboard': adminEntry, '#salesDashboardTitle': title, '#salesDashboardDialog': dialog })[selector] }, state, closeCatalogDialog() { dialog.open = false; }, showCatalogDialog() { dialog.open = true; } };
 vm.createContext(context);
+context.closeAccount=()=>{};context.closeCart=()=>{};context.closeCatalogMenu=()=>{};
+vm.runInContext(fs.readFileSync('web/sales-dashboard-access.js', 'utf8'), context);
 vm.runInContext(fs.readFileSync('web/sales-dashboard-model.js', 'utf8'), context);
 vm.runInContext(fs.readFileSync('web/sales-dashboard.js', 'utf8'), context);
 const dashboard = context.window.SALES_DASHBOARD;
@@ -40,11 +42,12 @@ async function test() {
     loadDashboardOrders: async () => [],
   };
   await dashboard.refresh();
-  assert.match(panel.innerHTML, /código de vendedor asignado/);
-  assert.match(panel.innerHTML, /Últimos pedidos visibles/);
+  assert.equal(panel.hidden,true,'unassigned salesperson is denied dashboard access');
+  assert.equal(panel.innerHTML,'');
   assert.doesNotMatch(panel.innerHTML, /No se pudo actualizar/);
   state.profile.salesman_code = '845';
   context.CATALOG_SUPABASE = {
+    loadDashboardScope: async () => ({clients,orders:[{ ...order('001', 0, 200), createdAt: new Date().toISOString() }],lines:[],batches:[],salesmanCode:'845'}),
     loadDashboardClients: async () => clients,
     loadDashboardOrders: async () => [{ ...order('001', 0, 200), createdAt: new Date().toISOString() }],
   };
@@ -71,34 +74,34 @@ async function test() {
   events.change({ target: { value: '30', matches: selector => selector === '[data-period]' } });
   state.profile.role = 'admin';
   dashboard.sync();
-  assert.equal(entry.hidden, true, 'admin retains the separate Admin entry');
+  assert.equal(entry.hidden, false, 'owner administrator has direct dashboard entry');
   context.CATALOG_SUPABASE = {
     loadDashboardSalesmen: async () => [{ code: '845', name: 'Seller A' }, { code: '900', name: 'Seller B' }],
     loadDashboardClients: async code => code === '845' ? clients : [{ id: 'other', clientCode: '900' }],
     loadDashboardOrders: async () => [order('001', 1, 100), order('900', 1, 250)],
   };
   await dashboard.openAdminView();
-  assert.equal(title.textContent, 'Panel de vendedores');
+  assert.equal(title.textContent, 'Dashboard de ventas');
   assert.match(panel.innerHTML, /Vendedor/);
   assert.match(panel.innerHTML, /Seller A/);
   assert.equal(nodes['[data-count]'].textContent, '3 clientes encontrados', 'admin sees selected seller clients');
   assert.doesNotMatch(panel.innerHTML, /\$350/, 'admin totals exclude other seller orders');
   state.profile.role = 'customer';
   await dashboard.openAdminView();
-  assert.equal(title.textContent, 'Panel de vendedores', 'customer cannot reopen admin view');
+  assert.equal(title.textContent, 'Dashboard de ventas', 'customer cannot reopen admin view');
   state.profile.role = 'salesman';
   dashboard.sync();
   assert.equal(entry.hidden, false);
   dialog.open = true;
   let resolveClients;
   context.CATALOG_SUPABASE = {
-    loadDashboardClients: () => new Promise(resolve => { resolveClients = resolve; }),
+    loadDashboardScope: () => new Promise(resolve => { resolveClients = resolve; }),
     loadDashboardOrders: async () => [],
   };
   const pending = dashboard.refresh();
   state.user = null;
   dashboard.sync();
-  resolveClients(clients);
+  resolveClients({clients,orders:[],lines:[],batches:[],salesmanCode:'845'});
   await pending;
   assert.equal(panel.hidden, true, 'sign-out hides dashboard');
   assert.equal(dialog.open, false, 'sign-out closes the modal');

@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261027-admin-dashboard";
+const CACHE_NAME = "lexo-catalog-v20261028-restocks-r14";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -7,16 +7,17 @@ const APP_SHELL = [
   "./dialog-compat.js?v=20260819-ipad-dialogs",
   "./app.js?v=20261027-preview-r4",
   "./data/product-browse-data.js?v=20261005-oxo-r1",
-  "./sales-dashboard-access.js?v=20261027-admin-r9",
+  "./sales-dashboard-access.js?v=20261028-restocks-r14",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
-  "./sales-dashboard.js?v=20261027-admin-r9",
-  "./sales-bi.css?v=20261027-admin-r9",
+  "./restock-notices.js?v=20261028-restocks-r14",
+  "./sales-dashboard.js?v=20261028-restocks-r14",
+  "./sales-bi.css?v=20261028-restocks-r14",
   "./sales-product-brands.js?v=20261019-brand-review-r1",
-  "./sales-bi-model.js?v=20261027-admin-r9",
-  "./sales-bi.js?v=20261027-admin-r9",
+  "./sales-bi-model.js?v=20261028-restocks-r14",
+  "./sales-bi.js?v=20261028-restocks-r14",
   "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261005-oxo-r1",
-  "./supabase-client.js?v=20261027-admin-r9",
+  "./supabase-client.js?v=20261028-restocks-r14",
   "./data/catalog-data.js?v=20261005-oxo-r1",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",

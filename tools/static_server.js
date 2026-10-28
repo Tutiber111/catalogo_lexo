@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const salesPreviewApi = require('./sales-preview-api.cjs');
 
 const root = path.resolve(__dirname, "..", "web");
 const port = Number(process.env.PORT || 8080);
@@ -16,12 +17,14 @@ const types = {
   ".svg": "image/svg+xml",
 };
 
-const server = http.createServer((request, response) => {
+const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
+  response.setHeader('Cache-Control','no-store');
+  if(await salesPreviewApi(request,response,url.pathname))return;
   const safePath = path.normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "");
   let filePath = path.join(root, safePath);
 
-  if (!filePath.startsWith(root)) {
+  if (filePath!==root&&!filePath.startsWith(root+path.sep)) {
     response.writeHead(403);
     response.end("Forbidden");
     return;
@@ -30,6 +33,7 @@ const server = http.createServer((request, response) => {
   if (url.pathname === "/" || url.pathname.endsWith("/")) {
     filePath = path.join(filePath, "index.html");
   }
+  if(url.pathname==='/catalog')filePath=path.join(root,'index.html');
 
   fs.readFile(filePath, (error, data) => {
     if (error) {
@@ -47,3 +51,4 @@ const server = http.createServer((request, response) => {
 server.listen(port, "127.0.0.1", () => {
   console.log(`Catalog preview running at http://127.0.0.1:${port}`);
 });
+module.exports=server;

@@ -153,3 +153,27 @@
 .bi-section-tabs { display:flex; gap:8px; padding:12px 24px; background:white; border-bottom:1px solid var(--bi-line); }
 .bi-section-tabs button { padding:10px 24px; border:1px solid var(--bi-line); border-radius:6px; background:white; color:var(--bi-ink); font-weight:700; }
 .bi-section-tabs button[aria-pressed="true"] { background:var(--bi-ink); color:white; }
+
+.bi-ordered-headlines,.bi-delivered-headlines { grid-template-columns:repeat(4,minmax(0,1fr)); }
+@media(min-width:721px) and (max-width:1150px){.bi-ordered-headlines,.bi-delivered-headlines{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+/* Comparison text stays subordinate to the current KPI value. */
+.bi-headline-grid small { font-size:13px; line-height:1.6; }
+.sales-bi .bi-change { font-size:13px; }
+.bi-preview-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 24px; background:#e7f1ff; }
+.bi-preview-toolbar button,.bi-preview-button { border:1px solid var(--bi-line); border-radius:6px; background:white; padding:9px 12px; color:var(--bi-ink); cursor:pointer; }
+.bi-preview-button { margin-bottom:16px; }
+.bi-preview-button:disabled { opacity:.45; cursor:default; }
+@media(max-width:720px){.bi-preview-toolbar{align-items:start;flex-direction:column;padding:12px 16px}}
+
+.bi-opportunity-group { margin-top:20px; }
+.bi-opportunity-product { display:block; margin:5px 0; padding:6px 0; border:0; background:none; color:var(--bi-blue); text-align:left; cursor:pointer; }
+.restock-dialog { box-sizing:border-box; overflow-wrap:anywhere; width:min(780px,94vw); max-height:85vh; padding:24px; border:1px solid #dbe5ed; border-radius:12px; color:#19334d; }
+.restock-dialog::backdrop { background:rgb(13 31 51 / .45); }
+.restock-dialog>header,.restock-batch>header { display:flex; justify-content:space-between; align-items:start; gap:16px; }
+.restock-dialog h2 { margin:0; font-size:22px; }.restock-dialog>p { font-size:14px; line-height:1.6; }
+.restock-dialog button,.restock-batch button { border:1px solid #cad8e7; border-radius:6px; padding:8px 12px; background:white; color:#19334d; cursor:pointer; }
+.restock-batch { border:1px solid #dbe5ed; border-radius:8px; padding:16px; margin:16px 0; }
+.restock-batch h4 { margin:0 0 6px; }.restock-batch ul { padding-left:20px; margin-bottom:0; }.restock-batch li { margin:12px 0; font-size:14px; }
+.restock-batch li span,.restock-batch li small { display:block; margin-top:4px; color:#52657c; }.restock-batch small { font-size:12px; }
+@media(max-width:600px){.restock-dialog{padding:16px}.restock-batch>header{flex-direction:column}}

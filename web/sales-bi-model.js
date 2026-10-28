@@ -131,7 +131,7 @@
     const selectedSalesman=str(data.analysisSalesmanCode);
     const scopedClients=[...clients.values()].filter(c=>!selectedSalesman||selectedSalesman==='*'||c.salesmanCode===selectedSalesman);
     const scopedCodes=new Set(scopedClients.map(c=>str(c.clientCode)));
-    return { records:records.filter(r=>scopedCodes.has(r.clientCode)), clients:scopedClients, catalog:[...catalog.values()].flatMap(m => [...m.values()]),
+    return { companyRankingPartial:Boolean(data.companyRankingPartial),companyBestsellers:data.companyBestsellers??null,companyRankingAvailable:data.companyRankingAvailable??(!data.analysisSalesmanCode||data.analysisSalesmanCode==='*'),records:records.filter(r=>scopedCodes.has(r.clientCode)), clients:scopedClients, catalog:[...catalog.values()].flatMap(m => [...m.values()]),
       coverage: { from:starts[0] || null, to:dates.at(-1) || null },
       handover:warehouseFrom?{warehouseFrom,excelThrough:iso(timestamp(warehouseFrom)-dayMs),confirmed:handovers.length===1}:null,
       catalogCoverage:{from:catalogDates[0]||null,to:recentRange(1,data.updatedAt?Date.parse(data.updatedAt):Date.now()).to}, batches:data.batches || [],
@@ -308,7 +308,7 @@
       const currentCovered=coverage(periods.current),monthCovered=coverage(periods.month),yearCovered=coverage(periods.year);
       if(!currentCovered&&current.orders)current.partial=true;
       metrics[metric]={current,month,year,ytd,currentCovered,monthCovered,yearCovered,ytdCovered:coverage(periods.ytd),
-        changes:Object.fromEntries(['amount','orders','clients'].map(key=>[key,{month:comparison(current,month,key),year:comparison(current,year,key)}]))};
+        changes:Object.fromEntries(['amount','units','orders','clients'].map(key=>[key,{month:comparison(current,month,key),year:comparison(current,year,key)}]))};
     }
     const annualRows=inRange(periods.annual),all=sourceRows(data,f.source).filter(r=>r.date<=today&&r.orderedQty>0&&(!f.client||r.clientCode===f.client));
     const groupByClient=rows=>{const map=new Map();for(const r of rows){if(!map.has(r.clientCode))map.set(r.clientCode,[]);map.get(r.clientCode).push(r);}return map;};
@@ -351,18 +351,31 @@
     }
     const ordered=measureRows(rows);return {amount,units,orders:orders.size,missing,unknown,uninvoiced,confirmedShortfall,shortfallMissing,rate:ordered.amount&&!rows.some(r=>r.source==='erp')&&!missing&&!unknown&&!ordered.partial?amount/ordered.amount:null};
   }
+  function companyBestsellers(data,today=recentRange(1).to) {
+    if(!data.companyRankingAvailable)return [];
+    const ranked=new Map(),start=monthShift(today,-12);
+    for(const r of sourceRows(data,'history-warehouse')){
+      if((r.occasionDate||r.date)<start||(r.occasionDate||r.date)>today)continue;
+      const qty=r.source==='erp'?r.invoicedQty:r.deliveredQty;
+      if(!(qty>0))continue;
+      const key=`${r.brand}:${str(r.sku).toUpperCase()}`,entry=ranked.get(key)||{key,qty:0};entry.qty+=qty;ranked.set(key,entry);
+    }
+    return [...ranked.values()].sort((a,b)=>b.qty-a.qty||a.key.localeCompare(b.key));
+  }
   function opportunityReport(data,f,today=recentRange(1).to) {
     const available=data.catalog.filter(p=>!p.hidden&&!p.outOfStock&&!excludedSkus.has(str(p.sku).toUpperCase()));
     const target=available.filter(p=>(!f.brand||p.section===f.brand)&&(!f.category||p.category===f.category)&&(!f.product||norm(`${p.sku} ${p.name}`).includes(norm(f.product))));
     const key=p=>`${p.brand||p.section}:${str(p.sku).toUpperCase()}`,targetKeys=new Set(target.map(key));
     const start=monthShift(today,-12),recentStart=monthShift(today,-3);
     const rows=sourceRows(data,f.source).filter(r=>(r.occasionDate||r.date)>=start&&(r.occasionDate||r.date)<=today&&r.orderedQty>0);
-    const bought=new Map(),recent=new Map(),prior=new Map(),best=new Map();
-    for(const r of rows){const k=key(r);if(!bought.has(r.clientCode)){bought.set(r.clientCode,new Set());recent.set(r.clientCode,new Set());prior.set(r.clientCode,new Set());}bought.get(r.clientCode).add(k);((r.occasionDate||r.date)>=recentStart?recent:prior).get(r.clientCode).add(k);if(targetKeys.has(k)){const p=best.get(k)||{key:k,qty:0,product:target.find(p=>key(p)===k)};p.qty+=r.orderedQty;best.set(k,p);}}
-    const bestsellers=[...best.values()].sort((a,b)=>b.qty-a.qty).slice(0,20);
+    const bought=new Map(),recent=new Map(),prior=new Map();
+    for(const r of rows){const k=key(r);if(!bought.has(r.clientCode)){bought.set(r.clientCode,new Set());recent.set(r.clientCode,new Set());prior.set(r.clientCode,new Set());}bought.get(r.clientCode).add(k);((r.occasionDate||r.date)>=recentStart?recent:prior).get(r.clientCode).add(k);}
+    const ranking=data.companyBestsellers!==null?data.companyBestsellers:companyBestsellers(data,today);
+    const bestsellers=ranking.filter(p=>targetKeys.has(p.key)).slice(0,20).map(p=>({...p,product:target.find(t=>key(t)===p.key)}));
     return data.clients.filter(c=>!f.client||str(c.clientCode)===f.client).map(client=>{const code=str(client.clientCode),purchases=bought.get(code)||new Set(),now=recent.get(code)||new Set(),old=prior.get(code)||new Set();return {client,notBuyingTarget:![...targetKeys].some(k=>purchases.has(k)),missing:target.filter(p=>old.has(key(p))&&!now.has(key(p))),bestsellers:bestsellers.filter(p=>!purchases.has(p.key))};});
+
   }
-  const model={ prepare,analyze,sourceRows,selected,totals,validRange,previousRange,defaultRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,opportunityReport };
+  const model={ prepare,analyze,sourceRows,selected,totals,validRange,previousRange,defaultRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,companyBestsellers,opportunityReport };
   if (typeof module!=='undefined' && module.exports) module.exports=model;
   else window.SALES_BI_MODEL=model;
 })();
