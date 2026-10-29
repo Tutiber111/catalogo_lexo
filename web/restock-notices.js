@@ -11,7 +11,7 @@
   if(entry)return;const anchor=document.querySelector('#openSalesDashboard');if(!anchor)return;
   entry=document.createElement('button');entry.type='button';entry.className='admin-entry-button';entry.hidden=true;entry.dataset.restockEntry='';entry.onclick=()=>open();anchor.after(entry);
  }
- function updateEntry(){ensureEntry();if(!entry)return;const data=cache.get('');entry.hidden=!identity()||!data?.available;entry.textContent=`Reposiciones${data?.items?.length?' · '+data.items.length:''}`;}
+ function updateEntry(){ensureEntry();if(!entry)return;const data=cache.get('');entry.hidden=!identity()||!data?.available||!data.items?.length;entry.textContent=`Reposiciones${data?.items?.length?' · '+data.items.length:''}`;}
  async function load(code='',force=false){
   if(!identity())return {available:false,items:[]};
   if(cache.has(code)&&!force)return cache.get(code);

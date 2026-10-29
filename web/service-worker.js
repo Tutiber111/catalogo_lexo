@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261028-restocks-r14";
+const CACHE_NAME = "lexo-catalog-v20261029-restocks-r15";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -9,7 +9,7 @@ const APP_SHELL = [
   "./data/product-browse-data.js?v=20261005-oxo-r1",
   "./sales-dashboard-access.js?v=20261028-restocks-r14",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
-  "./restock-notices.js?v=20261028-restocks-r14",
+  "./restock-notices.js?v=20261029-restocks-r15",
   "./sales-dashboard.js?v=20261028-restocks-r14",
   "./sales-bi.css?v=20261028-restocks-r14",
   "./sales-product-brands.js?v=20261019-brand-review-r1",
