@@ -1,0 +1,33 @@
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const {PGlite}=require('../tmp/sales-dashboard/runtime/node_modules/@electric-sql/pglite');
+async function main(){const db=new PGlite();try{
+ await db.exec(`create role anon;create role authenticated;create schema auth;grant usage on schema public,auth to anon,authenticated;
+ create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
+ create table profiles(id uuid primary key,role text,salesman_code text);
+ create table sales_clients(id uuid primary key,client_code text unique,name text,salesman_code text);
+ create table orders(id uuid primary key,created_at timestamptz,status text,sales_client_id uuid,sales_client_code text,customer_client_code text);
+ create table order_items(id uuid primary key,order_id uuid,sku text,quantity int,line_total numeric);
+ create table sales_history_batches(id text primary key,from_date date,to_date date,warehouse_from_date date);
+ create table sales_history_lines(line_key text primary key,client_code text,ordered_net numeric);
+ insert into profiles values('00000000-0000-4000-8000-000000000001','admin',null),('00000000-0000-4000-8000-000000000002','salesman','810'),('00000000-0000-4000-8000-000000000003','salesman','800'),('00000000-0000-4000-8000-000000000004','customer',null),('00000000-0000-4000-8000-000000000005','salesman','');
+ insert into sales_clients values('10000000-0000-4000-8000-000000000001','1','Location one','810'),('10000000-0000-4000-8000-000000000002','2','Location two','800'),('10000000-0000-4000-8000-000000000003','3','Location three','810');`);
+ await db.exec(fs.readFileSync('supabase/migrations/20261028141217_salesman_dashboard_scope.sql','utf8'));
+ await db.exec(fs.readFileSync('supabase/migrations/20261029154708_dashboard_client_groups.sql','utf8'));
+ const identity=async n=>{await db.exec('reset role');await db.query("select set_config('request.jwt.claim.sub',$1,false)",['00000000-0000-4000-8000-'+String(n).padStart(12,'0')]);await db.exec('set role authenticated');};
+ const groups=async()=>(await db.query('select get_dashboard_client_groups() data')).rows[0].data;
+ const save=async(id,name,codes)=>(await db.query('select save_dashboard_client_group($1,$2,$3) id',[id,name,codes])).rows[0].id;
+ await identity(1);await assert.rejects(()=>save(null,'', ['1','2']));await assert.rejects(()=>save(null,'Bad',['1']));await assert.rejects(()=>save(null,'Bad',['1','missing']));
+ const id=await save(null,'Both locations',['2','1','1']);assert.equal((await groups()).length,1);assert.deepEqual((await groups())[0].clientCodes,['1','2']);
+ await assert.rejects(()=>save(null,'Overlap',['1','3']),e=>e.code==='23505');assert.equal((await groups()).length,1);
+ await identity(2);assert.deepEqual((await groups())[0].clientCodes,['1']);await assert.rejects(()=>save(id,'Steal',['1','3']),e=>e.code==='42501');await assert.rejects(()=>db.query('select delete_dashboard_client_group($1)',[id]),e=>e.code==='42501');await assert.rejects(()=>db.query('select * from dashboard_client_group_members'));
+ await identity(3);assert.deepEqual((await groups())[0].clientCodes,['2']);
+ await identity(4);await assert.rejects(()=>groups(),e=>e.code==='42501');await assert.rejects(()=>save(null,'Steal',['1','2']),e=>e.code==='42501');
+ await identity(5);await assert.rejects(()=>groups(),e=>e.code==='42501');
+ await identity(1);await save(id,'Renamed',['1','3']);assert.equal((await groups())[0].name,'Renamed');assert.deepEqual((await groups())[0].clientCodes,['1','3']);
+ await identity(3);assert.equal((await groups()).length,0,'removed location grants no remaining group access');
+ await identity(1);await db.query('select delete_dashboard_client_group($1)',[id]);assert.equal((await groups()).length,0);
+ await db.exec('reset role');assert.equal((await db.query('select count(*)::int n from sales_clients')).rows[0].n,3,'source clients remain untouched');assert.equal((await db.query("select salesman_code from sales_clients where client_code='2'")).rows[0].salesman_code,'800');
+ await db.exec('set role anon');await assert.rejects(()=>groups());await assert.rejects(()=>db.query('select * from dashboard_client_groups'));
+ console.log('Client-group SQL: durable create/edit/delete, membership uniqueness, validation rollback, scoped reads, admin-only writes, customer/anonymous denial and original assignments passed.');
+}finally{await db.close();}}
+main().catch(e=>{console.error(e);process.exitCode=1;});

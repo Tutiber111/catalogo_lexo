@@ -83,6 +83,7 @@
   function reset() {
     if(liveTimer) { clearInterval(liveTimer); liveTimer=null; }
     historicalCache=null;
+    window.DASHBOARD_CLIENT_GROUPS?.close();
     window.SALES_BI?.reset();
     generation++;
     snapshot = null;
@@ -168,7 +169,7 @@
     if(!background) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
     try {
       const scope=salesmanMode()?await CATALOG_SUPABASE.loadDashboardScope(isAdminView()?salesmanCode():null):null;
-      const [clients, orders, delivery, overrides,companyRanking] = await Promise.all([
+      const [clients, orders, delivery, overrides,companyRanking,clientGrouping] = await Promise.all([
         scope?Promise.resolve(scope.clients):salesmanCode()
           ? CATALOG_SUPABASE.loadDashboardClients(isAdminView()&&window.SALES_BI?'*':salesmanCode())
           : Promise.resolve([]),
@@ -176,6 +177,7 @@
         CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(salesmanMode()?(scope?.salesmanCode||salesmanCode()):null) : Promise.resolve({available:false,lines:[]}),
         CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
         CATALOG_SUPABASE.loadCompanyBestsellers?CATALOG_SUPABASE.loadCompanyBestsellers():Promise.resolve({available:false,items:null}),
+        CATALOG_SUPABASE.loadDashboardClientGroups?CATALOG_SUPABASE.loadDashboardClientGroups():Promise.resolve({available:false,groups:[]}),
       ]);
       if (request !== generation || key() !== owner) return;
       if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
@@ -197,7 +199,7 @@
         companyBestsellers=window.SALES_BI_MODEL.companyBestsellers(companyData);
       }
       lastLiveRefresh=Date.now();
-      snapshot = { owner, clients,delivery,companyBestsellers,companyRankingAvailable:Boolean(companyBestsellers),companyRankingPartial:Boolean(companyRanking?.partial), updatedAt:new Date().toISOString(), historical:{ ...historical,lines }, orders: selectedOrders,scopeCode:scope?.salesmanCode, summary: summarize(clients, selectedOrders, Date.now(), period) };
+      snapshot = { owner, clients,clientGrouping,delivery,companyBestsellers,companyRankingAvailable:Boolean(companyBestsellers),companyRankingPartial:Boolean(companyRanking?.partial), updatedAt:new Date().toISOString(), historical:{ ...historical,lines }, orders: selectedOrders,scopeCode:scope?.salesmanCode, summary: summarize(clients, selectedOrders, Date.now(), period) };
       render();
       ensureLiveRefresh();
     } catch (error) {
@@ -211,6 +213,8 @@
   function render() {
     if (window.SALES_BI && !selectedClientId) {
       window.SALES_BI.mount(panel, { owner:snapshot.owner, clients:snapshot.clients, orders:snapshot.orders,
+        clientGroups:snapshot.clientGrouping.groups,
+        onManageGroups:()=>window.DASHBOARD_CLIENT_GROUPS?.open({available:snapshot.clientGrouping.available,groups:snapshot.clientGrouping.groups,onSaved:()=>{window.SALES_BI.reset();return refresh();}}),
         ...snapshot.historical,companyBestsellers:snapshot.companyBestsellers,companyRankingAvailable:snapshot.companyRankingAvailable,companyRankingPartial:snapshot.companyRankingPartial, catalog:state.catalog?.products || [], admin:isAdminView(),simple:salesmanMode(),preview:isAdminView()&&salesmanPreview,
         salesmen:adminSalesmen, salesmanCode:snapshot.scopeCode||salesmanCode(),
         live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:isAdminView()||salesmanMode(),analysisSalesmanCode:snapshot.scopeCode||(isAdminView()?salesmanCode():''),

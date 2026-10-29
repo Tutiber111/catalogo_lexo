@@ -177,3 +177,11 @@
 .restock-batch h4 { margin:0 0 6px; }.restock-batch ul { padding-left:20px; margin-bottom:0; }.restock-batch li { margin:12px 0; font-size:14px; }
 .restock-batch li span,.restock-batch li small { display:block; margin-top:4px; color:#52657c; }.restock-batch small { font-size:12px; }
 @media(max-width:600px){.restock-dialog{padding:16px}.restock-batch>header{flex-direction:column}}
+.bi-client-groups-dialog{box-sizing:border-box;width:min(760px,94vw);max-height:88dvh;overflow:auto;border:1px solid #d6e1eb;border-radius:12px;padding:24px;color:#19334d;font:14px Arial,sans-serif}
+.bi-client-groups-dialog::backdrop{background:rgb(13 31 51 / .45)}
+.bi-client-groups-dialog header{display:flex;align-items:center;justify-content:space-between;gap:16px}.bi-client-groups-dialog h2{margin:0;font-size:22px}
+.bi-client-groups-dialog button{border:1px solid #cad8e7;border-radius:6px;padding:8px 12px;background:#fff;color:#19334d;cursor:pointer}.bi-client-groups-dialog button:disabled{opacity:.5}
+.bi-client-groups-dialog form>label{display:grid;gap:6px;margin:14px 0}.bi-client-groups-dialog input:not([type=checkbox]){box-sizing:border-box;width:100%;padding:10px;border:1px solid #b9cada;border-radius:6px;font:inherit}
+.bi-group-help{line-height:1.5;color:#52657c}.bi-group-existing{display:grid;gap:8px}.bi-group-existing article{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid #e1e8ef;padding:8px 0}.bi-group-existing article b{flex:1}.bi-group-existing small{color:#52657c}
+.bi-group-options{max-height:260px;overflow:auto;border:1px solid #d6e1eb;border-radius:6px}.bi-group-options label{display:flex;gap:10px;padding:10px;border-bottom:1px solid #edf1f5;align-items:center}.bi-group-options small,.bi-client-groups-dialog [data-group-branch] small{display:block;color:#52657c;margin-top:4px}
+.bi-group-selected{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.bi-group-selected b{flex-basis:100%}.bi-client-groups-dialog [role=alert]{color:#ae2030}.bi-client-groups-dialog [type=submit]{background:#173750;color:#fff}.bi-client-groups-dialog [data-group-branch]{display:block;width:100%;text-align:left;margin:10px 0}

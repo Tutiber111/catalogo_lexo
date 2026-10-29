@@ -131,12 +131,31 @@
     const selectedSalesman=str(data.analysisSalesmanCode);
     const scopedClients=[...clients.values()].filter(c=>!selectedSalesman||selectedSalesman==='*'||c.salesmanCode===selectedSalesman);
     const scopedCodes=new Set(scopedClients.map(c=>str(c.clientCode)));
-    return { companyRankingPartial:Boolean(data.companyRankingPartial),companyBestsellers:data.companyBestsellers??null,companyRankingAvailable:data.companyRankingAvailable??(!data.analysisSalesmanCode||data.analysisSalesmanCode==='*'),records:records.filter(r=>scopedCodes.has(r.clientCode)), clients:scopedClients, catalog:[...catalog.values()].flatMap(m => [...m.values()]),
+    return groupClients({ companyRankingPartial:Boolean(data.companyRankingPartial),companyBestsellers:data.companyBestsellers??null,companyRankingAvailable:data.companyRankingAvailable??(!data.analysisSalesmanCode||data.analysisSalesmanCode==='*'),records:records.filter(r=>scopedCodes.has(r.clientCode)), clients:scopedClients, catalog:[...catalog.values()].flatMap(m => [...m.values()]),
       coverage: { from:starts[0] || null, to:dates.at(-1) || null },
       handover:warehouseFrom?{warehouseFrom,excelThrough:iso(timestamp(warehouseFrom)-dayMs),confirmed:handovers.length===1}:null,
       catalogCoverage:{from:catalogDates[0]||null,to:recentRange(1,data.updatedAt?Date.parse(data.updatedAt):Date.now()).to}, batches:data.batches || [],
       catalogAvailable:Array.isArray(data.orders),
-      warehouseAvailable:Boolean(data.delivery?.available),warehouseCoverage:{from:records.filter(r=>r.source==='warehouse').map(r=>r.date).sort()[0]||null,to:recentRange(1).to} };
+      warehouseAvailable:Boolean(data.delivery?.available),warehouseCoverage:{from:records.filter(r=>r.source==='warehouse').map(r=>r.date).sort()[0]||null,to:recentRange(1).to} },data.clientGroups||[]);
+  }
+  function groupClients(data,groups) {
+    const mapping=new Map(),combined=[];
+    for(const group of groups){
+      const members=data.clients.filter(c=>group.clientCodes.includes(str(c.clientCode)));
+      if(!members.length)continue;
+      const codes=[...new Set(members.map(c=>c.salesmanCode))];
+      const client={id:'group:'+group.id,clientCode:'group:'+group.id,name:group.name,legalName:group.name,
+        salesmanCode:codes.length===1?codes[0]:'multiple',locality:'',members,displayCode:members.map(c=>c.clientCode).join(' + ')};
+      combined.push(client);for(const member of members){if(mapping.has(str(member.clientCode)))throw new Error('Client appears in more than one dashboard group');mapping.set(str(member.clientCode),client);}
+    }
+    if(!mapping.size)return data;
+    const records=data.records.map(row=>{const c=mapping.get(row.clientCode);return c?{...row,sourceClientCode:row.clientCode,sourceClientName:row.clientName,clientCode:c.clientCode,clientName:c.name,clientId:c.id}: {...row};});
+    const scopes=['erp','catalog','warehouse'].map(source=>records.filter(r=>r.source===source));
+    scopes.push(records.filter(r=>r.source==='erp'?(!data.handover||r.date<data.handover.warehouseFrom):r.source==='catalog'&&(!data.handover||r.date>=data.handover.warehouseFrom)));
+    for(const scope of scopes){const buckets=new Map();for(const row of scope.filter(r=>!r.excludedFromAnalytics)){const key=row.unassigned?'order:'+row.orderId:row.clientCode;if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(row);}
+      for(const rows of buckets.values()){rows.sort((a,b)=>a.date.localeCompare(b.date)||a.orderId.localeCompare(b.orderId));let anchor=null,id=null;for(const row of rows){if(anchor===null||timestamp(row.date)-timestamp(anchor)>2*dayMs){anchor=row.date;id=row.orderId;}row.occasionId=id;row.occasionDate=anchor;}}}
+    return {...data,records,clients:[...data.clients.filter(c=>!mapping.has(str(c.clientCode))),...combined],groupingBase:data,
+      clientGroups:combined.map(c=>({id:c.id.slice(6),name:c.name,clientCodes:c.members.map(m=>str(m.clientCode))}))};
   }
   function sourceRows(data, source) {
     const records=data.records.filter(r=>!r.excludedFromAnalytics);
@@ -334,7 +353,16 @@
       v.current=measureRows(scope(periods.current),customerMeasure);v.month=measureRows(scope(periods.month),customerMeasure);v.annual=measureRows(scope(periods.annual),customerMeasure);
       v.change=comparison(v.current,v.month,'amount');v.situations=Object.fromEntries(['within','action','overdue','insufficient'].map(s=>[s,v.customers.filter(c=>c.situation===s).length]));
     }
-    return {periods,metrics,customers,vendors:[...vendors.values()].sort((a,b)=>b.current.amount-a.current.amount)};
+    let vendorRows=[...vendors.values()];
+    if(data.groupingBase&&!data.vendorScoped){
+      const base=data.groupingBase;
+      vendorRows=[...new Set(base.clients.map(c=>c.salesmanCode))].flatMap(code=>{
+        const clients=base.clients.filter(c=>c.salesmanCode===code),codes=new Set(clients.map(c=>str(c.clientCode)));
+        const scoped=groupClients({...base,clients,records:base.records.filter(r=>codes.has(r.clientCode))},data.clientGroups);
+        return reporting({...scoped,vendorScoped:true},f,today).vendors.map(v=>({...v,code}));
+      });
+    }
+    return {periods,metrics,customers,vendors:vendorRows.sort((a,b)=>b.current.amount-a.current.amount)};
   }
   function monthlyReport(data,f) {
     const months=[],cursor=new Date(timestamp(f.from.slice(0,7)+'-01'));

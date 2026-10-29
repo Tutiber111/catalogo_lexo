@@ -625,6 +625,18 @@
     }, normalizeSalesClient);
   }
 
+  async function loadDashboardClientGroups() {
+    if(!client)return {available:false,groups:[]};
+    const {data,error}=await client.rpc('get_dashboard_client_groups');
+    if(error){if(['PGRST202','42883'].includes(error.code))return {available:false,groups:[]};throw error;}
+    return {available:true,groups:data||[]};
+  }
+  async function saveDashboardClientGroup(id,name,clientCodes) {
+    const {data,error}=await client.rpc('save_dashboard_client_group',{p_id:id||null,p_name:name,p_client_codes:clientCodes});if(error)throw error;return data;
+  }
+  async function deleteDashboardClientGroup(id) {
+    const {error}=await client.rpc('delete_dashboard_client_group',{p_id:id});if(error)throw error;
+  }
   async function loadCompanyBestsellers() {
     if(!client)return {available:false,items:null};
     let data,error;
@@ -1013,6 +1025,9 @@
     loadSalesClients,
     loadDashboardHistory,
     loadDashboardScope,
+    loadDashboardClientGroups,
+    saveDashboardClientGroup,
+    deleteDashboardClientGroup,
     loadCompanyBestsellers,
     loadRestockInbox,
     acknowledgeRestock,

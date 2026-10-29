@@ -1,0 +1,18 @@
+const assert=require('node:assert/strict'),model=require('../web/sales-bi-model.js');
+const clients=[{id:'one',clientCode:'1',name:'Location one',salesmanCode:'810'},{id:'two',clientCode:'2',name:'Location two',salesmanCode:'800'}];
+const lines=[['a','2026-10-01','1',10],['b','2026-10-03','2',20],['c','2026-10-05','1',30]].map(([id,day,code,qty])=>({line_key:id,order_key:id,order_date:day,client_code:code,sku:'A',ordered_qty:qty,invoiced_qty:qty,ordered_net:qty*100,invoiced_net:qty*100,returned_qty:0}));
+const clientGroups=[{id:'fixture',name:'Both locations',clientCodes:['1','2']}];
+const input={clients,lines,catalog:[{id:'A',sku:'A',section:'OXO',name:'A'}],orders:[],batches:[{from_date:'2024-09-02',to_date:'2026-10-15',warehouse_from_date:'2026-10-16'}]};
+const original=model.prepare(input),grouped=model.prepare({...input,clientGroups});
+const f={source:'erp',metric:'ordered',from:'2026-10-01',to:'2026-10-29'};
+const before=model.measureRows(model.selected(original,f)),after=model.measureRows(model.selected(grouped,f));
+assert.equal(after.amount,before.amount);assert.equal(after.units,before.units);assert.equal(before.clients,2);assert.equal(after.clients,1);assert.equal(before.orders,3);assert.equal(after.orders,2,'anchored days 1+3 then day 5');
+assert.deepEqual(grouped.records.map(r=>r.sourceClientCode),['1','2','1']);assert.deepEqual(grouped.records.map(r=>r.orderId),original.records.map(r=>r.orderId));
+assert.deepEqual(grouped.records.map(r=>r.occasionDate),['2026-10-01','2026-10-01','2026-10-05']);
+const report=model.reporting(grouped,f,'2026-10-29');assert.equal(report.customers.length,1);assert.equal(report.customers[0].frequency,4);
+assert.equal(report.vendors.find(v=>v.code==='810').current.amount,4000);assert.equal(report.vendors.find(v=>v.code==='800').current.amount,2000,'cross-salesperson grouping never moves revenue');
+const scope=model.prepare({...input,clientGroups,analysisSalesmanCode:'810'});assert.equal(scope.clients[0].members.length,1);assert.ok(scope.records.every(r=>r.sourceClientCode==='1'));assert.deepEqual(scope.clientGroups[0].clientCodes,['1']);
+assert.equal(model.prepare(input).clients.length,2,'ungrouping restores source identities');
+const crossMonth=model.prepare({...input,clientGroups,lines:lines.slice(0,2).map((r,i)=>({...r,order_date:i?'2026-10-01':'2026-09-30'}))});assert.equal(model.measureRows(model.selected(crossMonth,f)).orders,0,'cross-month additions stay on first occasion date');
+assert.equal(model.opportunityReport(grouped,{...f,client:'group:fixture'},'2026-10-29').length,1);
+console.log('Client groups: stable money/units, one customer, anchored purchase occasions, frequency, original codes, vendor attribution, portfolio isolation, undo and month boundaries passed.');
