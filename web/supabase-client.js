@@ -625,6 +625,11 @@
     }, normalizeSalesClient);
   }
 
+  async function loadDashboardGroupCandidates() {
+    if(!client)throw new Error('La conexión no está disponible.');
+    const {data,error}=await client.rpc('get_dashboard_group_candidates');if(error)throw error;
+    return (data||[]).map(row=>({...normalizeSalesClient(row),historicalOnly:Boolean(row.historical_only),searchAliases:row.search_aliases||''}));
+  }
   async function loadDashboardClientGroups() {
     if(!client)return {available:false,groups:[]};
     const {data,error}=await client.rpc('get_dashboard_client_groups');
@@ -668,6 +673,13 @@
     if (!client) throw new Error("Supabase no está disponible.");
     if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-history');
     try {
+      const {data,error}=await client.rpc('sales_dashboard_history_json');
+      if(!error){
+        if(data?.available!==true||!Array.isArray(data.lines)||!Array.isArray(data.batches))throw new Error('Invalid historical snapshot');
+        return data;
+      }
+      // Compatibility only for an environment where the new RPC is not installed yet.
+      if(!['PGRST202','42883'].includes(error.code))throw error;
       const batches = await dashboardPages(() => client.from('sales_history_batches')
         .select('id,source_name,from_date,to_date,warehouse_from_date').order('id'), row => row);
       const lines = await dashboardHistoryPages(() => client.from('sales_history_lines')
@@ -1026,6 +1038,7 @@
     loadDashboardHistory,
     loadDashboardScope,
     loadDashboardClientGroups,
+    loadDashboardGroupCandidates,
     saveDashboardClientGroup,
     deleteDashboardClientGroup,
     loadCompanyBestsellers,

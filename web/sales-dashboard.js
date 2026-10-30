@@ -109,7 +109,15 @@
     closeCart();
     closeCatalogMenu();
     showCatalogDialog(dialog);
+    if(resumeSnapshot())return;
     refresh();
+  }
+
+  function resumeSnapshot() {
+    if(snapshot?.owner!==key()||Date.now()-lastLiveRefresh>=300000||!panel.querySelector?.('.sales-bi'))return false;
+    panel.hidden=false;ensureLiveRefresh();
+    if(Date.now()-lastLiveRefresh>=55000){window.SALES_BI?.setLiveError('Actualizando · se muestran los últimos datos recibidos');void refresh({background:true});}
+    return true;
   }
 
   async function openAdminView() {
@@ -118,9 +126,10 @@
     currentFilter = 'all';
     title.textContent = 'Dashboard de ventas';
     panel.hidden = false;
-    panel.innerHTML = '<p role="status">Cargando vendedores…</p>';
     showCatalogDialog(dialog);
     closeAccount(); closeCart(); closeCatalogMenu();
+    if(resumeSnapshot()){if(salesmanPreview)title.textContent='Mi gestión comercial';return;}
+    panel.innerHTML = '<p role="status">Cargando vendedores…</p>';
     try {
       adminSalesmen = await CATALOG_SUPABASE.loadDashboardSalesmen();
       if(window.SALES_BI)adminSalesmen=[...adminSalesmen.filter(s=>!['90','900'].includes(s.code)),{code:'900',name:'Adrian'},{code:'unassigned',name:'Sin asignación'}];
@@ -160,7 +169,7 @@
     },60000);
   }
 
-  async function refresh({background=false}={}) {
+  async function refresh({background=false,forceHistory=false}={}) {
     const owner = key();
     if (!owner) { reset(); return; }
     const request = ++generation;
@@ -168,25 +177,29 @@
     panel.hidden = false;
     if(!background) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
     try {
-      const scope=salesmanMode()?await CATALOG_SUPABASE.loadDashboardScope(isAdminView()?salesmanCode():null):null;
-      const [clients, orders, delivery, overrides,companyRanking,clientGrouping] = await Promise.all([
-        scope?Promise.resolve(scope.clients):salesmanCode()
+      const scoped=salesmanMode();
+      const scopePromise=scoped?CATALOG_SUPABASE.loadDashboardScope(isAdminView()?salesmanCode():null):Promise.resolve(null);
+      const useHistoryCache=!scoped&&!forceHistory&&historicalCache?.data?.available&&historicalCache.owner===owner&&Date.now()-historicalCache.at<300000;
+      const historyPromise=scoped?scopePromise.then(scope=>({available:true,batches:scope.batches,lines:scope.lines})):
+        useHistoryCache?Promise.resolve(historicalCache.data):CATALOG_SUPABASE.loadDashboardHistory?CATALOG_SUPABASE.loadDashboardHistory():Promise.resolve({batches:[],lines:[],available:false});
+      const requestedCode=String(salesmanCode()||'').trim();
+      const deliveryCode=scoped?(['90','900'].includes(requestedCode)?'900':requestedCode):null;
+      const [scope,clients, orders, delivery, overrides,companyRanking,clientGrouping,historical] = await Promise.all([
+        scopePromise,
+        scopePromise.then(scope=>scope?scope.clients:salesmanCode()
           ? CATALOG_SUPABASE.loadDashboardClients(isAdminView()&&window.SALES_BI?'*':salesmanCode())
-          : Promise.resolve([]),
-        scope?Promise.resolve(scope.orders):CATALOG_SUPABASE.loadDashboardOrders(state.user.id),
-        CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(salesmanMode()?(scope?.salesmanCode||salesmanCode()):null) : Promise.resolve({available:false,lines:[]}),
+          : []),
+        scopePromise.then(scope=>scope?scope.orders:CATALOG_SUPABASE.loadDashboardOrders(state.user.id)),
+        CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(deliveryCode) : Promise.resolve({available:false,lines:[]}),
         CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
         CATALOG_SUPABASE.loadCompanyBestsellers?CATALOG_SUPABASE.loadCompanyBestsellers():Promise.resolve({available:false,items:null}),
         CATALOG_SUPABASE.loadDashboardClientGroups?CATALOG_SUPABASE.loadDashboardClientGroups():Promise.resolve({available:false,groups:[]}),
+        historyPromise,
       ]);
       if (request !== generation || key() !== owner) return;
       if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
-      const signature=clients.map(c=>c.id+':'+c.clientCode).sort().join('|');
-      const useHistoryCache=background&&historicalCache?.data?.available&&historicalCache?.owner===owner&&historicalCache.signature===signature&&Date.now()-historicalCache.at<300000;
-      const historical=scope?{available:true,batches:scope.batches,lines:scope.lines}:useHistoryCache
-        ? historicalCache.data : CATALOG_SUPABASE.loadDashboardHistory ? await CATALOG_SUPABASE.loadDashboardHistory() : {batches:[],lines:[],available:false};
       if (request !== generation || key() !== owner) return;
-      if(!useHistoryCache) historicalCache={owner,signature,at:Date.now(),data:historical};
+      if(!useHistoryCache) historicalCache={owner,at:Date.now(),data:historical};
       const selectedOrders = !scope && salesmanCode() && !(isAdminView()&&window.SALES_BI)
         ? orders.filter(order => clients.some(client => model.matches(client, order)))
         : orders;
@@ -213,6 +226,7 @@
   function render() {
     if (window.SALES_BI && !selectedClientId) {
       window.SALES_BI.mount(panel, { owner:snapshot.owner, clients:snapshot.clients, orders:snapshot.orders,
+        dataVersion:snapshot,
         clientGroups:snapshot.clientGrouping.groups,
         onManageGroups:()=>window.DASHBOARD_CLIENT_GROUPS?.open({available:snapshot.clientGrouping.available,groups:snapshot.clientGrouping.groups,onSaved:()=>{window.SALES_BI.reset();return refresh();}}),
         ...snapshot.historical,companyBestsellers:snapshot.companyBestsellers,companyRankingAvailable:snapshot.companyRankingAvailable,companyRankingPartial:snapshot.companyRankingPartial, catalog:state.catalog?.products || [], admin:isAdminView(),simple:salesmanMode(),preview:isAdminView()&&salesmanPreview,
@@ -220,7 +234,7 @@
         live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:isAdminView()||salesmanMode(),analysisSalesmanCode:snapshot.scopeCode||(isAdminView()?salesmanCode():''),
         onPreview:value=>{if(!isAdminView())return;salesmanPreview=value;title.textContent=value?'Mi gestión comercial':'Dashboard de ventas';selectedClientId='';window.SALES_BI.reset();refresh();},
         onSalesman:code => { adminSelectedCode=code; selectedClientId=''; window.SALES_BI.reset(); refresh(); },
-        onRefresh:refresh,
+        onRefresh:()=>refresh({forceHistory:true}),
         onClient:client => {
           if (state.cart.size && state.selectedSalesClient?.id !== client.id) { showToast('Terminá o vaciá el carrito actual antes de cambiar de cliente.'); return; }
           selectSalesClient(client); closeCatalogDialog(dialog); closeAccount(); openCart();
@@ -358,7 +372,7 @@
   panel.addEventListener('click', event => {
     if (event.target.closest('[data-retry-admin]')) { openAdminView(); return; }
     if (!key()) { reset(); return; }
-    if (event.target.closest('[data-refresh]')) { refresh(); return; }
+    if (event.target.closest('[data-refresh]')) { refresh({forceHistory:true}); return; }
     if (!snapshot || snapshot.owner !== key()) return;
     if (event.target.closest('[data-back-clients]')) {
       selectedClientId = '';

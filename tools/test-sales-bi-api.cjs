@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 let failure=null;
 const calls=[];
-const api={auth:{onAuthStateChange(){}},from(table){
+const api={auth:{onAuthStateChange(){}},rpc:async()=>({error:{code:'PGRST202'}}),from(table){
   return {select(){return this},order(key){calls.push([table,key]);return this},eq(){return this},
     async range(start,end){calls.push([table,start,end]);if(failure)return {error:failure};
       return {data:table==='sales_history_batches'?[{id:'batch',from_date:'2024-09-02',to_date:'2026-09-01'}]:Array.from({length:start===0?500:start===500?1:0},(_,i)=>({line_key:String(start+i)})),error:null};}};
@@ -18,6 +18,13 @@ async function main(){
   failure={code:'42501',message:'denied'};
   await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardHistory(),e=>e.code==='42501');
   failure=null;
+  const previousReads=calls.length;
+  api.rpc=async name=>{assert.equal(name,'sales_dashboard_history_json');return {data:{available:true,batches:[{id:'snapshot'}],lines:[{line_key:'single-request'}]},error:null};};
+  assert.equal((await context.window.CATALOG_SUPABASE.loadDashboardHistory()).lines[0].line_key,'single-request');
+  assert.equal(calls.length,previousReads,'installed snapshot uses one RPC and no history page requests');
+  api.rpc=async()=>({error:{code:'42501'}});await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardHistory(),e=>e.code==='42501');
+  assert.equal(calls.length,previousReads,'snapshot denial never falls back to historical pages');
+  api.rpc=async()=>({data:[],error:null});await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardHistory(),/Invalid historical snapshot/);
   const previewReads=[];
   api.auth.getSession=async()=>({data:{session:{access_token:'local-fixture-token'}}});
   const preview={window:{location:{search:'',hash:'',hostname:'127.0.0.1',port:'8091'},supabase:{createClient:()=>api}},URLSearchParams,

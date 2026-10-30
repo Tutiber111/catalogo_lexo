@@ -304,7 +304,8 @@
   }
   function reporting(data,f,today=recentRange(1).to) {
     const periods=reportingPeriods(today);
-    const inRange=range=>selected(data,{...f,...range}).filter(r=>r.date<=today);
+    const rangeCache=new Map();
+    const inRange=range=>{const key=range.from+':'+range.to;if(!rangeCache.has(key))rangeCache.set(key,selected(data,{...f,...range}).filter(r=>r.date<=today));return rangeCache.get(key);};
     const comparison=(current,prior,key)=>({delta:current[key]-prior[key],percent:prior[key]?(current[key]-prior[key])/Math.abs(prior[key]):null});
     const metrics={};
     for(const metric of ['ordered','delivered']) {

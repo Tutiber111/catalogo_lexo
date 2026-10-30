@@ -2,6 +2,11 @@
 (function () {
   const m=window.SALES_BI_MODEL;
   let section='sales', session=null, filters=null, owner='', tab='customers', customerQuery='', customerStatus='all', productTimer, rendering=false,chartFilters=null,report=null,chartScene=null,chartCleanup=null;
+  let preparedVersion=null,preparedData=null;
+  let opportunityTimer=null;
+  const calculations=new Map();
+  const calculationKey=(kind,parameters)=>kind+':'+m.recentRange(1).to+':'+JSON.stringify(parameters);
+  function calculated(kind,parameters,run){const key=calculationKey(kind,parameters);if(calculations.has(key))return calculations.get(key);const value=run();if(calculations.size>=30)calculations.delete(calculations.keys().next().value);calculations.set(key,value);return value;}
   const safe=v=>String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const n=v=>new Intl.NumberFormat('es-AR',{ maximumFractionDigits:1 }).format(v);
   const money=v=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(v);
@@ -23,7 +28,7 @@
     return `<section class="bi-handover" data-bi-handover aria-label="Cambio de fuente de datos"><header><b>Excel hasta ${date(h.excelThrough)} → Catálogo + WarehousePick desde ${date(h.warehouseFrom)}</b></header></section>`;
   }
   const options=(items,value)=>items.map(([v,label])=>`<option value="${safe(v)}" ${v===value?'selected':''}>${safe(label)}</option>`).join('');
-  function reset() { clearTimeout(productTimer); chartCleanup?.();chartCleanup=null;chartScene=null;session=null; filters=null; chartFilters=null; report=null; owner=''; tab='customers'; customerQuery=''; customerStatus='all'; }
+  function reset() { clearTimeout(productTimer); chartCleanup?.();chartCleanup=null;chartScene=null;session=null; filters=null; chartFilters=null; report=null; owner=''; tab='customers'; customerQuery=''; customerStatus='all';preparedVersion=null;preparedData=null;calculations.clear();clearTimeout(opportunityTimer); }
   function mount(panel,input) {
     if (owner!==input.owner) reset();
     if(input.simple){section='sales';if(['comparison','vendors','geography','deliveries'].includes(tab))tab='customers';}
@@ -31,7 +36,8 @@
     const active=panel.contains(document.activeElement)?document.activeElement:null;
     const typing=session&&active?.matches('[data-bi-filters] input')&&active.value!==filters?.[active.name];
     const focus=active?.name?`[name="${active.name}"]`:null;
-    session={ panel,input,data:m.prepare(input) };
+    if(!input.dataVersion||preparedVersion!==input.dataVersion||!preparedData){preparedData=m.prepare(input);preparedVersion=input.dataVersion||null;calculations.clear();}
+    session={ panel,input,data:preparedData };
     if (!filters) {
       const source=input.live?'history-warehouse':input.batches.length?'erp':'catalog';
       filters={...(input.live?m.allRange(session.data,source):m.defaultRange(session.data,source)),source,metric:'ordered',compare:'year',brand:'',category:'',client:'',province:'',product:''};
@@ -70,7 +76,7 @@
   }
   function chart() {
     if(!chartFilters)chartFilters={...report.periods.annual,metric:'delivered',dimension:'amount'};
-    const f={...filters,...chartFilters},rows=m.monthlyReport(session.data,f),annual=m.measureRows(m.selected(session.data,{...f,...report.periods.annual}),f.metric);
+    const f={...filters,...chartFilters},rows=calculated('chart',f,()=>m.monthlyReport(session.data,f)),annual=calculated('annual',f,()=>m.measureRows(m.selected(session.data,{...f,...report.periods.annual}),f.metric));
     const format=v=>v===null?'Sin datos':f.dimension==='amount'||f.dimension==='ticket'?money(v):n(v);
     const value=p=>p.unknown&&!p.orders?null:f.dimension==='ticket'?p.ticket:p[f.dimension];
     const values=rows.map(value),max=Math.max(1,...values.filter(v=>v!==null),f.dimension==='ticket'?annual.ticket||0:0);
@@ -216,11 +222,12 @@
     const {data,input,panel}=session;
     const previousPanel=panel.querySelector('.bi-filter-panel');
     const filtersOpen=previousPanel ? previousPanel.open : !window.matchMedia?.('(max-width:720px)').matches;
-    const result=m.analyze(data,filters), t=result.totals;
+    const result=calculated('analysis',filters,()=>m.analyze(data,filters)), t=result.totals;
     const warehouseTotals=m.totals(result.rows.filter(r=>r.source==='catalog'||r.source==='warehouse'));
     const hasRecentOrders=result.rows.some(r=>r.source==='catalog'||r.source==='warehouse');
-    report=m.reporting(data,filters);
-    const opportunityCount=m.opportunityReport(data,filters).reduce((total,o)=>total+o.missing.length+o.bestsellers.length,0);
+    report=calculated('report',filters,()=>m.reporting(data,filters));
+    const knownOpportunities=calculations.get(calculationKey('opportunities',filters));
+    const opportunityCount=knownOpportunities?knownOpportunities.reduce((total,o)=>total+o.missing.length+o.bestsellers.length,0):null;
     const source=m.sourceRows(data,filters.source);
     const dimension=key=>[...new Set(source.map(r=>r[key]))].sort().map(v=>[v,v]);
     const isInvoice=filters.metric==='invoiced';
@@ -266,9 +273,9 @@
       <div class="bi-secondary-metrics"><span>Ticket pedido promedio <b>${money(t.average)}</b></span><span>Unidades facturadas / pedidas ERP <b>${t.fulfillment===null?'No disponible':n(t.fulfillment*100)+'%'}</b></span><span>Unidades devueltas ERP <b>${invoiceUnavailable?'No disponible':n(t.returnedQty)}</b></span><span>Clientes sin asignación <b>${new Set(result.rows.filter(r=>!r.clientId).map(r=>r.clientCode)).size}</b></span></div>
       ${stockSummary()}
       ${chart()}
-      <div class="bi-insights"><article><span>Acción necesaria</span><strong>${report.customers.filter(c=>c.situation==='action').length}</strong><p>Clientes a 14 días o menos de su próxima compra esperada.</p><button type="button" data-bi-status="action">Ver clientes</button></article><article><span>Fuera de frecuencia</span><strong>${report.customers.filter(c=>c.situation==='overdue').length}</strong><p>Clientes cuya fecha de compra esperada ya pasó.</p><button type="button" data-bi-status="overdue">Ver clientes</button></article><article><span>${filters.client?'Ampliar este cliente':'Ampliar la cartera'}</span><strong>${opportunityCount}</strong><p>Productos disponibles del catálogo sin compras según los filtros y el período.</p><button type="button" data-bi-tab="opportunities">Ver productos</button></article></div>
+      <div class="bi-insights"><article><span>Acción necesaria</span><strong>${report.customers.filter(c=>c.situation==='action').length}</strong><p>Clientes a 14 días o menos de su próxima compra esperada.</p><button type="button" data-bi-status="action">Ver clientes</button></article><article><span>Fuera de frecuencia</span><strong>${report.customers.filter(c=>c.situation==='overdue').length}</strong><p>Clientes cuya fecha de compra esperada ya pasó.</p><button type="button" data-bi-status="overdue">Ver clientes</button></article><article><span>${filters.client?'Ampliar este cliente':'Ampliar la cartera'}</span><strong data-bi-opportunity-count aria-busy="${opportunityCount===null}">${opportunityCount===null?'…':opportunityCount}</strong><p>Productos disponibles del catálogo sin compras según los filtros y el período.</p><button type="button" data-bi-tab="opportunities">Ver productos</button></article></div>
       <section class="bi-card"><nav class="bi-tabs" aria-label="Detalle de ventas">${[['customers','Clientes'],['products','Productos'],['orders','Pedidos'],['deliveries','Entregas'],['comparison','Comparar fuentes'],['restocks','Reposiciones'],['opportunities','Oportunidades'],['geography','Ubicaciones']].map(([v,label])=>`<button type="button" data-bi-tab="${v}" aria-pressed="${tab===v}">${label}</button>`).join('')}</nav>
-      ${filters.client?`<div class="bi-client-context"><div><strong>${safe(selectedClient?.legalName || selectedClient?.name || filters.client)}</strong><span>Cliente ${safe(selectedClient?.displayCode||filters.client)} · ${safe(selectedClient?.locality || '')}</span></div><button type="button" data-bi-clear-client>Ver toda la cartera</button>${selectedClient?.id?`<button type="button" data-bi-order>${selectedClient.members?'Elegir local y crear pedido':'Crear pedido'}</button>`:''}</div>`:''}
+      ${filters.client?`<div class="bi-client-context"><div><strong>${safe(selectedClient?.legalName || selectedClient?.name || filters.client)}</strong><span>Cliente ${safe(selectedClient?.displayCode||filters.client)} · ${safe(selectedClient?.locality || '')}</span></div><button type="button" data-bi-clear-client>Ver toda la cartera</button>${selectedClient?.id&&(!selectedClient.members||selectedClient.members.some(c=>c.id))?`<button type="button" data-bi-order>${selectedClient.members?'Elegir local y crear pedido':'Crear pedido'}</button>`:''}</div>`:''}
       <div data-bi-detail>${detail(result)}</div></section>
       <section class="bi-card bi-brand-share"><h3>Participación por marca</h3>${bars(result.brands,'brand')}</section>
       <p class="bi-data-note">Marcas históricas confirmadas por SKU en la revisión manual. Se excluyen de todos los totales ${m.reviewed.excludedSkus.length} SKUs indicados por el administrador; los registros originales se conservan.</p><footer class="bi-footer"><span>${result.rows.length.toLocaleString('es-AR')} líneas filtradas · ${t.unclassified} sin marca identificada · ${t.unmatched} fuera del catálogo actual.</span><span>Las oportunidades describen el historial disponible; no implican que nunca haya comprado.</span></footer>
@@ -286,6 +293,8 @@
       const previousTab=tab;tab='vendors';const vendors=detail(result);tab='customers';const customers=detail(result);tab=previousTab;
       main.innerHTML=`<section class="bi-card"><h2>Vendedores</h2>${vendors}</section>${headlines()}${ticketSummary()}${chart()}<section class="bi-card"><h3>Cartera de clientes · ${safe(input.salesmen?.find(s=>s.code===input.salesmanCode)?.name||'Todos los vendedores')}</h3><div data-bi-detail>${customers}</div></section>`;
     }
+    clearTimeout(opportunityTimer);
+    if(opportunityCount===null){const currentSession=session;const update=()=>{if(session!==currentSession||session.panel.querySelector('.sales-bi')!==root)return;const value=calculated('opportunities',filters,()=>m.opportunityReport(data,filters)).reduce((sum,o)=>sum+o.missing.length+o.bestsellers.length,0);const node=root.querySelector('[data-bi-opportunity-count]');if(node){node.textContent=value;node.setAttribute('aria-busy','false');}};opportunityTimer=setTimeout(()=>{if(window.requestIdleCallback)window.requestIdleCallback(update,{timeout:1500});else update();},0);}
     decorateInfo(root);bindInfo(root);
     bindChart(root);window.RESTOCK_NOTICES?.bind(root);
     root.querySelector('.bi-filter-panel').open=filtersOpen;
@@ -345,7 +354,7 @@
     }
     if (tab==='geography') return `<h3>Ventas por provincia de destino</h3>${bars(r.provinces,'province')}<p class="bi-data-note">Los pedidos del catálogo sin provincia aparecen en Sin provincia.</p>`;
     if(tab==='opportunities') {
-      const opportunities=m.opportunityReport(session.data,filters);
+        const opportunities=calculated('opportunities',filters,()=>m.opportunityReport(session.data,filters));
       const missing=opportunities.filter(o=>o.missing.length),best=opportunities.filter(o=>o.bestsellers.length);
       const table=(items,kind)=>`<div class="bi-table-scroll"><table><thead><tr><th>Cliente</th><th>Productos</th></tr></thead><tbody>${items.slice(0,200).map(o=>`<tr><td><button type="button" data-bi-client="${safe(o.client.clientCode)}">${safe(o.client.legalName||o.client.name)}</button></td><td>${(kind==='best'?o.bestsellers.map(p=>({...p.product,qty:p.qty})):o.missing).map(p=>`<button type="button" class="bi-opportunity-product" data-bi-product="${safe(p.sku)}">${safe(p.sku)} · ${safe(p.name)}${kind==='best'?` <small>${n(p.qty)} unidades vendidas en la empresa</small>`:''}</button>`).join('')}</td></tr>`).join('')||'<tr><td colspan="2">Sin oportunidades para esta selección.</td></tr>'}</tbody></table></div>`;
       return `<h3>Oportunidades por cliente</h3><section class="bi-opportunity-group"><h4>Más vendidos de la empresa que no compra${session.data.companyRankingPartial?' · parcial':''}</h4>${session.data.companyBestsellers===null&&!session.data.companyRankingAvailable?'<p class="bi-empty">Ranking general pendiente de actualización.</p>':table(best,'best')}</section><section class="bi-opportunity-group"><h4>Productos antes comprados, ahora ausentes</h4>${table(missing,'missing')}</section>`;
@@ -376,7 +385,7 @@
     scope.querySelectorAll('.bi-notice').forEach(el=>{el.textContent='Parte de la información no está disponible. Los totales pueden ser parciales.';});
     scope.querySelectorAll('th').forEach(el=>{if(m.norm(el.textContent)==='vendedor'){const i=el.cellIndex;el.closest('table').querySelectorAll('tr').forEach(row=>row.cells[i]?.remove());}});
   }
-  function renderDetail() { if(session){const el=session.panel.querySelector('[data-bi-detail]');el.innerHTML=detail(m.analyze(session.data,filters));if(session.input.simple)simplifySalesman(el);decorateInfo(el);window.RESTOCK_NOTICES?.bind(el);} }
+  function renderDetail() { if(session){const el=session.panel.querySelector('[data-bi-detail]');el.innerHTML=detail(calculated('analysis',filters,()=>m.analyze(session.data,filters)));if(session.input.simple)simplifySalesman(el);decorateInfo(el);window.RESTOCK_NOTICES?.bind(el);} }
   function apply(e) {
     if(!e.target.matches('[data-bi-filters]')) return;
     e.preventDefault();

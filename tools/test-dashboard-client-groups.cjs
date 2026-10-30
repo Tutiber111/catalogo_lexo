@@ -15,4 +15,7 @@ const scope=model.prepare({...input,clientGroups,analysisSalesmanCode:'810'});as
 assert.equal(model.prepare(input).clients.length,2,'ungrouping restores source identities');
 const crossMonth=model.prepare({...input,clientGroups,lines:lines.slice(0,2).map((r,i)=>({...r,order_date:i?'2026-10-01':'2026-09-30'}))});assert.equal(model.measureRows(model.selected(crossMonth,f)).orders,0,'cross-month additions stay on first occasion date');
 assert.equal(model.opportunityReport(grouped,{...f,client:'group:fixture'},'2026-10-29').length,1);
+const historicalInput={...input,clients:[clients[0]],lines:lines.map(r=>r.client_code==='2'?{...r,client_code:'80605',client_name:'TINA & CO'}:r),clientGroups:[{id:'tina',name:'Tina group',clientCodes:['1','80605']}]};
+const historicalGroup=model.prepare(historicalInput);assert.equal(historicalGroup.clients.length,1);assert.equal(historicalGroup.clients[0].members.find(c=>c.clientCode==='80605').id,'');assert.equal(model.measureRows(model.selected(historicalGroup,f)).amount,6000);
+const ownHistorical=model.prepare({...historicalInput,analysisSalesmanCode:'900'});assert.deepEqual(ownHistorical.clients[0].members.map(c=>c.clientCode),['80605']);assert.ok(ownHistorical.records.every(r=>r.sourceClientCode==='80605'));
 console.log('Client groups: stable money/units, one customer, anchored purchase occasions, frequency, original codes, vendor attribution, portfolio isolation, undo and month boundaries passed.');
