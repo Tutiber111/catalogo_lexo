@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261030-dashboard-speed-r18";
+const CACHE_NAME = "lexo-catalog-v20261102-dashboard-timeouts-r19";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -11,7 +11,7 @@ const APP_SHELL = [
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
   "./restock-notices.js?v=20261029-restocks-r15",
   "./dashboard-client-groups.js?v=20261029-historical-groups-r17",
-  "./sales-dashboard.js?v=20261030-dashboard-speed-r18",
+  "./sales-dashboard.js?v=20261102-dashboard-timeouts-r19",
   "./sales-bi.css?v=20261029-client-groups-r16",
   "./sales-product-brands.js?v=20261019-brand-review-r1",
   "./sales-bi-model.js?v=20261030-dashboard-speed-r18",

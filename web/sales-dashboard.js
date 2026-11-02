@@ -19,6 +19,8 @@
   let generation = 0;
   let snapshot = null;
   let historicalCache = null;
+  let activeRefresh = null;
+  let openingAdmin = null;
   let liveTimer = null;
   let lastLiveRefresh = 0;
   let directLinkOpenedFor = '';
@@ -83,6 +85,8 @@
   function reset() {
     if(liveTimer) { clearInterval(liveTimer); liveTimer=null; }
     historicalCache=null;
+    activeRefresh=null;
+    openingAdmin=null;
     window.DASHBOARD_CLIENT_GROUPS?.close();
     window.SALES_BI?.reset();
     generation++;
@@ -120,7 +124,16 @@
     return true;
   }
 
-  async function openAdminView() {
+  function openAdminView() {
+    const userId=state.user?.id;
+    if(openingAdmin&&openingAdmin.userId===userId)return openingAdmin.promise;
+    const pending={userId};
+    openingAdmin=pending;
+    pending.promise=loadAdminView().finally(()=>{if(openingAdmin===pending)openingAdmin=null;});
+    return pending.promise;
+  }
+
+  async function loadAdminView() {
     if (!hasDashboardAccess() || !isAdminView()) return;
     const userId = state.user.id;
     currentFilter = 'all';
@@ -169,7 +182,16 @@
     },60000);
   }
 
-  async function refresh({background=false,forceHistory=false}={}) {
+  function refresh(options={}) {
+    const owner=key();
+    if(owner&&activeRefresh?.owner===owner)return activeRefresh.promise;
+    const pending={owner};
+    activeRefresh=pending;
+    pending.promise=refreshData(options).finally(()=>{if(activeRefresh===pending)activeRefresh=null;});
+    return pending.promise;
+  }
+
+  async function refreshData({background=false,forceHistory=false}={}) {
     const owner = key();
     if (!owner) { reset(); return; }
     const request = ++generation;
@@ -192,7 +214,9 @@
         scopePromise.then(scope=>scope?scope.orders:CATALOG_SUPABASE.loadDashboardOrders(state.user.id)),
         CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(deliveryCode) : Promise.resolve({available:false,lines:[]}),
         CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
-        CATALOG_SUPABASE.loadCompanyBestsellers?CATALOG_SUPABASE.loadCompanyBestsellers():Promise.resolve({available:false,items:null}),
+        // Admin already has the complete dataset for company ranking. A scoped
+        // view waits for its history before starting the company aggregation.
+        scoped&&CATALOG_SUPABASE.loadCompanyBestsellers?historyPromise.then(()=>CATALOG_SUPABASE.loadCompanyBestsellers()):Promise.resolve({available:false,items:null}),
         CATALOG_SUPABASE.loadDashboardClientGroups?CATALOG_SUPABASE.loadDashboardClientGroups():Promise.resolve({available:false,groups:[]}),
         historyPromise,
       ]);
@@ -219,7 +243,10 @@
       if (request !== generation || key() !== owner) return;
       console.error('Sales dashboard could not load', error);
       if(background&&snapshot?.owner===owner) { window.SALES_BI?.setLiveError('No se pudo actualizar. Se muestran los últimos datos recibidos.'); return; }
-      panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="alert">No se pudo actualizar el panel. Revisá tu conexión e intentá nuevamente.</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>';
+      const message=error?.code==='57014'?'La consulta tardó demasiado y el servidor la canceló. Intentá nuevamente.':
+        ['42501','PGRST301','PGRST303'].includes(error?.code)?'No se pudo autorizar el acceso al panel. Volvé a iniciar sesión.':
+        'No se pudo cargar el panel. Intentá nuevamente.';
+      panel.innerHTML = `<h3>${isAdminView()&&!salesmanMode()?'Dashboard de ventas':'Mi gestión comercial'}</h3><p role="alert">${message}</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>`;
     }
   }
 

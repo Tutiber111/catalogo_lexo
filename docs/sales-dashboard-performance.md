@@ -1,5 +1,32 @@
 # Dashboard startup performance — prepared October 30, 2026
 
+## November 2 timeout fix
+
+Production logs showed repeated `57014` statement timeouts in the full-history
+RPC and company ranking. The history projection was still rebuilt on every
+cold load, and open/focus/timer events could start overlapping refreshes.
+
+`20261102142749_dashboard_history_cache.sql` stores the exact existing history
+JSON response once in a singleton table protected by admin-only RLS. The
+existing RPC remains security invoker and checks the actual DB profile. Private,
+non-callable statement triggers rebuild the snapshot after historical-line or
+batch INSERT/UPDATE/DELETE/TRUNCATE, in the same transaction as the import. A
+singleton row lock serializes concurrent rebuilds. No history, prices,
+assignments, live order reads, or warehouse delivery rules change.
+
+The browser shares an active request for the same view instead of starting
+duplicates. Admin company ranking is calculated from the complete loaded data;
+scoped views retain the protected company-ranking RPC, started after their
+history read. Timeout and authorization failures have specific messages rather
+than blaming the user's connection. Updated dashboard/cache version:
+`20261102-dashboard-timeouts-r19`.
+
+Verification: full cached/source response equality; insert/update/delete/truncate
+and batch freshness; rollback consistency; admin-only cache reads; denied browser
+writes and internal rebuild calls; duplicate open/focus request sharing; retry
+after a simulated database timeout; salesperson/admin-preview privacy and UI.
+Production checks: `tools/verify-dashboard-history-cache.sql`.
+
 Release approved October 30, 2026. The historical grouping and history endpoint migrations are applied. Frontend publication completes this combined release.
 
 ## Changes
@@ -31,3 +58,5 @@ The API retains the old paged reader only for installations where the new RPC is
 The initial binary-JSON snapshot took 11,287 ms. EXPLAIN identified costly nested JSONB response construction. The additive `20261030144701_dashboard_history_json_response.sql` creates `sales_dashboard_history_json()` using native JSON response construction, preserving the existing endpoint and the same invoker/admin/RLS restrictions. It returned 52,083 lines in 1,920 ms under the authenticated role. The HTTP JSON object/field layout remains unchanged. This is database time, not a promise about total startup time on every connection.
 
 The production verification script passed exact row/amount comparisons, Tina candidate lookup, mixed catalog/history grouping inside a rolled-back transaction, scoped membership, and salesperson/customer/anonymous denial. No test group remained. The two original attempts to replace the binary endpoint expired at the connector confirmation stage; the successful additive migration leaves it intact.
+
+Production validation on November 2 passed exact full-response hash equality and role/privilege checks. A PostgREST-shaped authenticated query including JSON serialization measured 188 ms after the cache migration (the reader itself took about 3 ms). This is database response time, not end-to-end page startup.
