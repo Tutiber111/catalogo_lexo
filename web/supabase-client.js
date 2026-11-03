@@ -669,6 +669,20 @@
     if(!data?.available||!Array.isArray(data.orders)||!Array.isArray(data.clients)||!Array.isArray(data.lines))throw new Error('No se pudo cargar tu cartera.');
     return {...data,clients:data.clients.map(normalizeSalesClient),orders:data.orders.map(normalizeOrder)};
   }
+  async function loadDashboardFullContext() {
+    if(!client)throw new Error('La conexión no está disponible.');
+    const {data,error}=await client.rpc('sales_dashboard_full_context');if(error)throw error;
+    if(data?.available!==true||!Array.isArray(data.clients)||!Array.isArray(data.orders))throw new Error('Invalid full dashboard response');
+    return {...data,clients:data.clients.map(normalizeSalesClient),orders:data.orders.map(normalizeOrder)};
+  }
+  async function loadDashboardAccessAccounts() {
+    if(!client)throw new Error('Iniciá sesión.');
+    const {data,error}=await client.rpc('dashboard_access_accounts');if(error)throw error;return data||[];
+  }
+  async function setDashboardFullAccess(profileId,enabled) {
+    if(!client)throw new Error('Iniciá sesión.');
+    const {error}=await client.rpc('set_dashboard_full_access',{p_profile_id:profileId,p_enabled:enabled===true});if(error)throw error;
+  }
   async function loadDashboardHistory() {
     if (!client) throw new Error("Supabase no está disponible.");
     if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-history');
@@ -1037,6 +1051,9 @@
     loadSalesClients,
     loadDashboardHistory,
     loadDashboardScope,
+    loadDashboardFullContext,
+    loadDashboardAccessAccounts,
+    setDashboardFullAccess,
     loadDashboardClientGroups,
     loadDashboardGroupCandidates,
     saveDashboardClientGroup,

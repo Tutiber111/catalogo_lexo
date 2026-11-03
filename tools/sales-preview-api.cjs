@@ -16,14 +16,14 @@ async function salesPreviewApi(request,response,pathname) {
     const context=await api.catalogContext({url,key,token:request.headers.authorization,includeOrders:pathname!=='/__live-history',includeDetails:Boolean(needsScope)||pathname==='/__live-ranking',includeHistory:pathname==='/__live-scope'});
     let scope;
     if(needsScope){
-      if(context.profile.role==='admin'){
+      if(context.profile.role==='admin'||context.fullDashboard){
         const prepared=JSON.parse(fs.readFileSync(path.join(root,'tmp/sales-dashboard/prepared.json'),'utf8'));
         scope=require('./sales-preview-scope.cjs')(context,prepared,requested);
       }else scope=context.scope;
     }
     let result;
     if(pathname==='/__live-ranking'){
-      if(context.profile.role!=='admin')throw Object.assign(new Error('Administrator preview required.'),{status:403});
+      if(context.profile.role!=='admin'&&!context.fullDashboard)throw Object.assign(new Error('Full dashboard preview required.'),{status:403});
       const prepared=JSON.parse(fs.readFileSync(path.join(root,'tmp/sales-dashboard/prepared.json'),'utf8'));
       const products=JSON.parse(fs.readFileSync(path.join(root,'web/data/catalog.json'),'utf8')).products;
       let delivery;try{delivery=await api.warehouseSnapshot(context);}catch{delivery={available:false,lines:[]};}
@@ -35,7 +35,7 @@ async function salesPreviewApi(request,response,pathname) {
     else if(pathname==='/__live-history'){
       const prepared=JSON.parse(fs.readFileSync(path.join(root,'tmp/sales-dashboard/prepared.json'),'utf8'));
       const codes=new Set(context.clients.map(c=>String(c.client_code)));
-      result={available:true,batches:prepared.batches||[prepared.batch],lines:context.profile.role==='admin'?prepared.lines:prepared.lines.filter(r=>codes.has(String(r.client_code)))};
+      result={available:true,batches:prepared.batches||[prepared.batch],lines:context.profile.role==='admin'||context.fullDashboard?prepared.lines:prepared.lines.filter(r=>codes.has(String(r.client_code)))};
     }else result=await api.warehouseSnapshot(scope?{profile:{...context.profile,role:'salesman'},clients:scope.clients,orders:scope.orders}:context);
     response.writeHead(200,{'Content-Type':'application/json;charset=utf-8'});response.end(JSON.stringify(result));
   }catch(error){

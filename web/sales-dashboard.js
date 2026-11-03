@@ -8,7 +8,7 @@
   let adminSalesmen = [];
   let adminSelectedCode = '';
   let salesmanPreview=false;
-  const salesmanMode=()=>!isAdminView()||salesmanPreview;
+  const salesmanMode=()=>!hasFullView()||salesmanPreview;
   let currentFilter = 'followup';
   let search = '';
   let period = 30;
@@ -25,11 +25,12 @@
   let lastLiveRefresh = 0;
   let directLinkOpenedFor = '';
   const hasDashboardAccess = () => Boolean(window.SALES_DASHBOARD_ACCESS?.canAccess(state.user,state.profile)) && !state.isPasswordRecovery;
-  const isAdminView = () => state.profile?.role === 'admin';
-  const salesmanCode = () => isAdminView() ? adminSelectedCode : state.profile?.salesman_code || '';
+  const isAdmin=()=>state.profile?.role==='admin';
+  const hasFullView=()=>Boolean(window.SALES_DASHBOARD_ACCESS?.canReadAll(state.user,state.profile));
+  const salesmanCode = () => hasFullView() ? adminSelectedCode : state.profile?.salesman_code || '';
   const key = () => hasDashboardAccess() && (
-    state.profile?.role === 'salesman' || (isAdminView() && adminSelectedCode)
-  ) ? `${state.user.id}:${state.profile.role}:${salesmanCode()}:${salesmanMode()?'salesman':'admin'}` : '';
+    hasFullView() ? Boolean(adminSelectedCode) : state.profile?.role === 'salesman'
+  ) ? `${state.user.id}:${state.profile.role}:${hasFullView()?'full':'portfolio'}:${salesmanCode()}:${salesmanMode()?'salesman':'admin'}` : '';
   const safe = (value) => escapeHtml(String(value ?? ''));
   const date = (value) => new Date(value).toLocaleDateString('es-AR');
   const normalize = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -88,6 +89,7 @@
     activeRefresh=null;
     openingAdmin=null;
     window.DASHBOARD_CLIENT_GROUPS?.close();
+    window.DASHBOARD_ACCESS_MANAGER?.close();
     window.SALES_BI?.reset();
     generation++;
     snapshot = null;
@@ -106,7 +108,7 @@
   }
 
   function open() {
-    if(hasDashboardAccess() && isAdminView()) { void openAdminView(); return; }
+    if(hasDashboardAccess() && hasFullView()) { void openAdminView(); return; }
     if (state.profile?.role !== 'salesman' || !key()) return;
     title.textContent = 'Mi gestión comercial';
     closeAccount();
@@ -134,7 +136,7 @@
   }
 
   async function loadAdminView() {
-    if (!hasDashboardAccess() || !isAdminView()) return;
+    if (!hasDashboardAccess() || !hasFullView()) return;
     const userId = state.user.id;
     currentFilter = 'all';
     title.textContent = 'Dashboard de ventas';
@@ -146,7 +148,7 @@
     try {
       adminSalesmen = await CATALOG_SUPABASE.loadDashboardSalesmen();
       if(window.SALES_BI)adminSalesmen=[...adminSalesmen.filter(s=>!['90','900'].includes(s.code)),{code:'900',name:'Adrian'},{code:'unassigned',name:'Sin asignación'}];
-      if (state.user?.id !== userId || !hasDashboardAccess() || !isAdminView()) { reset(); return; }
+      if (state.user?.id !== userId || !hasDashboardAccess() || !hasFullView()) { reset(); return; }
       if (!adminSalesmen.length) {
         panel.innerHTML = '<p>No hay vendedores configurados.</p>';
         return;
@@ -155,7 +157,7 @@
       if (!adminSalesmen.some(seller => seller.code === adminSelectedCode)) adminSelectedCode = adminSalesmen[0].code;
       await refresh();
     } catch (error) {
-      if (state.user?.id !== userId || !isAdminView()) return;
+      if (state.user?.id !== userId || !hasFullView()) return;
       console.error('Could not load salespeople', error);
       panel.innerHTML = '<p role="alert">No se pudieron cargar los vendedores.</p><button type="button" class="secondary-button" data-retry-admin>Reintentar</button>';
     }
@@ -165,13 +167,14 @@
     window.RESTOCK_NOTICES?.sync();
     window.SALES_BI?.syncOwner(key());
     entry.hidden = !hasDashboardAccess();
-    adminEntry.hidden = !hasDashboardAccess() || !isAdminView();
+    adminEntry.hidden = !hasDashboardAccess() || !isAdmin();
+    entry.textContent=hasFullView()?'Dashboard de ventas':'Mi gestión';
     if (!hasDashboardAccess()) { salesmanPreview=false;directLinkOpenedFor=''; reset(); return; }
     if (snapshot && snapshot.owner !== key()) reset();
     ensureLiveRefresh();
     if(new URLSearchParams(window.location?.search||'').get('dashboard')==='ventas'&&directLinkOpenedFor!==state.user.id) {
       directLinkOpenedFor=state.user.id;
-      if(isAdminView())void openAdminView();else open();
+      if(hasFullView())void openAdminView();else open();
     }
   }
 
@@ -200,7 +203,8 @@
     if(!background) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
     try {
       const scoped=salesmanMode();
-      const scopePromise=scoped?CATALOG_SUPABASE.loadDashboardScope(isAdminView()?salesmanCode():null):Promise.resolve(null);
+      const fullContextPromise=!isAdmin()&&!scoped?CATALOG_SUPABASE.loadDashboardFullContext():Promise.resolve(null);
+      const scopePromise=scoped?CATALOG_SUPABASE.loadDashboardScope(hasFullView()?salesmanCode():null):Promise.resolve(null);
       const useHistoryCache=!scoped&&!forceHistory&&historicalCache?.data?.available&&historicalCache.owner===owner&&Date.now()-historicalCache.at<300000;
       const historyPromise=scoped?scopePromise.then(scope=>({available:true,batches:scope.batches,lines:scope.lines})):
         useHistoryCache?Promise.resolve(historicalCache.data):CATALOG_SUPABASE.loadDashboardHistory?CATALOG_SUPABASE.loadDashboardHistory():Promise.resolve({batches:[],lines:[],available:false});
@@ -208,10 +212,10 @@
       const deliveryCode=scoped?(['90','900'].includes(requestedCode)?'900':requestedCode):null;
       const [scope,clients, orders, delivery, overrides,companyRanking,clientGrouping,historical] = await Promise.all([
         scopePromise,
-        scopePromise.then(scope=>scope?scope.clients:salesmanCode()
-          ? CATALOG_SUPABASE.loadDashboardClients(isAdminView()&&window.SALES_BI?'*':salesmanCode())
+        Promise.all([scopePromise,fullContextPromise]).then(([scope,full])=>scope?scope.clients:full?full.clients:salesmanCode()
+          ? CATALOG_SUPABASE.loadDashboardClients(hasFullView()&&window.SALES_BI?'*':salesmanCode())
           : []),
-        scopePromise.then(scope=>scope?scope.orders:CATALOG_SUPABASE.loadDashboardOrders(state.user.id)),
+        Promise.all([scopePromise,fullContextPromise]).then(([scope,full])=>scope?scope.orders:full?full.orders:CATALOG_SUPABASE.loadDashboardOrders(state.user.id)),
         CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(deliveryCode) : Promise.resolve({available:false,lines:[]}),
         CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
         // Admin already has the complete dataset for company ranking. A scoped
@@ -224,14 +228,14 @@
       if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
       if (request !== generation || key() !== owner) return;
       if(!useHistoryCache) historicalCache={owner,at:Date.now(),data:historical};
-      const selectedOrders = !scope && salesmanCode() && !(isAdminView()&&window.SALES_BI)
+      const selectedOrders = !scope && salesmanCode() && !(hasFullView()&&window.SALES_BI)
         ? orders.filter(order => clients.some(client => model.matches(client, order)))
         : orders;
       // The server enforces access. Also constrain admin selection and late account responses here.
       const codes = new Set(clients.map(c => String(c.clientCode)));
-      const lines = isAdminView() && window.SALES_BI ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
+      const lines = hasFullView() && window.SALES_BI ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
       let companyBestsellers=companyRanking?.available?companyRanking.items:null;
-      if(companyBestsellers===null&&!scope&&isAdminView()&&window.SALES_BI_MODEL){
+      if(companyBestsellers===null&&!scope&&hasFullView()&&window.SALES_BI_MODEL){
         const companyData=window.SALES_BI_MODEL.prepare({clients,orders,delivery,...historical,catalog:state.catalog?.products||[],includeUnassigned:true,companyRankingAvailable:true});
         companyBestsellers=window.SALES_BI_MODEL.companyBestsellers(companyData);
       }
@@ -242,11 +246,12 @@
     } catch (error) {
       if (request !== generation || key() !== owner) return;
       console.error('Sales dashboard could not load', error);
+      if(['42501','PGRST301','PGRST303'].includes(error?.code)){historicalCache=null;snapshot=null;window.SALES_BI?.reset();}
       if(background&&snapshot?.owner===owner) { window.SALES_BI?.setLiveError('No se pudo actualizar. Se muestran los últimos datos recibidos.'); return; }
       const message=error?.code==='57014'?'La consulta tardó demasiado y el servidor la canceló. Intentá nuevamente.':
         ['42501','PGRST301','PGRST303'].includes(error?.code)?'No se pudo autorizar el acceso al panel. Volvé a iniciar sesión.':
         'No se pudo cargar el panel. Intentá nuevamente.';
-      panel.innerHTML = `<h3>${isAdminView()&&!salesmanMode()?'Dashboard de ventas':'Mi gestión comercial'}</h3><p role="alert">${message}</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>`;
+      panel.innerHTML = `<h3>${hasFullView()&&!salesmanMode()?'Dashboard de ventas':'Mi gestión comercial'}</h3><p role="alert">${message}</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>`;
     }
   }
 
@@ -255,14 +260,16 @@
       window.SALES_BI.mount(panel, { owner:snapshot.owner, clients:snapshot.clients, orders:snapshot.orders,
         dataVersion:snapshot,
         clientGroups:snapshot.clientGrouping.groups,
-        onManageGroups:()=>window.DASHBOARD_CLIENT_GROUPS?.open({available:snapshot.clientGrouping.available,groups:snapshot.clientGrouping.groups,onSaved:()=>{window.SALES_BI.reset();return refresh();}}),
-        ...snapshot.historical,companyBestsellers:snapshot.companyBestsellers,companyRankingAvailable:snapshot.companyRankingAvailable,companyRankingPartial:snapshot.companyRankingPartial, catalog:state.catalog?.products || [], admin:isAdminView(),simple:salesmanMode(),preview:isAdminView()&&salesmanPreview,
+        onManageAccess:()=>{if(isAdmin())window.DASHBOARD_ACCESS_MANAGER?.open();},
+        onManageGroups:()=>{if(!isAdmin())return;return window.DASHBOARD_CLIENT_GROUPS?.open({available:snapshot.clientGrouping.available,groups:snapshot.clientGrouping.groups,onSaved:()=>{window.SALES_BI.reset();return refresh();}});},
+        ...snapshot.historical,companyBestsellers:snapshot.companyBestsellers,companyRankingAvailable:snapshot.companyRankingAvailable,companyRankingPartial:snapshot.companyRankingPartial, catalog:state.catalog?.products || [], admin:isAdmin(),fullAccess:hasFullView(),readOnly:!isAdmin()&&hasFullView(),simple:salesmanMode(),preview:hasFullView()&&salesmanPreview,
         salesmen:adminSalesmen, salesmanCode:snapshot.scopeCode||salesmanCode(),
-        live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:isAdminView()||salesmanMode(),analysisSalesmanCode:snapshot.scopeCode||(isAdminView()?salesmanCode():''),
-        onPreview:value=>{if(!isAdminView())return;salesmanPreview=value;title.textContent=value?'Mi gestión comercial':'Dashboard de ventas';selectedClientId='';window.SALES_BI.reset();refresh();},
+        live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:hasFullView()||salesmanMode(),analysisSalesmanCode:snapshot.scopeCode||(hasFullView()?salesmanCode():''),
+        onPreview:value=>{if(!hasFullView())return;salesmanPreview=value;title.textContent=value?'Mi gestión comercial':'Dashboard de ventas';selectedClientId='';window.SALES_BI.reset();refresh();},
         onSalesman:code => { adminSelectedCode=code; selectedClientId=''; window.SALES_BI.reset(); refresh(); },
         onRefresh:()=>refresh({forceHistory:true}),
         onClient:client => {
+          if(!isAdmin()&&hasFullView())return;
           if (state.cart.size && state.selectedSalesClient?.id !== client.id) { showToast('Terminá o vaciá el carrito actual antes de cambiar de cliente.'); return; }
           selectSalesClient(client); closeCatalogDialog(dialog); closeAccount(); openCart();
         } });
@@ -272,8 +279,8 @@
     const { summary } = snapshot;
     const assigned = Boolean(salesmanCode());
     panel.innerHTML = `
-      <div class="sales-dashboard-heading"><div><span class="eyebrow">${isAdminView() ? 'Administración · Vendedores' : assigned ? `Vendedor ${safe(salesmanCode())}` : 'Cuenta de vendedor'}</span><h3>Resumen comercial</h3></div><button type="button" class="secondary-button compact-button" data-refresh>Actualizar</button></div>
-      ${isAdminView() ? `<label class="sales-dashboard-field sales-seller-select"><span>Vendedor</span><select data-salesman-select>${adminSalesmen.map(seller => `<option value="${safe(seller.code)}" ${seller.code === adminSelectedCode ? 'selected' : ''}>${safe(seller.code)} · ${safe(seller.name)}</option>`).join('')}</select></label>` : ''}
+      <div class="sales-dashboard-heading"><div><span class="eyebrow">${hasFullView() ? 'Administración · Vendedores' : assigned ? `Vendedor ${safe(salesmanCode())}` : 'Cuenta de vendedor'}</span><h3>Resumen comercial</h3></div><button type="button" class="secondary-button compact-button" data-refresh>Actualizar</button></div>
+      ${hasFullView() ? `<label class="sales-dashboard-field sales-seller-select"><span>Vendedor</span><select data-salesman-select>${adminSalesmen.map(seller => `<option value="${safe(seller.code)}" ${seller.code === adminSelectedCode ? 'selected' : ''}>${safe(seller.code)} · ${safe(seller.name)}</option>`).join('')}</select></label>` : ''}
       ${assigned ? '' : '<p class="sales-dashboard-note" role="status">Tu cuenta todavía no tiene un código de vendedor asignado. Pedile al administrador que lo configure para ver tus clientes. Tus pedidos registrados se muestran abajo.</p>'}
       <p class="sales-dashboard-note">Pedidos de los clientes asignados al vendedor seleccionado registrados en el catálogo. Los totales excluyen borradores y cancelados. No incluye compras externas sin importar.</p>
       ${periodControls(period)}

@@ -4,7 +4,7 @@
  const num=v=>new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(v||0);
  let owner='',generation=0,cache=new Map(),dialog=null,entry=null,timer=null,sessionSeen=new Set(),stockSynced=new Set();
  const identity=()=>typeof state!=='undefined'&&state.user?.id&&['admin','salesman','customer'].includes(state.profile?.role)&&!state.isPasswordRecovery
-   ?[state.user.id,state.profile.role,state.profile.salesman_code||'',state.profile.client_code||''].join(':'):'';
+   ?[state.user.id,state.profile.role,state.profile.salesman_code||'',state.profile.client_code||'',state.profile.dashboard_full_access===true?'full':'portfolio'].join(':'):'';
  const announce=()=>window.dispatchEvent(new Event('catalog:restocks-changed'));
  function reset(){generation++;cache.clear();sessionSeen.clear();stockSynced.clear();if(dialog){dialog.close();dialog.remove();dialog=null;}if(entry)entry.hidden=true;if(timer)clearInterval(timer);timer=null;}
  function ensureEntry(){
@@ -49,7 +49,7 @@
   if(data.items.some(b=>!stockSynced.has(b.id))){data.items.forEach(b=>stockSynced.add(b.id));window.dispatchEvent(new Event('catalog:products-updated'));}
   if(dialog?.open){renderDialog();return;}
   const fresh=data.items.filter(b=>!b.seenAt&&!sessionSeen.has(b.id));
-  if(!fresh.length||state.profile.role==='admin'||dialog?.open||document.querySelector('dialog[open]'))return;
+  if(!fresh.length||state.profile.role==='admin'||state.profile.role==='salesman'&&state.profile.dashboard_full_access===true||dialog?.open||document.querySelector('dialog[open]'))return;
   renderDialog(true,fresh);dialog.showModal();
   for(const b of fresh){sessionSeen.add(b.id);CATALOG_SUPABASE.acknowledgeRestock(b.id,false).then(()=>{if(owner===account){const current=cache.get('');if(current?.available)current.items=current.items.map(x=>x.id===b.id?{...x,seenAt:new Date().toISOString()}:x);}}).catch(()=>{});}
  }

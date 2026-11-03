@@ -20,16 +20,24 @@ export async function catalogContext({url,key,token,fetcher=fetch,includeOrders=
   const headers={apikey:key,Authorization:token};
   const user=await readJson(`${url}/auth/v1/user`,headers,fetcher);
   if(!user?.id) throw new ReadError('Sign in with your catalog account.',401);
-  const profiles=await readJson(`${url}/rest/v1/profiles?select=id,role,salesman_code&id=eq.${encodeURIComponent(user.id)}`,headers,fetcher);
+  const profiles=await readJson(`${url}/rest/v1/profiles?select=id,role,salesman_code,dashboard_full_access&id=eq.${encodeURIComponent(user.id)}`,headers,fetcher);
   const profile=profiles[0];
   if(!profile||profile.id!==user.id||!['admin','salesman'].includes(profile.role)) throw new ReadError('Dashboard access denied.',403);
-  if(profile.role==='salesman'&&!text(profile.salesman_code))throw new ReadError('Salesperson code required.',403);
-  if(profile.role==='salesman'||salesmanCode){
+  const fullDashboard=profile.role==='admin'||profile.role==='salesman'&&profile.dashboard_full_access===true;
+  if(!fullDashboard&&profile.role==='salesman'&&!text(profile.salesman_code))throw new ReadError('Salesperson code required.',403);
+  if(!fullDashboard||salesmanCode){
     const response=await fetcher(`${url}/rest/v1/rpc/sales_dashboard_scope`,{method:'POST',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify({p_salesman_code:salesmanCode||null,p_include_history:includeHistory})});
     if(!response.ok)throw new ReadError('Portfolio access denied.',403);
     const scope=await response.json();
     if(!Array.isArray(scope.clients)||!Array.isArray(scope.orders))throw new ReadError('Invalid portfolio response.');
-    return {profile:{...profile,role:'salesman'},clients:scope.clients,orders:includeOrders?scope.orders:[],scope};
+    return {profile:{...profile,role:'salesman'},fullDashboard:false,clients:scope.clients,orders:includeOrders?scope.orders:[],scope};
+  }
+  if(profile.role!=='admin'){
+    const response=await fetcher(`${url}/rest/v1/rpc/sales_dashboard_full_context`,{method:'POST',headers:{...headers,'Content-Type':'application/json'},body:'{}'});
+    if(!response.ok)throw new ReadError('Full dashboard access denied.',403);
+    const data=await response.json();
+    if(data?.available!==true||!Array.isArray(data.clients)||!Array.isArray(data.orders))throw new ReadError('Invalid full dashboard response.');
+    return {profile,fullDashboard:true,clients:data.clients,orders:includeOrders?data.orders:[]};
   }
   const clientFields=includeDetails?'id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label':'id,client_code,salesman_code';
   const clients=await readPages(url,'sales_clients?select='+clientFields+'&order=id',headers,fetcher);
@@ -91,7 +99,8 @@ export async function warehouseSnapshot(context,{url,key}=warehouseDefaults,fetc
   const prefix=`orders?select=${columns}&company=eq.lexo&order=id`;
   const byId=new Map();
   const add=rows=>{for(const row of rows)byId.set(row.id,row);};
-  if(context.profile.role==='admin') add(await readPages(url,prefix,headers,fetcher));
+  const fullDashboard=context.profile.role==='admin'||context.fullDashboard===true;
+  if(fullDashboard) add(await readPages(url,prefix,headers,fetcher));
   else {
     for(const [field,values] of [['client_code',context.clients.map(c=>c.client_code)],['external_id',context.orders.map(o=>o.id)]]) {
       for(let start=0;start<values.length;start+=60) {
@@ -102,7 +111,7 @@ export async function warehouseSnapshot(context,{url,key}=warehouseDefaults,fetc
   }
   const codes=new Set(context.clients.map(c=>text(c.client_code))),authorized=new Map(context.orders.map(o=>[o.id,o]));
   const roots=[...byId.values()].filter(o=>o.company==='lexo'&&!o.parent_id&&!o.cancelled_at&&o.status!=='cancelled'&&
-    (context.profile.role==='admin'||(o.source==='catalogolexo'&&o.external_id?authorized.has(o.external_id):codes.has(text(o.client_code)))));
+    (fullDashboard||(o.source==='catalogolexo'&&o.external_id?authorized.has(o.external_id):codes.has(text(o.client_code)))));
   const children=new Set(),lines=[];
   for(let start=0;start<roots.length;start+=60) {
     const ids=roots.slice(start,start+60).map(o=>encodeURIComponent(o.id)).join(',');

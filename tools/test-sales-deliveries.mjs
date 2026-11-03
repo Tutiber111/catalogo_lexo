@@ -63,3 +63,21 @@ const sellerContext=await catalogContext({url:'https://catalog.example',key:'pub
 assert.equal(sellerContext.orders[0].id,'own-order');assert.equal(scopeRequests[0].p_include_history,false);
 const rejectedFetch=async(url,options)=>url.includes('/rpc/')?new Response('{}',{status:403}):sellerFetch(url,options);
 await assert.rejects(()=>catalogContext({url:'https://catalog.example',key:'public',token:'Bearer seller',salesmanCode:'800',fetcher:rejectedFetch}),e=>e.status===403);
+
+const fullRequests=[];
+const fullFetch=async(url,options)=>{
+ fullRequests.push(url);
+ if(url.includes('/auth/v1/user'))return new Response(JSON.stringify({id:'viewer',user_metadata:{role:'admin'}}));
+ if(url.includes('/profiles?'))return new Response(JSON.stringify([{id:'viewer',role:'salesman',salesman_code:'805',dashboard_full_access:true}]));
+ if(url.includes('/rpc/sales_dashboard_full_context'))return new Response(JSON.stringify({available:true,clients:[{id:'own',client_code:'1'},{id:'other',client_code:'2'}],orders:[{id:'all-order'}]}));
+ if(url.includes('/rpc/sales_dashboard_scope'))return new Response(JSON.stringify({clients:[{id:'other',client_code:'2'}],orders:[{id:'other-order'}]}));
+ throw Error('Viewer must use reporting APIs, not operational company reads');
+};
+const fullContext=await catalogContext({url:'https://catalog.example',key:'public',token:'Bearer viewer',fetcher:fullFetch});
+assert.equal(fullContext.profile.role,'salesman');assert.equal(fullContext.fullDashboard,true);assert.equal(fullContext.clients.length,2);
+const fullPreview=await catalogContext({url:'https://catalog.example',key:'public',token:'Bearer viewer',salesmanCode:'855',fetcher:fullFetch});assert.equal(fullPreview.fullDashboard,false);assert.equal(fullPreview.orders[0].id,'other-order');
+const revokedFetch=async(url,options)=>url.includes('/rpc/sales_dashboard_full_context')?new Response('{}',{status:403}):fullFetch(url,options);
+await assert.rejects(()=>catalogContext({url:'https://catalog.example',key:'public',token:'Bearer viewer',fetcher:revokedFetch}),e=>e.status===403,'RPC revalidates capability after profile read');
+assert.ok(fullRequests.some(url=>url.includes('dashboard_full_access')),'capability is read from the authenticated DB profile');
+const fullWarehouse=await warehouseSnapshot(fullContext,{url:'https://warehouse.example',key:'public'},snapshotFetch);assert.ok(fullWarehouse.orders.some(o=>o.id==='forbidden'),'company warehouse snapshot follows verified dashboard capability');assert.ok(!fullWarehouse.orders.some(o=>o.id==='wrong-company'),'full dashboard access is still Lexo only');
+console.log('Dashboard viewer delivery bridge: actual-profile capability, read-only reporting API, restricted preview, revocation and Lexo-only company snapshot passed.');

@@ -169,7 +169,27 @@
     return sourceRows(data, f.source).filter(r => (!includeDate || ((r.occasionDate||r.date) >= f.from && (r.occasionDate||r.date) <= f.to))
       && (!f.client || r.clientCode === f.client) && (!f.brand || r.brand === f.brand)
       && (!f.province || r.province === f.province) && (!f.category || r.category === f.category)
+      && (!f.productKey || productKey(r) === f.productKey)
       && (!f.product || norm(`${r.sku} ${r.productName}`).includes(norm(f.product))));
+  }
+  const productKey=r=>JSON.stringify([r.brand,str(r.sku).toUpperCase()]);
+  function productSales(data,f) {
+    const groups=new Map(),clients=new Map(data.clients.map(c=>[str(c.clientCode),c]));
+    for(const row of selected(data,f)) {
+      const key=productKey(row);
+      if(!groups.has(key))groups.set(key,{key,sku:row.sku,name:row.productName,brand:row.brand,rows:[]});
+      groups.get(key).rows.push(row);
+    }
+    return [...groups.values()].map(p=>{
+      const metric=f.metric||'ordered',total=measureRows(p.rows,metric),byClient=new Map();
+      for(const row of p.rows){if(!byClient.has(row.clientCode))byClient.set(row.clientCode,[]);byClient.get(row.clientCode).push(row);}
+      const buyers=[...byClient.entries()].map(([code,rows])=>{
+        const value=measureRows(rows,metric);
+        const last=rows.filter(r=>measureRows([r],metric).units>0).map(r=>r.occasionDate||r.date).sort().at(-1)||null;
+        return {client:clients.get(code)||{clientCode:code,name:rows[0].clientName},...value,last};
+      }).filter(c=>c.units>0).sort((a,b)=>b.amount-a.amount||str(a.client.name).localeCompare(str(b.client.name)));
+      return {key:p.key,sku:p.sku,name:p.name,brand:p.brand,...total,qty:total.units,value:total.amount,buyers};
+    }).filter(p=>p.units>0||p.unknown).sort((a,b)=>b.amount-a.amount||str(a.sku).localeCompare(str(b.sku)));
   }
   function totals(rows) {
     const t = { ordered:0, invoiced:0, orderedQty:0, invoicedQty:0, returnedQty:0,deliveredQty:0,pickedQty:0,pendingDeliveryQty:0,delivered:0,deliveryKnownLines:0,deliveryUnknownLines:0,missingValues:0,deliveredMissingValues:0, orders:new Set(), buyers:new Set(), invoicedOrders:new Set(), catalogLines:0, unmatched:0, unclassified:0 };
@@ -206,13 +226,15 @@
     const priorCovered = f.metric!=='delivered'&&covered(previous.from,previous.to);
     const metric = ['invoiced','delivered'].includes(f.metric) ? f.metric : 'ordered';
     const qtyKey = metric === 'invoiced' ? 'invoicedQty' : metric==='delivered'?'deliveredQty':'orderedQty';
+    const quantity=r=>metric==='delivered'&&r.source==='erp'?r.invoicedQty:r[qtyKey];
+    const value=r=>metric==='delivered'&&r.source==='erp'?r.invoiced:r[metric];
     const groups = key => {
       const map = new Map();
       for (const r of rows) {
         const id = r[key];
         if (!map.has(id)) map.set(id, { id, name:id, value:0, qty:0, buyers:new Set() });
-        const g = map.get(id); g.value += Number(r[metric] || 0); g.qty += Number(r[qtyKey] || 0);
-        if (r[qtyKey]) g.buyers.add(r.clientCode);
+        const g = map.get(id); g.value += Number(value(r) || 0); g.qty += Number(quantity(r) || 0);
+        if (quantity(r)>0) g.buyers.add(r.clientCode);
       }
       return [...map.values()].map(g => ({ ...g, buyers:g.buyers.size })).sort((a,b) => b.value-a.value || a.name.localeCompare(b.name));
     };
@@ -221,16 +243,17 @@
     for (let i=0; i<1200 && iso(cursor) <= f.to; i++) {
       const month = iso(cursor).slice(0,7); months.set(month, { month, ordered:0,invoiced:0,delivered:0,orderedQty:0,invoicedQty:0,deliveredQty:0,deliveryKnownLines:0 }); cursor.setUTCMonth(cursor.getUTCMonth()+1);
     }
-    for (const r of rows) { const m=months.get(r.date.slice(0,7)); if (m) { for(const key of ['ordered','invoiced','delivered','orderedQty','invoicedQty','deliveredQty'])m[key]+=Number(r[key]||0);if(r.deliveredQty!==null&&r.deliveredQty!==undefined)m.deliveryKnownLines++; } }
+    for (const r of rows) { const m=months.get((r.occasionDate||r.date).slice(0,7)); if (m) { for(const key of ['ordered','invoiced','delivered','orderedQty','invoicedQty','deliveredQty'])m[key]+=Number(r.source==='erp'&&key==='delivered'?r.invoiced:r.source==='erp'&&key==='deliveredQty'?r.invoicedQty:r[key]||0);if(r.source==='erp'||r.deliveredQty!==null&&r.deliveredQty!==undefined)m.deliveryKnownLines++; } }
     const perCustomer = new Map();
     for (const c of data.clients) if (!f.client || str(c.clientCode) === f.client) perCustomer.set(str(c.clientCode), { client:c, current:0, prior:0, last:null, units:0,priorUnits:0,missingValues:0 });
     // Includes historical-only customers for the admin's unassigned review.
     for (const r of selected(data,f,false)) {
       if (!perCustomer.has(r.clientCode)) perCustomer.set(r.clientCode, { client:{ clientCode:r.clientCode,name:r.clientName }, current:0,prior:0,last:null,units:0,priorUnits:0,missingValues:0 });
       const c=perCustomer.get(r.clientCode);
-      if (r[qtyKey] && r.date <= f.to && (!c.last || r.date > c.last)) c.last = r.date;
-      if (r.date >= f.from && r.date <= f.to) { c.current+=Number(r[metric] || 0); c.units+=Number(r[qtyKey] || 0);if(r[metric]===null)c.missingValues++; }
-      if (r.date >= previous.from && r.date <= previous.to) {c.prior+=Number(r[metric] || 0);c.priorUnits+=Number(r[qtyKey]||0);}
+      const day=r.occasionDate||r.date;
+      if (quantity(r)>0 && day <= f.to && (!c.last || day > c.last)) c.last = day;
+      if (day >= f.from && day <= f.to) { c.current+=Number(value(r) || 0); c.units+=Number(quantity(r) || 0);if(value(r)===null)c.missingValues++; }
+      if (day >= previous.from && day <= previous.to) {c.prior+=Number(value(r) || 0);c.priorUnits+=Number(quantity(r)||0);}
     }
     const customers = [...perCustomer.values()].map(c => ({ ...c, delta:priorCovered && c.prior ? (c.current-c.prior)/Math.abs(c.prior) : null,
       days:c.last ? Math.round((timestamp(f.to)-timestamp(c.last))/dayMs) : null,
@@ -240,10 +263,11 @@
     for (const r of rows) {
       const id=`${r.brand}:${r.sku}`;
       if (!products.has(id)) products.set(id, { sku:r.sku,name:r.productName,brand:r.brand,value:0,qty:0,matched:r.matched });
-      const p=products.get(id); p.value+=Number(r[metric] || 0); p.qty+=Number(r[qtyKey] || 0);
+      const p=products.get(id); p.value+=Number(value(r) || 0); p.qty+=Number(quantity(r) || 0);
     }
-    const bought = new Set(rows.filter(r=>r[qtyKey] > 0).map(r=>`${r.brand}:${str(r.sku).toUpperCase()}`));
+    const bought = new Set(rows.filter(r=>quantity(r) > 0).map(r=>`${r.brand}:${str(r.sku).toUpperCase()}`));
     const opportunities = data.catalog.filter(p => !excludedSkus.has(str(p.sku).toUpperCase()) && !p.hidden && !p.outOfStock && (!f.brand || p.section===f.brand)
+      && (!f.productKey || productKey({brand:p.section,sku:p.sku})===f.productKey)
       && (!f.category || p.category===f.category) && (!f.product || norm(`${p.sku} ${p.name}`).includes(norm(f.product)))
       && !bought.has(`${p.section}:${str(p.sku).toUpperCase()}`));
     return { rows, totals:t, prior, previous, priorCovered:Boolean(priorCovered), covered:Boolean(covered(f.from,f.to)),
@@ -282,18 +306,20 @@
     const d=new Date(timestamp(day)), last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+months+1,0));
     return iso(Date.UTC(last.getUTCFullYear(),last.getUTCMonth(),Math.min(d.getUTCDate(),last.getUTCDate())));
   }
-  function reportingPeriods(today=recentRange(1).to) {
+  function currentMonthRange(today=recentRange(1).to) {return {from:today.slice(0,7)+'-01',to:today};}
+  function reportingPeriods(today=recentRange(1).to,range=currentMonthRange(today)) {
     if(!Number.isFinite(timestamp(today)))throw new Error('Invalid reporting day');
-    const from=today.slice(0,7)+'-01';
-    return {today,current:{from,to:today},month:{from:monthShift(from,-1),to:monthShift(today,-1)},
-      year:{from:monthShift(from,-12),to:monthShift(today,-12)},ytd:{from:today.slice(0,4)+'-01-01',to:today},annual:{from:monthShift(from,-11),to:today}};
+    if(!validRange(range.from,range.to))throw new Error('Invalid reporting range');
+    const {from,to}=range;
+    return {today,asOf:to,current:{from,to},month:{from:monthShift(from,-1),to:monthShift(to,-1)},
+      year:{from:monthShift(from,-12),to:monthShift(to,-12)},ytd:{from:to.slice(0,4)+'-01-01',to},annual:{from:monthShift(to.slice(0,7)+'-01',-11),to}};
   }
   function measureRows(rows, metric='ordered') {
-    const delivered=metric==='delivered', orders=new Set(),clients=new Set();
+    const delivered=metric==='delivered',invoiced=metric==='invoiced', orders=new Set(),clients=new Set();
     let amount=0,missing=0,unknown=0,units=0;
     for(const r of rows) {
-      const qty=delivered?(r.source==='erp'?r.invoicedQty:r.deliveredQty):r.orderedQty;
-      const value=delivered?(r.source==='erp'?r.invoiced:r.delivered):r.ordered;
+      const qty=invoiced?r.invoicedQty:delivered?(r.source==='erp'?r.invoicedQty:r.deliveredQty):r.orderedQty;
+      const value=invoiced?r.invoiced:delivered?(r.source==='erp'?r.invoiced:r.delivered):r.ordered;
       if(qty===null||qty===undefined){unknown++;continue;}
       if(qty<=0)continue;
       units+=qty;orders.add(r.occasionId||r.orderId);clients.add(r.clientCode);
@@ -303,7 +329,7 @@
       ticket:orders.size?amount/orders.size:null,partial:Boolean(missing||unknown)};
   }
   function reporting(data,f,today=recentRange(1).to) {
-    const periods=reportingPeriods(today);
+    const periods=reportingPeriods(today,validRange(f.from,f.to)?f:currentMonthRange(today)),asOf=periods.asOf;
     const rangeCache=new Map();
     const inRange=range=>{const key=range.from+':'+range.to;if(!rangeCache.has(key))rangeCache.set(key,selected(data,{...f,...range}).filter(r=>r.date<=today));return rangeCache.get(key);};
     const comparison=(current,prior,key)=>({delta:current[key]-prior[key],percent:prior[key]?(current[key]-prior[key])/Math.abs(prior[key]):null});
@@ -330,10 +356,10 @@
       metrics[metric]={current,month,year,ytd,currentCovered,monthCovered,yearCovered,ytdCovered:coverage(periods.ytd),
         changes:Object.fromEntries(['amount','units','orders','clients'].map(key=>[key,{month:comparison(current,month,key),year:comparison(current,year,key)}]))};
     }
-    const annualRows=inRange(periods.annual),all=sourceRows(data,f.source).filter(r=>r.date<=today&&r.orderedQty>0&&(!f.client||r.clientCode===f.client));
+    const annualRows=inRange(periods.annual),all=selected(data,f,false).filter(r=>(r.occasionDate||r.date)<=asOf&&r.date<=today&&r.orderedQty>0);
     const groupByClient=rows=>{const map=new Map();for(const r of rows){if(!map.has(r.clientCode))map.set(r.clientCode,[]);map.get(r.clientCode).push(r);}return map;};
     const periodGroups=groupByClient(selected(data,f)),annualGroups=groupByClient(annualRows),allGroups=groupByClient(all);
-    const customerMeasure=f.metric==='ordered'?'ordered':'delivered';
+    const customerMeasure=f.metric||'ordered';
     const entry=c=>({client:c,period:measureRows(periodGroups.get(str(c.clientCode))||[],customerMeasure),annual:measureRows(annualGroups.get(str(c.clientCode))||[],customerMeasure)});
     const perClient=new Map(data.clients.filter(c=>!f.client||str(c.clientCode)===f.client).map(c=>[str(c.clientCode),entry(c)]));
     for(const [code,rows] of allGroups)if(!perClient.has(code))perClient.set(code,entry({clientCode:code,name:rows[0].clientName}));
@@ -341,9 +367,9 @@
       const dates=[...new Set((allGroups.get(code)||[]).map(r=>r.occasionDate||r.date))].sort();
       const first=dates[0]||null,last=dates.at(-1)||null;
       const reactivated=dates.some((day,i)=>i>0&&day>=periods.annual.from&&dates[i-1]<=monthShift(day,-12));
-      const recent=dates.filter(d=>d>=monthShift(today,-12));
+      const recent=dates.filter(d=>d>=monthShift(asOf,-12));
       const frequency=recent.length>=2?(timestamp(recent.at(-1))-timestamp(recent[0]))/dayMs/(recent.length-1):null;
-      const elapsed=last?(timestamp(today)-timestamp(last))/dayMs:null,remaining=frequency===null?null:frequency-elapsed;
+      const elapsed=last?(timestamp(asOf)-timestamp(last))/dayMs:null,remaining=frequency===null?null:frequency-elapsed;
       const situation=remaining===null?'insufficient':remaining<0?'overdue':remaining<=14?'action':'within';
       return {...c,last,first,frequency,remaining,situation,newClient:Boolean(first&&first>=periods.annual.from),reactivated};
     });
@@ -393,7 +419,7 @@
   }
   function opportunityReport(data,f,today=recentRange(1).to) {
     const available=data.catalog.filter(p=>!p.hidden&&!p.outOfStock&&!excludedSkus.has(str(p.sku).toUpperCase()));
-    const target=available.filter(p=>(!f.brand||p.section===f.brand)&&(!f.category||p.category===f.category)&&(!f.product||norm(`${p.sku} ${p.name}`).includes(norm(f.product))));
+    const target=available.filter(p=>(!f.brand||p.section===f.brand)&&(!f.category||p.category===f.category)&&(!f.productKey||productKey({brand:p.section,sku:p.sku})===f.productKey)&&(!f.product||norm(`${p.sku} ${p.name}`).includes(norm(f.product))));
     const key=p=>`${p.brand||p.section}:${str(p.sku).toUpperCase()}`,targetKeys=new Set(target.map(key));
     const start=monthShift(today,-12),recentStart=monthShift(today,-3);
     const rows=sourceRows(data,f.source).filter(r=>(r.occasionDate||r.date)>=start&&(r.occasionDate||r.date)<=today&&r.orderedQty>0);
@@ -404,7 +430,7 @@
     return data.clients.filter(c=>!f.client||str(c.clientCode)===f.client).map(client=>{const code=str(client.clientCode),purchases=bought.get(code)||new Set(),now=recent.get(code)||new Set(),old=prior.get(code)||new Set();return {client,notBuyingTarget:![...targetKeys].some(k=>purchases.has(k)),missing:target.filter(p=>old.has(key(p))&&!now.has(key(p))),bestsellers:bestsellers.filter(p=>!purchases.has(p.key))};});
 
   }
-  const model={ prepare,analyze,sourceRows,selected,totals,validRange,previousRange,defaultRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,companyBestsellers,opportunityReport };
+  const model={ prepare,analyze,sourceRows,selected,totals,productKey,productSales,validRange,previousRange,defaultRange,currentMonthRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,companyBestsellers,opportunityReport };
   if (typeof module!=='undefined' && module.exports) module.exports=model;
   else window.SALES_BI_MODEL=model;
 })();

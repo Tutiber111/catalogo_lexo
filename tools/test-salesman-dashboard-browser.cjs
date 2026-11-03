@@ -11,7 +11,7 @@ const scope={available:true,salesmanCode:'855',clients:[clients[0]],orders:[orde
 async function main(){
  const browser=await chromium.launch({channel:'chrome',headless:true});
  try{
- async function open(role){
+ async function open(role,full=false){
   const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[],reads=[];
   page.on('pageerror',e=>errors.push(e.message));
   const id=role==='admin'?owner:'salesperson-fixture';
@@ -23,11 +23,14 @@ async function main(){
   await page.route('https://iexpvwmtxauvzkcncqoc.supabase.co/**',async route=>{
    const url=new URL(route.request().url());let data=[];
    if(url.pathname.endsWith('/user'))data=user;
-   if(url.pathname.endsWith('/profiles'))data={id,role,salesman_code:role==='salesman'?'855':null,price_access_approved:true};
+   if(url.pathname.endsWith('/profiles'))data={id,role,salesman_code:role==='salesman'?'855':null,dashboard_full_access:full,price_access_approved:true};
    if(url.pathname.endsWith('/salesmen'))data=[{code:'855',name:'Romina Naharro'},{code:'800',name:'Other seller'}];
    if(url.pathname.endsWith('/sales_clients')){data=clients;if(role==='salesman')data=[clients[0]];}
    if(url.pathname.endsWith('/orders'))data=role==='admin'?orders:[orders[0]];
    if(url.pathname.endsWith('/rpc/sales_dashboard_scope')){reads.push(JSON.parse(route.request().postData()));data=scope;}
+   if(url.pathname.endsWith('/rpc/sales_dashboard_full_context')){reads.push({fullContext:true});data={available:true,clients,orders};}
+   if(url.pathname.endsWith('/rpc/dashboard_access_accounts'))data=[{id:'viewer-fixture',name:'Viewer',email:'viewer@example.invalid',salesman_code:'855',dashboard_full_access:true}];
+   if(url.pathname.endsWith('/rpc/set_dashboard_full_access'))reads.push({accessChange:JSON.parse(route.request().postData())});
    await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
   });
   await page.route('**/__live-scope*',r=>{reads.push({p_salesman_code:new URL(r.request().url()).searchParams.get('salesman')});return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(scope)});});
@@ -63,7 +66,23 @@ async function main(){
  assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Other portfolio secret/);
  await admin.page.locator('[data-bi-return-admin]').click();await admin.page.waitForSelector('.bi-source-cards');
  assert.equal(await admin.page.locator('[data-bi-salesman]').count(),1);
+ await admin.page.locator('[data-bi-access]').click();await admin.page.waitForSelector('[data-access-id]');
+ await admin.page.locator('[data-access-id]').uncheck();await admin.page.waitForFunction(()=>document.querySelector('[data-access-status]').textContent==='Acceso retirado');
+ assert.deepEqual(admin.reads.at(-1).accessChange,{p_profile_id:'viewer-fixture',p_enabled:false});await admin.page.locator('[data-access-close]').click();
+ const viewer=await open('salesman',true),vp=viewer.page;
+ assert.equal(await vp.locator('.bi-section-tabs').count(),1,'full viewer has both dashboard sections');
+ assert.equal(await vp.locator('[data-bi-salesman]').count(),1);assert.equal(await vp.locator('[data-bi-groups],[data-bi-access]').count(),0,'read access never exposes admin tools');
+ assert.ok(viewer.reads.some(r=>r.fullContext),'full viewer uses the protected reporting API');
+ await vp.locator('[data-bi-preset=all]').click();await vp.locator('[data-bi-section=vendors]').click();assert.match(await vp.locator('.bi-main').textContent(),/Other seller/);
+ await vp.locator('[data-bi-section=sales]').click();await vp.locator('[data-bi-tab=products]').click();await vp.locator('[data-bi-product-key]').first().click();assert.match(await vp.locator('[data-bi-product-buyers]').textContent(),/Other portfolio secret/,'full viewer can read other-portfolio buyer analytics');
+ await vp.locator('[data-bi-product-buyers] [data-bi-client]').first().click();assert.equal(await vp.locator('[data-bi-order]').count(),0,'report-only view does not create orders for other portfolios');
+ await vp.evaluate(()=>DASHBOARD_ACCESS_MANAGER.open());assert.equal(await vp.locator('[data-access-body]').count(),0,'full viewer cannot open access manager');
+ await vp.locator('[data-bi-salesman]').selectOption('855');await vp.waitForSelector('[data-bi-preview]:not([disabled])');await vp.locator('[data-bi-preview]').click();await vp.waitForSelector('.bi-preview-toolbar');assert.equal(viewer.reads.at(-1).p_salesman_code,'855');assert.doesNotMatch(await vp.locator('.bi-main').textContent(),/Other portfolio secret/);
+ await vp.locator('[data-bi-return-admin]').click();await vp.waitForSelector('.bi-source-cards');
+ await vp.route('**/rpc/sales_dashboard_full_context',route=>route.fulfill({status:403,contentType:'application/json',body:JSON.stringify({code:'42501',message:'Full dashboard access required'})}));
+ await vp.evaluate(()=>SALES_DASHBOARD.refresh({background:true}));await vp.waitForSelector('#salesDashboard [role=alert]');assert.equal(await vp.locator('.sales-bi').count(),0,'revocation removes cached company dashboard even during background refresh');assert.doesNotMatch(await vp.locator('#salesDashboard').textContent(),/Other portfolio secret/);
  assert.deepEqual(seller.errors,[]);assert.deepEqual(admin.errors,[]);
+ assert.deepEqual(viewer.errors,[]);
  console.log('Salesperson UI and admin preview: identical KPIs, private portfolio, source-free tabs and help, admin return, comparison sizing and mobile layout passed.');
  }finally{await browser.close();}
 }

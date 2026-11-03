@@ -2,7 +2,7 @@
 const clean=v=>String(v??'').trim();
 const assignment=(code,seller)=>clean(code)==='81032'?'unassigned':['','90','900'].includes(clean(seller))?'900':clean(seller);
 module.exports=function previewScope(context,prepared,requested){
- if(context.profile.role!=='admin')throw Object.assign(new Error('Administrator preview required.'),{status:403});
+ if(context.profile.role!=='admin'&&!context.fullDashboard)throw Object.assign(new Error('Full dashboard preview required.'),{status:403});
  const target=clean(requested)==='90'?'900':clean(requested);
  if(!target||target==='*')throw Object.assign(new Error('Choose one salesperson.'),{status:400});
  const byId=new Map(context.clients.map(c=>[c.id,c])),byCode=new Map(context.clients.map(c=>[clean(c.client_code),c]));

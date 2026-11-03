@@ -14,7 +14,7 @@ assert.equal(report.metrics.ordered.current.amount,4000);assert.equal(report.met
 assert.equal(report.metrics.delivered.current.amount,500);assert.equal(report.metrics.delivered.current.orders,1);assert.equal(report.metrics.delivered.current.clients,1);
 assert.equal(report.metrics.delivered.year.amount,600,'historical invoiced is delivered');
 assert.equal(report.metrics.ordered.changes.amount.year.delta,3000);
-assert.equal(m.reporting(data,{...f,from:'2025-01-01',to:'2025-02-01'},'2026-10-23').metrics.ordered.current.amount,4000,'headlines independent of date filter');
+assert.equal(m.reporting(data,{...f,from:'2025-01-01',to:'2025-02-01'},'2026-10-23').metrics.ordered.current.amount,0,'headlines follow the selected date filter');
 assert.equal(report.customers.find(c=>c.client.clientCode==='2').situation,'insufficient');
 assert.equal(report.customers.find(c=>c.client.clientCode==='1').situation,'action');
 assert.equal(report.customers.find(c=>c.client.clientCode==='1').reactivated,true);
@@ -34,8 +34,8 @@ assert.equal(withoutHistory.metrics.ordered.current.partial,true,'missing primar
 assert.equal(withoutHistory.metrics.ordered.yearCovered,false);
 const catalogAfterCutover=m.prepare({clients,updatedAt:'2026-11-02T14:00:00Z',orders:[order('live','2026-11-01')],batches:[{from_date:'2024-09-02',to_date:'2026-10-15',warehouse_from_date:'2026-10-16'}]});
 catalogAfterCutover.coverage.from=null;
-assert.equal(m.reporting(catalogAfterCutover,f,'2026-11-02').metrics.ordered.currentCovered,true,'post-cutover catalog month does not require unrelated ERP coverage');
-console.log('Calendar clamps, fixed MTD comparisons, catalog baseline, historical delivery, any-delivery counts, anchored additions, month boundaries, client frequency/cohorts, vendor totals and explicit stock losses passed.');
+assert.equal(m.reporting(catalogAfterCutover,{...f,from:'2026-11-01',to:'2026-11-02'},'2026-11-02').metrics.ordered.currentCovered,true,'post-cutover catalog month does not require unrelated ERP coverage');
+console.log('Calendar clamps, selected-period comparisons, catalog baseline, historical delivery, any-delivery counts, anchored additions, month boundaries, client frequency/cohorts, vendor totals and explicit stock losses passed.');
 
 const ticketData=m.prepare({clients,batches:data.batches,lines:[{line_key:'jan',order_key:'jan',order_date:'2026-01-05',client_code:'1',sku:'A',ordered_qty:90,ordered_net:9000,invoiced_qty:90,invoiced_net:9000}],orders:[order('oct1','2026-10-16'),order('oct2','2026-10-20')]});
 const tickets=m.reporting(ticketData,f,'2026-10-23').metrics.ordered;

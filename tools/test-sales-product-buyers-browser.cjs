@@ -1,0 +1,36 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http');
+const {chromium}=require('C:/Users/Lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {input}=require('./test-sales-product-buyers.cjs');
+async function main(){
+ const server=http.createServer((req,res)=>{const name=req.url.split('?')[0].slice(1);if(!['sales-bi.css','sales-product-brands.js','sales-bi-model.js','sales-bi.js'].includes(name)){res.setHeader('Content-Type','text/html');res.end('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/sales-bi.css"><div id="dashboard"></div><script src="/sales-product-brands.js"></script><script src="/sales-bi-model.js"></script><script src="/sales-bi.js"></script>');}else{res.setHeader('Content-Type',name.endsWith('.css')?'text/css':'text/javascript');res.end(fs.readFileSync('web/'+name));}});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const browser=await chromium.launch({channel:'chrome',headless:true});
+ try{
+  const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.addInitScript(()=>{const RealDate=Date;window.Date=class extends RealDate{constructor(...args){super(...(args.length?args:['2026-11-03T15:00:00Z']));}static now(){return new RealDate('2026-11-03T15:00:00Z').getTime();}};});
+  await page.goto('http://127.0.0.1:'+server.address().port);
+  const mount=async(simple=false)=>page.evaluate(({input,simple})=>{const scoped=simple?{...input,analysisSalesmanCode:'855'}:input;SALES_BI.mount(document.querySelector('#dashboard'),{...scoped,owner:simple?'seller':'admin',admin:!simple,simple,live:true,available:true,updatedAt:'2026-11-03T15:00:00Z',salesmanCode:simple?'855':'*',salesmen:[{code:'*',name:'Todos'},{code:'855',name:'Romina'},{code:'800',name:'Other seller'}],companyBestsellers:[],onSalesman(){},onRefresh(){}});},{input,simple});
+  const dates=async(from,to)=>page.evaluate(({from,to})=>{const form=document.querySelector('[data-bi-filters]');form.elements.from.value=from;form.elements.to.value=to;form.elements.to.dispatchEvent(new Event('change',{bubbles:true}));},{from,to});
+  const headline=()=>page.locator('.bi-ordered-headlines article strong').first().textContent();
+  await mount();assert.equal(await page.locator('[name=from]').inputValue(),'2026-11-01');assert.equal(await page.locator('[name=to]').inputValue(),'2026-11-03');assert.match(await headline(),/2\.300/);
+  assert.equal(await page.locator('[data-bi-chart=from],[data-bi-chart=to]').count(),0,'chart cannot override global dates');
+  await page.locator('[data-bi-chart=dimension]').selectOption('units');assert.equal(await page.locator('[data-bi-chart=dimension]').inputValue(),'units');assert.equal(await page.locator('[data-bi-chart-error]').textContent(),'');
+  await page.locator('[data-bi-chart=metric]').selectOption('ordered');assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'ordered');await page.locator('[data-bi-chart=metric]').selectOption('delivered');
+  assert.equal(await page.locator('.bi-monthly-chart tbody tr').count(),1,'default graph uses selected month');
+  await page.locator('[data-bi-tab=products]').click();assert.equal(await page.locator('[data-bi-products] tbody tr').count(),2);
+  await page.locator('[data-bi-products] button').filter({hasText:'Ver clientes (2)'}).click();
+  assert.equal(await page.locator('[data-bi-product-buyers] tbody tr').count(),2);assert.match(await headline(),/1\.200/,'product selection updates global KPIs');
+  assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Alice/);assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Bob/);assert.doesNotMatch(await page.locator('[data-bi-product-buyers]').textContent(),/A-1/);
+  await page.locator('[name=metric]').selectOption('delivered');assert.equal(await page.locator('[data-bi-product-buyers] tbody tr').count(),1);assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/400/);assert.doesNotMatch(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Bob/);
+  assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'delivered');
+  await page.screenshot({path:'tmp/sales-dashboard/product-buyers-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});assert.equal(await page.locator('.sales-bi').evaluate(el=>el.scrollWidth<=innerWidth+1),true);await page.screenshot({path:'tmp/sales-dashboard/product-buyers-mobile.png',fullPage:true});await page.setViewportSize({width:1500,height:1080});
+  await page.locator('[data-bi-clear-product]').click();await page.locator('[name=metric]').selectOption('ordered');
+  await dates('2026-10-01','2026-10-03');assert.match(await headline(),/400/);assert.match(await page.locator('[data-bi-headlines] h3').textContent(),/01\/10\/2026.*03\/10\/2026/);assert.match(await page.locator('.bi-monthly-chart tbody tr').textContent(),/2026-10/);assert.equal(await page.locator('.bi-monthly-chart tbody tr').count(),1);
+  await page.locator('[data-bi-section=vendors]').click();assert.match(await page.locator('.bi-main').textContent(),/Período seleccionado/);assert.match(await headline(),/400/);await page.locator('[data-bi-section=sales]').click();
+  await page.locator('[data-bi-preset=current]').click();assert.match(await headline(),/2\.300/);await page.locator('[data-bi-preset=month]').click();assert.equal(await page.locator('[name=from]').inputValue(),'2026-10-01');assert.equal(await page.locator('[name=to]').inputValue(),'2026-10-31');
+  await page.locator('[data-bi-reset]').click();assert.equal(await page.locator('[name=from]').inputValue(),'2026-11-01');await page.locator('[name=brand]').selectOption('OXO');await page.locator('[data-bi-tab=products]').click();await page.locator('[data-bi-products] button').filter({hasText:'Ver clientes (2)'}).click();await page.locator('[data-bi-product-buyers] [data-bi-client="2"]').click();assert.equal(await page.locator('[name=client]').inputValue(),'2');assert.match(await headline(),/700/);assert.equal(await page.locator('[data-bi-tab=customers]').getAttribute('aria-pressed'),'true');
+  await mount(true);assert.equal(await page.locator('[name=source],[data-bi-salesman]').count(),0);await page.locator('[data-bi-tab=products]').click();assert.doesNotMatch(await page.locator('.bi-main').textContent(),/Bob|Other seller/);await page.locator('[data-bi-products] button').filter({hasText:'Ver clientes (1)'}).first().click();assert.doesNotMatch(await page.locator('[data-bi-product-buyers]').textContent(),/Bob|Other seller/);assert.match(await headline(),/500|1\.100/);
+  assert.deepEqual(errors,[]);console.log('Product browser: current-month defaults; global KPI/chart/vendor date changes; exact buyer drilldown and client navigation; delivered counts; reset/presets; salesperson privacy and mobile layout passed.');
+ }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
+}
+main().catch(e=>{console.error(e);process.exitCode=1;});
