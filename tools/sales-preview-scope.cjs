@@ -1,6 +1,7 @@
 /* Admin review only. Caller authentication and admin role are checked first. */
+const {analysisSalesman}=require('../web/sales-bi-model.js');
 const clean=v=>String(v??'').trim();
-const assignment=(code,seller)=>clean(code)==='81032'?'unassigned':['','90','900'].includes(clean(seller))?'900':clean(seller);
+const assignment=(clientCode,salesmanCode)=>analysisSalesman({clientCode,salesmanCode});
 module.exports=function previewScope(context,prepared,requested){
  if(context.profile.role!=='admin'&&!context.fullDashboard)throw Object.assign(new Error('Full dashboard preview required.'),{status:403});
  const target=clean(requested)==='90'?'900':clean(requested);

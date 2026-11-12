@@ -35,15 +35,22 @@ async function main(){const db=new PGlite();try{
  await db.exec(`insert into sales_history_batches(id,source_name,from_date,to_date,warehouse_from_date) values(repeat('a',64),'fixture','2024-01-01','2026-10-15','2026-10-16');
  insert into sales_history_lines(line_key,order_key,order_date,client_code,sku,ordered_qty,invoiced_qty,delivered_qty,returned_qty,cancelled_qty,pending_qty,ordered_net,invoiced_net,batch_id,source_row) values('1','1','2026-10-01','1','A',1,1,1,0,0,0,100,100,repeat('a',64),4),('2','2','2026-10-01','2','A',2,2,2,0,0,0,200,200,repeat('a',64),5);`);
  await db.exec(fs.readFileSync('supabase/migrations/20261103154501_full_dashboard_read_access.sql','utf8'));
+ await db.exec(fs.readFileSync('supabase/migrations/20261112155940_private_dashboard_export_prices.sql','utf8'));
+ await db.exec(`insert into private.sales_dashboard_export_prices (sku,list_price,suggested_price,ambiguous,by_brand)
+ values ('00001',12.5,20,false,'{}'),('3041',null,null,true,'{"Leifheit":{"listPrice":30,"suggestedPrice":40}}')`);
  const id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
  const identity=async n=>{await db.exec('reset role');await db.query("select set_config('request.jwt.claim.sub',$1,false)",[id(n)]);await db.exec('set role authenticated');};
  const read=async name=>(await db.query('select '+name+'() data')).rows[0].data;
  const scope=async code=>(await db.query('select sales_dashboard_scope($1,true) data',[code])).rows[0].data;
- await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501');
+ await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await assert.rejects(()=>db.exec('update profiles set dashboard_full_access=true'),e=>e.code==='42501','self-promotion is blocked');await assert.rejects(()=>db.query('select set_dashboard_full_access($1,true)',[id(2)]),e=>e.code==='42501');
  await identity(1);await db.query('select set_dashboard_full_access($1,true)',[id(2)]);const group=(await db.query("select save_dashboard_client_group(null,'Branches',array['1','2']) id")).rows[0].id;
+ const expectedPrices={'00001':{listPrice:12.5,suggestedPrice:20,ambiguous:false,byBrand:{}},'3041':{listPrice:null,suggestedPrice:null,ambiguous:true,byBrand:{Leifheit:{listPrice:30,suggestedPrice:40}}}};
+ assert.deepEqual(await read('sales_dashboard_export_prices'),expectedPrices);
  assert.equal((await read('dashboard_access_accounts')).length,2);
  await identity(2);assert.equal(await read('is_admin'),false);assert.equal(await read('can_read_full_sales_dashboard'),true);
+ assert.deepEqual(await read('sales_dashboard_export_prices'),expectedPrices);
+ await assert.rejects(()=>db.query('select * from private.sales_dashboard_export_prices'),e=>e.code==='42501');
  const full=await read('sales_dashboard_full_context');assert.equal(full.clients.length,2);assert.equal(full.orders.length,2);assert.equal(full.orders[1].order_items[0].line_total,200);assert.equal(full.orders[1].customer_phone,undefined,'reporting endpoint omits operational/contact fields');assert.equal((await read('sales_dashboard_history_json')).lines.length,2);
  assert.equal((await scope('855')).orders.length,1,'full viewer can preview another salesperson');assert.equal((await read('get_dashboard_client_groups'))[0].clientCodes.length,2);
  assert.equal((await db.query('select * from orders')).rows.length,1,'operational order RLS remains portfolio scoped');assert.equal((await db.query('select * from sales_clients')).rows.length,1);
@@ -54,8 +61,11 @@ async function main(){const db=new PGlite();try{
  await db.query("select set_config('request.jwt.claims',$1,false)",[JSON.stringify({user_metadata:{dashboard_full_access:true},role:'authenticated'})]);assert.equal(await read('can_read_full_sales_dashboard'),false,'user metadata cannot grant access');
  await identity(5);await assert.rejects(()=>db.query('insert into profiles(id,role,dashboard_full_access) values($1,$2,true)',[id(5),'salesman']),e=>e.code==='42501','signup cannot self-grant access');
  await identity(1);await db.query('select set_dashboard_full_access($1,false)',[id(2)]);await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501','revocation works without a new JWT');
+ await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await identity(4);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');
+ await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await db.exec('reset role;set role anon');await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('can_read_full_sales_dashboard'),e=>e.code==='42501');
+ await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  console.log('Full dashboard DB: company reads/preview, unchanged operational RLS/admin role, denied stock/group/access writes, insert/update self-escalation, metadata spoofing, customer/anon denial and immediate revocation passed.');
  }finally{await db.close();}}
 main().catch(e=>{console.error(e);process.exitCode=1;});

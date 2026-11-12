@@ -50,6 +50,13 @@
     return `<label><span>${label}</span><select name="${name}">${options(items,filters[name])}</select></label>`;
   }
   const situationLabels={within:'Dentro de frecuencia',action:'Acción necesaria',overdue:'Fuera de frecuencia',insufficient:'Historial insuficiente'};
+  function salesmanName(code) {
+    if (code === '*') return 'Todos los vendedores';
+    if (code === '900') return 'Adrian';
+    if (code === 'multiple') return 'Varios vendedores';
+    if (code === 'unassigned') return 'Sin asignación';
+    return session.input.salesmen?.find(s => s.code === code)?.name || code || 'Sin asignación';
+  }
   const amountLabel=v=>v.unknown&&!v.orders?'Sin datos':`${money(v.amount)}${v.partial?' (parcial)':''}`;
   function stockSummary() {
     const loss=m.stockLoss(session.data,filters);
@@ -242,7 +249,7 @@
     rendering=true;
     try {
     panel.innerHTML=`<div class="sales-bi">
-      <header class="bi-header"><div><span class="bi-eyebrow">LEXO / INTELIGENCIA COMERCIAL</span><h2>Análisis de ventas</h2><p>Rendimiento de ventas y oportunidades para tu próxima visita.</p></div><div class="bi-header-actions">${input.admin&&!input.simple?'<button type="button" data-bi-groups>Agrupar clientes</button><button type="button" data-bi-access>Accesos al dashboard</button>':''}<a class="bi-guide-link" href="/sales-dashboard-guide.html" target="_blank" rel="noopener">Guía</a><button type="button" data-bi-export>Exportar filas</button><button type="button" data-bi-refresh>Actualizar</button></div></header>
+      <header class="bi-header"><div><span class="bi-eyebrow">LEXO / INTELIGENCIA COMERCIAL</span><h2>Análisis de ventas</h2><p>Rendimiento de ventas y oportunidades para tu próxima visita.</p></div><div class="bi-header-actions">${input.admin&&!input.simple?'<button type="button" data-bi-groups>Agrupar clientes</button><button type="button" data-bi-access>Accesos al dashboard</button>':''}<a class="bi-guide-link" href="/sales-dashboard-guide.html" target="_blank" rel="noopener">Guía</a><button type="button" data-bi-workbook>Descargar Excel</button><button type="button" data-bi-export>Exportar filas</button><button type="button" data-bi-refresh>Actualizar</button><span data-bi-export-status role="status" hidden></span></div></header>
       ${input.live?`<div class="bi-live-status" data-bi-live-status role="status">En vivo · ${safe(new Date(input.updatedAt).toLocaleTimeString('es-AR',{timeZone:'America/Argentina/Buenos_Aires'}))}</div>`:'<div class="bi-live-status">Vista de archivos históricos · <a href="/live">Conectar datos actuales del catálogo</a></div>'}
       <nav class="bi-section-tabs" aria-label="Secciones del dashboard"><button type="button" data-bi-section="sales" aria-pressed="${section==='sales'}">Ventas</button><button type="button" data-bi-section="vendors" aria-pressed="${section==='vendors'}">Vendedores</button></nav>
       <div class="bi-layout"><aside class="bi-sidebar"><details class="bi-filter-panel" open><summary>Filtros y cartera</summary><h3>Explorar ventas</h3>
@@ -334,8 +341,14 @@
     }
     } finally { rendering=false; }
   }
+  function filteredCustomers(result) {
+    const activity = new Map(report.customers.map(c => [String(c.client.clientCode), c]));
+    const query = m.norm(customerQuery);
+    return result.customers.map(c => ({...c, activity: activity.get(String(c.client.clientCode))}))
+      .filter(c => (customerStatus === 'all' || c.status === customerStatus || c.activity?.situation === customerStatus) &&
+        m.norm(`${c.client.name} ${c.client.legalName} ${c.client.displayCode || c.client.clientCode} ${c.client.members?.map(member => member.name).join(' ') || ''} ${c.client.locality}`).includes(query));
+  }
   function detail(r) {
-    const salesmanName=code=>code==='multiple'?'Varios vendedores':code==='unassigned'?'Sin asignación':code==='900'?'Adrian':session.input.salesmen?.find(s=>s.code===code)?.name||code||'Sin asignación';
     if(tab==='restocks')return window.RESTOCK_NOTICES?.view(session.input.simple?session.input.salesmanCode:'',Boolean(session.input.preview||session.input.readOnly))||'<p>Reposiciones no disponibles.</p>';
     if(tab==='vendors')return `<h3>Vendedores · ${filters.metric==='ordered'?'pedido':'entregado / facturado'} · período seleccionado</h3><p class="bi-data-note">Asignación actual del cliente. Nuevos: primera compra registrada en los últimos 12 meses; reactivados: regreso después de al menos 12 meses sin comprar. La primera compra real puede preceder al historial disponible.</p><div class="bi-table-scroll"><table><thead><tr><th>Vendedor</th><th>Período seleccionado</th><th>Mismas fechas del mes anterior</th><th>Variación monto / %</th><th>Últimos 12 meses</th><th>Situaciones de clientes</th><th>Nuevos (12m)</th><th>Reactivados (12m)</th></tr></thead><tbody>${report.vendors.map(v=>`<tr><td>${safe(salesmanName(v.code))}</td><td>${amountLabel(v.current)}</td><td>${amountLabel(v.month)}</td><td>${comparisonBadge(v.change)}</td><td>${amountLabel(v.annual)}</td><td>${Object.entries(v.situations).map(([key,count])=>`${situationLabels[key]}: ${count}`).join('<br>')}</td><td>${v.newClients}</td><td>${v.reactivated}</td></tr>`).join('')}</tbody></table></div>`;
     if(tab==='comparison') {
@@ -362,7 +375,7 @@
 
     }
     if (tab==='products') return productView();
-    const rows=r.customers.map(c=>({...c,activity:report.customers.find(v=>String(v.client.clientCode)===String(c.client.clientCode))})).filter(c=>(customerStatus==='all'||c.status===customerStatus||c.activity?.situation===customerStatus)&&m.norm(`${c.client.name} ${c.client.legalName} ${c.client.displayCode||c.client.clientCode} ${c.client.members?.map(m=>m.name).join(' ')||''} ${c.client.locality}`).includes(m.norm(customerQuery)));
+    const rows=filteredCustomers(r);
     return `<div class="bi-detail-toolbar"><label>Buscar cliente<input type="search" data-bi-customer-query value="${safe(customerQuery)}" placeholder="Nombre, código o localidad"></label><label>Situación<select data-bi-customer-status>${options([['all','Todos'],...Object.entries(situationLabels)],customerStatus)}</select></label><span>${rows.length} clientes</span></div>
       <div class="bi-table-scroll"><table><caption>Clientes · ventas y frecuencia</caption><thead><tr><th>Cliente</th><th>Vendedor</th><th>Venta del período</th><th>Ventas 12m al cierre</th><th>Frecuencia promedio</th><th>Última compra</th><th>Situación</th></tr></thead><tbody>${rows.slice(0,200).map(c=>{const a=c.activity;return `<tr><td><button type="button" class="bi-client-link" data-bi-client="${safe(c.client.clientCode)}">${safe(c.client.legalName||c.client.name)}</button><small>${safe(c.client.displayCode||c.client.clientCode)}</small></td><td>${safe(salesmanName(c.client.salesmanCode))}</td><td>${a?amountLabel(a.period):'—'}</td><td>${a?amountLabel(a.annual):'—'}</td><td>${a?.frequency===null||!a?'Historial insuficiente':`Cada ${n(a.frequency)} días`}</td><td>${date(a?.last)}</td><td>${situationLabels[a?.situation]||'Historial insuficiente'}${a?.remaining!==null&&a?`<small>${a.remaining<0?n(-a.remaining)+' días fuera de frecuencia':n(a.remaining)+' días hasta próxima compra esperada'}</small>`:''}</td></tr>`;}).join('')||'<tr><td colspan="7">No hay clientes para estos filtros.</td></tr>'}</tbody></table></div><p class="bi-data-note">Frecuencia al cierre seleccionado: promedio entre ocasiones de compra en los últimos 12 meses. Agregados dentro de 2 días desde el primer pedido forman una ocasión. Acción necesaria desde 14 días antes; sin tolerancia después de la fecha esperada. ${rows.length>200?'Primeros 200 clientes; usá la búsqueda para ver otros.':''}</p>`;
   }
@@ -382,7 +395,7 @@
     scope.querySelector('[data-bi-salesman]')?.closest('label')?.remove();
     scope.querySelector('.bi-scope')?.remove();
     scope.querySelector('[data-bi-filters]')?.insertAdjacentHTML('beforebegin','<p class="bi-scope">Tu cartera</p>');
-    scope.querySelectorAll('.bi-source-cards,.bi-handover,.bi-delivery-summary,.bi-footer,.bi-guide-link,.bi-section-tabs,.bi-source-badge,[data-bi-salesman],[data-bi-source],[data-bi-tab="comparison"],[data-bi-tab="deliveries"],[data-bi-tab="geography"],.bi-header [data-bi-export]').forEach(el=>el.remove());
+    scope.querySelectorAll('.bi-source-cards,.bi-handover,.bi-delivery-summary,.bi-footer,.bi-guide-link,.bi-section-tabs,.bi-source-badge,[data-bi-salesman],[data-bi-source],[data-bi-tab="comparison"],[data-bi-tab="deliveries"],[data-bi-tab="geography"],.bi-header [data-bi-export],.bi-header [data-bi-workbook]').forEach(el=>el.remove());
     scope.querySelector('[name="source"]')?.closest('label')?.remove();
     const metric=scope.querySelector('[name="metric"]');
     if(metric){metric.querySelector('[value="invoiced"]')?.remove();metric.querySelector('[value="delivered"]').textContent='Entregado / facturado';}
@@ -421,6 +434,7 @@
     if('biRefresh' in d) { session.input.onRefresh(); return; }
     if('biSource' in d) { filters.source=d.biSource;filters.brand='';filters.category='';filters.province='';filters.product='';filters.productKey='';render('[name="source"]');return; }
     if('biExport' in d) { download(); return; }
+    if('biWorkbook' in d) { void downloadWorkbook(button); return; }
     if('biReset' in d) { filters=null; mount(session.panel,session.input); return; }
     if('biPreview' in d){session.input.onPreview?.(true);return;}
     if('biReturnAdmin' in d){session.input.onPreview?.(false);return;}
@@ -457,6 +471,67 @@
       ...rows.map(r=>[r.date,r.occasionDate,r.occasionId,sourceLabel(r.source),r.sourceFile,r.sourceRow,session.data.handover?.warehouseFrom,r.orderId,r.clientCode,r.clientName,r.sourceClientCode||r.clientCode,r.sourceClientName||r.clientName,r.sku,r.productName,r.brand,({catalog:'Catálogo actual','reviewed-sku':'Revisión manual por SKU',unclassified:'Sin identificar'})[r.brandSource],r.province,r.orderedQty,r.invoicedQty,r.returnedQty,r.ordered,r.invoiced,r.pickedQty,r.deliveredQty,r.pendingDeliveryQty,r.delivered])]);
     const url=URL.createObjectURL(new Blob([body],{type:'text/csv;charset=utf-8'}));
     const a=document.createElement('a'); a.href=url; a.download=`ventas-${filters.source}-${filters.from}-${filters.to}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+  async function downloadWorkbook(button) {
+    const current = session;
+    if (current.input.simple || !(current.input.admin || current.input.fullAccess)) return;
+    const status = current.panel.querySelector('[data-bi-export-status]');
+    const showStatus = message => { status.textContent = message; status.hidden = !message; };
+    if (!window.XLSX || !window.SALES_BI_EXPORT) {
+      showStatus('No se pudo cargar el exportador de Excel. Actualizá la página.');
+      return;
+    }
+    const selection = {...filters};
+    const currentReport = report;
+    const graph = chartScene;
+    const analysis = calculated('analysis', selection, () => m.analyze(current.data, selection));
+    const customers = filteredCustomers(analysis);
+    const selectedClient = current.data.clients.find(c => String(c.clientCode) === selection.client);
+    const context = {
+      seller: salesmanName(current.input.salesmanCode),
+      client: selectedClient?.legalName || selectedClient?.name || selection.client || 'Todos',
+      customerQuery,
+      customerStatus: situationLabels[customerStatus] || 'Todas',
+      situationLabels,
+    };
+    button.disabled = true;
+    showStatus('Preparando Excel…');
+    try {
+      const api = window.CATALOG_SUPABASE;
+      const [priceResult, restockResult] = await Promise.allSettled([
+        api?.loadDashboardExportPrices?.(),
+        api?.loadRestockInbox?.(),
+      ]);
+      if (session !== current || !button.isConnected) return;
+      for (const result of [priceResult, restockResult]) {
+        if (result.status === 'rejected' && ['42501','PGRST301','PGRST303'].includes(result.reason?.code)) {
+          showStatus('Tu sesión ya no tiene acceso a este informe.');
+          return;
+        }
+      }
+      const prices = priceResult.status === 'fulfilled' ? priceResult.value : null;
+      const restocks = restockResult.status === 'fulfilled' ? restockResult.value : null;
+      const {data} = current;
+      const chart = {
+        ...graph,
+        metric: graph.f.metric,
+        label: {amount:'Importe',units:'Unidades',orders:'Pedidos distintos',clients:'Clientes distintos',ticket:'Ticket promedio'}[graph.f.dimension],
+      };
+      const file = window.SALES_BI_EXPORT.workbook(window.XLSX, {
+        data, filters: selection, context, report: currentReport, chart, analysis, customers, prices, restocks, sellerName: salesmanName,
+        products: calculated('product-sales', selection, () => m.productSales(data, selection)),
+        opportunities: calculated('opportunities', selection, () => m.opportunityReport(data, selection)),
+        comparison: m.compareSources(data, selection), loss: m.stockLoss(data, selection),
+        warehouseTotals: selection.source === 'erp' ? null : m.totals(analysis.rows.filter(r => r.source === 'catalog' || r.source === 'warehouse')),
+      });
+      window.XLSX.writeFile(file, `lexo-dashboard-${selection.from}-${selection.to}.xlsx`, {compression:true});
+      showStatus(prices ? '' : 'Excel descargado. La lista de precios no está disponible.');
+    } catch (error) {
+      console.error('No se pudo exportar el dashboard', error);
+      showStatus('No se pudo descargar el Excel. Intentá nuevamente.');
+    } finally {
+      button.disabled = false;
+    }
   }
   window.addEventListener('catalog:restocks-changed',()=>{if(session&&tab==='restocks')renderDetail();});
   window.SALES_BI={ mount,reset,csv,setLiveError:message=>{const el=session?.panel.querySelector('[data-bi-live-status]');if(el)el.textContent=message;},suspend:()=>{clearTimeout(productTimer);chartCleanup?.();chartCleanup=null;chartScene=null;session=null;},syncOwner:value=>{if(owner&&owner!==value) reset();} };

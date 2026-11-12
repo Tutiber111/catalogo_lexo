@@ -656,6 +656,12 @@
     if(error){if(['PGRST202','42883'].includes(error.code))return {available:false,items:[]};throw error;}
     return {available:true,items:data||[]};
   }
+  async function loadDashboardExportPrices() {
+    if (!client) return null;
+    const {data, error} = await client.rpc('sales_dashboard_export_prices');
+    if (error) throw error;
+    return data && Object.keys(data).length ? data : null;
+  }
   async function acknowledgeRestock(batchId,done=false) {
     if(!client)throw new Error('Iniciá sesión.');
     const {error}=await client.rpc('sales_restock_ack',{p_batch_id:batchId,p_done:done});if(error)throw error;
@@ -1060,6 +1066,7 @@
     deleteDashboardClientGroup,
     loadCompanyBestsellers,
     loadRestockInbox,
+    loadDashboardExportPrices,
     acknowledgeRestock,
     loadDashboardDeliveries,
     createSalesClient,

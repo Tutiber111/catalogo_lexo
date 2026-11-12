@@ -233,7 +233,8 @@
         : orders;
       // The server enforces access. Also constrain admin selection and late account responses here.
       const codes = new Set(clients.map(c => String(c.clientCode)));
-      const lines = hasFullView() && window.SALES_BI ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
+      const useDashboardHistory = window.SALES_BI && (scope || hasFullView());
+      const lines = useDashboardHistory ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
       let companyBestsellers=companyRanking?.available?companyRanking.items:null;
       if(companyBestsellers===null&&!scope&&hasFullView()&&window.SALES_BI_MODEL){
         const companyData=window.SALES_BI_MODEL.prepare({clients,orders,delivery,...historical,catalog:state.catalog?.products||[],includeUnassigned:true,companyRankingAvailable:true});

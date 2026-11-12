@@ -28,6 +28,7 @@
   function analysisSalesman(client) {
     const code=str(client.salesmanCode);
     if(str(client.clientCode)==='81032')return 'unassigned';
+    if(!code&&str(client.clientCode)==='80605')return '805';
     return !code||code==='90'||code==='900'?'900':code;
   }
   function prepare(data) {
@@ -126,8 +127,12 @@
         for(const row of rows){if(anchor===null||timestamp(row.date)-timestamp(anchor)>2*dayMs){anchor=row.date;id=row.orderId;}row.occasionId=id;row.occasionDate=anchor;}
       }
     }
-    // Preserve unmatched identities while assigning their analysis to Adrian.
-    for(const row of records)if(!clients.has(row.clientCode))clients.set(row.clientCode,{id:'',clientCode:row.clientCode,name:row.clientName,salesmanCode:'900'});
+    // Keep historical identities available for reporting and group membership.
+    for(const row of records) {
+      if(clients.has(row.clientCode))continue;
+      const historicalClient={id:'',clientCode:row.clientCode,name:row.clientName};
+      clients.set(row.clientCode,{...historicalClient,salesmanCode:analysisSalesman(historicalClient)});
+    }
     const selectedSalesman=str(data.analysisSalesmanCode);
     const scopedClients=[...clients.values()].filter(c=>!selectedSalesman||selectedSalesman==='*'||c.salesmanCode===selectedSalesman);
     const scopedCodes=new Set(scopedClients.map(c=>str(c.clientCode)));
@@ -430,7 +435,7 @@
     return data.clients.filter(c=>!f.client||str(c.clientCode)===f.client).map(client=>{const code=str(client.clientCode),purchases=bought.get(code)||new Set(),now=recent.get(code)||new Set(),old=prior.get(code)||new Set();return {client,notBuyingTarget:![...targetKeys].some(k=>purchases.has(k)),missing:target.filter(p=>old.has(key(p))&&!now.has(key(p))),bestsellers:bestsellers.filter(p=>!purchases.has(p.key))};});
 
   }
-  const model={ prepare,analyze,sourceRows,selected,totals,productKey,productSales,validRange,previousRange,defaultRange,currentMonthRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,companyBestsellers,opportunityReport };
+  const model={ prepare,analyze,analysisSalesman,sourceRows,selected,totals,productKey,productSales,validRange,previousRange,defaultRange,currentMonthRange,recentRange,allRange,compareSources,iso,timestamp,norm,reviewed,reportingPeriods,monthShift,measureRows,reporting,monthlyReport,stockLoss,companyBestsellers,opportunityReport };
   if (typeof module!=='undefined' && module.exports) module.exports=model;
   else window.SALES_BI_MODEL=model;
 })();

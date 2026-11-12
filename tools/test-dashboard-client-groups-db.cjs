@@ -51,6 +51,20 @@ async function main(){const db=new PGlite();try{
  await db.exec(fs.readFileSync('supabase/migrations/20261030144701_dashboard_history_json_response.sql','utf8'));
  await db.exec(fs.readFileSync('tools/verify-dashboard-speed-release.sql','utf8'));
  assert.equal((await db.query('select count(*)::int n from dashboard_client_groups')).rows[0].n,0,'release verification leaves no saved groups');
+ await db.exec(`reset role;
+ insert into profiles values('00000000-0000-4000-8000-000000000007','salesman','805');
+ insert into sales_clients(id,client_code,name,salesman_code) values('10000000-0000-4000-8000-000000000007','84008','Wu Ming Hsein','805');`);
+ await db.exec(fs.readFileSync('supabase/migrations/20261112155926_assign_tina_historical_dashboard_salesman.sql','utf8'));
+ await identity(1);
+ await save(null,'Tina & Co',['80605','84008']);
+ assert.equal((await candidates()).find(c=>c.client_code==='80605').salesman_code,'805');
+ await identity(7);
+ assert.deepEqual((await groups())[0].clientCodes,['80605','84008']);
+ const sellerScope=async()=>(await db.query('select sales_dashboard_scope() data')).rows[0].data;
+ assert.equal((await sellerScope()).lines.filter(line=>line.client_code==='80605').length,2);
+ await identity(6);
+ assert.deepEqual(await groups(),[]);
+ assert.equal((await sellerScope()).lines.filter(line=>line.client_code==='80605').length,0);
  console.log('Client-group SQL: create/edit/delete, exact historical candidates and aliases, mixed-source membership, scoped reads, admin-only writes, invalid-code denial and unchanged source clients/history passed.');
 }finally{await db.close();}}
 main().catch(e=>{console.error(e);process.exitCode=1;});
