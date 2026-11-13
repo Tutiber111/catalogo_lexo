@@ -41,7 +41,9 @@
       }
       headers.set("Authorization", `Bearer ${activeSession.access_token}`);
     }
-    return fetch(input, { ...init, headers });
+    const isCartWrite = url.origin === config.url && url.pathname === "/rest/v1/rpc/update_account_cart";
+    const keepalive = isCartWrite && typeof init.body === "string" && new TextEncoder().encode(init.body).length <= 65536;
+    return fetch(input, { ...init, headers, ...(keepalive ? { keepalive: true } : {}) });
   }
 
   function hasRecoveryMarkers() {
@@ -184,6 +186,31 @@
     if (error) throw error;
     if (data?.error) throw new Error(data.error);
     return data;
+  }
+
+  async function loadAccountCart(userId) {
+    const data = await requestAccountCart(client.from("account_carts").select("items").eq("user_id", userId).maybeSingle());
+    return data?.items || {};
+  }
+
+  async function updateAccountCart(userId, changes, initialItems) {
+    return requestAccountCart(client.rpc("update_account_cart", {
+      p_user_id: userId,
+      p_changes: changes,
+      p_initial_items: initialItems,
+    }));
+  }
+
+  async function requestAccountCart(query) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    try {
+      const { data, error } = await query.abortSignal(controller.signal);
+      if (error) throw error;
+      return data;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   async function upsertProfile(user, profile = {}) {
@@ -1053,6 +1080,8 @@
     updatePassword,
     ensureRecoverySession,
     getProfile,
+    loadAccountCart,
+    updateAccountCart,
     upsertProfile,
     loadSalesClients,
     loadDashboardHistory,

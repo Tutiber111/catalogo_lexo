@@ -1,3 +1,5 @@
+const legacyCartOwnerId = rememberLegacyCartOwner();
+
 const state = {
   catalog: null,
   currentIndex: 0,
@@ -12,7 +14,9 @@ const state = {
   browseFilterKey: "",
   productsById: new Map(),
   productOverrides: {},
-  cart: new Map(JSON.parse(localStorage.getItem("catalogCart") || "[]")),
+  cart: new Map(),
+  cartScope: "",
+  accountCart: null,
   settings: CATALOG_STORE.loadSettings(),
   user: null,
   profile: null,
@@ -144,6 +148,7 @@ const els = {
   openAccount: document.querySelector("#openAccount"),
   closeAccount: document.querySelector("#closeAccount"),
   cartDrawer: document.querySelector("#cartDrawer"),
+  cartSyncMessage: document.querySelector("#cartSyncMessage"),
   accountDrawer: document.querySelector("#accountDrawer"),
   cartCount: document.querySelector("#cartCount"),
   quickOrderPanel: document.querySelector("#quickOrderPanel"),
@@ -338,7 +343,8 @@ function removeRetiredCatalogSelections() {
     if (state.cart.delete(id)) changed = true;
     if (state.branchOrderQuantities) delete state.branchOrderQuantities[id];
   }
-  if (changed) localStorage.setItem("catalogCart", JSON.stringify([...state.cart.entries()]));
+  if (changed) saveCart();
+  return changed;
 }
 
 async function refreshRemoteCatalogData(baseCatalog, localOverrides, options = {}) {
@@ -534,6 +540,10 @@ function bindEvents() {
   });
   window.addEventListener("online", handleNetworkStatusChange);
   window.addEventListener("offline", handleNetworkStatusChange);
+  window.addEventListener("focus", () => { void syncAccountCart(); });
+  window.addEventListener("storage", (event) => {
+    if (event.key === "catalogLastUser" && state.user && readAccountSnapshot()?.user.id !== state.user.id) location.reload();
+  });
   window.addEventListener("keydown", handleBarcodeScannerKeydown, true);
   document.addEventListener("click", (event) => {
     if (!els.cartSalesClientPanel || els.cartSalesClientPanel.contains(event.target)) return;
@@ -917,6 +927,10 @@ function browseCartQuantity(product) {
 function setBrowseCartQuantity(productId, quantity) {
   const product = state.productsById.get(productId);
   if (!product || !hasPriceAccess() || product.outOfStock) return;
+  if (!canEditCart()) {
+    syncBrowseCartControls();
+    return;
+  }
   const sku = normalizeSkuQuery(product.sku || product.id);
   let cartId = productId;
   for (const id of state.cart.keys()) {
@@ -1372,8 +1386,7 @@ function openPriceGroup(groupId, pageIndex = state.currentIndex) {
       }
       const qtyInput = els.dialogContent.querySelector(`[data-qty="${cssEscape(button.dataset.add)}"]`);
       const quantity = readQuantity(qtyInput);
-      addToCart(button.dataset.add, quantity);
-      markGroupProductAdded(button.dataset.add, quantity);
+      if (addToCart(button.dataset.add, quantity)) markGroupProductAdded(button.dataset.add, quantity);
     });
   });
   bindProductVideoButtons();
@@ -1491,8 +1504,7 @@ function openProduct(product) {
   bindProductVideoButtons();
   if (!outOfStock && pricesVisible) {
     els.dialogContent.querySelector("[data-add]").addEventListener("click", () => {
-      addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")));
-      closeCatalogDialog(els.productDialog);
+      if (addToCart(product.id, readQuantity(els.dialogContent.querySelector("#productQty")))) closeCatalogDialog(els.productDialog);
     });
   }
   showCatalogDialog(els.productDialog);
@@ -1763,6 +1775,7 @@ function addToCart(productId, quantity = 1, options = {}) {
     if (!options.silent) showToast("Tu cuenta todavía no tiene acceso a precios y pedidos");
     return;
   }
+  if (!canEditCart()) return;
   const product = state.productsById.get(productId);
   if (product?.outOfStock) {
     if (!options.silent) showToast("Este producto está sin stock");
@@ -1774,9 +1787,11 @@ function addToCart(productId, quantity = 1, options = {}) {
   saveCart();
   renderCart();
   if (!options.silent) showToast(`${qty} agregado${qty === 1 ? "" : "s"} al carrito`);
+  return true;
 }
 
 function updateQty(productId, delta) {
+  if (!canEditCart()) return;
   clearPendingCartRemoval();
   const next = (state.cart.get(productId) || 0) + delta;
   if (next <= 0) state.cart.delete(productId);
@@ -1787,6 +1802,7 @@ function updateQty(productId, delta) {
 }
 
 function requestCartLineRemoval(productId) {
+  if (!canEditCart()) return;
   if (state.pendingCartRemoval === productId) {
     state.cart.delete(productId);
     clearPendingCartRemoval({ render: false });
@@ -2221,6 +2237,7 @@ function renderQuickOrderPreview() {
 }
 
 function addQuickOrderToCart() {
+  if (!canEditCart()) return;
   const rows = quickOrderRows();
   const duplicateCount = quickOrderDuplicateCount(rows);
   const validRows = mergedQuickOrderRows(rows);
@@ -2288,6 +2305,7 @@ function findProductByQuickSku(sku) {
 }
 
 function renderCart() {
+  renderCartSyncMessage();
   renderCartClientControls();
   syncBrowseCartControls();
   if (!hasPriceAccess()) {
@@ -2517,7 +2535,7 @@ async function openBranchOrderMode(options = {}) {
     showToast("El modo sucursales está disponible para cuentas registradas");
     return;
   }
-  mergeDuplicateCartSkus();
+  if (mergeDuplicateCartSkus()) saveCart();
   if (canSelectSalesClient() && !state.selectedSalesClient) {
     openBranchClientPicker();
     return;
@@ -2773,6 +2791,7 @@ function updateBranchProductEntryState() {
 }
 
 function addProductToBranchMatrix(product = branchProductExactMatch()) {
+  if (!canEditCart()) return;
   if (!product) {
     els.branchProductFeedback.textContent = "No encontramos un producto con ese SKU.";
     return;
@@ -3020,6 +3039,7 @@ function createBranchOrderSubmission(groups, customer) {
 
 async function submitBranchOrders() {
   if (state.branchOrderSaving) return;
+  if (!canEditCart()) return;
   const groups = branchOrderGroups();
   if (!groups.length) {
     showToast("Ingresá al menos una cantidad para una sucursal");
@@ -3030,6 +3050,7 @@ async function submitBranchOrders() {
     return;
   }
 
+  const submittedCartIds = [...state.cart.keys()];
   state.branchOrderSaving = true;
   renderBranchOrderSummary();
   let sent = 0;
@@ -3074,7 +3095,7 @@ async function submitBranchOrders() {
     await renderCustomerOrders();
     closeCatalogDialog(els.branchOrderDialog);
     disableBranchCatalogMode({ silent: true });
-    clearSubmittedCart();
+    clearSubmittedCart(submittedCartIds);
     state.branchOrderQuantities = {};
     state.branchOrderSubmission = null;
     if (queued) showToast(`${sent} enviado${sent === 1 ? "" : "s"}; ${queued} pendiente${queued === 1 ? "" : "s"}`);
@@ -3101,7 +3122,9 @@ async function saveOrder() {
     showToast("Tu cuenta todavía no tiene acceso a precios y pedidos");
     return;
   }
-  mergeDuplicateCartSkus();
+  if (!canEditCart()) return;
+  if (mergeDuplicateCartSkus()) saveCart();
+  const submittedCartIds = [...state.cart.keys()];
 
   const lines = [...state.cart.entries()]
     .map(([id, qty]) => ({ product: state.productsById.get(id), qty }))
@@ -3147,7 +3170,7 @@ async function saveOrder() {
         queueId: queued.id,
         deliveryStatus: "pending",
       }));
-      clearSubmittedCart();
+      clearSubmittedCart(submittedCartIds);
       state.isSavingOrder = false;
       renderCart();
       openLastOrderReceipt();
@@ -3176,7 +3199,7 @@ async function saveOrder() {
         queueId: queued.id,
         deliveryStatus: "pending",
       }));
-      clearSubmittedCart();
+      clearSubmittedCart(submittedCartIds);
       state.isSavingOrder = false;
       renderCart();
       openLastOrderReceipt();
@@ -3193,7 +3216,7 @@ async function saveOrder() {
     notification: notificationResult,
     deliveryStatus: notificationResult.ok ? "sent" : "warning",
   }));
-  clearSubmittedCart();
+  clearSubmittedCart(submittedCartIds);
   state.isSavingOrder = false;
   renderCart();
   openLastOrderReceipt();
@@ -3497,6 +3520,7 @@ function openCart() {
   els.cartDrawer.setAttribute("aria-hidden", "false");
   document.body.classList.add("cart-drawer-open");
   document.body.classList.remove("account-drawer-open");
+  void syncAccountCart();
 }
 
 function setCartView(view, options = {}) {
@@ -3565,6 +3589,7 @@ function closeAccount() {
 }
 
 function applyAuthGate() {
+  if (!state.isCheckingAuth) applyCartScope();
   const requiresAuth = !state.user && !hasGuestAccess();
   if (requiresAuth) closeCatalogMenu();
   document.body.classList.toggle("auth-required", requiresAuth);
@@ -3655,7 +3680,223 @@ function dispatchAuthChanged() {
 }
 
 function saveCart() {
-  localStorage.setItem("catalogCart", JSON.stringify([...state.cart.entries()]));
+  const cart = state.accountCart;
+  if (!cart) {
+    if (hasGuestAccess()) cacheGuestCart();
+    return;
+  }
+  if (cart.userId !== state.user?.id) return;
+
+  const edits = new Map();
+  for (const [id, quantity] of state.cart) {
+    if (cart.displayed.get(id) !== quantity) edits.set(id, quantity);
+  }
+  for (const id of cart.displayed.keys()) {
+    if (!state.cart.has(id)) edits.set(id, null);
+  }
+  if (!edits.size) return;
+
+  const saved = readCachedAccountCart(cart);
+  cart.items = saved.items;
+  cart.initialItems = saved.initialItems;
+  cart.changes = { ...saved.changes, ...Object.fromEntries(edits) };
+  displayAccountCart(cart);
+  cacheAccountCart(cart);
+  void syncAccountCart();
+}
+
+function readCartStorage(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function writeCartStorage(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function cartItemsFromEntries(entries) {
+  return new Map((Array.isArray(entries) ? entries : []).filter((entry) => (
+    Array.isArray(entry) && typeof entry[0] === "string" && Number.isSafeInteger(entry[1]) && entry[1] > 0
+  )));
+}
+
+function rememberLegacyCartOwner() {
+  if (!localStorage.getItem("catalogCart")) return "";
+  const recordedOwner = localStorage.getItem("catalogCartOwner");
+  if (recordedOwner !== null) return recordedOwner;
+  const guest = readCartStorage("catalogGuestAccess");
+  const owner = guest?.sessionToken ? `guest:${guest.sessionToken}` : readAccountSnapshot()?.user.id || "";
+  localStorage.setItem("catalogCartOwner", owner);
+  return owner;
+}
+
+function removeLegacyCart() {
+  localStorage.removeItem("catalogCart");
+  localStorage.removeItem("catalogCartOwner");
+}
+
+function cacheGuestCart() {
+  return writeCartStorage("catalogGuestCart", { token: state.guestAccess.sessionToken, items: [...state.cart] });
+}
+
+function applyCartScope() {
+  const userId = state.user?.id;
+  const guestToken = hasGuestAccess() ? state.guestAccess.sessionToken : "";
+  const scope = userId ? `account:${userId}` : guestToken ? `guest:${guestToken}` : "";
+  if (scope === state.cartScope) return;
+
+  clearTimeout(state.accountCart?.retryTimer);
+  clearPendingCartRemoval({ render: false });
+  state.cartScope = scope;
+  state.accountCart = null;
+  const guestCart = guestToken ? readCartStorage("catalogGuestCart") : null;
+  state.cart = guestCart?.token === guestToken ? cartItemsFromEntries(guestCart?.items) : new Map();
+  if (guestToken && scope === legacyCartOwnerId && guestCart?.token !== guestToken) {
+    state.cart = cartItemsFromEntries(readCartStorage("catalogCart"));
+    if (cacheGuestCart()) removeLegacyCart();
+  }
+  if (!userId) {
+    if (guestToken) removeRetiredCatalogSelections();
+    return;
+  }
+
+  const key = `catalogAccountCart:${userId}`;
+  const saved = readCartStorage(key);
+  const legacy = !saved && userId === legacyCartOwnerId
+    ? cartItemsFromEntries(readCartStorage("catalogCart")) : new Map();
+  const cart = {
+    userId,
+    key,
+    items: saved?.items ?? null,
+    initialItems: saved?.initialItems ?? (legacy.size ? Object.fromEntries(legacy) : null),
+    changes: saved?.changes ?? {},
+    retries: 0,
+    failed: false,
+  };
+  state.accountCart = cart;
+  displayAccountCart(cart);
+  if (legacy.size && cacheAccountCart(cart)) removeLegacyCart();
+  removeRetiredCatalogSelections();
+  void syncAccountCart();
+}
+
+function displayAccountCart(cart) {
+  const entries = Object.entries({ ...cart.initialItems, ...cart.items, ...cart.changes });
+  const items = cartItemsFromEntries(entries);
+  const changed = items.size !== state.cart.size || [...items].some(([id, qty]) => state.cart.get(id) !== qty);
+  if (changed) state.cart = items;
+  cart.displayed = new Map(state.cart);
+  return changed;
+}
+
+function cacheAccountCart(cart) {
+  cart.cacheFailed = !writeCartStorage(cart.key, {
+    items: cart.items,
+    changes: cart.changes,
+    initialItems: cart.initialItems,
+  });
+  return !cart.cacheFailed;
+}
+
+function readCachedAccountCart(cart) {
+  return (!cart.cacheFailed && readCartStorage(cart.key)) || cart;
+}
+
+function canEditCart() {
+  if (state.isSavingOrder || state.branchOrderSaving) {
+    showToast("Estamos enviando tu pedido");
+    return false;
+  }
+  const cart = state.accountCart;
+  if (cart?.sync && !cart.items && !cart.failed && isOnline()) {
+    showToast("Estamos cargando el carrito de tu cuenta");
+    return false;
+  }
+  return true;
+}
+
+function renderCartSyncMessage() {
+  const cart = state.accountCart;
+  let message = "";
+  if (cart && hasPriceAccess()) {
+    const pending = cart.initialItems || Object.keys(cart.changes).length;
+    if (!isOnline() || cart.failed) {
+      if (pending) message = cart.cacheFailed
+        ? "El carrito todavía no se guardó. Mantené esta pestaña abierta para reintentar."
+        : "Hay cambios pendientes de guardar en tu cuenta.";
+      else if (!cart.items) message = "El carrito de tu cuenta todavía no se pudo cargar.";
+    } else if (cart.sync) {
+      if (pending) message = "Guardando el carrito en tu cuenta…";
+      else if (!cart.items) message = "Cargando el carrito de tu cuenta…";
+    }
+  }
+  els.cartSyncMessage.textContent = message;
+  els.cartSyncMessage.hidden = !message;
+}
+
+function syncAccountCart() {
+  const cart = state.accountCart;
+  if (!cart || cart.userId !== state.user?.id || state.isPasswordRecovery || !isOnline() || !CATALOG_SUPABASE.isAvailable()) return;
+  if (cart.sync) return cart.sync;
+
+  clearTimeout(cart.retryTimer);
+  cart.sync = syncAccountCartChanges(cart).finally(() => {
+    cart.sync = null;
+    if (state.accountCart !== cart) return;
+    renderCartSyncMessage();
+  });
+  renderCartSyncMessage();
+  return cart.sync;
+}
+
+async function syncAccountCartChanges(cart) {
+  try {
+    do {
+      const saved = readCachedAccountCart(cart);
+      const changes = saved.changes;
+      const initialItems = saved.initialItems;
+      const writing = initialItems || Object.keys(changes).length;
+      const items = writing
+        ? await CATALOG_SUPABASE.updateAccountCart(cart.userId, changes, initialItems || {})
+        : await CATALOG_SUPABASE.loadAccountCart(cart.userId);
+      if (state.accountCart !== cart || state.user?.id !== cart.userId) return;
+
+      const latest = readCachedAccountCart(cart);
+      // Keep any edits made while the request was in flight for the next save.
+      cart.items = items;
+      cart.initialItems = writing ? null : latest.initialItems;
+      cart.changes = { ...latest.changes };
+      for (const [id, quantity] of Object.entries(changes)) {
+        if (cart.changes[id] === quantity) delete cart.changes[id];
+      }
+      cart.failed = false;
+      cart.retries = 0;
+      const cartChanged = displayAccountCart(cart);
+      cacheAccountCart(cart);
+      const removedRetiredItems = removeRetiredCatalogSelections();
+      if (cartChanged || removedRetiredItems) {
+        renderCart();
+        updateGroupCartStatuses();
+        if (isCatalogDialogOpen(els.branchOrderDialog)) renderBranchOrder();
+      }
+    } while (isOnline() && (cart.initialItems || Object.keys(cart.changes).length));
+  } catch (error) {
+    if (state.accountCart !== cart) return;
+    cart.failed = true;
+    const retryDelays = [2000, 8000, 30000];
+    if (isOnline() && cart.retries < retryDelays.length) {
+      cart.retryTimer = setTimeout(() => { void syncAccountCart(); }, retryDelays[cart.retries++]);
+    }
+    console.warn("No se pudo sincronizar el carrito de la cuenta.", error);
+  }
 }
 
 function isOnline() {
@@ -3763,6 +4004,7 @@ function handleNetworkStatusChange() {
   if (navigator.onLine !== false) state.connectionLost = false;
   renderOfflineStatus();
   renderCart();
+  if (isOnline()) void syncAccountCart();
   if (isOnline() && pendingOfflineCount()) {
     showToast("Volviste a estar online. Podés enviar los pedidos pendientes.");
   }
@@ -3781,6 +4023,7 @@ async function handleOfflineBannerAction() {
     state.connectionLost = false;
     renderOfflineStatus();
     renderCart();
+    void syncAccountCart();
     showToast("Conexión restaurada");
     return;
   }
@@ -3878,8 +4121,8 @@ function pendingOrdersBelongToAnotherUser() {
   return Boolean(state.user && state.pendingOfflineOrders.some((queued) => queued.userId && queued.userId !== state.user.id));
 }
 
-function clearSubmittedCart() {
-  state.cart.clear();
+function clearSubmittedCart(productIds) {
+  for (const id of productIds) state.cart.delete(id);
   clearSelectedSalesClient({ keepInput: false });
   els.cartClientName.value = "";
   els.cartClientCode.value = "";
@@ -4622,6 +4865,7 @@ function clearGuestAccess() {
   state.guestAccess = null;
   state.guestLinkToken = "";
   localStorage.removeItem("catalogGuestAccess");
+  localStorage.removeItem("catalogGuestCart");
   document.body.classList.remove("guest-access-pending", "guest-catalog-session");
   els.guestAccessGate.hidden = true;
 }
@@ -4955,6 +5199,7 @@ async function updatePassword() {
     CATALOG_SUPABASE.clearRecoveryMode();
     setAuthMode("signin");
     renderAccount();
+    void syncAccountCart();
     await renderCustomerOrders();
     history.replaceState(null, "", location.pathname + location.search);
     showToast("Contraseña actualizada");
@@ -4964,6 +5209,7 @@ async function updatePassword() {
 }
 
 async function signOut() {
+  if (state.isSavingOrder || state.branchOrderSaving) return;
   disableBranchCatalogMode({ silent: true });
   if (hasGuestAccess()) {
     clearGuestAccess();
@@ -4979,6 +5225,8 @@ async function signOut() {
     return;
   }
   try {
+    const cart = state.accountCart;
+    if (cart && (cart.initialItems || Object.keys(cart.changes).length)) await syncAccountCart();
     await CATALOG_SUPABASE.signOut();
     state.user = null;
     state.profile = null;
@@ -5642,6 +5890,7 @@ function repeatPastOrder(orderId) {
     showToast("Tu cuenta todavía no tiene acceso a pedidos");
     return;
   }
+  if (!canEditCart()) return;
   const order = (state.customerOrders || []).find((item) => item.id === orderId);
   if (!order) return;
 

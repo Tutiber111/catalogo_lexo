@@ -51,7 +51,7 @@ test('retired cart/branch selections are removed without mapping to a different 
   const retired=catalog.oxoRevision.retiredProductIds[0];
   const retained=catalog.products.find(p=>p.section==='OXO').id;
   let saved;
-  const sandbox={state:{catalog,cart:new Map([[retired,3],[retained,4],['other',1]]),branchOrderQuantities:{[retired]:{a:3},[retained]:{a:4}}},localStorage:{setItem:(key,value)=>{saved=JSON.parse(value);}}};
+  const sandbox={state:{catalog,cart:new Map([[retired,3],[retained,4],['other',1]]),branchOrderQuantities:{[retired]:{a:3},[retained]:{a:4}}},saveCart:()=>{saved=[...sandbox.state.cart];}};
   const source=read('web/app.js');
   vm.runInNewContext(source.slice(source.indexOf('function removeRetiredCatalogSelections()'),source.indexOf('async function refreshRemoteCatalogData(')),sandbox);
   sandbox.removeRetiredCatalogSelections();

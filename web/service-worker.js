@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20261112-dashboard-export";
+const CACHE_NAME = "lexo-catalog-v20261113-account-carts";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css?v=20261015-delivery-hours",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20261027-preview-r4",
+  "./app.js?v=20261113-account-carts",
   "./data/product-browse-data.js?v=20261005-oxo-r1",
   "./sales-dashboard-access.js?v=20261103-dashboard-access-r21",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
@@ -20,7 +20,7 @@ const APP_SHELL = [
   "./sales-bi.js?v=20261112-dashboard-export",
   "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261005-oxo-r1",
-  "./supabase-client.js?v=20261112-dashboard-export",
+  "./supabase-client.js?v=20261113-account-carts",
   "./data/catalog-data.js?v=20261005-oxo-r1",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
