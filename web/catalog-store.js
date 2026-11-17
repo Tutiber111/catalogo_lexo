@@ -78,6 +78,7 @@
   }
 
   function applyProductOverrides(catalog, overrides = loadProductOverrides()) {
+    const priceRevision = Date.parse(catalog.priceList?.reconciledAt);
     catalog.products = catalog.products.map((product) => {
       const videoKey = `${String(product.section || "").trim()}:${String(product.sku || "").trim()}`;
       const baselineVideoUrl = product.originalVideoUrl || product.videoUrl || defaultProductVideos[videoKey] || "";
@@ -85,11 +86,15 @@
       const productSku = normalizeProductSku(product.sku);
       const overrideSku = normalizeProductSku(savedOverride.sku);
       const matchingOverride = overrideSku && productSku && overrideSku !== productSku ? {} : { ...savedOverride };
+      const overrideDate = Date.parse(matchingOverride.updatedAt);
       // A revised source catalog supersedes older copy/prices while keeping
       // stock, visibility and video decisions. Later admin edits still apply.
-      if (product.contentUpdatedAt && !(Date.parse(matchingOverride.updatedAt) >= Date.parse(product.contentUpdatedAt))) {
+      if (product.contentUpdatedAt && !(overrideDate >= Date.parse(product.contentUpdatedAt))) {
         delete matchingOverride.name;
         delete matchingOverride.category;
+        delete matchingOverride.price;
+      }
+      if (Number.isFinite(priceRevision) && product.priceSource === catalog.priceList.source && !(overrideDate > priceRevision)) {
         delete matchingOverride.price;
       }
       return {

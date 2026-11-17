@@ -71,11 +71,13 @@ test('legacy absolute-page price masking is removed and cache versions match the
   const app=read('web/app.js');
   assert.ok(!app.includes('[347, [{'));
   const html=read('web/index.html'),worker=read('web/service-worker.js');
+  const scripts=Array.from(html.matchAll(/<script src="([^"]+)"/g), ([,url])=>url);
   for(const asset of ['app.js','admin.js','catalog-store.js','data/catalog-data.js','data/product-browse-data.js']) {
-    assert.ok(html.includes(asset+'?v=20261005-oxo-r1'),asset);
-    assert.ok(worker.includes(asset+'?v=20261005-oxo-r1'),asset);
+    const url=scripts.find((src)=>src.startsWith(asset+'?v='));
+    assert.ok(url,asset);
+    assert.ok(worker.includes(`"./${url}"`),asset);
   }
-  assert.ok(worker.includes('lexo-catalog-pages-v20261005-oxo-r1'));
+  assert.match(worker,/const PAGE_CACHE_NAME = "lexo-catalog-pages-v[^"\s]+"/);
 });
 test('the two requested OXO price corrections appear in products and clickable overlays',()=>{
   for(const [sku,price] of [['1126980','$23.539'],['11261400','$11.227']]) {
@@ -88,4 +90,21 @@ test('the two requested OXO price corrections appear in products and clickable o
       assert.equal(group?.price,price,sku);
     }
   }
+});
+
+test('the October price list supersedes earlier prices while preserving other admin edits',()=>{
+  const board=catalog.products.find(p=>p.section==='Estia'&&p.sku==='14537');
+  const missing=catalog.products.find(p=>p.section==='Leifheit'&&p.sku==='45310');
+  const apply=(product,override)=>store.applyProductOverrides({priceList:catalog.priceList,products:[product]}, {
+    [product.id]:{sku:product.sku,...override},
+  }).products[0];
+  const before={price:'$31.262',updatedAt:'2026-07-29T20:03:28Z',name:'Edited name',ean:'TEST',hidden:true,outOfStock:true};
+  const reconciled=apply(board,before);
+  assert.equal(reconciled.price,'$24.562');
+  for(const field of ['name','ean','hidden','outOfStock']) assert.equal(reconciled[field],before[field]);
+  assert.equal(apply(board,{price:'$1'}).price,'$24.562');
+  assert.equal(apply(board,{...before,updatedAt:catalog.priceList.reconciledAt}).price,'$24.562');
+  const later=new Date(Date.parse(catalog.priceList.reconciledAt)+1000).toISOString();
+  assert.equal(apply(board,{...before,updatedAt:later}).price,'$31.262');
+  assert.equal(apply(missing,before).price,'$31.262');
 });

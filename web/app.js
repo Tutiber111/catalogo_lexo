@@ -373,7 +373,7 @@ function cloneCatalog(catalog) {
 
 function updateCatalogMeta() {
   const priceCount = state.catalog.priceList?.productCount || 0;
-  els.catalogMeta.textContent = `${state.catalog.samplePageCount} páginas - ${state.catalog.products.length} productos - ${priceCount} productos en Excel`;
+  els.catalogMeta.textContent = `${state.catalog.samplePageCount} páginas - ${state.catalog.products.length} productos - ${priceCount} códigos en la lista de precios`;
 }
 
 function bindEvents() {
