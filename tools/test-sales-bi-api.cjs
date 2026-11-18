@@ -25,6 +25,26 @@ async function main(){
   api.rpc=async()=>({error:{code:'42501'}});await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardHistory(),e=>e.code==='42501');
   assert.equal(calls.length,previousReads,'snapshot denial never falls back to historical pages');
   api.rpc=async()=>({data:[],error:null});await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardHistory(),/Invalid historical snapshot/);
+  const scopeCalls=[];
+  const scope={available:true,salesmanCode:'805',orders:[],clients:[],lines:[],batches:[]};
+  api.rpc=async(name,args)=>{scopeCalls.push({name,args});return {data:scope,error:null};};
+  assert.equal((await context.window.CATALOG_SUPABASE.loadDashboardScope('805')).salesmanCode,'805');
+  assert.equal(scopeCalls.length,1);
+  assert.equal(scopeCalls[0].name,'sales_dashboard_scope_json');
+  assert.equal(scopeCalls[0].args.p_salesman_code,'805');
+  assert.equal(scopeCalls[0].args.p_include_history,true);
+  scopeCalls.length=0;
+  api.rpc=async name=>{scopeCalls.push(name);return name==='sales_dashboard_scope_json'?{error:{code:'PGRST202'}}:{data:scope};};
+  await context.window.CATALOG_SUPABASE.loadDashboardScope('805');
+  assert.deepEqual(scopeCalls,['sales_dashboard_scope_json','sales_dashboard_scope'],'only a missing migration uses the previous endpoint');
+  for(const code of ['42501','57014']) {
+    scopeCalls.length=0;
+    api.rpc=async name=>{scopeCalls.push(name);return {error:{code}};};
+    await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardScope('805'),e=>e.code===code);
+    assert.deepEqual(scopeCalls,['sales_dashboard_scope_json'],'denials and timeouts never trigger a second expensive request');
+  }
+  api.rpc=async()=>({data:[],error:null});
+  await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardScope('805'),/No se pudo cargar tu cartera/);
   const previewReads=[];
   api.auth.getSession=async()=>({data:{session:{access_token:'local-fixture-token'}}});
   const preview={window:{location:{search:'',hash:'',hostname:'127.0.0.1',port:'8091'},supabase:{createClient:()=>api}},URLSearchParams,
@@ -51,6 +71,6 @@ async function main(){
   const ui={window:{SALES_BI_MODEL:{},addEventListener(){}}};vm.createContext(ui);vm.runInContext(fs.readFileSync('web/sales-bi.js','utf8'),ui);
   assert.match(ui.window.SALES_BI.csv([['=HYPERLINK("evil")','+evil',-20]]),/"'=HYPERLINK/,'CSV formulas escaped');
   assert.match(ui.window.SALES_BI.csv([[-20]]),/"-20"/,'numeric negatives preserved');
-  console.log('Historical API pagination, missing migration, permission errors, private-cache exclusion, and CSV formula protection passed.');
+  console.log('Historical pagination, JSON portfolio response, missing-migration fallback, no retry on timeout/denial, private-cache exclusion and CSV formula protection passed.');
 }
 main().catch(e=>{console.error(e);process.exitCode=1});

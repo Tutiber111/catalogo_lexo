@@ -42,6 +42,23 @@ async function main(){const db=new PGlite();try{
  const identity=async n=>{await db.exec('reset role');await db.query("select set_config('request.jwt.claim.sub',$1,false)",[id(n)]);await db.exec('set role authenticated');};
  const read=async name=>(await db.query('select '+name+'() data')).rows[0].data;
  const scope=async code=>(await db.query('select sales_dashboard_scope($1,true) data',[code])).rows[0].data;
+ const jsonScope=async(code,history=true)=>(await db.query('select sales_dashboard_scope_json($1,$2) data',[code,history])).rows[0].data;
+ await identity(1);
+ const baseline=await Promise.all(['805','855','900','unassigned'].map(code=>scope(code)));
+ await db.exec('reset role');
+ await db.exec(fs.readFileSync('supabase/migrations/20261118131014_speed_up_salesman_dashboard_response.sql','utf8'));
+ await identity(1);
+ for(const [i,code] of ['805','855','900','unassigned'].entries()) {
+   assert.deepEqual(await jsonScope(code),baseline[i],'JSON endpoint preserves every field and row for '+code);
+   assert.deepEqual(await scope(code),baseline[i],'previous endpoint preserves its SQL and response contract');
+   const noHistory=await jsonScope(code,false);
+   assert.deepEqual(noHistory.lines,[]);assert.deepEqual(noHistory.batches,[]);
+   assert.deepEqual(noHistory.orders,baseline[i].orders);assert.deepEqual(noHistory.clients,baseline[i].clients);
+ }
+ await identity(2);
+ assert.deepEqual(await jsonScope(),baseline[0],'regular salesperson resolves own portfolio');
+ await assert.rejects(()=>jsonScope('855'),e=>e.code==='42501');
+ await assert.rejects(()=>jsonScope('*'),e=>e.code==='42501');
  await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await assert.rejects(()=>db.exec('update profiles set dashboard_full_access=true'),e=>e.code==='42501','self-promotion is blocked');await assert.rejects(()=>db.query('select set_dashboard_full_access($1,true)',[id(2)]),e=>e.code==='42501');
  await identity(1);await db.query('select set_dashboard_full_access($1,true)',[id(2)]);const group=(await db.query("select save_dashboard_client_group(null,'Branches',array['1','2']) id")).rows[0].id;
@@ -49,6 +66,7 @@ async function main(){const db=new PGlite();try{
  assert.deepEqual(await read('sales_dashboard_export_prices'),expectedPrices);
  assert.equal((await read('dashboard_access_accounts')).length,2);
  await identity(2);assert.equal(await read('is_admin'),false);assert.equal(await read('can_read_full_sales_dashboard'),true);
+ assert.deepEqual(await jsonScope('855'),baseline[1],'full viewer can preview another portfolio');
  assert.deepEqual(await read('sales_dashboard_export_prices'),expectedPrices);
  await assert.rejects(()=>db.query('select * from private.sales_dashboard_export_prices'),e=>e.code==='42501');
  const full=await read('sales_dashboard_full_context');assert.equal(full.clients.length,2);assert.equal(full.orders.length,2);assert.equal(full.orders[1].order_items[0].line_total,200);assert.equal(full.orders[1].customer_phone,undefined,'reporting endpoint omits operational/contact fields');assert.equal((await read('sales_dashboard_history_json')).lines.length,2);
@@ -63,8 +81,10 @@ async function main(){const db=new PGlite();try{
  await identity(1);await db.query('select set_dashboard_full_access($1,false)',[id(2)]);await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501','revocation works without a new JWT');
  await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await identity(4);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');
+ await assert.rejects(()=>jsonScope('805'),e=>e.code==='42501');
  await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  await db.exec('reset role;set role anon');await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('can_read_full_sales_dashboard'),e=>e.code==='42501');
+ await assert.rejects(()=>jsonScope('805'),e=>e.code==='42501');
  await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
  console.log('Full dashboard DB: company reads/preview, unchanged operational RLS/admin role, denied stock/group/access writes, insert/update self-escalation, metadata spoofing, customer/anon denial and immediate revocation passed.');
  }finally{await db.close();}}

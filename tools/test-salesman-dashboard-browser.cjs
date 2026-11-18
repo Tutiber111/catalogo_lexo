@@ -29,7 +29,7 @@ async function main(){
    if(url.pathname.endsWith('/salesmen'))data=[{code:'805',name:'Alejandro Martínez'},{code:'800',name:'Other seller'}];
    if(url.pathname.endsWith('/sales_clients')){data=clients;if(role==='salesman')data=[clients[0]];}
    if(url.pathname.endsWith('/orders'))data=role==='admin'?orders:[orders[0]];
-   if(url.pathname.endsWith('/rpc/sales_dashboard_scope')){reads.push(JSON.parse(route.request().postData()));data=scope;}
+   if(['/rpc/sales_dashboard_scope','/rpc/sales_dashboard_scope_json'].some(path=>url.pathname.endsWith(path))){reads.push(JSON.parse(route.request().postData()));data=scope;}
    if(url.pathname.endsWith('/rpc/get_dashboard_client_groups'))data=[tinaGroup];
    if(url.pathname.endsWith('/rpc/sales_dashboard_full_context')){reads.push({fullContext:true});data={available:true,clients,orders};}
    if(url.pathname.endsWith('/rpc/dashboard_access_accounts'))data=[{id:'viewer-fixture',name:'Viewer',email:'viewer@example.invalid',salesman_code:'805',dashboard_full_access:true}];

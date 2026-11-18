@@ -697,7 +697,13 @@
     if(!client)throw new Error('La conexión no está disponible.');
     let data,error;
     if(isPrivateDashboardPreview())data=await readPrivateDashboardPreview('/__live-scope'+(salesmanCode?'?salesman='+encodeURIComponent(salesmanCode):''));
-    else ({data,error}=await client.rpc('sales_dashboard_scope',{p_salesman_code:salesmanCode||null,p_include_history:true}));
+    else {
+      const args={p_salesman_code:salesmanCode||null,p_include_history:true};
+      ({data,error}=await client.rpc('sales_dashboard_scope_json',args));
+      if(['PGRST202','42883'].includes(error?.code)) {
+        ({data,error}=await client.rpc('sales_dashboard_scope',args));
+      }
+    }
     if(error)throw error;
     if(!data?.available||!Array.isArray(data.orders)||!Array.isArray(data.clients)||!Array.isArray(data.lines))throw new Error('No se pudo cargar tu cartera.');
     return {...data,clients:data.clients.map(normalizeSalesClient),orders:data.orders.map(normalizeOrder)};

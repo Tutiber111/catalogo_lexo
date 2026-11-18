@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261117-october-prices";
+const CACHE_NAME = "lexo-catalog-v20261118-dashboard-scope";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -20,7 +20,7 @@ const APP_SHELL = [
   "./sales-bi.js?v=20261112-dashboard-export",
   "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261117-october-prices",
-  "./supabase-client.js?v=20261113-account-carts",
+  "./supabase-client.js?v=20261118-dashboard-scope",
   "./data/catalog-data.js?v=20261117-october-prices",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
