@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261118-dashboard-scope";
+const CACHE_NAME = "lexo-catalog-v20261119-leifheit-boards";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -6,7 +6,7 @@ const APP_SHELL = [
   "./styles.css?v=20261015-delivery-hours",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
   "./app.js?v=20261117-october-prices",
-  "./data/product-browse-data.js?v=20261117-grid-photos",
+  "./data/product-browse-data.js?v=20261119-leifheit-boards",
   "./sales-dashboard-access.js?v=20261103-dashboard-access-r21",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
   "./restock-notices.js?v=20261103-dashboard-access-r21",
@@ -21,7 +21,7 @@ const APP_SHELL = [
   "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261117-october-prices",
   "./supabase-client.js?v=20261118-dashboard-scope",
-  "./data/catalog-data.js?v=20261117-october-prices",
+  "./data/catalog-data.js?v=20261119-leifheit-boards",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",
   "./assets/vendor/supabase-2.118.0.min.js",
