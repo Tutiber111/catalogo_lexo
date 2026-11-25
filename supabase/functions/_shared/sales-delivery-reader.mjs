@@ -143,6 +143,7 @@ export async function warehouseSnapshot(context,settings,fetcher=fetch) {
     const warehouseSku=group(lineGroups.get(order.id)||[],l=>text(l.sku).toUpperCase());
     const confirmed=Boolean(order.invoiced_at||text(order.invoice_number)||text(order.remito_number));
     return {id:order.id,number:order.number,createdAt:order.created_at,clientCode:canonical?.client_code||(original?(text(original.sales_client_code)||text(original.customer_client_code)):text(order.client_code)),
+      direct:order.source!=='catalogolexo'&&!authorized.has(order.external_id),
       clientId:original?.sales_client_id||null,clientName:order.customer,externalId:original?.id||null,source:order.source||'manual',
       invoiceNumber:text(order.invoice_number),remitoNumber:text(order.remito_number),confirmedAt:order.invoiced_at||null,split:children.has(order.id),
       items:(lineGroups.get(order.id)||[]).map(line=>{

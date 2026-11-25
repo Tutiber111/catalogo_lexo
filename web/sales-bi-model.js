@@ -31,6 +31,32 @@
     if(!code&&str(client.clientCode)==='80605')return '805';
     return !code||code==='90'||code==='900'?'900':code;
   }
+  function primarySourceRow(row,cutover) {
+    if(row.source==='erp')return !cutover||row.date<cutover;
+    return (row.source==='catalog'||row.directWarehouse)&&(!cutover||row.date>=cutover);
+  }
+  function assignOccasions(records,cutover) {
+    const assign=(rows,idField,dateField)=>{
+      const clients=new Map();
+      for(const row of rows) {
+        if(row.excludedFromAnalytics)continue;
+        const key=row.unassigned?'order:'+row.orderId:row.clientCode;
+        if(!clients.has(key))clients.set(key,[]);
+        clients.get(key).push(row);
+      }
+      for(const purchases of clients.values()) {
+        purchases.sort((a,b)=>a.date.localeCompare(b.date)||a.orderId.localeCompare(b.orderId));
+        let anchor=null,id=null;
+        for(const row of purchases) {
+          if(anchor===null||timestamp(row.date)-timestamp(anchor)>2*dayMs){anchor=row.date;id=row.orderId;}
+          row[idField]=id;
+          row[dateField]=anchor;
+        }
+      }
+    };
+    for(const source of ['erp','catalog','warehouse'])assign(records.filter(row=>row.source===source),'occasionId','occasionDate');
+    assign(records.filter(row=>primarySourceRow(row,cutover)),'primaryOccasionId','primaryOccasionDate');
+  }
   function prepare(data) {
     data={...data,clients:data.clients.map(c=>({...c,salesmanCode:analysisSalesman(c)}))};
     const clients = new Map(data.clients.map(c => [str(c.clientCode), c]));
@@ -83,9 +109,10 @@
       if(!c&&!data.includeUnassigned)continue;
       const d=new Date(order.createdAt);if(!Number.isFinite(+d))continue;
       const date=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Argentina/Buenos_Aires',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+      const directWarehouse=!order.externalId&&(order.direct??(order.source!=='catalogolexo'));
       for(const item of order.items||[]) {
         if(item.qty===null||!Number.isFinite(Number(item.qty)))continue;
-        records.push(enrich({id:`wh:${order.id}:${item.id}`,orderId:`wh:${order.id}`,orderLabel:`Depósito ${order.number||order.id}`,source:'warehouse',date,
+        records.push(enrich({id:`wh:${order.id}:${item.id}`,orderId:`wh:${order.id}`,orderLabel:`Depósito ${order.number||order.id}`,source:'warehouse',date,directWarehouse,
           clientCode:c?str(c.clientCode):`unassigned:${str(order.clientCode)||order.id}`,unassigned:!c,clientName:c?.name||order.clientName,
           sku:item.sku,productName:item.name,locality:c?.locality||'',province:'Sin provincia',orderedQty:Number(item.qty),
           ordered:item.orderedNet??null,invoicedQty:null,invoiced:null,returnedQty:null,
@@ -114,19 +141,7 @@
     }
     // Group additions against the first order day, never a rolling chain. Keep raw
     // order IDs/dates for provenance; reporting uses the purchase occasion date.
-    const occasionScopes=['erp','catalog','warehouse'].map(source=>records.filter(r=>r.source===source));
-    occasionScopes.push(records.filter(r=>r.source==='erp'?(!warehouseFrom||r.date<warehouseFrom):r.source==='catalog'&&(!warehouseFrom||r.date>=warehouseFrom)));
-    for(const scope of occasionScopes) {
-      const byClient=new Map();
-      for(const row of scope.filter(r=>!r.excludedFromAnalytics)){
-        const key=row.unassigned?'order:'+row.orderId:row.clientCode;
-        if(!byClient.has(key))byClient.set(key,[]);byClient.get(key).push(row);
-      }
-      for(const rows of byClient.values()) {
-        rows.sort((a,b)=>a.date.localeCompare(b.date)||a.orderId.localeCompare(b.orderId));let anchor=null,id=null;
-        for(const row of rows){if(anchor===null||timestamp(row.date)-timestamp(anchor)>2*dayMs){anchor=row.date;id=row.orderId;}row.occasionId=id;row.occasionDate=anchor;}
-      }
-    }
+    assignOccasions(records,warehouseFrom);
     // Keep historical identities available for reporting and group membership.
     for(const row of records) {
       if(clients.has(row.clientCode))continue;
@@ -155,10 +170,7 @@
     }
     if(!mapping.size)return data;
     const records=data.records.map(row=>{const c=mapping.get(row.clientCode);return c?{...row,sourceClientCode:row.clientCode,sourceClientName:row.clientName,clientCode:c.clientCode,clientName:c.name,clientId:c.id}: {...row};});
-    const scopes=['erp','catalog','warehouse'].map(source=>records.filter(r=>r.source===source));
-    scopes.push(records.filter(r=>r.source==='erp'?(!data.handover||r.date<data.handover.warehouseFrom):r.source==='catalog'&&(!data.handover||r.date>=data.handover.warehouseFrom)));
-    for(const scope of scopes){const buckets=new Map();for(const row of scope.filter(r=>!r.excludedFromAnalytics)){const key=row.unassigned?'order:'+row.orderId:row.clientCode;if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(row);}
-      for(const rows of buckets.values()){rows.sort((a,b)=>a.date.localeCompare(b.date)||a.orderId.localeCompare(b.orderId));let anchor=null,id=null;for(const row of rows){if(anchor===null||timestamp(row.date)-timestamp(anchor)>2*dayMs){anchor=row.date;id=row.orderId;}row.occasionId=id;row.occasionDate=anchor;}}}
+    assignOccasions(records,data.handover?.warehouseFrom);
     return {...data,records,clients:[...data.clients.filter(c=>!mapping.has(str(c.clientCode))),...combined],groupingBase:data,
       clientGroups:combined.map(c=>({id:c.id.slice(6),name:c.name,clientCodes:c.members.map(m=>str(m.clientCode))}))};
   }
@@ -166,7 +178,9 @@
     const records=data.records.filter(r=>!r.excludedFromAnalytics);
     if (source === 'catalog') return records.filter(r => r.source === 'catalog');
     if (source === 'warehouse') return records.filter(r => r.source === 'warehouse');
-    if (source === 'history-warehouse') return records.filter(r=>r.source==='erp'?(!data.handover||r.date<data.handover.warehouseFrom):r.source==='catalog'&&(!data.handover||r.date>=data.handover.warehouseFrom));
+    if (source === 'history-warehouse') return records.filter(r=>primarySourceRow(r,data.handover?.warehouseFrom))
+      .map(r=>r.primaryOccasionId===r.occasionId&&r.primaryOccasionDate===r.occasionDate?r:
+        {...r,occasionId:r.primaryOccasionId??r.occasionId,occasionDate:r.primaryOccasionDate??r.occasionDate});
     if (source === 'combined') return records.filter(r => r.source === 'erp' || (r.source==='catalog'&&(!data.coverage.to || r.date > data.coverage.to)));
     return records.filter(r => r.source === 'erp');
   }
@@ -213,7 +227,7 @@
       if(r.brandSource==='unclassified')t.unclassified++;
     }
     return { ...t, orders:t.orders.size, buyers:t.buyers.size, invoicedOrders:t.invoicedOrders.size,
-      average:t.orders.size ? t.ordered / t.orders.size : 0,
+      average:t.missingValues ? null : t.orders.size ? t.ordered / t.orders.size : 0,
       fulfillment:t.orderedQty && !t.catalogLines ? t.invoicedQty / t.orderedQty : null };
   }
   function analyze(data, f) {
@@ -323,23 +337,30 @@
   }
   function measureRows(rows, metric='ordered') {
     const delivered=metric==='delivered',invoiced=metric==='invoiced', orders=new Set(),clients=new Set();
-    let amount=0,missing=0,unknown=0,units=0;
+    let amount=0,missing=0,pricedLines=0,unknown=0,units=0;
     for(const r of rows) {
       const qty=invoiced?r.invoicedQty:delivered?(r.source==='erp'?r.invoicedQty:r.deliveredQty):r.orderedQty;
       const value=invoiced?r.invoiced:delivered?(r.source==='erp'?r.invoiced:r.delivered):r.ordered;
       if(qty===null||qty===undefined){unknown++;continue;}
       if(qty<=0)continue;
       units+=qty;orders.add(r.occasionId||r.orderId);clients.add(r.clientCode);
-      if(value===null||value===undefined||!Number.isFinite(value))missing++;else amount+=value;
+      if(value===null||value===undefined||!Number.isFinite(value))missing++;
+      else {amount+=value;pricedLines++;}
     }
-    return {amount,orders:orders.size,clients:clients.size,units,missing,unknown,
-      ticket:orders.size?amount/orders.size:null,partial:Boolean(missing||unknown)};
+    return {amount,orders:orders.size,clients:clients.size,units,missing,pricedLines,unknown,
+      ticket:orders.size&&!missing?amount/orders.size:null,partial:Boolean(missing||unknown)};
   }
   function reporting(data,f,today=recentRange(1).to) {
     const periods=reportingPeriods(today,validRange(f.from,f.to)?f:currentMonthRange(today)),asOf=periods.asOf;
     const rangeCache=new Map();
     const inRange=range=>{const key=range.from+':'+range.to;if(!rangeCache.has(key))rangeCache.set(key,selected(data,{...f,...range}).filter(r=>r.date<=today));return rangeCache.get(key);};
-    const comparison=(current,prior,key)=>({delta:current[key]-prior[key],percent:prior[key]?(current[key]-prior[key])/Math.abs(prior[key]):null});
+    const comparison=(current,prior,key)=>{
+      if(key==='amount'&&[current,prior].some(value=>(value.missing&&!value.pricedLines)||(value.unknown&&!value.orders))) {
+        return {delta:null,percent:null};
+      }
+      const delta=current[key]-prior[key];
+      return {delta,percent:prior[key]?delta/Math.abs(prior[key]):null};
+    };
     const metrics={};
     for(const metric of ['ordered','delivered']) {
       const current=measureRows(inRange(periods.current),metric),month=measureRows(inRange(periods.month),metric),year=measureRows(inRange(periods.year),metric),ytd=measureRows(inRange(periods.ytd),metric);
@@ -359,6 +380,11 @@
         return Boolean(data.catalogCoverage.from&&range.from>=data.catalogCoverage.from&&range.to<=data.catalogCoverage.to);
       };
       const currentCovered=coverage(periods.current),monthCovered=coverage(periods.month),yearCovered=coverage(periods.year);
+      if(f.source==='history-warehouse'&&!data.warehouseAvailable&&data.handover) {
+        for(const [period,measure] of [[periods.current,current],[periods.month,month],[periods.year,year],[periods.ytd,ytd]]) {
+          if(period.to>=data.handover.warehouseFrom)measure.partial=true;
+        }
+      }
       if(!currentCovered&&current.orders)current.partial=true;
       metrics[metric]={current,month,year,ytd,currentCovered,monthCovered,yearCovered,ytdCovered:coverage(periods.ytd),
         changes:Object.fromEntries(['amount','units','orders','clients'].map(key=>[key,{month:comparison(current,month,key),year:comparison(current,year,key)}]))};

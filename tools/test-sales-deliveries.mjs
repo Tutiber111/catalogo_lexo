@@ -71,6 +71,8 @@ const snapshot=await warehouseSnapshot(portfolio,warehouse,snapshotFetch);
 assert.deepEqual(snapshot.orders.map(o=>o.id),['wh1','wh2','manual'],'standalone warehouse orders included without expanding customer scope');
 assert.equal(snapshot.orders.find(o=>o.id==='manual').items[0].orderedNet,null,'missing warehouse price is not zero or current catalog price');
 assert.equal(snapshot.orders.find(o=>o.id==='manual').items[0].qty,5);
+assert.equal(snapshot.orders.find(o=>o.id==='manual').direct,true);
+assert.equal(snapshot.orders.find(o=>o.id==='wh1').direct,false);
 await assert.rejects(()=>warehouseSnapshot(portfolio,{...warehouse,readerKey:''},()=>{
  throw Error('No request should be made without a reader key');
 }),error=>error.status===403);

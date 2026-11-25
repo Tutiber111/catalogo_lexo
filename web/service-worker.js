@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261125-dashboard-controls";
+const CACHE_NAME = "lexo-catalog-v20261125-dashboard-warehouse-direct";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -15,9 +15,9 @@ const APP_SHELL = [
   "./sales-dashboard.js?v=20261125-dashboard-controls",
   "./sales-bi.css?v=20261125-dashboard-controls",
   "./sales-product-brands.js?v=20261019-brand-review-r1",
-  "./sales-bi-model.js?v=20261125-dashboard-controls",
-  "./sales-bi-export.js?v=20261125-dashboard-controls",
-  "./sales-bi.js?v=20261125-dashboard-controls",
+  "./sales-bi-model.js?v=20261125-dashboard-warehouse-direct",
+  "./sales-bi-export.js?v=20261125-dashboard-warehouse-direct",
+  "./sales-bi.js?v=20261125-dashboard-warehouse-direct",
   "./admin.js?v=20261006-ean-r1",
   "./catalog-store.js?v=20261117-october-prices",
   "./supabase-client.js?v=20261125-dashboard-controls",

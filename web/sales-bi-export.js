@@ -11,7 +11,7 @@
     '11181400': '11168300',
   };
   const measureNames = { ordered: 'Pedido', delivered: 'Entregado / facturado', invoiced: 'Facturado ERP' };
-  const sourceNames = { erp: 'Historial Excel', catalog: 'Catálogo', warehouse: 'WarehousePick', 'history-warehouse': 'Excel + catálogo', combined: 'Excel + catálogo (alternativa)' };
+  const sourceNames = { erp: 'Historial Excel', catalog: 'Catálogo', warehouse: 'WarehousePick', 'history-warehouse': 'Excel + catálogo + pedidos directos de WarehousePick', combined: 'Excel + catálogo (alternativa)' };
   const priceHeaders = ['SKU de la lista', 'Precio de lista ARS (col. E)', 'Precio sugerido ARS (col. F)', 'Coincidencia de precio'];
 
   function priceColumns(sku, brand, prices) {
@@ -34,7 +34,7 @@
   const clientCode = client => String(client.displayCode || client.clientCode || '');
   const clientName = client => client.legalName || client.name;
   const known = value => !(value.unknown && !value.orders);
-  const amount = value => known(value) ? value.amount : null;
+  const amount = value => known(value) && !(value.missing && value.pricedLines === 0) ? value.amount : null;
   const units = value => known(value) ? value.units : null;
   const quality = value => known(value) ? (value.partial ? 'Parcial' : '') : 'Sin datos';
 
@@ -80,20 +80,20 @@
       ['Producto o SKU', filters.product || 'Todos'], ['Búsqueda de clientes', context.customerQuery || ''],
       ['Situación de clientes', context.customerStatus], ['Medida del gráfico', measureNames[chart.metric]], ['Dimensión del gráfico', chart.label],
       ['Precio de lista y sugerido', priceSource], ['Disponibilidad de la lista', prices ? 'Disponible' : 'No disponible'],
-      ['Importe entregado / pedido', known(delivered) && ordered.amount ? delivered.amount / ordered.amount : null],
+      ['Importe entregado / pedido', amount(delivered) !== null && ordered.amount ? delivered.amount / ordered.amount : null],
       ['Unidades entregadas / pedidas', known(delivered) && ordered.units ? delivered.units / ordered.units : null],
       ['Calidad de la relación de entrega', quality(delivered) || quality(ordered)],
       ['Ticket de referencia del gráfico (12 meses)', chart.annual.ticket],
       ['Importe sin stock', loss.amount], ['Unidades sin stock', loss.units], ['Pedidos afectados por falta de stock', loss.orders],
       ['Proporción del importe sin stock', loss.rate], ['Líneas sin información de stock', loss.unknown],
       ['Importe no entregado en pedidos confirmados', loss.confirmedShortfall], ['Importe histórico no facturado', loss.uninvoiced],
-      ['Inicio de pedidos del catálogo en vista principal', data.handover?.warehouseFrom],
+      ['Inicio de pedidos del catálogo y el depósito en vista principal', data.handover?.warehouseFrom],
       ['Ranking de oportunidades', data.companyRankingPartial ? 'Parcial' : data.companyRankingAvailable ? 'Disponible' : 'No disponible'],
       ['Reposiciones pendientes', restocks?.available ? 'Bandeja actual, independiente del período' : 'No disponible']];
     if (warehouseTotals) {
       const w = warehouseTotals;
       const hasDeliveries = w.deliveryKnownLines > 0;
-      const amountComparable = hasDeliveries && !w.missingValues && !w.deliveredMissingValues && w.ordered;
+      const amountComparable = w.deliveryKnownLines > w.deliveredMissingValues && w.ordered;
       result['Entrega WarehousePick'] = [['Indicador', 'Valor'],
         ['Unidades pedidas', w.catalogLines ? w.orderedQty : null],
         ['Unidades entregadas confirmadas', hasDeliveries ? w.deliveredQty : null],

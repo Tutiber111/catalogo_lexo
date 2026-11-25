@@ -4,14 +4,32 @@ assert.deepEqual(m.reportingPeriods('2024-03-31').month,{from:'2024-02-01',to:'2
 assert.equal(m.monthShift('2024-02-29',-12),'2023-02-28');
 const clients=[{id:'c',clientCode:'1',name:'Client',salesmanCode:'v'},{id:'b',clientCode:'2',name:'New',salesmanCode:'v'}];
 const order=(id,date,code='1',qty=10)=>({id,createdAt:date+'T14:00:00Z',status:'placed',customer:{clientCode:code},items:[{id:id+'i',sku:'A',name:'A',qty,lineTotal:qty*100}]});
-const data=m.prepare({clients,catalog:[{sku:'A',name:'A',section:'OXO'},{sku:'B',name:'B',section:'OXO'}],batches:[{from_date:'2024-01-01',to_date:'2026-10-15',warehouse_from_date:'2026-10-16'}],lines:[{line_key:'h',order_key:'h',order_date:'2025-10-01',client_code:'1',sku:'A',ordered_qty:10,invoiced_qty:6,ordered_net:1000,invoiced_net:600,returned_qty:0}],orders:[order('o1','2026-10-16'),order('o2','2026-10-18'),order('o3','2026-10-20'),order('o4','2026-10-23','2')],delivery:{available:true,orders:[{id:'manual',clientCode:'1',createdAt:'2026-10-22',items:[{id:'m',sku:'A',qty:500,orderedNet:50000}]}],lines:[{orderId:'o1',itemId:'o1i',pickedQty:5,deliveredQty:5,pendingQty:5,confirmed:true,outOfStockQty:0},{orderId:'o2',itemId:'o2i',pickedQty:0,deliveredQty:0,pendingQty:10,confirmed:false,outOfStockQty:10,lineStatus:'nostock'}]}});
+const data=m.prepare({clients,catalog:[{sku:'A',name:'A',section:'OXO'},{sku:'B',name:'B',section:'OXO'}],batches:[{from_date:'2024-01-01',to_date:'2026-10-15',warehouse_from_date:'2026-10-16'}],lines:[{line_key:'h',order_key:'h',order_date:'2025-10-01',client_code:'1',sku:'A',ordered_qty:10,invoiced_qty:6,ordered_net:1000,invoiced_net:600,returned_qty:0}],orders:[order('o1','2026-10-16'),order('o2','2026-10-18'),order('o3','2026-10-20'),order('o4','2026-10-23','2')],delivery:{available:true,orders:[{id:'manual',clientCode:'1',createdAt:'2026-10-22',items:[{id:'m',sku:'A',qty:5,orderedNet:null,deliveredQty:4,pickedQty:4,pendingQty:1,confirmed:true,outOfStockQty:0}]}],lines:[{orderId:'o1',itemId:'o1i',pickedQty:5,deliveredQty:5,pendingQty:5,confirmed:true,outOfStockQty:0},{orderId:'o2',itemId:'o2i',pickedQty:0,deliveredQty:0,pendingQty:10,confirmed:false,outOfStockQty:10,lineStatus:'nostock'}]}});
 const f={source:'history-warehouse',from:'2026-10-01',to:'2026-10-23',metric:'ordered'};
-assert.equal(m.sourceRows(data,f.source).some(r=>r.source==='warehouse'),false,'warehouse-only orders never inflate catalog sales');
+assert.equal(m.sourceRows(data,f.source).filter(r=>r.source==='warehouse').length,1,'main includes direct warehouse orders');
+assert.equal(m.sourceRows(data,'catalog').some(r=>r.source==='warehouse'),false,'catalog-only view is preserved');
 assert.equal(data.records.find(r=>r.orderId==='web:o2').occasionId,'web:o1');
 assert.equal(data.records.find(r=>r.orderId==='web:o3').occasionId,'web:o3','no rolling chain');
 const report=m.reporting(data,f,'2026-10-23');
-assert.equal(report.metrics.ordered.current.amount,4000);assert.equal(report.metrics.ordered.current.orders,3);
-assert.equal(report.metrics.delivered.current.amount,500);assert.equal(report.metrics.delivered.current.orders,1);assert.equal(report.metrics.delivered.current.clients,1);
+assert.equal(report.metrics.ordered.current.amount,4000);assert.equal(report.metrics.ordered.current.orders,3,'direct order joins the existing two-day occasion');
+assert.equal(report.metrics.ordered.current.units,45);
+assert.equal(report.metrics.ordered.current.missing,1);
+assert.equal(report.metrics.ordered.current.ticket,null,'unknown prices would skew average ticket');
+const directOnly=m.measureRows(m.sourceRows(data,f.source).filter(r=>r.source==='warehouse'));
+assert.equal(directOnly.units,5);
+assert.equal(directOnly.pricedLines,0);
+assert.equal(m.sourceRows(data,f.source).find(r=>r.directWarehouse).occasionId,'web:o3','main groups catalog and direct orders for the same client');
+assert.equal(m.sourceRows(data,'warehouse').find(r=>r.directWarehouse).occasionId,'wh:manual','standalone WarehousePick view groups independently');
+const directOrder=(id,date,options={})=>({id,createdAt:date+'T14:00:00Z',clientCode:'1',items:[{id:'i',sku:'A',qty:3}],...options});
+const overlap=m.prepare({clients,orders:[order('a','2026-10-16')],batches:data.batches,
+  delivery:{available:true,orders:[
+    directOrder('before','2026-10-15'),
+    directOrder('linked','2026-10-16',{source:'catalogolexo',externalId:'a'}),
+    directOrder('orphan','2026-10-16',{source:'catalogolexo'}),
+    directOrder('valid','2026-10-16',{source:'manual'}),
+  ]}});
+assert.deepEqual(m.sourceRows(overlap,f.source).map(r=>r.orderId),['web:a','wh:valid'],'cutover excludes earlier direct orders and prevents catalog duplication');
+assert.equal(report.metrics.delivered.current.amount,500);assert.equal(report.metrics.delivered.current.units,9);assert.equal(report.metrics.delivered.current.orders,2);assert.equal(report.metrics.delivered.current.clients,1);
 assert.equal(report.metrics.delivered.year.amount,600,'historical invoiced is delivered');
 assert.equal(report.metrics.ordered.changes.amount.year.delta,3000);
 assert.equal(m.reporting(data,{...f,from:'2025-01-01',to:'2025-02-01'},'2026-10-23').metrics.ordered.current.amount,0,'headlines follow the selected date filter');
@@ -60,5 +78,5 @@ assert.equal(m.reporting(allPortfolios,f,'2026-10-23').vendors.find(v=>v.code===
 assert.deepEqual(m.prepare({...portfolios,analysisSalesmanCode:'unassigned'}).clients.map(c=>c.clientCode),['81032']);
 assert.equal(m.analysisSalesman({clientCode:'81032',salesmanCode:'805'}),'805','a new explicit assignment takes effect');
 
-assert.equal(report.metrics.ordered.changes.units.year.delta,30);
-assert.equal(report.metrics.ordered.changes.units.year.percent,3);
+assert.equal(report.metrics.ordered.changes.units.year.delta,35);
+assert.equal(report.metrics.ordered.changes.units.year.percent,3.5);
