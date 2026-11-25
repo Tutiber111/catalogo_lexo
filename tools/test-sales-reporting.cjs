@@ -58,6 +58,7 @@ assert.equal(m.reporting(allPortfolios,f,'2026-10-23').vendors.find(v=>v.code===
 
 assert.equal(m.reporting(allPortfolios,f,'2026-10-23').vendors.find(v=>v.code==='unassigned').current.amount,1000);
 assert.deepEqual(m.prepare({...portfolios,analysisSalesmanCode:'unassigned'}).clients.map(c=>c.clientCode),['81032']);
+assert.equal(m.analysisSalesman({clientCode:'81032',salesmanCode:'805'}),'805','a new explicit assignment takes effect');
 
 assert.equal(report.metrics.ordered.changes.units.year.delta,30);
 assert.equal(report.metrics.ordered.changes.units.year.percent,3);

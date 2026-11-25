@@ -1,7 +1,10 @@
 /* Read-only bridge. Every result is restricted to catalog-authorized order UUIDs. */
 export const warehouseDefaults={url:'https://wjokaaqfwjsvxcuhtbzm.supabase.co',key:'sb_publishable_4LDFyO2Hx-yDOO08nZ0WIA_6hvYu6mZ'};
 const text=v=>String(v??'').trim();
-export class ReadError extends Error { constructor(message,status=502){super(message);this.status=status;} }
+export class ReadError extends Error {
+  constructor(message,status=502,code=null){super(message);this.status=status;this.code=code;}
+}
+const warehouseFeeds={orders:'rpc/lexo_orders_feed',lines:'rpc/lexo_order_lines_feed'};
 export async function readJson(url,headers,fetcher=fetch) {
   const response=await fetcher(url,{headers,signal:AbortSignal.timeout(20000)});
   if(!response.ok) throw new ReadError(response.status===401||response.status===403?'Authentication or data access denied.':'Could not refresh data.',response.status===401||response.status===403?response.status:502);
@@ -14,6 +17,18 @@ export async function readPages(base,path,headers,fetcher=fetch) {
     if(!Array.isArray(page)) throw new ReadError('Unexpected data response.');
     rows.push(...page); if(page.length<500) return rows;
   }
+}
+
+function warehouseFeed({url=warehouseDefaults.url,key=warehouseDefaults.key,readerKey}={},fetcher) {
+  if(!text(readerKey))throw new ReadError('WarehousePick reader key is missing.',403);
+  const headers={apikey:key,'x-reader-key':text(readerKey)};
+  return (feed,query)=>readPages(url,warehouseFeeds[feed]+'?'+query,headers,async (requestUrl,options)=>{
+    const response=await fetcher(requestUrl,{...options,redirect:'error'});
+    if(feed==='lines'&&response.status===404) {
+      throw new ReadError('WarehousePick order line feed is unavailable.',502,'warehouse_lines_unavailable');
+    }
+    return response;
+  });
 }
 export async function catalogContext({url,key,token,fetcher=fetch,includeOrders=true,salesmanCode=null,includeDetails=false,includeHistory=false}) {
   if(!/^Bearer [A-Za-z0-9._-]+$/.test(token||'')) throw new ReadError('Sign in with your catalog account.',401);
@@ -78,34 +93,35 @@ export function reconcileDelivery(catalogOrders,warehouseOrders,warehouseLines) 
   }
   return out;
 }
-export async function warehouseDeliveries(orders,{url,key}=warehouseDefaults,fetcher=fetch) {
+export async function warehouseDeliveries(orders,settings,fetcher=fetch) {
+  const read=warehouseFeed(settings,fetcher);
   const results=[];
   for(let start=0;start<orders.length;start+=60) {
     const allowed=orders.slice(start,start+60),ids=allowed.map(o=>o.id);
     if(!ids.length)continue;
-    const header={apikey:key};
-    const os=await readPages(url,`orders?select=id,external_id,source,company,parent_id,cancelled_at,invoiced_at,invoice_number,remito_number&source=eq.catalogolexo&company=eq.lexo&external_id=in.(${ids.map(encodeURIComponent).join(',')})&order=id`,header,fetcher);
+    const os=await read('orders',`select=id,external_id,source,company,parent_id,cancelled_at,invoiced_at,invoice_number,remito_number&source=eq.catalogolexo&company=eq.lexo&external_id=in.(${ids.map(encodeURIComponent).join(',')})&order=id`);
     if(!os.length)continue;
-    const children=await readPages(url,`orders?select=id,parent_id&parent_id=in.(${os.map(o=>encodeURIComponent(o.id)).join(',')})&order=id`,header,fetcher);
+    const children=await read('orders',`select=id,parent_id&parent_id=in.(${os.map(o=>encodeURIComponent(o.id)).join(',')})&order=id`);
     const splitRoots=new Set(children.map(o=>o.parent_id));
-    const ls=await readPages(url,`order_lines?select=id,order_id,sku,qty_ordered,qty_picked,status&order_id=in.(${os.map(o=>encodeURIComponent(o.id)).join(',')})&order=id`,header,fetcher);
+    const ls=await read('lines',`select=id,order_id,sku,qty_ordered,qty_picked,status&order_id=in.(${os.map(o=>encodeURIComponent(o.id)).join(',')})&order=id`);
     results.push(...reconcileDelivery(allowed,os.filter(o=>!splitRoots.has(o.id)),ls));
   }
   return {available:true,lines:results,updatedAt:new Date().toISOString()};
 }
 
-export async function warehouseSnapshot(context,{url,key}=warehouseDefaults,fetcher=fetch) {
-  const headers={apikey:key},columns='id,number,customer,status,created_at,source,company,client_code,external_id,parent_id,cancelled_at,invoiced_at,invoice_number,remito_number';
-  const prefix=`orders?select=${columns}&company=eq.lexo&order=id`;
+export async function warehouseSnapshot(context,settings,fetcher=fetch) {
+  const read=warehouseFeed(settings,fetcher);
+  const columns='id,number,customer,status,created_at,source,company,client_code,external_id,parent_id,cancelled_at,invoiced_at,invoice_number,remito_number';
+  const prefix=`select=${columns}&company=eq.lexo&order=id`;
   const byId=new Map();
   const add=rows=>{for(const row of rows)byId.set(row.id,row);};
   const fullDashboard=context.profile.role==='admin'||context.fullDashboard===true;
-  if(fullDashboard) add(await readPages(url,prefix,headers,fetcher));
+  if(fullDashboard) add(await read('orders',prefix));
   else {
     for(const [field,values] of [['client_code',context.clients.map(c=>c.client_code)],['external_id',context.orders.map(o=>o.id)]]) {
       for(let start=0;start<values.length;start+=60) {
         const quoted=values.slice(start,start+60).map(v=>'"'+text(v).replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"').join(',');
-        add(await readPages(url,`${prefix}&${field}=in.(${encodeURIComponent(quoted)})`,headers,fetcher));
+        add(await read('orders',`${prefix}&${field}=in.(${encodeURIComponent(quoted)})`));
       }
     }
   }
@@ -115,9 +131,9 @@ export async function warehouseSnapshot(context,{url,key}=warehouseDefaults,fetc
   const children=new Set(),lines=[];
   for(let start=0;start<roots.length;start+=60) {
     const ids=roots.slice(start,start+60).map(o=>encodeURIComponent(o.id)).join(',');
-    const childRows=await readPages(url,`orders?select=id,parent_id&parent_id=in.(${ids})&order=id`,headers,fetcher);
+    const childRows=await read('orders',`select=id,parent_id&parent_id=in.(${ids})&order=id`);
     for(const row of childRows)children.add(row.parent_id);
-    lines.push(...await readPages(url,`order_lines?select=id,order_id,sku,name,qty_ordered,qty_picked,status&order_id=in.(${ids})&order=id`,headers,fetcher));
+    lines.push(...await read('lines',`select=id,order_id,sku,name,qty_ordered,qty_picked,status&order_id=in.(${ids})&order=id`));
   }
   const lineGroups=group(lines,l=>l.order_id);
   const orders=roots.map(order=>{

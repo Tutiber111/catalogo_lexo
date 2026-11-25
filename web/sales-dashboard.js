@@ -6,6 +6,7 @@
   const adminEntry = document.querySelector('#openAdminSalesDashboard');
   const title = document.querySelector('#salesDashboardTitle');
   let adminSalesmen = [];
+  let registeredSalesmen = [];
   let adminSelectedCode = '';
   let salesmanPreview=false;
   const salesmanMode=()=>!hasFullView()||salesmanPreview;
@@ -104,6 +105,7 @@
     productSearch = '';
     adminSelectedCode = '';
     adminSalesmen = [];
+    registeredSalesmen = [];
     closeCatalogDialog(dialog);
   }
 
@@ -146,9 +148,10 @@
     if(resumeSnapshot()){if(salesmanPreview)title.textContent='Mi gestión comercial';return;}
     panel.innerHTML = '<p role="status">Cargando vendedores…</p>';
     try {
-      adminSalesmen = await CATALOG_SUPABASE.loadDashboardSalesmen();
-      if(window.SALES_BI)adminSalesmen=[...adminSalesmen.filter(s=>!['90','900'].includes(s.code)),{code:'900',name:'Adrian'},{code:'unassigned',name:'Sin asignación'}];
+      const salesmen = await CATALOG_SUPABASE.loadDashboardSalesmen();
       if (state.user?.id !== userId || !hasDashboardAccess() || !hasFullView()) { reset(); return; }
+      registeredSalesmen = salesmen;
+      adminSalesmen = window.SALES_BI ? [...salesmen.filter(s=>!['90','900'].includes(s.code)),{code:'900',name:'Adrian'},{code:'unassigned',name:'Sin asignación'}] : [...salesmen];
       if (!adminSalesmen.length) {
         panel.innerHTML = '<p>No hay vendedores configurados.</p>';
         return;
@@ -260,6 +263,17 @@
     if (window.SALES_BI && !selectedClientId) {
       window.SALES_BI.mount(panel, { owner:snapshot.owner, clients:snapshot.clients, orders:snapshot.orders,
         dataVersion:snapshot,
+        registeredSalesmen,
+        onSaveClient:async (original, changes)=>{
+          if(!isAdmin()||salesmanMode()||key()!==snapshot?.owner)throw new Error('Dashboard access denied');
+          const account=state.user.id;
+          const updated=original.id?await CATALOG_SUPABASE.updateSalesClient(original.id,changes):
+            await CATALOG_SUPABASE.createSalesClient({...changes,clientCode:original.clientCode});
+          if(state.user?.id!==account||!isAdmin())return;
+          if(activeRefresh?.owner===key())await activeRefresh.promise;
+          if(state.user?.id===account&&isAdmin())await refresh({background:true});
+          return updated;
+        },
         clientGroups:snapshot.clientGrouping.groups,
         onManageAccess:()=>{if(isAdmin())window.DASHBOARD_ACCESS_MANAGER?.open();},
         onManageGroups:()=>{if(!isAdmin())return;return window.DASHBOARD_CLIENT_GROUPS?.open({available:snapshot.clientGrouping.available,groups:snapshot.clientGrouping.groups,onSaved:()=>{window.SALES_BI.reset();return refresh();}});},

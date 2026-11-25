@@ -97,6 +97,15 @@
 .bi-detail-toolbar label:first-child { flex:1; }
 .bi-detail-toolbar>span { font-size:10px; color:var(--bi-muted); padding-bottom:10px; }
 .bi-table-scroll { overflow:auto; max-height:480px; margin-top:10px; }
+.sales-bi th button[data-bi-sort] { display:inline-flex; gap:.35em; align-items:center; padding:0; color:inherit; background:none; border:0; font:inherit; text-align:left; }
+.sales-bi th button[data-bi-sort]::after { content:""; display:inline-block; width:.45em; height:.45em; flex:none; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; opacity:.4; transform:rotate(45deg); }
+.sales-bi th[aria-sort="ascending"] button[data-bi-sort]::after { opacity:1; transform:rotate(225deg); }
+.sales-bi th[aria-sort="descending"] button[data-bi-sort]::after { opacity:1; }
+.bi-layout.bi-directory-layout { grid-template-columns:minmax(0,1fr); }
+.bi-directory-layout .bi-sidebar[hidden] { display:none; }
+.bi-directory-search { display:grid; gap:6px; max-width:420px; font-weight:600; }
+.bi-directory-search input,.bi-client-groups-dialog select { box-sizing:border-box; width:100%; padding:10px; border:1px solid #b9cada; border-radius:6px; font:inherit; }
+.bi-section-tabs { flex-wrap:wrap; }
 .sales-bi table { border-collapse:collapse; width:100%; font-size:11px; white-space:nowrap; }
 .sales-bi caption { text-align:left; font-size:11px; color:var(--bi-muted); padding-bottom:10px; }
 .sales-bi th { text-align:left; background:#f4f7fa; color:#52657c; font-size:10px; padding:11px; position:sticky; top:0; }

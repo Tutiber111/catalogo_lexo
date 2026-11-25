@@ -56,8 +56,16 @@ async function main(){
    })};
   });
   await page.locator('[name=brand]').selectOption('OXO');
+  assert.match(await page.locator('.bi-brand-share .bi-bar strong').textContent(),/100%/,'brand share uses the filtered sales total');
   await page.locator('[data-bi-tab=products]').click();
   assert.equal(await page.locator('[data-bi-products] tbody tr').count(),100);
+  const amountHeader=page.locator('[data-bi-products] th').filter({hasText:'Importe'});
+  await amountHeader.locator('[data-bi-sort]').click();
+  assert.equal(await amountHeader.getAttribute('aria-sort'),'ascending');
+  assert.equal(await page.locator('[data-bi-products] tbody tr').first().locator('td').nth(2).textContent(),'3041','sort uses rows beyond the first page');
+  await amountHeader.locator('[data-bi-sort]').click();
+  assert.equal(await amountHeader.getAttribute('aria-sort'),'descending');
+  assert.equal(await page.locator('[data-bi-products] tbody tr').first().locator('td').nth(2).textContent(),'00000');
   await page.locator('[data-bi-chart=dimension]').selectOption('units');
   const downloadEvent=page.waitForEvent('download');
   await page.locator('[data-bi-workbook]').click();
@@ -68,6 +76,7 @@ async function main(){
    return Object.fromEntries(workbook.SheetNames.map(name=>[name,XLSX.utils.sheet_to_json(workbook.Sheets[name],{header:1,defval:null})]));
   },fs.readFileSync(await download.path()).toString('base64'));
   const ranked=sheets.Productos.slice(1);
+  assert.equal(sheets.Marcas[1][2],1,'workbook includes the numeric participation fraction');
   assert.equal(ranked.length,103,'exports all matching products across pages');
   assert.equal(ranked[0][1],'00000','leading zeroes survive the download');
   assert.deepEqual(ranked[0].slice(9),['00000',12.5,20,'SKU exacto']);

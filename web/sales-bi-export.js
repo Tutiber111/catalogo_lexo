@@ -116,9 +116,10 @@
         a ? amount(a.annual) : null, a?.frequency, a?.last, context.situationLabels[a?.situation || 'insufficient'], a?.remaining, a ? quality(a.period) : 'Sin datos'])];
     result['Vendedores'] = [['Código vendedor', 'Vendedor', 'Importe del período sin IVA', 'Mes anterior sin IVA', 'Diferencia', 'Variación', 'Importe 12 meses sin IVA', 'Dentro de frecuencia', 'Acción necesaria', 'Fuera de frecuencia', 'Historial insuficiente', 'Nuevos (12m)', 'Reactivados (12m)'],
       ...report.vendors.map(v => [String(v.code), sellerName(v.code), amount(v.current), amount(v.month), v.change.delta, v.change.percent, amount(v.annual), v.situations.within, v.situations.action, v.situations.overdue, v.situations.insufficient, v.newClients, v.reactivated])];
-    for (const [sheet, rows] of [['Marcas', analysis.brands], ['Provincias', analysis.provinces]]) {
-      result[sheet] = [[sheet, 'Importe sin IVA', 'Unidades', 'Clientes'], ...rows.map(r => [r.name, r.value, r.qty, r.buyers])];
-    }
+    result.Marcas = [['Marca', 'Importe sin IVA', 'Participación', 'Unidades', 'Clientes'],
+      ...analysis.brands.map(r => [r.name, r.value, r.share, r.qty, r.buyers])];
+    result.Provincias = [['Provincia', 'Importe sin IVA', 'Unidades', 'Clientes'],
+      ...analysis.provinces.map(r => [r.name, r.value, r.qty, r.buyers])];
     result['Pedidos y entregas'] = [['Fecha pedido', 'Fecha grupo de compra', 'ID grupo de compra', 'Origen', 'Archivo de origen', 'Fila', 'Pedido', 'Código cliente', 'Cliente', 'Código de local original', 'Nombre de local original', 'SKU', 'Producto', 'Marca', 'Provincia', 'Unidades pedidas', 'Unidades facturadas ERP', 'Unidades devueltas ERP', 'Importe pedido sin IVA', 'Importe facturado estimado sin IVA', 'Unidades preparadas', 'Unidades entregadas', 'Unidades pendientes de confirmar', 'Importe entregado sin IVA', 'Factura', 'Remito', ...priceHeaders],
       ...analysis.rows.map(r => [r.date, r.occasionDate, r.occasionId, sourceNames[r.source], r.sourceFile, r.sourceRow, r.orderLabel || r.orderId,
         String(r.clientCode), r.clientName, String(r.sourceClientCode || r.clientCode), r.sourceClientName || r.clientName, String(r.sku), r.productName, r.brand, r.province,
@@ -147,7 +148,7 @@
       const summary = name === 'Resumen' || name === 'Entrega WarehousePick';
       if (!summary) sheet['!autofilter'] = {ref: sheet['!ref']};
       for (const [column, header] of headers.entries()) {
-        const format = header === 'Variación' ? '0.0%' : priceHeaders.slice(1, 3).includes(header) ? '#,##0.00' : null;
+        const format = ['Variación', 'Participación'].includes(header) ? '0.0%' : priceHeaders.slice(1, 3).includes(header) ? '#,##0.00' : null;
         if (!format) continue;
         for (let row = 1; row < rows.length; row++) {
           const cell = sheet[xlsx.utils.encode_cell({r:row,c:column})];

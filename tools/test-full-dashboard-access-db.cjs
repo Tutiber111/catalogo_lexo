@@ -16,7 +16,9 @@ async function main(){const db=new PGlite();try{
  create table order_items(id uuid primary key,order_id uuid,sku text,name text,quantity numeric,unit_price numeric,line_total numeric);
  alter table sales_clients enable row level security;alter table orders enable row level security;alter table order_items enable row level security;
  grant select on sales_clients,orders,order_items to authenticated;
+ grant update on sales_clients to authenticated;
  create policy own_clients on sales_clients for select to authenticated using(public.is_admin() or salesman_code=(select salesman_code from profiles where id=auth.uid()));
+ create policy admin_client_update on sales_clients for update to authenticated using(public.is_admin()) with check(public.is_admin());
  create policy own_orders on orders for select to authenticated using(public.is_admin() or sales_client_id in(select id from sales_clients));
  create policy own_items on order_items for select to authenticated using(order_id in(select id from orders));
  create table product_overrides(product_id text primary key,out_of_stock boolean default false);
@@ -36,6 +38,7 @@ async function main(){const db=new PGlite();try{
  insert into sales_history_lines(line_key,order_key,order_date,client_code,sku,ordered_qty,invoiced_qty,delivered_qty,returned_qty,cancelled_qty,pending_qty,ordered_net,invoiced_net,batch_id,source_row) values('1','1','2026-10-01','1','A',1,1,1,0,0,0,100,100,repeat('a',64),4),('2','2','2026-10-01','2','A',2,2,2,0,0,0,200,200,repeat('a',64),5);`);
  await db.exec(fs.readFileSync('supabase/migrations/20261103154501_full_dashboard_read_access.sql','utf8'));
  await db.exec(fs.readFileSync('supabase/migrations/20261112155940_private_dashboard_export_prices.sql','utf8'));
+ await db.exec(fs.readFileSync('supabase/migrations/20261125184407_honor_registered_sales_client_assignment.sql','utf8'));
  await db.exec(`insert into private.sales_dashboard_export_prices (sku,list_price,suggested_price,ambiguous,by_brand)
  values ('00001',12.5,20,false,'{}'),('3041',null,null,true,'{"Leifheit":{"listPrice":30,"suggestedPrice":40}}')`);
  const id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
@@ -73,6 +76,7 @@ async function main(){const db=new PGlite();try{
  assert.equal((await scope('855')).orders.length,1,'full viewer can preview another salesperson');assert.equal((await read('get_dashboard_client_groups'))[0].clientCodes.length,2);
  assert.equal((await db.query('select * from orders')).rows.length,1,'operational order RLS remains portfolio scoped');assert.equal((await db.query('select * from sales_clients')).rows.length,1);
  assert.equal((await db.query("update product_overrides set out_of_stock=true returning *")).rows.length,0,'full dashboard access cannot change stock');
+ assert.equal((await db.query("update sales_clients set salesman_code='855' where client_code='1' returning id")).rows.length,0,'full dashboard access cannot edit clients');
  for(const name of ['dashboard_access_accounts','get_dashboard_group_candidates'])await assert.rejects(()=>read(name),e=>e.code==='42501');await assert.rejects(()=>db.query('select delete_dashboard_client_group($1)',[group]),e=>e.code==='42501');await assert.rejects(()=>db.query("select save_dashboard_client_group(null,'Bad',array['1','2'])"),e=>e.code==='42501');
  await assert.rejects(()=>db.exec("update profiles set role='admin'"));
  await identity(3);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>scope('805'),e=>e.code==='42501');
@@ -80,6 +84,12 @@ async function main(){const db=new PGlite();try{
  await identity(5);await assert.rejects(()=>db.query('insert into profiles(id,role,dashboard_full_access) values($1,$2,true)',[id(5),'salesman']),e=>e.code==='42501','signup cannot self-grant access');
  await identity(1);await db.query('select set_dashboard_full_access($1,false)',[id(2)]);await identity(2);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');await assert.rejects(()=>read('sales_dashboard_history_json'),e=>e.code==='42501','revocation works without a new JWT');
  await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');
+ await identity(1);
+ assert.equal((await db.query("update sales_clients set salesman_code='855',name='Updated client' where client_code='1' returning id")).rows.length,1);
+ assert.equal((await jsonScope('855')).clients.find(c=>c.client_code==='1').name,'Updated client');
+ assert.equal((await jsonScope('855')).lines.length,2,'reassignment moves historical sales into the new portfolio');
+ assert.equal((await db.query("select sales_dashboard_assignment('81032','805') as code")).rows[0].code,'805');
+ assert.equal((await jsonScope('805')).clients.length,0,'reassignment removes the client from the old portfolio');
  await identity(4);await assert.rejects(()=>read('sales_dashboard_full_context'),e=>e.code==='42501');
  await assert.rejects(()=>jsonScope('805'),e=>e.code==='42501');
  await assert.rejects(()=>read('sales_dashboard_export_prices'),e=>e.code==='42501');

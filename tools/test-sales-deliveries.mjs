@@ -37,19 +37,50 @@ for(const role of ['salesman','customer']){
 const mismatch=async url=>new Response(JSON.stringify(url.includes('/auth/v1/user')?{id:'user1'}:[{id:'other',role:'admin'}]),{status:200});
 await assert.rejects(()=>catalogContext({url:'https://catalog.example',key:'public',token:'Bearer valid-test',fetcher:mismatch}),e=>e.status===403);
 const seen=[];
-const whFetch=async url=>{seen.push(url);return new Response(JSON.stringify(url.includes('/order_lines?')?lines:wh),{status:200})};
-const response=await warehouseDeliveries(orders,{url:'https://warehouse.example',key:'public'},whFetch);
+const warehouse={url:'https://warehouse.example',key:'publishable-fixture',readerKey:'reader-fixture'};
+function checkWarehouseRequest(url,options) {
+ const headers=new Headers(options.headers);
+ assert.equal(headers.get('apikey'),warehouse.key);
+ assert.equal(headers.get('x-reader-key'),warehouse.readerKey);
+ assert.equal(headers.has('Authorization'),false);
+ assert.equal(options.redirect,'error');
+ assert.match(new URL(url).pathname,/^\/rest\/v1\/rpc\/lexo_(?:orders|order_lines)_feed$/);
+}
+const whFetch=async (url,options)=>{
+ checkWarehouseRequest(url,options);
+ seen.push(url);
+ return Response.json(url.includes('/lexo_order_lines_feed?')?lines:url.includes('&parent_id=in.')?[]:wh);
+};
+const response=await warehouseDeliveries(orders,warehouse,whFetch);
 assert.equal(response.lines.length,3);assert.ok(seen[0].includes('external_id=in.(order1,order2)'));
-const snapshotFetch=async url=>new Response(JSON.stringify(url.includes('/order_lines?')?
+assert.equal(new URL(seen[0]).searchParams.get('source'),'eq.catalogolexo');
+assert.equal(new URL(seen[0]).searchParams.get('order'),'id');
+assert.ok(seen.some(url=>url.includes('parent_id=in.')),'split orders use the order feed as well');
+assert.ok(seen.some(url=>url.includes('lexo_order_lines_feed?')&&url.includes('order_id=in.')));
+const snapshotFetch=async (url,options)=>{
+ checkWarehouseRequest(url,options);
+ return new Response(JSON.stringify(url.includes('/lexo_order_lines_feed?')?
  [...lines,{id:'manual-line',order_id:'manual',sku:'C',qty_ordered:5,qty_picked:2,name:'Manual product'}]:
  url.includes('&parent_id=in.')?[]:[...wh.map(o=>({...o,client_code:'001',created_at:'2026-10-16'})),
  {id:'manual',company:'lexo',client_code:'001',customer:'Assigned customer',created_at:'2026-10-16'},
  {id:'forbidden',company:'lexo',client_code:'002',created_at:'2026-10-16'},
  {id:'wrong-company',company:'bm',client_code:'001',created_at:'2026-10-16'}]),{status:200});
-const snapshot=await warehouseSnapshot({profile:{role:'salesman'},clients:[{id:'client1',client_code:'001'}],orders}, {url:'https://warehouse.example',key:'public'},snapshotFetch);
+};
+const portfolio={profile:{role:'salesman'},clients:[{id:'client1',client_code:'001'}],orders};
+const snapshot=await warehouseSnapshot(portfolio,warehouse,snapshotFetch);
 assert.deepEqual(snapshot.orders.map(o=>o.id),['wh1','wh2','manual'],'standalone warehouse orders included without expanding customer scope');
 assert.equal(snapshot.orders.find(o=>o.id==='manual').items[0].orderedNet,null,'missing warehouse price is not zero or current catalog price');
 assert.equal(snapshot.orders.find(o=>o.id==='manual').items[0].qty,5);
+await assert.rejects(()=>warehouseSnapshot(portfolio,{...warehouse,readerKey:''},()=>{
+ throw Error('No request should be made without a reader key');
+}),error=>error.status===403);
+await assert.rejects(()=>warehouseSnapshot(portfolio,warehouse,async(url,options)=>{
+ checkWarehouseRequest(url,options);
+ return new Response('{}',{status:403});
+}),error=>error.status===403);
+await assert.rejects(()=>warehouseSnapshot(portfolio,warehouse,(url,options)=>
+ url.includes('/lexo_order_lines_feed?')?new Response('{}',{status:404}):snapshotFetch(url,options)
+),error=>error.code==='warehouse_lines_unavailable');
 console.log('Delivery bridge: partial quantities, invoice/remito confirmation, no ready inference, cross-brand safety, ambiguous lines, invalid quantities, and exact customer authorization passed.');
 
 const scopeRequests=[];
@@ -79,5 +110,5 @@ const fullPreview=await catalogContext({url:'https://catalog.example',key:'publi
 const revokedFetch=async(url,options)=>url.includes('/rpc/sales_dashboard_full_context')?new Response('{}',{status:403}):fullFetch(url,options);
 await assert.rejects(()=>catalogContext({url:'https://catalog.example',key:'public',token:'Bearer viewer',fetcher:revokedFetch}),e=>e.status===403,'RPC revalidates capability after profile read');
 assert.ok(fullRequests.some(url=>url.includes('dashboard_full_access')),'capability is read from the authenticated DB profile');
-const fullWarehouse=await warehouseSnapshot(fullContext,{url:'https://warehouse.example',key:'public'},snapshotFetch);assert.ok(fullWarehouse.orders.some(o=>o.id==='forbidden'),'company warehouse snapshot follows verified dashboard capability');assert.ok(!fullWarehouse.orders.some(o=>o.id==='wrong-company'),'full dashboard access is still Lexo only');
+const fullWarehouse=await warehouseSnapshot(fullContext,warehouse,snapshotFetch);assert.ok(fullWarehouse.orders.some(o=>o.id==='forbidden'),'company warehouse snapshot follows verified dashboard capability');assert.ok(!fullWarehouse.orders.some(o=>o.id==='wrong-company'),'full dashboard access is still Lexo only');
 console.log('Dashboard viewer delivery bridge: actual-profile capability, read-only reporting API, restricted preview, revocation and Lexo-only company snapshot passed.');

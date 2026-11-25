@@ -28,6 +28,11 @@ async function main(){
    if(url.pathname.endsWith('/profiles'))data={id,role,salesman_code:role==='salesman'?'805':null,dashboard_full_access:full,price_access_approved:true};
    if(url.pathname.endsWith('/salesmen'))data=[{code:'805',name:'Alejandro Martínez'},{code:'800',name:'Other seller'}];
    if(url.pathname.endsWith('/sales_clients')){data=clients;if(role==='salesman')data=[clients[0]];}
+   if(url.pathname.endsWith('/sales_clients')&&route.request().method()==='PATCH'){
+    const changes=JSON.parse(route.request().postData());
+    reads.push({editedClient:new URL(route.request().url()).searchParams.get('id'),changes});
+    data={...clients[0],...changes};
+   }
    if(url.pathname.endsWith('/orders'))data=role==='admin'?orders:[orders[0]];
    if(['/rpc/sales_dashboard_scope','/rpc/sales_dashboard_scope_json'].some(path=>url.pathname.endsWith(path))){reads.push(JSON.parse(route.request().postData()));data=scope;}
    if(url.pathname.endsWith('/rpc/get_dashboard_client_groups'))data=[tinaGroup];
@@ -43,6 +48,7 @@ async function main(){
   return {page,errors,reads};
  }
  const seller=await open('salesman'),page=seller.page;
+ assert.equal(await page.locator('[data-bi-section="directory"]').count(),0);
  assert.equal(await page.locator('[name=source],.bi-source-cards,.bi-handover,.bi-section-tabs,[data-bi-salesman]').count(),0);
  assert.equal(seller.reads[0].p_salesman_code,null);
  const ownHeadline=await page.locator('[data-bi-headlines]').textContent();
@@ -72,10 +78,30 @@ async function main(){
  assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Other portfolio secret/);
  await admin.page.locator('[data-bi-return-admin]').click();await admin.page.waitForSelector('.bi-source-cards');
  assert.equal(await admin.page.locator('[data-bi-salesman]').count(),1);
+ await admin.page.locator('[data-bi-section="directory"]').click();
+ const directory=admin.page.locator('[data-bi-table="directory-clients"]');
+ assert.match(await directory.textContent(),/Own customer/);
+ assert.match(await directory.textContent(),/Other portfolio secret/);
+ assert.match(await directory.textContent(),/80605.*Tina & Co/);
+ assert.equal(await admin.page.locator('[data-bi-table="directory-salesmen"] tbody tr').count(),2);
+ await admin.page.locator('[data-bi-directory-search]').fill('84008');
+ assert.equal(await directory.locator('tbody tr:visible').count(),1);
+ await directory.locator('[data-bi-edit-client="84008"]').click();
+ const editor=admin.page.locator('dialog:has(select[name=salesmanCode])');
+ await editor.locator('[name="legalName"]').fill('Updated legal name');
+ await editor.locator('[name="salesmanCode"]').selectOption('800');
+ await editor.locator('[type=submit]').click();
+ await editor.waitFor({state:'detached'});
+ const saved=admin.reads.find(r=>r.editedClient);
+ assert.equal(saved?.editedClient,'eq.c1');
+ assert.equal(saved?.changes.legal_name,'Updated legal name');
+ assert.equal(saved?.changes.salesman_code,'800');
+ await admin.page.locator('[data-bi-section="sales"]').click();
  await admin.page.locator('[data-bi-access]').click();await admin.page.waitForSelector('[data-access-id]');
  await admin.page.locator('[data-access-id]').uncheck();await admin.page.waitForFunction(()=>document.querySelector('[data-access-status]').textContent==='Acceso retirado');
  assert.deepEqual(admin.reads.at(-1).accessChange,{p_profile_id:'viewer-fixture',p_enabled:false});await admin.page.locator('[data-access-close]').click();
  const viewer=await open('salesman',true),vp=viewer.page;
+ assert.equal(await vp.locator('[data-bi-section="directory"]').count(),0);
  assert.equal(await vp.locator('.bi-section-tabs').count(),1,'full viewer has both dashboard sections');
  assert.equal(await vp.locator('[data-bi-salesman]').count(),1);assert.equal(await vp.locator('[data-bi-groups],[data-bi-access]').count(),0,'read access never exposes admin tools');
  assert.ok(viewer.reads.some(r=>r.fullContext),'full viewer uses the protected reporting API');

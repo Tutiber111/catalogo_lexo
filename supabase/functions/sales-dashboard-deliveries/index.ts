@@ -10,7 +10,16 @@ Deno.serve(async request => {
     if(!url||!key)throw new ReadError('Catalog connection is unavailable.');
     const body=await request.json().catch(()=>({}));
     const context=await catalogContext({url,key,token:request.headers.get('authorization'),salesmanCode:body.salesmanCode||null});
-    const data=await warehouseSnapshot(context);
+    let data;
+    try {
+      data=await warehouseSnapshot(context,{readerKey:Deno.env.get('WAREHOUSE_READER_KEY')});
+    } catch(error) {
+      const denied=error instanceof ReadError&&(error.status===401||error.status===403);
+      return new Response(JSON.stringify({
+        code:denied?'warehouse_access_denied':error instanceof ReadError&&error.code==='warehouse_lines_unavailable'?error.code:'warehouse_unavailable',
+        error:denied?'WarehousePick denied the delivery integration access.':'WarehousePick delivery data is unavailable.',
+      }),{status:502,headers});
+    }
     try{await persistDeliverySnapshot({url,key:Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),orders:context.orders,snapshot:data});}catch{console.warn('Company delivery ranking could not be updated.');}
     return new Response(JSON.stringify(data),{headers});
   }catch(error){

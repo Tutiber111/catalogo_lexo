@@ -3,6 +3,18 @@
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..');
 let reader;
+function warehouseReaderKey() {
+  const configured=process.env.WAREHOUSE_READER_KEY?.trim();
+  if(configured)return configured;
+  try {
+    const contents=fs.readFileSync(path.join(root,'lector-key.local.txt'),'utf8');
+    const candidates=contents.split(/\r?\n/).map(line=>line.trim()).filter(line=>/^[A-Za-z0-9_-]{32,}$/.test(line));
+    return candidates.length===1?candidates[0]:undefined;
+  } catch(error) {
+    if(error.code!=='ENOENT')throw error;
+    return undefined;
+  }
+}
 async function salesPreviewApi(request,response,pathname) {
   if(!['/__live-history','/__live-deliveries','/__live-scope','/__live-ranking'].includes(pathname))return false;
   response.setHeader('Cache-Control','no-store');
@@ -26,7 +38,7 @@ async function salesPreviewApi(request,response,pathname) {
       if(context.profile.role!=='admin'&&!context.fullDashboard)throw Object.assign(new Error('Full dashboard preview required.'),{status:403});
       const prepared=JSON.parse(fs.readFileSync(path.join(root,'tmp/sales-dashboard/prepared.json'),'utf8'));
       const products=JSON.parse(fs.readFileSync(path.join(root,'web/data/catalog.json'),'utf8')).products;
-      let delivery;try{delivery=await api.warehouseSnapshot(context);}catch{delivery={available:false,lines:[]};}
+      let delivery;try{delivery=await api.warehouseSnapshot(context,{readerKey:warehouseReaderKey()});}catch{delivery={available:false,lines:[]};}
       const model=require('../web/sales-bi-model.js');
       const data=model.prepare({...prepared,catalog:products,clients:context.clients.map(c=>({id:c.id,clientCode:c.client_code,name:c.name,salesmanCode:c.salesman_code})),
         orders:context.orders.map(o=>({id:o.id,status:o.status,createdAt:o.created_at,customer:{salesClient:{id:o.sales_client_id,clientCode:o.sales_client_code},clientCode:o.customer_client_code,name:o.customer_name},items:o.order_items.map(i=>({id:i.id,sku:i.sku,name:i.name,qty:i.quantity,lineTotal:Number(i.line_total)}))})),delivery,includeUnassigned:true,companyRankingAvailable:true});
@@ -36,7 +48,7 @@ async function salesPreviewApi(request,response,pathname) {
       const prepared=JSON.parse(fs.readFileSync(path.join(root,'tmp/sales-dashboard/prepared.json'),'utf8'));
       const codes=new Set(context.clients.map(c=>String(c.client_code)));
       result={available:true,batches:prepared.batches||[prepared.batch],lines:context.profile.role==='admin'||context.fullDashboard?prepared.lines:prepared.lines.filter(r=>codes.has(String(r.client_code)))};
-    }else result=await api.warehouseSnapshot(scope?{profile:{...context.profile,role:'salesman'},clients:scope.clients,orders:scope.orders}:context);
+    }else result=await api.warehouseSnapshot(scope?{profile:{...context.profile,role:'salesman'},clients:scope.clients,orders:scope.orders}:context,{readerKey:warehouseReaderKey()});
     response.writeHead(200,{'Content-Type':'application/json;charset=utf-8'});response.end(JSON.stringify(result));
   }catch(error){
     response.writeHead(error.status||502,{'Content-Type':'application/json;charset=utf-8'});

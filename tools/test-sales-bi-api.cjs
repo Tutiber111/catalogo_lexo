@@ -45,6 +45,12 @@ async function main(){
   }
   api.rpc=async()=>({data:[],error:null});
   await assert.rejects(()=>context.window.CATALOG_SUPABASE.loadDashboardScope('805'),/No se pudo cargar tu cartera/);
+  api.functions={invoke:async()=>({error:{context:{status:502,json:async()=>({code:'warehouse_access_denied'})}}})};
+  assert.equal((await context.window.CATALOG_SUPABASE.loadDashboardDeliveries()).reason,'access_denied');
+  api.functions.invoke=async()=>({error:{context:{status:502,json:async()=>({code:'warehouse_lines_unavailable'})}}});
+  assert.equal((await context.window.CATALOG_SUPABASE.loadDashboardDeliveries()).reason,'lines_unavailable');
+  api.functions.invoke=async()=>({error:{context:{status:502,json:async()=>({code:'warehouse_unavailable'})}}});
+  assert.equal((await context.window.CATALOG_SUPABASE.loadDashboardDeliveries()).reason,'unavailable');
   const previewReads=[];
   api.auth.getSession=async()=>({data:{session:{access_token:'local-fixture-token'}}});
   const preview={window:{location:{search:'',hash:'',hostname:'127.0.0.1',port:'8091'},supabase:{createClient:()=>api}},URLSearchParams,

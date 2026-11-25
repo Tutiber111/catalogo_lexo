@@ -248,8 +248,18 @@
 
   async function createSalesClient(salesClient) {
     if (!client) throw new Error("Supabase no está disponible.");
-    const payload = {
-      client_code: String(salesClient.clientCode || "").trim(),
+    const payload = {client_code:String(salesClient.clientCode || "").trim(), ...salesClientFields(salesClient)};
+    const { data, error } = await client
+      .from("sales_clients")
+      .insert(payload)
+      .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
+      .single();
+    if (error) throw error;
+    return normalizeSalesClient(data);
+  }
+
+  function salesClientFields(salesClient) {
+    return {
       name: String(salesClient.name || "").trim(),
       legal_name: String(salesClient.legalName || "").trim(),
       address: String(salesClient.address || "").trim(),
@@ -257,9 +267,14 @@
       salesman_code: normalizeSalesmanCode(salesClient.salesmanCode),
       source_salesman_label: String(salesClient.sourceSalesmanLabel || "").trim(),
     };
+  }
+
+  async function updateSalesClient(id, salesClient) {
+    if (!client || !id) throw new Error("Falta la ficha del cliente.");
     const { data, error } = await client
       .from("sales_clients")
-      .insert(payload)
+      .update({...salesClientFields(salesClient),updated_at:new Date().toISOString()})
+      .eq("id", id)
       .select("id,client_code,name,legal_name,address,locality,salesman_code,source_salesman_label")
       .single();
     if (error) throw error;
@@ -750,7 +765,13 @@
     if (!client) throw new Error('Supabase no está disponible.');
     if (isPrivateDashboardPreview()) return readPrivateDashboardPreview('/__live-deliveries'+(salesmanCode?'?salesman='+encodeURIComponent(salesmanCode):''));
     const {data,error}=await client.functions.invoke('sales-dashboard-deliveries',{body:{salesmanCode:salesmanCode||null}});
-    if(error) return {available:false,lines:[],error:'WarehousePick no está disponible en este entorno.'};
+    if(error) {
+      const response=error.context;
+      const body=await response?.json?.().catch(()=>null);
+      const denied=body?.code==='warehouse_access_denied'||[401,403].includes(response?.status);
+      const reason=denied?'access_denied':body?.code==='warehouse_lines_unavailable'?'lines_unavailable':'unavailable';
+      return {available:false,lines:[],reason};
+    }
     if(!data?.available||!Array.isArray(data.lines))return {available:false,lines:[],error:'Respuesta de depósito no disponible.'};
     return data;
   }
@@ -1105,6 +1126,7 @@
     acknowledgeRestock,
     loadDashboardDeliveries,
     createSalesClient,
+    updateSalesClient,
     loadClientBranches,
     createClientBranch,
     deleteClientBranch,

@@ -3,3 +3,4 @@ supabase/.temp/
 *.log
 tmp/
 __pycache__/
+/lector-key.local.txt

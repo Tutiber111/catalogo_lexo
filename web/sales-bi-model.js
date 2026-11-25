@@ -27,7 +27,7 @@
   }
   function analysisSalesman(client) {
     const code=str(client.salesmanCode);
-    if(str(client.clientCode)==='81032')return 'unassigned';
+    if(str(client.clientCode)==='81032'&&['','810'].includes(code))return 'unassigned';
     if(!code&&str(client.clientCode)==='80605')return '805';
     return !code||code==='90'||code==='900'?'900':code;
   }
@@ -275,9 +275,11 @@
       && (!f.productKey || productKey({brand:p.section,sku:p.sku})===f.productKey)
       && (!f.category || p.category===f.category) && (!f.product || norm(`${p.sku} ${p.name}`).includes(norm(f.product)))
       && !bought.has(`${p.section}:${str(p.sku).toUpperCase()}`));
+    const brands = groups('brand');
+    const brandTotal = brands.reduce((sum, brand) => sum + brand.value, 0);
     return { rows, totals:t, prior, previous, priorCovered:Boolean(priorCovered), covered:Boolean(covered(f.from,f.to)),
       change:priorCovered && prior[metric] ? (t[metric]-prior[metric])/Math.abs(prior[metric]) : null,
-      trend:[...months.values()], brands:groups('brand'), provinces:groups('province'), customers,
+      trend:[...months.values()], brands:brands.map(brand=>({...brand,share:brandTotal?brand.value/brandTotal:null})), provinces:groups('province'), customers,
       products:[...products.values()].sort((a,b)=>b.value-a.value), opportunities,
       lost:customers.filter(c=>c.status==='lost'), declining:customers.filter(c=>c.status==='declining'), metric };
   }
