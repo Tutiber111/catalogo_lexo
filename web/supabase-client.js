@@ -784,18 +784,23 @@
 
   async function loadDashboardOrders(userId) {
     if (!client || !userId) throw new Error("Iniciá sesión para ver tus pedidos.");
+    // Each row embeds its order items, so keep these pages smaller than simple tables.
     return dashboardPages(() => client.from("orders").select("*, order_items(*)")
-      .order("created_at", { ascending: false }).order("id"), normalizeOrder);
+      .order("created_at", { ascending: false }).order("id"), normalizeOrder, 100, 25);
   }
 
-  async function dashboardPages(query, normalize) {
+  async function dashboardPages(query, normalize, size = 500, timeoutPageSize = size) {
     const rows = [];
-    const size = 500;
-    for (let offset = 0; ; offset += size) {
+    for (let offset = 0; ; ) {
       const { data, error } = await query().range(offset, offset + size - 1);
+      if (error?.code === '57014' && size > timeoutPageSize) {
+        size = timeoutPageSize;
+        continue;
+      }
       if (error) throw error;
       rows.push(...(data || []).map(normalize));
       if (!data || data.length < size) return rows;
+      offset += size;
     }
   }
 
@@ -827,7 +832,7 @@
     if(error||!data.session)throw new Error('Iniciá sesión para cargar los datos privados.');
     const response=await fetch(path,{headers:{Authorization:'Bearer '+data.session.access_token},cache:'no-store'});
     const value=await response.json();
-    if(!response.ok)throw new Error(value.error||'No se pudieron cargar los datos privados.');
+    if(!response.ok)throw Object.assign(new Error(value.error||'No se pudieron cargar los datos privados.'),{status:response.status,code:value.code});
     if(!value.available)throw new Error('La fuente de datos solicitada no está disponible.');
     return value;
   }

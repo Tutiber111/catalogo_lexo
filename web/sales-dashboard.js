@@ -25,13 +25,18 @@
   let liveTimer = null;
   let lastLiveRefresh = 0;
   let directLinkOpenedFor = '';
+  const emptyHistory = {available:false,batches:[],lines:[]};
+  const emptyDelivery = {available:false,lines:[]};
+  const emptyRanking = {available:false,items:null};
+  const accessError = error => ['42501','PGRST301','PGRST303'].includes(error?.code) || [401,403].includes(error?.status);
   const hasDashboardAccess = () => Boolean(window.SALES_DASHBOARD_ACCESS?.canAccess(state.user,state.profile)) && !state.isPasswordRecovery;
   const isAdmin=()=>state.profile?.role==='admin';
   const hasFullView=()=>Boolean(window.SALES_DASHBOARD_ACCESS?.canReadAll(state.user,state.profile));
   const salesmanCode = () => hasFullView() ? adminSelectedCode : state.profile?.salesman_code || '';
+  const dataScope = () => hasFullView() && !salesmanPreview && window.SALES_BI ? '*' : salesmanCode();
   const key = () => hasDashboardAccess() && (
     hasFullView() ? Boolean(adminSelectedCode) : state.profile?.role === 'salesman'
-  ) ? `${state.user.id}:${state.profile.role}:${hasFullView()?'full':'portfolio'}:${salesmanCode()}:${salesmanMode()?'salesman':'admin'}` : '';
+  ) ? `${state.user.id}:${state.profile.role}:${hasFullView()?'full':'portfolio'}:${dataScope()}:${salesmanMode()?'salesman':'admin'}` : '';
   const safe = (value) => escapeHtml(String(value ?? ''));
   const date = (value) => new Date(value).toLocaleDateString('es-AR');
   const normalize = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -201,62 +206,100 @@
     const owner = key();
     if (!owner) { reset(); return; }
     const request = ++generation;
-    if(!background) { window.SALES_BI?.suspend(); snapshot = null; }
+    const scoped=salesmanMode();
+    const companyView=!scoped&&Boolean(window.SALES_BI);
+    const keepCompanyView=companyView&&snapshot?.owner===owner;
+    const loadingCompany=companyView&&!keepCompanyView;
+    const historyForOwner=historicalCache?.owner===owner?historicalCache:null;
+    const current=()=>request===generation&&key()===owner;
+    let failed=false;
+    if(!background&&!keepCompanyView) { window.SALES_BI?.suspend(); snapshot = null; }
     panel.hidden = false;
-    if(!background) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
+    if(!background&&!keepCompanyView) panel.innerHTML = '<h3>Mi gestión comercial</h3><p role="status">Cargando clientes y pedidos…</p>';
+    if(!background&&keepCompanyView)window.SALES_BI.setLiveError('Actualizando · se muestran los últimos datos recibidos');
     try {
-      const scoped=salesmanMode();
       const fullContextPromise=!isAdmin()&&!scoped?CATALOG_SUPABASE.loadDashboardFullContext():Promise.resolve(null);
       const scopePromise=scoped?CATALOG_SUPABASE.loadDashboardScope(hasFullView()?salesmanCode():null):Promise.resolve(null);
-      const useHistoryCache=!scoped&&!forceHistory&&historicalCache?.data?.available&&historicalCache.owner===owner&&Date.now()-historicalCache.at<300000;
+      const useHistoryCache=!scoped&&!forceHistory&&historyForOwner?.data.available&&Date.now()-historyForOwner.at<1800000;
       const historyPromise=scoped?scopePromise.then(scope=>({available:true,batches:scope.batches,lines:scope.lines})):
-        useHistoryCache?Promise.resolve(historicalCache.data):CATALOG_SUPABASE.loadDashboardHistory?CATALOG_SUPABASE.loadDashboardHistory():Promise.resolve({batches:[],lines:[],available:false});
+        useHistoryCache?Promise.resolve(historyForOwner.data):CATALOG_SUPABASE.loadDashboardHistory?.().catch(error=>{
+          if(accessError(error))throw error;
+          return historyForOwner?.data.available?{...historyForOwner.data,historyStatus:'stale'}:{...emptyHistory,historyStatus:'unavailable'};
+        })||Promise.resolve(emptyHistory);
       const requestedCode=String(salesmanCode()||'').trim();
       const deliveryCode=scoped?(['90','900'].includes(requestedCode)?'900':requestedCode):null;
-      const [scope,clients, orders, delivery, overrides,companyRanking,clientGrouping,historical] = await Promise.all([
+      let historical=historyForOwner?.data||{...emptyHistory,historyStatus:'loading'};
+      let delivery={...emptyDelivery,reason:'loading'};
+      let companyRanking=emptyRanking;
+      let context;
+      let published;
+      const publish = () => {
+        if (!context || !current() || failed) return;
+        if (published && published.historical===historical && published.delivery===delivery && published.companyRanking===companyRanking) return;
+        published={historical,delivery,companyRanking};
+        renderSnapshot({owner,context,historical,delivery,companyRanking});
+      };
+      const historyTask=historyPromise.then(value=>{
+        historical=value;
+        if(!scoped&&!useHistoryCache&&value.available&&!value.historyStatus&&current()&&!failed)
+          historicalCache={owner,at:Date.now(),data:value};
+        if(loadingCompany)publish();
+      });
+      const deliveryTask=(CATALOG_SUPABASE.loadDashboardDeliveries?.(deliveryCode).catch(()=>emptyDelivery)||Promise.resolve(emptyDelivery)).then(value=>{
+        delivery=value;
+        if(loadingCompany)publish();
+      });
+      const rankingTask=scoped&&CATALOG_SUPABASE.loadCompanyBestsellers
+        ?historyTask.then(()=>CATALOG_SUPABASE.loadCompanyBestsellers()).then(value=>{companyRanking=value;})
+        :Promise.resolve();
+      let supplementsReady=false;
+      const supplements=Promise.all([historyTask,deliveryTask,rankingTask]).then(()=>{supplementsReady=true;});
+      const core = Promise.all([
         scopePromise,
         Promise.all([scopePromise,fullContextPromise]).then(([scope,full])=>scope?scope.clients:full?full.clients:salesmanCode()
           ? CATALOG_SUPABASE.loadDashboardClients(hasFullView()&&window.SALES_BI?'*':salesmanCode())
           : []),
         Promise.all([scopePromise,fullContextPromise]).then(([scope,full])=>scope?scope.orders:full?full.orders:CATALOG_SUPABASE.loadDashboardOrders(state.user.id)),
-        CATALOG_SUPABASE.loadDashboardDeliveries ? CATALOG_SUPABASE.loadDashboardDeliveries(deliveryCode) : Promise.resolve({available:false,lines:[]}),
         CATALOG_SUPABASE.loadProductOverrides ? CATALOG_SUPABASE.loadProductOverrides() : Promise.resolve(null),
-        // Admin already has the complete dataset for company ranking. A scoped
-        // view waits for its history before starting the company aggregation.
-        scoped&&CATALOG_SUPABASE.loadCompanyBestsellers?historyPromise.then(()=>CATALOG_SUPABASE.loadCompanyBestsellers()):Promise.resolve({available:false,items:null}),
         CATALOG_SUPABASE.loadDashboardClientGroups?CATALOG_SUPABASE.loadDashboardClientGroups():Promise.resolve({available:false,groups:[]}),
-        historyPromise,
-      ]);
-      if (request !== generation || key() !== owner) return;
-      if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
-      if (request !== generation || key() !== owner) return;
-      if(!useHistoryCache) historicalCache={owner,at:Date.now(),data:historical};
-      const selectedOrders = !scope && salesmanCode() && !(hasFullView()&&window.SALES_BI)
-        ? orders.filter(order => clients.some(client => model.matches(client, order)))
-        : orders;
-      // The server enforces access. Also constrain admin selection and late account responses here.
-      const codes = new Set(clients.map(c => String(c.clientCode)));
-      const useDashboardHistory = window.SALES_BI && (scope || hasFullView());
-      const lines = useDashboardHistory ? historical.lines : historical.lines.filter(r => codes.has(String(r.client_code)));
-      let companyBestsellers=companyRanking?.available?companyRanking.items:null;
-      if(companyBestsellers===null&&!scope&&hasFullView()&&window.SALES_BI_MODEL){
-        const companyData=window.SALES_BI_MODEL.prepare({clients,orders,delivery,...historical,catalog:state.catalog?.products||[],includeUnassigned:true,companyRankingAvailable:true});
-        companyBestsellers=window.SALES_BI_MODEL.companyBestsellers(companyData);
-      }
-      lastLiveRefresh=Date.now();
-      snapshot = { owner, clients,clientGrouping,delivery,companyBestsellers,companyRankingAvailable:Boolean(companyBestsellers),companyRankingPartial:Boolean(companyRanking?.partial), updatedAt:new Date().toISOString(), historical:{ ...historical,lines }, orders: selectedOrders,scopeCode:scope?.salesmanCode, summary: summarize(clients, selectedOrders, Date.now(), period) };
-      render();
-      ensureLiveRefresh();
+      ]).then(([scope,clients,orders,overrides,clientGrouping])=>{
+        if (!current() || failed) return;
+        if(overrides&&state.catalog&&typeof CATALOG_STORE!=='undefined'&&CATALOG_STORE.applyProductOverrides) CATALOG_STORE.applyProductOverrides(state.catalog,overrides);
+        context={scope,clients,orders,clientGrouping};
+        if (loadingCompany && !supplementsReady) publish();
+      });
+      await Promise.all([core,supplements]);
+      publish();
     } catch (error) {
-      if (request !== generation || key() !== owner) return;
+      failed=true;
+      if (!current()) return;
       console.error('Sales dashboard could not load', error);
-      if(['42501','PGRST301','PGRST303'].includes(error?.code)){historicalCache=null;snapshot=null;window.SALES_BI?.reset();}
-      if(background&&snapshot?.owner===owner) { window.SALES_BI?.setLiveError('No se pudo actualizar. Se muestran los últimos datos recibidos.'); return; }
+      if(accessError(error)){historicalCache=null;snapshot=null;window.SALES_BI?.reset();}
+      if((background||keepCompanyView)&&snapshot?.owner===owner) { window.SALES_BI?.setLiveError('No se pudo actualizar. Se muestran los últimos datos recibidos.'); return; }
       const message=error?.code==='57014'?'La consulta tardó demasiado y el servidor la canceló. Intentá nuevamente.':
-        ['42501','PGRST301','PGRST303'].includes(error?.code)?'No se pudo autorizar el acceso al panel. Volvé a iniciar sesión.':
+        accessError(error)?'No se pudo autorizar el acceso al panel. Volvé a iniciar sesión.':
         'No se pudo cargar el panel. Intentá nuevamente.';
       panel.innerHTML = `<h3>${hasFullView()&&!salesmanMode()?'Dashboard de ventas':'Mi gestión comercial'}</h3><p role="alert">${message}</p><button type="button" class="secondary-button" data-refresh>Reintentar</button>`;
     }
+  }
+
+  function renderSnapshot({owner,context,historical,delivery,companyRanking}) {
+    const {scope,clients,orders,clientGrouping}=context;
+    const selectedOrders=!scope&&salesmanCode()&&!(hasFullView()&&window.SALES_BI)
+      ?orders.filter(order=>clients.some(client=>model.matches(client,order))):orders;
+    const codes=new Set(clients.map(c=>String(c.clientCode)));
+    const lines=window.SALES_BI&&(scope||hasFullView())?historical.lines:historical.lines.filter(r=>codes.has(String(r.client_code)));
+    let companyBestsellers=companyRanking?.available?companyRanking.items:null;
+    if(companyBestsellers===null&&!scope&&hasFullView()&&window.SALES_BI_MODEL){
+      const companyData=window.SALES_BI_MODEL.prepare({clients,orders,delivery,...historical,catalog:state.catalog?.products||[],includeUnassigned:true,companyRankingAvailable:true});
+      companyBestsellers=window.SALES_BI_MODEL.companyBestsellers(companyData);
+    }
+    lastLiveRefresh=Date.now();
+    snapshot={owner,clients,clientGrouping,delivery,companyBestsellers,companyRankingAvailable:Boolean(companyBestsellers),
+      companyRankingPartial:Boolean(companyRanking?.partial||historical.historyStatus),updatedAt:new Date().toISOString(),
+      historical:{...historical,lines},orders:selectedOrders,scopeCode:scope?.salesmanCode,summary:summarize(clients,selectedOrders,Date.now(),period)};
+    render();
+    ensureLiveRefresh();
   }
 
   function render() {
@@ -281,7 +324,14 @@
         salesmen:adminSalesmen, salesmanCode:snapshot.scopeCode||salesmanCode(),
         live:Boolean(CATALOG_SUPABASE.client),updatedAt:snapshot.updatedAt,delivery:snapshot.delivery,includeUnassigned:hasFullView()||salesmanMode(),analysisSalesmanCode:snapshot.scopeCode||(hasFullView()?salesmanCode():''),
         onPreview:value=>{if(!hasFullView())return;salesmanPreview=value;title.textContent=value?'Mi gestión comercial':'Dashboard de ventas';selectedClientId='';window.SALES_BI.reset();refresh();},
-        onSalesman:code => { adminSelectedCode=code; selectedClientId=''; window.SALES_BI.reset(); refresh(); },
+        onSalesman:code => {
+          if (!hasFullView() || salesmanMode() || snapshot?.owner !== key()) return;
+          if (code === adminSelectedCode || !adminSalesmen.some(seller => seller.code === code)) return;
+          adminSelectedCode = code;
+          selectedClientId = '';
+          window.SALES_BI.reset();
+          render();
+        },
         onRefresh:()=>refresh({forceHistory:true}),
         onClient:client => {
           if(!isAdmin()&&hasFullView())return;

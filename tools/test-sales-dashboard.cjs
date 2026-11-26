@@ -108,9 +108,15 @@ async function test() {
   assert.equal(panel.innerHTML, '', 'late response must not expose previous account data');
 
   const calls = [];
+  let orderTimeout = false;
   const api = { auth: { onAuthStateChange() {} }, from(table) {
     const query = { select() { return this; }, eq(field, value) { calls.push([table, field, value]); return this; }, order() { return this; },
-      async range(start, end) { calls.push([start, end]); return { data: Array.from({ length: start === 0 ? 500 : 2 }, (_, i) => ({ id: `${start + i}`, client_code: `${start + i}` })), error: null }; } };
+      async range(start, end) {
+        calls.push([start, end]);
+        if (table === 'orders' && orderTimeout && start === 100 && end === 199) return {data:null,error:{code:'57014'}};
+        const length = start === 0 || (table === 'orders' && orderTimeout && start === 100) ? end - start + 1 : 2;
+        return { data: Array.from({ length }, (_, i) => ({ id: `${start + i}`, client_code: `${start + i}` })), error: null };
+      } };
     return query;
   } };
   const apiContext = { window: { location: { search: '', hash: '' }, supabase: { createClient: () => api } }, URLSearchParams };
@@ -121,8 +127,16 @@ async function test() {
   assert.deepEqual(calls[0], ['sales_clients', 'salesman_code', '845']);
   assert.deepEqual(calls.at(-1), [500, 999]);
   calls.length = 0;
-  await apiContext.window.CATALOG_SUPABASE.loadDashboardOrders('seller-a');
+  const dashboardOrders = await apiContext.window.CATALOG_SUPABASE.loadDashboardOrders('seller-a');
+  assert.equal(dashboardOrders.length, 102, 'uses small order pages without dropping later pages');
+  assert.deepEqual(calls, [[0, 99], [100, 199]]);
   assert.equal(calls.some(call => call[1] === 'customer_id'), false, 'RLS includes assigned client orders regardless of author');
+  calls.length = 0;
+  orderTimeout = true;
+  const recoveredOrders = await apiContext.window.CATALOG_SUPABASE.loadDashboardOrders('seller-a');
+  assert.deepEqual(calls, [[0, 99], [100, 199], [100, 124], [125, 149]], 'a statement timeout retries a smaller page at the same offset');
+  assert.equal(recoveredOrders.length, 127);
+  assert.equal(new Set(recoveredOrders.map(row => row.id)).size, 127, 'a retried page does not duplicate previous orders');
   await assert.rejects(() => apiContext.window.CATALOG_SUPABASE.loadDashboardClients(''));
   console.log('Dashboard totals, follow-up boundaries, cancellation exclusions, empty data, account isolation, and API pagination passed.');
 }

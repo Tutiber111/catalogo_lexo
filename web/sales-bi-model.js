@@ -126,7 +126,9 @@
     const starts = (data.batches || []).map(b => b.from_date).sort();
     const handovers=[...new Set((data.batches||[]).map(b=>b.warehouse_from_date).filter(Boolean))];
     if(handovers.some(d=>!Number.isFinite(timestamp(d)))||handovers.length>1)throw new Error('Invalid or conflicting source handover dates');
-    const warehouseFrom=handovers[0]||(dates.length?iso(timestamp(dates.at(-1))+dayMs):null);
+    // The confirmed source transition still applies if the Excel history has not arrived.
+    const warehouseFrom=handovers[0]||(dates.length?iso(timestamp(dates.at(-1))+dayMs):
+      ['loading','unavailable'].includes(data.historyStatus)?'2026-10-16':null);
     const catalogDates=records.filter(r=>r.source==='catalog').map(r=>r.date).sort();
     const deliveries=new Map((data.delivery?.lines||[]).map(l=>[`${l.orderId}:${l.itemId}`,l]));
     for(const row of records) {

@@ -14,8 +14,12 @@ async function main(){
  const browser=await chromium.launch({channel:'chrome',headless:true});
  try{
  async function open(role,full=false){
-  const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[],reads=[];
+  const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[],reads=[],dataRequests=[];
   page.on('pageerror',e=>errors.push(e.message));
+  page.on('request',request=>{
+   const path=new URL(request.url()).pathname;
+   if(/\/(?:sales_clients|orders|sales_dashboard_full_context|__live-history|__live-deliveries)$/.test(path))dataRequests.push(path);
+  });
   const id=role==='admin'?owner:'salesperson-fixture';
   const user={id,email:role+'@example.invalid',role:'authenticated',aud:'authenticated'};
   const encode=v=>Buffer.from(JSON.stringify(v)).toString('base64url');
@@ -45,7 +49,7 @@ async function main(){
   await page.route('**/__live-history',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({available:true,batches,lines})}));
   await page.route('**/__live-deliveries*',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(delivery)}));
   await page.goto(base+'/catalog?dashboard=ventas');await page.waitForSelector('.sales-bi');
-  return {page,errors,reads};
+  return {page,errors,reads,dataRequests};
  }
  const seller=await open('salesman'),page=seller.page;
  assert.equal(await page.locator('[data-bi-section="directory"]').count(),0);
@@ -70,7 +74,14 @@ async function main(){
  await page.setViewportSize({width:390,height:844});assert.equal(await page.locator('.sales-bi').evaluate(el=>el.scrollWidth<=innerWidth+1),true);
  const admin=await open('admin');
  assert.ok(await admin.page.locator('.bi-source-cards').count());
+ const adminInitialRequests=admin.dataRequests.length;
+ await admin.page.locator('[data-bi-salesman]').selectOption('800');
+ await admin.page.getByRole('row',{name:/Other portfolio secret/}).waitFor();
+ assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Own customer/);
  await admin.page.locator('[data-bi-salesman]').selectOption('805');await admin.page.waitForSelector('[data-bi-preview]:not([disabled])');
+ await admin.page.getByRole('row',{name:/Own customer|Tina & Co/}).first().waitFor();
+ assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Other portfolio secret/);
+ assert.equal(admin.dataRequests.length,adminInitialRequests,'admin salesperson changes reuse the existing company snapshot');
  await admin.page.locator('[data-bi-preview]').click();await admin.page.waitForSelector('.bi-preview-toolbar');
  assert.equal(admin.reads.at(-1).p_salesman_code,'805');
  assert.equal(await admin.page.locator('[data-bi-headlines]').textContent(),ownHeadline,'preview and real salesperson show identical KPI dates and values');
@@ -109,7 +120,10 @@ async function main(){
  await vp.locator('[data-bi-section=sales]').click();await vp.locator('[data-bi-tab=products]').click();await vp.locator('[data-bi-product-key]').first().click();assert.match(await vp.locator('[data-bi-product-buyers]').textContent(),/Other portfolio secret/,'full viewer can read other-portfolio buyer analytics');
  await vp.locator('[data-bi-product-buyers] [data-bi-client]').first().click();assert.equal(await vp.locator('[data-bi-order]').count(),0,'report-only view does not create orders for other portfolios');
  await vp.evaluate(()=>DASHBOARD_ACCESS_MANAGER.open());assert.equal(await vp.locator('[data-access-body]').count(),0,'full viewer cannot open access manager');
- await vp.locator('[data-bi-salesman]').selectOption('805');await vp.waitForSelector('[data-bi-preview]:not([disabled])');await vp.locator('[data-bi-preview]').click();await vp.waitForSelector('.bi-preview-toolbar');assert.equal(viewer.reads.at(-1).p_salesman_code,'805');assert.doesNotMatch(await vp.locator('.bi-main').textContent(),/Other portfolio secret/);
+ const viewerInitialRequests=viewer.dataRequests.length;
+ await vp.locator('[data-bi-salesman]').selectOption('805');await vp.waitForSelector('[data-bi-preview]:not([disabled])');
+ assert.equal(viewer.dataRequests.length,viewerInitialRequests,'full dashboard readers also filter without refetching company data');
+ await vp.locator('[data-bi-preview]').click();await vp.waitForSelector('.bi-preview-toolbar');assert.equal(viewer.reads.at(-1).p_salesman_code,'805');assert.doesNotMatch(await vp.locator('.bi-main').textContent(),/Other portfolio secret/);
  await vp.locator('[data-bi-return-admin]').click();await vp.waitForSelector('.bi-source-cards');
  await vp.route('**/rpc/sales_dashboard_full_context',route=>route.fulfill({status:403,contentType:'application/json',body:JSON.stringify({code:'42501',message:'Full dashboard access required'})}));
  await vp.evaluate(()=>SALES_DASHBOARD.refresh({background:true}));await vp.waitForSelector('#salesDashboard [role=alert]');assert.equal(await vp.locator('.sales-bi').count(),0,'revocation removes cached company dashboard even during background refresh');assert.doesNotMatch(await vp.locator('#salesDashboard').textContent(),/Other portfolio secret/);
