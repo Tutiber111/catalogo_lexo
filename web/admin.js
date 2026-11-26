@@ -1095,9 +1095,10 @@
 
   async function loadCurrentProductOverrides() {
     const localOverrides = CATALOG_STORE.loadProductOverrides();
+    if (!CATALOG_SUPABASE.isAvailable()) return localOverrides;
     try {
       const remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
-      return CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
+      return CATALOG_STORE.reconcileProductOverrides(localOverrides, remoteOverrides);
     } catch (error) {
       return localOverrides;
     }

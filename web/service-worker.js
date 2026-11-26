@@ -1,11 +1,11 @@
-const CACHE_NAME = "lexo-catalog-v20261125-dashboard-warehouse-direct";
+const CACHE_NAME = "lexo-catalog-v20261125-stock-sync";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./styles.css?v=20261015-delivery-hours",
   "./dialog-compat.js?v=20260819-ipad-dialogs",
-  "./app.js?v=20261117-october-prices",
+  "./app.js?v=20261125-stock-sync",
   "./data/product-browse-data.js?v=20261119-leifheit-boards",
   "./sales-dashboard-access.js?v=20261103-dashboard-access-r21",
   "./sales-dashboard-model.js?v=20261009-sales-analysis-r1",
@@ -18,9 +18,9 @@ const APP_SHELL = [
   "./sales-bi-model.js?v=20261125-dashboard-warehouse-direct",
   "./sales-bi-export.js?v=20261125-dashboard-warehouse-direct",
   "./sales-bi.js?v=20261125-dashboard-warehouse-direct",
-  "./admin.js?v=20261006-ean-r1",
-  "./catalog-store.js?v=20261117-october-prices",
-  "./supabase-client.js?v=20261125-dashboard-controls",
+  "./admin.js?v=20261125-stock-sync",
+  "./catalog-store.js?v=20261125-stock-sync",
+  "./supabase-client.js?v=20261125-stock-sync",
   "./data/catalog-data.js?v=20261119-leifheit-boards",
   "./assets/lexo-favicon.png?v=20260728-r2",
   "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js",

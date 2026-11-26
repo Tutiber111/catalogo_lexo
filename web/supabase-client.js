@@ -883,9 +883,18 @@
 
   async function loadProductOverrides() {
     if (!client) return {};
-    const { data, error } = await client.from("product_overrides").select("*");
-    if (error) throw error;
-    return (data || []).reduce((overrides, row) => {
+    const rows = [];
+    let afterId;
+    while (true) {
+      let query = client.from("product_overrides").select("*").order("product_id").limit(1000);
+      if (afterId !== undefined) query = query.gt("product_id", afterId);
+      const { data, error } = await query;
+      if (error) throw error;
+      if (!data.length) break;
+      rows.push(...data);
+      afterId = data[data.length - 1].product_id;
+    }
+    return rows.reduce((overrides, row) => {
       const override = {
         sku: row.sku || "",
         updatedAt: row.updated_at || "",

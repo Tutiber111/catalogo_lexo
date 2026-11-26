@@ -129,6 +129,14 @@
     }, {});
   }
 
+  function reconcileProductOverrides(local, remote) {
+    const merged = mergeProductOverrides(local, remote);
+    for (const [id, override] of Object.entries(merged)) {
+      if (!remote[id]) delete override.outOfStock;
+    }
+    return merged;
+  }
+
   function loadOrders() {
     return archiveSentOrders(readJson(keys.orders, []));
   }
@@ -337,6 +345,7 @@
     saveProductOverrides,
     applyProductOverrides,
     mergeProductOverrides,
+    reconcileProductOverrides,
     loadOrders,
     saveOrders,
     loadArchivedOrders,

@@ -350,7 +350,7 @@ function removeRetiredCatalogSelections() {
 async function refreshRemoteCatalogData(baseCatalog, localOverrides, options = {}) {
   try {
     const remoteOverrides = await CATALOG_SUPABASE.loadProductOverrides();
-    const mergedOverrides = CATALOG_STORE.mergeProductOverrides(localOverrides, remoteOverrides);
+    const mergedOverrides = CATALOG_STORE.reconcileProductOverrides(localOverrides, remoteOverrides);
     CATALOG_STORE.saveProductOverrides(mergedOverrides);
     applyCatalogData(baseCatalog, mergedOverrides);
     if (options.renderOnRemoteComplete) {
