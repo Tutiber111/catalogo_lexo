@@ -15,6 +15,7 @@ async function main(){
  try{
  async function open(role,full=false){
   const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[],reads=[],dataRequests=[];
+  page.setDefaultTimeout(10000);
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',request=>{
    const path=new URL(request.url()).pathname;
@@ -76,9 +77,11 @@ async function main(){
  assert.ok(await admin.page.locator('.bi-source-cards').count());
  const adminInitialRequests=admin.dataRequests.length;
  await admin.page.locator('[data-bi-salesman]').selectOption('800');
+ await admin.page.locator('[data-bi-customer-status]').selectOption('every');
  await admin.page.getByRole('row',{name:/Other portfolio secret/}).waitFor();
  assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Own customer/);
  await admin.page.locator('[data-bi-salesman]').selectOption('805');await admin.page.waitForSelector('[data-bi-preview]:not([disabled])');
+ await admin.page.locator('[data-bi-customer-status]').selectOption('every');
  await admin.page.getByRole('row',{name:/Own customer|Tina & Co/}).first().waitFor();
  assert.doesNotMatch(await admin.page.locator('.bi-main').textContent(),/Other portfolio secret/);
  assert.equal(admin.dataRequests.length,adminInitialRequests,'admin salesperson changes reuse the existing company snapshot');
@@ -117,7 +120,7 @@ async function main(){
  assert.equal(await vp.locator('[data-bi-salesman]').count(),1);assert.equal(await vp.locator('[data-bi-groups],[data-bi-access]').count(),0,'read access never exposes admin tools');
  assert.ok(viewer.reads.some(r=>r.fullContext),'full viewer uses the protected reporting API');
  await vp.locator('[data-bi-preset=all]').click();await vp.locator('[data-bi-section=vendors]').click();assert.match(await vp.locator('.bi-main').textContent(),/Other seller/);
- await vp.locator('[data-bi-section=sales]').click();await vp.locator('[data-bi-tab=products]').click();await vp.locator('[data-bi-product-key]').first().click();assert.match(await vp.locator('[data-bi-product-buyers]').textContent(),/Other portfolio secret/,'full viewer can read other-portfolio buyer analytics');
+ await vp.locator('[data-bi-section=sales]').click();await vp.locator('[data-bi-tab=products]').click();await vp.locator('[data-bi-products] [data-bi-product-key]').first().click();assert.match(await vp.locator('[data-bi-product-buyers]').textContent(),/Other portfolio secret/,'full viewer can read other-portfolio buyer analytics');
  await vp.locator('[data-bi-product-buyers] [data-bi-client]').first().click();assert.equal(await vp.locator('[data-bi-order]').count(),0,'report-only view does not create orders for other portfolios');
  await vp.evaluate(()=>DASHBOARD_ACCESS_MANAGER.open());assert.equal(await vp.locator('[data-access-body]').count(),0,'full viewer cannot open access manager');
  const viewerInitialRequests=viewer.dataRequests.length;

@@ -1,6 +1,11 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http');
 const {chromium}=require('C:/Users/Lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const {input}=require('./test-sales-product-buyers.cjs');
+const invoiceInput={...input,delivery:{...input.delivery,invoiceFacts:{available:true,lines:[
+ {id:'paid-a',documentId:'inv1',orderId:'wh1',catalogOrderId:'a',fromCatalog:true,clientCode:'1',sku:'A',name:'Product A',qty:1,net:100,invoiceDate:'2026-11-02T14:00:00Z'},
+ {id:'paid-extra',documentId:'inv2',orderId:'wh2',catalogOrderId:'extra',fromCatalog:true,clientCode:'1',sku:'A',name:'Product A',qty:3,net:300,invoiceDate:'2026-11-03T14:00:00Z'},
+ {id:'paid-direct',documentId:'inv3',orderId:'wh3',fromCatalog:false,clientCode:'1',sku:'A',name:'Product A',qty:1,net:80,invoiceDate:'2026-11-03T15:00:00Z'},
+]}}};
 async function main(){
  const localXlsx=process.env.SALES_TEST_XLSX;
  const server=http.createServer((req,res)=>{
@@ -16,26 +21,71 @@ async function main(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const browser=await chromium.launch({channel:'chrome',headless:true});
  try{
   const page=await browser.newPage({viewport:{width:1500,height:1080}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  page.setDefaultTimeout(8000);
   await page.addInitScript(()=>{const RealDate=Date;window.Date=class extends RealDate{constructor(...args){super(...(args.length?args:['2026-11-03T15:00:00Z']));}static now(){return new RealDate('2026-11-03T15:00:00Z').getTime();}};});
   await page.goto('http://127.0.0.1:'+server.address().port);
-  const mount=async(simple=false,fixture=input)=>page.evaluate(({input,simple})=>{const scoped=simple?{...input,analysisSalesmanCode:'855'}:input;SALES_BI.mount(document.querySelector('#dashboard'),{...scoped,owner:simple?'seller':'admin',admin:!simple,simple,live:true,available:true,updatedAt:'2026-11-03T15:00:00Z',salesmanCode:simple?'855':'*',salesmen:[{code:'*',name:'Todos'},{code:'855',name:'Romina'},{code:'800',name:'Other seller'}],companyBestsellers:[],onSalesman(){},onRefresh(){}});},{input:fixture,simple});
+  const mount=async(simple=false,fixture=invoiceInput)=>page.evaluate(({input,simple})=>{const scoped=simple?{...input,analysisSalesmanCode:'855'}:input;SALES_BI.mount(document.querySelector('#dashboard'),{...scoped,owner:simple?'seller':'admin',admin:!simple,simple,live:true,available:true,updatedAt:'2026-11-03T15:00:00Z',salesmanCode:simple?'855':'*',salesmen:[{code:'*',name:'Todos'},{code:'855',name:'Romina'},{code:'800',name:'Other seller'}],companyBestsellers:[],onSalesman(){},onRefresh(){}});},{input:fixture,simple});
   const dates=async(from,to)=>page.evaluate(({from,to})=>{const form=document.querySelector('[data-bi-filters]');form.elements.from.value=from;form.elements.to.value=to;form.elements.to.dispatchEvent(new Event('change',{bubbles:true}));},{from,to});
   const headline=()=>page.locator('.bi-ordered-headlines article strong').first().textContent();
+  await mount(false,input);
+  // Invoice totals and deliveries by order date use separate sources.
+  assert.match(await page.locator('[data-bi-invoice-notice]').textContent(),/no está disponible/);
+  assert.match(await page.locator('[data-bi-headlines] h4').last().textContent(),/Facturado · por fecha de factura/);
+  assert.equal(await page.locator('.bi-delivered-headlines article strong').first().textContent(),'Sin datos');
+  assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'invoiceDate');
+  await page.locator('[data-bi-chart=metric]').selectOption('delivered');
+  assert.match(await page.locator('[data-bi-table=trend] tbody tr[data-context=false]').first().textContent(),/400/);
+  await page.locator('[data-bi-chart=metric]').selectOption('invoiceDate');
+  await page.locator('[data-bi-chart=dimension]').selectOption('units');
+  await mount();
+  assert.equal(await page.locator('[data-bi-invoice-notice]').count(),0);
+  assert.match(await page.locator('.bi-delivered-headlines article strong').first().textContent(),/480/);
+  assert.match(await page.locator('.bi-invoice-extra').textContent(),/Con IVA \(21%\).*581.*Kitchen Spot/);
+  assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'invoiceDate');
+  assert.equal(await page.locator('[data-bi-chart=dimension]').inputValue(),'units','refresh keeps the chosen chart dimension');
   await mount();assert.equal(await page.locator('[name=from]').inputValue(),'2026-11-01');assert.equal(await page.locator('[name=to]').inputValue(),'2026-11-03');assert.match(await headline(),/2\.300/);
   assert.equal(await page.locator('[data-bi-chart=from],[data-bi-chart=to]').count(),0,'chart cannot override global dates');
   await page.locator('[data-bi-chart=dimension]').selectOption('units');assert.equal(await page.locator('[data-bi-chart=dimension]').inputValue(),'units');assert.equal(await page.locator('[data-bi-chart-error]').textContent(),'');
-  await page.locator('[data-bi-chart=metric]').selectOption('ordered');assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'ordered');await page.locator('[data-bi-chart=metric]').selectOption('delivered');
-  assert.equal(await page.locator('.bi-monthly-chart tbody tr').count(),1,'default graph uses selected month');
+  await page.locator('[data-bi-chart=metric]').selectOption('ordered');assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'ordered');await page.locator('[data-bi-chart=metric]').selectOption('invoiceDate');
+  assert.match(await page.locator('.bi-monthly-chart h3').textContent(),/^Tendencia diaria/);
+  assert.equal(await page.locator('[data-bi-table=trend] tbody tr[data-context=false]').count(),3,'default chart shows one point per selected day');
+  assert.equal(await page.locator('[data-bi-table=trend] tbody tr[data-context=true]').count(),5);
+  const canvas=page.locator('[data-bi-canvas]');
+  await canvas.focus();await canvas.press('Home');
+  assert.equal(await canvas.getAttribute('data-active-date'),'2026-10-27');
+  assert.match(await page.locator('[data-bi-chart-readout]').textContent(),/Contexto anterior/);
+  await canvas.press('End');
+  assert.equal(await canvas.getAttribute('data-active-date'),'2026-11-03');
+  const tooltip=JSON.parse(await canvas.getAttribute('data-tooltip-bounds'));
+  assert.ok(tooltip.y+tooltip.height<tooltip.pointY,'daily tooltip sits above the active point');
+  const hoverDate=async fraction=>canvas.evaluate((el,fraction)=>{
+    const rect=el.getBoundingClientRect();
+    el.dispatchEvent(new PointerEvent('pointermove',{clientX:rect.left+rect.width*fraction}));
+    return el.dataset.activeDate;
+  },fraction);
+  assert.equal(await hoverDate(0.88),'2026-11-03','pointer tracks the last daily point');
   await page.locator('[data-bi-tab=products]').click();assert.equal(await page.locator('[data-bi-products] tbody tr').count(),2);
   await page.locator('[data-bi-products] button').filter({hasText:'Ver clientes (2)'}).click();
   assert.equal(await page.locator('[data-bi-product-buyers] tbody tr').count(),2);assert.match(await headline(),/1\.200/,'product selection updates global KPIs');
   assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Alice/);assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Bob/);assert.doesNotMatch(await page.locator('[data-bi-product-buyers]').textContent(),/A-1/);
-  await page.locator('[name=metric]').selectOption('delivered');assert.equal(await page.locator('[data-bi-product-buyers] tbody tr').count(),1);assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/400/);assert.doesNotMatch(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Bob/);
-  assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'delivered');
+  await page.locator('[name=metric]').selectOption('invoiceDate');assert.equal(await page.locator('[data-bi-product-buyers] tbody tr').count(),1);assert.match(await page.locator('[data-bi-product-buyers] tbody').textContent(),/480/);assert.doesNotMatch(await page.locator('[data-bi-product-buyers] tbody').textContent(),/Bob/);
+  assert.equal(await page.locator('[data-bi-chart=metric]').inputValue(),'invoiceDate');
   await page.screenshot({path:'tmp/sales-dashboard/product-buyers-desktop.png',fullPage:true});
   await page.setViewportSize({width:390,height:844});assert.equal(await page.locator('.sales-bi').evaluate(el=>el.scrollWidth<=innerWidth+1),true);await page.screenshot({path:'tmp/sales-dashboard/product-buyers-mobile.png',fullPage:true});await page.setViewportSize({width:1500,height:1080});
+  await page.locator('[data-bi-tab=orders]').click();
+  assert.match(await page.locator('[data-bi-table=invoice-lines]').textContent(),/02\/11\/2026.*03\/11\/2026|03\/11\/2026.*02\/11\/2026/);
+  await page.locator('[data-bi-tab=deliveries]').click();
+  assert.match(await page.locator('[data-bi-table=delivery-lines] thead').textContent(),/Facturado con stock.*Sin stock.*Sin marcar/);
+  await page.locator('[data-bi-tab=products]').click();
   await page.locator('[data-bi-clear-product]').click();await page.locator('[name=metric]').selectOption('ordered');
-  await dates('2026-10-01','2026-10-03');assert.match(await headline(),/400/);assert.match(await page.locator('[data-bi-headlines] h3').textContent(),/01\/10\/2026.*03\/10\/2026/);assert.match(await page.locator('.bi-monthly-chart tbody tr').textContent(),/2026-10/);assert.equal(await page.locator('.bi-monthly-chart tbody tr').count(),1);
+  await dates('2026-08-30','2026-11-03');
+  assert.match(await page.locator('.bi-monthly-chart h3').textContent(),/^Tendencia semanal/);
+  assert.match(await page.locator('[data-bi-table=trend] tbody tr').last().textContent(),/02\/11\/2026 — 03\/11\/2026/);
+  assert.equal(await hoverDate(0.95),'2026-11-02','pointer tracks the clipped final week');
+  await dates('2026-10-01','2026-10-03');assert.match(await headline(),/400/);assert.match(await page.locator('[data-bi-headlines] h3').textContent(),/01\/10\/2026.*03\/10\/2026/);
+  assert.match(await page.locator('.bi-monthly-chart h3').textContent(),/^Tendencia diaria/);
+  assert.equal(await page.locator('[data-bi-table=trend] tbody tr[data-context=false]').count(),3);
+  assert.match(await page.locator('[data-bi-table=trend] tbody tr[data-context=true]').first().textContent(),/26\/09\/2026/);
   await page.locator('[data-bi-section=vendors]').click();assert.match(await page.locator('.bi-main').textContent(),/Período seleccionado/);assert.match(await headline(),/400/);await page.locator('[data-bi-section=sales]').click();
   await page.locator('[data-bi-preset=current]').click();assert.match(await headline(),/2\.300/);await page.locator('[data-bi-preset=month]').click();assert.equal(await page.locator('[name=from]').inputValue(),'2026-10-01');assert.equal(await page.locator('[name=to]').inputValue(),'2026-10-31');
   await page.locator('[data-bi-reset]').click();assert.equal(await page.locator('[name=from]').inputValue(),'2026-11-01');await page.locator('[name=brand]').selectOption('OXO');await page.locator('[data-bi-tab=products]').click();await page.locator('[data-bi-products] button').filter({hasText:'Ver clientes (2)'}).click();await page.locator('[data-bi-product-buyers] [data-bi-client="2"]').click();assert.equal(await page.locator('[name=client]').inputValue(),'2');assert.match(await headline(),/700/);assert.equal(await page.locator('[data-bi-tab=customers]').getAttribute('aria-pressed'),'true');
@@ -48,7 +98,8 @@ async function main(){
    {sku:'excluded',name:'Filtered brand',section:'Other'},
   ];
   const exportOrder={...input.orders[0],items:exportCatalog.map((p,i)=>({id:'item'+i,sku:p.sku,name:p.name,qty:1,lineTotal:200-i}))};
-  await mount(false,{...input,catalog:exportCatalog,orders:[exportOrder]});
+  const invoiceExport={available:true,lines:[{...invoiceInput.delivery.invoiceFacts.lines[2],sku:'00000',name:'Export product 0'}]};
+  await mount(false,{...invoiceInput,catalog:exportCatalog,orders:[exportOrder],delivery:{...invoiceInput.delivery,invoiceFacts:invoiceExport}});
   await page.addScriptTag({url:localXlsx?'/xlsx.full.min.js':'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'});
   await page.evaluate(()=>{
    window.CATALOG_SUPABASE={loadDashboardExportPrices:async()=>({
@@ -88,9 +139,12 @@ async function main(){
   }),[['3041',30,40,'SKU exacto por marca'],['11181400',10,20,'SKU exacto']]);
   assert.equal(sheets['Compradores por producto'].length,104);
   assert.equal(sheets['Pedidos y entregas'].length,104);
+  assert.equal(sheets.Facturación[1][0],'2026-11-03','export uses the invoice date for a direct order');
+  assert.equal(sheets.Facturación[1][10],80,'export includes the saved invoiced net value');
   assert.equal(sheets.Resumen.find(r=>r[0]==='Dimensión del gráfico')[1],'Unidades');
   assert.equal(sheets['Indicadores'].find(r=>r[0]==='Pedido'&&r[1]==='Selección')[5],103);
-  assert.equal(sheets['Tendencia mensual'][1][0],'2026-11');
+  assert.deepEqual(sheets.Tendencia[1].slice(0,3),['2026-10-27','2026-10-27','Contexto anterior']);
+  assert.deepEqual(sheets.Tendencia.at(-1).slice(0,3),['2026-11-03','2026-11-03','Selección']);
   assert.deepEqual(errors,[]);console.log('Product browser: shared filters, buyer drilldown, privacy, mobile layout and filtered Excel download with 103 ranked products and numeric prices passed.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }

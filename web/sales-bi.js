@@ -1,7 +1,7 @@
 /* Linked BI workspace. Private data is held only in this signed-in session's memory. */
 (function () {
   const m=window.SALES_BI_MODEL;
-  let section='sales', session=null, filters=null, owner='', tab='customers', customerQuery='', customerStatus='all', productTimer, rendering=false,chartFilters=null,report=null,chartScene=null,chartCleanup=null;
+  let section='sales', vendorFocus=null, session=null, filters=null, owner='', tab='customers', customerQuery='', customerStatus='all', productTimer, rendering=false,chartFilters=null,report=null,chartScene=null,chartCleanup=null;
   let preparedVersion=null,preparedData=null;
   let opportunityTimer=null;
   let productPage=0;
@@ -17,6 +17,10 @@
   const compact=v=>new Intl.NumberFormat('es-AR',{notation:'compact',maximumFractionDigits:1}).format(v);
   const pct=v=>v===null ? 'Sin base comparable' : `${v>0?'+':''}${n(v*100)}%`;
   const date=v=>v ? v.split('-').reverse().join('/') : 'Sin registro';
+  const deliveryMeasureName='Entregado · por fecha del pedido';
+  const chartMeasureNames={ordered:'Pedido',invoiceDate:'Facturado',delivered:deliveryMeasureName,invoiced:'Facturación histórica estimada'};
+  const chartChoices=[['both','Pedido y facturado'],['ordered','Pedido'],['invoiceDate','Facturado'],['delivered',deliveryMeasureName]];
+  const trendPeriod=p=>p.from===p.to?date(p.from):`${date(p.from)} — ${date(p.to)}`;
   const sourceLabel=v=>({erp:'Historial Excel',warehouse:'WarehousePick',catalog:'Catálogo'})[v]||v;
   function monthSource(month) {
     if(session?.input.simple)return '';
@@ -29,7 +33,7 @@
   function handoverBanner() {
     const h=session.data.handover;
     if(!h)return '';
-    return `<section class="bi-handover" data-bi-handover aria-label="Cambio de fuente de datos"><header><b>Excel hasta ${date(h.excelThrough)} → Catálogo + WarehousePick desde ${date(h.warehouseFrom)}</b></header></section>`;
+    return `<section class="bi-handover" data-bi-handover aria-label="Cambio de fuente de datos"><header><b>Historial Excel hasta ${date(h.excelThrough)} → pedidos de WarehousePick desde ${date(h.warehouseFrom)}</b></header></section>`;
   }
   const options=(items,value)=>items.map(([v,label])=>`<option value="${safe(v)}" ${v===value?'selected':''}>${safe(label)}</option>`).join('');
   function reset() { clearTimeout(productTimer); chartCleanup?.();chartCleanup=null;chartScene=null;session=null; filters=null; chartFilters=null; report=null; owner=''; section='sales'; tab='customers'; customerQuery=''; customerStatus='all';productPage=0;preparedVersion=null;preparedData=null;calculations.clear();tableSorts.clear();directoryQuery='';clientEditor?.close();clearTimeout(opportunityTimer); }
@@ -61,11 +65,14 @@
     return session.input.salesmen?.find(s => s.code === code)?.name || code || 'Sin asignación';
   }
   const amountLabel=v=>v.unknown&&!v.orders?'Sin datos':v.missing&&v.pricedLines===0?'Sin importe':`${money(v.amount)}${v.partial?' (parcial)':''}`;
+  const activeCodes=()=>new Set(report.customers.filter(c=>c.annual?.orders>0).map(c=>String(c.client.clientCode)));
+  const actionable=list=>{const active=activeCodes();return list.filter(o=>active.has(String(o.client.clientCode))&&(o.missing.length||o.bestsellers.length));};
   function stockSummary() {
     const loss=m.stockLoss(session.data,filters);
-    return `<section class="bi-card"><h3>Venta perdida por falta de stock · período seleccionado</h3><div class="bi-secondary-metrics"><span>Importe sin stock <b>${money(loss.amount)}${loss.missing||loss.unknown?' (parcial)':''}</b></span><span>Unidades sin stock <b>${n(loss.units)}</b></span><span>Pedidos afectados <b>${loss.orders}</b></span><span>Sobre importe pedido <b>${loss.rate===null?'No disponible':n(loss.rate*100)+'%'}</b></span></div><p class="bi-data-note">Solo productos marcados «sin stock» en WarehousePick, valorados al precio neto del pedido original. Los pedidos pendientes no se consideran venta perdida. No entregado en pedidos ya facturados: ${money(loss.confirmedShortfall)}${loss.shortfallMissing?' (parcial)':''}; este importe puede incluir productos sin stock y no se suma al anterior. ${loss.unknown} líneas sin estado disponible; ${loss.missing} sin importe vinculable. El histórico Excel no identifica la causa: su importe no facturado estimado (${money(loss.uninvoiced)}) se muestra separado y no se atribuye a falta de stock.</p></section>`;
+    return `<section class="bi-card"><h3>Venta perdida por falta de stock · período seleccionado</h3><div class="bi-secondary-metrics"><span>Importe sin stock <b>${money(loss.amount)}${loss.missing||loss.unknown?' (parcial)':''}</b></span><span>Unidades sin stock <b>${n(loss.units)}</b></span><span>Pedidos afectados <b>${loss.orders}</b></span><span>Sobre importe pedido <b>${loss.rate===null?'No disponible':n(loss.rate*100)+'%'}</b></span></div><p class="bi-data-note">Solo productos marcados «sin stock» en WarehousePick, valorados al precio neto del pedido original. Las líneas sin marcar no se consideran venta perdida. No facturado en pedidos ya resueltos: ${money(loss.confirmedShortfall)}${loss.shortfallMissing?' (parcial)':''}; este importe puede incluir productos sin stock y no se suma al anterior. ${loss.unknown} líneas sin estado disponible; ${loss.missing} sin importe vinculable. El histórico Excel no identifica la causa: su importe no facturado estimado (${money(loss.uninvoiced)}) se muestra separado y no se atribuye a falta de stock.</p></section>`;
   }
   function comparisonBadge(change, key='amount') {
+    if(change.delta===null)return '<small>Sin datos comparables</small>';
     const direction=change.delta>0?'up':change.delta<0?'down':'flat';
     const arrow={up:'↑',down:'↓',flat:'→'}[direction];
     const label={up:'Aumento',down:'Disminución',flat:'Sin cambio'}[direction];
@@ -73,7 +80,145 @@
     return `<b class="bi-change bi-change--${direction}" aria-label="${label}: ${safe(amount)}; ${safe(pct(change.percent))}">${arrow} Δ ${change.delta>0?'+':''}${amount} · ${pct(change.percent)}</b>`;
   }
   function headlines() {
-    return `<section class="bi-headlines" data-bi-headlines><h3>Período seleccionado · ${date(report.periods.current.from)} — ${date(report.periods.current.to)}</h3><p class="bi-data-note">Indicadores del período seleccionado. Comparaciones con las mismas fechas del mes y año anteriores. Importes sin IVA; entregado según fecha del pedido. Pedidos agrupados por cliente dentro de 2 días desde la primera compra.</p>${['ordered','delivered'].map(metric=>{const v=report.metrics[metric];return `<h4>${metric==='ordered'?'Pedido':'Entregado / facturado'}</h4><div class="bi-kpis bi-headline-grid ${metric==='ordered'?'bi-ordered-headlines':'bi-delivered-headlines'}">${[['amount','Importe'],['units',metric==='ordered'?'Unidades pedidas':'Unidades entregadas'],['orders','Pedidos distintos'],['clients','Clientes distintos']].map(([key,label])=>`<article><span>${label}</span><strong>${!v.currentCovered&&!v.current.orders?'Sin datos':key==='amount'?amountLabel(v.current):(key==='units'&&v.current.unknown&&!v.current.orders?'Sin datos':n(v.current[key])+(!v.currentCovered||key==='units'&&v.current.partial?' (parcial)':''))}</strong>${[['month','Mes anterior'],['year','Mismo período año anterior']].map(([period,name])=>{const change=v.changes[key][period],covered=v[period+'Covered'];return `<small>${name} · ${date(report.periods[period].to)}<br>${covered?`${key==='amount'?amountLabel(v[period]):n(v[period][key])}${v.currentCovered&&change.delta!==null?comparisonBadge(change,key):' · comparación pendiente'}${v.current.partial||v[period].partial?' · datos parciales':''}`:'Sin historial comparable'}</small>`;}).join('')}${v.current.unknown?`<small>${v.current.unknown} líneas sin información de entrega</small>`:''}</article>`).join('')}</div>`;}).join('')}</section>`;
+    const {data,input}=session;
+    const invoiceStatus=filters.source==='erp'?'':!data.invoiceAvailable?(input.delivery?.reason==='loading'?'Cargando facturación…':'La facturación por fecha de factura no está disponible.'):'';
+    const notice=invoiceStatus?`<p class="bi-notice" role="status" data-bi-invoice-notice>${invoiceStatus}</p>`:'';
+    const measures=[['ordered','Pedido · por fecha del pedido','Unidades pedidas'],['invoiceDate','Facturado · por fecha de factura','Unidades facturadas']];
+    const range=report.periods.current,ks=m.kitchenSpotSales(data,{...filters,...range,metric:'invoiceDate'}),invoiced=report.metrics.invoiceDate.current;
+    const invoiceExtra=filters.source==='erp'||(!data.invoiceAvailable&&!invoiced.orders)?'':`<div class="bi-secondary-metrics bi-invoice-extra"><span>Con IVA (21%) <b>${amountLabel({...invoiced,amount:invoiced.amount*1.21})}</b></span><span>Incluye Kitchen Spot <b>${amountLabel(ks)}</b> · ${n(ks.units)} u. · ${n(ks.orders)} ${ks.orders===1?'pedido':'pedidos'}</span><span>Sin Kitchen Spot <b>${amountLabel({...invoiced,amount:invoiced.amount-ks.amount})}</b></span>${data.undatedInvoices?`<span>${n(data.undatedInvoices)} ${data.undatedInvoices===1?'pedido marcado con stock todavía sin facturar':'pedidos marcados con stock todavía sin facturar'}</span>`:''}</div>`;
+    return `<section class="bi-headlines" data-bi-headlines><h3>Período seleccionado · ${date(report.periods.current.from)} — ${date(report.periods.current.to)}</h3><p class="bi-data-note">Indicadores del período seleccionado. Comparaciones con las mismas fechas del mes y año anteriores. Importes sin IVA. Pedidos agrupados por cliente dentro de 2 días desde la primera compra. Facturado: importes netos de comprobantes por fecha de factura; antes del 16/10, lo facturado según el Excel por fecha del pedido.</p>${measures.map(([metric,title,unitsLabel])=>{const v=report.metrics[metric];return `<h4>${title}</h4>${metric==='invoiceDate'?notice:''}<div class="bi-kpis bi-headline-grid ${metric==='ordered'?'bi-ordered-headlines':'bi-delivered-headlines'}">${[['amount','Importe'],['units',unitsLabel],['orders','Pedidos distintos'],['clients','Clientes distintos']].map(([key,label])=>`<article><span>${label}</span><strong>${!v.currentCovered&&!v.current.orders?'Sin datos':key==='amount'?amountLabel(v.current):(key==='units'&&v.current.unknown&&!v.current.orders?'Sin datos':n(v.current[key])+(!v.currentCovered||key==='units'&&v.current.partial?' (parcial)':''))}</strong>${[['month','Mes anterior'],['year','Mismo período año anterior']].map(([period,name])=>{const change=v.changes[key][period],covered=v[period+'Covered'];return `<small>${name} · ${date(report.periods[period].to)}<br>${covered?`${key==='amount'?amountLabel(v[period]):n(v[period][key])}${v.currentCovered&&change.delta!==null?comparisonBadge(change,key):' · comparación pendiente'}${v.current.partial||v[period].partial?' · datos parciales':''}`:'Sin historial comparable'}</small>`;}).join('')}${v.current.unknown?`<small>${v.current.unknown} líneas sin dato del depósito</small>`:''}</article>`).join('')}</div>${metric==='invoiceDate'?invoiceExtra:''}`;}).join('')}</section>`;
+  }
+  const pct1=v=>v===null||v===undefined||!Number.isFinite(v)?'—':n(v*100)+'%';
+  const pp=(a,b)=>a===null||b===null||!Number.isFinite(a)||!Number.isFinite(b)?'—':`${a>=b?'+':''}${n((a-b)*100)} pp`;
+  const productButton=p=>`<button type="button" class="bi-client-link" data-bi-product-key="${safe(p.key)}">${safe(p.name)}</button><small>${safe(p.sku)} · ${safe(p.brand)}</small>`;
+  // Products at the top: ordered but not delivered, and catalog products nobody orders.
+  function productHealthPanel() {
+    if(filters.source==='erp')return '';
+    const h=calculated('health',filters,()=>m.productHealth(session.data,filters));
+    const undeliveredRow=p=>`<tr><td>${productButton(p)}</td><td>${n(p.orderedQty)}</td><td>${n(p.withStock)}<small>${pct1(p.fillRate)}</small></td><td>${n(p.noStock)}</td><td>${n(p.pending)}</td><td>${money(p.noStockAmount+p.pendingAmount)}${p.missingPrices?' (parcial)':''}</td><td>${n(p.clients)}</td></tr>`;
+    const undeliveredTable=(items,key)=>`<div class="bi-table-scroll"><table data-bi-table="${key}"><thead><tr><th>Producto</th><th>Pedido (u.)</th><th>Facturado (u.)</th><th>Sin stock (u.)</th><th>Sin marcar (u.)</th><th>No facturado sin IVA</th><th>Clientes afectados</th></tr></thead><tbody>${items.map(undeliveredRow).join('')||'<tr><td colspan="7">Todo lo pedido en el período se facturó.</td></tr>'}</tbody></table></div>`;
+    const stoppedRow=p=>`<tr><td>${productButton(p)}</td><td>${n(p.priorUnits)}</td><td>${n(p.priorClients)}</td><td>${date(p.last)}</td><td>${p.outOfStock?'<span class="bi-badge bi-badge--warn">Sin stock en catálogo</span>':'Disponible'}</td></tr>`;
+    const stoppedTable=(items,key)=>`<div class="bi-table-scroll"><table data-bi-table="${key}"><thead><tr><th>Producto</th><th>Unidades 12 meses antes</th><th>Clientes que lo pedían</th><th>Último pedido</th><th>Catálogo</th></tr></thead><tbody>${items.map(stoppedRow).join('')||'<tr><td colspan="5">Todos los productos que se venían pidiendo tuvieron pedidos.</td></tr>'}</tbody></table></div>`;
+    const lost=h.undelivered.reduce((s,p)=>s+p.noStockAmount,0),pending=h.undelivered.reduce((s,p)=>s+p.pendingAmount,0);
+    return `<section class="bi-card bi-product-health" data-bi-product-health><h3>Productos · qué no se entrega y qué no se pide</h3>
+      <div class="bi-secondary-metrics"><span>Productos con faltantes <b>${n(h.undelivered.length)}</b></span><span>Sin stock <b>${money(lost)}</b></span><span>Sin marcar todavía <b>${money(pending)}</b></span><span>Sin pedidos en el período <b>${n(h.stopped.length+h.never.length)} de ${n(h.catalogProducts)}</b></span></div>
+      <div class="bi-health-grid">
+        <div><h4>Se piden pero no se entregan</h4>${undeliveredTable(h.undelivered.slice(0,8),'health-undelivered')}${h.undelivered.length>8?`<details><summary>Ver los ${n(h.undelivered.length)} productos</summary>${undeliveredTable(h.undelivered.slice(0,300),'health-undelivered-all')}</details>`:''}</div>
+        <div><h4>Se pedían y dejaron de pedirse</h4>${stoppedTable(h.stopped.slice(0,8),'health-stopped')}${h.stopped.length>8?`<details><summary>Ver los ${n(h.stopped.length)} productos</summary>${stoppedTable(h.stopped.slice(0,300),'health-stopped-all')}</details>`:''}
+          <p class="bi-health-never"><b>${n(h.never.length)}</b> ${h.never.length===1?'producto':'productos'} del catálogo sin pedidos en los últimos 12 meses${h.neverByBrand.length?': '+h.neverByBrand.map(b=>`${safe(b.brand)} ${n(b.count)}/${n(b.total)}`).join(' · '):''}.</p>
+          ${h.never.length?`<details><summary>Ver productos sin pedidos en 12 meses</summary><div class="bi-table-scroll"><table data-bi-table="health-never"><thead><tr><th>Producto</th><th>Categoría</th><th>Precio de lista</th><th>Catálogo</th></tr></thead><tbody>${h.never.slice(0,400).map(p=>`<tr><td>${productButton(p)}</td><td>${safe(p.category||'')}</td><td>${p.price===null?'—':money(p.price)}</td><td>${p.outOfStock?'Sin stock':'Disponible'}</td></tr>`).join('')}</tbody></table></div></details>`:''}
+        </div>
+      </div></section>`;
+  }
+  // SKUs each brand has in the catalog against what it sells.
+  function brandPortfolioPanel() {
+    const b=calculated('brand-portfolio',filters,()=>m.brandPortfolio(session.data,filters));
+    if(!b.rows.length)return '<section class="bi-card bi-brand-share"><h3>Marcas · portafolio y facturación</h3><p class="bi-empty">No hay productos ni ventas para estos filtros.</p></section>';
+    return `<section class="bi-card bi-brand-share bi-brand-portfolio" data-bi-brand-portfolio><h3>Marcas · portafolio versus facturación</h3>
+      <div class="bi-chart-legend"><span><i style="background:#a9b8c8"></i>% de los SKUs del catálogo</span><span><i style="background:#1d9a6c"></i>% de lo facturado</span></div>
+      ${b.rows.map(r=>`<button type="button" class="bi-bar bi-portfolio-bar" data-bi-dimension="brand" data-value="${safe(r.brand)}"><span><b>${safe(r.brand)}</b><strong>${pct1(r.skuShare)} del portafolio · ${pct1(r.invoicedShare)} de lo facturado</strong></span><i><em class="bi-portfolio-skus" style="width:${Math.min(100,(r.skuShare||0)*100)}%"></em></i><i><em class="bi-portfolio-sales" style="width:${Math.min(100,(r.invoicedShare||0)*100)}%"></em></i><small>${n(r.skus)} SKUs · ${n(r.soldSkus)} con pedidos en el período · facturado ${amountLabel(r.invoiced)}${r.index!==null?` · rinde ${n(r.index)}× su peso`:''}</small></button>`).join('')}
+      <details><summary>Ver tabla</summary><div class="bi-table-scroll"><table data-bi-table="brand-portfolio" data-bi-model-sort><thead><tr><th>Marca</th><th>SKUs en catálogo</th><th>% portafolio</th><th>SKUs con pedidos</th><th>Pedido sin IVA</th><th>% pedido</th><th>Facturado sin IVA</th><th>% facturado</th><th>Rinde (× peso)</th></tr></thead><tbody>${b.rows.map(r=>`<tr><td>${safe(r.brand)}</td><td>${n(r.skus)}</td><td>${pct1(r.skuShare)}</td><td>${n(r.soldSkus)}</td><td>${amountLabel(r.ordered)}</td><td>${pct1(r.orderedShare)}</td><td>${amountLabel(r.invoiced)}</td><td>${pct1(r.invoicedShare)}</td><td>${r.index===null?'—':n(r.index)+'×'}</td></tr>`).join('')}</tbody></table></div></details>
+      <p class="bi-data-note">Portafolio: SKUs visibles en el catálogo. Facturado: lo marcado con stock en WarehousePick por fecha de factura (y lo facturado del Excel antes del 16/10). «Rinde» compara su parte de lo facturado con su parte del portafolio: más de 1× aporta más de lo que ocupa.</p></section>`;
+  }
+  function compareRows(rows) {
+    return `<div class="bi-table-scroll"><table data-bi-table="profile-compare"><thead><tr><th>Indicador</th>${rows.columns.map(c=>`<th>${safe(c)}</th>`).join('')}</tr></thead><tbody>${rows.items.map(([label,...cells])=>`<tr><td>${safe(label)}</td>${cells.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+  function brandMix(own,company,label) {
+    const total=p=>p.brands.reduce((s,b)=>s+b.invoiced.amount,0),ownTotal=total(own),companyTotal=total(company);
+    const shares=new Map(company.brands.map(b=>[b.brand,companyTotal?b.invoiced.amount/companyTotal:null]));
+    const rows=own.brands.filter(b=>b.invoiced.amount||b.ordered.amount);
+    return `<div class="bi-table-scroll"><table data-bi-table="profile-brands"><thead><tr><th>Marca</th><th>Facturado ${safe(label)}</th><th>% ${safe(label)}</th><th>% empresa</th><th>Diferencia</th></tr></thead><tbody>${rows.map(b=>{const share=ownTotal?b.invoiced.amount/ownTotal:null,base=shares.get(b.brand)??null;return `<tr><td>${safe(b.brand)}</td><td>${amountLabel(b.invoiced)}</td><td>${pct1(share)}</td><td>${pct1(base)}</td><td>${pp(share,base)}</td></tr>`;}).join('')||'<tr><td colspan="5">Sin ventas en el período.</td></tr>'}</tbody></table></div>`;
+  }
+  function topProducts(profile,limit=10) {
+    return `<div class="bi-table-scroll"><table data-bi-table="profile-products"><thead><tr><th>Producto</th><th>Pedido (u.)</th><th>Pedido sin IVA</th><th>Facturado (u.)</th><th>Sin stock (u.)</th></tr></thead><tbody>${profile.products.slice(0,limit).map(p=>`<tr><td>${productButton(p)}</td><td>${n(p.ordered.units)}</td><td>${amountLabel(p.ordered)}</td><td>${n(p.withStock)}</td><td>${n(p.noStock)}</td></tr>`).join('')||'<tr><td colspan="5">Sin pedidos en el período.</td></tr>'}</tbody></table></div>`;
+  }
+  const ticketOf=v=>v.orders?v.amount/v.orders:null;
+  const ticketLabel2=v=>ticketOf(v)===null?'—':money(ticketOf(v))+(v.missing?' (parcial)':'');
+  const companyOnly=()=>!session.input.simple&&(['*',''].includes(session.input.salesmanCode)||session.input.salesmanCode===undefined);
+  // One salesperson against the company: totals, clients, brands and products.
+  function vendorProfile(code) {
+    const data=session.data,f={...filters,client:''};
+    const codes=new Set(data.clients.filter(c=>String(c.salesmanCode||'unassigned')===code).map(c=>String(c.clientCode)));
+    const own=calculated('vendor-profile:'+code,f,()=>m.scopeProfile(data,f,codes)),company=calculated('company-profile',f,()=>m.scopeProfile(data,f));
+    const vendors=report.vendors.filter(v=>v.current.orders||v.annual.orders).length||1;
+    const totals=calculated('client-totals',f,()=>m.clientTotals(data,f));
+    const share=(a,b)=>b?pct1(a/b):'—';
+    const perClient=p=>p.clients?p.invoiced.amount/p.clients:null;
+    const columns=['Vendedor','Empresa','Promedio por vendedor','Participación / diferencia'];
+    const items=[
+      ['Pedido sin IVA',amountLabel(own.ordered),amountLabel(company.ordered),money(company.ordered.amount/vendors),share(own.ordered.amount,company.ordered.amount)],
+      ['Facturado sin IVA',amountLabel(own.invoiced),amountLabel(company.invoiced),money(company.invoiced.amount/vendors),share(own.invoiced.amount,company.invoiced.amount)],
+      ['Facturado / pedido',pct1(own.fillRate),pct1(company.fillRate),'—',pp(own.fillRate,company.fillRate)],
+      ['Pedidos',n(own.ordered.orders),n(company.ordered.orders),n(company.ordered.orders/vendors),share(own.ordered.orders,company.ordered.orders)],
+      ['Clientes con pedidos',`${n(own.clients)} de ${n(codes.size)}`,n(company.clients),n(company.clients/vendors),share(own.clients,company.clients)],
+      ['Ticket promedio facturado',ticketLabel2(own.invoiced),ticketLabel2(company.invoiced),'—',ticketOf(own.invoiced)!==null&&ticketOf(company.invoiced)?pct(ticketOf(own.invoiced)/ticketOf(company.invoiced)-1):'—'],
+      ['Facturado por cliente activo',perClient(own)===null?'—':money(perClient(own)),perClient(company)===null?'—':money(perClient(company)),'—',perClient(own)!==null&&perClient(company)?pct(perClient(own)/perClient(company)-1):'—'],
+      ['Sin stock sin IVA',money(own.noStockAmount),money(company.noStockAmount),money(company.noStockAmount/vendors),share(own.noStockAmount,company.noStockAmount)],
+    ];
+    const assigned=report.customers.filter(c=>codes.has(String(c.client.clientCode))),entries=assigned.filter(c=>c.annual?.orders>0||c.period?.orders>0||totals.get(String(c.client.clientCode))?.ordered.orders);
+    const clientRows=sortedRows(entries.map(c=>({...c,totals:totals.get(String(c.client.clientCode))})).sort((a,b)=>(b.totals?.invoiced.amount||0)-(a.totals?.invoiced.amount||0)||(b.totals?.ordered.amount||0)-(a.totals?.ordered.amount||0)),'vendor-clients',c=>[c.client.legalName||c.client.name,c.totals?.ordered.amount,c.totals?.invoiced.amount,c.totals?.ordered.amount?c.totals.invoiced.amount/c.totals.ordered.amount:null,c.last,c.frequency,situationLabels[c.situation||'insufficient']]);
+    return `<section class="bi-card bi-vendor-profile" data-bi-vendor-profile><div class="bi-detail-toolbar"><button type="button" data-bi-vendor="">← Todos los vendedores</button></div>
+      <h2>${safe(salesmanName(code))} · ${date(f.from)} — ${date(f.to)}</h2>
+      ${companyOnly()?'':'<p class="bi-notice">Para comparar con la empresa elegí «Todos» en Vendedor actual.</p>'}
+      ${compareRows({columns,items})}
+      <h3>Clientes con compras en 12 meses (${n(entries.length)} de ${n(codes.size)} asignados)</h3>
+      <div class="bi-table-scroll"><table data-bi-table="vendor-clients" data-bi-model-sort><thead><tr><th>Cliente</th><th>Pedido</th><th>Facturado</th><th>Facturado / pedido</th><th>Última compra</th><th>Frecuencia</th><th>Situación</th></tr></thead><tbody>${clientRows.map(c=>{const t=c.totals;return `<tr><td><button type="button" class="bi-client-link" data-bi-client="${safe(c.client.clientCode)}">${safe(c.client.legalName||c.client.name)}</button><small>${safe(displayCode(c.client))}</small></td><td>${t?amountLabel(t.ordered):'—'}</td><td>${t?amountLabel(t.invoiced):'—'}</td><td>${t&&t.ordered.amount?pct1(t.invoiced.amount/t.ordered.amount):'—'}</td><td>${c.last?date(c.last):'—'}</td><td>${frequencyLabel(c)}</td><td>${situationLabel(c)}</td></tr>`;}).join('')||'<tr><td colspan="7">Sin clientes asignados.</td></tr>'}</tbody></table></div>
+      <div class="bi-profile-grid"><div><h3>Marcas · vendedor versus empresa</h3>${brandMix(own,company,'vendedor')}</div><div><h3>Productos más pedidos</h3>${topProducts(own)}</div></div>
+    </section>`;
+  }
+  // One client: activity, how they compare and what they stopped or never buy.
+  function clientAnalysis() {
+    if(!filters.client)return '';
+    const data=session.data,code=String(filters.client),f={...filters,client:''};
+    const entry=report.customers.find(c=>String(c.client.clientCode)===code);
+    const client=entry?.client||data.clients.find(c=>String(c.clientCode)===code)||{clientCode:code,name:code};
+    const codes=new Set([code]);
+    const own=calculated('client-profile:'+code,f,()=>m.scopeProfile(data,f,codes)),company=calculated('company-profile',f,()=>m.scopeProfile(data,f));
+    const totals=calculated('client-totals',f,()=>m.clientTotals(data,f));
+    const ranked=[...totals.entries()].sort((a,b)=>b[1].invoiced.amount-a[1].invoiced.amount),rank=ranked.findIndex(([c])=>c===code);
+    const active=company.clients||1,avgInvoiced=company.invoiced.amount/active,avgOrdered=company.ordered.amount/active;
+    const sellerCodes=new Set(data.clients.filter(c=>String(c.salesmanCode)===String(client.salesmanCode)).map(c=>String(c.clientCode)));
+    const portfolio=client.salesmanCode?calculated('vendor-profile:'+client.salesmanCode,f,()=>m.scopeProfile(data,f,sellerCodes)):null;
+    const portfolioAvg=portfolio&&portfolio.clients?portfolio.invoiced.amount/portfolio.clients:null;
+    const opportunity=calculated('opportunities',filters,()=>m.opportunityReport(data,filters)).find(o=>String(o.client.clientCode)===code);
+    const columns=['Cliente','Promedio por cliente activo','Diferencia'];
+    const items=[
+      ['Pedido sin IVA',amountLabel(own.ordered),money(avgOrdered),avgOrdered?pct(own.ordered.amount/avgOrdered-1):'—'],
+      ['Facturado sin IVA',amountLabel(own.invoiced),money(avgInvoiced),avgInvoiced?pct(own.invoiced.amount/avgInvoiced-1):'—'],
+      ['Facturado / pedido',pct1(own.fillRate),pct1(company.fillRate),pp(own.fillRate,company.fillRate)],
+      ['Pedidos',n(own.ordered.orders),n(company.ordered.orders/active),'—'],
+      ['Ticket promedio facturado',ticketLabel2(own.invoiced),ticketLabel2(company.invoiced),ticketOf(own.invoiced)!==null&&ticketOf(company.invoiced)?pct(ticketOf(own.invoiced)/ticketOf(company.invoiced)-1):'—'],
+      ['Sin stock sin IVA',money(own.noStockAmount),money(company.noStockAmount/active),'—'],
+    ];
+    if(portfolioAvg!==null)items.push(['Facturado vs su cartera (promedio por cliente)',amountLabel(own.invoiced),money(portfolioAvg),portfolioAvg?pct(own.invoiced.amount/portfolioAvg-1):'—']);
+    const facts=[
+      ['Vendedor',safe(salesmanName(client.salesmanCode))],
+      ['Ranking por facturado',rank>=0&&own.invoiced.amount?`${n(rank+1)}º de ${n(ranked.filter(([,t])=>t.invoiced.amount>0).length)}`:'Sin facturación en el período'],
+      ['Participación en lo facturado',company.invoiced.amount?pct1(own.invoiced.amount/company.invoiced.amount):'—'],
+      ['Última compra',entry?.last?date(entry.last):'Sin compras'],
+      ['Frecuencia',frequencyLabel(entry)],
+      ['Situación',situationLabel(entry)],
+      ['Ventas 12 meses',entry?amountLabel(entry.annual):'—'],
+    ];
+    const lostProducts=own.products.filter(p=>p.noStock>0);
+    return `<section class="bi-card bi-client-analysis" data-bi-client-analysis><h3>Análisis del cliente · ${safe(client.legalName||client.name)}</h3>
+      <div class="bi-secondary-metrics">${facts.map(([k,v])=>`<span>${k} <b>${v}</b></span>`).join('')}</div>
+      ${compareRows({columns,items})}
+      <div class="bi-profile-grid"><div><h4>Marcas · cliente versus empresa</h4>${brandMix(own,company,'cliente')}</div><div><h4>Productos más pedidos</h4>${topProducts(own,8)}</div></div>
+      <div class="bi-profile-grid"><div><h4>Pedidos sin stock</h4>${lostProducts.length?topProducts({products:lostProducts},8):'<p class="bi-empty">Sin faltantes en el período.</p>'}</div>
+        <div><h4>Dejó de comprar (pedía hace 3–12 meses)</h4>${opportunity?.missing.length?`<ul class="bi-plain-list">${opportunity.missing.slice(0,10).map(p=>`<li>${productButton({key:JSON.stringify([p.section,String(p.sku).toUpperCase()]),name:p.name,sku:p.sku,brand:p.section})}</li>`).join('')}</ul>`:'<p class="bi-empty">Sin productos discontinuados.</p>'}
+        <h4>Más vendidos que no compra</h4>${opportunity?.bestsellers.length?`<ul class="bi-plain-list">${opportunity.bestsellers.slice(0,10).map(p=>`<li>${safe(p.product?.name||p.name||p.key)}<small>${safe(p.product?.sku||'')}</small></li>`).join('')}</ul>`:'<p class="bi-empty">Sin datos.</p>'}</div></div>
+    </section>`;
+  }
+  // Admin-only review of the data that does not add up, with what to fix and where.
+  function qualityView() {
+    const q=calculated('quality',filters,()=>m.dataQuality(session.data,filters));
+    const section=(title,help,head,rows,empty)=>`<section class="bi-card"><h3>${title} <small>(${n(rows.length)})</small></h3><p class="bi-data-note">${help}</p>${rows.length?`<div class="bi-table-scroll"><table data-bi-table="quality"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`:`<p class="bi-empty">${empty}</p>`}</section>`;
+    return `<section class="bi-card"><h2>Revisión de datos · ${date(filters.from)} — ${date(filters.to)}</h2><p class="bi-data-note">Pedidos de WarehousePick del período que no se pueden atribuir o valorar bien. Corregirlos en el origen mejora clientes, vendedores e importes.</p></section>
+      ${section('Pedidos sin cliente identificado','Se ven en el dashboard pero no suman a ningún cliente del maestro ni a su vendedor. Si el pedido indica su vendedor, se le suma a ese vendedor. Corregir: asignar el cliente a la cuenta del catálogo , cargar el código en WarehousePick o agregar el cliente al maestro.',['Pedido','Fecha','Nombre en el pedido','Motivo','Vendedor del pedido','Pedido sin IVA'],q.noClient.map(o=>`<tr><td>${safe(o.order)}</td><td>${date(o.date)}</td><td>${safe(o.name||'—')}</td><td>${safe(o.reason)}</td><td>${o.salesmanCode?safe(salesmanName(o.salesmanCode)):'—'}</td><td>${amountLabel(o.amount)}</td></tr>`),'Todos los pedidos tienen cliente.')}
+      ${section('Pedidos unidos a un cliente por el nombre','El pedido no tiene código de cliente, pero su nombre coincide con un único cliente del maestro (mismas palabras, en cualquier orden). Se cuentan para ese cliente y su vendedor. Para que no dependa del nombre, cargar el código en la cuenta del catálogo o en WarehousePick.',['Pedido','Fecha','Nombre en el pedido','Unido a','Pedido sin IVA'],q.merged.map(o=>`<tr><td>${safe(o.order)}</td><td>${date(o.date)}</td><td>${safe(o.name)}</td><td>${safe(o.clientCode)} · ${safe(o.clientName)}</td><td>${amountLabel(o.amount)}</td></tr>`),'Ningún pedido necesitó unirse por nombre.')}
+      ${section('Productos sin precio de catálogo','Se valoran con el último precio del Excel o quedan sin importe. Corregir: agregar el producto o su precio al catálogo.',['Producto / SKU','Situación','Unidades','Pedidos'],q.products.map(p=>`<tr><td>${safe(p.name)}<small>${safe(p.sku)}${p.kitchenSpot?' · Kitchen Spot':''}</small></td><td>${safe(p.issue)}</td><td>${n(p.units)}</td><td>${safe(p.orders.slice(0,6).join(', '))}${p.orders.length>6?` y ${p.orders.length-6} más`:''}</td></tr>`),'Todos los productos tienen precio de catálogo.')}
+      ${section('Pedidos del catálogo que no están en WarehousePick','No se cuentan en el dashboard: el depósito no los tiene (no se enviaron, se cancelaron allí o se cargaron en otra empresa).',['Pedido','Fecha','Cliente','Líneas','Unidades','Importe sin IVA'],q.catalogOrders.map(o=>`<tr><td>${safe(o.order)}</td><td>${date(o.date)}</td><td>${safe(o.name)}</td><td>${n(o.lines)}</td><td>${n(o.units)}</td><td>${money(o.amount)}</td></tr>`),q.warehouseAvailable?'Todos los pedidos del catálogo llegaron a WarehousePick.':'WarehousePick no está disponible.')}`;
   }
   function deliveryRatio(ordered, delivered, known=true) {
     if(!known||!ordered||delivered===null)return 'Sin datos';
@@ -84,17 +229,45 @@
     const known=!(delivered.unknown&&!delivered.orders),partial=ordered.partial||delivered.partial;
     const moneyKnown=known&&!(delivered.missing&&delivered.pricedLines===0);
     const ticketLabel=v=>v.ticket===null||v.unknown&&!v.orders?'Sin datos':money(v.ticket)+(v.partial?' (parcial)':'');
-    return `<section class="bi-card bi-ticket-summary"><h3>Entrega y ticket promedio · período seleccionado</h3><div class="bi-kpis bi-headline-grid"><article><span>Entregado / pedido · importe</span><strong>${deliveryRatio(ordered.amount,delivered.amount,moneyKnown)}${partial&&moneyKnown?' (parcial)':''}</strong><small>Unidades: ${deliveryRatio(ordered.units,delivered.units,known)}${partial&&known?' (parcial)':''}</small></article>${['ordered','delivered'].map(metric=>{const v=report.metrics[metric];return `<article><span>Ticket promedio ${metric==='ordered'?'pedido':'entregado'}</span><strong>${ticketLabel(v.current)}</strong>${[['year','Mismo período año anterior',report.periods.year],['ytd','Promedio del año al cierre',report.periods.ytd]].map(([key,label,range])=>{const prior=v[key],comparable=v.currentCovered&&v[key+'Covered']&&v.current.ticket!==null&&prior.ticket!==null&&!(v.current.unknown&&!v.current.orders)&&!(prior.unknown&&!prior.orders);return `<small>${label} · ${date(range.from)} — ${date(range.to)}<br>${v[key+'Covered']?ticketLabel(prior):'Sin historial comparable'}${comparable?comparisonBadge({delta:v.current.ticket-prior.ticket,percent:prior.ticket?(v.current.ticket-prior.ticket)/Math.abs(prior.ticket):null}):''}</small>`;}).join('')}</article>`;}).join('')}</div></section>`;
+    const ticketMeasures=[['ordered','pedido'],['invoiceDate','facturado']];
+    return `<section class="bi-card bi-ticket-summary"><h3>Facturado y ticket promedio · período seleccionado</h3><div class="bi-kpis bi-headline-grid"><article><span>Facturado / pedido · importe</span><strong>${deliveryRatio(ordered.amount,delivered.amount,moneyKnown)}${partial&&moneyKnown?' (parcial)':''}</strong><small>Unidades: ${deliveryRatio(ordered.units,delivered.units,known)}${partial&&known?' (parcial)':''}</small></article>${ticketMeasures.map(([metric,measureName])=>{const v=report.metrics[metric];return `<article><span>Ticket promedio ${measureName}</span><strong>${ticketLabel(v.current)}</strong>${[['year','Mismo período año anterior',report.periods.year],['ytd','Promedio del año al cierre',report.periods.ytd]].map(([key,label,range])=>{const prior=v[key],comparable=v.currentCovered&&v[key+'Covered']&&v.current.ticket!==null&&prior.ticket!==null&&!(v.current.unknown&&!v.current.orders)&&!(prior.unknown&&!prior.orders);return `<small>${label} · ${date(range.from)} — ${date(range.to)}<br>${v[key+'Covered']?ticketLabel(prior):'Sin historial comparable'}${comparable?comparisonBadge({delta:v.current.ticket-prior.ticket,percent:prior.ticket?(v.current.ticket-prior.ticket)/Math.abs(prior.ticket):null}):''}</small>`;}).join('')}</article>`;}).join('')}</div></section>`;
   }
   function chart() {
-    if(!chartFilters)chartFilters={metric:'delivered',dimension:'amount'};
-    const f={...filters,...chartFilters},rows=calculated('chart',f,()=>m.monthlyReport(session.data,f)),annual=calculated('annual',f,()=>m.measureRows(m.selected(session.data,{...f,...report.periods.annual}),f.metric));
+    if(!chartFilters)chartFilters={metric:'invoiceDate',dimension:'amount'};
+    const f={...filters,...chartFilters},both=f.metric==='both';
+    let weekly,series;
+    if(both){
+      const t=calculated('chart-both',f,()=>m.trendComparison(session.data,f));weekly=t.weekly;
+      series=[{key:'ordered',label:'Pedido',color:'#176fc1',rows:t.rows},{key:'invoiced',label:'Facturado',color:'#1d9a6c',rows:t.invoiced}];
+    } else {
+      const t=calculated('chart',f,()=>m.trendReport(session.data,f));weekly=t.weekly;
+      series=[{key:f.metric,label:chartMeasureNames[f.metric],color:'#176fc1',rows:t.rows}];
+    }
+    const rows=series[0].rows;
+    for(const s of series)s.values=s.rows.map(p=>m.trendPointValue(p,f.dimension));
+    const annualFor=metric=>calculated('annual',{...f,metric},()=>{
+      const selection={...f,...report.periods.annual};
+      return metric==='invoiced'?m.measureRows(m.invoicedRows(session.data,selection),'invoiceDate'):m.measureRows(m.selected(session.data,{...selection,metric}),metric);
+    });
+    for(const s of series)s.annual=annualFor(s.key);
     const format=v=>v===null?'Sin datos':f.dimension==='amount'||f.dimension==='ticket'?money(v):n(v);
-    const value=p=>p.unknown&&!p.orders||f.dimension==='amount'&&p.missing&&p.pricedLines===0?null:f.dimension==='ticket'?p.ticket:p[f.dimension];
-    const values=rows.map(value),max=Math.max(1,...values.filter(v=>v!==null),f.dimension==='ticket'?annual.ticket||0:0);
-    chartScene={rows,values,max,format,annual,f,handover:session.input.simple?null:session.data.handover};
-    const field=(key,label,choices)=>`<label>${label}<select data-bi-chart="${key}">${options(choices,chartFilters[key])}</select></label>`;
-    return `<section class="bi-card bi-monthly-chart"><div class="bi-card-title"><h3>Tendencia mensual · período seleccionado</h3></div><form class="bi-chart-filters" data-bi-chart-form>${field('metric','Medida',[['ordered','Pedido'],['delivered','Entregado / facturado']])}${field('dimension','Analizar',[['amount','Importe'],['units','Unidades'],['orders','Pedidos distintos'],['clients','Clientes distintos'],['ticket','Ticket promedio']])}<span data-bi-chart-error role="status"></span></form><p class="bi-data-note">Usa las fechas, cliente, vendedor, marca y producto de la selección. Agregados atribuidos a la primera fecha del grupo.</p><div class="bi-chart-scroll"><canvas class="bi-trend bi-canvas-chart" data-bi-canvas tabindex="0" role="img" aria-label="Gráfico mensual interactivo. Mové el cursor o usá las flechas para explorar los meses. Los valores también están en la tabla mensual."></canvas><span class="bi-chart-readout" data-bi-chart-readout role="status" aria-live="polite"></span></div><div class="bi-secondary-metrics bi-annual-ticket"><span>Ticket ${f.metric==='delivered'?'entregado':'pedido'} · 12 meses al ${date(report.periods.current.to)}: <b>${annual.ticket===null?'Sin datos':money(annual.ticket)}</b>${annual.partial?' · parcial':''}.</span></div><details><summary>Ver detalle mensual</summary><div class="bi-table-scroll"><table data-bi-table="monthly"><thead><tr><th>Mes</th><th>Importe</th><th>Pedidos</th><th>Clientes</th><th>Ticket</th></tr></thead><tbody>${rows.map(p=>`<tr><td>${p.month}</td><td>${amountLabel(p)}</td><td>${p.orders}</td><td>${p.clients}</td><td>${p.ticket===null?'—':money(p.ticket)}</td></tr>`).join('')}</tbody></table></div></details></section>`;
+    const plotted=series.flatMap(s=>s.values).filter(v=>v!==null),tickets=f.dimension==='ticket'?series.map(s=>s.annual.ticket||0):[];
+    const max=Math.max(1,...plotted,...tickets),min=Math.min(0,...plotted,...tickets);
+    chartScene={rows,series,min,max,format,f,handover:session.input.simple?null:session.data.handover,weekly};
+    const field=(key,label,choices)=>`<label>${label}<select data-bi-chart="${key}">${options(choices,f[key])}</select></label>`;
+    const legend=both?`<div class="bi-chart-legend">${series.map(s=>`<span><i style="background:${s.color}"></i>${s.label}</span>`).join('')}<small>Pedido por fecha del pedido · facturado por fecha de factura (Excel: facturado estimado por fecha del pedido)</small></div>`:'';
+    return `<section class="bi-card bi-monthly-chart">
+      <div class="bi-card-title"><h3>Tendencia ${weekly?'semanal':'diaria'}</h3></div>
+      <form class="bi-chart-filters" data-bi-chart-form>${field('metric','Medida',chartChoices)}${field('dimension','Analizar',[['amount','Importe'],['units','Unidades'],['orders','Pedidos distintos'],['clients','Clientes distintos'],['ticket','Ticket promedio']])}<span data-bi-chart-error role="status"></span></form>
+      ${legend}
+      <div class="bi-chart-scroll"><canvas class="bi-trend bi-canvas-chart" data-bi-canvas tabindex="0" role="img" aria-label="Gráfico ${weekly?'semanal':'diario'} interactivo. Usá las flechas para explorar las fechas."></canvas><span class="bi-chart-readout" data-bi-chart-readout role="status" aria-live="polite"></span></div>
+      ${rows[0]?.context?'<small data-bi-chart-context>Zona sombreada · últimos 5 días del mes anterior, fuera de los totales seleccionados.</small>':''}
+      <div class="bi-secondary-metrics bi-annual-ticket">${series.map(s=>`<span>Ticket ${s.label.toLowerCase()} · 12 meses al ${date(report.periods.current.to)}: <b>${s.annual.ticket===null?'Sin datos':money(s.annual.ticket)}</b>${s.annual.partial?' · parcial':''}.</span>`).join('')}</div>
+      <details><summary>Ver detalle del gráfico</summary><div class="bi-table-scroll"><table data-bi-table="trend">
+        <thead><tr><th>Fecha o semana</th><th>Período</th>${series.map(s=>`<th>${safe(s.label)} · importe</th>`).join('')}<th>Pedidos</th><th>Clientes</th><th>Ticket</th></tr></thead>
+        <tbody>${rows.map((p,i)=>`<tr data-context="${p.context}"><td>${trendPeriod(p)}</td><td>${p.context?'Contexto anterior':'Selección'}</td>${series.map(s=>`<td>${amountLabel(s.rows[i])}</td>`).join('')}<td>${p.orders}</td><td>${p.clients}</td><td>${p.ticket===null?'—':money(p.ticket)}</td></tr>`).join('')}</tbody>
+      </table></div></details>
+    </section>`;
   }
   function bars(rows,key) {
     const max=Math.max(1,...rows.map(r=>Math.abs(r.value)));
@@ -231,11 +404,13 @@
     dialog.showModal();
   }
   const helpDefinitions=[
-    [/entrega y ticket/,'Período seleccionado. La entrega usa las mismas ventas que el encabezado: Excel hasta el 15/10 y pedidos del catálogo y del depósito desde el 16/10.'],
-    [/entregado \/ pedido/,'Entregado dividido por pedido, en importe o unidades según el indicador. Usa el mismo período y ventas del panel; parcial indica entregas sin información. No es la tasa de falta de stock.'],
-    [/ticket promedio pedido|ticket promedio entregado/,'Importe dividido por compras agrupadas; entregado cuenta compras con al menos una unidad entregada. Compara la selección con las mismas fechas del año anterior y con importe ÷ compras desde el 1 de enero hasta el cierre seleccionado. No promedia tickets mensuales.'],
+    [/facturado y ticket/,'Período seleccionado. Excel hasta el 15/10; desde el 16/10, todos los pedidos de WarehousePick (del catálogo y cargados a mano). Facturado es lo marcado con stock.'],
+    [/pedido versus facturado/,'Pedido menos lo marcado con stock en WarehousePick. La diferencia se separa en sin stock, líneas todavía sin marcar y, para el historial Excel, lo no facturado sin detalle.'],
+    [/facturado \/ pedido/,'Facturado (con stock) dividido por pedido, en importe o unidades según el indicador. Usa el mismo período y ventas del panel; parcial indica entregas sin información. No es la tasa de falta de stock.'],
+    [/ticket promedio pedido|ticket promedio facturado/,'Importe dividido por compras agrupadas; facturado cuenta compras con al menos una unidad marcada con stock. Compara la selección con las mismas fechas del año anterior y con importe ÷ compras desde el 1 de enero hasta el cierre seleccionado. No promedia tickets mensuales.'],
     [/explorar ventas/,'Los filtros se aplican al cambiar en indicadores, gráficos y tablas. El período inicial es este mes hasta hoy.'],
-    [/^entregado.*facturado/,'Ventas con entrega confirmada. En el historial Excel se usa la cantidad facturada y su importe estimado.'],
+    [/^facturado.*con stock/,'Unidades marcadas con stock en WarehousePick, agrupadas por fecha del pedido. Valoradas al precio neto del pedido; parcial si faltan precios o marcas.'],
+    [/^facturado.*fecha de factura/,'Unidades e importes de los comprobantes, agrupados por la fecha registrada de facturación.'],
     [/^pedido$/,'Ventas solicitadas por el cliente, con los importes y precios originales de cada pedido.'],
     [/periodo seleccionado|mes en curso|analisis de ventas/,'Usa las fechas seleccionadas. Compara con esas fechas desplazadas un mes y un año, ajustando los días de meses más cortos.'],
     [/^importe$|venta del periodo/,'Importe neto sin IVA. Se respeta el precio del pedido original; «parcial» indica datos incompletos.'],
@@ -249,7 +424,7 @@
     [/unidades sin stock/,'Cantidad que WarehousePick marcó explícitamente sin stock.'],
     [/pedidos afectados/,'Compras agrupadas con al menos un producto marcado sin stock.'],
     [/sobre importe pedido/,'Importe sin stock ÷ importe pedido. No se calcula si falta cobertura para la comparación.'],
-    [/tendencia mensual/,'Fechas del filtro general; medida y dimensión del gráfico. Mové el cursor para recorrer los meses; flechas para usar el teclado.'],
+    [/tendencia (diaria|semanal)/,'Usa las fechas del filtro general. Muestra días hasta dos meses y semanas para períodos más largos. Recorré las fechas con el cursor o las flechas.'],
     [/ticket.*12 meses|^ticket$|ticket.*promedio/,'Importe ÷ compras agrupadas. La línea anual usa el importe total de 12 meses ÷ sus compras, no la media de tickets mensuales.'],
     [/accion necesaria/,'Clientes a 14 días o menos de su próxima compra esperada, según su frecuencia de los últimos 12 meses.'],
     [/fuera de frecuencia/,'Clientes cuya próxima fecha de compra esperada ya pasó, sin días de tolerancia.'],
@@ -287,7 +462,7 @@
     scope.querySelectorAll('p.bi-data-note,.bi-sidebar-note,.bi-header p,.bi-handover p,.bi-insights p,.bi-delivery-summary>p').forEach(el=>el.remove());
     scope.querySelector('.bi-footer>span:last-child')?.remove();
     scope.querySelectorAll('.bi-notice').forEach(el=>{
-      if(el.hasAttribute('data-bi-delivery-notice')||el.hasAttribute('data-bi-history-notice'))return;
+      if(el.hasAttribute('data-bi-delivery-notice')||el.hasAttribute('data-bi-history-notice')||el.hasAttribute('data-bi-invoice-notice'))return;
       const text=el.textContent;
       if(text.startsWith('ERP hasta ')){el.remove();return;}
       el.textContent=text.includes('líneas no tienen importe')?`${text.match(/^\d+/)?.[0]||''} líneas sin importe · totales parciales.`:text.includes('origen seleccionado')?'Facturación no disponible para esta fuente.':'Historial Excel no disponible.';
@@ -301,7 +476,7 @@
     scope.querySelectorAll('.bi-source-cards>button').forEach(button=>{
       const wrapper=document.createElement('div');wrapper.className='bi-source-card';button.before(wrapper);wrapper.append(button);add(wrapper,button.querySelector('b').textContent);
     });
-    const nav=scope.querySelector('.bi-tabs');if(nav)add(nav,({customers:'Clientes · ventas',vendors:'Vendedores',products:'Productos',orders:'Pedidos',deliveries:'Pedido versus entregado',comparison:'Comparar fuentes',opportunities:'Oportunidades',geography:'Ubicaciones'})[tab]);
+    const nav=scope.querySelector('.bi-tabs');if(nav)add(nav,({customers:'Clientes · ventas',vendors:'Vendedores',products:'Productos',orders:'Pedidos',deliveries:'Pedido versus facturado',comparison:'Comparar fuentes',opportunities:'Oportunidades',geography:'Ubicaciones'})[tab]);
   }
   function bindInfo(root) {
     const tooltip=document.createElement('div');tooltip.className='bi-info-tooltip';tooltip.id='bi-context-help';tooltip.role='tooltip';tooltip.hidden=true;root.append(tooltip);let active=null;
@@ -319,12 +494,23 @@
   function bindChart(root) {
     chartCleanup?.();chartCleanup=null;
     const canvas=root.querySelector('[data-bi-canvas]'),scene=chartScene;
-    if(!canvas||!scene)return;
-    const ctx=canvas.getContext('2d'),{rows,values,max,format,annual,f,handover}=scene;
+    if(!canvas||!scene?.rows.length)return;
+    const ctx=canvas.getContext('2d'),{rows,series,min,max,format,f,handover}=scene,values=series[0].values;
     const readout=root.querySelector('[data-bi-chart-readout]');
-    const x=i=>64+(i+.5)/Math.max(1,rows.length)*540,y=v=>215-v/max*130;
+    const dayMs=86400000,start=m.timestamp(rows[0].from),end=m.timestamp(rows.at(-1).to)+dayMs;
+    const axisX=time=>64+(time-start)/(end-start)*540;
+    const centers=rows.map(p=>axisX((m.timestamp(p.from)+m.timestamp(p.to)+dayMs)/2));
+    const x=i=>centers[i],y=v=>215-(v-min)/(max-min)*130;
+    const contextEnd=rows.filter(p=>p.context).at(-1)?.to;
+    const crossYear=rows[0].from.slice(0,4)!==rows.at(-1).to.slice(0,4);
+    const shortDate=day=>day.slice(8)+'/'+day.slice(5,7)+(crossYear?'/'+day.slice(2,4):'');
+    const axisTicks=[0];
+    for(let i=1;i<rows.length-1;i++){
+      if(x(i)-x(axisTicks.at(-1))>=48&&x(rows.length-1)-x(i)>=48)axisTicks.push(i);
+    }
+    if(x(rows.length-1)-x(axisTicks.at(-1))>=48)axisTicks.push(rows.length-1);
     let active=-1;
-    const label=i=>{const p=rows[i];return [`${p.month} · ${f.metric==='delivered'?'Entregado / facturado':'Pedido'}`,`${format(values[i])}${p.partial?' · parcial':''}`,`${n(p.orders)} pedidos · ${n(p.clients)} clientes`,`Ticket: ${p.ticket===null?'Sin datos':money(p.ticket)}`,p.unknown?`${n(p.unknown)} líneas sin datos`:p.partial?'Importes conocidos; datos parciales':''];};
+    const label=i=>{const p=rows[i];return [`${trendPeriod(p)}`,p.context?'Contexto anterior':'',...series.map(s=>`${s.label}: ${format(s.values[i])}${s.rows[i].partial?' · parcial':''}`),`${n(p.orders)} pedidos · ${n(p.clients)} clientes`,`Ticket: ${p.ticket===null?'Sin datos':money(p.ticket)}`,p.unknown?`${n(p.unknown)} líneas sin datos`:p.partial?'Importes conocidos; datos parciales':''];};
     function line(x1,y1,x2,y2,color,width=1,dash=[]) {ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);}
     function draw() {
       const rect=canvas.getBoundingClientRect(),dpr=Math.min(3,window.devicePixelRatio||1);
@@ -332,29 +518,53 @@
       if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
       ctx.setTransform(canvas.width/620,0,0,canvas.height/260,0,0);
       ctx.clearRect(0,0,620,260);ctx.fillStyle='#fff';ctx.fillRect(0,0,620,260);ctx.font='11px Arial';
-      for(const k of [0,.5,1]){line(64,y(max*k),605,y(max*k),'#e5ebf1');ctx.fillStyle='#63758c';ctx.textAlign='right';ctx.fillText(compact(max*k),57,y(max*k)+4);}
-      if(f.source==='history-warehouse'&&handover&&handover.warehouseFrom>=f.from&&handover.warehouseFrom<=f.to){const i=rows.findIndex(p=>p.month===handover.warehouseFrom.slice(0,7));if(i>=0){line(x(i),74,x(i),219,'#238378',1,[4,4]);ctx.fillStyle='#176c63';ctx.textAlign='center';ctx.fillText(`${date(handover.warehouseFrom)} · cambio de fuente`,Math.max(160,Math.min(493,x(i))),18);}}
-      if(f.dimension==='ticket'&&annual.ticket!==null)line(64,y(annual.ticket),605,y(annual.ticket),'#df922e',1.5,[5,4]);
-      ctx.strokeStyle='#176fc1';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.beginPath();let gap=true;
-      values.forEach((v,i)=>{if(v===null){gap=true;return;}if(gap)ctx.moveTo(x(i),y(v));else ctx.lineTo(x(i),y(v));gap=false;});ctx.stroke();
-      const every=Math.max(1,Math.ceil(rows.length/12));
-      rows.forEach((p,i)=>{if(values[i]!==null){ctx.beginPath();ctx.arc(x(i),y(values[i]),i===active?6:3.5,0,Math.PI*2);ctx.fillStyle='#176fc1';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=1.5;ctx.stroke();}if(i%every===0||i===rows.length-1){ctx.fillStyle='#63758c';ctx.textAlign='center';ctx.font='10px Arial';ctx.fillText(p.month.slice(5)+'/'+p.month.slice(2,4),x(i),241);}});
+      if(contextEnd){
+        const boundary=axisX(m.timestamp(contextEnd)+dayMs);
+        ctx.fillStyle='#edf4fb';ctx.fillRect(64,70,boundary-64,150);
+        line(boundary,70,boundary,220,'#9ab4cf',1,[3,3]);
+      }
+      for(const k of [0,.5,1]){const tick=min+(max-min)*k;line(64,y(tick),605,y(tick),'#e5ebf1');ctx.fillStyle='#63758c';ctx.textAlign='right';ctx.fillText(compact(tick),57,y(tick)+4);}
+      if(f.source==='history-warehouse'&&handover&&rows.some(p=>p.from<=handover.warehouseFrom&&p.to>=handover.warehouseFrom)){
+        const changeX=axisX(m.timestamp(handover.warehouseFrom)+dayMs/2);
+        line(changeX,74,changeX,219,'#238378',1,[4,4]);ctx.fillStyle='#176c63';ctx.textAlign='center';ctx.fillText(`${date(handover.warehouseFrom)} · cambio de fuente`,Math.max(160,Math.min(493,changeX)),18);
+      }
+      if(f.dimension==='ticket')for(const s of series)if(s.annual.ticket!==null)line(64,y(s.annual.ticket),605,y(s.annual.ticket),series.length>1?s.color:'#df922e',1.5,[5,4]);
+      const pointRadius=Math.min(3.5,Math.max(1.5,250/rows.length));
+      for(const s of series){
+        ctx.strokeStyle=s.color;ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.beginPath();let gap=true;
+        s.values.forEach((v,i)=>{if(v===null){gap=true;return;}if(gap||rows[i].context!==rows[i-1].context)ctx.moveTo(x(i),y(v));else ctx.lineTo(x(i),y(v));gap=false;});ctx.stroke();
+        s.values.forEach((v,i)=>{if(v!==null){ctx.beginPath();ctx.arc(x(i),y(v),i===active?6:pointRadius,0,Math.PI*2);ctx.fillStyle=s.color;ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=1.5;ctx.stroke();}});
+      }
+      ctx.fillStyle='#63758c';ctx.textAlign='center';ctx.font='10px Arial';
+      axisTicks.forEach(i=>ctx.fillText(shortDate(rows[i].from),x(i),241));
       if(active<0||!rows[active])return;
-      const p=rows[active],pointY=values[active]===null?85:y(values[active]);
+      const p=rows[active],peak=Math.max(...series.map(s=>s.values[active]).filter(v=>v!==null),-Infinity),pointY=peak===-Infinity?85:y(peak);
       line(x(active),pointY+8,x(active),219,'#64809b',1,[3,3]);
       const unit=f.dimension==='orders'?' ped.':f.dimension==='clients'?' clientes':'';
-      const lines=[`${p.month} · ${format(values[active])}${unit}${p.partial?' *':''}`,`${n(p.orders)} ped. · ${n(p.clients)} clientes`];
+      const period=p.from===p.to?shortDate(p.from):`${shortDate(p.from)}–${shortDate(p.to)}`;
+      const lines=series.length>1?[`${period}${p.context?' · contexto':''}`,...series.map(s=>`${s.label}: ${format(s.values[active])}${unit}${s.rows[active].partial?' *':''}`)]:[`${period} · ${format(values[active])}${unit}${p.partial?' *':''}`,`${n(p.orders)} ped. · ${n(p.clients)} clientes${p.context?' · contexto':''}`];
       ctx.font='9px Arial';
-      const w=Math.min(176,Math.max(100,...lines.map(t=>ctx.measureText(t).width+18))),h=36;
+      const w=Math.min(196,Math.max(100,...lines.map(t=>ctx.measureText(t).width+18))),h=10+lines.length*13;
       const tx=Math.max(4,Math.min(616-w,x(active)-w/2)),ty=Math.max(25,pointY-h-12);
       canvas.dataset.tooltipBounds=JSON.stringify({x:tx,y:ty,width:w,height:h,pointX:x(active),pointY});
       ctx.save();ctx.shadowColor='rgba(17,35,55,.14)';ctx.shadowBlur=5;ctx.fillStyle='#142e49';ctx.beginPath();ctx.roundRect(tx,ty,w,h,4);ctx.fill();ctx.restore();
       ctx.fillStyle='#142e49';ctx.beginPath();ctx.moveTo(x(active)-4,ty+h);ctx.lineTo(x(active),ty+h+5);ctx.lineTo(x(active)+4,ty+h);ctx.fill();
       ctx.textAlign='left';lines.forEach((text,i)=>{ctx.font=(i===0?'bold ':'')+'9px Arial';ctx.fillStyle=i===0?'white':'#b9d3e9';ctx.fillText(text,tx+9,ty+14+i*13,w-18);});
     }
-    function show(index,keyboard=false){active=Math.max(0,Math.min(rows.length-1,index));canvas.dataset.activeMonth=rows[active]?.month||'';if(keyboard&&readout)readout.textContent=rows[active]?label(active).filter(Boolean).join('. '):'';draw();}
-    function pointer(e){if(!rows.length)return;const rect=canvas.getBoundingClientRect(),px=(e.clientX-rect.left)/rect.width*620;show(Math.floor((Math.max(64,Math.min(604,px))-64)/540*rows.length));}
-    function hide(){active=-1;delete canvas.dataset.activeMonth;delete canvas.dataset.tooltipBounds;if(readout)readout.textContent='';draw();}
+    function show(index,keyboard=false){
+      const next=Math.max(0,Math.min(rows.length-1,index));
+      if(keyboard&&readout)readout.textContent=label(next).filter(Boolean).join('. ');
+      if(next===active)return;
+      active=next;
+      canvas.dataset.activeDate=rows[active].from;canvas.dataset.activeMonth=rows[active].from.slice(0,7);
+      draw();
+    }
+    function pointer(e){
+      const rect=canvas.getBoundingClientRect(),px=(e.clientX-rect.left)/rect.width*620;
+      const nearest=centers.reduce((best,center,i)=>Math.abs(center-px)<Math.abs(x(best)-px)?i:best,0);
+      show(nearest);
+    }
+    function hide(){active=-1;delete canvas.dataset.activeDate;delete canvas.dataset.activeMonth;delete canvas.dataset.tooltipBounds;if(readout)readout.textContent='';draw();}
     function key(e){if(!['ArrowLeft','ArrowRight','Home','End','Escape'].includes(e.key))return;e.preventDefault();if(e.key==='Escape'){hide();return;}show(e.key==='Home'?0:e.key==='End'?rows.length-1:active<0?0:active+(e.key==='ArrowLeft'?-1:1),true);}
     canvas.addEventListener('pointermove',pointer);canvas.addEventListener('pointerdown',pointer);canvas.addEventListener('pointerleave',hide);canvas.addEventListener('keydown',key);canvas.addEventListener('focus',()=>{if(rows.length)show(0,true);});canvas.addEventListener('blur',hide);
     const observer=new ResizeObserver(draw);observer.observe(canvas);draw();
@@ -367,19 +577,20 @@
     const previousPanel=panel.querySelector('.bi-filter-panel');
     const filtersOpen=previousPanel ? previousPanel.open : !window.matchMedia?.('(max-width:720px)').matches;
     const result=calculated('analysis',filters,()=>m.analyze(data,filters)), t=result.totals;
-    const warehouseTotals=m.totals(result.rows.filter(r=>r.source==='catalog'||r.source==='warehouse'));
+    const operationalRows=m.selected(data,{...filters,metric:'ordered'}).filter(r=>r.source==='catalog'||r.source==='warehouse');
+    const warehouseTotals=m.totals(operationalRows);
     const warehouseMoneyKnown=warehouseTotals.deliveryKnownLines>warehouseTotals.deliveredMissingValues;
     const warehouseMoneyPartial=warehouseTotals.deliveryUnknownLines||warehouseTotals.missingValues||warehouseTotals.deliveredMissingValues;
-    const hasRecentOrders=result.rows.some(r=>r.source==='catalog'||r.source==='warehouse');
+    const hasRecentOrders=operationalRows.length>0;
     report=calculated('report',filters,()=>m.reporting(data,filters));
     const knownOpportunities=calculations.get(calculationKey('opportunities',filters));
-    const opportunityCount=knownOpportunities?knownOpportunities.reduce((total,o)=>total+o.missing.length+o.bestsellers.length,0):null;
-    const source=m.sourceRows(data,filters.source);
+    const opportunityCount=knownOpportunities?actionable(knownOpportunities).length:null;
+    const source=m.sourceRows(data,filters.source,filters.metric);
     const dimension=key=>[...new Set(source.map(r=>r[key]))].sort().map(v=>[v,v]);
     const isInvoice=filters.metric==='invoiced';
-    const isDelivered=filters.metric==='delivered';
-    const metricLabel=isDelivered?'Entregado confirmado':isInvoice?'Facturado ERP estimado':'Pedido';
-    const sourceNames={erp:'Historial Excel',warehouse:'WarehousePick',catalog:'Catálogo','history-warehouse':'Excel + catálogo + pedidos directos de WarehousePick',combined:'Excel + catálogo'};
+    const isDelivered=['delivered','invoiceDate'].includes(filters.metric);
+    const metricLabel=filters.metric==='invoiceDate'?'Facturado por fecha de factura':filters.metric==='delivered'?deliveryMeasureName:isInvoice?'Facturado ERP estimado':'Pedido';
+    const sourceNames={erp:'Historial Excel',warehouse:'WarehousePick',catalog:'Catálogo','history-warehouse':'Excel + todos los pedidos de WarehousePick',combined:'Excel + catálogo'};
     const invoiceUnavailable=filters.source==='catalog' || (!input.batches.length) || filters.from>data.coverage.to;
     const assignedBuyers=new Set(result.rows.filter(r=>r.clientId && (isDelivered?r.deliveredQty:isInvoice?r.invoicedQty:r.orderedQty)).map(r=>r.clientCode)).size;
     const selectedClient=data.clients.find(c=>String(c.clientCode)===filters.client);
@@ -388,12 +599,12 @@
     panel.innerHTML=`<div class="sales-bi">
       <header class="bi-header"><div><span class="bi-eyebrow">LEXO / INTELIGENCIA COMERCIAL</span><h2>Análisis de ventas</h2><p>Rendimiento de ventas y oportunidades para tu próxima visita.</p></div><div class="bi-header-actions">${input.admin&&!input.simple?'<button type="button" data-bi-groups>Agrupar clientes</button><button type="button" data-bi-access>Accesos al dashboard</button>':''}<a class="bi-guide-link" href="/sales-dashboard-guide.html" target="_blank" rel="noopener">Guía</a><button type="button" data-bi-workbook>Descargar Excel</button><button type="button" data-bi-export>Exportar filas</button><button type="button" data-bi-refresh>Actualizar</button><span data-bi-export-status role="status" hidden></span></div></header>
       ${input.live?`<div class="bi-live-status" data-bi-live-status role="status">En vivo · ${safe(new Date(input.updatedAt).toLocaleTimeString('es-AR',{timeZone:'America/Argentina/Buenos_Aires'}))}</div>`:'<div class="bi-live-status">Vista de archivos históricos · <a href="/live">Conectar datos actuales del catálogo</a></div>'}
-      <nav class="bi-section-tabs" aria-label="Secciones del dashboard"><button type="button" data-bi-section="sales" aria-pressed="${section==='sales'}">Ventas</button><button type="button" data-bi-section="vendors" aria-pressed="${section==='vendors'}">Vendedores</button>${input.admin&&!input.simple?`<button type="button" data-bi-section="directory" aria-pressed="${section==='directory'}">Clientes y vendedores</button>`:''}</nav>
+      <nav class="bi-section-tabs" aria-label="Secciones del dashboard"><button type="button" data-bi-section="sales" aria-pressed="${section==='sales'}">Ventas</button><button type="button" data-bi-section="vendors" aria-pressed="${section==='vendors'}">Vendedores</button>${input.admin&&!input.simple?`<button type="button" data-bi-section="directory" aria-pressed="${section==='directory'}">Clientes y vendedores</button><button type="button" data-bi-section="quality" aria-pressed="${section==='quality'}">Revisión de datos</button>`:''}</nav>
       <div class="bi-layout"><aside class="bi-sidebar"><details class="bi-filter-panel" open><summary>Filtros y cartera</summary><h3>Explorar ventas</h3>
       ${input.admin||input.fullAccess?`<label><span>Vendedor actual</span><select data-bi-salesman>${options(input.salesmen.map(s=>[s.code,`${s.code==='*'?'':s.code+' · '}${s.name}`]),input.salesmanCode)}</select></label>`:`<p class="bi-scope">Cartera del vendedor ${safe(input.salesmanCode || 'sin asignar')}</p>`}
       <form data-bi-filters>
       ${select('source','Origen de los pedidos',[['history-warehouse','Excel + catálogo + WarehousePick (principal)'],['erp','Historial Excel'],['warehouse','WarehousePick'],['catalog','Catálogo'],['combined','Excel + catálogo (alternativa)']])}
-      ${select('metric','Analizar por',[['ordered','Pedido'],['delivered','Entregado confirmado (WarehousePick)'],['invoiced','Facturado ERP (estimado)']])}
+      ${select('metric','Analizar por',[['ordered','Pedido'],['invoiceDate','Facturado']])}
       <div class="bi-date-shortcuts"><button type="button" data-bi-preset="current">Este mes</button><button type="button" data-bi-preset="all">Todo el historial</button><button type="button" data-bi-preset="recent">Últimos 30 días</button><button type="button" data-bi-preset="month">Último mes completo</button><button type="button" data-bi-preset="year">12 meses</button></div>
       <label><span>Desde</span><input name="from" type="date" value="${safe(filters.from)}" max="${m.recentRange(1).to}" required></label><label><span>Hasta (inclusive)</span><input name="to" type="date" value="${safe(filters.to)}" max="${m.recentRange(1).to}" required></label>
       ${select('compare','Comparar con',[['year','Mismo período del año anterior'],['period','Período anterior de igual duración']])}
@@ -406,25 +617,21 @@
       <p class="bi-sidebar-note">ARS nominales, sin IVA.<br>Asignación actual de clientes.</p></details></aside>
       <main class="bi-main"><div class="bi-context"><div><strong>${date(filters.from)} — ${date(filters.to)}</strong><span>${safe(sourceNames[filters.source])}${filters.client?' · Cliente '+safe(filters.client):''}${filters.brand?' · '+safe(filters.brand):''}</span></div><span class="bi-context-measure">${safe(metricLabel.toUpperCase())}</span></div>
       ${headlines()}
+      ${clientAnalysis()}
+      ${productHealthPanel()}
       ${ticketSummary()}
       <section class="bi-source-cards" aria-label="Ventas por origen en el período seleccionado">${[['erp','Historial Excel'],['warehouse','WarehousePick'],['catalog','Catálogo']].map(([key,label])=>{const rows=m.selected(data,{...filters,source:key}),dates=rows.map(r=>r.occasionDate||r.date).sort();return `<button type="button" data-bi-source="${key}"><b>${label}</b><strong>${new Set(rows.map(r=>r.occasionId||r.orderId)).size} pedidos · ${n(rows.length)} líneas</strong><small>${dates.length?`${date(dates[0])} — ${date(dates.at(-1))}`:'Sin registros en el período'}</small></button>`;}).join('')}</section>
       ${handoverBanner()}
       ${!data.warehouseAvailable&&filters.source!=='erp'?`<p class="bi-notice" role="status" data-bi-delivery-notice>${input.delivery?.reason==='loading'?'Cargando entregas…':input.simple?'No se pudieron consultar las entregas.':input.delivery?.reason==='access_denied'?'Acceso a entregas de WarehousePick rechazado.':input.delivery?.reason==='lines_unavailable'?'WarehousePick no devolvió el detalle por producto.':'No se pudieron consultar las entregas de WarehousePick.'}</p>`:''}
-      ${t.missingValues?`<p class="bi-notice">${t.missingValues} líneas no tienen importe de pedido disponible. WarehousePick no contiene precios: los importes vinculados se valoran al precio neto del pedido original del catálogo. Los totales monetarios son parciales; las cantidades se conservan.</p>`:''}
       ${input.historyStatus?'<p class="bi-notice" role="status" data-bi-history-notice>'+({loading:'Cargando historial de ventas…',unavailable:'No se pudo cargar el historial. Se muestran los datos disponibles.',stale:'No se pudo actualizar el historial. Se muestra la última versión cargada.'}[input.historyStatus])+'</p>':!input.available?'<p class="bi-notice" role="status">El historial ERP todavía no está habilitado en este entorno. Podés explorar los pedidos del catálogo.</p>':!input.batches.length?'<p class="bi-notice">Todavía no hay historial ERP importado.</p>':''}
       ${data.warehouseAvailable&&filters.source!=='erp'&&hasRecentOrders&&!warehouseTotals.deliveryKnownLines?'<p class="bi-notice" role="status" data-bi-delivery-notice>Sin líneas de entrega conciliadas para estos filtros.</p>':''}
-      ${filters.source==='combined'?`<p class="bi-notice">ERP hasta ${date(data.coverage.to)}; catálogo desde el día siguiente. Los pedidos del catálogo dentro del período ERP se excluyen para evitar duplicación. El catálogo no informa facturación.</p>`:''}
-      ${filters.source!=='catalog'&&data.coverage.to?`<p class="bi-data-note">ERP disponible: ${date(data.coverage.from)} a ${date(data.coverage.to)}. ${!result.covered?'El período seleccionado excede la cobertura ERP. ':''}Facturación agrupada por fecha del pedido; el archivo no contiene fechas ni importes de factura. Estimación: cantidad facturada × precio neto del pedido. Devoluciones informadas por separado.</p>`:'<p class="bi-data-note">Importes de pedidos del catálogo. Su estado de envío no acredita facturación.</p>'}
-      ${isInvoice&&invoiceUnavailable?'<p class="bi-notice" role="status">El origen seleccionado no informa cantidades facturadas. Elegí Historial ERP para analizar facturación.</p>':''}
-      ${filters.source!=='erp'?`<section class="bi-delivery-summary" aria-label="Pedido versus entregado"><h3>Pedido versus entregado · WarehousePick</h3><div><article><span>Entregado / pedido · importe</span><strong>${deliveryRatio(warehouseTotals.ordered,warehouseTotals.delivered,warehouseMoneyKnown)}${warehouseMoneyPartial&&warehouseMoneyKnown?' (parcial)':''}</strong></article><article><span>Entregado / pedido · unidades</span><strong>${deliveryRatio(warehouseTotals.orderedQty,warehouseTotals.deliveredQty,warehouseTotals.deliveryKnownLines>0)}${warehouseTotals.deliveryUnknownLines&&warehouseTotals.deliveryKnownLines?' (parcial)':''}</strong></article><article><span>Unidades pedidas</span><strong>${hasRecentOrders?n(warehouseTotals.orderedQty):'Sin datos'}</strong></article><article><span>Unidades entregadas confirmadas</span><strong>${warehouseTotals.deliveryKnownLines?n(warehouseTotals.deliveredQty)+(warehouseTotals.deliveryUnknownLines?' (parcial)':''):'Sin datos'}</strong></article><article><span>Unidades pendientes de confirmar</span><strong>${warehouseTotals.deliveryKnownLines?n(warehouseTotals.pendingDeliveryQty)+(warehouseTotals.deliveryUnknownLines?' (parcial)':''):'Sin datos'}</strong></article><article><span>Entregado al precio neto del pedido</span><strong>${warehouseTotals.deliveryKnownLines?(warehouseTotals.deliveredMissingValues===warehouseTotals.deliveryKnownLines?'Sin importe':money(warehouseTotals.delivered)+(warehouseTotals.deliveryUnknownLines||warehouseTotals.deliveredMissingValues?' (parcial)':'')):'Sin datos'}</strong></article></div><p>Pedido según ${filters.source==='warehouse'?'WarehousePick':filters.source==='history-warehouse'?'catálogo y pedidos directos del depósito':'el catálogo'}; entregado confirmado por factura/remito en WarehousePick. Mismo período y filtros, sin incluir el historial Excel en esta comparación. ${warehouseTotals.deliveryKnownLines} líneas con información · ${warehouseTotals.deliveryUnknownLines} sin datos de entrega. ${input.delivery?.available&&hasRecentOrders&&!warehouseTotals.deliveryKnownLines?'Sin líneas conciliadas para estos filtros.':''} Los registros sin vínculo no cuentan como cero entregado.</p></section>`:''}
-      <div class="bi-secondary-metrics"><span>Ticket pedido promedio <b>${t.average===null?'Sin importe':money(t.average)}</b></span><span>Unidades facturadas / pedidas ERP <b>${t.fulfillment===null?'No disponible':n(t.fulfillment*100)+'%'}</b></span><span>Unidades devueltas ERP <b>${invoiceUnavailable?'No disponible':n(t.returnedQty)}</b></span><span>Clientes sin asignación <b>${new Set(result.rows.filter(r=>!r.clientId).map(r=>r.clientCode)).size}</b></span></div>
       ${stockSummary()}
       ${chart()}
-      <div class="bi-insights"><article><span>Acción necesaria</span><strong>${report.customers.filter(c=>c.situation==='action').length}</strong><p>Clientes a 14 días o menos de su próxima compra esperada.</p><button type="button" data-bi-status="action">Ver clientes</button></article><article><span>Fuera de frecuencia</span><strong>${report.customers.filter(c=>c.situation==='overdue').length}</strong><p>Clientes cuya fecha de compra esperada ya pasó.</p><button type="button" data-bi-status="overdue">Ver clientes</button></article><article><span>${filters.client?'Ampliar este cliente':'Ampliar la cartera'}</span><strong data-bi-opportunity-count aria-busy="${opportunityCount===null}">${opportunityCount===null?'…':opportunityCount}</strong><p>Productos disponibles del catálogo sin compras según los filtros y el período.</p><button type="button" data-bi-tab="opportunities">Ver productos</button></article></div>
-      <section class="bi-card"><nav class="bi-tabs" aria-label="Detalle de ventas">${[['customers','Clientes'],['products','Productos'],['orders','Pedidos'],['deliveries','Entregas'],['comparison','Comparar fuentes'],['restocks','Reposiciones'],['opportunities','Oportunidades'],['geography','Ubicaciones']].map(([v,label])=>`<button type="button" data-bi-tab="${v}" aria-pressed="${tab===v}">${label}</button>`).join('')}</nav>
+      <div class="bi-insights"><article><span>Acción necesaria</span><strong>${report.customers.filter(c=>c.situation==='action').length}</strong><p>Clientes a 14 días o menos de su próxima compra esperada.</p><button type="button" data-bi-status="action">Ver clientes</button></article><article><span>Fuera de frecuencia</span><strong>${report.customers.filter(c=>c.situation==='overdue').length}</strong><p>Clientes cuya fecha de compra esperada ya pasó.</p><button type="button" data-bi-status="overdue">Ver clientes</button></article><article><span>${filters.client?'Ampliar este cliente':'Ampliar la cartera'}</span><strong data-bi-opportunity-count aria-busy="${opportunityCount===null}">${opportunityCount===null?'…':opportunityCount}</strong><p>Clientes activos (compraron en los últimos 12 meses) con productos para ofrecer.</p><button type="button" data-bi-tab="opportunities">Ver clientes</button></article></div>
+      <section class="bi-card"><nav class="bi-tabs" aria-label="Detalle de ventas">${[['customers','Clientes'],['products','Productos'],['orders','Pedidos'],['deliveries','Pedido vs facturado'],['comparison','Comparar fuentes'],['restocks','Reposiciones'],['opportunities','Oportunidades']].map(([v,label])=>`<button type="button" data-bi-tab="${v}" aria-pressed="${tab===v}">${label}</button>`).join('')}</nav>
       ${filters.client?`<div class="bi-client-context"><div><strong>${safe(selectedClient?.legalName || selectedClient?.name || filters.client)}</strong><span>Cliente ${safe(selectedClient?.displayCode||filters.client)} · ${safe(selectedClient?.locality || '')}</span></div><button type="button" data-bi-clear-client>Ver toda la cartera</button>${!input.readOnly&&selectedClient?.id&&(!selectedClient.members||selectedClient.members.some(c=>c.id))?`<button type="button" data-bi-order>${selectedClient.members?'Elegir local y crear pedido':'Crear pedido'}</button>`:''}</div>`:''}
       <div data-bi-detail>${detail(result)}</div></section>
-      <section class="bi-card bi-brand-share"><h3>Participación por marca</h3>${bars(result.brands,'brand')}</section>
+      ${brandPortfolioPanel()}
       <p class="bi-data-note">Marcas históricas confirmadas por SKU en la revisión manual. Se excluyen de todos los totales ${m.reviewed.excludedSkus.length} SKUs indicados por el administrador; los registros originales se conservan.</p><footer class="bi-footer"><span>${result.rows.length.toLocaleString('es-AR')} líneas filtradas · ${t.unclassified} sin marca identificada · ${t.unmatched} fuera del catálogo actual.</span><span>Las oportunidades describen el historial disponible; no implican que nunca haya comprado.</span></footer>
       </main></div></div>`;
     const root=panel.querySelector('.sales-bi');
@@ -441,13 +648,14 @@
       root.querySelector('.bi-main').innerHTML=directoryView(input);
       filterDirectory(root);
     }
+    if(section==='quality'&&input.admin&&!input.simple)root.querySelector('.bi-main').innerHTML=qualityView();
     if(section==='vendors') {
       const main=root.querySelector('.bi-main');
       const previousTab=tab;tab='vendors';const vendors=detail(result);tab='customers';const customers=detail(result);tab=previousTab;
-      main.innerHTML=`<section class="bi-card"><h2>Vendedores</h2>${vendors}</section>${headlines()}${ticketSummary()}${chart()}<section class="bi-card"><h3>Cartera de clientes · ${safe(input.salesmen?.find(s=>s.code===input.salesmanCode)?.name||'Todos los vendedores')}</h3><div data-bi-detail>${customers}</div></section>`;
+      main.innerHTML=vendorFocus!==null?vendorProfile(vendorFocus):`<section class="bi-card"><h2>Vendedores</h2><p class="bi-data-note">Elegí un vendedor para ver todos sus datos, sus clientes y la comparación con la empresa.</p>${vendors}</section>${headlines()}${ticketSummary()}${chart()}<section class="bi-card"><h3>Cartera de clientes · ${safe(input.salesmen?.find(s=>s.code===input.salesmanCode)?.name||'Todos los vendedores')}</h3><div data-bi-detail>${customers}</div></section>`;
     }
     clearTimeout(opportunityTimer);
-    if(opportunityCount===null){const currentSession=session;const update=()=>{if(session!==currentSession||session.panel.querySelector('.sales-bi')!==root)return;const value=calculated('opportunities',filters,()=>m.opportunityReport(data,filters)).reduce((sum,o)=>sum+o.missing.length+o.bestsellers.length,0);const node=root.querySelector('[data-bi-opportunity-count]');if(node){node.textContent=value;node.setAttribute('aria-busy','false');}};opportunityTimer=setTimeout(()=>{if(window.requestIdleCallback)window.requestIdleCallback(update,{timeout:1500});else update();},0);}
+    if(opportunityCount===null){const currentSession=session;const update=()=>{if(session!==currentSession||session.panel.querySelector('.sales-bi')!==root)return;const value=actionable(calculated('opportunities',filters,()=>m.opportunityReport(data,filters))).length;const node=root.querySelector('[data-bi-opportunity-count]');if(node){node.textContent=value;node.setAttribute('aria-busy','false');}};opportunityTimer=setTimeout(()=>{if(window.requestIdleCallback)window.requestIdleCallback(update,{timeout:1500});else update();},0);}
     decorateTables(root);decorateInfo(root);bindInfo(root);
     bindChart(root);window.RESTOCK_NOTICES?.bind(root);
     root.querySelector('.bi-filter-panel').open=filtersOpen;
@@ -489,11 +697,14 @@
     }
     } finally { rendering=false; }
   }
+  const displayCode=client=>{const code=String(client.displayCode||client.clientCode||'');return code.startsWith('unassigned:')?'Sin código de cliente':code==='kitchen-spot'?'Kitchen Spot':code;};
+  const frequencyLabel=a=>!a||!a.annual?.orders?'Sin compras en 12 meses':a.frequency===null||a.frequency===undefined?(a.annual.orders===1?'1 compra en 12 meses':'Historial insuficiente'):`Cada ${n(a.frequency)} días`;
+  const situationLabel=a=>!a||!a.annual?.orders?'Sin compras en 12 meses':a.frequency===null||a.frequency===undefined?'1 compra: sin frecuencia aún':situationLabels[a.situation]||'—';
   function filteredCustomers(result) {
     const activity = new Map(report.customers.map(c => [String(c.client.clientCode), c]));
     const query = m.norm(customerQuery);
     return result.customers.map(c => ({...c, activity: activity.get(String(c.client.clientCode))}))
-      .filter(c => (customerStatus === 'all' || c.status === customerStatus || c.activity?.situation === customerStatus) &&
+      .filter(c => (customerStatus === 'every' || (customerStatus === 'all' ? c.activity?.annual?.orders > 0 || c.activity?.period?.orders > 0 : c.status === customerStatus || c.activity?.situation === customerStatus)) &&
         m.norm(`${c.client.name} ${c.client.legalName} ${c.client.displayCode || c.client.clientCode} ${c.client.members?.map(member => member.name).join(' ') || ''} ${c.client.locality}`).includes(query));
   }
   function deliveryDocument(row) {
@@ -503,7 +714,7 @@
   }
   function detail(r) {
     if(tab==='restocks')return window.RESTOCK_NOTICES?.view(session.input.simple?session.input.salesmanCode:'',Boolean(session.input.preview||session.input.readOnly))||'<p>Reposiciones no disponibles.</p>';
-    if(tab==='vendors')return `<h3>Vendedores · ${filters.metric==='ordered'?'pedido':'entregado / facturado'} · período seleccionado</h3><p class="bi-data-note">Asignación actual del cliente. Nuevos: primera compra registrada en los últimos 12 meses; reactivados: regreso después de al menos 12 meses sin comprar. La primera compra real puede preceder al historial disponible.</p><div class="bi-table-scroll"><table data-bi-table="vendor-analytics"><thead><tr><th>Vendedor</th><th>Período seleccionado</th><th>Mismas fechas del mes anterior</th><th>Variación monto / %</th><th>Últimos 12 meses</th><th>Situaciones de clientes</th><th>Nuevos (12m)</th><th>Reactivados (12m)</th></tr></thead><tbody>${report.vendors.map(v=>`<tr><td>${safe(salesmanName(v.code))}</td><td>${amountLabel(v.current)}</td><td>${amountLabel(v.month)}</td><td>${comparisonBadge(v.change)}</td><td>${amountLabel(v.annual)}</td><td>${Object.entries(v.situations).map(([key,count])=>`${situationLabels[key]}: ${count}`).join('<br>')}</td><td>${v.newClients}</td><td>${v.reactivated}</td></tr>`).join('')}</tbody></table></div>`;
+    if(tab==='vendors')return `<h3>Vendedores · ${filters.metric==='ordered'?'pedido':'entregado / facturado'} · período seleccionado</h3><p class="bi-data-note">Asignación actual del cliente. Nuevos: primera compra registrada en los últimos 12 meses; reactivados: regreso después de al menos 12 meses sin comprar. La primera compra real puede preceder al historial disponible.</p><div class="bi-table-scroll"><table data-bi-table="vendor-analytics"><thead><tr><th>Vendedor</th><th>Período seleccionado</th><th>Mismas fechas del mes anterior</th><th>Variación monto / %</th><th>Últimos 12 meses</th><th>Situaciones de clientes</th><th>Nuevos (12m)</th><th>Reactivados (12m)</th></tr></thead><tbody>${report.vendors.filter(v=>v.current.orders||v.month.orders||v.annual.orders).map(v=>`<tr><td><button type="button" class="bi-client-link" data-bi-vendor="${safe(v.code)}">${safe(salesmanName(v.code))}</button></td><td>${amountLabel(v.current)}</td><td>${amountLabel(v.month)}</td><td>${comparisonBadge(v.change)}</td><td>${amountLabel(v.annual)}</td><td>${Object.entries(v.situations).map(([key,count])=>`${situationLabels[key]}: ${count}`).join('<br>')}</td><td>${v.newClients}</td><td>${v.reactivated}</td></tr>`).join('')}</tbody></table></div>`;
     if(tab==='comparison') {
       const comparisons=m.compareSources(session.data,filters),counts={};for(const row of comparisons)counts[row.status]=(counts[row.status]||0)+1;
       const labels={same:'Coincide',different:'Cantidad diferente','warehouse-only':'Solo en WarehousePick','catalog-only':'Solo en catálogo'};
@@ -511,27 +722,39 @@
       return `<h3>Catálogo versus WarehousePick</h3><p class="bi-data-note">Mismo período y filtros. Se vinculan por el ID del pedido del catálogo y el SKU. Los pedidos de carga directa del depósito también aparecen. Esta tabla compara fuentes; no suma ambos registros.</p><div class="bi-comparison-counts">${Object.entries(labels).map(([key,label])=>`<span>${label}: <b>${counts[key]||0}</b></span>`).join('')}</div><div class="bi-table-scroll"><table data-bi-table="source-comparison" data-bi-model-sort><caption>${rows.length} productos por pedido${rows.length>200?' · primeros 200; ajustá los filtros':''}</caption><thead><tr><th>Pedido / cliente</th><th>Producto / SKU</th><th>Catálogo (u.)</th><th>WarehousePick (u.)</th><th>Diferencia (u.)</th><th>Estado</th></tr></thead><tbody>${rows.slice(0,200).map(row=>`<tr><td>${safe(row.orderLabel)}<small>${safe(row.clientName)}</small></td><td>${safe(row.name)}<small>${safe(row.sku)}</small></td><td>${row.hasCatalog?n(row.catalogQty):'Sin registro'}</td><td>${row.hasWarehouse?n(row.warehouseQty):'Sin registro'}</td><td>${row.hasCatalog&&row.hasWarehouse?n(row.delta):'—'}</td><td>${labels[row.status]}</td></tr>`).join('')||'<tr><td colspan="6">No hay registros para comparar.</td></tr>'}</tbody></table></div>`;
     }
     if(tab==='deliveries') {
-      const rows=sortedRows(r.rows.filter(row=>['catalog','warehouse'].includes(row.source)),'delivery-lines',row=>[row.orderLabel||row.orderId,row.productName,row.orderedQty,row.pickedQty,row.deliveredQty,row.pendingDeliveryQty,deliveryDocument(row)]);
-      return `<h3>Pedido versus entregado por producto</h3><p class="bi-data-note">${rows.length} líneas recientes${rows.length>100?' · primeras 100; exportá para ver todas':''}. Preparado significa pickeado. Entregado confirmado usa factura/remito de WarehousePick.</p><div class="bi-table-scroll"><table data-bi-table="delivery-lines" data-bi-model-sort><thead><tr><th>Pedido / Cliente</th><th>Producto / SKU</th><th>Pedido (u.)</th><th>Preparado (u.)</th><th>Entregado (u.)</th><th>Pendiente de confirmar (u.)</th><th>Comprobante</th></tr></thead><tbody>${rows.slice(0,100).map(row=>`<tr><td>${safe(row.orderLabel||row.orderId)}<small>${safe(row.clientName)}</small></td><td>${safe(row.productName)}<small>${safe(row.sku)}</small></td><td>${n(row.orderedQty)}</td><td>${row.pickedQty===null?'Sin datos':n(row.pickedQty)}</td><td>${row.deliveredQty===null?'Sin datos':n(row.deliveredQty)}</td><td>${row.pendingDeliveryQty===null?'Sin datos':n(row.pendingDeliveryQty)}</td><td>${safe(deliveryDocument(row))}</td></tr>`).join('')||'<tr><td colspan="7">No hay líneas del catálogo para estos filtros.</td></tr>'}</tbody></table></div>`;
+      const pending=row=>row.deliveredQty===null||row.deliveredQty===undefined?null:Math.max(0,row.orderedQty-row.deliveredQty-Number(row.outOfStockQty||0));
+      const origin=row=>row.source==='catalog'?'Catálogo · no llegó a WarehousePick':row.catalogOrderId?'Catálogo':'Cargado en el depósito';
+      const gapValue=row=>row.ordered===null||row.ordered===undefined||row.deliveredQty===null||row.deliveredQty===undefined||!row.orderedQty?null:row.ordered/row.orderedQty*(row.orderedQty-row.deliveredQty);
+      const rows=sortedRows(m.selected(session.data,{...filters,metric:'ordered'}).filter(row=>['catalog','warehouse'].includes(row.source)),'delivery-lines',row=>[row.orderLabel||row.orderId,row.productName,row.orderedQty,row.deliveredQty,row.outOfStockQty,pending(row),gapValue(row),origin(row)]);
+      const qty=v=>v===null||v===undefined?'Sin datos':n(v);
+      return `<h3>Pedido versus facturado por producto</h3><p class="bi-data-note">${rows.length} líneas${rows.length>100?' · primeras 100; exportá para ver todas':''}. Facturado = unidades marcadas con stock en WarehousePick.</p><div class="bi-table-scroll"><table data-bi-table="delivery-lines" data-bi-model-sort><thead><tr><th>Pedido / Cliente</th><th>Producto / SKU</th><th>Pedido (u.)</th><th>Facturado con stock (u.)</th><th>Sin stock (u.)</th><th>Sin marcar (u.)</th><th>Diferencia sin IVA</th><th>Origen</th></tr></thead><tbody>${rows.slice(0,100).map(row=>`<tr><td>${safe(row.orderLabel||row.orderId)}<small>${safe(row.clientName)}</small></td><td>${safe(row.productName)}<small>${safe(row.sku)}</small></td><td>${n(row.orderedQty)}</td><td>${qty(row.deliveredQty)}</td><td>${qty(row.outOfStockQty)}</td><td>${qty(pending(row))}</td><td>${row.source==='catalog'?'Sin dato del depósito':gapValue(row)===null?'Sin importe':money(gapValue(row))}</td><td>${origin(row)}</td></tr>`).join('')||'<tr><td colspan="8">No hay pedidos de WarehousePick ni del catálogo para estos filtros.</td></tr>'}</tbody></table></div>`;
+    }
+    if (tab==='orders'&&filters.metric==='invoiceDate') {
+      const rows=sortedRows([...r.rows].sort((a,b)=>b.date.localeCompare(a.date)),'invoice-lines',
+        row=>[row.date,deliveryDocument(row),row.clientName,row.sku,row.invoicedQty,row.invoiced]);
+      return `<h3>Líneas facturadas</h3><div class="bi-table-scroll"><table data-bi-table="invoice-lines" data-bi-model-sort>
+        <caption>${n(rows.length)} líneas${rows.length>100?' · primeras 100; exportá para ver todas':''}</caption>
+        <thead><tr><th>Fecha de factura</th><th>Comprobante</th><th>Cliente</th><th>Producto / SKU</th><th>Unidades facturadas</th><th>Importe sin IVA</th></tr></thead>
+        <tbody>${rows.slice(0,100).map(row=>`<tr><td>${date(row.date)}</td><td>${safe(deliveryDocument(row))}<small>${safe(row.orderLabel)}</small></td><td>${safe(row.clientName)}</td><td>${safe(row.productName)}<small>${safe(row.sku)}</small></td><td>${n(row.invoicedQty)}</td><td>${row.invoiced===null?'Sin importe':money(row.invoiced)}</td></tr>`).join('')||'<tr><td colspan="6">Sin líneas facturadas disponibles.</td></tr>'}</tbody></table></div>`;
     }
     if (tab==='orders') {
       const orders=new Map();
       for(const row of r.rows) { const key=row.occasionId||row.orderId; if(!orders.has(key)) orders.set(key,[]); orders.get(key).push(row); }
       const sorted=[...orders.entries()].sort((a,b)=>b[1][0].date.localeCompare(a[1][0].date)||b[0].localeCompare(a[0]));
-      return `<h3>Pedidos y líneas</h3><p class="bi-data-note">${sorted.length} pedidos en la selección. ${sorted.length>50?'Se muestran los 50 más recientes. Ajustá las fechas o exportá todas las filas.':''}</p>${sorted.slice(0,50).map(([id,rows])=>`<details class="bi-order"><summary><strong>${safe(rows[0].orderLabel||id)}</strong><small class="bi-source-badge bi-source-${rows[0].source}">${safe(sourceLabel(rows[0].source))}</small><span>${date(rows[0].date)} · ${safe(rows[0].clientName)}</span><b>${money(rows.reduce((s,row)=>s+row.ordered,0))} pedido</b></summary><p class="bi-data-note">Origen: ${safe(sourceLabel(rows[0].source))}${rows[0].sourceFile?` · Archivo: ${safe(rows[0].sourceFile)}`:''}</p><div class="bi-table-scroll"><table data-bi-table="order-${safe(id)}"><thead><tr><th>Producto / SKU</th><th>Pedido (u.)</th><th>Facturado (u.)</th><th>Pedido sin IVA</th><th>${session.input.simple?'Entregado sin IVA':'Facturado estimado sin IVA'}</th></tr></thead><tbody>${rows.map(row=>`<tr><td>${safe(row.productName)}<small>${safe(row.sku)}</small></td><td>${n(row.orderedQty)}</td><td>${session.input.simple?(row.deliveredQty===null?'No disponible':n(row.deliveredQty)):(row.invoicedQty===null?'No disponible':n(row.invoicedQty))}</td><td>${money(row.ordered)}</td><td>${session.input.simple?(row.delivered===null?'No disponible':money(row.delivered)):(row.invoiced===null?'No disponible':money(row.invoiced))}</td></tr>`).join('')}</tbody></table></div></details>`).join('') || '<p>No hay pedidos para estos filtros.</p>'}`;
+      return `<h3>Pedidos y líneas</h3><p class="bi-data-note">${sorted.length} pedidos en la selección. ${sorted.length>50?'Se muestran los 50 más recientes. Ajustá las fechas o exportá todas las filas.':''}</p>${sorted.slice(0,50).map(([id,rows])=>`<details class="bi-order"><summary><strong>${safe(rows[0].orderLabel||id)}</strong><small class="bi-source-badge bi-source-${rows[0].source}">${safe(sourceLabel(rows[0].source))}</small><span>${date(rows[0].date)} · ${safe(rows[0].clientName)}</span><b>${money(rows.reduce((s,row)=>s+row.ordered,0))} pedido</b></summary><p class="bi-data-note">Origen: ${safe(sourceLabel(rows[0].source))}${rows[0].sourceFile?` · Archivo: ${safe(rows[0].sourceFile)}`:''}</p><div class="bi-table-scroll"><table data-bi-table="order-${safe(id)}"><thead><tr><th>Producto / SKU</th><th>Pedido (u.)</th><th>Facturado (u.)</th><th>Pedido sin IVA</th><th>Facturado sin IVA</th></tr></thead><tbody>${rows.map(row=>`<tr><td>${safe(row.productName)}<small>${safe(row.sku)}</small></td><td>${n(row.orderedQty)}</td><td>${(row.source==='erp'?row.invoicedQty:row.deliveredQty)==null?'No disponible':n(row.source==='erp'?row.invoicedQty:row.deliveredQty)}</td><td>${row.ordered==null?'Sin importe':money(row.ordered)}</td><td>${(row.source==='erp'?row.invoiced:row.delivered)==null?'No disponible':money(row.source==='erp'?row.invoiced:row.delivered)}</td></tr>`).join('')}</tbody></table></div></details>`).join('') || '<p>No hay pedidos para estos filtros.</p>'}`;
     }
     if (tab==='geography') return `<h3>Ventas por provincia de destino</h3>${bars(r.provinces,'province')}<p class="bi-data-note">Los pedidos del catálogo sin provincia aparecen en Sin provincia.</p>`;
     if(tab==='opportunities') {
-        const opportunities=calculated('opportunities',filters,()=>m.opportunityReport(session.data,filters));
+        const opportunities=actionable(calculated('opportunities',filters,()=>m.opportunityReport(session.data,filters)));
       const missing=opportunities.filter(o=>o.missing.length),best=opportunities.filter(o=>o.bestsellers.length);
       const table=(items,kind)=>`<div class="bi-table-scroll"><table data-bi-table="opportunity-${kind}" data-bi-model-sort><thead><tr><th>Cliente</th><th>Productos</th></tr></thead><tbody>${sortedRows(items,'opportunity-'+kind,o=>[o.client.legalName||o.client.name,kind==='best'?o.bestsellers[0]?.product.name:o.missing[0]?.name]).slice(0,200).map(o=>`<tr><td><button type="button" data-bi-client="${safe(o.client.clientCode)}">${safe(o.client.legalName||o.client.name)}</button></td><td>${(kind==='best'?o.bestsellers.map(p=>({...p.product,qty:p.qty})):o.missing).map(p=>`<button type="button" class="bi-opportunity-product" data-bi-product="${safe(p.sku)}">${safe(p.sku)} · ${safe(p.name)}${kind==='best'?` <small>${n(p.qty)} unidades vendidas en la empresa</small>`:''}</button>`).join('')}</td></tr>`).join('')||'<tr><td colspan="2">Sin oportunidades para esta selección.</td></tr>'}</tbody></table></div>`;
-      return `<h3>Oportunidades por cliente</h3><section class="bi-opportunity-group"><h4>Más vendidos de la empresa que no compra${session.data.companyRankingPartial?' · parcial':''}</h4>${session.data.companyBestsellers===null&&!session.data.companyRankingAvailable?'<p class="bi-empty">Ranking general pendiente de actualización.</p>':table(best,'best')}</section><section class="bi-opportunity-group"><h4>Productos antes comprados, ahora ausentes</h4>${table(missing,'missing')}</section>`;
+      return `<h3>Oportunidades por cliente</h3><p class="bi-data-note">Solo clientes que compraron en los últimos 12 meses.</p><section class="bi-opportunity-group"><h4>Más vendidos de la empresa que no compra${session.data.companyRankingPartial?' · parcial':''}</h4>${session.data.companyBestsellers===null&&!session.data.companyRankingAvailable?'<p class="bi-empty">Ranking general pendiente de actualización.</p>':table(best,'best')}</section><section class="bi-opportunity-group"><h4>Productos antes comprados, ahora ausentes</h4>${table(missing,'missing')}</section>`;
 
     }
     if (tab==='products') return productView();
     const rows=sortedRows(filteredCustomers(r),'customer-analytics',({client,activity:a})=>[client.legalName||client.name,salesmanName(client.salesmanCode),a?.period.amount,a?.annual.amount,a?.frequency,a?.last,situationLabels[a?.situation||'insufficient']]);
-    return `<div class="bi-detail-toolbar"><label>Buscar cliente<input type="search" data-bi-customer-query value="${safe(customerQuery)}" placeholder="Nombre, código o localidad"></label><label>Situación<select data-bi-customer-status>${options([['all','Todos'],...Object.entries(situationLabels)],customerStatus)}</select></label><span>${rows.length} clientes</span></div>
-      <div class="bi-table-scroll"><table data-bi-table="customer-analytics" data-bi-model-sort><caption>Clientes · ventas y frecuencia</caption><thead><tr><th>Cliente</th><th>Vendedor</th><th>Venta del período</th><th>Ventas 12m al cierre</th><th>Frecuencia promedio</th><th>Última compra</th><th>Situación</th></tr></thead><tbody>${rows.map(c=>{const a=c.activity;return `<tr><td><button type="button" class="bi-client-link" data-bi-client="${safe(c.client.clientCode)}">${safe(c.client.legalName||c.client.name)}</button><small>${safe(c.client.displayCode||c.client.clientCode)}</small></td><td>${safe(salesmanName(c.client.salesmanCode))}</td><td>${a?amountLabel(a.period):'—'}</td><td>${a?amountLabel(a.annual):'—'}</td><td>${a?.frequency===null||!a?'Historial insuficiente':`Cada ${n(a.frequency)} días`}</td><td>${date(a?.last)}</td><td>${situationLabels[a?.situation]||'Historial insuficiente'}${a?.remaining!==null&&a?`<small>${a.remaining<0?n(-a.remaining)+' días fuera de frecuencia':n(a.remaining)+' días hasta próxima compra esperada'}</small>`:''}</td></tr>`;}).join('')||'<tr><td colspan="7">No hay clientes para estos filtros.</td></tr>'}</tbody></table></div><p class="bi-data-note">Frecuencia al cierre seleccionado: promedio entre ocasiones de compra en los últimos 12 meses. Agregados dentro de 2 días desde el primer pedido forman una ocasión. Acción necesaria desde 14 días antes; sin tolerancia después de la fecha esperada.</p>`;
+    return `<div class="bi-detail-toolbar"><label>Buscar cliente<input type="search" data-bi-customer-query value="${safe(customerQuery)}" placeholder="Nombre, código o localidad"></label><label>Situación<select data-bi-customer-status>${options([['all','Con compras en 12 meses'],...Object.entries(situationLabels).filter(([k])=>k!=='insufficient'),['every','Todos, incluso sin compras']],customerStatus)}</select></label><span>${rows.length} clientes</span></div>
+      <div class="bi-table-scroll"><table data-bi-table="customer-analytics" data-bi-model-sort><caption>Clientes · ventas y frecuencia</caption><thead><tr><th>Cliente</th><th>Vendedor</th><th>Venta del período</th><th>Ventas 12m al cierre</th><th>Frecuencia promedio</th><th>Última compra</th><th>Situación</th></tr></thead><tbody>${rows.map(c=>{const a=c.activity;return `<tr><td><button type="button" class="bi-client-link" data-bi-client="${safe(c.client.clientCode)}">${safe(c.client.legalName||c.client.name)}</button><small>${safe(displayCode(c.client))}</small></td><td>${safe(salesmanName(c.client.salesmanCode))}</td><td>${a?amountLabel(a.period):'—'}</td><td>${a?amountLabel(a.annual):'—'}</td><td>${frequencyLabel(a)}</td><td>${a?.last?date(a.last):'—'}</td><td>${situationLabel(a)}${a?.remaining!==null&&a?.remaining!==undefined&&a?.frequency!==null?`<small>${a.remaining<0?n(-a.remaining)+' días fuera de frecuencia':n(a.remaining)+' días hasta próxima compra esperada'}</small>`:''}</td></tr>`;}).join('')||'<tr><td colspan="7">No hay clientes para estos filtros.</td></tr>'}</tbody></table></div><p class="bi-data-note">Frecuencia al cierre seleccionado: promedio entre ocasiones de compra en los últimos 12 meses. Agregados dentro de 2 días desde el primer pedido forman una ocasión. Acción necesaria desde 14 días antes; sin tolerancia después de la fecha esperada.</p>`;
   }
 
   function productView() {
@@ -549,15 +772,15 @@
     scope.querySelector('[data-bi-salesman]')?.closest('label')?.remove();
     scope.querySelector('.bi-scope')?.remove();
     scope.querySelector('[data-bi-filters]')?.insertAdjacentHTML('beforebegin','<p class="bi-scope">Tu cartera</p>');
-    scope.querySelectorAll('.bi-source-cards,.bi-handover,.bi-delivery-summary,.bi-footer,.bi-guide-link,.bi-section-tabs,.bi-source-badge,[data-bi-salesman],[data-bi-source],[data-bi-tab="comparison"],[data-bi-tab="deliveries"],[data-bi-tab="geography"],.bi-header [data-bi-export],.bi-header [data-bi-workbook]').forEach(el=>el.remove());
+    scope.querySelectorAll('.bi-source-cards,.bi-handover,.bi-delivery-summary:not([data-bi-gap]),.bi-footer,.bi-guide-link,.bi-section-tabs,.bi-source-badge,[data-bi-salesman],[data-bi-source],[data-bi-tab="comparison"],[data-bi-tab="deliveries"],[data-bi-tab="geography"],.bi-header [data-bi-export],.bi-header [data-bi-workbook]').forEach(el=>el.remove());
     scope.querySelector('[name="source"]')?.closest('label')?.remove();
     const metric=scope.querySelector('[name="metric"]');
-    if(metric){metric.querySelector('[value="invoiced"]')?.remove();metric.querySelector('[value="delivered"]').textContent='Entregado / facturado';}
+    if(metric){metric.querySelector('[value="invoiced"]')?.remove();const invoiced=metric.querySelector('[value="invoiceDate"]');if(invoiced)invoiced.textContent='Facturado';}
     const context=scope.querySelector('.bi-context>div>span');if(context)context.textContent='Ventas de tu cartera';
     scope.querySelectorAll('.bi-main>.bi-secondary-metrics').forEach(el=>el.remove());
     scope.querySelector('.bi-header h2')?.replaceChildren('Mi gestión comercial');
     scope.querySelectorAll('p.bi-data-note').forEach(el=>el.remove());
-    scope.querySelectorAll('.bi-notice').forEach(el=>{el.textContent='Parte de la información no está disponible. Los totales pueden ser parciales.';});
+    scope.querySelectorAll('.bi-notice:not([data-bi-invoice-notice])').forEach(el=>{el.textContent='Parte de la información no está disponible. Los totales pueden ser parciales.';});
     scope.querySelectorAll('th').forEach(el=>{if(m.norm(el.textContent)==='vendedor'){const i=el.cellIndex;el.closest('table').querySelectorAll('tr').forEach(row=>row.cells[i]?.remove());}});
   }
   function renderDetail() { if(session){const el=session.panel.querySelector('[data-bi-detail]');if(!el)return;el.innerHTML=detail(calculated('analysis',filters,()=>m.analyze(session.data,filters)));if(session.input.simple)simplifySalesman(el);decorateTables(el);decorateInfo(el);window.RESTOCK_NOTICES?.bind(el);} }
@@ -577,7 +800,7 @@
     }
     if(next.product!==filters.product)next.productKey='';
     productPage=0;
-    if(next.metric!==filters.metric&&chartFilters)chartFilters.metric=next.metric==='invoiced'?'delivered':next.metric;
+    if(next.metric!==filters.metric&&chartFilters)chartFilters.metric=next.metric;
     filters=next; render(focus,selection);
   }
   function click(e) {
@@ -593,10 +816,11 @@
     if('biReset' in d) { filters=null; mount(session.panel,session.input); return; }
     if('biPreview' in d){session.input.onPreview?.(true);return;}
     if('biReturnAdmin' in d){session.input.onPreview?.(false);return;}
-    if('biSection' in d) { section=d.biSection;tab='customers';render(`[data-bi-section="${section}"]`);return; }
+    if('biVendor' in d) { vendorFocus=d.biVendor||null; render(); return; }
+    if('biSection' in d) { section=d.biSection;vendorFocus=null;tab='customers';render(`[data-bi-section="${section}"]`);return; }
     if('biTab' in d) { tab=d.biTab; render(`[data-bi-tab="${tab}"]`); return; }
     if('biStatus' in d) { customerStatus=d.biStatus; tab='customers'; render('[data-bi-customer-status]'); return; }
-    if('biClient' in d) { filters.client=d.biClient;tab='customers';render('[name="client"]');return; }
+    if('biClient' in d) { filters.client=d.biClient;section='sales';vendorFocus=null;tab='customers';render('[name="client"]');return; }
     if('biClearClient' in d) { filters.client=''; render('[name="client"]'); return; }
     if('biOrder' in d) { if(session.input.readOnly)return; const client=session.data.clients.find(c=>String(c.clientCode)===filters.client); if(client?.members)window.DASHBOARD_CLIENT_GROUPS?.chooseClient(client.members,session.input.onClient);else if(client)session.input.onClient(client); return; }
     if('biDimension' in d) { filters[d.biDimension]=d.value; render(`[name="${d.biDimension}"]`); return; }
@@ -622,8 +846,8 @@
   }
   function download() {
     const rows=m.selected(session.data,filters);
-    const body=tab==='comparison'?csv([['Pedido','Cliente','Producto','SKU','Unidades catálogo','Unidades WarehousePick','Diferencia','Estado'],...m.compareSources(session.data,filters).map(r=>[r.orderLabel,r.clientName,r.name,r.sku,r.hasCatalog?r.catalogQty:null,r.hasWarehouse?r.warehouseQty:null,r.hasCatalog&&r.hasWarehouse?r.delta:null,r.status])]):csv([['Fecha pedido','Fecha grupo de compra','ID grupo de compra','Origen','Archivo Excel','Fila Excel','WarehousePick desde (vista principal)','Pedido','Cliente','Nombre cliente','Código de local original','Nombre de local original','SKU','Producto','Marca','Origen de marca','Provincia','Unidades pedidas','Unidades facturadas ERP','Unidades devueltas ERP','Importe pedido sin IVA','Importe facturado estimado sin IVA','Unidades preparadas WarehousePick','Unidades entregadas confirmadas','Unidades pendientes de confirmar','Entregado al precio neto del pedido'],
-      ...rows.map(r=>[r.date,r.occasionDate,r.occasionId,sourceLabel(r.source),r.sourceFile,r.sourceRow,session.data.handover?.warehouseFrom,r.orderId,r.clientCode,r.clientName,r.sourceClientCode||r.clientCode,r.sourceClientName||r.clientName,r.sku,r.productName,r.brand,({catalog:'Catálogo actual','reviewed-sku':'Revisión manual por SKU',unclassified:'Sin identificar'})[r.brandSource],r.province,r.orderedQty,r.invoicedQty,r.returnedQty,r.ordered,r.invoiced,r.pickedQty,r.deliveredQty,r.pendingDeliveryQty,r.delivered])]);
+    const body=tab==='comparison'?csv([['Pedido','Cliente','Producto','SKU','Unidades catálogo','Unidades WarehousePick','Diferencia','Estado'],...m.compareSources(session.data,filters).map(r=>[r.orderLabel,r.clientName,r.name,r.sku,r.hasCatalog?r.catalogQty:null,r.hasWarehouse?r.warehouseQty:null,r.hasCatalog&&r.hasWarehouse?r.delta:null,r.status])]):filters.metric==='invoiceDate'?csv([['Fecha de factura','Factura','Remito','Pedido','Cliente','SKU','Producto','Unidades facturadas','Importe sin IVA'],...rows.map(r=>[r.date,r.invoiceNumber,r.remitoNumber,r.orderLabel,r.clientName,r.sku,r.productName,r.invoicedQty,r.invoiced])]):csv([['Fecha pedido','Fecha grupo de compra','ID grupo de compra','Origen','Archivo Excel','Fila Excel','WarehousePick desde (vista principal)','Pedido','Cliente','Nombre cliente','Código de local original','Nombre de local original','SKU','Producto','Marca','Origen de marca','Provincia','Unidades pedidas','Unidades facturadas ERP','Unidades devueltas ERP','Importe pedido sin IVA','Importe facturado estimado sin IVA','Unidades marcadas con stock (facturadas)','Unidades sin stock','Unidades sin marcar','Facturado al precio neto del pedido'],
+      ...rows.map(r=>[r.date,r.occasionDate,r.occasionId,sourceLabel(r.source),r.sourceFile,r.sourceRow,session.data.handover?.warehouseFrom,r.orderId,r.clientCode,r.clientName,r.sourceClientCode||r.clientCode,r.sourceClientName||r.clientName,r.sku,r.productName,r.brand,({catalog:'Catálogo actual','reviewed-sku':'Revisión manual por SKU',unclassified:'Sin identificar'})[r.brandSource],r.province,r.orderedQty,r.invoicedQty,r.returnedQty,r.ordered,r.invoiced,r.deliveredQty,r.outOfStockQty,r.pendingDeliveryQty,r.delivered])]);
     const url=URL.createObjectURL(new Blob([body],{type:'text/csv;charset=utf-8'}));
     const a=document.createElement('a'); a.href=url; a.download=`ventas-${filters.source}-${filters.from}-${filters.to}.csv`; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
@@ -669,6 +893,9 @@
       const {data} = current;
       const chart = {
         ...graph,
+        annual: graph.series[0].annual,
+        values: graph.series[0].values,
+        invoiced: graph.series[1]||null,
         metric: graph.f.metric,
         label: {amount:'Importe',units:'Unidades',orders:'Pedidos distintos',clients:'Clientes distintos',ticket:'Ticket promedio'}[graph.f.dimension],
       };
@@ -677,7 +904,10 @@
         products: calculated('product-sales', selection, () => m.productSales(data, selection)),
         opportunities: calculated('opportunities', selection, () => m.opportunityReport(data, selection)),
         comparison: m.compareSources(data, selection), loss: m.stockLoss(data, selection),
-        warehouseTotals: selection.source === 'erp' ? null : m.totals(analysis.rows.filter(r => r.source === 'catalog' || r.source === 'warehouse')),
+        invoiceRows:m.selected(data,{...selection,metric:'invoiceDate'}),
+        gap: m.orderedVersusInvoiced(data, selection),
+        portfolio: m.brandPortfolio(data, selection), health: selection.source === 'erp' ? null : m.productHealth(data, selection),
+        warehouseTotals: selection.source === 'erp' ? null : m.totals(m.selected(data,{...selection,metric:'ordered'}).filter(r => r.source === 'catalog' || r.source === 'warehouse')),
       });
       window.XLSX.writeFile(file, `lexo-dashboard-${selection.from}-${selection.to}.xlsx`, {compression:true});
       showStatus(prices ? '' : 'Excel descargado. La lista de precios no está disponible.');
