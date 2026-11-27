@@ -200,6 +200,7 @@
         records.push(row);
       }
     }
+    const invoiceEstimated=data.delivery?.invoiceFacts?.estimated===true;
     for(const raw of data.delivery?.invoiceFacts?.lines||[]) {
       const adopted=adoptedClient.get(raw.orderId),fact=adopted&&!raw.clientId&&!str(raw.clientCode)?{...raw,...adopted}:raw;
       const client=fact.clientId?byId.get(fact.clientId):clients.get(str(fact.clientCode));
@@ -207,12 +208,14 @@
       if((!client&&!data.includeUnassigned)||!Number.isFinite(confirmedAt)||!(fact.qty>0))continue;
       const ks=fact.kitchenSpot&&!client;
       const row=enrich({id:`invoice:${fact.id}`,orderId:`wh:${fact.orderId}`,
-        orderLabel:`Pedido ${fact.number||fact.orderId}`,source:'warehouse',invoiceOnly:true,fromCatalog:fact.fromCatalog,kitchenSpot:Boolean(fact.kitchenSpot),orderSalesmanCode:str(raw.salesmanCode),
+        orderLabel:`Pedido ${fact.number||fact.orderId}`,source:'warehouse',invoiceOnly:true,invoiceEstimated,fromCatalog:fact.fromCatalog,kitchenSpot:Boolean(fact.kitchenSpot),orderSalesmanCode:str(raw.salesmanCode),
         date:businessDate.format(confirmedAt),invoiceDocumentId:fact.documentId,deliveryConfirmedAt:fact.invoiceDate,invoiceNumber:fact.invoiceNumber,remitoNumber:fact.remitoNumber,
         clientCode:client?str(client.clientCode):ks?kitchenSpotClient.clientCode:`unassigned:${str(fact.clientCode)||fact.orderId}`,
         unassigned:!client,clientName:client?.name||(ks?kitchenSpotClient.name:fact.clientName),sku:fact.sku,productName:fact.name,province:'Sin provincia',
         orderedQty:null,ordered:null,invoicedQty:fact.qty,invoiced:fact.net,deliveredQty:fact.qty,delivered:fact.net,priceSource:fact.priceSource||null,
         pickedQty:null,pendingDeliveryQty:null,deliveryConfirmed:true});
+      const fallback=invoiceEstimated&&row.invoiced==null?fallbackPrice(row):null;
+      if(fallback){row.invoiced=row.delivered=row.invoicedQty*fallback.price;row.priceSource=fallback.source;}
       records.push(row);
     }
     const dates = (data.batches || []).map(b => b.to_date).sort();
@@ -263,7 +266,7 @@
       catalogCoverage:{from:catalogDates[0]||null,to:recentRange(1,data.updatedAt?Date.parse(data.updatedAt):Date.now()).to}, batches:data.batches || [],
       catalogAvailable:Array.isArray(data.orders),
       warehouseAvailable:Boolean(data.delivery?.available),warehouseCoverage:{from:records.filter(r=>r.source==='warehouse'&&!r.invoiceOnly).map(r=>r.date).sort()[0]||null,to:recentRange(1).to},
-      invoiceAvailable:data.delivery?.invoiceFacts?.available===true,undatedInvoices:data.delivery?.invoiceFacts?.undated||0 },data.clientGroups||[]);
+      invoiceAvailable:data.delivery?.invoiceFacts?.available===true,invoiceEstimated,undatedInvoices:data.delivery?.invoiceFacts?.undated||0 },data.clientGroups||[]);
   }
   function groupClients(data,groups) {
     const mapping=new Map(),combined=[];
@@ -455,18 +458,19 @@
   }
   function measureRows(rows, metric='ordered') {
     const delivered=metric==='delivered',invoiced=metric==='invoiced'||metric==='invoiceDate', orders=new Set(),clients=new Set();
-    let amount=0,missing=0,pricedLines=0,unknown=0,units=0;const pricedOrders=new Set();
+    let amount=0,missing=0,pricedLines=0,unknown=0,units=0,estimated=false;const pricedOrders=new Set();
     for(const r of rows) {
       const qty=invoiced?r.invoicedQty:delivered?(r.source==='erp'?r.invoicedQty:r.deliveredQty):r.orderedQty;
       const value=invoiced?r.invoiced:delivered?(r.source==='erp'?r.invoiced:r.delivered):r.ordered;
       if(qty===null||qty===undefined){unknown++;continue;}
       if(qty<=0)continue;
       units+=qty;orders.add(r.occasionId||r.orderId);clients.add(r.clientCode);
+      if(invoiced&&r.invoiceEstimated)estimated=true;
       if(value===null||value===undefined||!Number.isFinite(value))missing++;
       else {amount+=value;pricedLines++;pricedOrders.add(r.occasionId||r.orderId);}
     }
     // Lines without a price leave their order out of the average, instead of hiding it.
-    return {amount,orders:orders.size,clients:clients.size,units,missing,pricedLines,unknown,
+    return {amount,orders:orders.size,clients:clients.size,units,missing,pricedLines,unknown,estimated,
       ticket:pricedOrders.size?amount/pricedOrders.size:null,partial:Boolean(missing||unknown)};
   }
   function reporting(data,f,today=recentRange(1).to) {

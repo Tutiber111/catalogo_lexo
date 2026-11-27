@@ -36,7 +36,7 @@
   const known = value => !(value.unknown && !value.orders);
   const amount = value => known(value) && !(value.missing && value.pricedLines === 0) ? value.amount : null;
   const units = value => known(value) ? value.units : null;
-  const quality = value => known(value) ? (value.partial ? 'Parcial' : '') : 'Sin datos';
+  const quality = value => known(value) ? [value.estimated ? 'Estimado' : '',value.partial ? 'Parcial' : ''].filter(Boolean).join(' · ') : 'Sin datos';
 
   function sheets({ data, filters, context, report, chart, analysis, customers, products, comparison, opportunities, loss, warehouseTotals, gap, portfolio, health, restocks, prices, sellerName, invoiceRows=[] }) {
     const result = {};
@@ -80,6 +80,7 @@
       ['Marca', filters.brand || 'Todas'], ['Categoría', filters.category || 'Todas'], ['Provincia', filters.province || 'Todas'],
       ['Producto o SKU', filters.product || 'Todos'], ['Búsqueda de clientes', context.customerQuery || ''],
       ['Situación de clientes', context.customerStatus], ['Medida del gráfico', measureNames[chart.metric]], ['Dimensión del gráfico', chart.label],
+      ['Facturación por fecha de factura', !data.invoiceAvailable?'No disponible':data.invoiceEstimated?'Estimada con los precios disponibles':'Importes del comprobante'],
       ['Precio de lista y sugerido', priceSource], ['Disponibilidad de la lista', prices ? 'Disponible' : 'No disponible'],
       ['Importe facturado (con stock) / pedido', amount(delivered) !== null && ordered.amount ? delivered.amount / ordered.amount : null],
       ['Unidades facturadas (con stock) / pedidas', known(delivered) && ordered.units ? delivered.units / ordered.units : null],

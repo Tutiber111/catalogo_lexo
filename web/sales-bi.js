@@ -64,7 +64,12 @@
     if (code === 'unassigned') return 'Sin asignación';
     return session.input.salesmen?.find(s => s.code === code)?.name || code || 'Sin asignación';
   }
-  const amountLabel=v=>v.unknown&&!v.orders?'Sin datos':v.missing&&v.pricedLines===0?'Sin importe':`${money(v.amount)}${v.partial?' (parcial)':''}`;
+  const amountLabel=v=>{
+    if(v.unknown&&!v.orders)return 'Sin datos';
+    if(v.missing&&v.pricedLines===0)return 'Sin importe';
+    const quality=[v.estimated?'estimado':'',v.partial?'parcial':''].filter(Boolean).join(', ');
+    return money(v.amount)+(quality?` (${quality})`:'');
+  };
   const activeCodes=()=>new Set(report.customers.filter(c=>c.annual?.orders>0).map(c=>String(c.client.clientCode)));
   const actionable=list=>{const active=activeCodes();return list.filter(o=>active.has(String(o.client.clientCode))&&(o.missing.length||o.bestsellers.length));};
   function stockSummary() {
@@ -81,9 +86,10 @@
   }
   function headlines() {
     const {data,input}=session;
-    const invoiceStatus=filters.source==='erp'?'':!data.invoiceAvailable?(input.delivery?.reason==='loading'?'Cargando facturación…':'La facturación por fecha de factura no está disponible.'):'';
+    const estimated=data.invoiceAvailable&&data.invoiceEstimated;
+    const invoiceStatus=filters.source==='erp'?'':estimated?'Estimación por fecha de factura con los precios disponibles.':!data.invoiceAvailable?(input.delivery?.reason==='loading'?'Cargando facturación…':'La facturación por fecha de factura no está disponible.'):'';
     const notice=invoiceStatus?`<p class="bi-notice" role="status" data-bi-invoice-notice>${invoiceStatus}</p>`:'';
-    const measures=[['ordered','Pedido · por fecha del pedido','Unidades pedidas'],['invoiceDate','Facturado · por fecha de factura','Unidades facturadas']];
+    const measures=[['ordered','Pedido · por fecha del pedido','Unidades pedidas'],['invoiceDate',estimated?'Facturado estimado · por fecha de factura':'Facturado · por fecha de factura','Unidades facturadas']];
     const range=report.periods.current,ks=m.kitchenSpotSales(data,{...filters,...range,metric:'invoiceDate'}),invoiced=report.metrics.invoiceDate.current;
     const invoiceExtra=filters.source==='erp'||(!data.invoiceAvailable&&!invoiced.orders)?'':`<div class="bi-secondary-metrics bi-invoice-extra"><span>Con IVA (21%) <b>${amountLabel({...invoiced,amount:invoiced.amount*1.21})}</b></span><span>Incluye Kitchen Spot <b>${amountLabel(ks)}</b> · ${n(ks.units)} u. · ${n(ks.orders)} ${ks.orders===1?'pedido':'pedidos'}</span><span>Sin Kitchen Spot <b>${amountLabel({...invoiced,amount:invoiced.amount-ks.amount})}</b></span>${data.undatedInvoices?`<span>${n(data.undatedInvoices)} ${data.undatedInvoices===1?'pedido marcado con stock todavía sin facturar':'pedidos marcados con stock todavía sin facturar'}</span>`:''}</div>`;
     return `<section class="bi-headlines" data-bi-headlines><h3>Período seleccionado · ${date(report.periods.current.from)} — ${date(report.periods.current.to)}</h3><p class="bi-data-note">Indicadores del período seleccionado. Comparaciones con las mismas fechas del mes y año anteriores. Importes sin IVA. Pedidos agrupados por cliente dentro de 2 días desde la primera compra. Facturado: importes netos de comprobantes por fecha de factura; antes del 16/10, lo facturado según el Excel por fecha del pedido.</p>${measures.map(([metric,title,unitsLabel])=>{const v=report.metrics[metric];return `<h4>${title}</h4>${metric==='invoiceDate'?notice:''}<div class="bi-kpis bi-headline-grid ${metric==='ordered'?'bi-ordered-headlines':'bi-delivered-headlines'}">${[['amount','Importe'],['units',unitsLabel],['orders','Pedidos distintos'],['clients','Clientes distintos']].map(([key,label])=>`<article><span>${label}</span><strong>${!v.currentCovered&&!v.current.orders?'Sin datos':key==='amount'?amountLabel(v.current):(key==='units'&&v.current.unknown&&!v.current.orders?'Sin datos':n(v.current[key])+(!v.currentCovered||key==='units'&&v.current.partial?' (parcial)':''))}</strong>${[['month','Mes anterior'],['year','Mismo período año anterior']].map(([period,name])=>{const change=v.changes[key][period],covered=v[period+'Covered'];return `<small>${name} · ${date(report.periods[period].to)}<br>${covered?`${key==='amount'?amountLabel(v[period]):n(v[period][key])}${v.currentCovered&&change.delta!==null?comparisonBadge(change,key):' · comparación pendiente'}${v.current.partial||v[period].partial?' · datos parciales':''}`:'Sin historial comparable'}</small>`;}).join('')}${v.current.unknown?`<small>${v.current.unknown} líneas sin dato del depósito</small>`:''}</article>`).join('')}</div>${metric==='invoiceDate'?invoiceExtra:''}`;}).join('')}</section>`;
@@ -235,13 +241,14 @@
   function chart() {
     if(!chartFilters)chartFilters={metric:'invoiceDate',dimension:'amount'};
     const f={...filters,...chartFilters},both=f.metric==='both';
+    const invoiceLabel=session.data.invoiceAvailable&&session.data.invoiceEstimated?'Facturado estimado':'Facturado';
     let weekly,series;
     if(both){
       const t=calculated('chart-both',f,()=>m.trendComparison(session.data,f));weekly=t.weekly;
-      series=[{key:'ordered',label:'Pedido',color:'#176fc1',rows:t.rows},{key:'invoiced',label:'Facturado',color:'#1d9a6c',rows:t.invoiced}];
+      series=[{key:'ordered',label:'Pedido',color:'#176fc1',rows:t.rows},{key:'invoiced',label:invoiceLabel,color:'#1d9a6c',rows:t.invoiced}];
     } else {
       const t=calculated('chart',f,()=>m.trendReport(session.data,f));weekly=t.weekly;
-      series=[{key:f.metric,label:chartMeasureNames[f.metric],color:'#176fc1',rows:t.rows}];
+      series=[{key:f.metric,label:f.metric==='invoiceDate'?invoiceLabel:chartMeasureNames[f.metric],color:'#176fc1',rows:t.rows}];
     }
     const rows=series[0].rows;
     for(const s of series)s.values=s.rows.map(p=>m.trendPointValue(p,f.dimension));
@@ -258,7 +265,7 @@
     const legend=both?`<div class="bi-chart-legend">${series.map(s=>`<span><i style="background:${s.color}"></i>${s.label}</span>`).join('')}<small>Pedido por fecha del pedido · facturado por fecha de factura (Excel: facturado estimado por fecha del pedido)</small></div>`:'';
     return `<section class="bi-card bi-monthly-chart">
       <div class="bi-card-title"><h3>Tendencia ${weekly?'semanal':'diaria'}</h3></div>
-      <form class="bi-chart-filters" data-bi-chart-form>${field('metric','Medida',chartChoices)}${field('dimension','Analizar',[['amount','Importe'],['units','Unidades'],['orders','Pedidos distintos'],['clients','Clientes distintos'],['ticket','Ticket promedio']])}<span data-bi-chart-error role="status"></span></form>
+      <form class="bi-chart-filters" data-bi-chart-form>${field('metric','Medida',chartChoices.map(([key,label])=>[key,key==='invoiceDate'?invoiceLabel:key==='both'?'Pedido y '+invoiceLabel.toLowerCase():label]))}${field('dimension','Analizar',[['amount','Importe'],['units','Unidades'],['orders','Pedidos distintos'],['clients','Clientes distintos'],['ticket','Ticket promedio']])}<span data-bi-chart-error role="status"></span></form>
       ${legend}
       <div class="bi-chart-scroll"><canvas class="bi-trend bi-canvas-chart" data-bi-canvas tabindex="0" role="img" aria-label="Gráfico ${weekly?'semanal':'diario'} interactivo. Usá las flechas para explorar las fechas."></canvas><span class="bi-chart-readout" data-bi-chart-readout role="status" aria-live="polite"></span></div>
       ${rows[0]?.context?'<small data-bi-chart-context>Zona sombreada · últimos 5 días del mes anterior, fuera de los totales seleccionados.</small>':''}

@@ -135,6 +135,14 @@ assert.deepEqual(facts.lines.map(f=>[f.documentId,f.orderId,f.invoiceDate.slice(
 assert.equal(facts.lines.find(f=>f.documentId==='ks').kitchenSpot,true);
 assert.equal(facts.lines.find(f=>f.documentId==='direct').fromCatalog,false);
 assert.equal(facts.undated,0,'picked orders without invoice or remito documents are kept out of invoices');
+assert.equal(facts.estimated,undefined,'an available invoice feed uses the amounts on the documents');
+const estimatedFetch=(url,options)=>url.includes('/lexo_invoice_lines_feed?')?new Response('{}',{status:404}):invoiceFetch(url,options);
+const estimate=await warehouseSnapshot({...portfolio,orders:[{id:'order1',order_items:[{id:'i1',sku:'A',quantity:10,line_total:1000}]}]},warehouse,estimatedFetch);
+assert.equal(estimate.invoiceFacts.available,true);
+assert.equal(estimate.invoiceFacts.estimated,true);
+assert.deepEqual(estimate.invoiceFacts.lines.map(row=>[row.documentId,row.qty,row.net]).sort(),[
+ ['child',4,400],['direct',3,300],['ks',2,null],['wh1',6,600],
+],'fallback retains invoice dates and separates documented partial shipments and direct orders');
 assert.ok(!invoiceSnapshot.orders.some(o=>o.id==='test'),'test orders are not sales');
 assert.equal(invoiceSnapshot.orders.find(o=>o.id==='ks').kitchenSpot,true);
 const unassignedCase=invoiceOrders.map(doc=>doc.id==='wh1'?{...doc,client_code:''}:doc);

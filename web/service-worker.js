@@ -1,4 +1,4 @@
-const CACHE_NAME = "lexo-catalog-v20261127-invoice-dashboard";
+const CACHE_NAME = "lexo-catalog-v20261127-invoice-estimates";
 const PAGE_CACHE_NAME = "lexo-catalog-pages-v20261021-page-performance";
 const APP_SHELL = [
   "./",
@@ -15,9 +15,9 @@ const APP_SHELL = [
   "./sales-dashboard.js?v=20261126-dashboard-startup",
   "./sales-bi.css?v=20261127-invoice-dashboard",
   "./sales-product-brands.js?v=20261019-brand-review-r1",
-  "./sales-bi-model.js?v=20261127-invoice-dashboard",
-  "./sales-bi-export.js?v=20261127-invoice-dashboard",
-  "./sales-bi.js?v=20261127-invoice-dashboard",
+  "./sales-bi-model.js?v=20261127-invoice-estimates",
+  "./sales-bi-export.js?v=20261127-invoice-estimates",
+  "./sales-bi.js?v=20261127-invoice-estimates",
   "./admin.js?v=20261125-stock-sync",
   "./catalog-store.js?v=20261125-stock-sync",
   "./supabase-client.js?v=20261126-dashboard-startup",

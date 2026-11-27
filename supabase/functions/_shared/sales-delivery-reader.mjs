@@ -294,13 +294,13 @@ export async function warehouseSnapshot(context,settings,fetcher=fetch) {
     })};
   });
   const rootLines=lines.filter(l=>links.get(l.order_id)?.order.id===l.order_id);
-  return {available:true,rule:'with-stock',pricesAvailable,orders,invoiceFacts:await readInvoiceFacts(read,links,lineGroups),
+  return {available:true,rule:'with-stock',pricesAvailable,orders,invoiceFacts:await readInvoiceFacts(read,links,lineGroups,priceOf),
     lines:reconcileDelivery(context.orders,roots,rootLines,remainders),updatedAt:new Date().toISOString()};
 }
 
 // The invoice feed applies the warehouse's invoice-line rules and saved prices.
 // Fulfillment and current price lists cannot establish a document's billed value.
-async function readInvoiceFacts(read,links,lineGroups) {
+async function readInvoiceFacts(read,links,lineGroups,priceOf) {
   const dated=[];
   let undated=0;
   for(const [id,{document}] of links) {
@@ -309,6 +309,14 @@ async function readInvoiceFacts(read,links,lineGroups) {
       else if((lineGroups.get(id)||[]).some(line=>lineStock(line)?.withStock>0))undated++;
     }
   }
+  const makeFact=(id,line,qty,net,priceSource)=>{
+    const {document,order}=links.get(id);
+    return {id:line.id,orderId:order.id,documentId:id,number:text(document.number)||text(order.number),
+      catalogOrderId:order.externalId,fromCatalog:order.source==='catalogolexo'||Boolean(order.externalId),kitchenSpot:order.kitchenSpot,
+      clientId:order.clientId,clientCode:order.clientCode,clientName:order.clientName,salesmanCode:order.salesmanCode,
+      invoiceNumber:text(document.invoice_number),remitoNumber:text(document.remito_number),
+      invoiceDate:document.invoiced_at,sku:line.sku,name:line.name,qty,net,priceSource};
+  };
   const lines=[],seen=new Set();
   try {
     if(!dated.length)await read('invoices','select=id&p_order_ids=%7B00000000-0000-0000-0000-000000000000%7D');
@@ -320,18 +328,22 @@ async function readInvoiceFacts(read,links,lineGroups) {
         const qty=Number(line.qty);
         if(!batch.has(line.order_id)||!line.id||seen.has(line.id)||!Number.isFinite(qty)||qty<=0)continue;
         seen.add(line.id);
-        const {document,order}=links.get(line.order_id);
         const net=line.net_amount==null?null:Number(line.net_amount);
-        lines.push({id:line.id,orderId:order.id,documentId:line.order_id,number:text(document.number)||text(order.number),
-          catalogOrderId:order.externalId,fromCatalog:order.source==='catalogolexo'||Boolean(order.externalId),kitchenSpot:order.kitchenSpot,
-          clientId:order.clientId,clientCode:order.clientCode,clientName:order.clientName,salesmanCode:order.salesmanCode,
-          invoiceNumber:text(document.invoice_number),remitoNumber:text(document.remito_number),
-          invoiceDate:document.invoiced_at,sku:line.sku,name:line.name,qty,
-          net:Number.isFinite(net)?net:null,priceSource:Number.isFinite(net)?'warehouse-invoice':null});
+        lines.push(makeFact(line.order_id,line,qty,Number.isFinite(net)?net:null,Number.isFinite(net)?'warehouse-invoice':null));
       }
     }
     return {available:true,undated,lines};
   } catch {
-    return {available:false,undated:0,lines:[]};
+    const estimated=[];
+    for(const id of dated) {
+      const {order}=links.get(id);
+      for(const line of lineGroups.get(id)||[]) {
+        const qty=lineStock(line)?.withStock||0;
+        if(!line.id||!qty||line.status==='nostock'||line.no_invoice===true)continue;
+        const {rate,source}=priceOf(order.id,line);
+        estimated.push(makeFact(id,line,qty,rate===null?null:qty*rate,source));
+      }
+    }
+    return {available:estimated.length>0,estimated:true,undated,lines:estimated};
   }
 }

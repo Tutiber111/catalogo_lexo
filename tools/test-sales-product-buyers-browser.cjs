@@ -37,6 +37,13 @@ async function main(){
   assert.match(await page.locator('[data-bi-table=trend] tbody tr[data-context=false]').first().textContent(),/400/);
   await page.locator('[data-bi-chart=metric]').selectOption('invoiceDate');
   await page.locator('[data-bi-chart=dimension]').selectOption('units');
+  const estimateInput={...invoiceInput,catalog:input.catalog.map(p=>p.sku==='A'?{...p,price:'$100'}:p),
+    delivery:{...invoiceInput.delivery,invoiceFacts:{available:true,estimated:true,lines:invoiceInput.delivery.invoiceFacts.lines.map(line=>line.fromCatalog?line:{...line,net:null})}}};
+  await mount(false,estimateInput);
+  assert.match(await page.locator('[data-bi-invoice-notice]').textContent(),/Estimación por fecha de factura/);
+  assert.match(await page.locator('[data-bi-headlines] h4').last().textContent(),/Facturado estimado/);
+  assert.match(await page.locator('.bi-delivered-headlines article strong').first().textContent(),/500.*estimado/);
+  assert.match(await page.locator('[data-bi-chart=metric] option:checked').textContent(),/Facturado estimado/);
   await mount();
   assert.equal(await page.locator('[data-bi-invoice-notice]').count(),0);
   assert.match(await page.locator('.bi-delivered-headlines article strong').first().textContent(),/480/);
